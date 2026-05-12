@@ -139,24 +139,37 @@
 
     /* --- WHATSAPP FLOAT --- */
     .whatsapp-float {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background-color: #25d366;
-        color: white !important;
-        padding: 12px 25px;
-        border-radius: 50px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-        z-index: 9999;
-        transition: 0.3s;
-        animation: pulse-wa 2s infinite;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: white !important;
+    padding: 10px 18px;
+    /* Mengubah radius dari 50px (bulat) menjadi 8px (kotak melengkung) */
+    border-radius: 8px; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 9999;
+    transition: 0.3s;
+    animation: pulse-wa 2s infinite;
+}
+
+/* Pastikan di HP tidak berubah menjadi bulat lagi */
+@media (max-width: 600px) {
+    .whatsapp-float {
+        padding: 10px 15px;
+        border-radius: 8px; /* Tetap kotak melengkung di HP */
     }
-    @keyframes pulse-wa {
+    .whatsapp-float span {
+        display: inline; /* Menampilkan teks "Tanya Admin" agar tetap terlihat */
+    }
+}
+       @keyframes pulse-wa {
         0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
         70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
         100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
@@ -210,6 +223,7 @@
         /* Unit Pendidikan menjadi satu kolom penuh */
         .unit-grid { 
             grid-template-columns: 1fr; 
+            
             gap: 15px;
         }
 
