@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Database | Daarul Khoirot Almadani</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 98%; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        h2 { color: #1a5d1a; text-align: left; border-bottom: 2px solid #1a5d1a; padding-bottom: 10px; display: flex; align-items: center; justify-content: left; gap: 15px; }
+        h2 img { height: 50px; }
+
+        .table-wrapper { width: 100%; overflow-x: auto; margin-top: 20px; border: 1px solid #ddd; }
+        table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: 13px; }
+        
+        th { background-color: #1a5d1a; color: white; padding: 12px 15px; text-align: center; border: 1px solid #ddd; position: sticky; top: 0; }
+        td { padding: 10px 15px; border: 1px solid #ddd; text-align: center; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f1f1; }
+
+        .btn-refresh { background: #1a5d1a; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-bottom: 10px; }
+        .btn-detail { background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>
+        <img src="main_logo.png" alt="Logo">
+        Data Pendaftar Santri Baru Lembaga Pendidikan Daarul Khoirot Al-Madani
+    </h2>
+    
+    <button class="btn-refresh" onclick="muatData()"><i class="fas fa-sync"></i> Refresh Data</button>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Waktu Daftar</th>
+                    <th>Nama Lengkap</th>
+                    <th>Unit</th>
+                    <th>NIK Santri</th>
+                    <th>No KK</th>
+                    <th>NISN</th>
+                    <th>L/P</th>
+                    <th>Tempat, Tgl Lahir</th>
+                    <th>Anak Ke</th>
+                    <th>Jml Saudara</th>
+                    <th>Cita-cita</th>
+                    <th>Hobi</th>
+                    <th>Kebutuhan Khusus</th>
+                    <th>Kebutuhan Disabilitas</th>
+                    <th>Biaya Sekolah Oleh</th>
+                    <th>Status Ayah</th>
+                    <th>Nama Ayah</th>
+                    <th>Kewarganegaraan</th>
+                    <th>NIK Ayah</th>
+                    <th>No KK Ayah</th>
+                    <th>Tempat, Tgl Lahir Ayah</th>
+                    <th>Pendidikan Ayah</th>
+                    <th>Pekerjaan Ayah</th>
+                    <th>Penghasilan Ayah</th>
+                    <th>HP Ayah</th>
+                    <th>Status Ibu</th>
+                    <th>Nama Ibu</th>
+                    <th>Kewarganegaraan</th>
+                    <th>NIK Ibu</th>
+                    <th>Tempat, Tgl Lahir Ibu</th>
+                    <th>Pendidikan Ibu</th>
+                    <th>Pekerjaan Ibu</th>
+                    <th>Penghasilan Ibu</th>
+                    <th>HP Ibu</th>
+                    <th>Status Wali Santri</th>
+                    <th>Status Rumah</th>
+                    <th>Alamat Ayah</th>
+                    <th>RT/RW Ayah</th>
+                    <th>Desa/Kec Ayah</th>
+                    <th>Kab/Prov Ayah</th>
+                    <th>Alamat Ibu</th>
+                    <th>RT/RW Ibu</th>
+                    <th>Desa/Kec Ibu</th>
+                    <th>Kab/Prov Ibu</th>
+                    <th>Alamat Santri</th>
+                    <th>RT/RW Santri</th>
+                    <th>Desa/Kec Santri</th>
+                    <th>Kab/Prov Santri</th>
+                    <th>Visi Ortu</th>
+                    <th>Pola Disiplin</th>
+                    <th>Perilaku Anak</th>
+                    <th>Kesehatan</th>
+                    <th>Sikap Sanksi</th>
+                    <th>Harapan</th>
+                    <th>Pernyataan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tabel-pendaftar"></tbody>
+        </table>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
+        authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
+        projectId: "daarul-khoirot-pendaftaran",
+        storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
+        messagingSenderId: "963910462284",
+        appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function muatData() {
+        const tbody = document.getElementById('tabel-pendaftar');
+        if(!tbody) return;
+        
+        tbody.innerHTML = '<tr><td colspan="60" style="text-align:center;">Memuat data...</td></tr>';
+        
+        try {
+            const q = query(collection(db, "pendaftaran_santri"), orderBy("waktu_simpan", "desc"));
+            const querySnapshot = await getDocs(q);
+            tbody.innerHTML = '';
+
+            if (querySnapshot.empty) {
+                tbody.innerHTML = '<tr><td colspan="60" style="text-align:center;">Belum ada data pendaftar.</td></tr>';
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const d = doc.data();
+
+// --- LOGIKA TAMPILAN DASHBOARD ---
+
+// 1. Bersihkan teks instruksi "Pilih..." agar jadi rapi
+const cleanAlamat = (txt) => {
+    if (!txt || txt.includes("Pilih") || txt === "") return "-";
+    return txt;
+};
+
+// 2. Tampilkan Status Setuju (Hijau jika SETUJU)
+// Gunakan field 'status_setuju' sesuai yang ada di Firebase Anda tadi
+const teksPernyataan = (d.status_setuju === "SETUJU") 
+    ? '<span style="color: #1a5d1a; font-weight: bold;">✅ Setuju</span>' 
+    : '<span style="color: #d93025; font-weight: bold;">❌ Belum</span>';
+
+                const row = `
+                    <tr>
+                        <td>${d.waktu_simpan ? new Date(d.waktu_simpan).toLocaleString('id-ID') : '-'}</td>
+                        <td><strong>${d.nama_santri || '-'}</strong></td>
+                        <td>${d.tingkat_unit || d.pilih_unit || '-'}</td>
+                        <td>${d.nik || '-'}</td>
+                        <td>${d.no_kk || d.kk_santri || '-'}</td>
+                        <td>${d.nisn || '-'}</td>
+                        <td>${d.jenis_kelamin || d.jk_santri || '-'}</td>
+                        <td>${d.tmpt_lahir || '-'}, ${d.tgl_lahir || '-'}</td>
+                        <td>${d.anak_ke || '-'}</td>
+                        <td>${d.jml_saudara || '-'}</td>
+                        <td>${d.cita || d.cita_cita || '-'}</td>
+                        <td>${d.hobi || d.hobi_santri || '-'}</td>
+                        <td>${d.keb_khusus || '-'}</td>
+                        <td>${d.disabilitas || '-'}</td>
+                        <td>${d.biaya || '-'}</td>
+                        <td>${d.st_ayah || '-'}</td>
+                       <td>${d.nama_ayah || d.nm_ayah || d.namaayah || '-'}</td>
+                        <td>${d.wn_ayah || '-'}</td>
+                        <td>${d.nik_ayah || '-'}</td>
+                        <td>${d.kk_ayah || '-'}</td>
+                        <td>${d.tmpt_ayah || '-'}, ${d.tgl_ayah || '-'}</td>
+                        <td>${d.pdk_ayah || '-'}</td>
+                        <td>${d.pjk_ayah || '-'}</td>
+                        <td>${d.hasil_ayah || '-'}</td>
+                        <td>${d.hp_ayah || '-'}</td>
+                        <td>${d.st_ibu || '-'}</td>
+                        <td>${d.nama_ibu || '-'}</td>
+                        <td>${d.wn_ibu || '-'}</td>
+                        <td>${d.nik_ibu || '-'}</td>
+                        <td>${d.tmpt_ibu || '-'}, ${d.tgl_ibu || '-'}</td>
+                        <td>${d.pdk_ibu || '-'}</td>
+                        <td>${d.pjk_ibu || d.pekerjaan_ibu || d.pkerjaan_ibu || '-'}</td>
+                        <td>${d.hasil_ibu || '-'}</td>
+                        <td>${d.hp_ibu || '-'}</td>
+                        <td>${d.st_wali || '-'}</td>
+                        <td>${d.milik_ayah || '-'}</td>
+                        <td>${d.al_ayah || '-'}</td>
+                        <td>${d.rt_ayah || '-'}/${d.rw_ayah || '-'}</td>
+                        <td>${d.desa_ayah || '-'}/${d.kec_ayah || '-'}</td>
+                        <td>${d.kab_ayah || '-'}/${d.prov_ayah || '-'}</td>
+                        <td>${d.al_ibu || '-'}</td>
+                        <td>${d.rt_ibu || '-'}/${d.rw_ibu || '-'}</td>
+                        <td>${d.desa_ibu || '-'}/${d.kec_ibu || '-'}</td>
+                        <td>${d.kab_ibu || '-'}/${d.prov_ibu || '-'}</td>
+                        <td>${d.al_santri || '-'}</td>
+                        <td>${d.rt_santri || '-'}/${d.rw_santri || '-'}</td>
+                        <td>${d.desa_santri || '-'}/${d.kec_santri || '-'}</td>
+                        <td>${d.kab_santri || '-'}/${d.prov_santri || '-'}</td>
+                        <td>${d.w_visi || '-'}</td>
+                        <td>${d.w_pola || '-'}</td>
+                        <td>${d.w_perilaku || '-'}</td>
+                        <td>${d.w_sehat || '-'}</td>
+                        <td>${d.w_tazir || '-'}</td> 
+                        <td>${d.w_harapan || '-'}</td>
+                       <td>${teksPernyataan}</td>
+        <td><button onclick="lihatDetail('${doc.id}')" class="btn-lihat">Lihat Semua</button></td>
+    </tr>
+`;
+                tbody.innerHTML += row;
+            });
+        } catch (e) {
+            console.error("Error Dashboard:", e);
+            tbody.innerHTML = '<tr><td colspan="60" style="text-align:center; color:red;">Gagal memuat data.</td></tr>';
+        }
+    }
+
+    window.muatData = muatData;
+    window.lihatDetail = (data) => {
+        Swal.fire({
+            title: 'Detail Lengkap Santri',
+            html: `<div style="text-align:left; font-size:12px; max-height:400px; overflow-y:auto;"><pre>${JSON.stringify(data, null, 2)}</pre></div>`,
+            confirmButtonColor: '#1a5d1a'
+        });
+    };
+
+    muatData();
+</script>
+</body>
+</html>

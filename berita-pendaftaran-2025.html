@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daarul Khoirot | Galeri & Berita</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- CSS MASTER --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --light-bg: #f4f7f6;
+            --dark-footer: #0d2e0d;
+        }
+
+        body { 
+            line-height: 1.6; 
+            color: #333; 
+            background-color: var(--light-bg); 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+         /* --- HEADER --- */
+        header { 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 1rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+
+        .logo { display: flex; align-items: center; }
+        .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
+        .main-header-logo { max-height: 40px; margin-right: 12px; }
+
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s; 
+        }
+
+        nav ul li a i { color: var(--secondary-color) !important; font-size: 0.9rem; }
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+        .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
+      
+          
+       /* --- FOOTER --- */
+       footer { 
+            background: var(--dark-footer); 
+            color: white; 
+            padding: 20px 5%; 
+            text-align: center; 
+            width: 100%;
+        }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container { padding: 2rem 5%; }
+            .article-card { flex-direction: column; text-align: center; }
+            .date-badge { margin-right: 0; margin-bottom: 15px; }
+            .chevron-icon { display: none; }
+            nav ul { display: none; }
+        }
+   
+
+        /* --- KONTEN BERITA --- */
+        .article-container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08); 
+        }
+
+        .news-badge {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        h2 { color: var(--primary-color); font-size: 2rem; margin-bottom: 10px; line-height: 1.2; }
+        .meta-info { color: #888; font-size: 0.9rem; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+
+        .featured-image { width: 100%; border-radius: 10px; margin-bottom: 30px; }
+
+        .content p { margin-bottom: 20px; text-align: justify; font-size: 1.05rem; }
+        
+        .highlight-box {
+            background: #f0f7f0;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* --- TOMBOL --- */
+        .btn-container { text-align: center; margin-top: 40px; }
+        .btn-kembali {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-kembali:hover { background-color: #113d11; transform: translateY(-3px); }
+
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="main_logo.png" alt="Logo" class="main-header-logo">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <article class="article-container">
+        <span class="news-badge">INFORMASI PENDAFTARAN</span>
+        <h2>Resmi Dibuka: Penerimaan Santri Baru Gelombang 1 Tahun Ajaran 2025/2026</h2>
+        
+        <div class="meta-info">
+            <span><i class="far fa-calendar-alt"></i> 18 Desember 2025</span> | 
+            <span><i class="far fa-user"></i> Admin Humas</span>
+        </div>
+
+        <img src="santri_baru.jpg" alt="Ilustrasi Pendidikan" class="featured-image">
+
+        <div class="content">
+            <p><strong>KARAWANG</strong> – Lembaga Pendidikan Daarul Khoirot Almadani secara resmi membuka pendaftaran santri baru untuk Gelombang 1 Tahun Ajaran 2025/2026. Pembukaan ini merupakan bagian dari komitmen yayasan untuk terus mencetak generasi Qur'ani yang berakhlakul karimah dan unggul dalam ilmu pengetahuan.</p>
+
+            <p>Pendaftaran gelombang pertama ini akan berlangsung mulai bulan Desember hingga kuota terpenuhi. Program pendidikan yang ditawarkan mencakup penguatan hafalan Al-Qur'an (Tahfidz), pendalaman kitab kuning, serta kurikulum formal yang terintegrasi.</p>
+
+            <div class="highlight-box">
+                <h4 style="color: var(--primary-color); margin-bottom: 10px;">Persyaratan Utama:</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Mengisi formulir pendaftaran online/offline.</li>
+                    <li>Fotokopi Kartu Keluarga & Akta Kelahiran.</li>
+                    <li>Pas foto terbaru ukuran 3x4.</li>
+                    <li>Mengikuti tes seleksi baca tulis Al-Qur'an.</li>
+                </ul>
+            </div>
+
+            <p>Bagi Bapak/Ibu wali santri yang ingin mendaftarkan putra-putrinya, dapat langsung datang ke kantor sekretariat pendaftaran di Dusun Sukamaju II, Desa Jatisari, atau menghubungi layanan informasi kami melalui WhatsApp.</p>
+
+            <p>Mari bergabung bersama keluarga besar Daarul Khoirot Almadani untuk membangun masa depan generasi yang cerdas dan religius.</p>
+        </div>
+
+        <div class="btn-container">
+            <a href="galeri.html" class="btn-kembali">
+                <i class="fas fa-arrow-left"></i> Kembali ke Berita Terbaru
+            </a>
+        </div>
+    </article>
+
+    <footer>
+        <p><strong>Lembaga Pendidikan DAARUL KHOIROT ALMADANI</strong></p>
+        <p style="font-size: 0.9rem; opacity: 0.9;">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</p>
+        <p style="font-size: 0.9rem; opacity: 0.9;">Hubungi Kami : +62 814 0164 3188 | daarulkhoirot2025@gmail.com</p>
+        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
+
+     <audio id="murottal" src="murottal_start.mp3" loop></audio>
+    <audio id="clickSound" src="click_sound.mp3"></audio>
+
+    <script>
+        const murottal = document.getElementById('murottal');
+        const clickSound = document.getElementById('clickSound');
+        const navLinks = document.querySelectorAll('nav ul li a'); 
+        let hasInteracted = false;
+
+        function playMurottal() {
+            if (!hasInteracted) {
+                murottal.volume = 0.4; 
+                murottal.play().catch(e => console.log("Audio Play Error"));
+                hasInteracted = true;
+                document.removeEventListener('click', playMurottal);
+            }
+        }
+        document.addEventListener('click', playMurottal);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                clickSound.currentTime = 0; 
+                clickSound.play();
+                const destination = this.href;
+                e.preventDefault();
+                setTimeout(() => { window.location.href = destination; }, 200); 
+            });
+        });
+    </script>
+
+</body>
+</html>

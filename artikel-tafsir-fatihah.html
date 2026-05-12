@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daarul Khoirot | Tafsir Al-Fatihah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* CSS MASTER */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --light-bg: #f4f7f6;
+            --dark-footer: #113d11;
+        }
+
+        body { 
+            line-height: 1.6; 
+            color: #333; 
+            background-color: var(--light-bg); 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- HEADER & NAVIGASI --- */
+        header { 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 1rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+
+        .logo { display: flex; align-items: center; }
+        .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
+        .main-header-logo { max-height: 38px; margin-right: 12px; }
+
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s; 
+        }
+        nav ul li a i { color: var(--secondary-color) !important; }
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+        .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
+
+        /* --- KONTEN ARTIKEL --- */
+        .container { padding: 3rem 5%; flex: 1; }
+        .section-title { text-align: center; margin-bottom: 2rem; }
+        .section-title-box {
+            display: inline-flex;
+            align-items: center; 
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+        }
+        .section-title-box h2 { font-size: 1.6rem; margin: 0; padding-left: 15px; }
+
+        .article-body {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .article-body h3 { color: var(--primary-color); margin: 25px 0 10px; border-left: 4px solid var(--secondary-color); padding-left: 15px;}
+        
+        .quran-text {
+            font-size: 1.8rem;
+            text-align: right;
+            margin: 20px 0;
+            font-family: 'Amiri', serif; 
+            line-height: 2.2;
+            color: #222;
+        }
+
+        .article-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        /* --- TOMBOL KEMBALI (PERBAIKAN) --- */
+        .btn-kembali {
+            color: white;
+            background: var(--primary-color);
+            padding: 15px 40px; /* Lebar ditambah */
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-block;
+            font-size: 1.3rem; /* Ukuran teks ditambah */
+            transition: 0.3s;
+            min-width: 280px; /* Lebar minimal tombol */
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-kembali:hover {
+            background: #144614;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* --- FOOTER --- */
+        footer { 
+            background: #0d2e0d; 
+            color: white; 
+            padding: 20px 5%; 
+            text-align: center; 
+            width: 100%;
+        }
+        .f-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
+        .f-address, .f-contact { font-size: 0.85rem; margin-bottom: 5px; opacity: 0.9; }
+        .f-copy { font-size: 0.8rem; opacity: 0.4; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .article-body { padding: 20px; }
+            .btn-kembali { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="main_logo.png" alt="Logo" class="main-header-logo">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+                <li><a href="info_islam.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="artikel">
+            <div class="section-title">
+                <div class="section-title-box">
+                    <i class="fas fa-book-open fa-2x"></i>
+                    <h2>Tafsir Singkat Surah Al-Fatihah</h2>
+                </div>
+                <p style="color: #666; margin-top: 10px;">Ditulis oleh Ustadz Badrusalam | 10 Desember 2025</p>
+            </div>
+          
+            <div class="article-body">
+                <img src="basmalah_kaligrafi.jpg" alt="Kaligrafi Basmalah" class="article-image">
+                
+                <p style="margin-bottom: 20px; text-align: justify;">
+                    Surah Al-Fatihah, yang berarti "Pembukaan", adalah surah pertama dalam Al-Qur'an dan memiliki kedudukan yang sangat mulia. Surah ini sering disebut sebagai <i>Ummul Kitab</i> (Induk Kitab) karena mencakup seluruh makna dasar ajaran Islam.
+                </p>
+
+                <h3>1. Pujian kepada Allah (Ayat 1-4)</h3>
+                <p class="quran-text">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+                <p>Diawali dengan Basmalah, mengingatkan kita bahwa setiap permulaan haruslah dengan menyebut nama Allah, yang Maha Pengasih dan Maha Penyayang.</p>
+
+                <h3>2. Ikrar Peribadatan (Ayat 5)</h3>
+                <p class="quran-text">اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ</p>
+                <p>Ini adalah inti dari Tauhid. <b>"Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan."</b></p>
+
+                <h3>3. Permohonan Hidayah (Ayat 6-7)</h3>
+                <p class="quran-text">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ</p>
+                <p style="text-align: justify;">Puncak dari surah ini adalah permohonan kita yang paling mendasar: petunjuk menuju jalan yang lurus (<i>Shiratal Mustaqim</i>).</p>
+                
+                <img src="muslim_praying.jpg" alt="Muslim Berdoa" class="article-image">
+
+                <p style="text-align: right; margin-top: 30px; font-style: italic;">Wallahu a'lam bish-shawab.</p>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="info_islam.html" class="btn-kembali">
+                        <i class="fas fa-chevron-circle-left"></i> Kembali ke Info Dunia Islam
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer> 
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
+
+    <audio id="murottal" src="murottal_start.mp3" loop></audio>
+    <audio id="clickSound" src="click_sound.mp3"></audio>
+
+    <script>
+        const murottal = document.getElementById('murottal');
+        const clickSound = document.getElementById('clickSound');
+        const navLinks = document.querySelectorAll('nav ul li a'); 
+        let hasInteracted = false;
+
+        function playMurottal() {
+            if (!hasInteracted) {
+                murottal.volume = 0.4; 
+                murottal.play().catch(e => console.log(e));
+                hasInteracted = true;
+                document.removeEventListener('click', playMurottal);
+            }
+        }
+        document.addEventListener('click', playMurottal);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                clickSound.currentTime = 0; 
+                clickSound.play();
+                e.preventDefault(); 
+                setTimeout(() => { window.location.href = this.href; }, 200); 
+            });
+        });
+    </script>
+</body>
+</html>
