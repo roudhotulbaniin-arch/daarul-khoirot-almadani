@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daarul Khoirot Almadani | Beranda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- DASAR --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; overflow-x: hidden; }
+
+        /* --- HEADER & NAVIGASI --- */
+        header { 
+            background: #1a5d1a; 
+            color: white; 
+            padding: 12px 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { max-height: 40px; }
+        .logo h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; }
+
+        nav ul { list-style: none; display: flex; gap: 10px; }
+        nav ul li a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            padding: 5px 8px; 
+        }
+        .active-link { color: #f4ce14 !important; border-bottom: 2px solid #f4ce14; }
+
+        /* --- HERO --- */
+        .hero-container { 
+            position: relative;
+            width: 100%; 
+            height: 420px; 
+            overflow: hidden; 
+            background: #000;
+        }
+        .hero-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center 25%; 
+            opacity: 0.6; 
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            width: 80%;
+            z-index: 2;
+        }
+        .hero-content h1 { font-size: 3rem; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.5rem; font-weight: 400; text-shadow: 2px 2px 5px rgba(0,0,0,0.9); margin-top: 5px; }
+
+        /* --- BOX KONTEN --- */
+        .content-box {
+            background-color: #144514;
+            margin: 25px 3.5% 60px 3.5%; 
+            padding: 40px 5%;
+            border-radius: 12px;
+            color: white;
+            border: 5px solid #f4ce14; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .box-header i { color: #f4ce14; font-size: 1.8rem; }
+        .box-header h2 { font-size: 1.8rem; border-bottom: 2px solid #f4ce14; padding-bottom: 5px; }
+
+        .about-wrap { display: flex; align-items: center; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .about-wrap i { font-size: 7rem; color: #f4ce14; flex-shrink: 0; }
+        .about-wrap p { text-align: justify; line-height: 1.8; font-size: 1.5rem; }
+
+        .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; max-width: 1250px; margin: 0 auto; }
+        .unit-card { background: white; padding: 20px; border-radius: 10px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #333; border-bottom: 5px solid #f4ce14; }
+        .unit-card img { width: 45px; height: 45px; object-fit: contain; }
+        .unit-card h3 { font-size: 0.85rem; color: #1a5d1a; font-weight: bold; }
+        .unit-card p { font-size: 0.8rem; color: #666; }
+
+         /* --- FOOTER FIX (MENGHILANGKAN OUTLINE) --- */
+         footer { 
+            background: #0d2e0d; 
+            color: white; 
+            padding: 20px 5%; 
+            text-align: center; 
+            
+
+            /* Paksa hilangkan border samping/bawah penyebab outline */
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            width: 100%;
+            display: block;
+            margin-top: 0;
+
+        }
+
+
+        .f-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; color: white; }
+        .f-address, .f-contact { font-size: 0.85rem; margin-bottom: 5px; opacity: 0.9; }
+        .f-copy { font-size: 0.8rem; opacity: 0.4; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+
+       /* --- PERBAIKAN TAMPILAN HP --- */
+@media (max-width: 600px) {
+    /* Mengecilkan judul utama di Banner/Hero */
+    .hero-content h1 { 
+        font-size: 1.8rem !important; 
+        line-height: 1.2;
+    }
+    
+    /* Mengecilkan sub-judul di Banner */
+    .hero-content p { 
+        font-size: 1rem !important; 
+    }
+
+    /* Mengatur ulang tinggi banner agar tidak terlalu makan tempat */
+    .hero-container { 
+        height: 300px; 
+    }
+
+    /* Memperbaiki teks "Tentang Lembaga" agar tidak berantakan */
+    .about-wrap p { 
+        font-size: 1.1rem !important; 
+        text-align: center; 
+    }
+
+    .about-wrap i { 
+        font-size: 4rem; 
+    }
+
+    /* Mengecilkan ukuran logo di header agar muat satu baris */
+    .logo h1 { 
+        font-size: 1rem; 
+    }
+}
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 9999;
+            transition: 0.3s;
+            animation: pulse-wa 2s infinite;
+        }
+        
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        @media (max-width: 600px) {
+            .whatsapp-float span { display: none; }
+            .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
+        }  
+   
+    </style>
+
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="main_logo.png" alt="Logo">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
+                <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
+                <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-container">
+        <img src="new_background.jpg" alt="Banner Utama">
+        <div class="hero-content">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+            <p>Membentuk Generasi Qur'ani dan Berakhlak Mulia</p>
+        </div>
+    </div>
+
+    <section class="content-box">
+        <div class="box-header">
+            <i class="fas fa-info-circle"></i>
+            <h2>Tentang Lembaga</h2>
+        </div>
+        <div class="about-wrap">
+            <i class="fas fa-mosque"></i>
+            <p>Lembaga Pendidikan <strong>DAARUL KHOIROT ALMADANI</strong> adalah pusat pendidikan Islam yang berdedikasi tinggi. Kami memadukan pengajaran Al-Qur'an dan ilmu agama dengan pembentukan karakter santri yang beraqidah, berakhlaqul karimah, dan bermanfaat bagi ummat.</p>
+        </div>
+    </section>
+
+    <section class="content-box">
+        <div class="box-header">
+            <i class="fas fa-graduation-cap"></i>
+            <h2>Unit Pendidikan Kami</h2>
+        </div>
+        <div class="unit-grid">
+            <a href="unit_tpq.html" class="unit-card">
+                <img src="logo_tpq.png" alt="TPQ">
+                <div><h3>TPQ ROUDHOTUL BANIIN</h3><p>Dasar baca Al-Qur'an (Tahsin & Tajwid) usia dini.</p></div>
+            </a>
+            <a href="unit_mdt.html" class="unit-card">
+                <img src="logo_mdt.png" alt="MDT">
+                <div><h3>MDT ROUDHOTUL BANIIN</h3><p>Pendalaman Fiqih, Aqidah, dan Bahasa Arab Madrasah.</p></div>
+            </a>
+            <a href="unit_ponpes.html" class="unit-card">
+                <img src="logo_ponpes.png" alt="Ponpes">
+                <div><h3>PONPES DAARUL KHOIROT ALMADANI</h3><p>Tahfidz Al-Qur'an dan kajian Kitab Kuning intensif.</p></div>
+            </a>
+        </div> 
+    </section> 
+
+    <footer> 
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
+
+    <audio id="murottal" src="murottal_start.mp3" loop></audio>
+    <audio id="clickSound" src="click_sound.mp3"></audio>
+
+    <script>
+        const murottal = document.getElementById('murottal');
+        const clickSound = document.getElementById('clickSound');
+        const navLinks = document.querySelectorAll('nav ul li a'); 
+        let hasInteracted = false;
+
+        function playMurottal() {
+            if (!hasInteracted) {
+                murottal.volume = 0.4; 
+                murottal.play().catch(e => console.log("Audio Play Error"));
+                hasInteracted = true;
+                document.removeEventListener('click', playMurottal);
+            }
+        }
+        document.addEventListener('click', playMurottal);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                clickSound.currentTime = 0; 
+                clickSound.play();
+                const destination = this.href;
+                if(destination && !destination.includes('#')) {
+                    e.preventDefault();
+                    setTimeout(() => { window.location.href = destination; }, 200); 
+                }
+            });
+        });
+    </script>
+
+    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp fa-lg"></i>
+        <span>Tanya Admin</span>
+    </a>
+
+</body>
+</html>
