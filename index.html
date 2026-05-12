@@ -6,12 +6,12 @@
     <title>Daarul Khoirot Almadani | Beranda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-  <style>
+<style>
     /* --- DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body { background-color: #f4f7f6; overflow-x: hidden; }
+    body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
 
-    /* --- HEADER --- */
+    /* --- HEADER & NAVIGASI --- */
     header { 
         background: #1a5d1a; 
         color: white; 
@@ -23,112 +23,114 @@
         top: 0; 
         z-index: 1000; 
     }
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo h1 { font-size: 1.3rem; font-weight: 700; white-space: nowrap; }
-    .logo img { max-height: 40px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo img { max-height: 35px; }
+    .logo h1 { font-size: 1.1rem; font-weight: 700; white-space: nowrap; letter-spacing: 0.5px; }
 
     nav ul { list-style: none; display: flex; gap: 10px; }
     nav ul li a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px; }
 
-    /* --- HERO (TEKS 1 BARIS) --- */
-    .hero-container { position: relative; width: 100%; height: 420px; background: #000; }
+    /* --- HERO --- */
+    .hero-container { position: relative; width: 100%; height: 350px; overflow: hidden; background: #000; }
     .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-    .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; }
-    
-    /* Memaksa teks hero jadi 1 baris */
+    .hero-content {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        text-align: center; color: white; width: 95%; z-index: 2;
+    }
+    /* Memaksa Teks Hero 1 Baris */
     .hero-content h1 { 
-        font-size: 2.5rem; 
+        font-size: 1.6rem; 
         font-weight: 800; 
         white-space: nowrap; 
-        text-shadow: 2px 2px 8px rgba(0,0,0,0.5); 
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.5); 
     }
-    .hero-content p { font-size: 1.2rem; white-space: nowrap; margin-top: 5px; }
+    .hero-content p { font-size: 0.9rem; white-space: nowrap; margin-top: 5px; }
 
-    /* --- BOX KONTEN (HEADER 1 BARIS) --- */
+    /* --- BOX KONTEN --- */
     .content-box {
         background-color: #144514;
-        margin: 25px 3.5% 60px 3.5%; 
-        padding: 40px 5%;
+        margin: 20px 3%; 
+        padding: 30px 4%;
         border-radius: 12px;
         color: white;
-        border: 5px solid #f4ce14; 
+        border: 4px solid #f4ce14; 
     }
 
+    /* Memaksa Header Box 1 Baris (Ikon + Teks) */
     .box-header {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        margin-bottom: 30px;
-        white-space: nowrap; /* Teks & Ikon tetap 1 baris */
+        gap: 10px;
+        margin-bottom: 25px;
+        white-space: nowrap;
     }
-    .box-header i { color: #f4ce14; font-size: 1.8rem; }
-    .box-header h2 { font-size: 1.8rem; border-bottom: 2px solid #f4ce14; }
+    .box-header i { color: #f4ce14; font-size: 1.4rem; }
+    .box-header h2 { font-size: 1.3rem; border-bottom: 2px solid #f4ce14; padding-bottom: 3px; }
 
-    .about-wrap { display: flex; align-items: center; justify-content: center; gap: 30px; }
-    .about-wrap i { font-size: 5rem; color: #f4ce14; }
+    .about-wrap { display: flex; align-items: center; justify-content: center; gap: 20px; }
+    .about-wrap i { font-size: 4rem; color: #f4ce14; flex-shrink: 0; }
+    .about-wrap p { text-align: justify; line-height: 1.6; font-size: 1.1rem; }
 
-    /* --- KARTU UNIT (1 BARIS) --- */
-    .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    /* --- KARTU UNIT (1 Baris Konten) --- */
+    .unit-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
     .unit-card { 
         background: white; 
-        padding: 15px; 
-        border-radius: 10px; 
+        padding: 12px; 
+        border-radius: 8px; 
         display: flex; 
         align-items: center; 
         gap: 12px; 
         text-decoration: none; 
         color: #333; 
-        border-bottom: 5px solid #f4ce14;
-        white-space: nowrap; /* Memaksa konten kartu 1 baris */
+        border-bottom: 4px solid #f4ce14;
     }
     .unit-card img { width: 40px; height: 40px; flex-shrink: 0; }
-    .unit-card h3 { font-size: 0.8rem; color: #1a5d1a; margin: 0; }
-    .unit-card p { font-size: 0.75rem; color: #666; margin: 0; }
+    .unit-card h3 { font-size: 0.85rem; color: #1a5d1a; margin-bottom: 2px; }
+    .unit-card p { font-size: 0.75rem; color: #666; line-height: 1.2; }
 
-    /* --- FLOAT WA (BERDENYUT & GLOW) --- */
+    /* --- FOOTER --- */
+    footer { background: #0d2e0d; color: white; padding: 25px 5%; text-align: center; }
+    .f-title { font-size: 1rem; font-weight: bold; color: #f4ce14; margin-bottom: 8px; }
+    .f-address, .f-contact { font-size: 0.8rem; margin-bottom: 4px; }
+    .f-copy { font-size: 0.75rem; opacity: 0.5; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+
+    /* --- WA FLOAT DENGAN ANIMASI GLOW & DENYUT --- */
     .whatsapp-float {
         position: fixed;
-        bottom: 30px;
-        right: 30px;
+        bottom: 25px;
+        right: 25px;
         background-color: #25d366;
         color: white !important;
         padding: 12px 20px;
         border-radius: 50px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         text-decoration: none;
         font-weight: bold;
         z-index: 9999;
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-        animation: wa-glow 2s infinite; /* Mengaktifkan animasi */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        animation: wa-glow 2s infinite ease-in-out;
     }
 
     @keyframes wa-glow {
-        0% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7), 0 4px 15px rgba(0,0,0,0.3);
-        }
-        70% {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 15px rgba(37, 211, 102, 0), 0 4px 15px rgba(0,0,0,0.3);
-        }
-        100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 4px 15px rgba(0,0,0,0.3);
-        }
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    /* RESPONSIVE HP */
-    @media (max-width: 768px) {
-        .hero-content h1 { font-size: 1.2rem; }
-        .hero-content p { font-size: 0.8rem; }
-        .unit-grid { grid-template-columns: 1fr; }
-        .unit-card { white-space: normal; } /* Biarkan kartu membungkus di HP agar tidak meluap */
-        .box-header h2 { font-size: 1.3rem; }
+    /* RESPONSIVE KHUSUS HP */
+    @media (max-width: 600px) {
+        nav ul { display: none; } /* Sembunyikan menu teks di HP */
+        .hero-content h1 { font-size: 1.1rem; }
+        .hero-content p { font-size: 0.7rem; }
+        .about-wrap { flex-direction: column; text-align: center; }
+        .about-wrap i { font-size: 3.5rem; }
+        .unit-card h3 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
     }
-</style></head>
+</style>
+</head>
 <body>
 
 <header>
