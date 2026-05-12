@@ -76,27 +76,68 @@ footer { background: #0d2e0d; color: white; padding: 40px 5% 20px; text-align: c
 }
 
 /* --- 6. RESPONSIVE HP (768px ke bawah) --- */
+/* --- PERBAIKAN TATA LETAK HP --- */
 @media (max-width: 768px) {
-    header { padding: 10px 4%; }
-    #menu-toggle { display: block; } /* Munculkan tombol menu */
-    
-    nav ul { 
-        display: none; flex-direction: column; width: 100%; background: #1a5d1a;
-        position: absolute; top: 60px; left: 0; padding: 20px; gap: 15px; border-bottom: 3px solid #f4ce14;
+    /* 1. Header: Logo & Menu Sejajar */
+    header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 10px 15px !important;
     }
-    nav.show ul { display: flex !important; }
 
-    .hero-container { height: 300px; }
-    .hero-content h1 { font-size: 1.6rem; }
-    .hero-content p { font-size: 0.9rem; }
+    .logo h1 {
+        font-size: 0.85rem !important; /* Ukuran pas agar 1 baris di header */
+        white-space: nowrap;
+    }
 
-    .about-wrap { flex-direction: column; text-align: center; }
-    .about-wrap i { font-size: 5rem; }
-    .about-wrap p { font-size: 1rem; text-align: center; }
+    /* 2. Hero Section: Nama Lembaga 1 Baris */
+    .hero-content h1 { 
+        font-size: 1.4rem !important; /* Dikecilkan sedikit agar muat 1 baris */
+        white-space: nowrap; 
+        width: 100%;
+    }
+    .hero-content p { 
+        font-size: 0.85rem !important; 
+    }
+    .hero-container { 
+        height: 250px; 
+    }
 
-    .unit-grid { grid-template-columns: 1fr !important; }
+    /* 3. Tentang Lembaga: Simetris & Proporsional */
+    .about-wrap { 
+        flex-direction: column !important; 
+        align-items: center !important;
+        text-align: center !important;
+        gap: 15px;
+    }
+    .about-wrap i { 
+        font-size: 4rem !important; /* Ukuran ikon masjid dibuat proporsional */
+        margin-bottom: 10px;
+    }
+    .about-wrap p { 
+        font-size: 1rem !important; 
+        text-align: center !important;
+    }
+
+    /* 4. Unit Pendidikan: Rapi & Simetris */
+    .unit-grid { 
+        grid-template-columns: 1fr !important; 
+        padding: 0 10px;
+    }
+    .unit-card {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        padding: 15px;
+    }
+    .unit-card img {
+        width: 40px;
+        height: 40px;
+    }
 }
-       
+
 </style>
 </head>
 <body>
