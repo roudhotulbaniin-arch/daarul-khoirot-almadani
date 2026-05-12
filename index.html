@@ -239,37 +239,45 @@
     .hero-content p { font-size: 0.9rem !important; }
 }
 
-/* --- KEMBALIKAN MENU UNTUK KOMPUTER --- */
-@media (min-width: 769px) {
+/* --- RESPONSIVE UNTUK HP (768px ke bawah) --- */
+@media (max-width: 768px) {
+    header { 
+        display: flex !important;
+        flex-direction: row !important; /* Paksa sejajar satu baris */
+        justify-content: space-between !important; 
+        align-items: center !important;
+        padding: 10px 4%;
+    }
+
+    .logo h1 { 
+        font-size: 0.9rem; /* Perkecil teks agar muat dengan tombol */
+    }
+
+    #menu-toggle { 
+        display: block !important; /* Munculkan tombol di kanan */
+        margin-top: 0; /* Hilangkan margin atas agar sejajar logo */
+    }
+
+    /* Pengaturan Menu Dropdown yang muncul saat diklik */
     nav ul { 
-        display: flex !important; /* Memaksa menu muncul di komputer */
-    }
-}
-
-
-  @media (max-width: 768px) {
-    header { flex-direction: column; }
-    
-    /* Munculkan tombol menu hanya di HP */
-    #menu-toggle { display: block !important; cursor: pointer; }
-
-    /* Sembunyikan navigasi secara default di HP */
-    #main-nav { 
         display: none; 
-        width: 100%; 
-        background: #144514; 
-        margin-top: 10px; 
-        border-radius: 8px;
-        padding: 10px;
+        flex-direction: column;
+        width: 100%;
+        background: #144514;
+        position: absolute;
+        top: 60px; /* Jarak pas di bawah header */
+        left: 0;
+        padding: 20px;
+        border-bottom: 3px solid #f4ce14;
+        z-index: 1001;
     }
 
-    /* Class untuk memunculkan menu saat tombol diklik */
-    #main-nav.show { display: block !important; }
-
-    nav ul { flex-direction: column; align-items: center; gap: 10px; }
+    nav.show ul { 
+        display: flex !important; 
+    }
 }
-
-/* --- FIX TOMBOL WA KOTAK MELENGKUNG --- */
+       
+       /* --- FIX TOMBOL WA KOTAK MELENGKUNG --- */
 .whatsapp-float {
     position: fixed;
     bottom: 20px;
