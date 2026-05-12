@@ -69,21 +69,37 @@
     /* --- 7. RESPONSIVE KHUSUS HP (MAX 768px) --- */
     @media (max-width: 768px) {
         #menu-toggle { display: block; }
-        nav ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; padding: 20px; border-bottom: 3px solid #f4ce14; }
+        nav ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; }
         nav.show ul { display: flex !important; }
 
-        .hero-content h1 { font-size: 1.4rem !important; }
-        .hero-content p { font-size: 0.9rem !important; }
+        .hero-content h1 { font-size: 1.1rem !important; }
+        .hero-content p { font-size: 0.7rem !important; }
         .hero-container { height: 250px; }
 
-        .box-header h2 { font-size: 1.3rem; }
+        .box-header h2 { font-size: 1.2rem; }
         
         /* Unit Pendidikan jadi 1 kolom di HP */
         .unit-grid { grid-template-columns: 1fr; }
         .unit-card { flex-direction: row; text-align: left; padding: 15px; }
         .unit-card img { width: 45px; height: 45px; }
     }
+
+    
+    /* --- FOOTER --- */
+    footer { 
+        background: #0d2e0d; 
+        color: white; 
+        padding: 40px 5% 20px; 
+        text-align: center; 
+        width: 100%;
+        border: none;
+        outline: none;
+    }
+    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
+    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 </style>
+
 </head>
 <body>
 
