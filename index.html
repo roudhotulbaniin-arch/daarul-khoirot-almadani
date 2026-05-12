@@ -309,6 +309,19 @@ nav ul li a:hover {
             }
         });
     });
+
+    // Fungsi untuk menandai menu aktif berdasarkan URL
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentUrl = window.location.pathname.split("/").pop();
+        const menuItems = document.querySelectorAll("nav ul li a");
+
+        menuItems.forEach(item => {
+            // Jika href menu sama dengan nama file saat ini
+            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
+                item.classList.add("active");
+            }
+        });
+    });
 </script>
     
 
