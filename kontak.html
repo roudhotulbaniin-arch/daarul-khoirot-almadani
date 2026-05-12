@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daarul Khoirot | Kontak Kami</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <style>
+        /* CSS MASTER (SERAGAM) */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --light-bg: #f4f7f6;
+            --dark-footer: #113d11;
+        }
+
+        body { 
+            line-height: 1.6; 
+            color: #333; 
+            background-color: var(--light-bg); 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- HEADER & NAVIGASI --- */
+        header { 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 1rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+
+        .logo { display: flex; align-items: center; }
+        .logo h1 { font-size: 1.2rem; letter-spacing: 1px; }
+        .main-header-logo { max-height: 38px; margin-right: 12px; }
+
+        nav ul { list-style: none; display: flex; gap: 20px; }
+
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s; 
+            padding: 5px 0;
+        }
+
+        /* Warna Ikon Navigasi - TETAP KUNING */
+        nav ul li a i { 
+            color: var(--secondary-color) !important; 
+            font-size: 0.9rem; 
+        }
+
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+
+        .active-link { 
+            border-bottom: 2px solid var(--secondary-color); 
+            color: var(--secondary-color) !important;
+            padding-bottom: 5px;
+        }
+
+        /* --- KONTEN KONTAK --- */
+        .container { padding: 4rem 10%; flex: 1; }
+        .section-icon {
+            font-size: 2rem; /* Ukuran diperbesar */
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center; color: var(--secondary-color); /* #f4ce14 */
+            color: var(--secondary-color); /* #f4ce14 */
+        }
+        .section-title { text-align: center; margin-bottom: 3rem; }
+        .section-title-box {
+            display: inline-flex;
+            align-items: center; 
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            margin-bottom: 15px;
+        }
+        .section-title-box h2 { font-size: 1.6rem; margin: 0; padding-left: 15px; }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .contact-item:hover { transform: translateY(-5px); }
+
+        /* Penyelarasan Ikon agar Jaraknya Seragam */
+        .contact-item .icon {
+           display: flex;           /* Menggunakan Flexbox untuk pemusatan */
+           align-items: center;     /* Pusatkan ikon secara vertikal */
+           justify-content: center; /* Pusatkan ikon secara horizontal */
+           height: 100px;           /* Tinggi area ikon dibuat tetap agar teks di bawahnya sejajar */
+           margin-bottom: 20px;     /* Jarak tetap dari ikon ke judul teks */
+        }
+
+        /* Ukuran Ikon */
+              .contact-item .icon i {
+              font-size: 4.5rem;       /* Ukuran ikon besar sesuai permintaan */
+              line-height: 1;
+        }
+
+        /* Warna Khusus Ikon */
+             .ikon-wa i { color: #25D366; }      /* Warna Hijau WhatsApp */
+             .ikon-map i { color: #FF4444; }     /* Warna Merah Map Pin */
+             .ikon-email i { color: #333; }      /* Warna Email */
+
+        
+        .contact-item h3 { margin-bottom: 10px; color: var(--primary-color); }
+        .contact-item p { font-size: 1rem; color: #555; }
+    
+        /* --- PETA --- */
+        .map-section {
+            width: 90%; /* Tidak memenuhi layar (bisa disesuaikan, misal 85% atau 1000px) */
+            max-width: 1200px; /* Batas maksimal agar tidak terlalu lebar di layar besar */
+            height: 450px;
+            margin: 40px auto; /* "auto" membuat peta otomatis ke tengah (center) */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 3px solid #1a5d1a; /* Opsional: beri bingkai hijau agar serasi dengan tema */
+         }
+
+          /* --- FOOTER FIX (MENGHILANGKAN OUTLINE) --- */
+         footer { 
+            background: #0d2e0d; 
+            color: white; 
+            padding: 15px 5%; 
+            text-align: center; 
+            
+
+            /* Paksa hilangkan border samping/bawah penyebab outline */
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            width: 100%;
+            display: block;
+            margin-top: 0;
+
+        }
+
+
+        .f-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; color: white; }
+        .f-address, .f-contact { font-size: 0.85rem; margin-bottom: 5px; opacity: 0.9; }
+        .f-copy { font-size: 0.8rem; opacity: 0.4; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+
+        @media (max-width: 992px) {
+
+            .unit-grid { grid-template-columns: 1fr; }
+            .about-wrap { flex-direction: column; text-align: center; }
+            nav ul { display: none; }
+
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 9999;
+            transition: 0.3s;
+            animation: pulse-wa 2s infinite;
+        }
+        
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        @media (max-width: 600px) {
+            .whatsapp-float span { display: none; }
+            .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
+        }  
+
+    </style>
+
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="main_logo.png" alt="Logo" class="main-header-logo">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+                <li><a href="kontak.html" class="active-link"><i class="fas fa-comments"></i> Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+   <section class="container" id="kontak">
+    <div class="section-title">
+        <div class="section-title-box">
+            <span class="section-icon"><i class="fas fa-comments"></i></span> 
+            <h2>Hubungi Kami</h2>
+        </div>
+    </div>
+
+    <div class="contact-info-grid">
+        <div class="contact-item">
+            <span class="icon ikon-map"><i class="fas fa-map-marker-alt"></i></span>
+            <h3>Alamat</h3>
+            <p>Dusun Sukamaju II, RT.002 / RW.004,<br>Desa Jatisari, Kec. Jatisari, Karawang</p>
+        </div>
+
+        <div class="contact-item">
+            <span class="icon ikon-wa"><i class="fab fa-whatsapp"></i></span>
+            <h3>WhatsApp</h3>
+            <p>+62 814 0164 3188<br>Aktif Jam Kerja</p>
+        </div>
+
+        <div class="contact-item">
+            <span class="icon ikon-email"><i class="fas fa-envelope-open-text"></i></span>
+            <h3>Email</h3>
+            <p>daarulkhoirot2025@gmail.com<br>Aktif Jam Kerja</p>
+        </div>
+    </div>
+</section>
+        
+        <h3 style="font-size: 32px; font-weight: bold; text-align: center; margin-bottom: 0px; color: #1a5d1a;">
+            Lokasi Pondok Pesantren
+        </h3>
+        
+        <<div class="map-section">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15862.906659771146!2d107.5186851!3d-6.383182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMjInNTkuNSJTIDEwN8KwMzEnMDcuMyJF!5e0!3m2!1sid!2sid!4v1710000000000" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+       </div>
+    </main>
+
+   <footer> 
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
+
+    <audio id="murottal" src="murottal_start.mp3" loop></audio>
+    <audio id="clickSound" src="click_sound.mp3"></audio>
+
+    <script>
+        const murottal = document.getElementById('murottal');
+        const clickSound = document.getElementById('clickSound');
+        const navLinks = document.querySelectorAll('nav ul li a'); 
+
+        let hasInteracted = false;
+
+        function playMurottal() {
+            if (!hasInteracted) {
+                murottal.volume = 0.4; 
+                murottal.play().catch(e => console.log("Audio Play Blocked"));
+                hasInteracted = true;
+                document.removeEventListener('click', playMurottal);
+            }
+        }
+        document.addEventListener('click', playMurottal);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                clickSound.currentTime = 0; 
+                clickSound.play();
+                e.preventDefault(); 
+                const destination = this.href;
+                setTimeout(() => { window.location.href = destination; }, 200); 
+            });
+        });
+    </script>
+
+    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp fa-lg"></i>
+        <span>Tanya Admin</span>
+    </a>
+
+</body>
+</html>

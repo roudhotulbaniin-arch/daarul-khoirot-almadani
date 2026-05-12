@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta id="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daarul Khoirot Almadani | Beranda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  
+    
+<style>
+    /* --- 1. DASAR & VARIABEL --- */
+    :root {
+        --primary-color: #1a5319;    /* Hijau Tua */
+        --primary-dark: #0d2e0d;     /* Hijau Gelap */
+        --gold-color: #D4AF37;       /* Emas */
+        --gold-light: #f4ce14;       /* Kuning Emas Terang */
+        --white: #FFFFFF;
+        --bg-body: #f4f7f6;
+        --text-dark: #1a1a1a;
+        --text-muted: #555;
+        --border-color: #1a5d1a;
+    }
+
+    * { 
+        margin: 0; padding: 0; box-sizing: border-box; 
+        font-family: 'Quicksand', sans-serif; 
+    }
+
+    /* Membuat bintang merah otomatis setelah teks label */
+.required::after {
+    content: " *";
+    color: #d63031; /* Warna merah */
+    font-weight: bold;
+}
+
+    body { 
+        background-color: var(--bg-body); 
+        overflow-x: hidden; 
+        font-weight: 500;
+        flex-direction: column;
+        display: flex;
+        min-height: 100vh;
+    }
+
+    /* --- 2. TYPOGRAPHY --- */
+    h1, h2, h3, .form-section-title { font-weight: 700; color: var(--primary-color); }
+    input, select, textarea { font-weight: 500; font-family: inherit; }
+
+    /* --- 3. HEADER & NAVIGASI --- */
+    header { 
+        background: var(--primary-color); 
+        color: var(--white); 
+        padding: 12px 4%; 
+        display: flex; justify-content: space-between; align-items: center; 
+        position: sticky; top: 0; z-index: 1000; 
+        border-bottom: 3px ;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { max-height: 40px; }
+    .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
+
+    nav ul { list-style: none; display: flex; gap: 10px; }
+    nav ul li a { 
+        color: white; text-decoration: none; font-weight: 600; 
+        padding: 5px 8px; transition: 0.3s; 
+    }
+    nav ul li a:hover { color: var(--gold-color); }
+    .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
+
+    /* --- 4. CONTAINER & TABS --- */
+    .container { padding: 2rem 5%; flex: 1; }
+    .tab-container { 
+        background: white; border-radius: 12px; overflow: hidden; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; 
+    }
+
+    .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
+    .tab-link { 
+        flex: 1; padding: 18px 10px; border: none; cursor: pointer; 
+        font-weight: 700; font-size: 1.3rem; color: var(--primary-color); 
+        text-align: center; border-right: 1px solid #ddd; transition: 0.3s; 
+        text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; 
+    }
+    
+   /* Warna default tombol */
+.tab-link {
+    background-color: #f1f1f1; /* Abu-abu default */
+    color: #333;
+    padding: 15px;
+    border: none;
+    transition: 0.3s;
+}
+
+/* Warna saat aktif (Hijau) */
+.tab-link.active {
+    background-color: #28a745 !important; /* Hijau Tua */
+    color: white !important;
+    font-weight: bold;
+}
+
+   
+    .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }.tab-content { 
+    display: none; 
+    padding: 30px; 
+    animation: fadeIn 0.4s; 
+    /* Tambahkan kode di bawah ini */
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+}
+
+.tab-content.active { 
+    display: block; 
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; } 
+    to { opacity: 1; } 
+}
+
+.tab-content {
+    animation: fadeEffect 0.4s; /* Waktu perpindahan tab */
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* --- 1. CONTAINER UTAMA (Kunci Lebar) --- */
+.container, .registration-container {
+    width: 100%;
+    max-width: 1000px; /* Lebar seragam untuk semua tab */
+    margin: 20px auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* --- 2. KONTEN TAB (Kotak Putih) --- */
+.tab-content {
+    display: none;
+    background: #ffffff;
+    width: 100%;
+    padding: 30px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    border: 1px solid #e0e0e0;
+
+    /* GUNAKAN INI: Otomatis membagi kolom dengan lebar minimal 250px */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Judul dan elemen lebar tetap dipaksa ambil satu baris penuh */
+.form-section-title, .info-box, .full-width {
+    grid-column: 1 / -1; /* Artinya dari awal sampai akhir kolom */
+}
+
+/* Munculkan sebagai Grid saat aktif */
+.tab-content.active {
+    display: grid; 
+}
+
+/* --- 3. PENGATURAN GRID OTOMATIS (3-2) --- */
+
+/* Judul Section (Ambil 6 kolom / Full Baris) */
+.form-section-title {
+    grid-column: span 6;
+    margin: 10px 0 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+/* Default: Baris 3 Kolom (6 kolom / 3 = span 2) */
+.tab-content > .input-group {
+    grid-column: span 2;
+}
+
+/* Khusus: Baris 2 Kolom (6 kolom / 2 = span 3) */
+/* Tambahkan class 'wide' pada .input-group di HTML untuk NIK/KK */
+.tab-content > .input-group.wide,
+.tab-content > .input-group.nik-group,
+.tab-content > .input-group.kk-group {
+    grid-column: span 3;
+}
+
+/* --- 4. RESPONSIF MOBILE --- */
+@media (max-width: 768px) {
+    .tab-content {
+        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
+        padding: 20px;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .tab-content > .input-group,
+    .tab-content > .input-group.wide,
+    .form-section-title {
+        grid-column: span 1 !important;
+    }
+}  
+
+  /* --- 5. FORM ELEMENTS --- */
+    .form-section-title { 
+        margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eee; 
+        text-transform: uppercase; display: flex; align-items: center; gap: 10px; 
+    }
+
+    /* GRid SYSTEM */
+    .form-grid, .form-grid-santri { 
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; align-items: start;
+    }
+    .form-grid-upload { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
+
+    /* INPUT WITH ICON */
+    .input-ikon {
+        display: flex; align-items: center; position: relative;
+        background: white; border: 1.5px solid var(--border-color);
+        border-radius: 8px; padding: 0 12px; min-height: 48px; transition: 0.3s;
+    }
+    .input-ikon i { color: var(--primary-color); width: 20px; text-align: center; margin-right: 10px; }
+    .input-ikon input, .input-ikon select { 
+        flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%;
+    }
+
+    /* --- 6. BUTTONS --- */
+    .button-group {
+        display: flex; gap: 15px; margin-top: 30px; padding-top: 20px;
+        border-top: 1px solid #eee; width: 100%;
+    }
+
+    /* Agar tombol sama lebar (50% - 50%) */
+    .btn-nav { 
+        flex: 1; /* Ini kunci agar lebar sama */
+        padding: 15px; border: none; border-radius: 8px; font-weight: 800;
+        cursor: pointer; display: flex; justify-content: center; align-items: center; 
+        gap: 10px; font-size: 1.3rem; transition: 0.3s; color: white; 
+    }
+
+    .btn-prev { background-color: var(--gold-light) !important; }
+    .btn-next { background-color: var(--primary-color) !important; }
+    .btn-full { width: 100%; flex: none; }
+    
+    .btn-nav:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+    /* --- 7. SPECIAL STATES --- */
+  .input-samar {
+    color: #999 !important;
+    border-color: #ddd !important;
+    font-style: italic;
+}
+
+/* Memastikan input readonly standar juga mengikuti warna yang sama */
+input[readonly] { 
+    background-color: #e9ecef !important; 
+}
+
+.input-ikon {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+    /* --- 8. FOOTER --- */
+    footer { 
+        background: var(--primary-dark); color: white; padding: 30px 5%; 
+        text-align: center; width: 100%; border: none; outline: none; 
+    }
+    .f-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
+    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+    /* --- 9. FLOAT WHATSAPP --- */
+    .whatsapp-float {
+        position: fixed; bottom: 30px; right: 30px; background-color: #25d366;
+        color: white !important; padding: 12px 20px; border-radius: 50px;
+        display: flex; align-items: center; gap: 10px; text-decoration: none;
+        font-weight: bold; z-index: 9999; animation: pulse-wa 2s infinite;
+    }
+
+    @keyframes pulse-wa {
+        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+        70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    /* --- 10. RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .form-grid, .form-grid-santri, .form-grid-upload { grid-template-columns: 1fr; }
+        .tab-link { min-width: 120px; font-size: 0.9rem; }
+        nav ul { display: none; }
+        .whatsapp-float span { display: none; }
+        .whatsapp-float { padding: 15px; border-radius: 50%; }
+    }
+
+.locked-input {
+    background-color: #ffffff !important;
+    color: #333 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed;
+}
+
+input[readonly] {
+    background-color: #ffffff !important;
+    color: #333 !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+}
+
+/* Menambahkan bintang merah setelah teks label */
+.label-wajib::after {
+    content: " *";
+    color: #e74c3c; /* Warna merah */
+    font-weight: bold;
+}
+
+/* Efek jika checkbox belum dicentang */
+#box_pernyataan {
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Tambahkan class ini lewat JS jika ingin memberi highlight merah saat gagal validasi */
+.pernyataan-error {
+    border-color: #d33 !important;
+    background-color: #fff5f5;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="main_logo.png" alt="Logo" class="main-header-logo">
+        <h1>DAARUL KHOIROT ALMADANI</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+            <li><a href="pendaftaran.html" class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+            <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+            <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+        </ul>
+    </nav>
+</header>
+<form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
+<div class="container">
+    <div class="tab-container">
+        <div class="tab-menu">
+    <button type="button" class="tab-link active" onclick="openTab(event, 'santri')">
+        <i class="fas fa-user-graduate"></i> DATA SANTRI
+    </button>
+    <button type="button" class="tab-link" onclick="openTab(event, 'ortu')">
+        <i class="fas fa-users"></i> DATA ORANG TUA
+    </button>
+    <button type="button" class="tab-link" onclick="openTab(event, 'alamat')">
+        <i class="fas fa-city"></i> DATA ALAMAT
+    </button>
+    <button type="button" class="tab-link" onclick="openTab(event, 'pernyataan')">
+        <i class="fas fa-file-signature"></i> PERNYATAAN
+    </button>
+</div>
+
+
+<div id="santri" class="tab-content active" style="display: block;">
+        <div class="form-section-title"><i class="fas fa-id-card"></i> Identitas Santri</div>
+        <div class="form-grid">
+            <div class="form-group">
+            <label>Tanggal Pendaftaran*</label>
+            <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar"></div>
+        </div>
+        <div class="form-group">
+            <label class="required">Nama Lengkap</label>
+            <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_santri" placeholder="Sesuai KK/Akte"></div>
+        </div>
+        <div class="form-group">
+            <label class="required">Pilihan Unit & Kelas*</label>
+            <div class="input-ikon">
+                <i class="fas fa-graduation-cap"></i>
+                <select name="tingkat_unit">
+                    <option value="">-- Pilih --</option>
+                    <optgroup label="UNIT TPQ">
+                       <option>TPQ - Tingkat 1</option>
+                       <option>TPQ - Tingkat 2</option>
+                    </optgroup>
+                    <optgroup label="UNIT MDT">
+                       <option>MDT - Tingkat 1</option>
+                       <option>MDT - Tingkat 2</option>
+                       <option>MDT - Tingkat 3</option>
+                       <option>MDT - Tingkat 4</option>
+                    </optgroup>
+                    <optgroup label="UNIT PESANTREN">
+                       <option>Pesantren Tahun 1</option>
+                       <option>Pesantren Tahun 2</option>
+                       <option>Pesantren Tahun 3</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-grid-santri">
+        <div class="form-group">
+            <label class="required">NIK*</label>
+            <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik" 
+       placeholder="16 Digit NIK" 
+       minlength="16" 
+       maxlength="16" 
+       pattern="\d*" 
+       title="NIK harus 16 digit angka" 
+       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"></div>
+        </div>
+        <div class="form-group">
+           <label class="required">Nomor KK*</label>
+            <div class="input-ikon"><i class="fas fa-address-card"></i><input type="text" name="no_kk" 
+       placeholder="16 Digit KK" 
+       minlength="16" 
+       maxlength="16" 
+       pattern="\d*" 
+       title="Nomor KK harus 16 digit angka"
+       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"></div>
+        </div>
+        <div class="form-group">
+            <label>NISN</label>
+            <div class="input-ikon"><i class="fas fa-fingerprint"></i><input type="text" name="nisn" 
+       placeholder="10 Digit NISN" 
+       minlength="10" 
+       maxlength="10" 
+       pattern="\d*" 
+       title="NISN harus 10 digit angka"
+       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"></div>
+            <div style="margin-top: 5px; display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" name="no_nisn" onchange="handleNoNISN(this.checked)">
+                <label for="no_nisn" style="font-size: 0.8rem; color: #666; cursor: pointer;">Belum Ada NISN</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-grid-santri">
+        <div class="form-group">
+            <label>Jenis Kelamin*</label>
+            <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin"><option value="">-- Pilih --</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+        </div>
+        <div class="form-group">
+            <label>Tempat Lahir</label>
+            <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_lahir"></div>
+        </div>
+        <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <div class="input-ikon"><i class="fas fa-calendar-day"></i><input type="date" name="tgl_lahir"></div>
+        </div>
+    </div>
+
+    <div class="form-grid-santri">
+        <div class="form-group">
+            <label>Anak Ke-</label>
+            <div class="input-ikon"><i class="fas fa-list-ol"></i><input type="text" name="anak_ke"></div>
+        </div>
+        <div class="form-group">
+            <label>Jumlah Saudara</label>
+            <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="jml_saudara"></div>
+        </div>
+        <div class="form-group">
+            <label>Cita-cita</label>
+            <div class="input-ikon"><i class="fas fa-star"></i><select name="cita"><option value="">-- Pilih --</option><option>Ulama/Da`i</option><option>Hafizh/Hafizhah</option><option>Guru/Dosen</option><option>Dokter</option><option>Tentara/Polisi</option><option>Pengusaha</option><option>Lainnya</option></select></div>
+        </div>
+    </div>
+       <div class="form-grid-santri">
+           <div class="form-group">
+           <label>Hobi Santri</label>
+           <div class="input-ikon">
+              <i class="fas fa-star"></i>
+              <select name="hobi"><option value="">-- Pilih --</option>
+                  <option>Membaca Kitab/Buku</option>
+                  <option>Olahraga</option>
+                  <option>Seni Kaligrafi</option>
+                  <option>Menghafal Al-Qur'an</option>
+                  <option>Teknologi</option>
+                  <option>Hadhroh</option>
+                  <option>Lainnya</option>
+              </select>
+          </div>
+      </div>
+        <div class="form-group">
+            <label>Kebutuhan Khusus</label>
+            <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"><option value="">-- Pilih --</option><option>Tidak Ada</option><option>Lamban Belajar</option><option>Kesulitan Belajar Spesifik</option><option>Gangguan Komunikasi</option><option>Berbakat Memilili Kemampuan/Kecerdasan Luar Biasa</option><option>Lainnya</option></select></div>
+        </div>
+        <div class="form-group">
+            <label>Kebutuhan Disabilitas</label>
+            <div class="input-ikon"><i class="fas fa-universal-access"></i><select name="disabilitas"><option value="">-- Pilih --</option><option>Tidak ada</option><option>Tuna Netra</option><option>Tuna Rungu</option><option>Tuna Wicara</option><option>Tuna Daksa</option><option>Tuna Grahita</option><option>Tuna Laras</option><option>Lainnya</option></select></div>
+        </div>
+        <div class="form-group">
+            <label>Biaya Sekolah Oleh</label>
+            <div class="input-ikon"><i class="fas fa-wallet"></i><select name="biaya"><option value="">-- Pilih --</option><option>Orangtua</option><option>Wali/Orangtua Asuh</option><option>Tanggungan Sendiri</option><option>Lainnya</option></select></div>
+        </div>
+    </div>
+
+    <div class="form-section-title"><i class="fas fa-file-upload"></i> DOKUMEN UPLOAD</div>
+    <div class="form-grid-upload">
+        <div class="form-group">
+            <label>Upload Foto KK</label>
+            <div class="input-ikon"><i class="fas fa-file-image"></i><input type="file" name="up_kk"></div>
+        </div>
+        <div class="form-group">
+            <label>Upload Ijazah</label>
+            <div class="input-ikon"><i class="fas fa-file-contract"></i><input type="file" name="up_ijazah"></div>
+        </div>
+    </div>
+
+     <div class="button-group" style="padding: 30px 0;">
+        <button type="button" class="btn-nav btn-next btn-full" onclick="nextTab('ortu')">
+            Lanjut ke Data Orang Tua <i class="fas fa-chevron-circle-right fa-lg"></i>
+        </button>
+    </div>
+</div>
+</div>
+
+<div id="ortu" class="tab-content" style="display: none;">
+<div class="form-section-title"><i class="fas fa-user-tie"></i> Data Ayah Kandung</div>
+<div class="form-grid">
+    <div class="form-group">
+        <label class="required">Nama Lengkap Ayah*</label>
+        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_ayah" placeholder="Nama lengkap sesuai KK"></div>
+    </div>
+    <div class="form-group">
+        <label>Status Ayah</label>
+        <div class="input-ikon">
+            <i class="fas fa-heartbeat"></i><select name="st_ayah" onchange="toggleAyahFields(this.value)">
+    <option value="">-- Pilih --</option>                
+    <option value="Masih Hidup">Masih Hidup</option>
+    <option value="Meninggal">Meninggal</option>
+    <option value="Tidak Diketahui">Tidak Diketahui</option>
+</select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Kewarganegaraan</label>
+        <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ayah" value="Indonesia"></div>
+    </div>
+    <div class="form-group">
+       <label class="required">NIK Ayah (16 Digit)*</label>
+        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ayah" 
+       placeholder="16 Digit NIK" 
+       minlength="16" 
+       maxlength="16" 
+       pattern="\d*" 
+       title="NIK harus 16 digit angka" 
+       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"></div>
+    </div>
+    <div class="form-group">
+       <label class="required">Nomor Kartu Keluarga (KK)*</label>
+        <div class="input-ikon"><i class="fas fa-users"></i></i><input type="text" name="kk_ayah" 
+       placeholder="16 Digit KK" 
+       minlength="16" 
+       maxlength="16" 
+       pattern="\d*" 
+       title="Nomor KK harus 16 digit angka"
+       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"></div>
+    </div>
+    <div class="form-group">
+        <label>Tempat Lahir</label>
+        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ayah"></div>
+    </div>
+    <div class="form-group">
+        <label>Tanggal Lahir Ayah</label>
+        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ayah"></div>
+    </div>
+    <div class="form-group">
+        <label>Pendidikan Terakhir</label>
+        <div class="input-ikon">
+            <i class="fas fa-graduation-cap"></i>
+            <select name="pdk_ayah">
+                <option value="">-- Pilih --</option>
+                <option>SD/Sederajat</option>
+                <option>SMP/Sederajat</option>
+                <option>SMA/Sederajat</option>
+                <option>D1</option>
+                <option>D2</option>
+                <option>D3</option>
+                <option>D4/S1</option>
+                <option>S2</option>
+                <option>S3</option>
+                <option>Tidak Bersekolah</option>
+                <option>Lainnya</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Pekerjaan Utama</label>
+        <div class="input-ikon">
+            <i class="fas fa-briefcase"></i>
+            <select name="pjk_ayah">
+                <option value="">-- Pilih --</option>
+                <option>Tidak Bekerja</option>
+                <option>Pensiunan</option>
+                <option>PNS/TNI/Polri</option>
+                <option>Guru/Dosen</option>
+                <option>Pegawai Swasta</option>
+                <option>Wira Swasta</option>
+                <option>Petani/Peternak</option>
+                <option>Nelayan</option>
+                <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
+                <option>Sopir</option>
+                <option>Lainnya</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Penghasilan Rata-rata / Bulan</label>
+        <div class="input-ikon">
+            <i class="fas fa-money-bill-wave"></i>
+            <select name="hasil_ayah">
+                <option value="">-- Pilih --</option>
+                <option>Tidak Ada</option>
+                <option>Dibawah 800.000</option>
+                <option>800.001 - 1.500.000</option>
+                <option>1.500.001 - 2.500.000</option>
+                <option>2.500.001 - 5.000.000</option>
+                <option>5.000.001 - 10.000.000</option>
+                <option>10.000.001 - 20.000.000</option>
+                <option>Diatas 20.000.000</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>No Handphone Ayah (WhatsApp)</label>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <div class="input-ikon">
+                <i class="fab fa-whatsapp"></i>
+                <input type="text" name="hp_ayah" placeholder="628...">
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" name="cek_hp_ayah" onchange="toggleHP(this, 'hp_ayah')">
+                <label for="cek_hp_ayah" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya No Handphone</label>
+            </div>
+        </div>
+    </div>
+</div> <div class="form-section-title"><i class="fas fa-user-nurse"></i> Data Ibu Kandung</div>
+<div class="form-grid">
+    <div class="form-group">
+       <label class="required">Nama Lengkap Ibu*</label>
+        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_ibu"></div>
+    </div>
+    <div class="form-group">
+        <label>Status Ibu</label>
+        <div class="input-ikon">
+            <i class="fas fa-heartbeat"></i>
+            <select name="st_ibu">
+                <option value="">-- Pilih --</option>
+                <option>Masih Hidup</option>
+                <option>Meninggal</option>
+                <option>Tidak Diketahui</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Kewarganegaraan</label>
+        <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ibu" value="Indonesia"></div>
+    </div>
+    <div class="form-group">
+        <label>N I K Ibu</label>
+        <div class="input-ikon"><i class="fas fa-name-card"></i><input type="text" name="nik_ibu" 
+       placeholder="16 Digit NIK" 
+       minlength="16" 
+       maxlength="16" 
+       pattern="\d*" 
+       title="NIK harus 16 digit angka" 
+       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"></div>
+    </div>
+    <div class="form-group">
+        <label>Tempat Lahir</label>
+        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ibu"></div>
+    </div>
+    <div class="form-group">
+        <label>Tanggal Lahir</label>
+        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu"></div>
+    </div>
+    <div class="form-group">
+        <label>Pendidikan Terakhir</label>
+        <div class="input-ikon">
+            <i class="fas fa-graduation-cap"></i>
+            <select name="pdk_ibu">
+                <option value="">-- Pilih --</option>
+                <option>SD/Sederajat</option>
+                <option>SMP/Sederajat</option>
+                <option>SMA/Sederajat</option>
+                <option>D1</option>
+                <option>D2</option>
+                <option>D3</option>
+                <option>D4/S1</option>
+                <option>S2</option>
+                <option>S3</option>
+                <option>Tidak Bersekolah</option>
+                <option>Lainnya</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Pekerjaan Utama</label>
+        <div class="input-ikon">
+            <i class="fas fa-briefcase"></i>
+            <select name="pjk_ibu">
+                <option value="">-- Pilih --</option>
+                <option>Ibu Rumah Tangga</option>
+                <option>Pensiunan</option>
+                <option>PNS/TNI/Polri</option>
+                <option>Guru/Dosen</option>
+                <option>Pegawai Swasta</option>
+                <option>Wira Swasta</option>
+                <option>Petani/Peternak</option>
+                <option>Nelayan</option>
+                <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
+                <option>Sopir</option>
+                <option>Lainnya</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Penghasilan Rata-rata / Bulan</label>
+        <div class="input-ikon">
+            <i class="fas fa-money-bill-wave"></i>
+            <select name="hasil_ibu"> 
+                <option value="">-- Pilih --</option>
+                <option>Tidak Ada</option>
+                <option>Dibawah 800.000</option>
+                <option>800.001 - 1.500.000</option>
+                <option>1.500.001 - 2.500.000</option>
+                <option>2.500.001 - 5.000.000</option>
+                <option>5.000.001 - 10.000.000</option>
+                <option>10.000.001 - 20.000.000</option>
+                <option>Diatas 20.000.000</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>No Handphone Ibu</label>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <div class="input-ikon">
+                <i class="fab fa-whatsapp"></i>
+                <input type="text" name="hp_ibu" placeholder="628...">
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" name="cek_hp_ibu" onchange="toggleHP(this, 'hp_ibu')">
+                <label for="cek_hp_ibu" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya No Handphone</label>
+            </div>
+        </div>
+    </div>
+</div> <div class="form-group" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #ddd;">
+   <label class="required"><b>Tentukan Status Wali Santri*</b></label>
+    <div class="input-ikon" style="margin-top: 10px;">
+        <i class="fas fa-users-cog"></i>
+        <select name="st_wali">
+            <option value="">-- Pilih --</option>
+            <option value="ayah">Sama Dengan Ayah Kandung</option>
+            <option value="ibu">Sama Dengan Ibu Kandung</option>
+            <option value="lainnya">Lainnya</option>
+        </select>
+    </div>
+</div>
+
+<div class="button-group">
+    <button type="button" class="btn-nav btn-prev" onclick="prevTab('santri')">
+        <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
+    </button>
+    <button type="button" class="btn-nav btn-next" onclick="nextTab('alamat')">
+        Lanjut ke Data Alamat <i class="fas fa-chevron-circle-right fa-lg"></i>
+    </button>
+</div>
+</div>
+
+<div id="alamat" class="tab-content" style="display: none;">
+<div class="form-section-title"><i class="fas fa-male"></i> Data Ayah</div>
+<div class="form-grid" id="block_ayah">
+     <div class="form-group">
+            <label>Status Kepemilikan Rumah</label>
+            <div class="input-ikon"><i class="fas fa-house-user"></i>
+                <select name="milik_ayah">
+                    <option value="">-- Pilih --</option>
+                    <option>Milik Sendiri</option>
+                    <option>Rumah Orangtua</option>
+                    <option>Rumah Saudara</option>
+                    <option>Sewa/Kontrak</option>
+                    <option>Lainnya</option>
+                </select>
+            </div>
+        </div>
+    <div class="form-group">
+        <label class="required">Provinsi</label>
+        <div class="input-ikon"><i class="fas fa-map"></i>     
+            <select id="prov_ayah" name="prov_ayah" onchange="loadKabAyah(this.value)">
+                <option value="">Pilih Provinsi</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="required">Kabupaten</label>
+        <div class="input-ikon"><i class="fas fa-city"></i>
+            <select id="kab_ayah" name="kab_ayah" onchange="loadKecAyah(this.value)">
+                <option value="">Pilih Kabupaten</option>
+            </select>
+        </div>
+    </div><div class="form-group">
+   <label class="required">Kecamatan</label>
+    <div class="input-ikon"><i class="fas fa-location-arrow"></i>
+        <select id="kec_ayah" name="kec_ayah" onchange="loadDesaDanPosAyah(this.value)">
+            <option value="">Pilih Kecamatan</option>
+        </select>
+    </div>
+</div>
+    <div class="form-group">
+       <label class="required">Desa</label>
+        <div class="input-ikon"><i class="fas fa-map-signs"></i>
+            <select id="desa_ayah" name="desa_ayah" disabled>
+                <option value="">Pilih Desa</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group"><label class="required">Alamat</label> <div class="input-ikon"><i class="fas fa-road"></i><input type="text" id="al_ayah" name="al_ayah" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
+    <div class="form-group"><label>RT</label><div class="input-ikon"><i class="fas fa-thumbtack"></i><input type="text" id="rt_ayah" name="rt_ayah" placeholder="RT"></div></div>
+    <div class="form-group"><label>RW</label><div class="input-ikon"><i class="fas fa-thumbtack"></I><input type="text" id="rw_ayah" name="rw_ayah" placeholder="RW"></div></div>
+    <div class="form-group">
+            <label>Kode Pos</label>
+            <div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" id="pos_ayah" name="pos_ayah"></div>
+        </div>
+    </div>
+
+ <div class="form-section-title"><i class="fas fa-female"></i> Domisili Ibu Kandung</div>
+    <div class="form-group" style="margin-bottom:20px; max-width: 400px;">
+        <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Ibu</label>
+        <div class="input-ikon" style="border:2px solid var(--gold-color);">
+            <i class="fas fa-question-circle"></i>
+           <select name="pilih_dom_ibu" onchange="toggleDomisiliIbu(this.value)">
+        <option value="">-- Pilih --</option>
+        <option value="sama">Sama dengan Ayah</option>
+        <option value="beda">Alamat Berbeda</option>
+    </select>
+</div>
+    </div>
+
+
+<div class="form-grid" id="box_ibu" style="display: none;">
+     <div class="form-group"><label>Provinsi</label><div class="input-ikon"><i class="fas fa-map"></i><select id="prov_ibu" name="prov_ibu" onchange="loadKabIbu(this.value)"><option value="">Pilih Provinsi</option></select></div></div>
+     <div class="form-group"><label>Kabupaten</label><div class="input-ikon"><i class="fas fa-city"></i><select id="kab_ibu" name="kab_ibu" onchange="loadKecIbu(this.value)"><option value="">Pilih Kabupaten</option></select></div></div>
+     <div class="form-group"><label>Kecamatan</label><div class="input-ikon"><i class="fas fa-location-arrow"></i><select id="kec_ibu" name="kec_ibu" onchange="loadDesaDanPosIbu(this.value)"><option value="">Pilih Kecamatan</option></select></div></div>
+     <div class="form-group"><label>Desa</label><div class="input-ikon"><i class="fas fa-map-signs"></i><select id="desa_ibu" name="desa_ibu"><option value="">Pilih Desa</option></select></div></div>
+     <div class="form-group"><label>Alamat Lengkap Ibu</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" id="al_ibu" name="al_ibu" placeholder="Nama Jalan, Gg, atau Kampung">
+    </div></div>
+     <div class="form-group"><label>RT</label><div class="input-ikon"><input type="text" id="rt_ibu" name="rt_ibu" placeholder="RT">
+    </div></div>
+     <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" id="rw_ibu" name="rw_ibu" placeholder="RW">
+    </div></div>
+     <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" id="pos_ibu" name="pos_ibu" placeholder="Kode Pos">
+    </div></div></div>
+        
+
+ <div class="form-section-title"><i class="fas fa-user-graduate"></i> Domisili Santri</div>
+     <div class="form-group" style="margin-bottom:20px; max-width: 400px;">
+        <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili</label>
+            <div class="input-ikon" style="border:2px solid var(--primary-color);">
+                <i class="fas fa-bed"></i><select name="pilih_dom_santri" onchange="toggleDomisiliSantri(this.value)">
+            <option value="">-- Pilih --</option>
+            <option value="mukim">Mukim (Alamat Pesantren)</option>
+            <option value="sama">Tidak Mukim (Sama dengan Ayah)</option>
+            <option value="beda">Tidak Mukim (Beda dengan Ayah)</option>
+        </select>
+
+            </div>
+        </div>
+   
+  <div class="form-grid" id="box_santri" style="display: none;">
+     <div class="form-group"><label>Provinsi</label><div class="input-ikon"><i class="fas fa-map"></i><select id="prov_santri" name="prov_santri" onchange="loadKabSantri(this.value)"><option value="">Pilih Provinsi</option></select></div></div>
+     <div class="form-group"><label>Kabupaten</label><div class="input-ikon"><i class="fas fa-city"></i><select id="kab_santri" name="kab_santri" onchange="loadKecSantri(this.value)"><option value="">Pilih Kabupaten</option></select></div></div>
+     <div class="form-group"><label>Kecamatan</label><div class="input-ikon"><i class="fas fa-location-arrow"></i><select id="kec_santri" name="kec_santri" onchange="loadDesaDanPosSantri(this.value)"><option value="">Pilih Kecamatan</option></select></div></div>
+     <div class="form-group"><label>Desa</label><div class="input-ikon"><i class="fas fa-map-signs"></i><select id="desa_santri" name="desa_santri"><option value="">Pilih Desa</option></select></div></div>
+     <div class="form-group"><label>Alamat Lengkap Ibu</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" id="al_santri" name="al_santri" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
+     <div class="form-group"><label>RT</label><div class="input-ikon"><input type="text" id="rt_santri" name="rt_santri" placeholder="RT"></div></div>
+     <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" id="rw_santri" name="rw_santri" placeholder="RW"></div></div>
+     <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" id="pos_santri" name="pos_santri"></div></div></div>
+
+    <div class="form-section-title"><i class="fas fa-route"></i> Jarak & Transportasi</div>
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Jarak ke Lembaga</label>
+            <div class="input-ikon"><i class="fas fa-ruler-horizontal"></i>
+                <select name="jarak">
+                    <option value="">-- Pilih --</option>
+                    <option>Kurang dari 5 Km</option>
+                    <option>5 - 10 Km</option>
+                    <option>Lebih dari 20 Km</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Transportasi</label>
+            <div class="input-ikon"><i class="fas fa-motorcycle"></i>
+                <select name="trans">
+                    <option value="">-- Pilih --</option>
+                    <option>Jalan Kaki</option>
+                    <option>Naik Sepeda</option>
+                    <option>Naik Sepeda Motor</option>
+                    <option>Naik Angkutan Umum</option>
+                    <option>Antar Jemput</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Waktu Tempuh</label>
+            <div class="input-ikon"><i class="fas fa-clock"></i>
+                <select name="waktu">
+                    <option value="">-- Pilih --</option>
+                    <option>1 - 10 menit</option>
+                    <option>10 - 20 menit</option>
+                    <option>20 - 30 menit</option>
+                    <option>Lebih dari 30 menit</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button type="button" class="btn-nav btn-prev" onclick="prevTab('ortu')">
+            <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
+        </button>
+        <button type="button" class="btn-nav btn-next" onclick="nextTab('pernyataan')">
+            Lanjut ke Pernyataan <i class="fas fa-chevron-circle-right fa-lg"></i>
+        </button>
+    </div>
+</div>
+</form>
+<div id="pernyataan" class="tab-content">
+    <div class="form-section-title"><i class="fas fa-microphone-alt"></i> Wawancara Mandiri Orangtua & Santri </div>
+    <div class="info-bar" style="margin-bottom: 25px; background: #e7f3ff; padding: 10px; border-radius: 5px;">
+        <i class="fas fa-info-circle"></i> Mohon dijawab dengan jujur agar Lembaga dapat memberikan pembinaan yang tepat bagi ananda.
+    </div>
+
+    <div class="form-grid" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
+    <div class="form-group">
+        <label>Visi Orang Tua</label>
+        <div class="input-ikon">
+            <i class="fas fa-eye"></i>
+            <select name="w_visi">
+                <option value="">-- Pilih Pandangan --</option>
+                <option value="Urgensi Dunia/Akhirat">Dahulukan Akhirat Jangan Lupakan Dunia</option>
+                <option value="Ibadah & Akhlak">Keseimbangan Ibadah, Akhlak, & Adab</option>
+                <option value="Fokus Ibadah">Fokus Ibadah Ritual (Shalat, Ngaji)</option>
+                <option value="Dunia Akhirat">Keseimbangan Ilmu Agama & Umum</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Pola Disiplin Rumah</label>
+        <div class="input-ikon">
+            <i class="fas fa-gavel"></i>
+            <select name="w_pola">
+                <option value="">-- Pilih Pola --</option>
+                <option value="Sangat Ketat">Sangat Ketat (Banyak Sanksi)</option>
+                <option value="Demokratis">Demokratis (Diskusi Bersama)</option>
+                <option value="Longgar">Longgar (Ikuti Mau Anak)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Perilaku Dominan</label>
+        <div class="input-ikon">
+            <i class="fas fa-child"></i>
+            <select name="w_perilaku">
+                <option value="">-- Pilih Perilaku --</option>
+                <option value="Mandiri & Rajin">Mandiri, Rajin, & Penurut</option>
+                <option value="Cukup Baik">Cukup Baik, Perlu Diingatkan</option>
+                <option value="Kurang Mandiri">Kurang Mandiri / Harus selalu disuruh</option>
+                <option value="Kepekaan">Kurang Peka / Harus selalu diingatkan</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Kondisi Kesehatan</label>
+        <div class="input-ikon">
+            <i class="fas fa-heartbeat"></i>
+            <select name="w_sehat" onchange="toggleDetail(this.value, 'box_sehat')">
+                <option value="">-- Pilih Kondisi --</option>
+                <option value="Sehat">Alhamdulillah Sehat</option>
+                <option value="Pernah Sakit">Ada Riwayat Penyakit</option>
+                <option value="Dalam Pengobatan">Butuh Penanganan Khusus</option>
+            </select>
+        </div>
+        <input type="text" name="box_sehat" placeholder="Sebutkan penyakit & cara penanganannya..." style="display:none; margin-top:10px; width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd;">
+    </div>
+
+    <div class="form-group">
+        <label>Sikap Terhadap Sanksi</label>
+        <div class="input-ikon">
+            <i class="fas fa-user-shield"></i>
+            <select name="w_tazir">
+                <option value="">-- Pilih Sikap --</option>
+                <option value="Mendukung">Mendukung Sanksi Edukatif</option>
+                <option value="Diskusi">Diskusi (Keberatan Jika Berat)</option>
+                <option value="Pasrah">Pasrah Kepada Keputusan</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Harapan Terbesar</label>
+        <div class="input-ikon">
+            <i class="fas fa-star"></i>
+            <select name="w_harapan">
+                <option value="">-- Pilih Harapan --</option>
+                <option value="Hafal Al-Quran">Menjadi Penghafal Al-Quran</option>
+                <option value="Akhlakul Karimah">Memiliki Akhlak & Adab Baik</option>
+                <option value="Mandiri & Berilmu">Pribadi Mandiri & Faqih</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+    <div class="form-section-title"><i class="fas fa-user-check"></i> Surat Pernyataan</div>
+    <div style="background: #fff; border: 2px solid #ddd; padding: 25px; border-radius: 10px; line-height: 1.8; color: #333; font-size: 0.95rem;">
+        <p style="font-weight: bold; text-align: center; text-decoration: underline; margin-bottom: 20px;">DENGAN INI MENYATAKAN BAHWA :</p>
+        <p>Bahwa selama saya menjadi santri di Lembaga Pendidikan DAARUL KHOIROT ALMADANI :</p>
+        <ol style="margin-left: 20px; margin-bottom: 15px;">
+            <li>Akan mematuhi segala kewajiban, peraturan, dan tata tertib Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+            <li>Akan menjaga nama baik sendiri, keluarga, pengajar, dan Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+            <li>Apabila saya tidak menta'ati semua peraturan dan ketentuan yang telah ditetapkan, saya sanggup menerima sanksi (Ta'zir) apapun</li>
+            <li>Saya selaku Orangtua santri menyerahkan sepenuhnya kepada Pengurus Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+            <li>Saya selaku Orangtua Santri bersedia memberikan sumbangsih apapun yang saya mampu baik diri maupun harta kepada Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+        </ol>
+        <p style="font-style: italic;">Demikian surat pernyataan ini saya buat dengan sebenar-benarnya dan tanpa paksaan dari pihak manapun.</p>
+    </div>
+
+    <div style="background: #e8f5e9; border: 1px dashed #1a5d1a; padding: 20px; border-radius: 10px; margin-top: 20px; display: flex; align-items: center; gap: 15px;">
+        <input type="checkbox" name="cek_pernyataan" style="width: 25px; height: 25px; cursor: pointer; accent-color: #1a5d1a;">
+        <label for="cek_pernyataan" style="font-weight: bold; color: #1a5d1a; cursor: pointer; font-size: 1rem;">
+            Saya Menyetujui Seluruh Pernyataan di Atas
+        </label>
+    </div>
+
+    <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+      <button type="button" onclick="prosesSimpanFinal()" style="background: #1a5d1a; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
+    <i class="fas fa-save fa-lg"></i>
+    Simpan Pendaftaran
+</button>
+
+  <button type="button" onclick="kirimWA()" style="background: #25d366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
+    <i class="fab fa-whatsapp fa-lg"></i> Konfirmasi WhatsApp
+</button>
+    </div>
+</div> 
+</div></div>
+
+    <footer> 
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
+
+    <audio name="murottal" src="murottal_start.mp3" loop></audio>
+    <audio name="clickSound" src="click_sound.mp3"></audio>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
+        authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
+        projectId: "daarul-khoirot-pendaftaran",
+        storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
+        messagingSenderId: "963910462284",
+        appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function handleFormSubmit(event) {
+        if (event) event.preventDefault();
+        const form = document.getElementById('formPendaftaran');
+
+        Swal.fire({
+            title: 'Sedang Menyimpan...',
+            text: 'Memproses data dan mengompres foto...',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
+        try {
+            const formData = new FormData(form);
+            let dataFinal = {};
+
+            // 1. Helper Ambil Teks (Agar Alamat tidak muncul KODE)
+            const getTeks = (idOrName) => {
+                const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
+                return (el && el.tagName === 'SELECT') ? el.options[el.selectedIndex].text : (el?.value || "-");
+            };
+
+            // 2. Susun Data secara Manual untuk field krusial
+            formData.forEach((value, key) => {
+                if (!(value instanceof File)) {
+                    dataFinal[key] = value;
+                }
+            });
+
+            // Paksa timpa field alamat & pekerjaan dengan TEKS (Bukan Kode)
+            const listWilayah = [
+                'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
+                'prov_ibu', 'kab_ibu', 'kec_ibu', 'desa_ibu',
+                'prov_santri', 'kab_santri', 'kec_santri', 'desa_santri',
+                'pjk_ibu', 'pjk_ayah', 'tingkat_unit'
+            ];
+
+            listWilayah.forEach(field => {
+                const teks = getTeks(field);
+                if (teks && teks !== "-- Pilih --") dataFinal[field] = teks;
+            });
+
+            // 3. Proses Foto (Kompresi agar Loading Cepat)
+            const options = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
+            const toBase64 = f => new Promise((res, rej) => {
+                const r = new FileReader(); r.readAsDataURL(f);
+                r.onload = () => res(r.result); r.onerror = e => rej(e);
+            });
+
+            const fKK = document.getElementsByName('up_kk')[0]?.files[0];
+            if (fKK) {
+                const comp = await imageCompression(fKK, options);
+                dataFinal['file_kk_data'] = await toBase64(comp);
+            }
+
+            const fIjazah = document.getElementsByName('up_ijazah')[0]?.files[0];
+            if (fIjazah) {
+                const comp = await imageCompression(fIjazah, options);
+                dataFinal['file_ijazah_data'] = await toBase64(comp);
+            }
+
+            // Letakkan ini di dalam try { ... } fungsi handleFormSubmit
+
+/// --- Tambahkan logika ini ---
+const elPernyataan = document.getElementsByName('cek_pernyataan')[0];
+if (elPernyataan) {
+    // Kita buat field baru bernama 'status_setuju'
+    dataFinal['status_setuju'] = elPernyataan.checked ? "SETUJU" : "TIDAK SETUJU";
+}
+
+// Pastikan field 'cek_pernyataan' dihapus agar tidak bentrok
+delete dataFinal['cek_pernyataan'];
+// 4. Final Clean & Simpan
+            delete dataFinal['up_kk'];
+            delete dataFinal['up_ijazah'];
+            delete dataFinal['cek_pernyataan'];
+            dataFinal['waktu_simpan'] = new Date().toISOString();
+
+            const docRef = await addDoc(collection(db, "pendaftaran_santri"), dataFinal);
+
+            if (docRef.id) {
+                Swal.fire('Berhasil!', 'Data pendaftaran tersimpan.', 'success').then(() => {
+                    if (typeof window.kirimWA === "function") window.kirimWA();
+                    form.reset();
+                    location.reload();
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            Swal.fire('Gagal!', error.message, 'error');
+        }
+    }
+
+   
+// Ekspos ke window agar bisa dipanggil HTML
+    window.handleFormSubmit = handleFormSubmit;
+</script>
+
+<script>
+
+/* =========================================================
+   SINKRONISASI DATA WILAYAH & KODE POS
+========================================================= */
+const mappingPosKarawang = {
+    "3215010": "41311", "3215011": "41361", "3215012": "41361", "3215013": "41361",
+    "3215020": "41314", "3215021": "41361", "3215030": "41315", "3215040": "41363",
+    "3215050": "41361", "3215060": "41375", "3215070": "41374", "3215080": "41384",
+    "3215090": "41383", "3215100": "41373", "3215110": "41371", "3215120": "41372",
+    "3215130": "41381", "3215140": "41382", "3215150": "41353", "3215160": "41354",
+    "3215170": "41352", "3215180": "41351", "3215190": "41353", "3215200": "41355",
+    "3215210": "41351", "3215220": "41351", "3215230": "41351", "3215240": "41384",
+    "3215250": "41311", "3215260": "41311", "3215022": "41361", "3215014": "41316",
+    "3215161": "41354", "3215051": "41361"
+};
+
+async function loadWilayah(endpoint, elementId, placeholder) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    
+    el.innerHTML = '<option value="">Loading...</option>';
+    el.disabled = true;
+
+    try {
+        const res = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`);
+        const data = await res.json();
+        let opt = `<option value="">${placeholder}</option>`;
+        data.forEach(d => {
+            opt += `<option value="${d.id}">${d.name}</option>`;
+        });
+        el.innerHTML = opt;
+        el.disabled = false;
+    } catch (e) {
+        el.innerHTML = `<option value="">Gagal memuat</option>`;
+        console.error("Error:", e);
+    }
+}
+
+// Handler Berantai untuk Data Ayah
+function loadKabAyah(val) {
+    // Reset pilihan di bawahnya
+    document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
+    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    document.getElementsByName('pos_ayah')[0].value = "";
+    
+    if(val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+}
+
+function loadKecAyah(val) {
+    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    document.getElementsByName('pos_ayah')[0].value = "";
+    
+    if(val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
+}
+
+function loadDesaDanPosAyah(val) {
+    if(val) {
+        // Load Desa tetap berjalan
+        loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
+        
+        const inputPos = document.getElementsByName('pos_ayah')[0];
+        if (inputPos) {
+            const kodeAuto = mappingPosKarawang[val];
+            
+            if (kodeAuto) {
+                // Wilayah Karawang: Otomatis & Kunci
+                inputPos.value = kodeAuto;
+                inputPos.readOnly = true;
+                inputPos.style.backgroundColor = "#f0f0f0";
+                inputPos.style.color = "#6c757d";
+            } else {
+                // Luar Karawang: Buka Akses Manual
+                inputPos.value = "";
+                inputPos.readOnly = false;
+                inputPos.style.backgroundColor = "#ffffff";
+                inputPos.style.color = "#000000";
+                inputPos.placeholder = "Isi Kode Pos Manual";
+            }
+        }
+    }
+}
+
+// Inisialisasi awal load Provinsi
+document.addEventListener('DOMContentLoaded', () => {
+    loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+});
+// Handler Berantai Ayah
+function loadKabAyah(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten'); }
+function loadKecAyah(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan'); }
+function loadDesaDanPosAyah(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_ayah')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+    }
+}
+
+// Handler Berantai Ibu
+function loadKabIbu(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten'); }
+function loadKecIbu(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan'); }
+function loadDesaDanPosIbu(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_ibu')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+    }
+}
+
+// Handler Berantai Santri
+function loadKabSantri(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten'); }
+function loadKecSantri(val) { if(val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan'); }
+function loadDesaDanPosSantri(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_santri')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+    }
+}
+
+/* =========================================================
+   3. LOGIKA FORM & VALIDASI
+========================================================= */
+function lockFields(role, lock = true) {
+    const container = document.getElementById(`box_${role}`);
+    if (!container) return;
+    container.querySelectorAll('input, select, textarea').forEach(el => {
+        if (el.name === `pilih_dom_${role}`) return; // Jangan kunci switchnya
+        if (el.tagName === 'SELECT') {
+            el.disabled = lock;
+        } else {
+            el.readOnly = lock;
+        }
+        el.style.backgroundColor = lock ? "#f8f9fa" : "transparent";
+    });
+}
+
+function dataAyahLengkap() {
+    // Ambil nilai dari dropdown (menggunakan ID)
+    const prov = document.getElementById('prov_ayah')?.value;
+    const kab  = document.getElementById('kab_ayah')?.value;
+    const kec  = document.getElementById('kec_ayah')?.value;
+    const desa = document.getElementById('desa_ayah')?.value;
+    
+    // Ambil nilai dari input teks (menggunakan Name)
+    const alamat = document.getElementsByName('al_ayah')[0]?.value.trim();
+    const rt     = document.getElementsByName('rt_ayah')[0]?.value.trim();
+    const rw     = document.getElementsByName('rw_ayah')[0]?.value.trim();
+    const pos    = document.getElementsByName('pos_ayah')[0]?.value.trim();
+
+    // Logika: Semua harus terisi
+    if (!prov || !kab || !kec || !desa || !alamat || !rt || !rw || !pos) {
+        return false;
+    }
+    return true;
+}
+
+function toggleDomisiliIbu(val) {
+    const box = document.getElementById('box_ibu');
+    if (!box) return;
+
+    box.style.display = (val === "") ? 'none' : 'grid';
+
+    if (val === 'sama') {
+        if (!dataAyahLengkap()) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan',
+                text: 'Lengkapi Data Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
+                confirmButtonColor: '#2d6a4f'
+            });
+            // Reset pilihan ke default
+            document.getElementsByName('pilih_dom_ibu')[0].value = "";
+            box.style.display = 'none';
+            return;
+        }
+
+        // Jalankan fungsi salin data
+        copyDataAlamat('ayah', 'ibu');
+        // Kunci field (lockFields) agar readonly dan abu-abu
+        lockFields('ibu', true);
+
+    } else if (val === 'beda') {
+        lockFields('ibu', false);
+        // Reset field jika sebelumnya bekas 'sama'
+        const fields = ['al_ibu', 'rt_ibu', 'rw_ibu', 'pos_ibu'];
+        fields.forEach(f => {
+            const el = document.getElementsByName(f)[0];
+            if(el) el.value = "";
+        });
+        loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
+    }
+}
+
+async function copyDataAlamat(from, to) {
+    try {
+        // A. Salin Input Teks (Alamat, RT, RW, Kode Pos)
+        const fields = ['al', 'rt', 'rw', 'pos'];
+        fields.forEach(f => {
+            const sourceVal = document.getElementsByName(`${f}_${from}`)[0]?.value;
+            const targetEl = document.getElementsByName(`${f}_${to}`)[0];
+            if (targetEl) targetEl.value = sourceVal || "";
+        });
+
+        // B. Salin Dropdown (Provinsi, Kab, Kec, Desa)
+        const selects = ['prov', 'kab', 'kec', 'desa'];
+        selects.forEach(s => {
+            const sourceEl = document.getElementById(`${s}_${from}`);
+            const targetEl = document.getElementById(`${s}_${to}`);
+            
+            if (sourceEl && targetEl && sourceEl.selectedIndex >= 0) {
+                // Memaksa opsi yang dipilih di 'Ayah' muncul di 'Ibu'
+                targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
+                targetEl.value = sourceEl.value;
+            }
+        });
+    } catch (err) {
+        console.error("Gagal menyalin data:", err);
+    }
+}
+
+// Toggle Domisili Ibu
+function lockFields(suffix, isLocked) {
+    // 1. Tangani Dropdown (Select)
+    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
+    dropdowns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.disabled = isLocked;
+            el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
+        }
+    });
+
+    // 2. Tangani Input Teks (Alamat, RT, RW, Pos)
+    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
+    inputs.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) {
+            el.readOnly = isLocked;
+            el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
+            el.style.color = isLocked ? "#6c757d" : "#000000"; // Teks jadi abu-abu
+            el.style.cursor = isLocked ? "not-allowed" : "text";
+        }
+    });
+}
+
+function resetFields(suffix) {
+    // 1. Reset Dropdown ke opsi awal
+    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
+    dropdowns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = `<option value="">Pilih ${id.split('_')[0].toUpperCase()}</option>`;
+    });
+
+    // 2. Reset Input Teks
+    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
+    inputs.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) el.value = "";
+    });
+}
+
+// Toggle Domisili Santri
+function toggleDomisiliSantri(val) {
+    const box = document.getElementById('box_santri');
+    if (!box) return;
+
+    // Tampilkan box kecuali jika pilihan kosong
+    box.style.display = (val === "") ? 'none' : 'grid';
+
+    if (val === 'mukim') {
+        // Isi otomatis dengan alamat Pesantren (Contoh: Karawang)
+        isiAlamatPesantren();
+        lockFields('santri', true); // Kunci agar tidak diubah
+
+    } else if (val === 'sama') {
+        // Validasi data Ayah
+        if (!dataAyahLengkap())  
+         Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan',
+                text: 'Lengkapi Data Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
+                confirmButtonColor: '#f4ce14'
+            });
+
+        copyDataAlamat('ayah', 'santri');
+        lockFields('santri', true);
+
+    } else if (val === 'beda') {
+        resetFields('santri');
+        lockFields('santri', false);
+        loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
+    }
+}
+
+function isiAlamatPesantren() {
+    // Contoh Alamat Pesantren
+    const dataPesantren = {
+        prov: "32", // Kode Provinsi Jawa Barat
+        prov_text: "JAWA BARAT",
+        kab: "3215", // Kode Kab. Karawang
+        kab_text: "KABUPATEN KARAWANG",
+        kec: "321516", // Contoh Kode Kec. Jatisari
+        kec_text: "JATISARI",
+        desa: "3215162001", // Contoh Kode Desa
+        desa_text: "JATISARI",
+        al: "Dusun Sukamaju II",
+        rt: "002",
+        rw: "004",
+        pos: "41374"
+    };
+
+    // Set Dropdown secara paksa (Force Insert)
+    const setSelect = (id, val, text) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.innerHTML = `<option value="${val}">${text}</option>`;
+            el.value = val;
+        }
+    };
+
+    setSelect('prov_santri', dataPesantren.prov, dataPesantren.prov_text);
+    setSelect('kab_santri', dataPesantren.kab, dataPesantren.kab_text);
+    setSelect('kec_santri', dataPesantren.kec, dataPesantren.kec_text);
+    setSelect('desa_santri', dataPesantren.desa, dataPesantren.desa_text);
+
+    // Set Input Teks
+    document.getElementsByName('al_santri')[0].value = dataPesantren.al;
+    document.getElementsByName('rt_santri')[0].value = dataPesantren.rt;
+    document.getElementsByName('rw_santri')[0].value = dataPesantren.rw;
+    document.getElementsByName('pos_santri')[0].value = dataPesantren.pos;
+}
+/* =========================================================
+   FUNGSI NAVIGASI & VALIDASI TERPADU
+========================================================= */
+function validateInput(tabId) {
+    const isNumeric = /^\d+$/;
+    
+    // 1. Definisikan Helper 'check' di baris paling atas fungsi
+    const check = (name, label) => {
+        const el = document.getElementsByName(name)[0];
+        if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Data Belum Lengkap',
+                html: `Field <b>${label}</b> wajib diisi!`,
+                confirmButtonColor: '#1a5319'
+            });
+            return false;
+        }
+        return true;
+    };
+
+    // --- LOGIKA VALIDASI TAB ---
+    
+    if (tabId === 'santri') {
+        if (!check('nama_santri', 'Nama Lengkap')) return false;
+        if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
+        if (!check('nik', 'NIK')) return false;
+        if (!check('no_kk', 'Nomor KK')) return false;
+        if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
+
+        const nikVal = document.getElementsByName('nik')[0]?.value || "";
+        if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
+            Swal.fire('Format Salah', 'NIK Santri harus 16 digit angka!', 'error');
+            return false;
+        }
+    } 
+
+    else if (tabId === 'ortu') {
+        const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
+
+        if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
+        if (!check('st_ayah', 'Status Ayah')) return false;
+
+        // Validasi NIK/KK hanya jika Ayah 'Masih Hidup'
+        if (statusAyah === 'Masih Hidup') {
+            if (!check('nik_ayah', 'NIK Ayah')) return false;
+            if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
+            
+            const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
+            if (nikA.length !== 16 || !isNumeric.test(nikA)) {
+                Swal.fire('Format Salah', 'NIK Ayah harus 16 digit angka!', 'error');
+                return false;
+            }
+        }
+
+        if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
+        if (!check('st_wali', 'Status Wali Santri')) return false;
+    }
+
+    else if (tabId === 'alamat') {
+        if (!check('prov_ayah', 'Provinsi')) return false;
+        if (!check('kab_ayah', 'Kabupaten')) return false;
+        if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
+        if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
+        if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
+    }
+
+// --- TAMBAHKAN LOGIKA UNTUK TAB PERNYATAAN DI SINI ---
+    else if (tabId === 'pernyataan') {
+        const elCek = document.getElementsByName('cek_pernyataan')[0];
+        if (!elCek || !elCek.checked) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Persetujuan Diperlukan',
+                text: 'Anda harus menyetujui seluruh pernyataan sebelum dapat menyimpan pendaftaran.',
+                confirmButtonColor: '#d33'
+            });
+            return false;
+        }
+    }
+
+    return true; 
+}
+
+function openTab(evt, targetId) {
+    // 1. Sembunyikan semua konten tab
+    const tabcontents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+        tabcontents[i].classList.remove("active");
+    }
+
+    // 2. Hilangkan class 'active' dari semua tombol menu (tab-link)
+    const tablinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    // 3. Tampilkan tab yang dituju
+    const targetTab = document.getElementById(targetId);
+    if (targetTab) {
+        targetTab.style.display = "block";
+        targetTab.classList.add("active");
+    } else {
+        console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
+    }
+
+    // 4. Tandai tombol yang aktif di menu atas
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active');
+    } else {
+        // Jika dipanggil dari nextTab (tanpa event klik langsung di menu)
+        const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
+        if (autoBtn) autoBtn.classList.add('active');
+    }
+
+    // 5. Scroll otomatis ke atas agar user tidak bingung
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextTab(targetId) {
+    // Mencari tab yang aktif saat ini
+    const currentTab = document.querySelector('.tab-content.active');
+    const currentTabId = currentTab ? currentTab.id : 'santri';
+
+    // Jalankan validasi
+    if (validateInput(currentTabId)) {
+        openTab(null, targetId);
+    }
+}
+
+function prevTab(targetId) {
+    openTab(null, targetId);
+}
+
+function toggleAyahFields(status) {
+    const fieldsToLock = [
+        'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
+        'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
+    ];
+
+    const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
+
+    fieldsToLock.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) {
+            if (isLocked) {
+                // Jangan isi "-" jika tipenya date atau select
+                if (el.type === 'date' || el.tagName === 'SELECT') {
+                    el.value = ""; 
+                } else {
+                    el.value = "-";
+                }
+                
+                el.tagName === 'SELECT' ? el.disabled = true : el.readOnly = true;
+                el.style.backgroundColor = "#e9ecef";
+                el.style.opacity = "0.7";
+            } else {
+                if (el.value === "-") el.value = "";
+                el.tagName === 'SELECT' ? el.disabled = false : el.readOnly = false;
+                el.style.backgroundColor = "#ffffff";
+                el.style.opacity = "1";
+            }
+        }
+    });
+}
+
+/* =========================================================
+   FUNGSI TOGGLE NISN & HP (READONLY & SAMAR)
+========================================================= */
+
+// Handler untuk Checkbox NISN
+function handleNoNISN(checked) {
+    const nisnInput = document.getElementsByName('nisn')[0]; 
+    if (!nisnInput) return;
+    
+    if (checked) {
+        // Jika dicentang: Isi angka nol, buat readonly, dan buat samar
+        nisnInput.value = '0000000000'; 
+        nisnInput.readOnly = true;
+        nisnInput.style.backgroundColor = '#e9ecef'; // Warna abu-abu samar
+        nisnInput.style.color = '#6c757d';           // Warna teks pudar
+        nisnInput.style.cursor = 'not-allowed';
+    } else {
+        // Jika centang dilepas: Kosongkan dan aktifkan kembali
+        nisnInput.value = '';
+        nisnInput.readOnly = false;
+        nisnInput.style.backgroundColor = '#ffffff';
+        nisnInput.style.color = '#000000';
+        nisnInput.style.cursor = 'text';
+    }
+}
+
+// Tambahkan fungsi ini di bagian script Anda
+function prosesSimpanFinal() {
+    // 1. Ambil elemen checkbox
+    const elCek = document.getElementsByName('cek_pernyataan')[0];
+    
+    // 2. Validasi: Jika belum dicentang, munculkan peringatan
+    if (!elCek || !elCek.checked) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Persetujuan Diperlukan',
+            text: 'Silakan centang persetujuan pernyataan sebelum menyimpan pendaftaran.',
+            confirmButtonColor: '#d33'
+        });
+        return; // Berhenti di sini
+    }
+
+    // 3. Jika sudah dicentang, panggil fungsi simpan utama
+    // Pastikan handleFormSubmit sudah diekspos ke window
+    if (typeof window.handleFormSubmit === "function") {
+        window.handleFormSubmit();
+    } else {
+        console.error("Fungsi handleFormSubmit tidak ditemukan!");
+    }
+}
+
+// Handler untuk Checkbox HP (Ayah/Ibu)
+function toggleHP(cb, inputName) {
+    const hpInput = document.getElementsByName(inputName)[0];
+    if (!hpInput) return;
+    
+    if (cb.checked) {
+        // Jika dicentang: Isi teks, buat readonly, dan buat samar
+        hpInput.value = 'TIDAK MEMILIKI';
+        hpInput.readOnly = true;
+        hpInput.style.backgroundColor = '#e9ecef';
+        hpInput.style.color = '#6c757d';
+        hpInput.style.cursor = 'not-allowed';
+    } else {
+        // Jika centang dilepas: Kosongkan kembali
+        hpInput.value = '';
+        hpInput.readOnly = false;
+        hpInput.style.backgroundColor = '#ffffff';
+        hpInput.style.color = '#000000';
+        hpInput.style.cursor = 'text';
+    }
+}
+
+function kirimWA() {
+
+    const gV = (name) => {
+        const el = document.getElementsByName(name)[0];
+        return el ? (el.value.trim() || "-") : "-";
+    };
+
+    const gT = (idOrName) => {
+        const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
+
+        if (el && el.tagName === 'SELECT' && el.selectedIndex !== -1) {
+            const teks = el.options[el.selectedIndex].text;
+            return teks.includes("Pilih") ? "-" : teks;
+        }
+
+        return el ? (el.value.trim() || "-") : "-";
+    };
+
+    // ICON STATUS
+    const elCek = document.getElementsByName('cek_pernyataan')[0];
+
+    const status_setuju =
+        (elCek && elCek.checked)
+            ? "\u2705 SUDAH MENYETUJUI"
+            : "\u274C BELUM MENYETUJUI";
+
+    // EMOJI UNICODE
+   const ICON_KERTAS      = "\u{1F4C4}"; // 📄 Dokumen
+   const ICON_CLIPBOARD   = "\u{1F4CB}"; // 📋 Clipboard
+   const ICON_PENSIL      = "\u270F\uFE0F"; // ✏️ Pensil
+   const ICON_CENTANG     = "\u2705"; // ✅
+   const ICON_SILANG      = "\u274C"; // ❌
+   const ICON_PERINGATAN  = "\u26A0\uFE0F"; // ⚠️
+   const ICON_TIMBANGAN   = "\u2696\uFE0F"; // ⚖️
+   const ICON_TTD         = "\u{1F58A}\uFE0F"; // 🖊️ Tanda tangan
+   const ICON_MEMO        = "\u{1F4DD}"; // 📝 Memo
+   const ICON_FOLDER      = "\u{1F4C1}"; // 📁
+   const ICON_SURAT       = "\u2709\uFE0F"; // ✉️
+   const ICON_AYAH   = "\u{1F472}"; // 👲 pria berpeci
+   const ICON_IBU    = "\u{1F9D5}"; // 🧕 wanita berhijab
+   const ICON_SANTRI = "\u{1F9D2}"; // 🧒 santri/anak          = "\u{1F534}"; // 🔴
+   const RUMAH_AYAH       = "\u{1F3E1}"; // 🏡 Rumah ayah
+   const RUMAH_IBU        = "\u{1F3E0}"; // 🏠 Rumah ibu
+   const RUMAH_SANTRI     = "\u{1F3D8}\uFE0F"; // 🏘️ Domisili santri
+   const CLIP             = "\u{1F4CB}"; // 📋
+
+
+   // 3. Menyusun Pesan (Template String)
+    let m = "*PENDAFTARAN SANTRI BARU*\n";
+    m += "*DAARUL KHOIROT AL-MADANI*\n";
+    m += "------------------------------------------\n\n";
+
+    // 🟢 DATA SANTRI
+    m += "*" + ICON_SANTRI + " DATA SANTRI*\n";
+    m += "• Nama: " + gV('nama_santri') + "\n";
+    m += "• Unit: " + gV('tingkat_unit') + "\n";
+    m += "• NIK: " + gV('nik') + "\n";
+    m += "• No. KK: " + gV('no_kk') + "\n";
+    m += "• NISN: " + gV('nisn') + "\n";
+    m += "• Gender: " + gV('jenis_kelamin') + "\n";
+    m += "• TTL: " + gV('tmpt_lahir') + ", " + gV('tgl_lahir') + "\n";
+    m += "• Anak Ke: " + gV('anak_ke') + " dari " + gV('jml_saudara') + " bersaudara\n";
+    m += "• Cita-cita: " + gV('cita') + "\n";
+    m += "• Hobi: " + gV('hobi') + "\n";
+    m += "• Keb. Khusus: " + gV('keb_khusus') + "\n";
+    m += "• Disabilitas: " + gV('disabilitas') + "\n";
+    m += "• Biaya Oleh: " + gV('biaya') + "\n\n";
+
+    // 🔵 DATA AYAH
+    m += "*" + ICON_AYAH + " DATA AYAH*\n";
+    m += "• Status: " + gV('st_ayah') + "\n";
+    m += "• Nama Ayah: " + gV('nama_ayah') + "\n";
+    m += "• WN: " + gV('wn_ayah') + "\n";
+    m += "• NIK Ayah: " + gV('nik_ayah') + "\n";
+    m += "• KK Ayah: " + gV('kk_ayah') + "\n";
+    m += "• TTL: " + gV('tmpt_ayah') + ", " + gV('tgl_ayah') + "\n";
+    m += "• Pendidikan: " + gV('pdk_ayah') + "\n";
+    m += "• Pekerjaan: " + gV('pjk_ayah') + "\n";
+    m += "• Penghasilan: " + gV('hasil_ayah') + "\n";
+    m += "• No. HP: " + gV('hp_ayah') + "\n\n";
+
+    // 🔴 DATA IBU
+    m += "*" + ICON_IBU + " DATA IBU*\n";
+    m += "• Status: " + gV('st_ibu') + "\n";
+    m += "• Nama Ibu: " + gV('nama_ibu') + "\n";
+    m += "• WN: " + gV('wn_ibu') + "\n";
+    m += "• NIK Ibu: " + gV('nik_ibu') + "\n";
+    m += "• TTL: " + gV('tmpt_ibu') + ", " + gV('tgl_ibu') + "\n";
+    m += "• Pendidikan: " + gV('pdk_ibu') + "\n";
+    m += "• Pekerjaan: " + gV('pjk_ibu') + "\n";
+    m += "• Penghasilan: " + gV('hasil_ibu') + "\n";
+    m += "• No. HP: " + gV('hp_ibu') + "\n\n";
+
+    // 🏠 ALAMAT (TUNTAS: Mengambil NAMA, Bukan KODE)
+    m += "*" + RUMAH_AYAH  + " ALAMAT AYAH*\n";
+    m += "• Status Milik: " + gV('milik_ayah') + "\n";
+    m += "• Alamat: " + gV('al_ayah') + ", RT." + gV('rt_ayah') + "/RW." + gV('rw_ayah') + "\n";
+    m += "Desa " + gT('desa_ayah') + ", Kec. " + gT('kec_ayah') + "\n";
+    m += "• Wilayah: " + gT('kab_ayah') + ", " + gT('prov_ayah') + "\n\n";
+    m += "*" + RUMAH_IBU  + " ALAMAT IBU*\n";
+    m += "• Alamat: " + gV('al_ibu') + ", RT." + gV('rt_ibu') + "/RW." + gV('rw_ibu') + "\n";
+    m += "Desa " + gT('desa_ibu') + ", Kec. " + gT('kec_ibu') + "\n";
+    m += "• Wilayah: " + gT('kab_ibu') + ", " + gT('prov_ibu') + "\n\n";
+    m += "*" + RUMAH_SANTRI  + " ALAMAT SANTRI*\n";
+    m += "• Alamat: " + gV('al_santri') + ", RT." + gV('rt_santri') + "/RW." + gV('rw_santri') + "\n";
+    m += "Desa " + gT('desa_santri') + ", Kec. " + gT('kec_santri') + "\n";
+    m += "• Wilayah: " + gT('kab_santri') + ", " + gT('prov_santri') + "\n\n";
+
+    // 📋 DATA WAWANCARA
+    m += "*" + CLIP + " INFORMASI TAMBAHAN*\n";
+    m += "• Visi: " + gV('w_visi') + "\n";
+    m += "• Pola: " + gV('w_pola') + "\n";
+    m += "• Perilaku: " + gV('w_perilaku') + "\n";
+    m += "• Sehat: " + gV('w_sehat') + "\n";
+    m += "• Tazir: " + gV('w_tazir') + "\n";
+    m += "• Harapan: " + gV('w_harapan') + "\n\n";
+
+    m += "*" + ICON_MEMO   + " PERNYATAAN ORANG TUA*\n";
+    m += "• Status: " + status_setuju + "\n\n";
+    
+    m += "------------------------------------------\n";
+    m += "_Pendaftaran ini telah disetujui secara digital._\n";
+    m += "_Mohon segera diproses, Terima Kasih._";
+
+    // 4. EKSEKUSI (WAJIB pakai encodeURIComponent agar ikon tidak rusak)
+    const adminNumber = "6281401643188";
+    const waUrl = "https://wa.me/" + adminNumber + "?text=" + encodeURIComponent(m);
+    
+    window.open(waUrl, '_blank');
+}
+    
+   </script>    
+
+<a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp fa-lg"></i>
+        <span>Tanya Admin</span>
+    </a>
+
+</body>
+</html>
