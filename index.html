@@ -94,7 +94,7 @@
     @media (max-width: 768px) {
         header { height: 65px; padding: 0 15px; }
         .logo img { height: 35px; }
-        .logo h1 { font-size: 0.85rem !important; margin-right: 10px; }
+        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
 
         /* Sembunyikan navigasi teks, munculkan tombol menu */
         nav ul { 
@@ -108,12 +108,29 @@
             border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; 
         }
 
-        .hero-content h1 { font-size: 1.2rem !important; }
-        .hero-content p { font-size: 0.8rem !important; }
+        .hero-content h1 { font-size: 1.3rem !important; }
+        .hero-content p { font-size: 0.9rem !important; }
         .hero-container { height: 250px; }
 
         .about-wrap i.fa-mosque { font-size: 3rem !important; }
-        .about-wrap p { font-size: 1.1rem !important; }
+       .about-wrap p { 
+    font-size: 1.3rem !important; 
+    line-height: 1.6;
+    max-width: 850px; /* Membatasi lebar agar teks tidak terlalu melar ke samping */
+    margin: 0 auto;
+    color: white;
+    text-align: justify; /* MEMBUAT TEKS RATA KANAN-KIRI */
+    text-justify: inter-word; /* Mengoptimalkan jarak antar kata agar rapi */
+}
+
+/* Penyesuaian untuk HP agar tidak kaku */
+@media (max-width: 768px) {
+    .about-wrap p {
+        font-size: 1.1rem !important;
+        text-align: center; /* Di HP teks biasanya lebih bagus rata tengah */
+        padding: 0 10px;
+    }
+}
 
         .unit-grid { grid-template-columns: 1fr; }
         .unit-card { flex-direction: row; text-align: left; padding: 15px; }
