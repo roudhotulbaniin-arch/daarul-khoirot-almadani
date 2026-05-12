@@ -78,66 +78,53 @@ footer { background: #0d2e0d; color: white; padding: 40px 5% 20px; text-align: c
 /* --- 6. RESPONSIVE HP (768px ke bawah) --- */
 /* --- PERBAIKAN TATA LETAK HP --- */
 @media (max-width: 768px) {
-    /* 1. Header: Logo & Menu Sejajar */
-    header {
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 10px 15px !important;
-    }
-
-    .logo h1 {
-        font-size: 0.85rem !important; /* Ukuran pas agar 1 baris di header */
-        white-space: nowrap;
-    }
-
-    /* 2. Hero Section: Nama Lembaga 1 Baris */
-    .hero-content h1 { 
-        font-size: 1.4rem !important; /* Dikecilkan sedikit agar muat 1 baris */
-        white-space: nowrap; 
+    /* 1. Judul Header & Hero 1 Baris */
+    .logo h1, .hero-content h1 {
+        font-size: 1.3rem !important;
+        white-space: nowrap !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
         width: 100%;
     }
-    .hero-content p { 
-        font-size: 0.85rem !important; 
-    }
-    .hero-container { 
-        height: 250px; 
+
+    /* 2. Judul Section (Tentang & Unit) Agar Simetris */
+    .box-header {
+        flex-direction: row !important; /* Pastikan tetap sejajar menyamping */
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin-bottom: 20px !important;
     }
 
-    /* 3. Tentang Lembaga: Simetris & Proporsional */
-    .about-wrap { 
-        flex-direction: column !important; 
-        align-items: center !important;
-        text-align: center !important;
-        gap: 15px;
+    .box-header i {
+        font-size: 1.4rem !important; /* Ukuran ikon info & topi toga yang pas */
+        margin: 0 !important;
     }
-    .about-wrap i { 
-        font-size: 4rem !important; /* Ukuran ikon masjid dibuat proporsional */
+
+    .box-header h2 {
+        font-size: 1.3rem !important; /* Ukuran teks judul yang proporsional */
+        border-bottom: 2px solid #f4ce14;
+        padding-bottom: 3px;
+        margin: 0 !important;
+    }
+
+    /* 3. Isi Konten Tentang Lembaga */
+    .about-wrap {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+
+    .about-wrap i.fa-mosque {
+        font-size: 4rem !important;
         margin-bottom: 10px;
     }
-    .about-wrap p { 
-        font-size: 1rem !important; 
-        text-align: center !important;
-    }
 
-    /* 4. Unit Pendidikan: Rapi & Simetris */
-    .unit-grid { 
-        grid-template-columns: 1fr !important; 
-        padding: 0 10px;
-    }
-    .unit-card {
-        flex-direction: row;
-        align-items: center;
-        text-align: left;
-        padding: 15px;
-    }
-    .unit-card img {
-        width: 40px;
-        height: 40px;
+    /* 4. Unit Pendidikan 1 Kolom */
+    .unit-grid {
+        grid-template-columns: 1fr !important;
     }
 }
-
 </style>
 </head>
 <body>
