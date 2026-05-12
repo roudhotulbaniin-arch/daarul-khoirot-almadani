@@ -11,243 +11,114 @@
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
 
-    /* --- 2. HEADER & NAVIGASI (KEMBALI KE STANDAR KOMPUTER) --- */
-    /* --- HEADER KONSISTEN & PROPORSIONAL --- */
-/* --- HEADER KONSISTEN & PROPORSIONAL --- */
-header {
-    background: #1a5d1a; 
-    color: white; 
-    padding: 10px 4%; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000;
-    min-height: 60px; /* Menjaga tinggi header tetap stabil */
-}
-
-.logo { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    flex: 1; /* Memberikan ruang lebih untuk nama lembaga */
-}
-
-.logo img { 
-    max-height: 40px; /* Ukuran logo yang proporsional */
-    width: auto;
-}
-
-.logo h1 { 
-    font-size: 1.2rem; /* Ukuran standar untuk desktop */
-    font-weight: 700; 
-    white-space: nowrap; /* Memaksa satu baris */
-    letter-spacing: 0.5px;
-    margin: 0;
-}
-
-/* --- OPTIMASI KHUSUS MOBILE (HP) --- */
-@media (max-width: 768px) {
+    /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
     header {
-        padding: 8px 3%;
+        background: #1a5d1a; 
+        color: white; 
+        padding: 10px 4%; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        position: sticky; 
+        top: 0; 
+        z-index: 1000;
+        min-height: 70px;
     }
 
-    .logo img { 
-        max-height: 32px; /* Sedikit mengecil di HP agar ruang teks luas */
+    .logo { 
+        display: flex; 
+        align-items: center; 
+        gap: 12px; 
+        flex-shrink: 0;
     }
+
+    .logo img { height: 45px; width: auto; }
 
     .logo h1 { 
-        /* Ukuran font otomatis mengecil agar tetap 1 baris di layar HP */
-        font-size: 0.9rem !important; 
-        letter-spacing: 0px;
+        font-size: 1.3rem; 
+        font-weight: 700; 
+        white-space: nowrap; 
+        letter-spacing: 0.5px;
     }
 
-    #menu-toggle {
-        padding: 5px 8px;
-        font-size: 0.8rem;
-        margin-left: 10px;
+    /* Navigasi Desktop */
+    nav ul { list-style: none; display: flex; gap: 20px; }
+    nav ul li a { 
+        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+        display: flex; align-items: center; gap: 5px; 
     }
-}
-    
-    nav ul { list-style: none; display: flex; gap: 15px; }
-    nav ul li a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px; }
 
-/* Extra small screen (HP layar kecil) */
-@media (max-width: 360px) {
-    .logo h1 { 
-        font-size: 0.8rem !important; 
-    }
-}
-    
-    /* --- 3. HERO (TETAP 1 BARIS) --- */
+    /* Tombol menu disembunyikan di komputer */
+    #menu-toggle { display: none; }
+
+    /* --- 3. HERO --- */
     .hero-container { position: relative; width: 100%; height: 400px; overflow: hidden; background: #000; }
     .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
     .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
     .hero-content h1 { font-size: 2.8rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
     .hero-content p { font-size: 1.2rem; white-space: nowrap; margin-top: 10px; }
 
-    /* --- 4. BOX KONTEN --- */
+    /* --- 4. BOX KONTEN & TENTANG LEMBAGA --- */
     .content-box { background-color: #144514; margin: 30px auto; padding: 40px 5%; width: 94%; border-radius: 12px; color: white; border: 4px solid #f4ce14; }
     .box-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 30px; white-space: nowrap; }
     .box-header i { color: #f4ce14; font-size: 1.6rem; }
     .box-header h2 { font-size: 1.6rem; border-bottom: 2px solid #f4ce14; padding-bottom: 5px; }
 
-    /* --- 5. UNIT PENDIDIKAN (KEMBALI KE 3 KOLOM DI KOMPUTER) --- */
+    .about-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; }
+    .about-wrap i.fa-mosque { color: #f4ce14 !important; font-size: 4rem !important; }
+    .about-wrap p { font-size: 1.3rem; line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+    /* --- 5. UNIT PENDIDIKAN (3 KOLOM KOMPUTER) --- */
     .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .unit-card { 
-        background: white; padding: 20px; border-radius: 12px; 
-        display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; 
-        text-decoration: none; color: #333; border-bottom: 6px solid #f4ce14; transition: 0.3s;
+        background: white; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; 
+        align-items: center; text-align: center; gap: 15px; text-decoration: none; color: #333; 
+        border-bottom: 6px solid #f4ce14; transition: 0.3s;
     }
-    .unit-card:hover { transform: translateY(-5px); }
     .unit-card img { width: 60px; height: 60px; flex-shrink: 0; }
     .unit-card h3 { font-size: 1rem; color: #1a5d1a; font-weight: 800; }
-    .unit-card p { font-size: 0.85rem; color: #666; white-space: normal; }
 
-    /* --- 6. WA FLOAT DENGAN ANIMASI GLOW & DENYUT --- */
+    /* --- 6. WA FLOAT --- */
     .whatsapp-float {
         position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
         padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: wa-glow 2s infinite ease-in-out;
+        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
     }
-
     @keyframes wa-glow {
         0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
         70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
         100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    /* --- 7. RESPONSIVE KHUSUS HP (MAX 768px) --- */
+    /* --- 7. RESPONSIVE MASTER (HP) --- */
     @media (max-width: 768px) {
-        #menu-toggle { display: block; }
-        nav ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; }
-        nav.show ul { display: flex !important; }
+        header { height: 65px; padding: 0 15px; }
+        .logo img { height: 35px; }
+        .logo h1 { font-size: 0.85rem !important; margin-right: 10px; }
 
-        .hero-content h1 { font-size: 1.4rem !important; }
-        .hero-content p { font-size: 0.9rem !important; }
+        /* Sembunyikan navigasi teks, munculkan tombol menu */
+        nav ul { 
+            display: none; flex-direction: column; width: 100%; position: absolute; 
+            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
+        }
+        nav.show ul { display: flex !important; }
+        
+        #menu-toggle { 
+            display: block !important; background: #f4ce14; color: #1a5d1a; 
+            border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; 
+        }
+
+        .hero-content h1 { font-size: 1.2rem !important; }
+        .hero-content p { font-size: 0.8rem !important; }
         .hero-container { height: 250px; }
 
-        .box-header h2 { font-size: 1.2rem; }
-        
-        /* Unit Pendidikan jadi 1 kolom di HP */
+        .about-wrap i.fa-mosque { font-size: 3rem !important; }
+        .about-wrap p { font-size: 1.1rem !important; }
+
         .unit-grid { grid-template-columns: 1fr; }
         .unit-card { flex-direction: row; text-align: left; padding: 15px; }
-        .unit-card img { width: 45px; height: 45px; }
     }
 
-    
-@media (max-width: 768px) {
-    header {
-        /* Memastikan header tetap satu baris dan menyebar ke pinggir */
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 10px 15px !important; /* Jarak aman dari pinggir layar HP */
-    }
-
-    .logo {
-        display: flex;
-        align-items: center;
-        gap: 8px; /* Jarak antara gambar logo dan teks h1 */
-        flex: 1; /* Memberikan ruang agar teks bisa mengambil tempat yang tersedia */
-    }
-
-    .logo h1 {
-        /* Ukuran font diperkecil agar muat 1 baris di HP dan tidak menabrak menu */
-        font-size: 1rem !important; 
-        white-space: nowrap;
-        margin-right: 15px; /* MEMBERIKAN GAP/JARAK antara teks dan tombol menu */
-    }
-
-}
-   /* --- PENYESUAIAN PROPORSI TENTANG LEMBAGA --- */
-.about-wrap { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 15px; /* Jarak antara ikon dan teks sedikit dirapatkan */
-    text-align: center;
-    padding: 10px 5%;
-}
-
-.about-wrap i.fa-mosque { 
-    color: #f4ce14 !important; 
-    font-size: 4rem !important;  /* Ukuran ikon diturunkan agar lebih proporsional */
-    margin-bottom: 5px !important;
-}
-
-.about-wrap p { 
-    font-size: 1.3rem !important; /* Ukuran teks diperbesar agar lebih jelas */
-    line-height: 1.6;
-    max-width: 900px; /* Membatasi lebar teks agar nyaman dibaca di layar lebar */
-    margin: 0 auto;
-    color: white;
-}
-
-/* Penyesuaian khusus untuk HP agar tidak terlalu memenuhi layar */
-@media (max-width: 768px) {
-    .about-wrap i.fa-mosque { 
-        font-size: 3rem !important; /* Lebih kecil lagi di HP */
-    }
-    .about-wrap p {
-        font-size: 1.1rem !important; /* Teks tetap terbaca jelas di HP */
-    }
-}
-
-    /* --- PERBAIKAN SERAGAM KHUSUS HP --- */
-@media (max-width: 768px) {
-    header {
-        display: flex !important;
-        flex-direction: row !important; /* Paksa posisi menyamping */
-        justify-content: space-between !important; /* Logo kiri, Menu kanan */
-        align-items: center !important;
-        padding: 0 15px !important;
-        height: 60px !important; /* Tinggi header seragam di semua halaman */
-        background: #1a5d1a !important;
-    }
-
-    .logo {
-        display: flex !important;
-        align-items: center !important;
-        gap: 8px !important;
-        flex: 1 !important; /* Memberikan ruang teks seluas mungkin */
-    }
-
-    .logo img {
-        height: 32px !important; /* Ukuran icon kecil agar muat */
-        width: auto !important;
-    }
-
-    .logo h1 {
-        /* KUNCI: Ukuran font diperkecil agar 1 baris & tidak menabrak tombol menu */
-        font-size: 0.85rem !important; 
-        white-space: nowrap !important; 
-        overflow: hidden;
-        text-overflow: ellipsis; /* Jika layar sangat kecil, teks akan terpotong rapi */
-        color: white !important;
-        margin: 0 !important;
-    }
-
-    /* Sembunyikan navigasi teks biasa di HP */
-    nav ul { display: none !important; }
-
-    /* Tombol Menu harus terlihat jelas */
-    #menu-toggle {
-        display: block !important;
-        background: #f4ce14 !important; /* Kuning agar seragam dengan aksen web */
-        color: #1a5d1a !important;
-        border: none !important;
-        padding: 5px 10px !important;
-        border-radius: 4px !important;
-        font-size: 0.75rem !important;
-        font-weight: bold !important;
-        white-space: nowrap !important;
-    }
-}
     
     /* --- FOOTER --- */
     footer { 
