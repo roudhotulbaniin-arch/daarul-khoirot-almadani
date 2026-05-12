@@ -66,7 +66,24 @@
 
     .about-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; }
     .about-wrap i.fa-mosque { color: #f4ce14 !important; font-size: 4rem !important; }
-    .about-wrap p { font-size: 1.3rem; line-height: 1.6; max-width: 900px; margin: 0 auto; }
+    .about-wrap p { 
+    font-size: 1.3rem !important; 
+    line-height: 1.6;
+    max-width: 850px; /* Membatasi lebar agar teks tidak terlalu melar ke samping */
+    margin: 0 auto;
+    color: white;
+    text-align: justify; /* MEMBUAT TEKS RATA KANAN-KIRI */
+    text-justify: inter-word; /* Mengoptimalkan jarak antar kata agar rapi */
+}
+
+/* Penyesuaian untuk HP agar tidak kaku */
+@media (max-width: 768px) {
+    .about-wrap p {
+        font-size: 1.1rem !important;
+        text-align: center; /* Di HP teks biasanya lebih bagus rata tengah */
+        padding: 0 10px;
+    }
+}
 
     /* --- 5. UNIT PENDIDIKAN (3 KOLOM KOMPUTER) --- */
     .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -108,36 +125,18 @@
             border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; 
         }
 
-        .hero-content h1 { font-size: 1.3rem !important; }
+        .hero-content h1 { font-size: 1.4rem !important; }
         .hero-content p { font-size: 0.9rem !important; }
         .hero-container { height: 250px; }
 
         .about-wrap i.fa-mosque { font-size: 3rem !important; }
-       .about-wrap p { 
-    font-size: 1.3rem !important; 
-    line-height: 1.6;
-    max-width: 850px; /* Membatasi lebar agar teks tidak terlalu melar ke samping */
-    margin: 0 auto;
-    color: white;
-    text-align: justify; /* MEMBUAT TEKS RATA KANAN-KIRI */
-    text-justify: inter-word; /* Mengoptimalkan jarak antar kata agar rapi */
-}
-
-/* Penyesuaian untuk HP agar tidak kaku */
-@media (max-width: 768px) {
-    .about-wrap p {
-        font-size: 1.1rem !important;
-        text-align: center; /* Di HP teks biasanya lebih bagus rata tengah */
-        padding: 0 10px;
-    }
-}
+      .about-wrap p { font-size: 1.1rem !important; }
 
         .unit-grid { grid-template-columns: 1fr; }
         .unit-card { flex-direction: row; text-align: left; padding: 15px; }
     }
 
-    
-    /* --- FOOTER --- */
+        /* --- FOOTER --- */
     footer { 
         background: #0d2e0d; 
         color: white; 
