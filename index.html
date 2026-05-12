@@ -72,8 +72,8 @@
         nav ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; }
         nav.show ul { display: flex !important; }
 
-        .hero-content h1 { font-size: 1.1rem !important; }
-        .hero-content p { font-size: 0.7rem !important; }
+        .hero-content h1 { font-size: 1.4rem !important; }
+        .hero-content p { font-size: 0.9rem !important; }
         .hero-container { height: 250px; }
 
         .box-header h2 { font-size: 1.2rem; }
@@ -84,6 +84,61 @@
         .unit-card img { width: 45px; height: 45px; }
     }
 
+    
+@media (max-width: 768px) {
+    header {
+        /* Memastikan header tetap satu baris dan menyebar ke pinggir */
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 10px 15px !important; /* Jarak aman dari pinggir layar HP */
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px; /* Jarak antara gambar logo dan teks h1 */
+        flex: 1; /* Memberikan ruang agar teks bisa mengambil tempat yang tersedia */
+    }
+
+    .logo h1 {
+        /* Ukuran font diperkecil agar muat 1 baris di HP dan tidak menabrak menu */
+        font-size: 0.85rem !important; 
+        white-space: nowrap;
+        margin-right: 15px; /* MEMBERIKAN GAP/JARAK antara teks dan tombol menu */
+    }
+
+}
+    /* --- PERBAIKAN IKON MASJID --- */
+.about-wrap { 
+    display: flex; 
+    flex-direction: column; /* Mengubah arah menjadi kolom agar bisa di-center */
+    align-items: center;    /* Mengetengahkan ikon dan teks secara horizontal */
+    justify-content: center; 
+    gap: 20px; 
+    text-align: center;     /* Mengetengahkan teks penjelasan */
+}
+
+.about-wrap i.fa-mosque { 
+    color: #f4ce14 !important; /* Memastikan warna kuning menyala */
+    font-size: 6rem !important;  /* Ukuran diperbesar */
+    margin: 0 auto !important;   /* Memastikan margin berada di tengah */
+    display: block;
+}
+
+.about-wrap p { 
+    text-align: center; /* Opsional: membuat teks penjelasan juga rata tengah agar simetris dengan ikon */
+    max-width: 800px;   /* Membatasi lebar teks agar enak dibaca saat di tengah */
+    margin: 0 auto;
+}
+
+/* Penyesuaian untuk HP agar tidak terlalu raksasa */
+@media (max-width: 768px) {
+    .about-wrap i.fa-mosque { 
+        font-size: 4.5rem !important; 
+    }
+}
     
     /* --- FOOTER --- */
     footer { 
