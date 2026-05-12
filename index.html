@@ -104,39 +104,44 @@
 
     .logo h1 {
         /* Ukuran font diperkecil agar muat 1 baris di HP dan tidak menabrak menu */
-        font-size: 0.85rem !important; 
+        font-size: 1rem !important; 
         white-space: nowrap;
         margin-right: 15px; /* MEMBERIKAN GAP/JARAK antara teks dan tombol menu */
     }
 
 }
-    /* --- PERBAIKAN IKON MASJID --- */
+   /* --- PENYESUAIAN PROPORSI TENTANG LEMBAGA --- */
 .about-wrap { 
     display: flex; 
-    flex-direction: column; /* Mengubah arah menjadi kolom agar bisa di-center */
-    align-items: center;    /* Mengetengahkan ikon dan teks secara horizontal */
+    flex-direction: column; 
+    align-items: center; 
     justify-content: center; 
-    gap: 20px; 
-    text-align: center;     /* Mengetengahkan teks penjelasan */
+    gap: 15px; /* Jarak antara ikon dan teks sedikit dirapatkan */
+    text-align: center;
+    padding: 10px 5%;
 }
 
 .about-wrap i.fa-mosque { 
-    color: #f4ce14 !important; /* Memastikan warna kuning menyala */
-    font-size: 6rem !important;  /* Ukuran diperbesar */
-    margin: 0 auto !important;   /* Memastikan margin berada di tengah */
-    display: block;
+    color: #f4ce14 !important; 
+    font-size: 4rem !important;  /* Ukuran ikon diturunkan agar lebih proporsional */
+    margin-bottom: 5px !important;
 }
 
 .about-wrap p { 
-    text-align: center; /* Opsional: membuat teks penjelasan juga rata tengah agar simetris dengan ikon */
-    max-width: 800px;   /* Membatasi lebar teks agar enak dibaca saat di tengah */
+    font-size: 1.3rem !important; /* Ukuran teks diperbesar agar lebih jelas */
+    line-height: 1.6;
+    max-width: 900px; /* Membatasi lebar teks agar nyaman dibaca di layar lebar */
     margin: 0 auto;
+    color: white;
 }
 
-/* Penyesuaian untuk HP agar tidak terlalu raksasa */
+/* Penyesuaian khusus untuk HP agar tidak terlalu memenuhi layar */
 @media (max-width: 768px) {
     .about-wrap i.fa-mosque { 
-        font-size: 4.5rem !important; 
+        font-size: 3rem !important; /* Lebih kecil lagi di HP */
+    }
+    .about-wrap p {
+        font-size: 1.1rem !important; /* Teks tetap terbaca jelas di HP */
     }
 }
     
