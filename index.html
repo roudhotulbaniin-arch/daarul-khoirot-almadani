@@ -7,6 +7,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
 <style>
+     :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --light-bg: #f4f7f6;
+            --dark-footer: #0d2e0d;
+        }
+
+      nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s; 
+        }
+
+        nav ul li a i { color: var(--secondary-color) !important; font-size: 0.9rem; }
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+        .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
     /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
