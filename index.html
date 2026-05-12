@@ -12,18 +12,69 @@
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
 
     /* --- 2. HEADER & NAVIGASI (KEMBALI KE STANDAR KOMPUTER) --- */
-    header { 
-        background: #1a5d1a; color: white; padding: 12px 4%; 
-        display: flex; justify-content: space-between; align-items: center; 
-        position: sticky; top: 0; z-index: 1000; 
+    /* --- HEADER KONSISTEN & PROPORSIONAL --- */
+header {
+    background: #1a5d1a; 
+    color: white; 
+    padding: 10px 4%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+    min-height: 60px; /* Menjaga tinggi header tetap stabil */
+}
+
+.logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    flex: 1; /* Memberikan ruang lebih untuk nama lembaga */
+}
+
+.logo img { 
+    max-height: 40px; /* Ukuran logo yang proporsional */
+    width: auto;
+}
+
+.logo h1 { 
+    font-size: 1.2rem; /* Ukuran standar untuk desktop */
+    font-weight: 700; 
+    white-space: nowrap; /* Memaksa satu baris */
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* --- OPTIMASI KHUSUS MOBILE (HP) --- */
+@media (max-width: 768px) {
+    header {
+        padding: 8px 3%;
     }
-    .logo { display: flex; align-items: center; gap: 8px; }
-    .logo img { max-height: 35px; }
-    .logo h1 { font-size: 1.1rem; font-weight: 700; white-space: nowrap; }
 
-    /* Sembunyikan tombol menu di komputer */
-    #menu-toggle { display: none; background: none; border: 1px solid white; color: white; padding: 5px 12px; border-radius: 5px; cursor: pointer; }
+    .logo img { 
+        max-height: 32px; /* Sedikit mengecil di HP agar ruang teks luas */
+    }
 
+    .logo h1 { 
+        /* Ukuran font otomatis mengecil agar tetap 1 baris di layar HP */
+        font-size: 0.9rem !important; 
+        letter-spacing: 0px;
+    }
+    
+    #menu-toggle {
+        padding: 5px 8px;
+        font-size: 0.8rem;
+        margin-left: 10px;
+    }
+}
+
+/* Extra small screen (HP layar kecil) */
+@media (max-width: 360px) {
+    .logo h1 { 
+        font-size: 0.8rem !important; 
+    }
+}
     nav ul { list-style: none; display: flex; gap: 15px; }
     nav ul li a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px; }
 
