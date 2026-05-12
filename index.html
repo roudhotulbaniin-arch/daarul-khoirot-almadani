@@ -7,111 +7,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
 <style>
-    /* --- DASAR --- */
+    /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
 
-    /* --- HEADER & NAVIGASI --- */
+    /* --- 2. HEADER & NAVIGASI (KEMBALI KE STANDAR KOMPUTER) --- */
     header { 
-        background: #1a5d1a; 
-        color: white; 
-        padding: 12px 4%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000; 
+        background: #1a5d1a; color: white; padding: 12px 4%; 
+        display: flex; justify-content: space-between; align-items: center; 
+        position: sticky; top: 0; z-index: 1000; 
     }
     .logo { display: flex; align-items: center; gap: 8px; }
     .logo img { max-height: 35px; }
-    .logo h1 { font-size: 1.1rem; font-weight: 700; white-space: nowrap; letter-spacing: 0.5px; }
+    .logo h1 { font-size: 1.1rem; font-weight: 700; white-space: nowrap; }
 
-    nav ul { list-style: none; display: flex; gap: 10px; }
+    /* Sembunyikan tombol menu di komputer */
+    #menu-toggle { display: none; background: none; border: 1px solid white; color: white; padding: 5px 12px; border-radius: 5px; cursor: pointer; }
+
+    nav ul { list-style: none; display: flex; gap: 15px; }
     nav ul li a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px; }
 
-    /* --- HERO --- */
-    .hero-container { position: relative; width: 100%; height: 350px; overflow: hidden; background: #000; }
+    /* --- 3. HERO (TETAP 1 BARIS) --- */
+    .hero-container { position: relative; width: 100%; height: 400px; overflow: hidden; background: #000; }
     .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-    .hero-content {
-        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-        text-align: center; color: white; width: 95%; z-index: 2;
-    }
-    /* Memaksa Teks Hero 1 Baris */
-    .hero-content h1 { 
-        font-size: 1.6rem; 
-        font-weight: 800; 
-        white-space: nowrap; 
-        text-shadow: 2px 2px 5px rgba(0,0,0,0.5); 
-    }
-    .hero-content p { font-size: 0.9rem; white-space: nowrap; margin-top: 5px; }
+    .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
+    .hero-content h1 { font-size: 2.8rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+    .hero-content p { font-size: 1.2rem; white-space: nowrap; margin-top: 10px; }
 
-    /* --- BOX KONTEN --- */
-    .content-box {
-        background-color: #144514;
-        margin: 20px 3%; 
-        padding: 30px 4%;
-        border-radius: 12px;
-        color: white;
-        border: 4px solid #f4ce14; 
-    }
+    /* --- 4. BOX KONTEN --- */
+    .content-box { background-color: #144514; margin: 30px auto; padding: 40px 5%; width: 94%; border-radius: 12px; color: white; border: 4px solid #f4ce14; }
+    .box-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 30px; white-space: nowrap; }
+    .box-header i { color: #f4ce14; font-size: 1.6rem; }
+    .box-header h2 { font-size: 1.6rem; border-bottom: 2px solid #f4ce14; padding-bottom: 5px; }
 
-    /* Memaksa Header Box 1 Baris (Ikon + Teks) */
-    .box-header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 25px;
-        white-space: nowrap;
-    }
-    .box-header i { color: #f4ce14; font-size: 1.4rem; }
-    .box-header h2 { font-size: 1.3rem; border-bottom: 2px solid #f4ce14; padding-bottom: 3px; }
-
-    .about-wrap { display: flex; align-items: center; justify-content: center; gap: 20px; }
-    .about-wrap i { font-size: 4rem; color: #f4ce14; flex-shrink: 0; }
-    .about-wrap p { text-align: justify; line-height: 1.6; font-size: 1.1rem; }
-
-    /* --- KARTU UNIT (1 Baris Konten) --- */
-    .unit-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    /* --- 5. UNIT PENDIDIKAN (KEMBALI KE 3 KOLOM DI KOMPUTER) --- */
+    .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .unit-card { 
-        background: white; 
-        padding: 12px; 
-        border-radius: 8px; 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        text-decoration: none; 
-        color: #333; 
-        border-bottom: 4px solid #f4ce14;
+        background: white; padding: 20px; border-radius: 12px; 
+        display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; 
+        text-decoration: none; color: #333; border-bottom: 6px solid #f4ce14; transition: 0.3s;
     }
-    .unit-card img { width: 40px; height: 40px; flex-shrink: 0; }
-    .unit-card h3 { font-size: 0.85rem; color: #1a5d1a; margin-bottom: 2px; }
-    .unit-card p { font-size: 0.75rem; color: #666; line-height: 1.2; }
+    .unit-card:hover { transform: translateY(-5px); }
+    .unit-card img { width: 60px; height: 60px; flex-shrink: 0; }
+    .unit-card h3 { font-size: 1rem; color: #1a5d1a; font-weight: 800; }
+    .unit-card p { font-size: 0.85rem; color: #666; white-space: normal; }
 
-    /* --- FOOTER --- */
-    footer { background: #0d2e0d; color: white; padding: 25px 5%; text-align: center; }
-    .f-title { font-size: 1rem; font-weight: bold; color: #f4ce14; margin-bottom: 8px; }
-    .f-address, .f-contact { font-size: 0.8rem; margin-bottom: 4px; }
-    .f-copy { font-size: 0.75rem; opacity: 0.5; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
-
-    /* --- WA FLOAT DENGAN ANIMASI GLOW & DENYUT --- */
+    /* --- 6. WA FLOAT DENGAN ANIMASI GLOW & DENYUT --- */
     .whatsapp-float {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        background-color: #25d366;
-        color: white !important;
-        padding: 12px 20px;
-        border-radius: 50px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        z-index: 9999;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        animation: wa-glow 2s infinite ease-in-out;
+        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
+        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
+        text-decoration: none; font-weight: bold; z-index: 9999;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: wa-glow 2s infinite ease-in-out;
     }
 
     @keyframes wa-glow {
@@ -120,14 +66,22 @@
         100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    /* RESPONSIVE KHUSUS HP */
-    @media (max-width: 600px) {
-        nav ul { display: none; } /* Sembunyikan menu teks di HP */
-        .hero-content h1 { font-size: 1.1rem; }
-        .hero-content p { font-size: 0.7rem; }
-        .about-wrap { flex-direction: column; text-align: center; }
-        .about-wrap i { font-size: 3.5rem; }
-        .unit-card h3 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+    /* --- 7. RESPONSIVE KHUSUS HP (MAX 768px) --- */
+    @media (max-width: 768px) {
+        #menu-toggle { display: block; }
+        nav ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 60px; left: 0; padding: 20px; border-bottom: 3px solid #f4ce14; }
+        nav.show ul { display: flex !important; }
+
+        .hero-content h1 { font-size: 1.4rem !important; }
+        .hero-content p { font-size: 0.9rem !important; }
+        .hero-container { height: 250px; }
+
+        .box-header h2 { font-size: 1.3rem; }
+        
+        /* Unit Pendidikan jadi 1 kolom di HP */
+        .unit-grid { grid-template-columns: 1fr; }
+        .unit-card { flex-direction: row; text-align: left; padding: 15px; }
+        .unit-card img { width: 45px; height: 45px; }
     }
 </style>
 </head>
