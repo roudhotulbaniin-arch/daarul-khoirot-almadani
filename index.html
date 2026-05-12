@@ -197,6 +197,57 @@ header {
         font-size: 1.1rem !important; /* Teks tetap terbaca jelas di HP */
     }
 }
+
+    /* --- PERBAIKAN SERAGAM KHUSUS HP --- */
+@media (max-width: 768px) {
+    header {
+        display: flex !important;
+        flex-direction: row !important; /* Paksa posisi menyamping */
+        justify-content: space-between !important; /* Logo kiri, Menu kanan */
+        align-items: center !important;
+        padding: 0 15px !important;
+        height: 60px !important; /* Tinggi header seragam di semua halaman */
+        background: #1a5d1a !important;
+    }
+
+    .logo {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        flex: 1 !important; /* Memberikan ruang teks seluas mungkin */
+    }
+
+    .logo img {
+        height: 32px !important; /* Ukuran icon kecil agar muat */
+        width: auto !important;
+    }
+
+    .logo h1 {
+        /* KUNCI: Ukuran font diperkecil agar 1 baris & tidak menabrak tombol menu */
+        font-size: 0.85rem !important; 
+        white-space: nowrap !important; 
+        overflow: hidden;
+        text-overflow: ellipsis; /* Jika layar sangat kecil, teks akan terpotong rapi */
+        color: white !important;
+        margin: 0 !important;
+    }
+
+    /* Sembunyikan navigasi teks biasa di HP */
+    nav ul { display: none !important; }
+
+    /* Tombol Menu harus terlihat jelas */
+    #menu-toggle {
+        display: block !important;
+        background: #f4ce14 !important; /* Kuning agar seragam dengan aksen web */
+        color: #1a5d1a !important;
+        border: none !important;
+        padding: 5px 10px !important;
+        border-radius: 4px !important;
+        font-size: 0.75rem !important;
+        font-weight: bold !important;
+        white-space: nowrap !important;
+    }
+}
     
     /* --- FOOTER --- */
     footer { 
