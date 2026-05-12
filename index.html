@@ -162,31 +162,57 @@
         100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    /* --- MEDIA QUERIES (RESPONSIVE) --- */
+  /* --- MEDIA QUERIES (RESPONSIVE) --- */
     @media (max-width: 992px) {
-        nav ul { display: none; } /* Sembunyikan nav desktop */
+        /* Memunculkan kembali menu namun dengan tata letak membungkus */
+        nav ul { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 8px;
+            margin-top: 10px;
+        } 
+        
+        header { 
+            flex-direction: column; 
+            text-align: center; 
+        }
+
         .about-wrap { flex-direction: column; text-align: center; }
-        .hero-content h1 { font-size: 2.5rem; }
+        .hero-content h1 { font-size: 2.2rem; }
     }
 
     @media (max-width: 600px) {
         header { padding: 10px 4%; }
-        .logo img { max-height: 35px; }
-        .logo h1 { font-size: 0.9rem; }
+        .logo img { max-height: 30px; }
+        .logo h1 { font-size: 0.85rem; letter-spacing: 0.5px; }
 
-        .hero-container { height: 320px; }
-        .hero-content h1 { font-size: 1.7rem !important; }
-        .hero-content p { font-size: 1rem !important; margin-top: 10px; }
+        /* Menu navigasi dibuat lebih kecil agar muat di layar HP */
+        nav ul li a { 
+            font-size: 0.75rem; 
+            padding: 3px 5px; 
+        }
 
-        .content-box { padding: 30px 15px; margin: 20px auto; }
-        .box-header h2 { font-size: 1.5rem; }
+        .hero-container { height: 280px; }
+        .hero-content h1 { font-size: 1.5rem !important; line-height: 1.2; }
+        .hero-content p { font-size: 0.85rem !important; margin-top: 5px; }
+
+        .content-box { padding: 25px 15px; margin: 15px 10px; }
+        .box-header h2 { font-size: 1.3rem; }
         
-        .about-wrap i { font-size: 5rem; }
-        .about-wrap p { font-size: 1rem; text-align: center; }
+        .about-wrap i { font-size: 4rem; }
+        .about-wrap p { 
+            font-size: 0.95rem; 
+            text-align: center; 
+            line-height: 1.6; 
+        }
 
-        .unit-grid { grid-template-columns: 1fr; }
-        
-        .whatsapp-float span { display: none; }
+        /* Unit Pendidikan menjadi satu kolom penuh */
+        .unit-grid { 
+            grid-template-columns: 1fr; 
+            gap: 15px;
+        }
+
         .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
     }
 </style>
