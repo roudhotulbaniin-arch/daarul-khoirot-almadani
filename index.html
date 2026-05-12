@@ -14,21 +14,32 @@
             --dark-footer: #0d2e0d;
         }
 
-      nav ul { list-style: none; display: flex; gap: 20px; }
-        nav ul li a { 
-            color: white !important; 
-            text-decoration: none; 
-            font-size: 1rem; 
-            font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            transition: 0.3s; 
-        }
+     /* --- STYLE MENU AKTIF --- */
+nav ul li a {
+    position: relative;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
 
-        nav ul li a i { color: var(--secondary-color) !important; font-size: 0.9rem; }
-        nav ul li a:hover { color: var(--secondary-color) !important; }
-        .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
+/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
+}
+
+@media (max-width: 768px) {
+    nav ul li a.active {
+        border-bottom: none !important;
+        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
+        padding-left: 10px;
+    }
+} 
+    
     /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
