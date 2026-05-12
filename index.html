@@ -178,24 +178,73 @@
     }
 
   /* --- MEDIA QUERIES (RESPONSIVE) --- */
-    @media (max-width: 992px) {
-        /* Memunculkan kembali menu namun dengan tata letak membungkus */
-        nav ul { 
-            display: flex; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            gap: 8px;
-            margin-top: 10px;
-        } 
-        
-        header { 
-            flex-direction: column; 
-            text-align: center; 
-        }
+   /* --- CSS UNTUK SEMUA LAYAR --- */
+#menu-toggle {
+    display: none; /* Sembunyikan tombol menu di komputer secara default */
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
 
-        .about-wrap { flex-direction: column; text-align: center; }
-        .hero-content h1 { font-size: 2.2rem; }
+/* --- PERBAIKAN TOMBOL WA KOTAK MELENGKUNG --- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: white !important;
+    padding: 10px 18px;
+    border-radius: 8px !important; /* Kotak sudut melengkung halus */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+}
+
+/* --- RESPONSIVE UNTUK HP (768px ke bawah) --- */
+@media (max-width: 768px) {
+    /* Munculkan tombol menu dan sejajarkan ke kanan */
+    #menu-toggle { 
+        display: block; 
     }
+
+    /* Sembunyikan menu teks utama di HP */
+    nav ul { 
+        display: none; 
+        flex-direction: column;
+        width: 100%;
+        background: #144514;
+        position: absolute;
+        top: 60px; /* Muncul di bawah header */
+        left: 0;
+        padding: 20px;
+        border-bottom: 3px solid #f4ce14;
+    }
+
+    /* Class untuk memunculkan menu saat diklik */
+    nav.show ul { 
+        display: flex !important; 
+    }
+
+    /* Penyesuaian Unit Pendidikan & Layout */
+    .unit-grid { grid-template-columns: 1fr !important; }
+    .hero-content h1 { font-size: 1.5rem !important; }
+    .hero-content p { font-size: 0.9rem !important; }
+}
+
+/* --- KEMBALIKAN MENU UNTUK KOMPUTER --- */
+@media (min-width: 769px) {
+    nav ul { 
+        display: flex !important; /* Memaksa menu muncul di komputer */
+    }
+}
 
 
   @media (max-width: 768px) {
@@ -248,9 +297,11 @@
         <img src="main_logo.png" alt="Logo">
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
-    <button id="menu-toggle" style="background: none; border: 1px solid white; color: white; padding: 5px 10px; border-radius: 5px; margin-top: 5px; display: none;">
+    
+    <button id="menu-toggle">
         <i class="fas fa-bars"></i> Menu
     </button>
+
     <nav id="main-nav">
         <ul>
             <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
@@ -262,7 +313,6 @@
         </ul>
     </nav>
 </header>
-
     <div class="hero-container">
         <img src="new_background.jpg" alt="Banner Utama">
         <div class="hero-content">
@@ -342,12 +392,12 @@
         });
     </script>
 
-    <script>
+   <script>
     const menuToggle = document.getElementById('menu-toggle');
-    const mainNav = document.getElementById('main-nav');
+    const mainNav = document.querySelector('nav'); // Pilih elemen nav
 
     menuToggle.addEventListener('click', () => {
-        mainNav.classList.toggle('show');
+        mainNav.classList.toggle('show'); // Tambah/hapus class 'show' saat diklik
     });
 </script>
     
