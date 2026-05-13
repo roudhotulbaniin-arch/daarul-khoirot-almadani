@@ -2003,48 +2003,57 @@ function kirimWA() {
     window.open(waUrl, '_blank');
 }
 
- // --- TAMBAHAN UNTUK MENU HP ---
+/* =========================================================
+   LOGIKA NAVIGASI (ANTI-BENTROK & BEBAS ERROR)
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Deklarasi Elemen
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
+    const menuItems = document.querySelectorAll("nav ul li a"); // Ini pengganti 'navLinks'
+    const currentUrl = window.location.pathname.split("/").pop();
 
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
+    // 2. Logika Buka/Tutup Menu HP
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Mencegah klik tembus ke elemen bawah
+            nav.classList.toggle('show');
         });
     }
 
-    // ------------------------------
+    // 3. Menandai Menu Aktif & Tutup Menu saat Link diklik
+    menuItems.forEach(item => {
+        // A. Tandai menu aktif berdasarkan URL
+        const itemHref = item.getAttribute("href");
+        if (itemHref === currentUrl || (currentUrl === "" && itemHref === "index.html")) {
+            item.classList.add("active");
+        }
 
-    let hasInteracted = false;
-
-      navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            clickSound.currentTime = 0; 
-            clickSound.play();
+        // B. Klik Link: Tutup menu HP dulu baru pindah halaman
+        item.addEventListener('click', function(e) {
+            if (nav.classList.contains('show')) {
+                nav.classList.remove('show');
+            }
             
-            // Tutup menu otomatis setelah klik link (khusus HP)
-            nav.classList.remove('show');
-
+            // Efek delay sedikit agar animasi tutup menu terasa
             const destination = this.href;
-            if(destination && !destination.includes('#')) {
+            if (destination && !destination.includes('#')) {
                 e.preventDefault();
-                setTimeout(() => { window.location.href = destination; }, 200); 
+                setTimeout(() => { 
+                    window.location.href = destination; 
+                }, 150); 
             }
         });
     });
 
-    // Fungsi untuk menandai menu aktif berdasarkan URL
-    document.addEventListener("DOMContentLoaded", function() {
-        const currentUrl = window.location.pathname.split("/").pop();
-        const menuItems = document.querySelectorAll("nav ul li a");
-
-        menuItems.forEach(item => {
-            // Jika href menu sama dengan nama file saat ini
-            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
-                item.classList.add("active");
-            }
-        });
-    });   
+    // 4. Klik di luar menu untuk menutup menu (Opsional tapi bagus)
+    document.addEventListener('click', function(e) {
+        if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+            nav.classList.remove('show');
+        }
+    });
+});
    
    </script>    
 
