@@ -385,56 +385,29 @@ nav ul {
 
 /* --- 4. RESPONSIVE MOBILE (HP) --- */
 @media (max-width: 768px) {
-    header { 
-        height: 65px; 
-        padding: 0 15px; 
+    /* 1. Sembunyikan deretan menu memanjang (yang ada di screenshot) */
+    nav ul {
+        display: none !important; /* WAJIB ada !important */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #1a5d1a;
+        z-index: 1001;
     }
 
-    .logo h1 { 
-        font-size: 1rem !important; 
-    }
-
-    /* TAMPILKAN TOMBOL HAMBURGER */
+    /* 2. Paksa tombol "Menu" kuning muncul */
     #menu-toggle {
-        display: block !important;
-        background: var(--secondary-color) !important;
-        color: var(--primary-color) !important;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        cursor: pointer;
+        display: block !important; /* Gunakan !important agar tidak tertutup */
         z-index: 1002;
     }
 
-    /* SEMBUNYIKAN NAVIGASI ASLI */
-    nav ul {
-        display: none !important; /* Paksa hilang agar tidak berantakan di pojok */
-        flex-direction: column;
-        position: absolute;
-        top: 65px;
-        left: 0;
-        width: 100%;
-        background: var(--primary-color);
-        padding: 20px;
-        border-bottom: 3px solid var(--secondary-color);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    /* TAMPILKAN SAAT TOMBOL DIKLIK */
+    /* 3. Munculkan dropdown saat tombol diklik */
     nav.show ul {
         display: flex !important;
     }
-
-    /* Reset gaya aktif di HP agar tidak pakai border-bottom (jelek di dropdown) */
-    nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid var(--secondary-color);
-        padding-left: 10px;
-    }
 }
-
    
 </style>
 
