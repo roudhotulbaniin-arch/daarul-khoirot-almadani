@@ -351,27 +351,23 @@ input[readonly] {
 #menu-toggle { display: none; }
 
 @media (max-width: 768px) {
-    /* Munculkan tombol hamburger di HP */
-    #menu-toggle { 
-        display: block !important; 
-        background: #f4ce14; 
-        color: #1a5d1a; 
-        border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-weight: bold;
-    }
+       header { height: 60px; padding: 0 15px; }
+        .logo img { height: 35px; }
+        .logo h1 { font-size: 1rem; }
 
-    /* Sembunyikan menu navigasi secara default di HP */
-    nav {
-        display: none; 
-        position: absolute;
-        top: 65px; /* Sesuaikan dengan tinggi header */
-        left: 0;
-        width: 100%;
-        background: #1a5d1a;
-        z-index: 1001;
-    }
+        #menu-toggle {
+            display: block !important; background: var(--secondary-color) !important;
+            color: var(--primary-color) !important; border: none; padding: 6px 12px;
+            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+        }
+
+        nav ul { 
+            display: none; flex-direction: column; width: 100%; position: absolute;
+            top: 60px; left: 0; background: var(--primary-color); padding: 20px;
+            gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        nav.show ul { display: flex !important; }
+        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
 
     /* KELAS KUNCI: Menampilkan menu saat tombol diklik */
     nav.show {
@@ -390,24 +386,22 @@ input[readonly] {
 
 <header>
     <div class="logo">
-        <img src="main_logo.png" alt="Logo">
+        <img src="main_logo.png" class="main-header-logo">
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
-    
-    <button id="menu-toggle">
+
+    <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+            </ul>
+   <button id="menu-toggle">
         <i class="fas fa-bars"></i> Menu
     </button>
-
-    <nav id="main-nav">
-        <ul>
-            <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
-            <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
-            <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
-            <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
-        </ul>
-    </nav>
 </header>
 <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
 <div class="container">
@@ -1948,28 +1942,79 @@ function kirimWA() {
     window.open(waUrl, '_blank');
 }
 
-    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener("DOMContentLoaded", function() {
+        // --- 1. INISIALISASI ELEMEN ---
+        const murottal = document.getElementById('murottal');
+        const clickSound = document.getElementById('clickSound');
+        const navLinks = document.querySelectorAll('nav ul li a');
         const menuToggle = document.getElementById('menu-toggle');
-        const nav = document.getElementById('main-nav');
+        const nav = document.querySelector('nav');
 
+        // --- 2. LOGIKA MENU AKTIF (UNDERLINE KUNING) ---
+        // Mengambil nama file, misal: 'galeri.html'
+        const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+
+        navLinks.forEach(item => {
+            const itemHref = item.getAttribute("href");
+            if (itemHref === currentUrl) {
+                item.classList.add("active");
+            }
+        });
+
+        // --- 3. MENU TOGGLE (HP) ---
         if (menuToggle && nav) {
             menuToggle.addEventListener('click', function(e) {
-                // Mencegah klik 'tembus' ke elemen di bawahnya
-                e.stopPropagation(); 
-                // Menambah/menghapus class 'show' pada elemen <nav>
-                nav.classList.toggle('show');
-            });
-
-            // Klik di luar menu untuk menutup menu (opsional tapi sangat disarankan)
-            document.addEventListener('click', function(e) {
-                if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
-                    nav.classList.remove('show');
-                }
+                e.stopPropagation(); // Agar tidak langsung tertutup saat klik tombol
+                nav.classList.toggle('show'); 
             });
         }
+
+        // --- 4. SUARA KLIK & NAVIGASI HALUS ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Mainkan suara klik
+                if (clickSound) {
+                    clickSound.currentTime = 0;
+                    clickSound.play();
+                }
+                
+                // Tutup menu HP otomatis
+                if (nav) nav.classList.remove('show');
+
+                // Delay navigasi agar suara klik terdengar dulu
+                const destination = this.href;
+                if (destination && !destination.includes('#') && !this.target) {
+                    e.preventDefault();
+                    setTimeout(() => { 
+                        window.location.href = destination; 
+                    }, 200);
+                }
+            });
+        });
+
+        // --- 5. LOGIKA AUTO-PLAY MUROTTAL ---
+        let hasInteracted = false;
+        function playMurottal() {
+            if (!hasInteracted && murottal) {
+                murottal.volume = 0.4;
+                murottal.play().catch(err => console.log("Autoplay dicegah browser"));
+                hasInteracted = true;
+                // Hapus listener setelah interaksi pertama
+                document.removeEventListener('click', playMurottal);
+                document.removeEventListener('touchstart', playMurottal);
+            }
+        }
+        document.addEventListener('click', playMurottal);
+        document.addEventListener('touchstart', playMurottal); // Tambahan untuk pengguna HP
+
+        // --- 6. TUTUP MENU JIKA KLIK DI LUAR ---
+        document.addEventListener('click', function(e) {
+            if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                nav.classList.remove('show');
+            }
+        });
     });
-    
-   </script>    
+</script>
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp fa-lg"></i>
