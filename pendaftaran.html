@@ -347,123 +347,27 @@ input[readonly] {
     border-color: #d33 !important;
     background-color: #fff5f5;
 }
+/* --- 4. RESPONSIVE MOBILE (HP) --- */
+    @media (max-width: 768px) {
+        header { height: 60px; padding: 0 15px; }
+        .logo img { height: 35px; }
+        .logo h1 { font-size: 1rem; }
 
-/* =========================
-   NAVIGATION
-========================= */
+        #menu-toggle {
+            display: block !important; background: var(--secondary-color) !important;
+            color: var(--primary-color) !important; border: none; padding: 6px 12px;
+            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+        }
 
-#main-nav{
-    position:relative;
-}
+        nav ul { 
+            display: none; flex-direction: column; width: 100%; position: absolute;
+            top: 60px; left: 0; background: var(--primary-color); padding: 20px;
+            gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        nav.show ul { display: flex !important; }
+        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
 
-#main-nav ul{
-    display:flex;
-    align-items:center;
-    gap:22px;
-    list-style:none;
-}
-
-#main-nav ul li a{
-    color:white;
-    text-decoration:none;
-    font-size:0.92rem;
-    font-weight:600;
-    padding:8px 0;
-    transition:0.3s;
-}
-
-/* =========================
-   MENU BUTTON
-========================= */
-
-#menu-toggle{
-    display:none;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-
-    background:#facc15;
-    color:#14532d;
-
-    border:none;
-    border-radius:10px;
-
-    padding:10px 14px;
-
-    font-size:0.9rem;
-    font-weight:700;
-
-    cursor:pointer;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media screen and (max-width:768px){
-
-    header{
-        flex-wrap:wrap;
-        padding:10px 15px;
-    }
-
-    /* TOMBOL MENU MUNCUL */
-    #menu-toggle{
-        display:flex !important;
-    }
-
-    /* NAV FULL */
-    #main-nav{
-        width:100%;
-    }
-
-    /* MENU DISEMBUNYIKAN */
-    #main-nav ul{
-        display:none !important;
-
-        flex-direction:column;
-
-        width:100%;
-
-        margin-top:12px;
-
-        background:#166534;
-
-        border-radius:14px;
-
-        overflow:hidden;
-
-        padding:0;
-
-        gap:0;
-    }
-
-    /* SAAT TOGGLE */
-    #main-nav.show ul{
-        display:flex !important;
-    }
-
-    #main-nav ul li{
-        width:100%;
-    }
-
-    #main-nav ul li a{
-        display:flex;
-        align-items:center;
-        gap:10px;
-
-        width:100%;
-
-        padding:15px 18px;
-
-        border-bottom:1px solid rgba(255,255,255,0.08);
-    }
-
-    #main-nav ul li:last-child a{
-        border-bottom:none;
-    }
-}
-
+       
 </style>
 
 </head>
@@ -475,20 +379,19 @@ input[readonly] {
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
     
-    <button id="menu-toggle">
+ <button id="menu-toggle">
         <i class="fas fa-bars"></i> Menu
     </button>
 
-    <nav id="main-nav">
+    <nav>
         <ul>
-            <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="index.html" ><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="pendaftaran.html"class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
             <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
             <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
         </ul>
-    </nav>
 </header>
 <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
 <div class="container">
@@ -2029,21 +1932,7 @@ function kirimWA() {
     
     window.open(waUrl, '_blank');
 }
-
    
-document.addEventListener("DOMContentLoaded", function(){
-
-    const menuToggle = document.getElementById("menu-toggle");
-    const mainNav = document.getElementById("main-nav");
-
-    menuToggle.addEventListener("click", function(){
-
-        mainNav.classList.toggle("show");
-
-    });
-
-});
-    
    </script>    
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
