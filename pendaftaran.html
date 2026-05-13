@@ -1210,7 +1210,7 @@ nav ul {
     <audio name="murottal" src="murottal_start.mp3" loop></audio>
     <audio name="clickSound" src="click_sound.mp3"></audio>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
 
@@ -1416,6 +1416,7 @@ function loadDesaDanPosAyah(val) {
 document.addEventListener('DOMContentLoaded', () => {
     loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
 });
+    
 // Handler Berantai Ayah
 function loadKabAyah(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten'); }
 function loadKecAyah(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan'); }
@@ -2103,9 +2104,7 @@ function kirimWA() {
                 document.removeEventListener('touchstart', playMurottal);
             }
         }
-        document.addEventListener('click', playMurottal);
-        document.addEventListener('touchstart', playMurottal);
-
+       
         // --- 6. TUTUP MENU JIKA KLIK DI LUAR AREA MENU ---
         document.addEventListener('click', function(e) {
             if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
@@ -2113,6 +2112,35 @@ function kirimWA() {
             }
         });
     });
+
+    /* =========================================================
+   BAGIAN PENUTUP (SINKRONISASI AKHIR)
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Inisialisasi awal load Provinsi Ayah
+    if (typeof loadWilayah === "function") {
+        loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+    }
+
+    // 2. Logika Menu Hamburger agar muncul di HP
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.querySelector('nav');
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('show');
+        });
+    }
+});
+
+// 3. Ekspos fungsi ke scope Global agar bisa dipanggil tombol HTML (onclick)
+window.handleFormSubmit = handleFormSubmit;
+window.nextTab = nextTab;
+window.prevTab = prevTab;
+window.openTab = openTab;
+window.prosesSimpanFinal = prosesSimpanFinal;
+window.toggleDomisiliIbu = toggleDomisiliIbu;
+window.toggleDomisiliSantri = toggleDomisiliSantri;
 </script>
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
