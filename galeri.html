@@ -162,6 +162,25 @@
         .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
         .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
 
+    /* --- KHUSUS TAMPILAN HP (DI DALAM MEDIA QUERY) --- */
+@media (max-width: 768px) {
+    .article-card {
+        flex-direction: column; /* Kotak tanggal pindah ke atas teks */
+        text-align: center;      /* Semua teks jadi rata tengah */
+        padding: 25px 15px;
+    }
+
+    .date-badge {
+        margin-right: 0;         /* Hapus jarak samping */
+        margin-bottom: 15px;      /* Beri jarak ke teks di bawahnya */
+        width: 85px;             /* Ukuran kotak yang pas di HP */
+    }
+
+    .chevron-icon {
+        display: none;           /* Sembunyikan panah di HP agar bersih */
+    }
+}
+
     /* --- 4. RESPONSIVE MOBILE (HP) --- */
     @media (max-width: 768px) {
         header { height: 60px; padding: 0 15px; }
