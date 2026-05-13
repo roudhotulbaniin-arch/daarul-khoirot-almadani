@@ -143,6 +143,14 @@ nav ul li a:hover {
             color: var(--primary-color) !important; border: none; padding: 6px 12px;
             border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
         }
+@media (max-width: 768px) {
+    nav ul li a.active {
+        border-bottom: none !important;
+        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
+        padding-left: 10px;
+    }
+}
+        
         
         .hero-content h1 { font-size: 1.4rem !important; }
         .hero-content p { font-size: 0.9rem !important; }
