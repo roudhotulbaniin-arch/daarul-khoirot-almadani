@@ -406,39 +406,63 @@ nav ul li a:hover {
         letter-spacing: 0.5px;
     }
 
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
+  /* --- 1. NAVIGASI DESKTOP (KOMPUTER) --- */
+nav { 
+    display: flex; 
+    align-items: center; 
+}
+
+nav ul { 
+    display: flex; 
+    list-style: none; 
+    gap: 20px; 
+}
+
+/* Sembunyikan tombol hamburger di komputer */
+#menu-toggle { 
+    display: none !important; 
+}
+
+/* --- 2. RESPONSIVE MASTER (HP / MOBILE) --- */
+@media (max-width: 768px) {
+    /* PENTING: Ubah display nav menjadi block agar tidak merusak 
+       tata letak header saat dropdown muncul 
+    */
+    nav {
+        display: block; 
     }
 
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; }
+    /* SEMBUNYIKAN MENU TAB DESKTOP */
+    nav ul { 
+        display: none !important; /* Paksa hilang */
+        flex-direction: column; 
+        width: 100%; 
+        position: absolute; 
+        top: 65px; 
+        left: 0; 
+        background: var(--primary-color); 
+        padding: 20px; 
+        border-bottom: 3px solid var(--secondary-color);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 1001;
+    }
 
-     /* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+    /* TAMPILKAN MENU SAAT CLASS .show AKTIF */
+    nav.show ul { 
+        display: flex !important; 
+    }
 
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-          #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
-@media (max-width: 768px) {
-    nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
+    /* MUNCULKAN TOMBOL HAMBURGER */
+    #menu-toggle {
+        display: block !important;
+        background: var(--secondary-color) !important;
+        color: var(--primary-color) !important;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        cursor: pointer;
     }
 }
         
@@ -459,9 +483,9 @@ nav ul li a:hover {
 
     <nav id="main-nav">
         <ul>
-            <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="pendaftaran.html"class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
             <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
             <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
@@ -1304,6 +1328,9 @@ delete dataFinal['cek_pernyataan'];
 </script>
 
 <script>
+    const murottal = document.getElementById('murottal');
+    const clickSound = document.getElementById('clickSound');
+    const navLinks = document.querySelectorAll('nav ul li a'); 
 
 /* =========================================================
    SINKRONISASI DATA WILAYAH & KODE POS
@@ -2017,6 +2044,20 @@ function kirimWA() {
             nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
         });
     }
+
+    // ------------------------------
+
+    let hasInteracted = false;
+
+    function playMurottal() {
+        if (!hasInteracted) {
+            murottal.volume = 0.4; 
+            murottal.play().catch(e => console.log("Audio Play Error"));
+            hasInteracted = true;
+            document.removeEventListener('click', playMurottal);
+        }
+    }
+    document.addEventListener('click', playMurottal);
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
