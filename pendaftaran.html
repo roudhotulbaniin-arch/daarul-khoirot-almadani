@@ -57,6 +57,23 @@
     nav ul li a.active, nav ul li a:hover { color: var(--gold-light) !important; }
     nav ul li a.active { border-bottom: 3px solid var(--gold-light); }
 
+    /* --- Tampilan Desktop (Komputer) --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu-toggle {
+    display: none !important; /* Sembunyi di komputer */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
     /* TOMBOL HAMBURGER (Default Sembunyi) */
     #menu-toggle { display: none !important; }
 
@@ -127,24 +144,47 @@
 
     /* --- 7. RESPONSIVE MASTER (HP) --- */
     @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo h1 { font-size: 0.9rem; }
-        
-        /* Navigasi Desktop Hilang */
-        nav ul { 
-            display: none !important; flex-direction: column; width: 100%; 
-            position: absolute; top: 65px; left: 0; background: var(--primary-color); 
-            padding: 20px; border-bottom: 3px solid var(--gold-light); z-index: 1001;
-        }
-        nav.show ul { display: flex !important; }
-        nav { display: block; }
+    /* 1. Munculkan tombol hamburger kuning */
+    #menu-toggle {
+        display: block !important;
+        background: #f4ce14;
+        color: #1a5d1a;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1002;
+    }
 
-        /* Tombol Hamburger Muncul */
-        #menu-toggle { 
-            display: block !important; background: var(--gold-light) !important;
-            color: var(--primary-dark) !important; border: none; padding: 8px 15px;
-            border-radius: 4px; font-weight: bold; cursor: pointer;
-        }
+    /* 2. Sembunyikan daftar menu (nav ul) */
+    nav ul {
+        display: none; /* Menghilangkan menu yang memanjang ke samping */
+        flex-direction: column;
+        position: absolute;
+        top: 65px; /* Sesuaikan dengan tinggi header */
+        left: 0;
+        width: 100%;
+        background: #1a5d1a; /* Warna hijau lembaga */
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 1001;
+    }
+
+    /* 3. Tampilkan menu saat tombol diklik (Class Show) */
+    nav.show ul {
+        display: flex !important;
+    }
+
+    /* Gaya link di dalam menu dropdown HP */
+    nav ul li a {
+        display: block;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        font-size: 1rem;
+    }
+}
+
 
         .tab-content { grid-template-columns: 1fr; padding: 20px; }
         .input-group, .input-group.wide, .form-section-title, .button-group { grid-column: span 1 !important; }
@@ -1762,16 +1802,17 @@ function kirimWA() {
     });
 
     // Fungsi untuk menandai menu aktif berdasarkan URL
-    document.addEventListener("DOMContentLoaded", function() {
-        const currentUrl = window.location.pathname.split("/").pop();
-        const menuItems = document.querySelectorAll("nav ul li a");
+  
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.getElementById('main-nav');
 
-        menuItems.forEach(item => {
-            // Jika href menu sama dengan nama file saat ini
-            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
-                item.classList.add("active");
-            }
-        });
+        if (menuToggle && nav) {
+            menuToggle.addEventListener('click', function() {
+                // Ini akan menambah/menghapus class 'show' pada tag <nav>
+                nav.classList.toggle('show');
+            });
+        }
     });
     
    </script>    
