@@ -351,22 +351,24 @@ nav ul {
 
 /* --- GABUNGAN RESPONSIVE MASTER (TARUH DI PALING BAWAH CSS) --- */
 @media (max-width: 768px) {
-    /* 1. Atur Ulang Header & Logo */
+    /* 1. Atur Ulang Header */
     header { 
-        height: 65px; 
+        height: 70px; 
         padding: 0 15px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     
-    .logo h1 { 
-        font-size: 1rem !important; 
-    }
+    .logo h1 { font-size: 0.9rem !important; }
+    .logo img { height: 35px; }
 
-    /* 2. SEMBUNYIKAN MENU HORIZONTAL (SOLUSI UTAMA) */
+    /* 2. SEMBUNYIKAN MENU HORIZONTAL (WAJIB !important) */
     nav ul {
-        display: none !important; /* Menghapus deretan menu yang berantakan */
+        display: none !important; /* Menghapus deretan menu yang memanjang berantakan */
         flex-direction: column;
         position: absolute;
-        top: 65px;
+        top: 70px;
         left: 0;
         width: 100%;
         background: var(--primary-color);
@@ -378,14 +380,14 @@ nav ul {
 
     /* 3. TAMPILKAN TOMBOL MENU KUNING */
     #menu-toggle {
-        display: block !important;
+        display: block !important; /* Paksa muncul di HP */
         background: var(--secondary-color) !important;
         color: var(--primary-color) !important;
         border: none;
-        padding: 8px 15px;
-        border-radius: 4px;
+        padding: 10px 18px;
+        border-radius: 5px;
         font-weight: bold;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         cursor: pointer;
         z-index: 1002;
     }
@@ -394,8 +396,21 @@ nav ul {
     nav.show ul {
         display: flex !important;
     }
-   
-</style>
+
+    /* 5. PERAPI FORMULIR (GRID JADI 1 KOLOM) */
+    .form-grid, .form-grid-santri, .form-grid-upload, .tab-content { 
+        grid-template-columns: 1fr !important; 
+        display: block; /* Memastikan tidak ada tabrakan display */
+    }
+    
+    .tab-link { 
+        min-width: 80px; 
+        font-size: 0.75rem; 
+        padding: 12px 5px;
+    }
+
+ 
+}</style>
 
 </head>
 <body>
