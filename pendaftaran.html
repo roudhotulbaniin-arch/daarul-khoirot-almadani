@@ -64,11 +64,22 @@
     .logo img { max-height: 40px; }
     .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
 
-    /* --- STYLE MENU AKTIF --- */
+ /* --- STYLE MENU AKTIF --- */
 nav ul li a {
     position: relative;
     padding-bottom: 5px;
     transition: 0.3s;
+}
+
+/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
 }
 
     /* --- 4. CONTAINER & TABS --- */
@@ -365,26 +376,6 @@ nav ul {
     gap: 20px; 
 }
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    position: relative;
-    padding-bottom: 5px;
-    transition: 0.3s;
-}
-
-/* Efek Hover & Active di Komputer (Garis Bawah) */
-nav ul li a:hover, 
-nav ul li a.active {
-    color: var(--secondary-color) !important;
-}
-
-nav ul li a.active {
-    border-bottom: 3px solid var(--secondary-color) !important;
-}
-
 /* Sembunyikan tombol hamburger di komputer */
 #menu-toggle { 
     display: none !important; 
@@ -392,37 +383,16 @@ nav ul li a.active {
 
 /* --- 2. RESPONSIVE MASTER (HP / MOBILE) --- */
 @media (max-width: 768px) {
-    header { 
-        height: 65px; 
-        padding: 0 15px; 
+    /* PENTING: Ubah display nav menjadi block agar tidak merusak 
+       tata letak header saat dropdown muncul 
+    */
+    nav {
+        display: block; 
     }
 
-    .logo img { 
-        height: 35px; 
-    }
-
-    .logo h1 { 
-        font-size: 0.9rem !important; 
-        margin-right: 10px; 
-    }
-
-    /* Tampilkan Tombol Menu Hamburger */
-    #menu-toggle {
-        display: block !important;
-        background: var(--secondary-color) !important;
-        color: var(--primary-color) !important;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        cursor: pointer;
-        z-index: 1002;
-    }
-
-    /* Sembunyikan navigasi teks biasa, buat jadi dropdown */
+    /* SEMBUNYIKAN MENU TAB DESKTOP */
     nav ul { 
-        display: none; 
+        display: none !important; /* Paksa hilang */
         flex-direction: column; 
         width: 100%; 
         position: absolute; 
@@ -435,16 +405,22 @@ nav ul li a.active {
         z-index: 1001;
     }
 
-    /* Tampilkan menu saat tombol diklik (Class Show) */
+    /* TAMPILKAN MENU SAAT CLASS .show AKTIF */
     nav.show ul { 
         display: flex !important; 
     }
 
-    /* Efek Active di HP (Garis Samping, bukan bawah) */
-    nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid var(--secondary-color) !important;
-        padding-left: 10px;
+    /* MUNCULKAN TOMBOL HAMBURGER */
+    #menu-toggle {
+        display: block !important;
+        background: var(--secondary-color) !important;
+        color: var(--primary-color) !important;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        cursor: pointer;
     }
 }
 </style>
