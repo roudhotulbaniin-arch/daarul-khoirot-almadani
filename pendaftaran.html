@@ -64,13 +64,22 @@
     .logo img { max-height: 40px; }
     .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
 
-    nav ul { list-style: none; display: flex; gap: 10px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-weight: 600; 
-        padding: 5px 8px; transition: 0.3s; 
-    }
-    nav ul li a:hover { color: var(--gold-color); }
-    .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
+    /* --- STYLE MENU AKTIF --- */
+nav ul li a {
+    position: relative;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
+
+/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
+}
 
     /* --- 4. CONTAINER & TABS --- */
     .container { padding: 2rem 5%; flex: 1; }
@@ -288,19 +297,26 @@ input[readonly] {
     display: block; /* Menjaga jarak antar baris tetap rapi */
 }
     .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
-
-    /* --- 9. FLOAT WHATSAPP --- */
-    .whatsapp-float {
-        position: fixed; bottom: 30px; right: 30px; background-color: #25d366;
-        color: white !important; padding: 12px 20px; border-radius: 50px;
-        display: flex; align-items: center; gap: 10px; text-decoration: none;
-        font-weight: bold; z-index: 9999; animation: pulse-wa 2s infinite;
+ /* Navigasi Desktop */
+    nav ul { list-style: none; display: flex; gap: 20px; }
+    nav ul li a { 
+        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+        display: flex; align-items: center; gap: 5px; 
     }
 
-    @keyframes pulse-wa {
-        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-        70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    /* Tombol menu disembunyikan di komputer */
+    #menu-toggle { display: none; }
+    
+   /* --- 6. WA FLOAT --- */
+    .whatsapp-float {
+        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
+        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
+        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
+    }
+    @keyframes wa-glow {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
     /* --- 10. RESPONSIVE --- */
@@ -350,33 +366,29 @@ input[readonly] {
  /* Sembunyikan tombol menu di komputer */
 #menu-toggle { display: none; }
 
-@media (max-width: 768px) {
-       header { height: 60px; padding: 0 15px; }
+ /* --- 7. RESPONSIVE MASTER (HP) --- */
+    @media (max-width: 768px) {
+        header { height: 65px; padding: 0 15px; }
         .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem; }
+        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
 
-        #menu-toggle {
+        /* Sembunyikan navigasi teks, munculkan tombol menu */
+        nav ul { 
+            display: none; flex-direction: column; width: 100%; position: absolute; 
+            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
+        }
+        nav.show ul { display: flex !important; }
+        
+          #menu-toggle {
             display: block !important; background: var(--secondary-color) !important;
             color: var(--primary-color) !important; border: none; padding: 6px 12px;
             border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
         }
-
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute;
-            top: 60px; left: 0; background: var(--primary-color); padding: 20px;
-            gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-        }
-        nav.show ul { display: flex !important; }
-        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
-
-    /* KELAS KUNCI: Menampilkan menu saat tombol diklik */
-    nav.show {
-        display: block !important;
-    }
-
-    nav ul {
-        flex-direction: column;
-        padding: 20px;
+@media (max-width: 768px) {
+    nav ul li a.active {
+        border-bottom: none !important;
+        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
+        padding-left: 10px;
     }
 }
 </style>
