@@ -8,181 +8,183 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-  <style>
-    /* --- 1. DASAR & VARIABEL --- */
-    :root {
-        --primary-color: #1a5319;    /* Hijau Tua */
-        --primary-dark: #0d2e0d;     /* Hijau Gelap */
-        --gold-color: #D4AF37;       /* Emas */
-        --gold-light: #f4ce14;       /* Kuning Emas Terang */
-        --white: #FFFFFF;
-        --bg-body: #f4f7f6;
-        --text-dark: #1a1a1a;
-        --text-muted: #555;
-        --border-color: #1a5d1a;
-    }
+  
+    
+<style>
+    /* --- 1. DASAR & VARIABEL --- */
+    :root {
+        --primary-color: #1a5319;    /* Hijau Tua */
+        --primary-dark: #0d2e0d;     /* Hijau Gelap */
+        --gold-color: #D4AF37;       /* Emas */
+        --gold-light: #f4ce14;       /* Kuning Emas Terang */
+        --white: #FFFFFF;
+        --bg-body: #f4f7f6;
+        --text-dark: #1a1a1a;
+        --text-muted: #555;
+        --border-color: #1a5d1a;
+    }
 
-    * { 
-        margin: 0; padding: 0; box-sizing: border-box; 
-        font-family: 'Quicksand', sans-serif; 
-    }
+    * { 
+        margin: 0; padding: 0; box-sizing: border-box; 
+        font-family: 'Quicksand', sans-serif; 
+    }
 
-    /* Membuat bintang merah otomatis setelah teks label */
+    /* Membuat bintang merah otomatis setelah teks label */
 .required::after {
-    content: " *";
-    color: #d63031; /* Warna merah */
-    font-weight: bold;
+    content: " *";
+    color: #d63031; /* Warna merah */
+    font-weight: bold;
 }
 
-    body { 
-        background-color: var(--bg-body); 
-        overflow-x: hidden; 
-        font-weight: 500;
-        flex-direction: column;
-        display: flex;
-        min-height: 100vh;
-    }
+    body { 
+        background-color: var(--bg-body); 
+        overflow-x: hidden; 
+        font-weight: 500;
+        flex-direction: column;
+        display: flex;
+        min-height: 100vh;
+    }
 
-    /* --- 2. TYPOGRAPHY --- */
-    h1, h2, h3, .form-section-title { font-weight: 700; color: var(--primary-color); }
-    input, select, textarea { font-weight: 500; font-family: inherit; }
+    /* --- 2. TYPOGRAPHY --- */
+    h1, h2, h3, .form-section-title { font-weight: 700; color: var(--primary-color); }
+    input, select, textarea { font-weight: 500; font-family: inherit; }
 
-    /* --- 3. HEADER & NAVIGASI --- */
-    header { 
-        background: var(--primary-color); 
-        color: var(--white); 
-        padding: 12px 4%; 
-        display: flex; justify-content: space-between; align-items: center; 
-        position: sticky; top: 0; z-index: 1000; 
-        border-bottom: 3px ;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
+    /* --- 3. HEADER & NAVIGASI --- */
+    header { 
+        background: var(--primary-color); 
+        color: var(--white); 
+        padding: 12px 4%; 
+        display: flex; justify-content: space-between; align-items: center; 
+        position: sticky; top: 0; z-index: 1000; 
+        border-bottom: 3px ;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
 
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo img { max-height: 40px; }
-    .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { max-height: 40px; }
+    .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
 
-    nav ul { list-style: none; display: flex; gap: 10px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-weight: 600; 
-        padding: 5px 8px; transition: 0.3s; 
-    }
-    nav ul li a:hover { color: var(--gold-color); }
-    .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
+    nav ul { list-style: none; display: flex; gap: 10px; }
+    nav ul li a { 
+        color: white; text-decoration: none; font-weight: 600; 
+        padding: 5px 8px; transition: 0.3s; 
+    }
+    nav ul li a:hover { color: var(--gold-color); }
+    .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
 
-    /* --- 4. CONTAINER & TABS --- */
-    .container { padding: 2rem 5%; flex: 1; }
-    .tab-container { 
-        background: white; border-radius: 12px; overflow: hidden; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; 
-    }
+    /* --- 4. CONTAINER & TABS --- */
+    .container { padding: 2rem 5%; flex: 1; }
+    .tab-container { 
+        background: white; border-radius: 12px; overflow: hidden; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; 
+    }
 
-    .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-    .tab-link { 
-        flex: 1; padding: 18px 10px; border: none; cursor: pointer; 
-        font-weight: 700; font-size: 1.3rem; color: var(--primary-color); 
-        text-align: center; border-right: 1px solid #ddd; transition: 0.3s; 
-        text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; 
-    }
-    
-   /* Warna default tombol */
+    .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
+    .tab-link { 
+        flex: 1; padding: 18px 10px; border: none; cursor: pointer; 
+        font-weight: 700; font-size: 1.3rem; color: var(--primary-color); 
+        text-align: center; border-right: 1px solid #ddd; transition: 0.3s; 
+        text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; 
+    }
+    
+   /* Warna default tombol */
 .tab-link {
-    background-color: #f1f1f1; /* Abu-abu default */
-    color: #333;
-    padding: 15px;
-    border: none;
-    transition: 0.3s;
+    background-color: #f1f1f1; /* Abu-abu default */
+    color: #333;
+    padding: 15px;
+    border: none;
+    transition: 0.3s;
 }
 
 /* Warna saat aktif (Hijau) */
 .tab-link.active {
-    background-color: #28a745 !important; /* Hijau Tua */
-    color: white !important;
-    font-weight: bold;
+    background-color: #28a745 !important; /* Hijau Tua */
+    color: white !important;
+    font-weight: bold;
 }
 
-   
-    .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }.tab-content { 
-    display: none; 
-    padding: 30px; 
-    animation: fadeIn 0.4s; 
-    /* Tambahkan kode di bawah ini */
-    background-color: #ffffff; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+   
+    .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }.tab-content { 
+    display: none; 
+    padding: 30px; 
+    animation: fadeIn 0.4s; 
+    /* Tambahkan kode di bawah ini */
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
 }
 
-.tab-content.active { 
-    display: block; 
+.tab-content.active { 
+    display: block; 
 }
 
-@keyframes fadeIn { 
-    from { opacity: 0; } 
-    to { opacity: 1; } 
+@keyframes fadeIn { 
+    from { opacity: 0; } 
+    to { opacity: 1; } 
 }
 
 .tab-content {
-    animation: fadeEffect 0.4s; /* Waktu perpindahan tab */
+    animation: fadeEffect 0.4s; /* Waktu perpindahan tab */
 }
 
 @keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 /* --- 1. CONTAINER UTAMA (Kunci Lebar) --- */
 .container, .registration-container {
-    width: 100%;
-    max-width: 1000px; /* Lebar seragam untuk semua tab */
-    margin: 20px auto;
-    padding: 0 15px;
-    box-sizing: border-box;
+    width: 100%;
+    max-width: 1000px; /* Lebar seragam untuk semua tab */
+    margin: 20px auto;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
 /* --- 2. KONTEN TAB (Kotak Putih) --- */
 .tab-content {
-    display: none;
-    background: #ffffff;
-    width: 100%;
-    padding: 30px;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    box-sizing: border-box;
-    border: 1px solid #e0e0e0;
+    display: none;
+    background: #ffffff;
+    width: 100%;
+    padding: 30px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    border: 1px solid #e0e0e0;
 
-    /* GUNAKAN INI: Otomatis membagi kolom dengan lebar minimal 250px */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    /* GUNAKAN INI: Otomatis membagi kolom dengan lebar minimal 250px */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 /* Judul dan elemen lebar tetap dipaksa ambil satu baris penuh */
 .form-section-title, .info-box, .full-width {
-    grid-column: 1 / -1; /* Artinya dari awal sampai akhir kolom */
+    grid-column: 1 / -1; /* Artinya dari awal sampai akhir kolom */
 }
 
 /* Munculkan sebagai Grid saat aktif */
 .tab-content.active {
-    display: grid; 
+    display: grid; 
 }
 
 /* --- 3. PENGATURAN GRID OTOMATIS (3-2) --- */
 
 /* Judul Section (Ambil 6 kolom / Full Baris) */
 .form-section-title {
-    grid-column: span 6;
-    margin: 10px 0 15px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #eee;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
+    grid-column: span 6;
+    margin: 10px 0 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
 }
 
 /* Default: Baris 3 Kolom (6 kolom / 3 = span 2) */
 .tab-content > .input-group {
-    grid-column: span 2;
+    grid-column: span 2;
 }
 
 /* Khusus: Baris 2 Kolom (6 kolom / 2 = span 3) */
@@ -190,310 +192,176 @@
 .tab-content > .input-group.wide,
 .tab-content > .input-group.nik-group,
 .tab-content > .input-group.kk-group {
-    grid-column: span 3;
+    grid-column: span 3;
 }
 
 /* --- 4. RESPONSIF MOBILE --- */
 @media (max-width: 768px) {
-    .tab-content {
-        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
-        padding: 20px;
-        border-radius: 0 0 12px 12px;
-    }
-    
-    .tab-content > .input-group,
-    .tab-content > .input-group.wide,
-    .form-section-title {
-        grid-column: span 1 !important;
-    }
-}  
+    .tab-content {
+        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
+        padding: 20px;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .tab-content > .input-group,
+    .tab-content > .input-group.wide,
+    .form-section-title {
+        grid-column: span 1 !important;
+    }
+}  
 
-  /* --- 5. FORM ELEMENTS --- */
-    .form-section-title { 
-        margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eee; 
-        text-transform: uppercase; display: flex; align-items: center; gap: 10px; 
-    }
+  /* --- 5. FORM ELEMENTS --- */
+    .form-section-title { 
+        margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eee; 
+        text-transform: uppercase; display: flex; align-items: center; gap: 10px; 
+    }
 
-    /* GRid SYSTEM */
-    .form-grid, .form-grid-santri { 
-        display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; align-items: start;
-    }
-    .form-grid-upload { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    /* GRid SYSTEM */
+    .form-grid, .form-grid-santri { 
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; align-items: start;
+    }
+    .form-grid-upload { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
 
-    /* INPUT WITH ICON */
-    .input-ikon {
-        display: flex; align-items: center; position: relative;
-        background: white; border: 1.5px solid var(--border-color);
-        border-radius: 8px; padding: 0 12px; min-height: 48px; transition: 0.3s;
-    }
-    .input-ikon i { color: var(--primary-color); width: 20px; text-align: center; margin-right: 10px; }
-    .input-ikon input, .input-ikon select { 
-        flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%;
-    }
+    /* INPUT WITH ICON */
+    .input-ikon {
+        display: flex; align-items: center; position: relative;
+        background: white; border: 1.5px solid var(--border-color);
+        border-radius: 8px; padding: 0 12px; min-height: 48px; transition: 0.3s;
+    }
+    .input-ikon i { color: var(--primary-color); width: 20px; text-align: center; margin-right: 10px; }
+    .input-ikon input, .input-ikon select { 
+        flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%;
+    }
 
-    /* --- 6. BUTTONS --- */
-    .button-group {
-        display: flex; gap: 15px; margin-top: 30px; padding-top: 20px;
-        border-top: 1px solid #eee; width: 100%;
-    }
+    /* --- 6. BUTTONS --- */
+    .button-group {
+        display: flex; gap: 15px; margin-top: 30px; padding-top: 20px;
+        border-top: 1px solid #eee; width: 100%;
+    }
 
-    /* Agar tombol sama lebar (50% - 50%) */
-    .btn-nav { 
-        flex: 1; /* Ini kunci agar lebar sama */
-        padding: 15px; border: none; border-radius: 8px; font-weight: 800;
-        cursor: pointer; display: flex; justify-content: center; align-items: center; 
-        gap: 10px; font-size: 1.3rem; transition: 0.3s; color: white; 
-    }
+    /* Agar tombol sama lebar (50% - 50%) */
+    .btn-nav { 
+        flex: 1; /* Ini kunci agar lebar sama */
+        padding: 15px; border: none; border-radius: 8px; font-weight: 800;
+        cursor: pointer; display: flex; justify-content: center; align-items: center; 
+        gap: 10px; font-size: 1.3rem; transition: 0.3s; color: white; 
+    }
 
-    .btn-prev { background-color: var(--gold-light) !important; }
-    .btn-next { background-color: var(--primary-color) !important; }
-    .btn-full { width: 100%; flex: none; }
-    
-    .btn-nav:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .btn-prev { background-color: var(--gold-light) !important; }
+    .btn-next { background-color: var(--primary-color) !important; }
+    .btn-full { width: 100%; flex: none; }
+    
+    .btn-nav:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-    /* --- 7. SPECIAL STATES --- */
-  .input-samar {
-    color: #999 !important;
-    border-color: #ddd !important;
-    font-style: italic;
+    /* --- 7. SPECIAL STATES --- */
+  .input-samar {
+    color: #999 !important;
+    border-color: #ddd !important;
+    font-style: italic;
 }
 
 /* Memastikan input readonly standar juga mengikuti warna yang sama */
-input[readonly] { 
-    background-color: #e9ecef !important; 
+input[readonly] { 
+    background-color: #e9ecef !important; 
 }
 
 .input-ikon {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
-  
-        /* --- FOOTER --- */
-    footer { 
-        background: #0d2e0d; 
-        color: white; 
-        padding: 40px 5% 20px; 
-        text-align: center; 
-        width: 100%;
-        border: none;
-        outline: none;
-    }
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-    
-    /* --- 9. FLOAT WHATSAPP --- */
-      /* --- 6. WA FLOAT --- */
-    .whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
-    }
-    @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
+    /* --- 8. FOOTER --- */
+    footer { 
+        background: var(--primary-dark); color: white; padding: 30px 5%; 
+        text-align: center; width: 100%; border: none; outline: none; 
+    }
+    .f-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
+    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-    @keyframes pulse-wa {
-        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-        70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
+    /* --- 9. FLOAT WHATSAPP --- */
+    .whatsapp-float {
+        position: fixed; bottom: 30px; right: 30px; background-color: #25d366;
+        color: white !important; padding: 12px 20px; border-radius: 50px;
+        display: flex; align-items: center; gap: 10px; text-decoration: none;
+        font-weight: bold; z-index: 9999; animation: pulse-wa 2s infinite;
+    }
 
-    /* --- 10. RESPONSIVE --- */
-    @media (max-width: 768px) {
-        .form-grid, .form-grid-santri, .form-grid-upload { grid-template-columns: 1fr; }
-        .tab-link { min-width: 120px; font-size: 0.9rem; }
-        nav ul { display: none; }
-        .whatsapp-float span { display: none; }
-        .whatsapp-float { padding: 15px; border-radius: 50%; }
-    }
+    @keyframes pulse-wa {
+        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+        70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    /* --- 10. RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .form-grid, .form-grid-santri, .form-grid-upload { grid-template-columns: 1fr; }
+        .tab-link { min-width: 120px; font-size: 0.9rem; }
+        nav ul { display: none; }
+        .whatsapp-float span { display: none; }
+        .whatsapp-float { padding: 15px; border-radius: 50%; }
+    }
 
 .locked-input {
-    background-color: #ffffff !important;
-    color: #333 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed;
+    background-color: #ffffff !important;
+    color: #333 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed;
 }
 
 input[readonly] {
-    background-color: #ffffff !important;
-    color: #333 !important;
-    opacity: 1 !important;
-    cursor: not-allowed;
+    background-color: #ffffff !important;
+    color: #333 !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
 }
 
 /* Menambahkan bintang merah setelah teks label */
 .label-wajib::after {
-    content: " *";
-    color: #e74c3c; /* Warna merah */
-    font-weight: bold;
+    content: " *";
+    color: #e74c3c; /* Warna merah */
+    font-weight: bold;
 }
 
 /* Efek jika checkbox belum dicentang */
 #box_pernyataan {
-    border: 2px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 /* Tambahkan class ini lewat JS jika ingin memberi highlight merah saat gagal validasi */
 .pernyataan-error {
-    border-color: #d33 !important;
-    background-color: #fff5f5;
+    border-color: #d33 !important;
+    background-color: #fff5f5;
 }
 
-
-  /* =========================
-   NAVIGATION
-========================= */
-
-#main-nav{
-    position:relative;
-}
-
-#main-nav ul{
-    display:flex;
-    align-items:center;
-    gap:22px;
-    list-style:none;
-}
-
-#main-nav ul li a{
-    color:white;
-    text-decoration:none;
-    font-size:0.92rem;
-    font-weight:600;
-    padding:8px 0;
-    transition:0.3s;
-}
-
-/* =========================
-   MENU BUTTON
-========================= */
-
-#menu-toggle{
-    display:none;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-
-    background:#facc15;
-    color:#14532d;
-
-    border:none;
-    border-radius:10px;
-
-    padding:10px 14px;
-
-    font-size:0.9rem;
-    font-weight:700;
-
-    cursor:pointer;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media screen and (max-width:768px){
-
-    header{
-        flex-wrap:wrap;
-        padding:10px 15px;
-    }
-
-    /* TOMBOL MENU MUNCUL */
-    #menu-toggle{
-        display:flex !important;
-    }
-
-    /* NAV FULL */
-    #main-nav{
-        width:100%;
-    }
-
-    /* MENU DISEMBUNYIKAN */
-    #main-nav ul{
-        display:none !important;
-
-        flex-direction:column;
-
-        width:100%;
-
-        margin-top:12px;
-
-        background:#166534;
-
-        border-radius:14px;
-
-        overflow:hidden;
-
-        padding:0;
-
-        gap:0;
-    }
-
-    /* SAAT TOGGLE */
-    #main-nav.show ul{
-        display:flex !important;
-    }
-
-    #main-nav ul li{
-        width:100%;
-    }
-
-    #main-nav ul li a{
-        display:flex;
-        align-items:center;
-        gap:10px;
-
-        width:100%;
-
-        padding:15px 18px;
-
-        border-bottom:1px solid rgba(255,255,255,0.08);
-    }
-
-    #main-nav ul li:last-child a{
-        border-bottom:none;
-    }
-}
-        
 </style>
+
 </head>
 <body>
 
 <header>
     <div class="logo">
-        <img src="main_logo.png" alt="Logo">
+        <img src="main_logo.png" alt="Logo" class="main-header-logo">
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
-    
-    <button id="menu-toggle">
-        <i class="fas fa-bars"></i> Menu
-    </button>
-
-    <nav id="main-nav">
+    <nav>
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
-            <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
-            <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
+            <li><a href="pendaftaran.html" class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+            <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+            <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
         </ul>
     </nav>
 </header>
-
 <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
 <div class="container">
     <div class="tab-container">
@@ -1329,9 +1197,6 @@ delete dataFinal['cek_pernyataan'];
 </script>
 
 <script>
-    const murottal = document.getElementById('murottal');
-    const clickSound = document.getElementById('clickSound');
-    const navLinks = document.querySelectorAll('nav ul li a'); 
 
 /* =========================================================
    SINKRONISASI DATA WILAYAH & KODE POS
@@ -2035,58 +1900,6 @@ function kirimWA() {
     
     window.open(waUrl, '_blank');
 }
-
-// --- TAMBAHAN UNTUK MENU HP ---
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
-
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
-        });
-    }
-
-    // ------------------------------
-
-    let hasInteracted = false;
-
-    function playMurottal() {
-        if (!hasInteracted) {
-            murottal.volume = 0.4; 
-            murottal.play().catch(e => console.log("Audio Play Error"));
-            hasInteracted = true;
-            document.removeEventListener('click', playMurottal);
-        }
-    }
-    document.addEventListener('click', playMurottal);
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            clickSound.currentTime = 0; 
-            clickSound.play();
-            
-            // Tutup menu otomatis setelah klik link (khusus HP)
-            nav.classList.remove('show');
-
-            const destination = this.href;
-            if(destination && !destination.includes('#')) {
-                e.preventDefault();
-                setTimeout(() => { window.location.href = destination; }, 200); 
-            }
-        });
-    });
-
-    // Fungsi untuk menandai menu aktif berdasarkan URL
-  document.addEventListener("DOMContentLoaded", function () {
-
-    const menuToggle = document.getElementById("menu-toggle");
-    const mainNav = document.getElementById("main-nav");
-
-    menuToggle.addEventListener("click", function () {
-        mainNav.classList.toggle("show");
-    });
-
-});
     
    </script>    
 
