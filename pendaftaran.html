@@ -2018,8 +2018,17 @@ function kirimWA() {
         const menuToggle = document.getElementById('menu-toggle');
         const nav = document.querySelector('nav');
 
+       
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- 1. INISIALISASI ELEMEN ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+        const navLinks = document.querySelectorAll('nav ul li a');
+        const clickSound = document.getElementById('clickSound');
+        const murottal = document.getElementById('murottal');
+
         // --- 2. LOGIKA MENU AKTIF (UNDERLINE KUNING) ---
-        // Mengambil nama file, misal: 'galeri.html'
+        // Mendeteksi file saat ini untuk memberikan tanda kuning pada menu
         const currentUrl = window.location.pathname.split("/").pop() || "index.html";
 
         navLinks.forEach(item => {
@@ -2032,7 +2041,7 @@ function kirimWA() {
         // --- 3. MENU TOGGLE (HP) ---
         if (menuToggle && nav) {
             menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation(); // Agar tidak langsung tertutup saat klik tombol
+                e.stopPropagation(); // Mencegah klik 'tembus' ke document
                 nav.classList.toggle('show'); 
             });
         }
@@ -2040,16 +2049,16 @@ function kirimWA() {
         // --- 4. SUARA KLIK & NAVIGASI HALUS ---
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Mainkan suara klik
+                // Mainkan suara klik jika ada
                 if (clickSound) {
                     clickSound.currentTime = 0;
                     clickSound.play();
                 }
                 
-                // Tutup menu HP otomatis
+                // Tutup menu HP otomatis saat link diklik
                 if (nav) nav.classList.remove('show');
 
-                // Delay navigasi agar suara klik terdengar dulu
+                // Navigasi halus dengan delay sedikit agar suara klik terdengar
                 const destination = this.href;
                 if (destination && !destination.includes('#') && !this.target) {
                     e.preventDefault();
@@ -2067,15 +2076,15 @@ function kirimWA() {
                 murottal.volume = 0.4;
                 murottal.play().catch(err => console.log("Autoplay dicegah browser"));
                 hasInteracted = true;
-                // Hapus listener setelah interaksi pertama
+                // Bersihkan listener agar tidak memicu fungsi ini berkali-kali
                 document.removeEventListener('click', playMurottal);
                 document.removeEventListener('touchstart', playMurottal);
             }
         }
         document.addEventListener('click', playMurottal);
-        document.addEventListener('touchstart', playMurottal); // Tambahan untuk pengguna HP
+        document.addEventListener('touchstart', playMurottal);
 
-        // --- 6. TUTUP MENU JIKA KLIK DI LUAR ---
+        // --- 6. TUTUP MENU JIKA KLIK DI LUAR AREA MENU ---
         document.addEventListener('click', function(e) {
             if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                 nav.classList.remove('show');
