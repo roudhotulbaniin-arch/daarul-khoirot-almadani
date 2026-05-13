@@ -363,21 +363,6 @@ nav ul {
     .logo h1 { font-size: 0.9rem !important; }
     .logo img { height: 35px; }
 
-    /* 2. SEMBUNYIKAN MENU HORIZONTAL (WAJIB !important) */
-    nav ul {
-        display: none !important; /* Menghapus deretan menu yang memanjang berantakan */
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: var(--primary-color);
-        padding: 20px;
-        border-bottom: 3px solid var(--secondary-color);
-        z-index: 1001;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
     /* 3. TAMPILKAN TOMBOL MENU KUNING */
     #menu-toggle {
         display: block !important; /* Paksa muncul di HP */
@@ -410,7 +395,45 @@ nav ul {
     }
 
  
-}</style>
+}
+    
+/* Sembunyikan tombol di laptop */
+#btn-menu-utama { display: none; }
+
+@media (max-width: 768px) {
+    /* 1. PAKSA MENU LAMA HILANG */
+    nav ul {
+        display: none !important; 
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #1a5d1a !important;
+        padding: 20px !important;
+        z-index: 9999;
+    }
+
+    /* 2. PAKSA TOMBOL BARU MUNCUL */
+    #btn-menu-utama {
+        display: block !important;
+        background: #f4ce14 !important;
+        color: #1a5d1a !important;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+        z-index: 10000;
+    }
+
+    /* 3. MUNCULKAN MENU SAAT AKTIF */
+    nav.show ul {
+        display: flex !important;
+    }
+}
+</style>
 
 </head>
 <body>
@@ -421,9 +444,9 @@ nav ul {
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
     
-    <button id="menu-toggle">
-        <i class="fas fa-bars"></i> Menu
-    </button>
+  <button id="btn-menu-utama" class="mobile-only">
+    <i class="fas fa-bars"></i> Menu
+</button>
 
     <nav>
         <ul>
