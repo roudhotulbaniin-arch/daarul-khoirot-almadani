@@ -43,7 +43,7 @@
         .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
         .main-header-logo { max-height: 40px; margin-right: 12px; }
 
-        nav ul { list-style: none; display: flex; gap: 20px; }
+       nav ul { list-style: none; display: flex; gap: 20px; }
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
@@ -58,7 +58,7 @@
         nav ul li a i { color: var(--secondary-color) !important; font-size: 0.9rem; }
         nav ul li a:hover { color: var(--secondary-color) !important; }
         .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
-
+     
         /* --- CONTAINER UTAMA --- */
         .container { padding: 3rem 10%; flex: 1; }
 
@@ -180,6 +180,24 @@
             .chevron-icon { display: none; }
             nav ul { display: none; }
         }
+
+         /* --- 7. RESPONSIVE MASTER (HP) --- */
+    @media (max-width: 768px) {
+        header { height: 65px; padding: 0 15px; }
+        .logo img { height: 35px; }
+        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+
+        /* Sembunyikan navigasi teks, munculkan tombol menu */
+        nav ul { 
+            display: none; flex-direction: column; width: 100%; position: absolute; 
+            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
+        }
+        nav.show ul { display: flex !important; }
+        
+        #menu-toggle { 
+            display: block !important; background: #f4ce14; color: #1a5d1a; 
+            border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; 
+        }
     </style>
 </head>
 <body>
@@ -258,17 +276,17 @@
         </section>
     </div>
 
-    <footer>
-        <p><strong>Lembaga Pendidikan DAARUL KHOIROT ALMADANI</strong></p>
-        <p style="font-size: 0.9rem; opacity: 0.9;">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</p>
-        <p style="font-size: 0.9rem; opacity: 0.9;">Hubungi Kami : +62 814 0164 3188 | daarulkhoirot2025@gmail.com</p>
-        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    <footer> 
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
     <audio id="murottal" src="murottal_start.mp3" loop></audio>
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
-     <script>
+      <script>
     const murottal = document.getElementById('murottal');
     const clickSound = document.getElementById('clickSound');
     const navLinks = document.querySelectorAll('nav ul li a'); 
