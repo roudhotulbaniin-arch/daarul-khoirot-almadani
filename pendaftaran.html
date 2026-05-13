@@ -149,20 +149,102 @@ nav ul li a.active{
 /* ======================
    HAMBURGER
 ====================== */
+/* =========================================
+   MENU TOGGLE MOBILE
+========================================= */
+
 #menu-toggle{
     display:none;
-    border:none;
-    background:var(--gold-light);
-    color:var(--primary-dark);
-    font-weight:700;
-    padding:10px 14px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:var(--transition);
 }
 
-#menu-toggle:hover{
-    transform:scale(1.03);
+/* MOBILE */
+@media(max-width:768px){
+
+    /* HEADER */
+    header{
+        position:relative;
+        flex-wrap:wrap;
+    }
+
+    /* BUTTON MENU */
+    #menu-toggle{
+        display:flex !important;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+
+        background:#facc15;
+        color:#14532d;
+
+        border:none;
+        border-radius:10px;
+
+        padding:10px 14px;
+
+        font-size:0.9rem;
+        font-weight:700;
+
+        cursor:pointer;
+    }
+
+    /* NAV */
+    #main-nav{
+        width:100%;
+    }
+
+    #main-nav ul{
+        display:none;
+        flex-direction:column;
+
+        width:100%;
+
+        margin-top:12px;
+
+        background:#166534;
+
+        border-radius:14px;
+
+        overflow:hidden;
+
+        padding:0;
+    }
+
+    /* SHOW MENU */
+    #main-nav.show ul{
+        display:flex;
+    }
+
+    /* MENU ITEM */
+    #main-nav ul li{
+        width:100%;
+        list-style:none;
+    }
+
+    #main-nav ul li a{
+        display:flex;
+        align-items:center;
+        gap:10px;
+
+        width:100%;
+
+        padding:15px 18px;
+
+        color:white;
+
+        text-decoration:none;
+
+        border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    #main-nav ul li:last-child a{
+        border-bottom:none;
+    }
+
+    #main-nav ul li a:hover,
+    #main-nav ul li a.active-link{
+        background:#14532d;
+        color:#facc15;
+    }
 }
 
 /* ======================
@@ -509,44 +591,98 @@ footer{
     }
 
     /* MENU BUTTON */
+/* ======================
+   HAMBURGER MENU
+====================== */
+
+#menu-toggle{
+    display:none;
+}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+
+    header{
+        position:relative;
+        flex-wrap:wrap;
+    }
+
     #menu-toggle{
-        display:block;
+        display:flex !important;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+
+        background:var(--gold-light);
+        color:var(--primary-dark);
+
+        border:none;
+        border-radius:10px;
+
+        padding:10px 14px;
+
+        font-size:0.9rem;
+        font-weight:700;
+
+        cursor:pointer;
     }
 
-    /* NAV */
-    nav{
+    #main-nav{
         width:100%;
-        margin-top:10px;
     }
 
-    nav ul{
+    #main-nav ul{
         display:none;
         flex-direction:column;
+
         width:100%;
+
+        margin-top:12px;
+
         background:var(--primary-color);
+
         border-radius:14px;
+
         overflow:hidden;
-        gap:0;
+
+        padding:0;
     }
 
-    nav.show ul{
+    #main-nav.show ul{
         display:flex;
     }
 
-    nav ul li{
+    #main-nav ul li{
         width:100%;
+        list-style:none;
     }
 
-    nav ul li a{
-        display:block;
-        padding:14px 18px;
+    #main-nav ul li a{
+        display:flex;
+        align-items:center;
+        gap:10px;
+
+        width:100%;
+
+        padding:15px 18px;
+
+        color:white;
+
+        text-decoration:none;
+
         border-bottom:1px solid rgba(255,255,255,0.08);
     }
 
-    nav ul li a::after{
-        display:none;
+    #main-nav ul li:last-child a{
+        border-bottom:none;
     }
 
+    #main-nav ul li a:hover,
+    #main-nav ul li a.active-link{
+        background:var(--primary-dark);
+        color:var(--gold-light);
+    }
+}
     /* CONTAINER */
     .container{
         padding:0 12px;
@@ -2258,18 +2394,16 @@ function kirimWA() {
     });
 
     // Fungsi untuk menandai menu aktif berdasarkan URL
-  
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.getElementById('menu-toggle');
-        const nav = document.getElementById('main-nav');
+  document.addEventListener("DOMContentLoaded", function () {
 
-        if (menuToggle && nav) {
-            menuToggle.addEventListener('click', function() {
-                // Ini akan menambah/menghapus class 'show' pada tag <nav>
-                nav.classList.toggle('show');
-            });
-        }
+    const menuToggle = document.getElementById("menu-toggle");
+    const mainNav = document.getElementById("main-nav");
+
+    menuToggle.addEventListener("click", function () {
+        mainNav.classList.toggle("show");
     });
+
+});
     
    </script>    
 
