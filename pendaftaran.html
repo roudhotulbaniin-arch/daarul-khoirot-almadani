@@ -143,39 +143,37 @@ nav ul {
     }
 
     /* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-    /* 1. Munculkan tombol hamburger kuning */
-    #menu-toggle {
-        display: block !important;
-        background: #f4ce14;
-        color: #1a5d1a;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        z-index: 1002;
-    }
-
-    /* 2. Sembunyikan daftar menu (nav ul) */
+   @media (max-width: 768px) {
+    /* 1. Paksa Menu Horizontal Hilang (PENTING) */
     nav ul {
-        display: none; /* Menghilangkan menu yang memanjang ke samping */
+        display: none !important; /* Ini akan menghilangkan menu yang memanjang di gambar Anda */
         flex-direction: column;
         position: absolute;
-        top: 65px; /* Sesuaikan dengan tinggi header */
+        top: 60px;
         left: 0;
         width: 100%;
-        background: #1a5d1a; /* Warna hijau lembaga */
+        background: #1a5d1a;
         padding: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         z-index: 1001;
     }
 
-    /* 3. Tampilkan menu saat tombol diklik (Class Show) */
+    /* 2. Paksa Tombol Hamburger Muncul */
+    #menu-toggle {
+        display: block !important; /* Tombol ini harus muncul sebagai pengganti menu */
+        background: #f4ce14;
+        color: #0d2e0d;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    /* 3. Tampilkan Menu saat diklik */
     nav.show ul {
         display: flex !important;
     }
-
+}
     /* Gaya link di dalam menu dropdown HP */
     nav ul li a {
         display: block;
