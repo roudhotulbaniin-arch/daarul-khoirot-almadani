@@ -333,89 +333,109 @@ input[readonly] {
     border-color: #d33 !important;
     background-color: #fff5f5;
 }
+/* --- 1. DASAR & VARIABLE (Tambahkan ini agar tombol punya warna) --- */
+:root {
+    --primary-color: #1a5d1a;
+    --secondary-color: #f4ce14;
+}
 
-
-     /* --- STYLE MENU AKTIF --- */
+/* --- 2. STYLE MENU & HOVER --- */
 nav ul li a {
     position: relative;
     padding-bottom: 5px;
     transition: 0.3s;
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
 }
 
-/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
-nav ul li a.active {
-    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-}
-
-/* Efek saat kursor menempel (Hover) */
+nav ul li a.active, 
 nav ul li a:hover {
-    color: #f4ce14;
+    color: var(--secondary-color) !important;
 }
-  
-    /* --- 1. DASAR --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
 
-    /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
-    header {
-        background: #1a5d1a; 
-        color: white; 
-        padding: 10px 4%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000;
-        min-height: 60px;
+nav ul li a.active {
+    border-bottom: 3px solid var(--secondary-color) !important;
+}
+
+/* --- 3. HEADER & NAVIGASI DESKTOP --- */
+header {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    min-height: 60px;
+}
+
+nav ul { 
+    list-style: none; 
+    display: flex; 
+    gap: 20px; 
+}
+
+#menu-toggle { 
+    display: none !important; /* Sembunyi total di komputer */
+}
+
+/* --- 4. RESPONSIVE MOBILE (HP) --- */
+@media (max-width: 768px) {
+    header { 
+        height: 65px; 
+        padding: 0 15px; 
     }
-
-    .logo { 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        flex-shrink: 0;
-    }
-
-    .logo img { height: 40px; width: auto; }
 
     .logo h1 { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        white-space: nowrap; 
-        letter-spacing: 0.5px;
+        font-size: 1rem !important; 
     }
 
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
+    /* TAMPILKAN TOMBOL HAMBURGER */
+    #menu-toggle {
+        display: block !important;
+        background: var(--secondary-color) !important;
+        color: var(--primary-color) !important;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        cursor: pointer;
+        z-index: 1002;
     }
 
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; }
-    
-/* --- 4. RESPONSIVE MOBILE (HP) --- */
-  @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+    /* SEMBUNYIKAN NAVIGASI ASLI */
+    nav ul {
+        display: none !important; /* Paksa hilang agar tidak berantakan di pojok */
+        flex-direction: column;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: var(--primary-color);
+        padding: 20px;
+        border-bottom: 3px solid var(--secondary-color);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-          #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
-       
+    /* TAMPILKAN SAAT TOMBOL DIKLIK */
+    nav.show ul {
+        display: flex !important;
+    }
+
+    /* Reset gaya aktif di HP agar tidak pakai border-bottom (jelek di dropdown) */
+    nav ul li a.active {
+        border-bottom: none !important;
+        border-left: 4px solid var(--secondary-color);
+        padding-left: 10px;
+    }
+}
+
+   
 </style>
 
 </head>
@@ -433,15 +453,16 @@ nav ul li a:hover {
 
     <nav>
         <ul>
-            <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="pendaftaran.html"class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
             <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
             <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
         </ul>
     </nav>
 </header>
+    
 <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
 <div class="container">
     <div class="tab-container">
