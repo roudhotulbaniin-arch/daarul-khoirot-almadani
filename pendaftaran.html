@@ -195,20 +195,6 @@
     grid-column: span 3;
 }
 
-/* --- 4. RESPONSIF MOBILE --- */
-@media (max-width: 768px) {
-    .tab-content {
-        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
-        padding: 20px;
-        border-radius: 0 0 12px 12px;
-    }
-    
-    .tab-content > .input-group,
-    .tab-content > .input-group.wide,
-    .form-section-title {
-        grid-column: span 1 !important;
-    }
-}  
 
   /* --- 5. FORM ELEMENTS --- */
     .form-section-title { 
@@ -441,19 +427,20 @@ nav ul li a:hover {
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
     
- <button id="menu-toggle">
+    <button id="menu-toggle">
         <i class="fas fa-bars"></i> Menu
     </button>
 
     <nav>
         <ul>
-            <li><a href="index.html" ><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
             <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
             <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
         </ul>
+    </nav>
 </header>
 <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
 <div class="container">
