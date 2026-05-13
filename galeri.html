@@ -25,87 +25,85 @@
         min-height: 100vh;
     }
 
-    /* --- 2. HEADER & NAVIGASI (DESKTOP) --- */
-    header { 
-        background-color: var(--primary-color); 
-        color: white; 
-        padding: 1rem 5%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000; 
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-    }
+  /* --- 2. HEADER & NAVIGASI (DESKTOP) --- */
+header { 
+    background-color: var(--primary-color); 
+    color: white; 
+    padding: 0 5%; /* Padding atas bawah 0 agar tinggi header konsisten */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    height: 70px; /* Tinggi tetap agar rapi */
+}
 
-    .logo { display: flex; align-items: center; }
-    .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
-    .main-header-logo { max-height: 40px; margin-right: 12px; }
+.logo { display: flex; align-items: center; flex: 1; }
+.logo h1 { font-size: 1.1rem; letter-spacing: 1px; white-space: nowrap; }
+.main-header-logo { max-height: 35px; margin-right: 12px; }
 
-    /* Navigasi Desktop */
-    nav ul { 
-        display: flex; 
-        list-style: none; 
-        gap: 20px; 
-    }
+/* Navigasi Desktop */
+nav ul { 
+    display: flex; 
+    list-style: none; 
+    gap: 20px; 
+}
 
-    nav ul li a {
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
-        position: relative;
-        padding-bottom: 5px;
-        transition: 0.3s;
-    }
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    position: relative;
+    padding: 5px 0;
+    transition: 0.3s;
+}
 
-    /* Menu Aktif & Hover */
-    nav ul li a.active {
-        border-bottom: 3px solid var(--secondary-color) !important;
-        color: var(--secondary-color) !important;
-    }
+/* Sembunyikan tombol menu di desktop */
+#menu-toggle { display: none !important; }
 
-    nav ul li a:hover {
-        color: var(--secondary-color);
-    }
-
-/* Sembunyikan tombol menu di komputer */
-#menu-toggle { display: none; }
-
+/* --- 7. RESPONSIVE MASTER (HP) --- */
 @media (max-width: 768px) {
-    /* Munculkan tombol hamburger di HP */
-    #menu-toggle { 
-        display: block !important; 
-        background: #f4ce14; 
-        color: #1a5d1a; 
+    header { height: 60px; }
+
+    /* PAKSA tombol hamburger muncul */
+    #menu-toggle {
+        display: block !important;
+        background: var(--secondary-color) !important;
+        color: var(--primary-color) !important;
         border: none;
-        padding: 5px 10px;
+        padding: 6px 12px;
         border-radius: 4px;
         font-weight: bold;
+        font-size: 0.8rem;
+        cursor: pointer;
+        z-index: 1002;
     }
 
-    /* Sembunyikan menu navigasi secara default di HP */
-    nav {
+    /* Atur daftar menu agar melayang saat muncul */
+    nav ul { 
         display: none; 
-        position: absolute;
-        top: 65px; /* Sesuaikan dengan tinggi header */
-        left: 0;
-        width: 100%;
-        background: #1a5d1a;
-        z-index: 1001;
-    }
-
-    /* KELAS KUNCI: Menampilkan menu saat tombol diklik */
-    nav.show {
-        display: block !important;
-    }
-
-    nav ul {
         flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px; 
+        left: 0;
+        background: var(--primary-color);
         padding: 20px;
+        gap: 15px;
+        border-bottom: 3px solid var(--secondary-color);
     }
-}
-       
+
+    /* Tampilkan menu saat diklik (Class Show) */
+    nav.show ul { 
+        display: flex !important; 
+    }
+
+    .logo h1 { font-size: 0.9rem; }
+    .container { padding: 2rem 5%; }
+}       
     /* --- 3. CONTAINER UTAMA --- */
     .container { padding: 3rem 10%; flex: 1; }
 
@@ -269,22 +267,23 @@
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="main_logo.png" alt="Logo" class="main-header-logo">
-            <h1>DAARUL KHOIROT ALMADANI</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
-                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
-                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
-                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <div class="logo">
+        <img src="logo.png" class="main-header-logo">
+        <h1>DAARUL KHOIROT ALMADANI</h1>
+    </div>
+
+    <ul>
+            <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
+            <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
+            <li><a href="kontak.html"><i class="fas fa-phone"></i> Kontak</a></li>
+        </ul>
+
+    <button id="menu-toggle">Menu</button>
+</header>
 
     <div class="container">
         <section id="galeri">
