@@ -31,9 +31,7 @@ nav ul li a.active {
 nav ul li a:hover {
     color: #f4ce14;
 }
-
-
-    
+  
     /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
@@ -91,16 +89,48 @@ nav ul li a:hover {
     .box-header i { color: #f4ce14; font-size: 1.6rem; }
     .box-header h2 { font-size: 1.6rem; border-bottom: 2px solid #f4ce14; padding-bottom: 5px; }
 
-    .about-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 15px; }
-    .about-wrap i.fa-mosque { color: #f4ce14 !important; font-size: 4rem !important; }
-    .about-wrap p { 
-    font-size: 1.5rem !important; 
-    line-height: 1.6;
-    max-width: 1300px; /* Membatasi lebar agar teks tidak terlalu melar ke samping */
+    .about-wrap { 
+    display: flex; 
+    flex-direction: row; /* Membuat ikon dan teks sejajar ke samping */
+    align-items: center; /* Menyeimbangkan posisi ikon agar pas di tengah teks */
+    justify-content: center;
+    gap: 30px; /* Jarak antara ikon masjid dan teks profil */
+    padding: 20px 5%;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+.about-wrap i.fa-mosque { 
+    color: var(--secondary-color) !important; 
+    font-size: 5rem !important; /* Ukuran ikon masjid */
+    flex-shrink: 0; /* Mencegah ikon menjadi gepeng */
+}
+
+.about-wrap p { 
+    font-size: 1.25rem !important; 
+    line-height: 1.8;
     color: white;
     text-align: justify; /* MEMBUAT TEKS RATA KANAN-KIRI */
-    text-justify: inter-word; /* Mengoptimalkan jarak antar kata agar rapi */
+    text-justify: inter-word; /* Mengatur spasi antar kata agar rapi */
+    margin: 0;
+}
+
+/* --- PENYESUAIAN KHUSUS HP (BALIK KE ATAS-BAWAH) --- */
+@media (max-width: 768px) {
+    .about-wrap {
+        flex-direction: column; /* Di HP lebih rapi jika ikon di atas teks */
+        gap: 15px;
+        text-align: center;
+    }
+
+    .about-wrap i.fa-mosque { 
+        font-size: 3.5rem !important; 
+    }
+
+    .about-wrap p {
+        font-size: 1.1rem !important;
+        text-align: justify; /* Tetap justified di HP atau ganti 'center' jika ingin rata tengah */
+    }
 }
 
     /* --- 5. UNIT PENDIDIKAN (3 KOLOM KOMPUTER) --- */
@@ -155,26 +185,7 @@ nav ul li a:hover {
         .hero-content h1 { font-size: 1.4rem !important; }
         .hero-content p { font-size: 0.9rem !important; }
         .hero-container { height: 250px; }
-
-        .about-wrap i.fa-mosque { font-size: 3rem !important; }
-     .about-wrap p { 
-    font-size: 1.3rem !important; 
-    line-height: 1.6;
-    max-width: 850px; /* Membatasi lebar agar teks tidak terlalu melar ke samping */
-    margin: 0 auto;
-    color: white;
-    text-align: justify; /* MEMBUAT TEKS RATA KANAN-KIRI */
-    text-justify: inter-word; /* Mengoptimalkan jarak antar kata agar rapi */
-}
-
-/* Penyesuaian untuk HP agar tidak kaku */
-@media (max-width: 768px) {
-    .about-wrap p {
-        font-size: 1.1rem !important;
-        text-align: center; /* Di HP teks biasanya lebih bagus rata tengah */
-        padding: 0 10px;
-    }
-}
+        
         .unit-grid { grid-template-columns: 1fr; }
         .unit-card { flex-direction: row; text-align: left; padding: 15px; }
     }
