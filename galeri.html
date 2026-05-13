@@ -96,7 +96,7 @@
     @media (max-width: 768px) {
         header { height: 60px; padding: 0 15px; }
         .logo img { height: 35px; }
-        .logo h1 { font-size: 0.85rem; }
+        .logo h1 { font-size: 1rem; }
 
         /* Munculkan Tombol Hamburger */
         #menu-toggle {
@@ -130,15 +130,7 @@
         /* Class Show untuk JavaScript */
         nav.show ul { display: flex !important; }
 
-        /* Menu Aktif di HP (Garis Samping) */
-        nav ul li a.active { 
-            border-bottom: none; 
-            border-left: 4px solid var(--secondary-color); 
-            padding-left: 10px; 
-        }
-    }   
-      
-      nav.show ul { display: flex !important; }
+           nav.show ul { display: flex !important; }
         nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
 
                 /* --- CONTAINER UTAMA --- */
@@ -269,7 +261,9 @@
                 <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
                 <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
-    <button id="menu-toggle">Menu</button>
+   <button id="menu-toggle">
+        <i class="fas fa-bars"></i> Menu
+    </button>
 </header>
 
     <div class="container">
