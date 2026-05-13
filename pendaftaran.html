@@ -2004,36 +2004,38 @@ function kirimWA() {
    LOGIKA NAVIGASI (ANTI-BENTROK & BEBAS ERROR)
 ========================================================= */
 
+/* =========================================================
+   LOGIKA NAVIGASI TERPADU (ANTI-ERROR)
+========================================================= */
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. Deklarasi Elemen
-    const menuToggle = document.getElementById('menu-toggle');
+    // 1. Deklarasi Elemen (Gunakan ID 'btn-menu-utama' agar konsisten dengan CSS baru)
+    const menuToggle = document.getElementById('btn-menu-utama') || document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
-    const menuItems = document.querySelectorAll("nav ul li a"); // Ini pengganti 'navLinks'
+    const menuItems = document.querySelectorAll("nav ul li a");
     const currentUrl = window.location.pathname.split("/").pop();
 
     // 2. Logika Buka/Tutup Menu HP
     if (menuToggle && nav) {
         menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation(); // Mencegah klik tembus ke elemen bawah
+            e.stopPropagation();
             nav.classList.toggle('show');
         });
     }
 
-    // 3. Menandai Menu Aktif & Tutup Menu saat Link diklik
+    // 3. Menandai Menu Aktif & Logika Klik Link
     menuItems.forEach(item => {
-        // A. Tandai menu aktif berdasarkan URL
+        // A. Tandai menu aktif
         const itemHref = item.getAttribute("href");
         if (itemHref === currentUrl || (currentUrl === "" && itemHref === "index.html")) {
             item.classList.add("active");
         }
 
-    
+        // B. Tutup menu saat link diklik (khusus mobile)
         item.addEventListener('click', function(e) {
-            if (nav.classList.contains('show')) {
+            if (nav && nav.classList.contains('show')) {
                 nav.classList.remove('show');
             }
             
-            // Efek delay sedikit agar animasi tutup menu terasa
             const destination = this.href;
             if (destination && !destination.includes('#')) {
                 e.preventDefault();
@@ -2044,19 +2046,21 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // 4. Klik di luar menu untuk menutup menu (Opsional tapi bagus)
-   document.addEventListener('DOMContentLoaded', function() {
-    const tombol = document.getElementById('btn-menu-utama');
-    const navigasi = document.querySelector('nav');
+    // 4. Klik di luar menu untuk menutup dropdown
+    document.addEventListener('click', function(e) {
+        if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+            nav.classList.remove('show');
+        }
+    });
 
-    if (tombol) {
-        tombol.addEventListener('click', function() {
-            navigasi.classList.toggle('show');
-        });
-    }
+    // 5. Ekspos Fungsi Global untuk Tab (PENTING!)
+    window.openTab = typeof openTab !== 'undefined' ? openTab : null;
+    window.nextTab = typeof nextTab !== 'undefined' ? nextTab : null;
+    window.prevTab = typeof prevTab !== 'undefined' ? prevTab : null;
 });
-    
-   </script>    
+// Pastikan tidak ada script lain yang menggantung di bawah ini
+
+</script>
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp fa-lg"></i>
