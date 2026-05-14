@@ -432,35 +432,28 @@ input[readonly] {
     .logo h1 { font-size: 1rem; margin-right: 10px; }
 
     /* NAV MOBILE */
-   nav ul.show {
-    display: flex !important;
-    flex-direction: column;
-    position: absolute;
-    top: 65px;
-    left: 0;
-    width: 100%;
-    background: #1a5d1a;
-    padding: 15px;
-    z-index: 2000; /* ⬅️ lebih tinggi dari header */
-}
+ @media (max-width: 768px) {
+
     nav {
-    position: relative;
-}
-    
+        position: relative;
+    }
+
+    nav ul {
+        display: none !important;
+    }
+
     nav ul.show {
         display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: #1a5d1a;
+        padding: 15px;
+        z-index: 2000;
     }
 }
-
-    nav ul li {
-        margin-bottom: 10px;
-    }
-
-    nav ul li a {
-        display: block;
-        padding: 10px;
-    }
-
     /* ACTIVE DI MOBILE */
     nav ul li a.active {
         border-left: 4px solid #f4ce14;
