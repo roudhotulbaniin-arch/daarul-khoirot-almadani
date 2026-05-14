@@ -2,7 +2,6 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta id="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot Almadani | Beranda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -349,6 +348,17 @@ input[readonly] {
  /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
+
+    /* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
+}
 
     /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
     header {
@@ -2068,12 +2078,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Klik luar → tutup menu
-    document.addEventListener('click', function(e) {
-        if (!navMenu.contains(e.target) && e.target !== menuToggle) {
-            navMenu.classList.remove('show');
-        }
-    });
+// Klik luar → tutup menu
+document.addEventListener('click', function(e) {
+    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        navMenu.classList.remove('show');
+    }
 });
 
 </script>
