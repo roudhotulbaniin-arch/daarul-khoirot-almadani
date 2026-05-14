@@ -432,18 +432,21 @@ input[readonly] {
     .logo h1 { font-size: 1rem; margin-right: 10px; }
 
     /* NAV MOBILE */
-    nav ul {
-        display: none !important;   /* paksa override */
-        flex-direction: column;
-        position: absolute;
-        top: 65px;
-        left: 0;
-        width: 100%;
-        background: #1a5d1a;
-        padding: 15px;
-        z-index: 999;
-    }
-
+   nav ul.show {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: #1a5d1a;
+    padding: 15px;
+    z-index: 2000; /* ⬅️ lebih tinggi dari header */
+}
+    nav {
+    position: relative;
+}
+    
     nav ul.show {
         display: flex !important;
     }
