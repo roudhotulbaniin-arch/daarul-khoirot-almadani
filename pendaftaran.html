@@ -397,61 +397,87 @@ nav ul li a:hover {
         letter-spacing: 0.5px;
     }
 
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
+  /* ============================================================
+   1. NAVIGASI DESKTOP (LAPTOP/PC)
+   ============================================================ */
+/* Aturan dasar navigasi */
+nav ul { 
+    list-style: none; 
+    display: flex; 
+    gap: 20px; 
+}
+
+nav ul li a { 
+    color: white; 
+    text-decoration: none; 
+    font-size: 0.95rem; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+}
+
+/* Tombol menu wajib SEMBUNYI di komputer */
+#menu-toggle { 
+    display: none; 
+}
+
+/* ============================================================
+   2. RESPONSIVE MASTER (HP / MOBILE)
+   ============================================================ */
+@media (max-width: 768px) {
+    header { 
+        height: 65px; 
+        padding: 0 15px; 
+        position: relative; /* Penting untuk posisi menu absolut */
     }
 
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; }
+    .logo img { height: 35px; }
+    .logo h1 { font-size: 1rem !important; margin-right: 10px; }
 
-/* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+    /* Tombol menu WAJIB MUNCUL di HP */
+    #menu-toggle {
+        display: block !important; 
+        background: #f4ce14 !important; /* Warna kuning emas */
+        color: #1a5d1a !important;    /* Warna hijau tua */
+        border: none; 
+        padding: 8px 12px;
+        border-radius: 4px; 
+        font-weight: bold; 
+        font-size: 0.8rem; 
+        cursor: pointer;
+    }
 
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-          #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
-@media (max-width: 768px) {
+    /* Sembunyikan daftar menu, atur posisi drop-down */
+    nav ul { 
+        display: none; 
+        flex-direction: column; 
+        width: 100%; 
+        position: absolute; 
+        top: 65px; 
+        left: 0; 
+        background: #1a5d1a; 
+        padding: 20px; 
+        border-bottom: 3px solid #f4ce14; 
+        z-index: 999;
+    }
+
+    /* Munculkan menu saat tombol diklik (via class 'show' di elemen <nav>) */
+    nav.show ul { 
+        display: flex !important; 
+    }
+
+    /* Penyesuaian tampilan menu aktif di HP */
     nav ul li a.active {
         border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
-    }
-}
-        
-
-    /* ACTIVE DI MOBILE */
-    nav ul li a.active {
-        border-left: 4px solid #f4ce14;
+        border-left: 4px solid #f4ce14 !important; 
         padding-left: 10px;
         background: rgba(255,255,255,0.05);
     }
-
-    /* BUTTON MENU */
-    #menu-toggle {
-        display: block;
-        background: #f4ce14;
-        color: #1a5d1a;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        cursor: pointer;
+    
+    nav ul li {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
         
