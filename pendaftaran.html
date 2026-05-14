@@ -402,19 +402,20 @@ input[readonly] {
 
     /* NAV MOBILE */
    @media (max-width: 768px) {
+    @media (max-width: 768px) {
     nav ul {
         display: none !important;
         flex-direction: column;
-        width: 100%;
         position: absolute;
         top: 65px;
         left: 0;
+        width: 100%;
         background: #1a5d1a;
         padding: 15px;
         z-index: 999;
     }
 
-    nav.show ul {
+    nav ul.show {
         display: flex !important;
     }
 }
@@ -2016,42 +2017,33 @@ function kirimWA() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
+    const navMenu = document.querySelector('nav ul');
     const navLinks = document.querySelectorAll('nav ul li a');
 
-    console.log("Script menu aktif");
-
     // Toggle menu
-    if (menuToggle && nav) {
+    if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', function(e) {
             e.stopPropagation();
-            nav.classList.toggle('show');
+            navMenu.classList.toggle('show');
             console.log("Menu diklik");
         });
     }
 
-    // Active menu + auto close
-    const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-
+    // Klik link → tutup menu
     navLinks.forEach(item => {
-        const href = item.getAttribute("href");
-
-        if (href === currentUrl) {
-            item.classList.add("active");
-        }
-
         item.addEventListener('click', function() {
-            nav.classList.remove('show');
+            navMenu.classList.remove('show');
         });
     });
 
-    // Klik luar = tutup menu
+    // Klik luar → tutup menu
     document.addEventListener('click', function(e) {
-        if (nav && !nav.contains(e.target) && e.target !== menuToggle) {
-            nav.classList.remove('show');
+        if (navMenu && !navMenu.contains(e.target) && e.target !== menuToggle) {
+            navMenu.classList.remove('show');
         }
     });
 });
+
 </script>
     
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
