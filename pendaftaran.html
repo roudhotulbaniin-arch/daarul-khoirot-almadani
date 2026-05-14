@@ -2017,17 +2017,23 @@ function kirimWA() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.querySelector('nav ul');
-    const navLinks = document.querySelectorAll('nav ul li a');
+    const navMenu = document.querySelector('header nav ul');
+    const navLinks = document.querySelectorAll('header nav ul li a');
+
+    console.log("NavMenu:", navMenu);
+
+    // STOP kalau tidak ketemu (biar gak error)
+    if (!menuToggle || !navMenu) {
+        console.log("Elemen tidak ditemukan");
+        return;
+    }
 
     // Toggle menu
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            navMenu.classList.toggle('show');
-            console.log("Menu diklik");
-        });
-    }
+    menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('show');
+        console.log("Menu diklik");
+    });
 
     // Klik link → tutup menu
     navLinks.forEach(item => {
@@ -2038,7 +2044,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Klik luar → tutup menu
     document.addEventListener('click', function(e) {
-        if (navMenu && !navMenu.contains(e.target) && e.target !== menuToggle) {
+        if (!navMenu.contains(e.target) && e.target !== menuToggle) {
             navMenu.classList.remove('show');
         }
     });
