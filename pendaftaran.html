@@ -397,98 +397,65 @@ nav ul li a:hover {
         letter-spacing: 0.5px;
     }
 
-  /* ============================================================
+/* ============================================================
    1. NAVIGASI DESKTOP (LAPTOP/PC)
    ============================================================ */
-/* Aturan dasar navigasi */
-nav ul { 
-    list-style: none; 
-    display: flex; 
-    gap: 20px; 
+header {
+    background: #1a5d1a;
+    color: white;
+    padding: 10px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    min-height: 60px;
 }
 
-nav ul li a { 
-    color: white; 
-    text-decoration: none; 
-    font-size: 0.95rem; 
-    font-weight: 600; 
-    display: flex; 
-    align-items: center; 
-    gap: 5px; 
+/* Sembunyikan tombol menu di laptop */
+#menu-toggle {
+    display: none;
 }
 
-/* Tombol menu wajib SEMBUNYI di komputer */
-#menu-toggle { 
-    display: none; 
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
+
+/* Hover & Active Desktop (Garis Bawah) */
+nav ul li a:hover, 
+nav ul li a.active {
+    color: #f4ce14 !important;
+    border-bottom: 3px solid #f4ce14;
 }
 
 /* ============================================================
    2. RESPONSIVE MASTER (HP / MOBILE)
    ============================================================ */
 @media (max-width: 768px) {
-    header { 
-        height: 65px; 
-        padding: 0 15px; 
-        position: relative; /* Penting untuk posisi menu absolut */
+    header {
+        height: 65px;
+        padding: 0 15px;
     }
 
     .logo img { height: 35px; }
-    .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+    .logo h1 { font-size: 1rem !important; }
 
     /* Tombol menu WAJIB MUNCUL di HP */
-    #menu-toggle {
-        display: block !important; 
-        background: #f4ce14 !important; /* Warna kuning emas */
-        color: #1a5d1a !important;    /* Warna hijau tua */
-        border: none; 
-        padding: 8px 12px;
-        border-radius: 4px; 
-        font-weight: bold; 
-        font-size: 0.8rem; 
-        cursor: pointer;
-    }
-
-    /* Sembunyikan daftar menu, atur posisi drop-down */
-    nav ul { 
-        display: none; 
-        flex-direction: column; 
-        width: 100%; 
-        position: absolute; 
-        top: 65px; 
-        left: 0; 
-        background: #1a5d1a; 
-        padding: 20px; 
-        border-bottom: 3px solid #f4ce14; 
-        z-index: 999;
-    }
-
-    /* Munculkan menu saat tombol diklik (via class 'show' di elemen <nav>) */
-    nav.show ul { 
-        display: flex !important; 
-    }
-
-    /* Penyesuaian tampilan menu aktif di HP */
-    nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; 
-        padding-left: 10px;
-        background: rgba(255,255,255,0.05);
-    }
-    
-    nav ul li {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-}
-
- /* --- Aturan Dasar Desktop --- */
-#menu-toggle {
-    display: none; /* Sembunyi di laptop */
-}
-
-/* --- Aturan Khusus HP --- */
-@media (max-width: 768px) {
-    /* Tampilkan Tombol */
     #menu-toggle {
         display: block !important;
         background: #f4ce14;
@@ -497,34 +464,43 @@ nav ul li a {
         padding: 8px 12px;
         border-radius: 4px;
         font-weight: bold;
-        cursor: pointer;
         font-size: 0.9rem;
+        cursor: pointer;
+        order: 2; /* Agar posisi tombol di kanan */
     }
 
-    /* Sembunyikan Daftar Menu Teks */
-    nav#main-nav ul {
-        display: none; 
+    /* Daftar menu dropdown vertikal */
+    nav ul {
+        display: none; /* Sembunyi secara default */
         flex-direction: column;
+        width: 100%;
         position: absolute;
         top: 65px;
         left: 0;
-        width: 100%;
         background: #1a5d1a;
-        padding: 15px;
-        z-index: 1000;
+        padding: 20px;
         border-bottom: 3px solid #f4ce14;
+        z-index: 999;
     }
 
-    /* Tampilkan Menu hanya jika class 'show' aktif */
-    nav#main-nav.show ul {
+    /* Munculkan menu saat tombol diklik (class 'show') */
+    nav.show ul {
         display: flex !important;
     }
 
-    /* Hilangkan menu desktop yang memanjang */
-    nav#main-nav {
-        order: 2; /* Mengatur urutan agar tombol ada di kanan */
+    nav ul li {
+        width: 100%;
+        margin-bottom: 10px;
     }
-}   
+
+    /* Menu Aktif di HP (Garis Samping) */
+    nav ul li a.active {
+        border-bottom: none !important;
+        border-left: 4px solid #f4ce14 !important;
+        padding-left: 10px;
+        background: rgba(255,255,255,0.05);
+    }
+}
         
 </style>
 
@@ -2094,29 +2070,42 @@ function kirimWA() {
     const clickSound = document.getElementById('clickSound');
     const navLinks = document.querySelectorAll('nav ul li a'); 
     
-// --- TAMBAHAN UNTUK MENU HP ---
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
-
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
-        });
-    }
-
-   
-    // Fungsi untuk menandai menu aktif berdasarkan URL
-  document.addEventListener("DOMContentLoaded", function() {
+/* ============================================================
+   LOGIKA MENU NAVIGASI (MOBILE & DESKTOP)
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Ambil elemen yang dibutuhkan
     const menuBtn = document.getElementById('menu-toggle');
-    const mainNav = document.getElementById('main-nav');
+    const navContainer = document.querySelector('nav');
 
-    if (menuBtn && mainNav) {
-        menuBtn.addEventListener('click', function() {
-            mainNav.classList.toggle('show');
+    // 2. Fungsi Toggle Menu (Hanya jalankan satu kali)
+    if (menuBtn && navContainer) {
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Mencegah event bubbling
+            navContainer.classList.toggle('show');
+        });
+
+        // 3. Menutup menu otomatis jika pengguna mengklik di luar menu
+        document.addEventListener('click', function(e) {
+            if (!navContainer.contains(e.target) && e.target !== menuBtn) {
+                navContainer.classList.remove('show');
+            }
         });
     }
+
+    // 4. Otomatis tandai menu aktif berdasarkan URL halaman saat ini
+    const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+    const menuLinks = document.querySelectorAll("nav ul li a");
+
+    menuLinks.forEach(link => {
+        const href = link.getAttribute("href");
+        if (href === currentUrl) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
+        }
+    });
 });
-    
    </script>    
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
