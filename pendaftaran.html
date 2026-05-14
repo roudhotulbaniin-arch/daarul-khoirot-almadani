@@ -55,10 +55,33 @@
         #menu-toggle { display: none; }
 
         /* --- 3. RESPONSIVE HP (MOBILE) --- */
-        @media (max-width: 768px) {
-             header { height: 65px; padding: 0 15px; }
-             .logo img { height: 35px; }
-             .logo h1 { font-size: 1rem !important; margin-right: 8px; }
+        header { 
+    height: 65px; 
+    padding: 0 10px !important; /* Dikurangi sedikit dari 15px agar lega */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex: 1; /* Membiarkan logo mengambil ruang yang tersedia */
+    min-width: 0; /* Penting agar teks di dalamnya bisa mengecil/terpotong */
+}
+
+.logo img { 
+    height: 35px; 
+    flex-shrink: 0; /* Gambar tidak boleh gepeng */
+}
+
+.logo h1 { 
+    font-size: 1rem !important; 
+    margin-left: 10px; /* Gunakan margin-left agar jarak dari gambar pas */
+    white-space: nowrap !important; /* PAKSA 1 baris seperti index */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Jika tetap tidak muat, akan jadi titik-titik (...) bukan turun */
+}
 
             nav ul { 
             display: none; flex-direction: column; width: 100%; position: absolute; 
