@@ -389,57 +389,62 @@ input[readonly] {
     /* Tombol menu disembunyikan di komputer */
     #menu-toggle { display: none; }
 
-    /* --- 7. RESPONSIVE MASTER (HP) --- */
+  /* --- RESPONSIVE HP --- */
 @media (max-width: 768px) {
-    header { 
-        height: 65px; 
-        padding: 0 15px; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
+    header {
+        height: 65px;
+        padding: 0 15px;
         position: relative;
     }
 
-    .logo h1 { font-size: 0.9rem !important; }
+    .logo img { height: 35px; }
+    .logo h1 { font-size: 1rem; margin-right: 10px; }
 
-    /* Sembunyikan navigasi teks secara default di HP */
-    nav ul { 
-        display: none; 
-        flex-direction: column; 
-        width: 100%; 
-        position: absolute; 
-        top: 65px; 
-        left: 0; 
-        background: #1a5d1a; 
-        padding: 10px 0; 
+    /* NAV MOBILE */
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        background: #1a5d1a;
+        padding: 15px;
         border-bottom: 3px solid #f4ce14;
-        z-index: 1000;
+        z-index: 999;
     }
 
-    /* Munculkan saat class 'show' aktif */
-    nav.show ul { 
-        display: flex !important; 
+    nav.show ul {
+        display: flex;
     }
 
-    nav ul li { width: 100%; }
+    nav ul li {
+        margin-bottom: 10px;
+    }
 
     nav ul li a {
         display: block;
-        padding: 12px 20px;
-        color: white;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding: 10px;
     }
 
-    /* Indikator Menu Aktif di HP (Garis Samping) */
+    /* ACTIVE DI MOBILE */
     nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important;
-        background: rgba(255, 255, 255, 0.1);
-        padding-left: 15px;
+        border-left: 4px solid #f4ce14;
+        padding-left: 10px;
+        background: rgba(255,255,255,0.05);
     }
 
+    /* BUTTON MENU */
     #menu-toggle {
-        display: block !important; /* Pastikan tombol muncul */
+        display: block;
+        background: #f4ce14;
+        color: #1a5d1a;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        cursor: pointer;
     }
 }
         
@@ -462,7 +467,7 @@ input[readonly] {
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html" class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="pendaftaran.html" class="active"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
             <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
             <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
@@ -2011,30 +2016,25 @@ function kirimWA() {
     const clickSound = document.getElementById('clickSound');
     const navLinks = document.querySelectorAll('nav ul li a'); 
     
-  // --- TAMBAHAN UNTUK MENU HP ---
+document.addEventListener("DOMContentLoaded", function() {
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
-    
-    // Logika Buka/Tutup Menu
-    if (menuToggle && nav) {
-        menuToggle.onclick = function(e) {
-            e.stopPropagation();
-            nav.classList.toggle('show');
-        };
-    }
+    // Toggle menu
+    menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        nav.classList.toggle('show');
+    });
 
-    // Penanda Menu Aktif
+    // Active menu + auto close
     const currentUrl = window.location.pathname.split("/").pop() || "index.html";
     const menuItems = document.querySelectorAll("nav ul li a");
 
     menuItems.forEach(item => {
         const href = item.getAttribute("href");
+
         if (href === currentUrl) {
-            item.classList.add("active"); // Gunakan 'active' agar sesuai CSS
+            item.classList.add("active");
         }
 
         item.addEventListener('click', function() {
@@ -2042,9 +2042,9 @@ function kirimWA() {
         });
     });
 
-    // Klik di luar untuk menutup
+    // Klik luar = tutup menu
     document.addEventListener('click', function(e) {
-        if (nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+        if (!nav.contains(e.target) && e.target !== menuToggle) {
             nav.classList.remove('show');
         }
     });
