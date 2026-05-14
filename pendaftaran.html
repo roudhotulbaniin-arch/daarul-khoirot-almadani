@@ -2,15 +2,14 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Daarul Khoirot Almadani | Pendaftaran</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-  
+    
     <style>
-        /* --- 1. DASAR & VARIABEL --- */
         :root {
             --primary-color: #1a5319;
             --primary-dark: #0d2e0d;
@@ -18,300 +17,340 @@
             --gold-light: #f4ce14;
             --white: #FFFFFF;
             --bg-body: #f4f7f6;
-            --border-color: #1a5d1a;
+            --text-dark: #1a1a1a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
 
         body { 
             background-color: var(--bg-body); 
-            display: flex; flex-direction: column; min-height: 100vh;
-            overflow-x: hidden; 
+            color: var(--text-dark); 
+            overflow-x: hidden; /* Mencegah geser horizontal seluruh halaman */
         }
 
-        /* --- 2. HEADER & NAVIGASI --- */
-        header { 
-            background: var(--primary-color); 
-            color: var(--white); 
-            padding: 12px 4%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        /* --- HEADER --- */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .logo { display: flex; align-items: center; gap: 10px; }
-        .logo img { height: 40px; }
-        .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; font-weight: 700; }
+        .logo { display: flex; align-items: center; gap: 8px; }
+        .logo img { height: 35px; }
+        .logo h1 { font-size: 0.95rem; font-weight: 700; color: white; }
 
-        /* Navigasi Desktop */
-        nav ul { list-style: none; display: flex; gap: 15px; }
-        nav ul li a { 
-            color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
-            padding: 5px 8px; transition: 0.3s; 
-        }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); }
-
-        /* Tombol Menu HP */
-        #menu-toggle { display: none; }
-
-        /* --- 3. RESPONSIVE HP (MOBILE) --- */
-        @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; }
-            .logo h1 { font-size: 1rem; }
-
-            #menu-toggle {
-                display: block !important;
-                background: var(--gold-light);
-                color: var(--primary-color);
-                border: none; padding: 8px 12px; border-radius: 4px;
-                font-weight: bold; cursor: pointer;
-            }
-
-            nav ul {
-                display: none; flex-direction: column; width: 100%;
-                position: absolute; top: 65px; left: 0;
-                background: var(--primary-color); padding: 15px;
-                z-index: 2000; border-bottom: 3px solid var(--gold-light);
-            }
-
-            nav.show ul { display: flex !important; }
-
-            nav ul li { margin-bottom: 10px; width: 100%; }
-            nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            nav ul li a.active { border-left: 4px solid var(--gold-light); padding-left: 10px; background: rgba(255,255,255,0.05); }
-
-            /* Paksa Form Jadi 1 Kolom di HP */
-            .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
-                grid-template-columns: 1fr !important; gap: 15px !important;
-            }
+        #menu-toggle {
+            background: var(--gold-light);
+            color: var(--primary-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.8rem;
         }
 
-        /* --- 4. FORM ELEMENTS & TABS --- */
-        .container { padding: 2rem 5%; flex: 1; }
-        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
+        /* --- TAB NAVIGATION (PENTING: AGAR FIT DI HP) --- */
+        .tab-menu { 
+            display: flex; 
+            background: #e0e0e0; 
+            width: 100%;
+            justify-content: space-between; /* Distribusi rata */
+        }
+
+        .tab-link {
+            flex: 1; /* Setiap tab mengambil ruang yang sama */
+            padding: 12px 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.7rem; /* Ukuran font diperkecil untuk HP */
+            color: #555;
+            background: #eee;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-align: center;
+            border-right: 1px solid #ddd;
+        }
+
+        .tab-link i { font-size: 1.1rem; }
+        .tab-link.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        .tab-link:last-child { border-right: none; }
+
+        /* --- CONTENT --- */
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; }
         
-        .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-        .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: #555; text-align: center; transition: 0.3s; text-transform: uppercase; }
-        .tab-link.active { background-color: #28a745 !important; color: white !important; }
+        .tab-container {
+            background: white;
+            min-height: 80vh;
+        }
 
-        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }
-        .tab-content.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-        .form-section-title { grid-column: 1 / -1; margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
-
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
-        .required::after { content: " *"; color: #d63031; }
-
-        .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
-        .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
-        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.9rem; }
-
-        /* --- 5. BUTTONS & FOOTER --- */
-        .button-group { grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
-        .btn-nav { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 1.2rem; transition: 0.3s; color: white; }
-        .btn-prev { background-color: var(--gold-light) !important; }
-        .btn-next { background-color: var(--primary-color) !important; }
-
-        footer { background: #0d2e0d; color: white; padding: 40px 5%; text-align: center; }
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .tab-content { display: none; padding: 20px 15px; animation: fadeIn 0.3s; }
+        .tab-content.active { display: block; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .form-section-title {
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f0f0;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default 1 kolom untuk mobile */
+            gap: 15px;
+        }
+
+        @media (min-width: 769px) {
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            .tab-link { font-size: 0.9rem; padding: 20px; }
+            .tab-link i { font-size: 1.4rem; }
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .required::after { content: " *"; color: #e74c3c; }
+
+        .input-ikon {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            padding: 0 10px;
+            height: 45px;
+        }
+        .input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 0.9rem; }
+        .input-ikon input, .input-ikon select {
+            flex: 1; border: none; outline: none; background: transparent; width: 100%; font-size: 0.9rem;
+        }
+
+        /* --- PERNYATAAN --- */
+        .pernyataan-box {
+            background: #f1f8f1;
+            border: 1.5px dashed #2e7d32;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .pernyataan-text { font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px; color: #1b5e20; }
+        .checkbox-wrapper { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+        .checkbox-wrapper input { margin-top: 3px; width: 18px; height: 18px; }
+
+        /* --- BUTTONS --- */
+        .btn-nav {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-next { background: var(--primary-color); }
+        .btn-prev { background: #7f8c8d; }
+        .btn-submit { background: #1a5319; border: 2px solid #0d2e0d; }
+
+        /* --- WHATSAPP FLOAT --- */
+        .whatsapp-float {
+            position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white !important;
+            padding: 10px 15px; border-radius: 50px; display: flex; align-items: center; gap: 8px;
+            text-decoration: none; font-weight: bold; font-size: 0.85rem; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        footer { background: var(--primary-dark); color: white; padding: 25px 15px; text-align: center; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo">
-        <img src="main_logo.png" alt="Logo">
-        <h1>DAARUL KHOIROT ALMADANI</h1>
+        <img src="https://via.placeholder.com/40" alt="Logo">
+        <h1>DAARUL KHOIROT</h1>
     </div>
-    
-    <button id="menu-toggle" type="button">
-        <i class="fas fa-bars"></i> Menu
-    </button>
-    
-    <nav>
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-            <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
-            <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
-            <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
-        </ul>
-    </nav>
+    <button id="menu-toggle">Menu</button>
 </header>
 
 <div class="container">
-    <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
-        <div class="tab-container">
-            <div class="tab-menu">
-                <button type="button" class="tab-link active" onclick="openTab(event, 'santri')">DATA SANTRI</button>
-                <button type="button" class="tab-link" onclick="openTab(event, 'ortu')">ORANG TUA</button>
-                <button type="button" class="tab-link" onclick="openTab(event, 'alamat')">ALAMAT</button>
-                <button type="button" class="tab-link" onclick="openTab(event, 'pernyataan')">PERNYATAAN</button>
-            </div>
-
-            <div id="santri" class="tab-content active">
-                <div class="form-section-title"><i class="fas fa-id-card"></i> Identitas Santri</div>
-                <div class="form-group">
-                    <label>Tanggal Pendaftaran*</label>
-                    <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar"></div>
-                </div>
-                <div class="form-group">
-                    <label class="required">Nama Lengkap</label>
-                    <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_santri" placeholder="Sesuai KK/Akte"></div>
-                </div>
-                <div class="form-group">
-                    <label class="required">Pilihan Unit & Kelas*</label>
-                    <div class="input-ikon">
-                        <i class="fas fa-graduation-cap"></i>
-                        <select name="tingkat_unit">
-                            <option value="">-- Pilih --</option>
-                            <option>TPQ - Tingkat 1</option>
-                            <option>Pesantren Tahun 1</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="required">NIK*</label>
-                    <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik" maxlength="16"></div>
-                </div>
-                <div class="form-group">
-                    <label class="required">Nomor KK*</label>
-                    <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="no_kk" maxlength="16"></div>
-                </div>
-                <div class="form-group">
-                    <label>Jenis Kelamin*</label>
-                    <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin"><option value="">-- Pilih --</option><option>Laki-laki</option><option>Perempuan</option></select></div>
-                </div>
-                
-                <div class="form-section-title"><i class="fas fa-file-upload"></i> DOKUMEN UPLOAD</div>
-                <div class="form-group">
-                    <label>Upload Foto KK</label>
-                    <div class="input-ikon"><i class="fas fa-file-image"></i><input type="file" name="up_kk"></div>
-                </div>
-
-                <div class="button-group">
-                    <button type="button" class="btn-nav btn-next" style="width:100%" onclick="nextTab('ortu')">Lanjut ke Data Orang Tua <i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-
-            <div id="ortu" class="tab-content">
-                <div class="form-section-title"><i class="fas fa-user-tie"></i> Data Ayah Kandung</div>
-                <div class="form-group">
-                    <label class="required">Nama Lengkap Ayah*</label>
-                    <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_ayah"></div>
-                </div>
-                <div class="form-group">
-                    <label class="required">NIK Ayah*</label>
-                    <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ayah" maxlength="16"></div>
-                </div>
-                <div class="form-section-title"><i class="fas fa-user-nurse"></i> Data Ibu Kandung</div>
-                <div class="form-group">
-                    <label class="required">Nama Lengkap Ibu*</label>
-                    <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_ibu"></div>
-                </div>
-                <div class="button-group">
-                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('santri')">Kembali</button>
-                    <button type="button" class="btn-nav btn-next" onclick="nextTab('alamat')">Lanjut ke Alamat</button>
-                </div>
-            </div>
-
-            <div id="alamat" class="tab-content">
-                <div class="form-section-title"><i class="fas fa-map-marked-alt"></i> Domisili Ayah</div>
-                <div class="form-group">
-                    <label class="required">Provinsi</label>
-                    <div class="input-ikon"><select id="prov_ayah" name="prov_ayah" onchange="loadKabAyah(this.value)"><option>Pilih Provinsi</option></select></div>
-                </div>
-                <div class="form-group">
-                    <label class="required">Alamat</label>
-                    <div class="input-ikon"><input type="text" name="al_ayah" placeholder="Jalan/Kampung"></div>
-                </div>
-                <div class="button-group">
-                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('ortu')">Kembali</button>
-                    <button type="button" class="btn-nav btn-next" onclick="nextTab('pernyataan')">Lanjut ke Pernyataan</button>
-                </div>
-            </div>
-
-            <div id="pernyataan" class="tab-content">
-                <div class="form-section-title"><i class="fas fa-user-check"></i> Persetujuan</div>
-                <div style="grid-column: 1/-1; background: #e8f5e9; padding: 20px; border-radius: 10px; border: 1px dashed #1a5d1a;">
-                    <p>Saya menyatakan bahwa seluruh data yang diisi adalah benar.</p>
-                    <div style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
-                        <input type="checkbox" name="cek_pernyataan" style="width:20px; height:20px;">
-                        <label>Saya Menyetujui Seluruh Pernyataan</label>
-                    </div>
-                </div>
-                <div class="button-group">
-                    <button type="button" onclick="prosesSimpanFinal()" class="btn-nav btn-next" style="background:#1a5d1a !important;">Simpan & Kirim WA</button>
-                </div>
-            </div>
+    <div class="tab-container">
+        <!-- Tab Menu: Dibuat Flexbox agar pas di layar HP -->
+        <div class="tab-menu">
+            <button type="button" class="tab-link active" onclick="goToTab(0)">
+                <i class="fas fa-user"></i>
+                <span>SANTRI</span>
+            </button>
+            <button type="button" class="tab-link" onclick="goToTab(1)">
+                <i class="fas fa-users"></i>
+                <span>ORTU</span>
+            </button>
+            <button type="button" class="tab-link" onclick="goToTab(2)">
+                <i class="fas fa-map"></i>
+                <span>ALAMAT</span>
+            </button>
+            <button type="button" class="tab-link" onclick="goToTab(3)">
+                <i class="fas fa-check"></i>
+                <span>SAY</span>
+            </button>
         </div>
-    </form>
+
+        <form id="formPendaftaran">
+            <!-- TAB 1: DATA SANTRI -->
+            <div id="tab-0" class="tab-content active">
+                <div class="form-section-title">Identitas Santri</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="required">Tanggal Daftar</label>
+                        <div class="input-ikon"><i class="fas fa-calendar"></i><input type="date" required></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Nama Lengkap</label>
+                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" placeholder="Sesuai KK" required></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Unit & Kelas</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-school"></i>
+                            <select required>
+                                <option value="">-- Pilih --</option>
+                                <option>TPQ</option>
+                                <option>Madrasah</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">NIK (16 Digit)</label>
+                        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="number" placeholder="NIK" required></div>
+                    </div>
+                </div>
+                <button type="button" class="btn-nav btn-next" onclick="goToTab(1)">Lanjut <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- TAB 2: DATA ORANG TUA -->
+            <div id="tab-1" class="tab-content">
+                <div class="form-section-title">Data Orang Tua</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="required">Nama Ayah</label>
+                        <div class="input-ikon"><i class="fas fa-male"></i><input type="text" placeholder="Nama Ayah"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Nama Ibu</label>
+                        <div class="input-ikon"><i class="fas fa-female"></i><input type="text" placeholder="Nama Ibu"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>No. HP (WhatsApp)</label>
+                        <div class="input-ikon"><i class="fab fa-whatsapp"></i><input type="tel" placeholder="08xxxx"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn-nav btn-next" onclick="goToTab(2)">Lanjut <i class="fas fa-arrow-right"></i></button>
+                <button type="button" class="btn-nav btn-prev" onclick="goToTab(0)">Kembali</button>
+            </div>
+
+            <!-- TAB 3: DATA ALAMAT -->
+            <div id="tab-2" class="tab-content">
+                <div class="form-section-title">Alamat Lengkap</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="required">Alamat</label>
+                        <div class="input-ikon"><i class="fas fa-home"></i><input type="text" placeholder="Jl/Dusun/RT/RW"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Desa/Kelurahan</label>
+                        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" placeholder="Nama Desa"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Kecamatan</label>
+                        <div class="input-ikon"><i class="fas fa-city"></i><input type="text" placeholder="Kecamatan"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn-nav btn-next" onclick="goToTab(3)">Terakhir <i class="fas fa-arrow-right"></i></button>
+                <button type="button" class="btn-nav btn-prev" onclick="goToTab(1)">Kembali</button>
+            </div>
+
+            <!-- TAB 4: PERNYATAAN -->
+            <div id="tab-3" class="tab-content">
+                <div class="form-section-title">Pernyataan</div>
+                <div class="pernyataan-box">
+                    <p class="pernyataan-text">
+                        Saya menyatakan bahwa seluruh data yang diisi adalah benar.
+                    </p>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="agree_check" required>
+                        <span>Saya Menyetujui Seluruh Pernyataan</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn-nav btn-next btn-submit">
+                    <i class="fas fa-paper-plane"></i> SIMPAN & KIRIM WA
+                </button>
+                <button type="button" class="btn-nav btn-prev" onclick="goToTab(2)">Kembali</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<footer>
-    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
-    <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-</footer>
-
-<a href="https://wa.me/6281401643188" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp fa-lg"></i> <span>Tanya Admin</span>
+<a href="https://wa.me/628123456789" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
 </a>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<footer>
+    <p>&copy; 2026 Daarul Khoirot Almadani</p>
+</footer>
+
 <script>
-    // --- LOGIKA MENU NAVIGASI ---
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuBtn = document.getElementById('menu-toggle');
-        const nav = document.querySelector('nav');
-
-        if (menuBtn && nav) {
-            menuBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                nav.classList.toggle('show');
-            });
-
-            document.addEventListener('click', function() {
-                nav.classList.remove('show');
-            });
-        }
+    function goToTab(index) {
+        // Hilangkan semua tab content
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
         
-        // Link Aktif
-        const path = window.location.pathname.split("/").pop() || "index.html";
-        document.querySelectorAll("nav ul li a").forEach(link => {
-            if (link.getAttribute("href") === path) link.classList.add("active");
-        });
-    });
-
-    // --- LOGIKA TABS ---
-    function openTab(evt, targetId) {
-        document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
-        document.querySelectorAll(".tab-link").forEach(l => l.classList.remove("active"));
+        // Hilangkan status active di semua tombol tab
+        const links = document.querySelectorAll('.tab-link');
+        links.forEach(link => link.classList.remove('active'));
         
-        const target = document.getElementById(targetId);
-        target.style.display = "grid";
-        target.classList.add("active");
-
-        if (evt) evt.currentTarget.classList.add("active");
+        // Aktifkan yang dipilih
+        document.getElementById('tab-' + index).classList.add('active');
+        links[index].classList.add('active');
+        
+        // Scroll ke atas otomatis
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function nextTab(id) { openTab(null, id); }
-    function prevTab(id) { openTab(null, id); }
-
-    // --- FUNGSI SIMPAN ---
-    function prosesSimpanFinal() {
-        const cek = document.getElementsByName('cek_pernyataan')[0];
-        if (!cek || !cek.checked) {
-            Swal.fire('Peringatan', 'Harap centang persetujuan pernyataan!', 'warning');
+    document.getElementById('formPendaftaran').onsubmit = function(e) {
+        e.preventDefault();
+        if(!document.getElementById('agree_check').checked) {
+            alert("Centang persetujuan!");
             return;
         }
-        Swal.fire('Berhasil', 'Data sedang diproses...', 'success');
-        // Panggil fungsi Firebase/WA Anda di sini
-    }
+        alert("Berhasil! Mengarahkan ke WhatsApp...");
+        // Simulasi pengiriman
+    };
 </script>
 
 </body>
