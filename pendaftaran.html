@@ -10,444 +10,133 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
   
     
-<style>
-    /* --- 1. DASAR & VARIABEL --- */
-    :root {
-        --primary-color: #1a5319;    /* Hijau Tua */
-        --primary-dark: #0d2e0d;     /* Hijau Gelap */
-        --gold-color: #D4AF37;       /* Emas */
-        --gold-light: #f4ce14;       /* Kuning Emas Terang */
-        --white: #FFFFFF;
-        --bg-body: #f4f7f6;
-        --text-dark: #1a1a1a;
-        --text-muted: #555;
-        --border-color: #1a5d1a;
-    }
-
-    * { 
-        margin: 0; padding: 0; box-sizing: border-box; 
-        font-family: 'Quicksand', sans-serif; 
-    }
-
-    /* Membuat bintang merah otomatis setelah teks label */
-.required::after {
-    content: " *";
-    color: #d63031; /* Warna merah */
-    font-weight: bold;
+/* ============================================================
+   1. HEADER & LOGO (UMUM)
+   ============================================================ */
+header {
+    background: #1a5d1a;
+    color: white;
+    padding: 10px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    min-height: 60px;
 }
 
-    body { 
-        background-color: var(--bg-body); 
-        overflow-x: hidden; 
-        font-weight: 500;
-        flex-direction: column;
-        display: flex;
-        min-height: 100vh;
-    }
-
-    /* --- 2. TYPOGRAPHY --- */
-    h1, h2, h3, .form-section-title { font-weight: 700; color: var(--primary-color); }
-    input, select, textarea { font-weight: 500; font-family: inherit; }
-
-    /* --- 3. HEADER & NAVIGASI --- */
-    header { 
-        background: var(--primary-color); 
-        color: var(--white); 
-        padding: 12px 4%; 
-        display: flex; justify-content: space-between; align-items: center; 
-        position: sticky; top: 0; z-index: 1000; 
-        border-bottom: 3px ;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo img { max-height: 40px; }
-    .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
-
-    nav ul { list-style: none; display: flex; gap: 10px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-weight: 600; 
-        padding: 5px 8px; transition: 0.3s; 
-    }
-    nav ul li a:hover { color: var(--gold-color); }
-    .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
-
-    /* --- 4. CONTAINER & TABS --- */
-    .container { padding: 2rem 5%; flex: 1; }
-    .tab-container { 
-        background: white; border-radius: 12px; overflow: hidden; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; 
-    }
-
-    .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-    .tab-link { 
-        flex: 1; padding: 18px 10px; border: none; cursor: pointer; 
-        font-weight: 700; font-size: 1.3rem; color: var(--primary-color); 
-        text-align: center; border-right: 1px solid #ddd; transition: 0.3s; 
-        text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; 
-    }
-    
-   /* Warna default tombol */
-.tab-link {
-    background-color: #f1f1f1; /* Abu-abu default */
-    color: #333;
-    padding: 15px;
-    border: none;
-    transition: 0.3s;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
-/* Warna saat aktif (Hijau) */
-.tab-link.active {
-    background-color: #28a745 !important; /* Hijau Tua */
-    color: white !important;
-    font-weight: bold;
+.logo img { 
+    height: 40px; 
+    width: auto; 
 }
 
-   
-    .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }.tab-content { 
-    display: none; 
-    padding: 30px; 
-    animation: fadeIn 0.4s; 
-    /* Tambahkan kode di bawah ini */
-    background-color: #ffffff; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+.logo h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
 }
 
-.tab-content.active { 
-    display: block; 
-}
-
-@keyframes fadeIn { 
-    from { opacity: 0; } 
-    to { opacity: 1; } 
-}
-
-.tab-content {
-    animation: fadeEffect 0.4s; /* Waktu perpindahan tab */
-}
-
-@keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-/* --- 1. CONTAINER UTAMA (Kunci Lebar) --- */
-.container, .registration-container {
-    width: 100%;
-    max-width: 1000px; /* Lebar seragam untuk semua tab */
-    margin: 20px auto;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-/* --- 2. KONTEN TAB (Kotak Putih) --- */
-.tab-content {
+/* ============================================================
+   2. NAVIGASI DESKTOP (LAPTOP/PC)
+   ============================================================ */
+/* Sembunyikan tombol menu di layar lebar */
+#menu-toggle {
     display: none;
-    background: #ffffff;
-    width: 100%;
-    padding: 30px;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    box-sizing: border-box;
-    border: 1px solid #e0e0e0;
+}
 
-    /* GUNAKAN INI: Otomatis membagi kolom dengan lebar minimal 250px */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+nav ul {
+    list-style: none;
+    display: flex;
     gap: 20px;
 }
 
-/* Judul dan elemen lebar tetap dipaksa ambil satu baris penuh */
-.form-section-title, .info-box, .full-width {
-    grid-column: 1 / -1; /* Artinya dari awal sampai akhir kolom */
-}
-
-/* Munculkan sebagai Grid saat aktif */
-.tab-content.active {
-    display: grid; 
-}
-
-/* --- 3. PENGATURAN GRID OTOMATIS (3-2) --- */
-
-/* Judul Section (Ambil 6 kolom / Full Baris) */
-.form-section-title {
-    grid-column: span 6;
-    margin: 10px 0 15px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #eee;
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: bold;
+    gap: 5px;
 }
 
-/* Default: Baris 3 Kolom (6 kolom / 3 = span 2) */
-.tab-content > .input-group {
-    grid-column: span 2;
-}
-
-/* Khusus: Baris 2 Kolom (6 kolom / 2 = span 3) */
-/* Tambahkan class 'wide' pada .input-group di HTML untuk NIK/KK */
-.tab-content > .input-group.wide,
-.tab-content > .input-group.nik-group,
-.tab-content > .input-group.kk-group {
-    grid-column: span 3;
-}
-
-/* --- 4. RESPONSIF MOBILE --- */
+/* ============================================================
+   3. NAVIGASI & LAYOUT MOBILE (HP)
+   ============================================================ */
 @media (max-width: 768px) {
-    .tab-content {
-        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
-        padding: 20px;
-        border-radius: 0 0 12px 12px;
-    }
-    
-    .tab-content > .input-group,
-    .tab-content > .input-group.wide,
-    .form-section-title {
-        grid-column: span 1 !important;
-    }
-}  
-
-  /* --- 5. FORM ELEMENTS --- */
-    .form-section-title { 
-        margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #eee; 
-        text-transform: uppercase; display: flex; align-items: center; gap: 10px; 
-    }
-
-    /* GRid SYSTEM */
-    .form-grid, .form-grid-santri { 
-        display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; align-items: start;
-    }
-    .form-grid-upload { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
-
-    /* INPUT WITH ICON */
-    .input-ikon {
-        display: flex; align-items: center; position: relative;
-        background: white; border: 1.5px solid var(--border-color);
-        border-radius: 8px; padding: 0 12px; min-height: 48px; transition: 0.3s;
-    }
-    .input-ikon i { color: var(--primary-color); width: 20px; text-align: center; margin-right: 10px; }
-    .input-ikon input, .input-ikon select { 
-        flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%;
-    }
-
-    /* --- 6. BUTTONS --- */
-    .button-group {
-        display: flex; gap: 15px; margin-top: 30px; padding-top: 20px;
-        border-top: 1px solid #eee; width: 100%;
-    }
-
-    /* Agar tombol sama lebar (50% - 50%) */
-    .btn-nav { 
-        flex: 1; /* Ini kunci agar lebar sama */
-        padding: 15px; border: none; border-radius: 8px; font-weight: 800;
-        cursor: pointer; display: flex; justify-content: center; align-items: center; 
-        gap: 10px; font-size: 1.3rem; transition: 0.3s; color: white; 
-    }
-
-    .btn-prev { background-color: var(--gold-light) !important; }
-    .btn-next { background-color: var(--primary-color) !important; }
-    .btn-full { width: 100%; flex: none; }
-    
-    .btn-nav:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-    /* --- 7. SPECIAL STATES --- */
-  .input-samar {
-    color: #999 !important;
-    border-color: #ddd !important;
-    font-style: italic;
-}
-
-/* Memastikan input readonly standar juga mengikuti warna yang sama */
-input[readonly] { 
-    background-color: #e9ecef !important; 
-}
-
-.input-ikon {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 15px;
-}
- /* --- FOOTER --- */
-    footer { 
-        background: #0d2e0d; 
-        color: white; 
-        padding: 40px 5% 20px; 
-        text-align: center; 
-        width: 100%;
-        border: none;
-        outline: none;
-    }
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-    
-    /* --- 9. FLOAT WHATSAPP --- */
-      /* --- 6. WA FLOAT --- */
-    .whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
-    }
-    @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
-
-    /* --- 10. RESPONSIVE --- */
-    @media (max-width: 768px) {
-        .form-grid, .form-grid-santri, .form-grid-upload { grid-template-columns: 1fr; }
-        .tab-link { min-width: 120px; font-size: 0.9rem; }
-        nav ul { display: none; }
-        .whatsapp-float span { display: none; }
-        .whatsapp-float { padding: 15px; border-radius: 50%; }
-    }
-
-.locked-input {
-    background-color: #ffffff !important;
-    color: #333 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed;
-}
-
-input[readonly] {
-    background-color: #ffffff !important;
-    color: #333 !important;
-    opacity: 1 !important;
-    cursor: not-allowed;
-}
-
-/* Menambahkan bintang merah setelah teks label */
-.label-wajib::after {
-    content: " *";
-    color: #e74c3c; /* Warna merah */
-    font-weight: bold;
-}
-
-/* Efek jika checkbox belum dicentang */
-#box_pernyataan {
-    border: 2px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-/* Tambahkan class ini lewat JS jika ingin memberi highlight merah saat gagal validasi */
-.pernyataan-error {
-    border-color: #d33 !important;
-    background-color: #fff5f5;
-}
-
- /* --- 1. DASAR --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
-
-    /* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
-nav ul li a.active {
-    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-}
-
-/* Efek saat kursor menempel (Hover) */
-nav ul li a:hover {
-    color: #f4ce14;
-}
-
-    /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
     header {
-        background: #1a5d1a; 
-        color: white; 
-        padding: 10px 4%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000;
-        min-height: 60px;
+        height: 65px;
+        padding: 0 15px;
+        position: relative;
     }
 
-    .logo { 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        flex-shrink: 0;
-    }
-
-    .logo img { height: 40px; width: auto; }
-
-    .logo h1 { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        white-space: nowrap; 
-        letter-spacing: 0.5px;
-    }
-
-    
-/* ================= DESKTOP (LAPTOP) ================= */
-/* 1. Sembunyikan tombol menu secara default */
-#menu-toggle { 
-    display: none; 
-}
-
-/* 2. Navigasi horizontal untuk laptop */
-nav ul { 
-    list-style: none; 
-    display: flex; 
-    gap: 20px; 
-}
-
-/* ================= MOBILE (HP) ================= */
-@media (max-width: 768px) {
-    /* 3. Munculkan tombol menu di HP */
+    /* Tampilkan tombol menu hanya di HP */
     #menu-toggle {
-        display: block; 
+        display: block;
         background: #f4ce14;
         color: #1a5d1a;
         border: none;
-        padding: 8px 15px;
+        padding: 6px 12px;
         border-radius: 4px;
         font-weight: bold;
+        font-size: 0.8rem;
         cursor: pointer;
     }
 
-    /* 4. Sembunyikan menu daftar asli di HP */
+    /* Ubah daftar menu menjadi dropdown vertikal */
     nav ul {
-        display: none; /* Menu hilang, nanti muncul saat tombol diklik */
+        display: none; /* Sembunyikan default, muncul via class .show */
         flex-direction: column;
         position: absolute;
-        top: 65px;
+        top: 65px; /* Sesuai tinggi header */
         left: 0;
         width: 100%;
         background: #1a5d1a;
         padding: 15px;
         z-index: 2000;
+        border-bottom: 3px solid #f4ce14;
     }
 
-    /* 5. Class untuk memunculkan menu via JavaScript */
-    nav ul.show {
+    /* Munculkan menu saat tombol diklik (via JS toggle class 'show') */
+    nav.show ul {
         display: flex;
     }
 
-    /* Penyesuaian grid tab-content untuk HP agar tidak meluap */
+    nav ul li {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* Perbaikan Grid Form agar tidak pecah di HP */
     .tab-content {
         grid-template-columns: 1fr !important;
+        padding: 15px;
     }
-    
+
     .tab-content > * {
         grid-column: 1 / -1 !important;
     }
-}
-        
-</style>
 
+    .input-ikon {
+        width: 100%;
+        max-width: 100%;
+    }
+}
 </head>
 <body>
 
