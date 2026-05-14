@@ -56,7 +56,8 @@
 
         /* --- 3. RESPONSIVE HP (MOBILE) --- */
         @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; }
+            header { height: 60px; padding: 0 15px; }
+            .logo img { height: 35px; }
             .logo h1 { font-size: 1rem; }
 
             #menu-toggle {
@@ -67,7 +68,7 @@
                 font-weight: bold; cursor: pointer;
             }
 
-            nav ul {
+            nav ul { 
                 display: none; flex-direction: column; width: 100%;
                 position: absolute; top: 65px; left: 0;
                 background: var(--primary-color); padding: 15px;
@@ -78,8 +79,8 @@
 
             nav ul li { margin-bottom: 10px; width: 100%; }
             nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            nav ul li a.active { border-left: 4px solid var(--gold-light); padding-left: 10px; background: rgba(255,255,255,0.05); }
-
+            nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
+            
             /* Paksa Form Jadi 1 Kolom di HP */
             .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
                 grid-template-columns: 1fr !important; gap: 15px !important;
