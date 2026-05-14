@@ -389,70 +389,57 @@ input[readonly] {
     /* Tombol menu disembunyikan di komputer */
     #menu-toggle { display: none; }
 
-      /* --- 7. RESPONSIVE MASTER (HP) --- */
-      /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
-    header {
-        background: #1a5d1a; 
-        color: white; 
-        padding: 10px 4%; 
+    /* --- 7. RESPONSIVE MASTER (HP) --- */
+@media (max-width: 768px) {
+    header { 
+        height: 65px; 
+        padding: 0 15px; 
         display: flex; 
         justify-content: space-between; 
         align-items: center; 
-        position: sticky; 
-        top: 0; 
+        position: relative;
+    }
+
+    .logo h1 { font-size: 0.9rem !important; }
+
+    /* Sembunyikan navigasi teks secara default di HP */
+    nav ul { 
+        display: none; 
+        flex-direction: column; 
+        width: 100%; 
+        position: absolute; 
+        top: 65px; 
+        left: 0; 
+        background: #1a5d1a; 
+        padding: 10px 0; 
+        border-bottom: 3px solid #f4ce14;
         z-index: 1000;
-        min-height: 60px;
     }
 
-    .logo { 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        flex-shrink: 0;
+    /* Munculkan saat class 'show' aktif */
+    nav.show ul { 
+        display: flex !important; 
     }
 
-    .logo img { height: 40px; width: auto; }
+    nav ul li { width: 100%; }
 
-    .logo h1 { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        white-space: nowrap; 
-        letter-spacing: 0.5px;
+    nav ul li a {
+        display: block;
+        padding: 12px 20px;
+        color: white;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
-    }
-
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; }
-
-      /* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
-
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-          #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
-@media (max-width: 768px) {
+    /* Indikator Menu Aktif di HP (Garis Samping) */
     nav ul li a.active {
         border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
+        border-left: 4px solid #f4ce14 !important;
+        background: rgba(255, 255, 255, 0.1);
+        padding-left: 15px;
+    }
+
+    #menu-toggle {
+        display: block !important; /* Pastikan tombol muncul */
     }
 }
         
@@ -2028,45 +2015,36 @@ function kirimWA() {
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
 
-   /* =========================================================
-   LOGIKA MENU NAVIGASI (VERSI FINAL ANTI-BENTROK)
-========================================================= */
-document.addEventListener("DOMContentLoaded", function() {
-    // 1. Ambil elemen dengan ID menu-toggle (sesuaikan dengan HTML Anda)
+  document.addEventListener("DOMContentLoaded", function() {
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
     
-    // 2. Logika Buka/Tutup Menu HP
+    // Logika Buka/Tutup Menu
     if (menuToggle && nav) {
         menuToggle.onclick = function(e) {
             e.stopPropagation();
             nav.classList.toggle('show');
-            console.log("Menu diklik");
         };
     }
 
-    // 3. Tandai Menu Aktif & Tutup Dropdown saat link diklik
+    // Penanda Menu Aktif
     const currentUrl = window.location.pathname.split("/").pop() || "index.html";
     const menuItems = document.querySelectorAll("nav ul li a");
 
     menuItems.forEach(item => {
-        // Tandai class active
         const href = item.getAttribute("href");
         if (href === currentUrl) {
-            item.classList.add("active");
+            item.classList.add("active"); // Gunakan 'active' agar sesuai CSS
         }
 
-        // Klik link: Tutup menu dropdown dulu baru pindah halaman
         item.addEventListener('click', function() {
-            if (nav && nav.classList.contains('show')) {
-                nav.classList.remove('show');
-            }
+            nav.classList.remove('show');
         });
     });
 
-    // 4. Klik di luar menu untuk menutup otomatis
+    // Klik di luar untuk menutup
     document.addEventListener('click', function(e) {
-        if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+        if (nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
             nav.classList.remove('show');
         }
     });
