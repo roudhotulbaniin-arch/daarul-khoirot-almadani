@@ -345,7 +345,25 @@ input[readonly] {
     background-color: #fff5f5;
 }
 
- /* --- 1. DASAR --- */
+/* --- STYLE MENU AKTIF --- */
+nav ul li a {
+    position: relative;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
+
+/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
+}
+  
+    /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
 
@@ -389,43 +407,32 @@ input[readonly] {
     /* Tombol menu disembunyikan di komputer */
     #menu-toggle { display: none; }
 
-  /* --- RESPONSIVE HP --- */
+/* --- 7. RESPONSIVE MASTER (HP) --- */
+    @media (max-width: 768px) {
+        header { height: 65px; padding: 0 15px; }
+        .logo img { height: 35px; }
+        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+
+        /* Sembunyikan navigasi teks, munculkan tombol menu */
+        nav ul { 
+            display: none; flex-direction: column; width: 100%; position: absolute; 
+            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
+        }
+        nav.show ul { display: flex !important; }
+        
+          #menu-toggle {
+            display: block !important; background: var(--secondary-color) !important;
+            color: var(--primary-color) !important; border: none; padding: 6px 12px;
+            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+        }
 @media (max-width: 768px) {
-    header {
-        height: 65px;
-        padding: 0 15px;
-        position: relative;
+    nav ul li a.active {
+        border-bottom: none !important;
+        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
+        padding-left: 10px;
     }
-
-    .logo img { height: 35px; }
-    .logo h1 { font-size: 1rem; margin-right: 10px; }
-
-    /* NAV MOBILE */
-    nav ul {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 65px;
-        left: 0;
-        background: #1a5d1a;
-        padding: 15px;
-        border-bottom: 3px solid #f4ce14;
-        z-index: 999;
-    }
-
-    nav.show ul {
-        display: flex;
-    }
-
-    nav ul li {
-        margin-bottom: 10px;
-    }
-
-    nav ul li a {
-        display: block;
-        padding: 10px;
-    }
+}
+        
 
     /* ACTIVE DI MOBILE */
     nav ul li a.active {
@@ -2016,39 +2023,29 @@ function kirimWA() {
     const clickSound = document.getElementById('clickSound');
     const navLinks = document.querySelectorAll('nav ul li a'); 
     
-document.addEventListener("DOMContentLoaded", function() {
+// --- TAMBAHAN UNTUK MENU HP ---
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
 
-    // Toggle menu
-    menuToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        nav.classList.toggle('show');
-    });
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
+        });
+    }
 
-    // Active menu + auto close
-    const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-    const menuItems = document.querySelectorAll("nav ul li a");
+   
+    // Fungsi untuk menandai menu aktif berdasarkan URL
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentUrl = window.location.pathname.split("/").pop();
+        const menuItems = document.querySelectorAll("nav ul li a");
 
-    menuItems.forEach(item => {
-        const href = item.getAttribute("href");
-
-        if (href === currentUrl) {
-            item.classList.add("active");
-        }
-
-        item.addEventListener('click', function() {
-            nav.classList.remove('show');
+        menuItems.forEach(item => {
+            // Jika href menu sama dengan nama file saat ini
+            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
+                item.classList.add("active");
+            }
         });
     });
-
-    // Klik luar = tutup menu
-    document.addEventListener('click', function(e) {
-        if (!nav.contains(e.target) && e.target !== menuToggle) {
-            nav.classList.remove('show');
-        }
-    });
-});
     
    </script>    
 
