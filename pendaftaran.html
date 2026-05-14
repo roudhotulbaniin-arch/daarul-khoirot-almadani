@@ -401,8 +401,9 @@ input[readonly] {
     .logo h1 { font-size: 1rem; margin-right: 10px; }
 
     /* NAV MOBILE */
+   @media (max-width: 768px) {
     nav ul {
-        display: none;
+        display: none !important;
         flex-direction: column;
         width: 100%;
         position: absolute;
@@ -410,12 +411,12 @@ input[readonly] {
         left: 0;
         background: #1a5d1a;
         padding: 15px;
-        border-bottom: 3px solid #f4ce14;
         z-index: 999;
     }
 
     nav.show ul {
-    display: flex !important;
+        display: flex !important;
+    }
 }
 
     nav ul li {
