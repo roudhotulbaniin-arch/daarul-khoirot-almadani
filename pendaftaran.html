@@ -391,63 +391,36 @@ nav ul li a:hover {
     }
 
     
-  /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
-    header {
-        background: #1a5d1a; 
-        color: white; 
-        padding: 10px 4%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000;
-        min-height: 60px;
-    }
+/* ================= DESKTOP (LAPTOP) ================= */
+/* 1. Sembunyikan tombol menu secara default */
+#menu-toggle { 
+    display: none; 
+}
 
-    .logo { 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        flex-shrink: 0;
-    }
-
-    .logo img { height: 40px; width: auto; }
-
-    .logo h1 { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        white-space: nowrap; 
-        letter-spacing: 0.5px;
-    }
-
-  /* ================= DESKTOP ================= */
+/* 2. Navigasi horizontal untuk laptop */
 nav ul { 
     list-style: none; 
     display: flex; 
     gap: 20px; 
 }
 
-#menu-toggle { 
-    display: none; 
-}
-
-/* ================= MOBILE ================= */
+/* ================= MOBILE (HP) ================= */
 @media (max-width: 768px) {
-
-    header {
-        height: 65px;
-        padding: 0 15px;
-        position: relative;
+    /* 3. Munculkan tombol menu di HP */
+    #menu-toggle {
+        display: block; 
+        background: #f4ce14;
+        color: #1a5d1a;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
     }
 
-    nav {
-        position: relative;
-    }
-
-    /* sembunyikan menu */
+    /* 4. Sembunyikan menu daftar asli di HP */
     nav ul {
-        display: none !important;
+        display: none; /* Menu hilang, nanti muncul saat tombol diklik */
         flex-direction: column;
         position: absolute;
         top: 65px;
@@ -458,50 +431,18 @@ nav ul {
         z-index: 2000;
     }
 
-    /* tampilkan saat aktif */
+    /* 5. Class untuk memunculkan menu via JavaScript */
     nav ul.show {
-        display: flex !important;
+        display: flex;
     }
 
-    nav ul li {
-        margin-bottom: 10px;
-    }
-
-    nav ul li a {
-        display: block;
-        padding: 10px;
-    }
-
-       .tab-content {
+    /* Penyesuaian grid tab-content untuk HP agar tidak meluap */
+    .tab-content {
         grid-template-columns: 1fr !important;
-        overflow-x: hidden;
     }
-
+    
     .tab-content > * {
         grid-column: 1 / -1 !important;
-    }
-
-    .input-ikon {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    input, select, textarea {
-        max-width: 100%;
-    }
-}
-          
-    /* tombol menu muncul */
-    #menu-toggle {
-        display: block;
-        background: #f4ce14;
-        color: #1a5d1a;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        cursor: pointer;
     }
 }
         
