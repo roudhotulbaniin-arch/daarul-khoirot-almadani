@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta id="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot Almadani | Beranda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -410,40 +411,33 @@ input[readonly] {
         letter-spacing: 0.5px;
     }
 
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
-    }
+  /* ================= DESKTOP ================= */
+nav ul { 
+    list-style: none; 
+    display: flex; 
+    gap: 20px; 
+}
 
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; }
+#menu-toggle { 
+    display: none; 
+}
 
-  /* --- RESPONSIVE HP --- */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
+
     header {
         height: 65px;
         padding: 0 15px;
         position: relative;
     }
 
-    .logo img { height: 35px; }
-    .logo h1 { font-size: 1rem; margin-right: 10px; }
-
-    /* NAV MOBILE */
- @media (max-width: 768px) {
-
     nav {
         position: relative;
     }
 
+    /* sembunyikan menu */
     nav ul {
         display: none !important;
-    }
-
-    nav ul.show {
-        display: flex !important;
         flex-direction: column;
         position: absolute;
         top: 65px;
@@ -453,15 +447,22 @@ input[readonly] {
         padding: 15px;
         z-index: 2000;
     }
-}
-    /* ACTIVE DI MOBILE */
-    nav ul li a.active {
-        border-left: 4px solid #f4ce14;
-        padding-left: 10px;
-        background: rgba(255,255,255,0.05);
+
+    /* tampilkan saat aktif */
+    nav ul.show {
+        display: flex !important;
     }
 
-    /* BUTTON MENU */
+    nav ul li {
+        margin-bottom: 10px;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px;
+    }
+
+    /* tombol menu muncul */
     #menu-toggle {
         display: block;
         background: #f4ce14;
@@ -474,8 +475,6 @@ input[readonly] {
         cursor: pointer;
     }
 }
-        
-</style>
         
 </style>
 
