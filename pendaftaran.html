@@ -480,6 +480,51 @@ nav ul li a {
         margin-bottom: 10px;
     }
 }
+
+ /* --- Aturan Dasar Desktop --- */
+#menu-toggle {
+    display: none; /* Sembunyi di laptop */
+}
+
+/* --- Aturan Khusus HP --- */
+@media (max-width: 768px) {
+    /* Tampilkan Tombol */
+    #menu-toggle {
+        display: block !important;
+        background: #f4ce14;
+        color: #1a5d1a;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    /* Sembunyikan Daftar Menu Teks */
+    nav#main-nav ul {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: #1a5d1a;
+        padding: 15px;
+        z-index: 1000;
+        border-bottom: 3px solid #f4ce14;
+    }
+
+    /* Tampilkan Menu hanya jika class 'show' aktif */
+    nav#main-nav.show ul {
+        display: flex !important;
+    }
+
+    /* Hilangkan menu desktop yang memanjang */
+    nav#main-nav {
+        order: 2; /* Mengatur urutan agar tombol ada di kanan */
+    }
+}   
         
 </style>
 
@@ -496,7 +541,7 @@ nav ul li a {
         <i class="fas fa-bars"></i> Menu
     </button>
     
-    <nav>
+  <nav id="main-nav">
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
@@ -2061,17 +2106,16 @@ function kirimWA() {
 
    
     // Fungsi untuk menandai menu aktif berdasarkan URL
-    document.addEventListener("DOMContentLoaded", function() {
-        const currentUrl = window.location.pathname.split("/").pop();
-        const menuItems = document.querySelectorAll("nav ul li a");
+  document.addEventListener("DOMContentLoaded", function() {
+    const menuBtn = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
 
-        menuItems.forEach(item => {
-            // Jika href menu sama dengan nama file saat ini
-            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
-                item.classList.add("active");
-            }
+    if (menuBtn && mainNav) {
+        menuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('show');
         });
-    });
+    }
+});
     
    </script>    
 
