@@ -472,6 +472,25 @@ nav ul {
         padding: 10px;
     }
 
+       .tab-content {
+        grid-template-columns: 1fr !important;
+        overflow-x: hidden;
+    }
+
+    .tab-content > * {
+        grid-column: 1 / -1 !important;
+    }
+
+    .input-ikon {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    input, select, textarea {
+        max-width: 100%;
+    }
+}
+          
     /* tombol menu muncul */
     #menu-toggle {
         display: block;
