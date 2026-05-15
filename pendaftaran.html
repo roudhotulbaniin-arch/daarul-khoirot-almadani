@@ -30,46 +30,39 @@ I<!DOCTYPE html>
         }
 
         /* --- 2. HEADER & NAVIGASI --- */
-       header { 
-            background: var(--primary-color); 
-            color: var(--white); 
-            padding: 12px 4%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; 
-            border-bottom: 3px ;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-         }
+     header { 
+        background: var(--primary-color); 
+        color: var(--white); 
+        padding: 12px 4%; 
+        display: flex; justify-content: space-between; align-items: center; 
+        position: sticky; top: 0; z-index: 1000; 
+        border-bottom: 3px ;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
 
-         .logo { display: flex; align-items: center; gap: 10px; }
-         .logo img { max-height: 40px; }
-         .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { max-height: 40px; }
+    .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
 
-         nav ul { list-style: none; display: flex; gap: 10px; }
-         nav ul li a { 
-             color: white; text-decoration: none; font-weight: 600; 
-             padding: 5px 8px; transition: 0.3s; 
-         }
+    nav ul { list-style: none; display: flex; gap: 10px; }
+    nav ul li a { 
+        color: white; text-decoration: none; font-weight: 600; 
+        padding: 5px 8px; transition: 0.3s; 
+    }
+    nav ul li a:hover { color: var(--gold-color); }
+    .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
 
-         nav ul li a:hover { color: var(--gold-color); }
-        .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
 
         /* Navigasi Desktop */
         nav ul { list-style: none; display: flex; gap: 15px; }
-        nav ul li a { 
-            color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
-            padding: 5px 8px; transition: 0.3s; 
-        }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+    nav ul li a { 
+        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+        display: flex; align-items: center; gap: 5px; 
+    }
 
-        nav ul li a.active {
-            border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-            color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-        }
-
-
-        nav ul li a:hover {
-            color: #f4ce14;
-        }
+    /* Tombol menu disembunyikan di komputer */
+    #menu-toggle { display: none; }
 
         /* Tombol Menu HP */
         #menu-toggle { display: none; }
@@ -135,10 +128,21 @@ I<!DOCTYPE html>
         .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
         
         .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-        .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: #555; text-align: center; transition: 0.3s; text-transform: uppercase; }
-        .tab-link.active { background-color: #28a745 !important; color: white !important; }
+        .tab-link { min-width: 120px; font-size: 0.9rem; }
+        nav ul { display: none; }        .tab-link.active { background-color: #28a745 !important; color: white !important; }
 
-        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }
+        tab-content {
+        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
+        padding: 20px;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .tab-content > .input-group,
+    .tab-content > .input-group.wide,
+    .form-section-title {
+        grid-column: span 1 !important;
+    }
+}  
         .tab-content.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
         .form-section-title { grid-column: 1 / -1; margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
@@ -146,6 +150,7 @@ I<!DOCTYPE html>
         .form-group { margin-bottom: 10px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
         .required::after { content: " *"; color: #d63031; }
+         .form-grid, .form-grid-santri, .form-grid-upload { grid-template-columns: 1fr; }
 
         .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
         .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
