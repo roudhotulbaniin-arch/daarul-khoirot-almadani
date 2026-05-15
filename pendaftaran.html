@@ -53,54 +53,107 @@
 }
         #menu-toggle { display: none; background: var(--gold-light); color: var(--primary-color); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; }
 
-        /* --- 4. FORM ELEMENTS & TABS --- */
-        .container { padding: 2rem 5%; flex: 1; }
-        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
-        
-        .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-        .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: #555; text-align: center; transition: 0.3s; text-transform: uppercase; }
-        .tab-link.active { background-color: #28a745 !important; color: white !important; }
-
-       /* --- PERBAIKAN GRID SISTEM --- */
-.tab-content {
-    display: none; /* Sembunyikan default */
-    background: #ffffff;
-    width: 100%;
-    padding: 30px;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    box-sizing: border-box;
-    border: 1px solid #e0e0e0;
-    
-    /* Paksa Grid 3 Kolom di Desktop */
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px;
+ /* --- 1. TAB MENU (Header Tab) --- */
+.tab-menu { 
+    display: flex; 
+    background: #f8f9fa; 
+    border-bottom: 3px solid #eee; 
 }
 
-/* Munculkan sebagai Grid saat aktif */
-.tab-content.active {
+.tab-link { 
+    flex: 1; 
+    padding: 15px; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: 700; 
+    font-size: 1rem; 
+    color: #555; 
+    background-color: #f1f1f1;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.tab-link.active { 
+    background-color: #28a745 !important; 
+    color: white !important; 
+}
+
+/* --- 2. GRID SYSTEM (Kunci Utama 3 Kolom) --- */
+.tab-content { 
+    display: none; 
+    padding: 30px; 
+    background: #ffffff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border: 1px solid #e0e0e0;
+
+    /* Gunakan Grid 6 Kolom agar bisa dibagi 3 (span 2) dan 2 (span 3) */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 20px;
+    align-items: start;
+}
+
+.tab-content.active { 
     display: grid; 
 }
 
-/* Elemen yang harus memanjang satu baris penuh (Judul & Tombol) */
-.form-section-title, .info-bar, .button-group, .full-width, #box_pernyataan {
-    grid-column: 1 / -1; 
+/* Judul Section & Button Group (Penuh 6 Kolom) */
+.form-section-title, .button-group, #box_pernyataan, .full-width {
+    grid-column: span 6; 
 }
 
-     
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
-        .required::after { content: " *"; color: #d63031; }
+/* DEFAULT: 3 KOLOM (Masing-masing span 2 dari 6) */
+.form-group {
+    grid-column: span 2; 
+    display: flex;
+    flex-direction: column;
+}
 
-        .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
-        .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
-        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.9rem; }
+/* KHUSUS: 2 KOLOM (Misal NIK/KK agar lebih lebar, span 3 dari 6) */
+.form-group.wide {
+    grid-column: span 3;
+}
 
-        /* --- 5. BUTTONS & FOOTER --- */
-        .button-group { grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
-        .btn-nav { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 1.2rem; transition: 0.3s; color: white; }
-        .btn-prev { background-color: var(--gold-light) !important; }
-        .btn-next { background-color: var(--primary-color) !important; }
+/* --- 3. FORM ELEMENTS (Input & Label) --- */
+.form-section-title { 
+    margin: 10px 0 15px; 
+    padding-bottom: 8px; 
+    border-bottom: 2px solid #eee; 
+    color: #1a5319;
+    font-size: 1.1rem;
+}
+
+.form-group label { 
+    margin-bottom: 8px; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    color: #1a5319; 
+}
+
+.input-ikon { 
+    display: flex; 
+    align-items: center; 
+    background: white; 
+    border: 1.5px solid #1a5d1a; 
+    border-radius: 8px; 
+    padding: 0 12px; 
+    min-height: 48px; 
+}
+
+/* --- 4. RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    .tab-content {
+        grid-template-columns: 1fr; /* 1 Kolom di HP */
+    }
+    .form-group, .form-group.wide, .form-section-title {
+        grid-column: span 1 !important;
+    }
+    .tab-link span { font-size: 0.8rem; }
+}
 
 
         footer { 
