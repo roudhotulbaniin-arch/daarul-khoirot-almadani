@@ -2,153 +2,77 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daarul Khoirot Almadani | Pendaftaran</title>
+    <meta id="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daarul Khoirot Almadani | Beranda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
   
-    <style>
-        /* --- 1. DASAR & VARIABEL --- */
-        :root {
-            --primary-color: #1a5319;
-            --primary-dark: #0d2e0d;
-            --gold-color: #D4AF37;
-            --gold-light: #f4ce14;
-            --white: #FFFFFF;
-            --bg-body: #f4f7f6;
-            --border-color: #1a5d1a;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
-
-        body { 
-            background-color: var(--bg-body); 
-            display: flex; flex-direction: column; min-height: 100vh;
-            overflow-x: hidden; 
-        }
-
     
-        /* --- 3. HEADER & NAVIGASI --- */
-         header { 
-            background: var(--primary-color); 
-            color: var(--white); 
-            padding: 12px 4%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; 
-            border-bottom: 3px ;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-         }
-
-         .logo { display: flex; align-items: center; gap: 10px; }
-         .logo img { max-height: 40px; }
-         .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
-
-         nav ul { list-style: none; display: flex; gap: 10px; }
-         nav ul li a { 
-             color: white; text-decoration: none; font-weight: 600; 
-             padding: 5px 8px; transition: 0.3s; 
-         }
-
-         nav ul li a:hover { color: var(--gold-color); }
-        .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
-
-        /* Navigasi Desktop */
-        nav ul { list-style: none; display: flex; gap: 15px; }
-        nav ul li a { 
-            color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
-            padding: 5px 8px; transition: 0.3s; 
-        }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); }
-
-        nav ul li a.active {
-            border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-            color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-        }
-
-
-        nav ul li a:hover {
-            color: #f4ce14;
-        }
-        /* Tombol Menu HP */
-        #menu-toggle { display: none; }
-
-
-
-              /* --- 3. RESPONSIVE HP (MOBILE) --- */
-        @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; }
-            .logo h1 { font-size: 1rem; }
-    .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
-        overflow: hidden;
+<style>
+    /* --- 1. DASAR & VARIABEL --- */
+    :root {
+        --primary-color: #1a5319;    /* Hijau Tua */
+        --primary-dark: #0d2e0d;     /* Hijau Gelap */
+        --gold-color: #D4AF37;       /* Emas */
+        --gold-light: #f4ce14;       /* Kuning Emas Terang */
+        --white: #FFFFFF;
+        --bg-body: #f4f7f6;
+        --text-dark: #1a1a1a;
+        --text-muted: #555;
+        --border-color: #1a5d1a;
     }
 
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
+    * { 
+        margin: 0; padding: 0; box-sizing: border-box; 
+        font-family: 'Quicksand', sans-serif; 
     }
 
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
-    }
-
-            #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 8px;                   /* Memberikan jarak antara ikon dan teks */
-    
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
+    /* Membuat bintang merah otomatis setelah teks label */
+.required::after {
+    content: " *";
+    color: #d63031; /* Warna merah */
     font-weight: bold;
 }
 
-            nav ul {
-                display: none; flex-direction: column; width: 100%;
-                position: absolute; top: 65px; left: 0;
-                background: var(--primary-color); padding: 15px;
-                z-index: 2000; border-bottom: 3px solid var(--gold-light);
-            }
+    body { 
+        background-color: var(--bg-body); 
+        overflow-x: hidden; 
+        font-weight: 500;
+        flex-direction: column;
+        display: flex;
+        min-height: 100vh;
+    }
 
-            nav.show ul { display: flex !important; }
+    /* --- 2. TYPOGRAPHY --- */
+    h1, h2, h3, .form-section-title { font-weight: 700; color: var(--primary-color); }
+    input, select, textarea { font-weight: 500; font-family: inherit; }
 
-            nav ul li { margin-bottom: 10px; width: 100%; }
-            nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            nav ul li a.active { border-left: 4px solid var(--gold-light); padding-left: 10px; background: rgba(255,255,255,0.05); }
+    /* --- 3. HEADER & NAVIGASI --- */
+    header { 
+        background: var(--primary-color); 
+        color: var(--white); 
+        padding: 12px 4%; 
+        display: flex; justify-content: space-between; align-items: center; 
+        position: sticky; top: 0; z-index: 1000; 
+        border-bottom: 3px ;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
 
-            /* Paksa Form Jadi 1 Kolom di HP */
-            .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
-                grid-template-columns: 1fr !important; gap: 15px !important;
-            }
-        }
-        
-/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
-nav ul li a.active {
-    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-}
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { max-height: 40px; }
+    .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
 
-/* Efek saat kursor menempel (Hover) */
-nav ul li a:hover {
-    color: #f4ce14;
-}
-        
-   /* --- 4. CONTAINER & TABS --- */
+    nav ul { list-style: none; display: flex; gap: 10px; }
+    nav ul li a { 
+        color: white; text-decoration: none; font-weight: 600; 
+        padding: 5px 8px; transition: 0.3s; 
+    }
+    nav ul li a:hover { color: var(--gold-color); }
+    .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
+
+    /* --- 4. CONTAINER & TABS --- */
     .container { padding: 2rem 5%; flex: 1; }
     .tab-container { 
         background: white; border-radius: 12px; overflow: hidden; 
@@ -363,8 +287,30 @@ input[readonly] {
     .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
     .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
     .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
- 
-     .locked-input {
+    
+    /* --- 9. FLOAT WHATSAPP --- */
+      /* --- 6. WA FLOAT --- */
+    .whatsapp-float {
+        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
+        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
+        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
+    }
+    @keyframes wa-glow {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    /* --- 10. RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .form-grid, .form-grid-santri, .form-grid-upload { grid-template-columns: 1fr; }
+        .tab-link { min-width: 120px; font-size: 0.9rem; }
+        nav ul { display: none; }
+        .whatsapp-float span { display: none; }
+        .whatsapp-float { padding: 15px; border-radius: 50%; }
+    }
+
+.locked-input {
     background-color: #ffffff !important;
     color: #333 !important;
     opacity: 0.6 !important;
@@ -381,7 +327,7 @@ input[readonly] {
 /* Menambahkan bintang merah setelah teks label */
 .label-wajib::after {
     content: " *";
-    color: #e74c3c; !important;/* Warna merah */
+    color: #e74c3c; /* Warna merah */
     font-weight: bold;
 }
 
@@ -399,18 +345,104 @@ input[readonly] {
     background-color: #fff5f5;
 }
 
-.whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
+    /* --- 2. HEADER & NAVIGASI --- */
+        header { 
+            background: var(--primary-color); 
+            color: var(--white); 
+            padding: 12px 4%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { height: 40px; }
+        .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; font-weight: 700; }
+
+        /* Navigasi Desktop */
+        nav ul { list-style: none; display: flex; gap: 15px; }
+        nav ul li a { 
+            color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            padding: 5px 8px; transition: 0.3s; 
+        }
+        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); }
+
+       /* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
+
+        /* Tombol Menu HP */
+        #menu-toggle { display: none; }
+
+        /* --- 3. RESPONSIVE HP (MOBILE) --- */
+        @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+    .logo {
+        display: flex;
+        align-items: center;
+        /* 1. Perkecil gap (jarak antar elemen) di sini */
+        gap: 5px !important; 
+        max-width: 75%;
+        overflow: hidden;
     }
-    @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+
+    .logo img {
+        height: 35px;
+        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
+        margin-right: 0 !important; 
     }
+
+    .logo h1 {
+        font-size: 1rem !important;
+        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
+        margin: 0 !important; 
+        white-space: nowrap !important;
+        letter-spacing: -0.5px;
+    }
+}
+
+           #menu-toggle {
+    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
+    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
+    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
+    gap: 8px;                   /* Memberikan jarak antara ikon dan teks */
+    
+    /* Sisanya adalah dekorasi */
+    background: #f4ce14;
+    color: #1a5d1a;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+            nav ul {
+                display: none; flex-direction: column; width: 100%;
+                position: absolute; top: 65px; left: 0;
+                background: var(--primary-color); padding: 15px;
+                z-index: 2000; border-bottom: 3px solid var(--gold-light);
+            }
+
+            nav.show ul { display: flex !important; }
+
+            nav ul li { margin-bottom: 10px; width: 100%; }
+            nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav ul li a.active { border-left: 4px solid var(--gold-light); padding-left: 10px; background: rgba(255,255,255,0.05); }
+
+            /* Paksa Form Jadi 1 Kolom di HP */
+            .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
+                grid-template-columns: 1fr !important; gap: 15px !important;
+            }
+        }
         
 </style>
+
 </head>
 <body>
 
@@ -420,7 +452,7 @@ input[readonly] {
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
     
-    <button id="menu-toggle" type="button">
+    <button id="menu-toggle">
         <i class="fas fa-bars"></i> Menu
     </button>
     
@@ -428,14 +460,13 @@ input[readonly] {
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="pendaftaran.html" class="active"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
             <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
             <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
         </ul>
     </nav>
 </header>
-
 <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
 <div class="container">
     <div class="tab-container">
@@ -1154,6 +1185,7 @@ input[readonly] {
     <audio name="clickSound" src="click_sound.mp3"></audio>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
 
 <script type="module">
@@ -1176,13 +1208,6 @@ input[readonly] {
         if (event) event.preventDefault();
         const form = document.getElementById('formPendaftaran');
 
-        // Validasi Checklist Pernyataan sebelum proses berat
-        const elPernyataan = document.getElementsByName('cek_pernyataan')[0];
-        if (!elPernyataan || !elPernyataan.checked) {
-            Swal.fire('Gagal', 'Anda harus menyetujui pernyataan sebelum menyimpan.', 'error');
-            return;
-        }
-
         Swal.fire({
             title: 'Sedang Menyimpan...',
             text: 'Memproses data dan mengompres foto...',
@@ -1194,50 +1219,68 @@ input[readonly] {
             const formData = new FormData(form);
             let dataFinal = {};
 
-            // Helper Ambil Teks untuk Select
+            // 1. Helper Ambil Teks (Agar Alamat tidak muncul KODE)
             const getTeks = (idOrName) => {
                 const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
                 return (el && el.tagName === 'SELECT') ? el.options[el.selectedIndex].text : (el?.value || "-");
             };
 
-            // Ambil semua data input
+            // 2. Susun Data secara Manual untuk field krusial
             formData.forEach((value, key) => {
-                if (!(value instanceof File)) dataFinal[key] = value;
+                if (!(value instanceof File)) {
+                    dataFinal[key] = value;
+                }
             });
 
-            // Konversi Kode Wilayah menjadi Teks Nama
-            const listDropdown = [
+            // Paksa timpa field alamat & pekerjaan dengan TEKS (Bukan Kode)
+            const listWilayah = [
                 'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
                 'prov_ibu', 'kab_ibu', 'kec_ibu', 'desa_ibu',
                 'prov_santri', 'kab_santri', 'kec_santri', 'desa_santri',
                 'pjk_ibu', 'pjk_ayah', 'tingkat_unit'
             ];
-            listDropdown.forEach(f => {
-                const teks = getTeks(f);
-                if (teks && !teks.includes("-- Pilih")) dataFinal[f] = teks;
+
+            listWilayah.forEach(field => {
+                const teks = getTeks(field);
+                if (teks && teks !== "-- Pilih --") dataFinal[field] = teks;
             });
 
-            // Tambahkan status setuju
-            dataFinal['status_setuju'] = "SETUJU";
-            dataFinal['waktu_simpan'] = new Date().toISOString();
-
-            // Proses Foto (KK & Ijazah)
+            // 3. Proses Foto (Kompresi agar Loading Cepat)
             const options = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
             const toBase64 = f => new Promise((res, rej) => {
                 const r = new FileReader(); r.readAsDataURL(f);
                 r.onload = () => res(r.result); r.onerror = e => rej(e);
             });
 
-            const fileFields = { 'up_kk': 'file_kk_data', 'up_ijazah': 'file_ijazah_data' };
-            for (const [inputName, dataName] of Object.entries(fileFields)) {
-                const file = document.getElementsByName(inputName)[0]?.files[0];
-                if (file) {
-                    const comp = await imageCompression(file, options);
-                    dataFinal[dataName] = await toBase64(comp);
-                }
+            const fKK = document.getElementsByName('up_kk')[0]?.files[0];
+            if (fKK) {
+                const comp = await imageCompression(fKK, options);
+                dataFinal['file_kk_data'] = await toBase64(comp);
             }
 
-            // Simpan ke Firestore
+            const fIjazah = document.getElementsByName('up_ijazah')[0]?.files[0];
+            if (fIjazah) {
+                const comp = await imageCompression(fIjazah, options);
+                dataFinal['file_ijazah_data'] = await toBase64(comp);
+            }
+
+            // Letakkan ini di dalam try { ... } fungsi handleFormSubmit
+
+/// --- Tambahkan logika ini ---
+const elPernyataan = document.getElementsByName('cek_pernyataan')[0];
+if (elPernyataan) {
+    // Kita buat field baru bernama 'status_setuju'
+    dataFinal['status_setuju'] = elPernyataan.checked ? "SETUJU" : "TIDAK SETUJU";
+}
+
+// Pastikan field 'cek_pernyataan' dihapus agar tidak bentrok
+delete dataFinal['cek_pernyataan'];
+// 4. Final Clean & Simpan
+            delete dataFinal['up_kk'];
+            delete dataFinal['up_ijazah'];
+            delete dataFinal['cek_pernyataan'];
+            dataFinal['waktu_simpan'] = new Date().toISOString();
+
             const docRef = await addDoc(collection(db, "pendaftaran_santri"), dataFinal);
 
             if (docRef.id) {
@@ -1252,12 +1295,16 @@ input[readonly] {
             Swal.fire('Gagal!', error.message, 'error');
         }
     }
+
+   
+// Ekspos ke window agar bisa dipanggil HTML
     window.handleFormSubmit = handleFormSubmit;
 </script>
 
 <script>
+
 /* =========================================================
-   SINKRONISASI DATA WILAYAH
+   SINKRONISASI DATA WILAYAH & KODE POS
 ========================================================= */
 const mappingPosKarawang = {
     "3215010": "41311", "3215011": "41361", "3215012": "41361", "3215013": "41361",
@@ -1274,6 +1321,7 @@ const mappingPosKarawang = {
 async function loadWilayah(endpoint, elementId, placeholder) {
     const el = document.getElementById(elementId);
     if (!el) return;
+    
     el.innerHTML = '<option value="">Loading...</option>';
     el.disabled = true;
 
@@ -1281,125 +1329,429 @@ async function loadWilayah(endpoint, elementId, placeholder) {
         const res = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`);
         const data = await res.json();
         let opt = `<option value="">${placeholder}</option>`;
-        data.forEach(d => opt += `<option value="${d.id}">${d.name}</option>`);
+        data.forEach(d => {
+            opt += `<option value="${d.id}">${d.name}</option>`;
+        });
         el.innerHTML = opt;
         el.disabled = false;
     } catch (e) {
         el.innerHTML = `<option value="">Gagal memuat</option>`;
+        console.error("Error:", e);
     }
 }
 
-// Handler Wilayah Generic
-function handleWilayahChange(type, role, val) {
-    const fields = {
-        'prov': { next: 'kab', api: 'regencies', text: 'Kabupaten' },
-        'kab': { next: 'kec', api: 'districts', text: 'Kecamatan' },
-        'kec': { next: 'desa', api: 'villages', text: 'Desa' }
-    };
+// Handler Berantai untuk Data Ayah
+function loadKabAyah(val) {
+    // Reset pilihan di bawahnya
+    document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
+    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    document.getElementsByName('pos_ayah')[0].value = "";
+    
+    if(val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+}
 
-    const config = fields[type];
-    if (!config) return;
+function loadKecAyah(val) {
+    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    document.getElementsByName('pos_ayah')[0].value = "";
+    
+    if(val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
+}
 
-    // Reset elemen di bawahnya
-    const toReset = type === 'prov' ? ['kab', 'kec', 'desa'] : (type === 'kab' ? ['kec', 'desa'] : ['desa']);
-    toReset.forEach(suffix => {
-        const el = document.getElementById(`${suffix}_${role}`);
-        if (el) el.innerHTML = `<option value="">Pilih ${suffix.toUpperCase()}</option>`;
-    });
-
-    if (val) loadWilayah(`${config.api}/${val}.json`, `${config.next}_${role}`, `Pilih ${config.text}`);
-
-    // Khusus Kecamatan: Update Kode Pos
-    if (type === 'kec') {
-        const inputPos = document.getElementsByName(`pos_${role}`)[0];
+function loadDesaDanPosAyah(val) {
+    if(val) {
+        // Load Desa tetap berjalan
+        loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
+        
+        const inputPos = document.getElementsByName('pos_ayah')[0];
         if (inputPos) {
             const kodeAuto = mappingPosKarawang[val];
-            inputPos.value = kodeAuto || "";
-            inputPos.readOnly = !!kodeAuto;
-            inputPos.style.backgroundColor = kodeAuto ? "#f0f0f0" : "#ffffff";
+            
+            if (kodeAuto) {
+                // Wilayah Karawang: Otomatis & Kunci
+                inputPos.value = kodeAuto;
+                inputPos.readOnly = true;
+                inputPos.style.backgroundColor = "#f0f0f0";
+                inputPos.style.color = "#6c757d";
+            } else {
+                // Luar Karawang: Buka Akses Manual
+                inputPos.value = "";
+                inputPos.readOnly = false;
+                inputPos.style.backgroundColor = "#ffffff";
+                inputPos.style.color = "#000000";
+                inputPos.placeholder = "Isi Kode Pos Manual";
+            }
         }
     }
 }
 
+// Inisialisasi awal load Provinsi
+document.addEventListener('DOMContentLoaded', () => {
+    loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+});
+// Handler Berantai Ayah
+function loadKabAyah(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten'); }
+function loadKecAyah(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan'); }
+function loadDesaDanPosAyah(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_ayah')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+    }
+}
+
+// Handler Berantai Ibu
+function loadKabIbu(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten'); }
+function loadKecIbu(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan'); }
+function loadDesaDanPosIbu(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_ibu')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+    }
+}
+
+// Handler Berantai Santri
+function loadKabSantri(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten'); }
+function loadKecSantri(val) { if(val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan'); }
+function loadDesaDanPosSantri(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_santri')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+    }
+}
+
 /* =========================================================
-   LOGIKA INTERAKSI FORM
+   3. LOGIKA FORM & VALIDASI
 ========================================================= */
 function lockFields(role, lock = true) {
     const container = document.getElementById(`box_${role}`);
     if (!container) return;
     container.querySelectorAll('input, select, textarea').forEach(el => {
-        if (el.name.includes('pilih_dom')) return;
-        el.tagName === 'SELECT' ? el.disabled = lock : el.readOnly = lock;
+        if (el.name === `pilih_dom_${role}`) return; // Jangan kunci switchnya
+        if (el.tagName === 'SELECT') {
+            el.disabled = lock;
+        } else {
+            el.readOnly = lock;
+        }
         el.style.backgroundColor = lock ? "#f8f9fa" : "transparent";
     });
 }
 
-function copyDataAlamat(from, to) {
-    const fields = ['al', 'rt', 'rw', 'pos'];
-    fields.forEach(f => {
-        const sourceVal = document.getElementsByName(`${f}_${from}`)[0]?.value;
-        const targetEl = document.getElementsByName(`${f}_${to}`)[0];
-        if (targetEl) targetEl.value = sourceVal || "";
-    });
+function dataAyahLengkap() {
+    // Ambil nilai dari dropdown (menggunakan ID)
+    const prov = document.getElementById('prov_ayah')?.value;
+    const kab  = document.getElementById('kab_ayah')?.value;
+    const kec  = document.getElementById('kec_ayah')?.value;
+    const desa = document.getElementById('desa_ayah')?.value;
+    
+    // Ambil nilai dari input teks (menggunakan Name)
+    const alamat = document.getElementsByName('al_ayah')[0]?.value.trim();
+    const rt     = document.getElementsByName('rt_ayah')[0]?.value.trim();
+    const rw     = document.getElementsByName('rw_ayah')[0]?.value.trim();
+    const pos    = document.getElementsByName('pos_ayah')[0]?.value.trim();
 
-    const selects = ['prov', 'kab', 'kec', 'desa'];
-    selects.forEach(s => {
-        const sourceEl = document.getElementById(`${s}_${from}`);
-        const targetEl = document.getElementById(`${s}_${to}`);
-        if (sourceEl?.selectedIndex >= 0 && targetEl) {
-            targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
-            targetEl.value = sourceEl.value;
-        }
-    });
+    // Logika: Semua harus terisi
+    if (!prov || !kab || !kec || !desa || !alamat || !rt || !rw || !pos) {
+        return false;
+    }
+    return true;
 }
 
 function toggleDomisiliIbu(val) {
     const box = document.getElementById('box_ibu');
+    if (!box) return;
+
+    box.style.display = (val === "") ? 'none' : 'grid';
+
     if (val === 'sama') {
+        if (!dataAyahLengkap()) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan',
+                text: 'Lengkapi Data Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
+                confirmButtonColor: '#2d6a4f'
+            });
+            // Reset pilihan ke default
+            document.getElementsByName('pilih_dom_ibu')[0].value = "";
+            box.style.display = 'none';
+            return;
+        }
+
+        // Jalankan fungsi salin data
         copyDataAlamat('ayah', 'ibu');
+        // Kunci field (lockFields) agar readonly dan abu-abu
         lockFields('ibu', true);
-    } else {
+
+    } else if (val === 'beda') {
         lockFields('ibu', false);
-        if (val === 'beda') loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
+        // Reset field jika sebelumnya bekas 'sama'
+        const fields = ['al_ibu', 'rt_ibu', 'rw_ibu', 'pos_ibu'];
+        fields.forEach(f => {
+            const el = document.getElementsByName(f)[0];
+            if(el) el.value = "";
+        });
+        loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
     }
 }
 
+async function copyDataAlamat(from, to) {
+    try {
+        // A. Salin Input Teks (Alamat, RT, RW, Kode Pos)
+        const fields = ['al', 'rt', 'rw', 'pos'];
+        fields.forEach(f => {
+            const sourceVal = document.getElementsByName(`${f}_${from}`)[0]?.value;
+            const targetEl = document.getElementsByName(`${f}_${to}`)[0];
+            if (targetEl) targetEl.value = sourceVal || "";
+        });
+
+        // B. Salin Dropdown (Provinsi, Kab, Kec, Desa)
+        const selects = ['prov', 'kab', 'kec', 'desa'];
+        selects.forEach(s => {
+            const sourceEl = document.getElementById(`${s}_${from}`);
+            const targetEl = document.getElementById(`${s}_${to}`);
+            
+            if (sourceEl && targetEl && sourceEl.selectedIndex >= 0) {
+                // Memaksa opsi yang dipilih di 'Ayah' muncul di 'Ibu'
+                targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
+                targetEl.value = sourceEl.value;
+            }
+        });
+    } catch (err) {
+        console.error("Gagal menyalin data:", err);
+    }
+}
+
+// Toggle Domisili Ibu
+function lockFields(suffix, isLocked) {
+    // 1. Tangani Dropdown (Select)
+    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
+    dropdowns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.disabled = isLocked;
+            el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
+        }
+    });
+
+    // 2. Tangani Input Teks (Alamat, RT, RW, Pos)
+    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
+    inputs.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) {
+            el.readOnly = isLocked;
+            el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
+            el.style.color = isLocked ? "#6c757d" : "#000000"; // Teks jadi abu-abu
+            el.style.cursor = isLocked ? "not-allowed" : "text";
+        }
+    });
+}
+
+function resetFields(suffix) {
+    // 1. Reset Dropdown ke opsi awal
+    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
+    dropdowns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = `<option value="">Pilih ${id.split('_')[0].toUpperCase()}</option>`;
+    });
+
+    // 2. Reset Input Teks
+    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
+    inputs.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) el.value = "";
+    });
+}
+
+// Toggle Domisili Santri
 function toggleDomisiliSantri(val) {
     const box = document.getElementById('box_santri');
+    if (!box) return;
+
+    // Tampilkan box kecuali jika pilihan kosong
+    box.style.display = (val === "") ? 'none' : 'grid';
+
     if (val === 'mukim') {
+        // Isi otomatis dengan alamat Pesantren (Contoh: Karawang)
         isiAlamatPesantren();
-        lockFields('santri', true);
+        lockFields('santri', true); // Kunci agar tidak diubah
+
     } else if (val === 'sama') {
+        // Validasi data Ayah
+        if (!dataAyahLengkap())  
+         Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan',
+                text: 'Lengkapi Data Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
+                confirmButtonColor: '#f4ce14'
+            });
+
         copyDataAlamat('ayah', 'santri');
         lockFields('santri', true);
-    } else {
+
+    } else if (val === 'beda') {
+        resetFields('santri');
         lockFields('santri', false);
         loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
     }
 }
 
 function isiAlamatPesantren() {
-    const data = { prov: "32", p_t: "JAWA BARAT", kab: "3215", k_t: "KABUPATEN KARAWANG", kec: "321516", kec_t: "JATISARI", desa: "3215162001", d_t: "JATISARI", al: "Dusun Sukamaju II", rt: "002", rw: "004", pos: "41374" };
-    const set = (id, v, t) => { const el = document.getElementById(id); if(el){ el.innerHTML = `<option value="${v}">${t}</option>`; el.value=v; }};
-    set('prov_santri', data.prov, data.p_t); set('kab_santri', data.kab, data.k_t); set('kec_santri', data.kec, data.kec_t); set('desa_santri', data.desa, data.d_t);
-    document.getElementsByName('al_santri')[0].value = data.al;
-    document.getElementsByName('rt_santri')[0].value = data.rt;
-    document.getElementsByName('rw_santri')[0].value = data.rw;
-    document.getElementsByName('pos_santri')[0].value = data.pos;
+    // Contoh Alamat Pesantren
+    const dataPesantren = {
+        prov: "32", // Kode Provinsi Jawa Barat
+        prov_text: "JAWA BARAT",
+        kab: "3215", // Kode Kab. Karawang
+        kab_text: "KABUPATEN KARAWANG",
+        kec: "321516", // Contoh Kode Kec. Jatisari
+        kec_text: "JATISARI",
+        desa: "3215162001", // Contoh Kode Desa
+        desa_text: "JATISARI",
+        al: "Dusun Sukamaju II",
+        rt: "002",
+        rw: "004",
+        pos: "41374"
+    };
+
+    // Set Dropdown secara paksa (Force Insert)
+    const setSelect = (id, val, text) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.innerHTML = `<option value="${val}">${text}</option>`;
+            el.value = val;
+        }
+    };
+
+    setSelect('prov_santri', dataPesantren.prov, dataPesantren.prov_text);
+    setSelect('kab_santri', dataPesantren.kab, dataPesantren.kab_text);
+    setSelect('kec_santri', dataPesantren.kec, dataPesantren.kec_text);
+    setSelect('desa_santri', dataPesantren.desa, dataPesantren.desa_text);
+
+    // Set Input Teks
+    document.getElementsByName('al_santri')[0].value = dataPesantren.al;
+    document.getElementsByName('rt_santri')[0].value = dataPesantren.rt;
+    document.getElementsByName('rw_santri')[0].value = dataPesantren.rw;
+    document.getElementsByName('pos_santri')[0].value = dataPesantren.pos;
+}
+/* =========================================================
+   FUNGSI NAVIGASI & VALIDASI TERPADU
+========================================================= */
+function validateInput(tabId) {
+    const isNumeric = /^\d+$/;
+    
+    // 1. Definisikan Helper 'check' di baris paling atas fungsi
+    const check = (name, label) => {
+        const el = document.getElementsByName(name)[0];
+        if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Data Belum Lengkap',
+                html: `Field <b>${label}</b> wajib diisi!`,
+                confirmButtonColor: '#1a5319'
+            });
+            return false;
+        }
+        return true;
+    };
+
+    // --- LOGIKA VALIDASI TAB ---
+    
+    if (tabId === 'santri') {
+        if (!check('nama_santri', 'Nama Lengkap')) return false;
+        if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
+        if (!check('nik', 'NIK')) return false;
+        if (!check('no_kk', 'Nomor KK')) return false;
+        if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
+
+        const nikVal = document.getElementsByName('nik')[0]?.value || "";
+        if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
+            Swal.fire('Format Salah', 'NIK Santri harus 16 digit angka!', 'error');
+            return false;
+        }
+    } 
+
+    else if (tabId === 'ortu') {
+        const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
+
+        if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
+        if (!check('st_ayah', 'Status Ayah')) return false;
+
+        // Validasi NIK/KK hanya jika Ayah 'Masih Hidup'
+        if (statusAyah === 'Masih Hidup') {
+            if (!check('nik_ayah', 'NIK Ayah')) return false;
+            if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
+            
+            const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
+            if (nikA.length !== 16 || !isNumeric.test(nikA)) {
+                Swal.fire('Format Salah', 'NIK Ayah harus 16 digit angka!', 'error');
+                return false;
+            }
+        }
+
+        if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
+        if (!check('st_wali', 'Status Wali Santri')) return false;
+    }
+
+    else if (tabId === 'alamat') {
+        if (!check('prov_ayah', 'Provinsi')) return false;
+        if (!check('kab_ayah', 'Kabupaten')) return false;
+        if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
+        if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
+        if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
+    }
+
+// --- TAMBAHKAN LOGIKA UNTUK TAB PERNYATAAN DI SINI ---
+    else if (tabId === 'pernyataan') {
+        const elCek = document.getElementsByName('cek_pernyataan')[0];
+        if (!elCek || !elCek.checked) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Persetujuan Diperlukan',
+                text: 'Anda harus menyetujui seluruh pernyataan sebelum dapat menyimpan pendaftaran.',
+                confirmButtonColor: '#d33'
+            });
+            return false;
+        }
+    }
+
+    return true; 
 }
 
-/* =========================================================
-   NAVIGASI & WHATSAPP
-========================================================= */
 function openTab(evt, targetId) {
-    document.querySelectorAll(".tab-content").forEach(tc => { tc.style.display = "none"; tc.classList.remove("active"); });
-    document.querySelectorAll(".tab-link").forEach(tl => tl.classList.remove("active"));
-    
-    const target = document.getElementById(targetId);
-    if (target) { target.style.display = "block"; target.classList.add("active"); }
-    
-    const btn = evt ? evt.currentTarget : document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
-    if (btn) btn.classList.add('active');
+    // 1. Sembunyikan semua konten tab
+    const tabcontents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+        tabcontents[i].classList.remove("active");
+    }
+
+    // 2. Hilangkan class 'active' dari semua tombol menu (tab-link)
+    const tablinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    // 3. Tampilkan tab yang dituju
+    const targetTab = document.getElementById(targetId);
+    if (targetTab) {
+        targetTab.style.display = "block";
+        targetTab.classList.add("active");
+    } else {
+        console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
+    }
+
+    // 4. Tandai tombol yang aktif di menu atas
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active');
+    } else {
+        // Jika dipanggil dari nextTab (tanpa event klik langsung di menu)
+        const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
+        if (autoBtn) autoBtn.classList.add('active');
+    }
+
+    // 5. Scroll otomatis ke atas agar user tidak bingung
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1418,28 +1770,274 @@ function prevTab(targetId) {
     openTab(null, targetId);
 }
 
+function toggleAyahFields(status) {
+    const fieldsToLock = [
+        'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
+        'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
+    ];
+
+    const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
+
+    fieldsToLock.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) {
+            if (isLocked) {
+                // Jangan isi "-" jika tipenya date atau select
+                if (el.type === 'date' || el.tagName === 'SELECT') {
+                    el.value = ""; 
+                } else {
+                    el.value = "-";
+                }
+                
+                el.tagName === 'SELECT' ? el.disabled = true : el.readOnly = true;
+                el.style.backgroundColor = "#e9ecef";
+                el.style.opacity = "0.7";
+            } else {
+                if (el.value === "-") el.value = "";
+                el.tagName === 'SELECT' ? el.disabled = false : el.readOnly = false;
+                el.style.backgroundColor = "#ffffff";
+                el.style.opacity = "1";
+            }
+        }
+    });
+}
+
+/* =========================================================
+   FUNGSI TOGGLE NISN & HP (READONLY & SAMAR)
+========================================================= */
+
+// Handler untuk Checkbox NISN
+function handleNoNISN(checked) {
+    const nisnInput = document.getElementsByName('nisn')[0]; 
+    if (!nisnInput) return;
+    
+    if (checked) {
+        // Jika dicentang: Isi angka nol, buat readonly, dan buat samar
+        nisnInput.value = '0000000000'; 
+        nisnInput.readOnly = true;
+        nisnInput.style.backgroundColor = '#e9ecef'; // Warna abu-abu samar
+        nisnInput.style.color = '#6c757d';           // Warna teks pudar
+        nisnInput.style.cursor = 'not-allowed';
+    } else {
+        // Jika centang dilepas: Kosongkan dan aktifkan kembali
+        nisnInput.value = '';
+        nisnInput.readOnly = false;
+        nisnInput.style.backgroundColor = '#ffffff';
+        nisnInput.style.color = '#000000';
+        nisnInput.style.cursor = 'text';
+    }
+}
+
+// Tambahkan fungsi ini di bagian script Anda
+function prosesSimpanFinal() {
+    // 1. Ambil elemen checkbox
+    const elCek = document.getElementsByName('cek_pernyataan')[0];
+    
+    // 2. Validasi: Jika belum dicentang, munculkan peringatan
+    if (!elCek || !elCek.checked) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Persetujuan Diperlukan',
+            text: 'Silakan centang persetujuan pernyataan sebelum menyimpan pendaftaran.',
+            confirmButtonColor: '#d33'
+        });
+        return; // Berhenti di sini
+    }
+
+    // 3. Jika sudah dicentang, panggil fungsi simpan utama
+    // Pastikan handleFormSubmit sudah diekspos ke window
+    if (typeof window.handleFormSubmit === "function") {
+        window.handleFormSubmit();
+    } else {
+        console.error("Fungsi handleFormSubmit tidak ditemukan!");
+    }
+}
+
+// Handler untuk Checkbox HP (Ayah/Ibu)
+function toggleHP(cb, inputName) {
+    const hpInput = document.getElementsByName(inputName)[0];
+    if (!hpInput) return;
+    
+    if (cb.checked) {
+        // Jika dicentang: Isi teks, buat readonly, dan buat samar
+        hpInput.value = 'TIDAK MEMILIKI';
+        hpInput.readOnly = true;
+        hpInput.style.backgroundColor = '#e9ecef';
+        hpInput.style.color = '#6c757d';
+        hpInput.style.cursor = 'not-allowed';
+    } else {
+        // Jika centang dilepas: Kosongkan kembali
+        hpInput.value = '';
+        hpInput.readOnly = false;
+        hpInput.style.backgroundColor = '#ffffff';
+        hpInput.style.color = '#000000';
+        hpInput.style.cursor = 'text';
+    }
+}
+
 function kirimWA() {
-    const gV = (n) => document.getElementsByName(n)[0]?.value || "-";
-    const gT = (id) => {
-        const el = document.getElementById(id) || document.getElementsByName(id)[0];
-        if (el?.tagName === 'SELECT') return el.options[el.selectedIndex]?.text || "-";
-        return el?.value || "-";
+
+    const gV = (name) => {
+        const el = document.getElementsByName(name)[0];
+        return el ? (el.value.trim() || "-") : "-";
     };
 
-    let m = "*PENDAFTARAN SANTRI BARU*\n*DAARUL KHOIROT AL-MADANI*\n---\n";
-    m += "🧒 *SANTRI*: " + gV('nama_santri') + " (" + gV('tingkat_unit') + ")\n";
-    m += "👲 *AYAH*: " + gV('nama_ayah') + " (" + gV('hp_ayah') + ")\n";
-    m += "🧕 *IBU*: " + gV('nama_ibu') + " (" + gV('hp_ibu') + ")\n";
-    m += "🏡 *DOMISILI*: " + gT('desa_santri') + ", " + gT('kec_santri') + "\n";
-    m += "✅ *STATUS*: Sudah Menyetujui Pernyataan\n---\n";
-    m += "_Pendaftaran disetujui secara digital._";
+    const gT = (idOrName) => {
+        const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
 
-    const waUrl = "https://wa.me/6281401643188?text=" + encodeURIComponent(m);
+        if (el && el.tagName === 'SELECT' && el.selectedIndex !== -1) {
+            const teks = el.options[el.selectedIndex].text;
+            return teks.includes("Pilih") ? "-" : teks;
+        }
+
+        return el ? (el.value.trim() || "-") : "-";
+    };
+
+    // ICON STATUS
+    const elCek = document.getElementsByName('cek_pernyataan')[0];
+
+    const status_setuju =
+        (elCek && elCek.checked)
+            ? "\u2705 SUDAH MENYETUJUI"
+            : "\u274C BELUM MENYETUJUI";
+
+    // EMOJI UNICODE
+   const ICON_KERTAS      = "\u{1F4C4}"; // 📄 Dokumen
+   const ICON_CLIPBOARD   = "\u{1F4CB}"; // 📋 Clipboard
+   const ICON_PENSIL      = "\u270F\uFE0F"; // ✏️ Pensil
+   const ICON_CENTANG     = "\u2705"; // ✅
+   const ICON_SILANG      = "\u274C"; // ❌
+   const ICON_PERINGATAN  = "\u26A0\uFE0F"; // ⚠️
+   const ICON_TIMBANGAN   = "\u2696\uFE0F"; // ⚖️
+   const ICON_TTD         = "\u{1F58A}\uFE0F"; // 🖊️ Tanda tangan
+   const ICON_MEMO        = "\u{1F4DD}"; // 📝 Memo
+   const ICON_FOLDER      = "\u{1F4C1}"; // 📁
+   const ICON_SURAT       = "\u2709\uFE0F"; // ✉️
+   const ICON_AYAH   = "\u{1F472}"; // 👲 pria berpeci
+   const ICON_IBU    = "\u{1F9D5}"; // 🧕 wanita berhijab
+   const ICON_SANTRI = "\u{1F9D2}"; // 🧒 santri/anak          = "\u{1F534}"; // 🔴
+   const RUMAH_AYAH       = "\u{1F3E1}"; // 🏡 Rumah ayah
+   const RUMAH_IBU        = "\u{1F3E0}"; // 🏠 Rumah ibu
+   const RUMAH_SANTRI     = "\u{1F3D8}\uFE0F"; // 🏘️ Domisili santri
+   const CLIP             = "\u{1F4CB}"; // 📋
+
+
+   // 3. Menyusun Pesan (Template String)
+    let m = "*PENDAFTARAN SANTRI BARU*\n";
+    m += "*DAARUL KHOIROT AL-MADANI*\n";
+    m += "------------------------------------------\n\n";
+
+    // 🟢 DATA SANTRI
+    m += "*" + ICON_SANTRI + " DATA SANTRI*\n";
+    m += "• Nama: " + gV('nama_santri') + "\n";
+    m += "• Unit: " + gV('tingkat_unit') + "\n";
+    m += "• NIK: " + gV('nik') + "\n";
+    m += "• No. KK: " + gV('no_kk') + "\n";
+    m += "• NISN: " + gV('nisn') + "\n";
+    m += "• Gender: " + gV('jenis_kelamin') + "\n";
+    m += "• TTL: " + gV('tmpt_lahir') + ", " + gV('tgl_lahir') + "\n";
+    m += "• Anak Ke: " + gV('anak_ke') + " dari " + gV('jml_saudara') + " bersaudara\n";
+    m += "• Cita-cita: " + gV('cita') + "\n";
+    m += "• Hobi: " + gV('hobi') + "\n";
+    m += "• Keb. Khusus: " + gV('keb_khusus') + "\n";
+    m += "• Disabilitas: " + gV('disabilitas') + "\n";
+    m += "• Biaya Oleh: " + gV('biaya') + "\n\n";
+
+    // 🔵 DATA AYAH
+    m += "*" + ICON_AYAH + " DATA AYAH*\n";
+    m += "• Status: " + gV('st_ayah') + "\n";
+    m += "• Nama Ayah: " + gV('nama_ayah') + "\n";
+    m += "• WN: " + gV('wn_ayah') + "\n";
+    m += "• NIK Ayah: " + gV('nik_ayah') + "\n";
+    m += "• KK Ayah: " + gV('kk_ayah') + "\n";
+    m += "• TTL: " + gV('tmpt_ayah') + ", " + gV('tgl_ayah') + "\n";
+    m += "• Pendidikan: " + gV('pdk_ayah') + "\n";
+    m += "• Pekerjaan: " + gV('pjk_ayah') + "\n";
+    m += "• Penghasilan: " + gV('hasil_ayah') + "\n";
+    m += "• No. HP: " + gV('hp_ayah') + "\n\n";
+
+    // 🔴 DATA IBU
+    m += "*" + ICON_IBU + " DATA IBU*\n";
+    m += "• Status: " + gV('st_ibu') + "\n";
+    m += "• Nama Ibu: " + gV('nama_ibu') + "\n";
+    m += "• WN: " + gV('wn_ibu') + "\n";
+    m += "• NIK Ibu: " + gV('nik_ibu') + "\n";
+    m += "• TTL: " + gV('tmpt_ibu') + ", " + gV('tgl_ibu') + "\n";
+    m += "• Pendidikan: " + gV('pdk_ibu') + "\n";
+    m += "• Pekerjaan: " + gV('pjk_ibu') + "\n";
+    m += "• Penghasilan: " + gV('hasil_ibu') + "\n";
+    m += "• No. HP: " + gV('hp_ibu') + "\n\n";
+
+    // 🏠 ALAMAT (TUNTAS: Mengambil NAMA, Bukan KODE)
+    m += "*" + RUMAH_AYAH  + " ALAMAT AYAH*\n";
+    m += "• Status Milik: " + gV('milik_ayah') + "\n";
+    m += "• Alamat: " + gV('al_ayah') + ", RT." + gV('rt_ayah') + "/RW." + gV('rw_ayah') + "\n";
+    m += "Desa " + gT('desa_ayah') + ", Kec. " + gT('kec_ayah') + "\n";
+    m += "• Wilayah: " + gT('kab_ayah') + ", " + gT('prov_ayah') + "\n\n";
+    m += "*" + RUMAH_IBU  + " ALAMAT IBU*\n";
+    m += "• Alamat: " + gV('al_ibu') + ", RT." + gV('rt_ibu') + "/RW." + gV('rw_ibu') + "\n";
+    m += "Desa " + gT('desa_ibu') + ", Kec. " + gT('kec_ibu') + "\n";
+    m += "• Wilayah: " + gT('kab_ibu') + ", " + gT('prov_ibu') + "\n\n";
+    m += "*" + RUMAH_SANTRI  + " ALAMAT SANTRI*\n";
+    m += "• Alamat: " + gV('al_santri') + ", RT." + gV('rt_santri') + "/RW." + gV('rw_santri') + "\n";
+    m += "Desa " + gT('desa_santri') + ", Kec. " + gT('kec_santri') + "\n";
+    m += "• Wilayah: " + gT('kab_santri') + ", " + gT('prov_santri') + "\n\n";
+
+    // 📋 DATA WAWANCARA
+    m += "*" + CLIP + " INFORMASI TAMBAHAN*\n";
+    m += "• Visi: " + gV('w_visi') + "\n";
+    m += "• Pola: " + gV('w_pola') + "\n";
+    m += "• Perilaku: " + gV('w_perilaku') + "\n";
+    m += "• Sehat: " + gV('w_sehat') + "\n";
+    m += "• Tazir: " + gV('w_tazir') + "\n";
+    m += "• Harapan: " + gV('w_harapan') + "\n\n";
+
+    m += "*" + ICON_MEMO   + " PERNYATAAN ORANG TUA*\n";
+    m += "• Status: " + status_setuju + "\n\n";
+    
+    m += "------------------------------------------\n";
+    m += "_Pendaftaran ini telah disetujui secara digital._\n";
+    m += "_Mohon segera diproses, Terima Kasih._";
+
+    // 4. EKSEKUSI (WAJIB pakai encodeURIComponent agar ikon tidak rusak)
+    const adminNumber = "6281401643188";
+    const waUrl = "https://wa.me/" + adminNumber + "?text=" + encodeURIComponent(m);
+    
     window.open(waUrl, '_blank');
 }
 
-document.addEventListener('DOMContentLoaded', () => loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi'));
+    const clickSound = document.getElementById('clickSound');
+    const navLinks = document.querySelectorAll('nav ul li a'); 
+    
+  // --- LOGIKA MENU NAVIGASI ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuBtn = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+
+        if (menuBtn && nav) {
+            menuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                nav.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function() {
+                nav.classList.remove('show');
+            });
+        }
+        
+        // Link Aktif
+        const path = window.location.pathname.split("/").pop() || "index.html";
+        document.querySelectorAll("nav ul li a").forEach(link => {
+            if (link.getAttribute("href") === path) link.classList.add("active");
+        });
+    });
+    
    </script>    
+
+<a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp fa-lg"></i>
+        <span>Tanya Admin</span>
+    </a>
 
 </body>
 </html>
