@@ -3,257 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran - Daarul Khoirot Almadani</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
+    <title>Daarul Khoirot Almadani | Pendaftaran</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. VARIABEL & DASAR --- */
         :root {
-            --primary-color: #1a5d1a;
+            --primary-color: #1a5319;
+            --primary-dark: #0d2e0d;
+            --gold-color: #D4AF37;
             --gold-light: #f4ce14;
-            --border-color: #ddd;
-            --white: #ffffff;
-            --bg-light: #f8f9fa;
+            --white: #FFFFFF;
+            --bg-body: #f4f7f6;
+            --border-color: #1a5d1a;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
+        body { background-color: var(--bg-body); display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* --- 2. HEADER (SESUAI INDEX) --- */
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0 20px;
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-sizing: border-box;
+        /* --- HEADER & NAV --- */
+        header { 
+            background: var(--primary-color); color: var(--white); 
+            padding: 12px 4%; display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .logo { display: flex; align-items: center; gap: 10px; }
         .logo img { height: 40px; }
+        .logo h1 { font-size: 1.2rem; font-weight: 700; color: white; }
+
+        nav ul { list-style: none; display: flex; gap: 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); }
+
+        #menu-toggle { display: none; background: var(--gold-light); border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+
+        /* --- FORM & TABS --- */
+        .container { padding: 2rem 5%; flex: 1; }
+        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
         
-        .logo h1 {
-            font-size: 1.2rem;
-            margin: 0;
-            white-space: nowrap;
-        }
+        .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
+        .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; color: #555; text-align: center; transition: 0.3s; }
+        .tab-link.active { background-color: #28a745 !important; color: white !important; }
 
-        /* --- 3. CONTAINER & TABS --- */
-        .container { 
-            width: 100%;
-            max-width: 1100px; 
-            margin: 90px auto 40px; /* Jarak dari header fix */
-            padding: 0 15px; 
-            box-sizing: border-box;
-        }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .tab-content.active { display: grid; }
 
-        .tab-container { 
-            background: var(--white); 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-        }
+        .form-section-title { grid-column: 1 / -1; margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
 
-        .tab-menu { 
-            display: flex; 
-            background: var(--bg-light); 
-            border-bottom: 3px solid #eee; 
-            overflow-x: auto; 
-            -webkit-overflow-scrolling: touch;
-        }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
+        .required::after { content: " *"; color: #d63031; }
 
-        .tab-link { 
-            flex: 1; 
-            padding: 18px 10px; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: 700; 
-            font-size: 1rem; 
-            color: #555; 
-            background-color: #f1f1f1;
-            text-align: center; 
-            transition: 0.3s; 
-            text-transform: uppercase; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 5px; 
-            min-width: 130px;
-        }
+        .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
+        .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
+        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; width: 100%; font-size: 0.9rem; background: transparent; }
 
-        .tab-link.active { 
-            background-color: #28a745 !important; 
-            color: var(--white) !important; 
-        }
-
-        /* --- 4. TAB CONTENT & GRID (3 KOLOM) --- */
-        .tab-content { 
-            display: none; 
-            padding: 30px; 
-            background-color: var(--white);
-            animation: fadeEffect 0.4s;
-        }
-
-        .tab-content.active { 
-            display: grid; 
-            grid-template-columns: repeat(6, 1fr); 
-            gap: 20px; 
-        }
-
-        @keyframes fadeEffect {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- 5. FORM ELEMENTS --- */
-        .form-section-title { 
-            grid-column: span 6; 
-            margin: 10px 0 10px; 
-            padding-bottom: 8px; 
-            border-bottom: 2px solid #eee; 
-            color: var(--primary-color);
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            text-transform: uppercase;
-        }
-
-        .form-group { 
-            grid-column: span 2; /* 3 Kolom di Laptop */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.wide { grid-column: span 3; } /* 2 Kolom */
-        .form-group.full { grid-column: span 6; } /* 1 Kolom */
-
-        .form-group label { 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            font-size: 0.85rem; 
-            color: var(--primary-color); 
-        }
-
-        .label-wajib::after { content: " *"; color: #e74c3c; }
-
-        /* INPUT DENGAN IKON */
-        .input-ikon {
-            display: flex; 
-            align-items: center; 
-            background: var(--white); 
-            border: 1.5px solid var(--border-color);
-            border-radius: 8px; 
-            padding: 0 12px; 
-            min-height: 48px; 
-            box-sizing: border-box;
-        }
-
-        .input-ikon i { 
-            color: var(--primary-color); 
-            width: 20px; 
-            text-align: center; 
-            margin-right: 10px; 
-            flex-shrink: 0;
-        }
-
-        .input-ikon input, .input-ikon select { 
-            flex: 1; 
-            border: none; 
-            outline: none; 
-            background: transparent; 
-            height: 100%; 
-            font-size: 0.95rem;
-        }
-
-        /* --- 6. BUTTONS --- */
-        .button-group {
-            grid-column: span 6;
-            display: flex; 
-            gap: 15px; 
-            margin-top: 20px; 
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-
-        .btn-nav { 
-            flex: 1; 
-            padding: 15px; 
-            border: none; 
-            border-radius: 8px; 
-            font-weight: 800;
-            cursor: pointer; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 10px; 
-            font-size: 1.1rem; 
-            transition: 0.3s; 
-            color: white; 
-        }
-
-        .btn-prev { background-color: var(--gold-light) !important; color: #333 !important; }
+        /* --- FOOTER & BUTTONS --- */
+        .button-group { grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
+        .btn-nav { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 1.1rem; transition: 0.3s; color: white; }
+        .btn-prev { background-color: var(--gold-color) !important; }
         .btn-next { background-color: var(--primary-color) !important; }
 
-        /* --- 7. WHATSAPP GLOW --- */
-        .wa-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 1000;
-            transition: 0.3s;
-        }
+        footer { background: var(--primary-dark); color: white; padding: 30px 5%; text-align: center; font-size: 0.9rem; }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white !important; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
-        .wa-float i {
-            color: #25d366; 
-            font-size: 55px;
-            filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.5));
-            animation: wa-glow 2s infinite alternate;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes wa-glow {
-            from { filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.4)); transform: scale(1); }
-            to { filter: drop-shadow(0 0 15px rgba(37, 211, 102, 0.8)); transform: scale(1.08); }
-        }
-
-        /* --- 8. RESPONSIF HP --- */
         @media (max-width: 768px) {
-            header { height: 65px; padding: 0 10px; }
-            .logo img { height: 35px; }
-            .logo h1 { font-size: 0.95rem; white-space: nowrap; gap: 5px; }
-            
-            .container { margin-top: 80px; padding: 0 10px; }
-            
-            .tab-content.active {
-                display: flex !important;
-                flex-direction: column;
-                padding: 20px 15px;
-            }
-
-            .form-group, .form-group.wide { grid-column: span 6 !important; }
-            
-            .tab-link { min-width: 110px; font-size: 0.8rem; }
-            
-            .wa-float i { font-size: 45px; }
-            input, select { font-size: 16px !important; }
+            #menu-toggle { display: block; }
+            nav ul { display: none; flex-direction: column; width: 100%; position: absolute; top: 65px; left: 0; background: var(--primary-color); padding: 20px; }
+            nav.show ul { display: flex; }
+            .tab-content { grid-template-columns: 1fr; }
+            .tab-link { font-size: 0.8rem; padding: 15px 5px; }
         }
     </style>
 </head>
@@ -261,120 +83,259 @@
 
 <header>
     <div class="logo">
-        <img src="logo.png" alt="Logo"> <h1>DAARUL KHOIROT ALMADANI</h1>
+        <img src="main_logo.png" alt="Logo">
+        <h1>DAARUL KHOIROT</h1>
     </div>
-    <div style="background: var(--gold-light); color: var(--primary-color); padding: 5px 12px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;">
-        <i class="fas fa-bars"></i> MENU
-    </div>
+    <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+    <nav>
+        <ul>
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="pendaftaran.html" class="active">Pendaftaran</a></li>
+            <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+    </nav>
 </header>
 
 <div class="container">
-    <div class="tab-container">
-        <div class="tab-menu">
-            <button class="tab-link active" onclick="openTab(event, 'santri')">
-                <i class="fas fa-user-graduate"></i> DATA SANTRI
-            </button>
-            <button class="tab-link" onclick="openTab(event, 'ortu')">
-                <i class="fas fa-users"></i> ORANG TUA
-            </button>
-            <button class="tab-link" onclick="openTab(event, 'alamat')">
-                <i class="fas fa-map-marked-alt"></i> ALAMAT
-            </button>
-            <button class="tab-link" onclick="openTab(event, 'pernyataan')">
-                <i class="fas fa-file-signature"></i> PERNYATAAN
-            </button>
-        </div>
+    <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
+        <div class="tab-container">
+            <div class="tab-menu">
+                <button type="button" class="tab-link active" onclick="openTab(event, 'santri')">DATA SANTRI</button>
+                <button type="button" class="tab-link" onclick="openTab(event, 'ortu')">ORANG TUA</button>
+                <button type="button" class="tab-link" onclick="openTab(event, 'alamat')">ALAMAT</button>
+                <button type="button" class="tab-link" onclick="openTab(event, 'pernyataan')">KONFIRMASI</button>
+            </div>
 
-        <div id="santri" class="tab-content active">
-            <h3 class="form-section-title"><i class="fas fa-id-card"></i> Identitas Santri</h3>
-            
-            <div class="form-group">
-                <label class="label-wajib">Tanggal Pendaftaran</label>
-                <div class="input-ikon">
-                    <i class="fas fa-calendar-alt"></i>
-                    <input type="date" required>
+            <div id="santri" class="tab-content active">
+                <div class="form-section-title"><i class="fas fa-id-card"></i> Identitas Santri</div>
+                <div class="form-group">
+                    <label class="required">Nama Lengkap</label>
+                    <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_santri" placeholder="Sesuai KK"></div>
+                </div>
+                <div class="form-group">
+                    <label class="required">Unit & Kelas</label>
+                    <div class="input-ikon"><i class="fas fa-graduation-cap"></i>
+                        <select name="tingkat_unit">
+                            <option value="">-- Pilih --</option>
+                            <option>TPQ - Tingkat 1</option>
+                            <option>MDT - Tingkat 1</option>
+                            <option>Pesantren Tahun 1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="required">NIK (16 Digit)</label>
+                    <div class="input-ikon"><i class="fas fa-fingerprint"></i><input type="text" name="nik" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')"></div>
+                </div>
+                <div class="form-group">
+                    <label class="required">No. Kartu Keluarga</label>
+                    <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="no_kk" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')"></div>
+                </div>
+                <div class="form-group">
+                    <label class="required">Jenis Kelamin</label>
+                    <div class="input-ikon"><i class="fas fa-venus-mars"></i>
+                        <select name="jenis_kelamin">
+                            <option value="">-- Pilih --</option>
+                            <option>Laki-laki</option>
+                            <option>Perempuan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>NISN</label>
+                    <div class="input-ikon"><i class="fas fa-id-badge"></i><input type="text" name="nisn" maxlength="10"></div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-nav btn-next" onclick="nextTab('ortu')">Lanjut Data Orang Tua <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="label-wajib">Nama Lengkap</label>
-                <div class="input-ikon">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Sesuai KK/Akte" required>
+            <div id="ortu" class="tab-content">
+                <div class="form-section-title"><i class="fas fa-user-tie"></i> Data Ayah Kandung</div>
+                <div class="form-group">
+                    <label class="required">Nama Ayah</label>
+                    <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_ayah"></div>
+                </div>
+                <div class="form-group">
+                    <label class="required">Status Ayah</label>
+                    <div class="input-ikon"><i class="fas fa-heart"></i>
+                        <select name="st_ayah" onchange="toggleAyahFields(this.value)">
+                            <option value="Masih Hidup">Masih Hidup</option>
+                            <option value="Meninggal">Meninggal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Ayah</label>
+                    <div class="input-ikon"><i class="fab fa-whatsapp"></i><input type="text" name="hp_ayah" placeholder="628..."></div>
+                </div>
+
+                <div class="form-section-title"><i class="fas fa-user-nurse"></i> Data Ibu Kandung</div>
+                <div class="form-group">
+                    <label class="required">Nama Ibu</label>
+                    <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_ibu"></div>
+                </div>
+                <div class="form-group">
+                    <label>Pekerjaan Ibu</label>
+                    <div class="input-ikon"><i class="fas fa-briefcase"></i><input type="text" name="pjk_ibu"></div>
+                </div>
+                <div class="form-group">
+                    <label class="required">Status Wali</label>
+                    <div class="input-ikon"><i class="fas fa-user-shield"></i>
+                        <select name="st_wali">
+                            <option value="ayah">Sama dengan Ayah</option>
+                            <option value="ibu">Sama dengan Ibu</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('santri')">Kembali</button>
+                    <button type="button" class="btn-nav btn-next" onclick="nextTab('alamat')">Lanjut Alamat</button>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="label-wajib">Pilihan Unit</label>
-                <div class="input-ikon">
-                    <i class="fas fa-school"></i>
-                    <select required>
-                        <option value="">-- Pilih --</option>
-                        <option>Unit A</option>
-                        <option>Unit B</option>
-                    </select>
+            <div id="alamat" class="tab-content">
+                <div class="form-section-title"><i class="fas fa-map-marked-alt"></i> Alamat Ayah / Domisili Utama</div>
+                <div class="form-group">
+                    <label class="required">Provinsi</label>
+                    <div class="input-ikon"><select id="prov_ayah" name="prov_ayah" onchange="loadKabAyah(this.value)"><option value="">Pilih Provinsi</option></select></div>
+                </div>
+                <div class="form-group">
+                    <label class="required">Alamat Lengkap</label>
+                    <div class="input-ikon"><input type="text" name="al_ayah" placeholder="Jl. / Kampung"></div>
+                </div>
+                <div class="form-group">
+                    <label>RT/RW</label>
+                    <div style="display:flex; gap:5px">
+                        <input type="text" name="rt_ayah" placeholder="RT" style="width:40%; border:1px solid #1a5d1a; border-radius:8px; padding:10px">
+                        <input type="text" name="rw_ayah" placeholder="RW" style="width:40%; border:1px solid #1a5d1a; border-radius:8px; padding:10px">
+                    </div>
+                </div>
+
+                <div class="form-section-title"><i class="fas fa-home"></i> Domisili Santri</div>
+                <div class="form-group" style="grid-column: 1/-1">
+                    <label>Pilihan Domisili</label>
+                    <div class="input-ikon"><i class="fas fa-bed"></i>
+                        <select name="pilih_dom_santri" onchange="toggleDomisiliSantri(this.value)">
+                            <option value="">-- Pilih --</option>
+                            <option value="mukim">Mukim (Alamat Pesantren)</option>
+                            <option value="sama">Sama dengan Ayah</option>
+                            <option value="beda">Alamat Berbeda</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('ortu')">Kembali</button>
+                    <button type="button" class="btn-nav btn-next" onclick="nextTab('pernyataan')">Lanjut Pernyataan</button>
                 </div>
             </div>
 
-            <div class="form-group wide">
-                <label class="label-wajib">NIK Santri</label>
-                <div class="input-ikon">
-                    <i class="fas fa-fingerprint"></i>
-                    <input type="number" placeholder="16 Digit NIK" required>
+            <div id="pernyataan" class="tab-content">
+                <div class="form-section-title"><i class="fas fa-check-circle"></i> Konfirmasi Akhir</div>
+                <div style="grid-column: 1/-1; background: #e8f5e9; padding: 20px; border-radius: 10px; border: 1px dashed #1a5d1a;">
+                    <p>1. Saya menyatakan data di atas benar.<br>2. Saya setuju mematuhi aturan lembaga.</p>
+                    <div style="margin-top:15px; display:flex; align-items:center; gap:10px">
+                        <input type="checkbox" name="cek_pernyataan" style="width:20px; height:20px">
+                        <label><b>SAYA MENYETUJUI SELURUH PERNYATAAN</b></label>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="prosesSimpanFinal()" class="btn-nav btn-next" style="background:#1a5d1a !important;">
+                        <i class="fas fa-save"></i> SIMPAN & KIRIM WHATSAPP
+                    </button>
                 </div>
             </div>
-
-            <div class="button-group">
-                <button class="btn-nav btn-next" onclick="nextTab('ortu')">
-                    LANJUT <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
         </div>
-
-        <div id="ortu" class="tab-content">
-            <h3 class="form-section-title">Data Orang Tua</h3>
-            <div class="button-group">
-                <button class="btn-nav btn-prev" onclick="nextTab('santri')">KEMBALI</button>
-                <button class="btn-nav btn-next" onclick="nextTab('alamat')">LANJUT</button>
-            </div>
-        </div>
-        
-        </div>
+    </form>
 </div>
 
-<a href="https://wa.me/628123456789" class="wa-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
+<footer>
+    <p><b>Lembaga Pendidikan Daarul Khoirot Almadani</b></p>
+    <p>Dusun Sukamaju II, Jatisari, Karawang, Jawa Barat</p>
+    <p>© 2025 All Rights Reserved.</p>
+</footer>
+
+<a href="https://wa.me/6281401643188" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
 </a>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-            tabcontent[i].classList.remove("active");
-        }
-        tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "grid";
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.className += " active";
+    // --- LOGIKA TABS ---
+    function openTab(evt, targetId) {
+        document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
+        document.querySelectorAll(".tab-link").forEach(l => l.classList.remove("active"));
+        document.getElementById(targetId).style.display = "grid";
+        if (evt) evt.currentTarget.classList.add("active");
+        else document.querySelector(`[onclick*="${targetId}"]`).classList.add("active");
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextTab(id) {
+        // Simple Validation Before Next
+        const currentTab = document.querySelector(".tab-content[style*='display: grid']");
+        const inputs = currentTab.querySelectorAll("input[name='nama_santri'], input[name='nik'], select[name='tingkat_unit']");
+        let valid = true;
+        inputs.forEach(i => { if(!i.value) valid = false; });
         
-        // Fix untuk mobile flex
-        if (window.innerWidth <= 768) {
-            document.getElementById(tabName).style.display = "flex";
+        if(!valid) {
+            Swal.fire('Perhatian', 'Mohon lengkapi field wajib bertanda bintang!', 'warning');
+            return;
+        }
+        openTab(null, id);
+    }
+
+    function prevTab(id) { openTab(null, id); }
+
+    // --- DOMISILI LOGIC ---
+    function toggleDomisiliSantri(val) {
+        if(val === 'mukim') {
+            Swal.fire('Info', 'Alamat akan otomatis diatur ke alamat Pesantren.', 'info');
         }
     }
 
-    function nextTab(tabName) {
-        const targetBtn = Array.from(document.querySelectorAll('.tab-link')).find(btn => 
-            btn.getAttribute('onclick').includes(tabName)
-        );
-        targetBtn.click();
-        window.scrollTo(0, 0);
+    // --- FINAL SUBMIT ---
+    function prosesSimpanFinal() {
+        const cek = document.getElementsByName('cek_pernyataan')[0];
+        if(!cek.checked) {
+            Swal.fire('Gagal', 'Harap centang persetujuan!', 'error');
+            return;
+        }
+
+        Swal.fire({
+            title: 'Berhasil!',
+            text: 'Data Anda telah tersimpan di sistem. Klik OK untuk konfirmasi via WhatsApp.',
+            icon: 'success'
+        }).then(() => {
+            const nama = document.getElementsByName('nama_santri')[0].value;
+            const unit = document.getElementsByName('tingkat_unit')[0].value;
+            const pesan = window.encodeURIComponent(`Assalamu'alaikum Admin, saya mendaftarkan santri:\nNama: ${nama}\nUnit: ${unit}\nMohon proses pendaftaran kami.`);
+            window.open(`https://wa.me/6281401643188?text=${pesan}`, '_blank');
+        });
     }
+
+    // --- MENU HP ---
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+        document.querySelector('nav').classList.toggle('show');
+    });
+
+    // --- LOAD PROVINSI (API) ---
+    async function loadProvinsi() {
+        const el = document.getElementById('prov_ayah');
+        try {
+            const res = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json');
+            const data = await res.json();
+            data.forEach(p => {
+                el.innerHTML += `<option value="${p.id}">${p.name}</option>`;
+            });
+        } catch (e) { console.error("Gagal load API"); }
+    }
+    document.addEventListener('DOMContentLoaded', loadProvinsi);
 </script>
 
 </body>
