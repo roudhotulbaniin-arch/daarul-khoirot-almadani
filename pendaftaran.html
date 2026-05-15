@@ -53,108 +53,251 @@
 }
         #menu-toggle { display: none; background: var(--gold-light); color: var(--primary-color); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; }
 
- /* --- 1. TAB MENU (Header Tab) --- */
+/* --- 1. VARIABLES & CORE --- */
+:root {
+    --primary-color: #28a745;
+    --gold-light: #ffc107;
+    --border-color: #e0e0e0;
+    --bg-light: #f8f9fa;
+    --text-dark: #333;
+}
+
+/* --- 2. CONTAINER UTAMA --- */
+.container, .registration-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+/* --- 3. TAB MENU (Header) --- */
+.tab-container { 
+    background: white; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
 .tab-menu { 
     display: flex; 
     background: #f8f9fa; 
     border-bottom: 3px solid #eee; 
+    overflow-x: auto; 
 }
 
 .tab-link { 
     flex: 1; 
-    padding: 15px; 
+    padding: 18px 10px; 
     border: none; 
     cursor: pointer; 
     font-weight: 700; 
-    font-size: 1rem; 
-    color: #555; 
+    font-size: 1.1rem; 
+    color: var(--text-dark); 
+    text-align: center; 
+    border-right: 1px solid #ddd; 
+    transition: 0.3s; 
+    text-transform: uppercase; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px;
     background-color: #f1f1f1;
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
 }
 
 .tab-link.active { 
-    background-color: #28a745 !important; 
+    background-color: var(--primary-color) !important; 
     color: white !important; 
 }
 
-/* --- 2. GRID SYSTEM (Kunci Utama 3 Kolom) --- */
+/* --- 4. TAB CONTENT (Body) --- */
 .tab-content { 
     display: none; 
     padding: 30px; 
-    background: #ffffff;
+    background-color: #ffffff; 
     border-radius: 0 0 12px 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    border: 1px solid #e0e0e0;
-
-    /* Gunakan Grid 6 Kolom agar bisa dibagi 3 (span 2) dan 2 (span 3) */
-    display: grid;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    animation: fadeEffect 0.4s ease;
+    
+    /* Grid System */
     grid-template-columns: repeat(6, 1fr); 
     gap: 20px;
-    align-items: start;
 }
 
 .tab-content.active { 
     display: grid; 
 }
 
-/* Judul Section & Button Group (Penuh 6 Kolom) */
-.form-section-title, .button-group, #box_pernyataan, .full-width {
+@keyframes fadeEffect { 
+    from { opacity: 0; transform: translateY(5px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* --- 5. FORM LAYOUT (Grid Rules) --- */
+.form-section-title { 
+    grid-column: span 6; 
+    margin: 30px 0 10px; 
+    padding-bottom: 8px; 
+    border-bottom: 2px solid #eee; 
+    text-transform: uppercase; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Default 3 Kolom (6/2 = 3) */
+.tab-content > .input-group,
+.tab-content > .form-group { 
+    grid-column: span 2; 
+}
+
+/* Lebar 2 Kolom (6/3 = 2) */
+.tab-content > .wide,
+.tab-content > .nik-group,
+.tab-content > .kk-group { 
+    grid-column: span 3; 
+}
+
+/* Baris Full */
+.full-width, .info-box { 
     grid-column: span 6; 
 }
 
-/* DEFAULT: 3 KOLOM (Masing-masing span 2 dari 6) */
-.form-group {
-    grid-column: span 2; 
-    display: flex;
-    flex-direction: column;
-}
-
-/* KHUSUS: 2 KOLOM (Misal NIK/KK agar lebih lebar, span 3 dari 6) */
-.form-group.wide {
-    grid-column: span 3;
-}
-
-/* --- 3. FORM ELEMENTS (Input & Label) --- */
-.form-section-title { 
-    margin: 10px 0 15px; 
-    padding-bottom: 8px; 
-    border-bottom: 2px solid #eee; 
-    color: #1a5319;
-    font-size: 1.1rem;
-}
-
+/* --- 6. INPUT ELEMENTS --- */
 .form-group label { 
+    display: block; 
     margin-bottom: 8px; 
     font-weight: 600; 
     font-size: 0.85rem; 
-    color: #1a5319; 
+    color: var(--primary-color); 
 }
 
-.input-ikon { 
+.label-wajib::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+.input-ikon {
     display: flex; 
     align-items: center; 
+    position: relative;
     background: white; 
-    border: 1.5px solid #1a5d1a; 
+    border: 1.5px solid var(--border-color);
     border-radius: 8px; 
     padding: 0 12px; 
     min-height: 48px; 
+    transition: 0.3s;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* --- 4. RESPONSIVE MOBILE --- */
+.input-ikon i { 
+    color: var(--primary-color); 
+    width: 20px; 
+    text-align: center; 
+    margin-right: 10px; 
+}
+
+.input-ikon input, 
+.input-ikon select { 
+    flex: 1; 
+    border: none; 
+    outline: none; 
+    background: transparent; 
+    height: 100%; 
+    font-size: 0.95rem;
+}
+
+/* --- 7. BUTTONS --- */
+.button-group {
+    grid-column: span 6;
+    display: flex; 
+    gap: 15px; 
+    margin-top: 30px; 
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-nav { 
+    flex: 1; 
+    padding: 15px; 
+    border: none; 
+    border-radius: 8px; 
+    font-weight: 800;
+    cursor: pointer; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px; 
+    font-size: 1.1rem; 
+    transition: 0.3s; 
+    color: white; 
+}
+
+.btn-prev { background-color: var(--gold-light) !important; }
+.btn-next { background-color: var(--primary-color) !important; }
+
+.btn-nav:hover { 
+    opacity: 0.9; 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+}
+
+/* --- 8. STATES & VALIDATION --- */
+input[readonly], .locked-input { 
+    background-color: #f8f9fa !important; 
+    color: #666 !important; 
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.input-samar {
+    color: #999 !important;
+    border-color: #ddd !important;
+    font-style: italic;
+}
+
+#box_pernyataan {
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.pernyataan-error {
+    border-color: #d33 !important;
+    background-color: #fff5f5;
+}
+
+/* --- 9. MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
     .tab-content {
-        grid-template-columns: 1fr; /* 1 Kolom di HP */
+        grid-template-columns: 1fr; 
+        padding: 20px;
     }
-    .form-group, .form-group.wide, .form-section-title {
+    
+    .tab-content > .input-group,
+    .tab-content > .form-group,
+    .tab-content > .wide,
+    .form-section-title,
+    .full-width {
         grid-column: span 1 !important;
     }
-    .tab-link span { font-size: 0.8rem; }
-}
 
+    .tab-link {
+        font-size: 0.9rem;
+        padding: 12px 5px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
 
         footer { 
         background: #0d2e0d; 
