@@ -29,19 +29,30 @@
             overflow-x: hidden; 
         }
 
-     /* --- 2. HEADER & NAVIGASI --- */
-        header { 
+    
+        /* --- 3. HEADER & NAVIGASI --- */
+         header { 
             background: var(--primary-color); 
             color: var(--white); 
             padding: 12px 4%; 
             display: flex; justify-content: space-between; align-items: center; 
             position: sticky; top: 0; z-index: 1000; 
+            border-bottom: 3px ;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
+         }
 
-        .logo { display: flex; align-items: center; gap: 10px; }
-        .logo img { height: 40px; }
-        .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; font-weight: 700; }
+         .logo { display: flex; align-items: center; gap: 10px; }
+         .logo img { max-height: 40px; }
+         .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; }
+
+         nav ul { list-style: none; display: flex; gap: 10px; }
+         nav ul li a { 
+             color: white; text-decoration: none; font-weight: 600; 
+             padding: 5px 8px; transition: 0.3s; 
+         }
+
+         nav ul li a:hover { color: var(--gold-color); }
+        .active-link { color: var(--gold-light) !important; border-bottom: 2px solid var(--gold-light); }
 
         /* Navigasi Desktop */
         nav ul { list-style: none; display: flex; gap: 15px; }
@@ -50,6 +61,20 @@
             padding: 5px 8px; transition: 0.3s; 
         }
         nav ul li a:hover, nav ul li a.active { color: var(--gold-light); }
+
+        nav ul li a.active {
+            border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+            color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+        }
+
+
+        nav ul li a:hover {
+            color: #f4ce14;
+        }
+        /* Tombol Menu HP */
+        #menu-toggle { display: none; }
+
+
 
               /* --- 3. RESPONSIVE HP (MOBILE) --- */
         @media (max-width: 768px) {
@@ -349,16 +374,7 @@ input[readonly] {
         100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    /* --- 10. RESPONSIVE --- */
-    @media (max-width: 768px) {
-        .form-grid, .form-grid-santri, .form-grid-upload { grid-template-columns: 1fr; }
-        .tab-link { min-width: 120px; font-size: 0.9rem; }
-        nav ul { display: none; }
-        .whatsapp-float span { display: none; }
-        .whatsapp-float { padding: 15px; border-radius: 50%; }
-    }
-
-.locked-input {
+ .locked-input {
     background-color: #ffffff !important;
     color: #333 !important;
     opacity: 0.6 !important;
