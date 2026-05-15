@@ -111,21 +111,50 @@
         }
 
         /* --- 4. FORM ELEMENTS & TABS --- */
-        .container { padding: 2rem 5%; flex: 1; }
-        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
-        
-        .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-        .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: #555; text-align: center; transition: 0.3s; text-transform: uppercase; }
-        .tab-link.active { background-color: #28a745 !important; color: white !important; }
+        @media (max-width: 768px) {
+    .container {
+        padding: 85px 15px 2rem 15px !important; /* 85px memberikan jarak yang lega dari header */
+    }
+}
 
-        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }
-        .tab-content.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .tab-menu {
+        display: flex;
+        overflow-x: auto; /* Bisa di-scroll ke samping */
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
 
-        .form-section-title { grid-column: 1 / -1; margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+    .tab-link {
+        flex: 0 0 auto; /* Tombol tab tidak mengecil paksa */
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        min-width: 120px;
+    }
 
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
-        .required::after { content: " *"; color: #d63031; }
+    .tab-content.active {
+        display: flex;      /* Ubah dari grid ke flex */
+        flex-direction: column; /* Berbaris ke bawah */
+        padding: 20px 15px;
+        gap: 15px;
+    }
+
+    .form-group {
+        width: 100%; /* Pastikan input memenuhi lebar layar HP */
+    }
+
+    .form-section-title {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+
+    /* Jika pernyataan ada di dalam tab-content */
+    .form-group-full { /* Kelas khusus untuk input lebar (seperti alamat/pernyataan) */
+        grid-column: 1 / -1; 
+    }
+    
+    label {
+        font-size: 0.8rem; /* Perkecil sedikit label di HP */
+    }
 
         .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
         .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
