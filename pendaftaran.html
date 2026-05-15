@@ -170,11 +170,33 @@
         }
 
     nav ul li a.active-link {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
-    }
-}
+                border-left: 5px solid var(--secondary-color) !important;
+                background: rgba(255,255,255,0.05);
+                padding-left: 20px;
+                color: var(--secondary-color) !important; /* Memastikan teks kuning */
+            }
+
+            nav ul li a.active-link i {
+                color: var(--secondary-color) !important; /* Memastikan ikon kuning */
+ 
+.whatsapp-float {
+                background-color: transparent !important; /* Hilangkan background */
+                box-shadow: none !important; /* Hilangkan shadow */
+                padding: 0 !important;
+                bottom: 30px;
+                right: 30px;
+            }
+
+            .whatsapp-float span {
+                display: none !important; /* Sembunyikan teks */
+            }
+
+            .whatsapp-float i {
+                font-size: 50px; /* Perbesar ikon agar mudah ditekan */
+                color: var(--whatsapp-color) !important; /* Warna ikon jadi hijau */
+            }
+        }
+
 
     </style>
 </head>
