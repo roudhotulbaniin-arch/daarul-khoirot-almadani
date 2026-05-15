@@ -103,14 +103,14 @@
     }
     .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
     .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 
+      .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); } 
 
         .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- 6. MOBILE RESPONSIVE --- */
-        @media (max-width: 768px) {
+           @media (max-width: 768px) {
         header { height: 65px; padding: 0 15px; }
         .logo img { height: 35px; }
         .logo h1 { font-size: 1rem !important; margin-right: 10px; }
@@ -133,7 +133,7 @@
         border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
         padding-left: 10px;
     }
-} 
+}
     </style>
 </head>
 <body>
@@ -537,7 +537,7 @@
         <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
     </button>
     <button type="button" class="btn-nav btn-next" onclick="nextTab('alamat')">
-        Lanjut ke Data Alamat <i class="fas fa-chevron-circle-right fa-lg"></i>
+        Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
     </button>
 </div>
 </div>
@@ -693,7 +693,7 @@
             <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
         </button>
         <button type="button" class="btn-nav btn-next" onclick="nextTab('pernyataan')">
-            Lanjut ke Pernyataan <i class="fas fa-chevron-circle-right fa-lg"></i>
+            Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
         </button>
     </div>
 </div>
@@ -810,11 +810,11 @@
 
     <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
         <button type="submit" style="background: #1a5d1a; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
-            <i class="fas fa-save fa-lg"></i> Simpan Pendaftaran
+            <i class="fas fa-save fa-lg"></i> Simpan
         </button>
         
         <button type="button" onclick="kirimWA()" style="background: #25d366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
-            <i class="fab fa-whatsapp fa-lg"></i> Konfirmasi WhatsApp
+            <i class="fab fa-whatsapp fa-lg"></i> Konfirmasi
         </button>
     </div>
 </div> 
