@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+I<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -112,78 +112,98 @@
 
         /* --- 4. FORM ELEMENTS & TABS --- */
         @media (max-width: 768px) {
-    /* 1. Container Utama: Tambah Jarak Atas agar tidak nempel Header (65px) */
+    /* 1. Jarak agar tidak nempel header */
     .container {
-        padding: 85px 15px 1.5rem 15px !important; /* 85px = Jarak aman dari header */
-        flex: 1;
+        padding: 85px 15px 20px 15px !important;
+        display: flex;
+        flex-direction: column;
     }
 
-    /* 2. Tab Container: Rapihkan sudut dan bayangan di HP */
+    /* 2. Container Form (Kotak Putih) */
     .tab-container {
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        background: white !important;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        overflow: hidden;
     }
 
-    /* 3. Tab Menu: Paksa 1 baris dan bisa di-scroll ke samping */
+    /* 3. Menu Tab (Bisa di-scroll samping) */
     .tab-menu {
         display: flex !important;
-        overflow-x: auto !important; /* Bisa digeser kiri-kanan */
-        white-space: nowrap;
         background: #f8f9fa;
-        -webkit-overflow-scrolling: touch; /* Scroll halus di iPhone */
-        scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
-    }
-    
-    .tab-menu::-webkit-scrollbar {
-        display: none; /* Sembunyikan scrollbar di Chrome/Safari */
+        overflow-x: auto !important;
+        white-space: nowrap;
+        border-bottom: 2px solid #eee;
+        -webkit-overflow-scrolling: touch;
     }
 
-    /* 4. Tab Link: Atur lebar agar tidak gepeng saat di-scroll */
     .tab-link {
-        flex: 0 0 auto; /* Mencegah tombol mengecil otomatis */
-        padding: 15px 20px;
-        font-size: 0.85rem;
-        min-width: 130px; /* Ukuran standar tombol tab di HP */
+        flex: 0 0 auto !important;
+        padding: 15px 20px !important;
+        font-size: 0.85rem !important;
+        min-width: 120px;
     }
 
-    /* 5. Tab Content: UBAH DARI 3 KOLOM MENJADI 1 KOLOM */
-    .tab-content {
-        padding: 20px 15px; /* Kurangi padding agar lebih luas */
-    }
-
+    /* 4. Tab Content (Satu Kolom) */
     .tab-content.active {
-        display: flex !important; /* Paksa ganti dari Grid ke Flex */
-        flex-direction: column;   /* Berjejer ke bawah */
+        display: flex !important;
+        flex-direction: column !important;
         gap: 15px;
+        padding: 20px 15px !important;
     }
 
-    /* 6. Form Group & Label: Pastikan lebar penuh 100% */
-    .form-group {
-        width: 100% !important;
-        margin-bottom: 5px;
+    /* 5. FUNGSI INPUT IKON (Perbaikan agar rapi di HP) */
+    .input-ikon { 
+        display: flex; 
+        align-items: center; 
+        border: 1.5px solid var(--border-color); 
+        border-radius: 8px; 
+        padding: 0 12px; 
+        min-height: 48px; 
+        background: white; 
+        width: 100%;
+        box-sizing: border-box; /* Agar tidak meluber */
     }
 
+    .input-ikon i { 
+        color: var(--primary-color); 
+        margin-right: 10px; 
+        width: 20px; 
+        text-align: center; 
+        flex-shrink: 0; /* Ikon tidak boleh gepeng */
+    }
+
+    .input-ikon input, 
+    .input-ikon select { 
+        flex: 1; 
+        border: none !important; /* Hapus border asli karena sudah ada di .input-ikon */
+        outline: none; 
+        background: transparent; 
+        height: 100%; 
+        width: 100%; 
+        font-size: 16px !important; /* Ukuran 16px agar iPhone tidak zoom otomatis */
+        padding: 10px 0;
+    }
+
+    /* 6. Label dan Judul Seksi */
     .form-group label {
-        font-size: 0.8rem;
-        margin-bottom: 3px;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: var(--primary-color);
     }
 
-    /* 7. Judul Seksi (Title): Rapihkan jaraknya */
     .form-section-title {
-        grid-column: auto; /* Reset grid */
-        font-size: 0.95rem;
-        margin: 15px 0 5px;
-        padding-bottom: 5px;
+        font-size: 1rem;
+        margin-top: 10px;
+        border-bottom: 2px solid #eee;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
-
-    /* Tambahan untuk inputan agar tidak zoom otomatis di iPhone */
-    input, select, textarea {
-        font-size: 16px !important; 
-    }
-
-        .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
-        .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
-        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.9rem; }
+}
 
         /* --- 5. BUTTONS & FOOTER --- */
         .button-group { grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
