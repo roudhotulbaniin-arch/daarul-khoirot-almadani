@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot Almadani | Beranda</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     
 <style>
      :root {
@@ -12,6 +17,7 @@
             --secondary-color: #f4ce14;
             --light-bg: #f4f7f6;
             --dark-footer: #0d2e0d;
+            --whatsapp-green: #25d366;
         }
 
      /* --- STYLE MENU AKTIF --- */
@@ -35,6 +41,19 @@ nav ul li a:hover {
     /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
+
+    font-family: 'Quicksand', sans-serif;
+    }
+
+         h1, h2, h3, h4, h5, h6 {
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+    }
+
+ .teks-tebal {
+        font-weight: 600;
+    }
+
 
     /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
     header {
@@ -144,11 +163,26 @@ nav ul li a:hover {
     .unit-card h3 { font-size: 1rem; color: #1a5d1a; font-weight: 800; }
 
     /* --- 6. WA FLOAT --- */
-    .whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
-    }
+         /* --- WA FLOAT MOBILE (Hanya Ikon, Tanpa Background) --- */
+            .whatsapp-float {
+                background: transparent !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                bottom: 25px;
+                right: 25px;
+            }
+
+            .whatsapp-float span {
+                display: none !important;
+            }
+
+            .whatsapp-float i {
+                font-size: 55px; /* Lebih besar agar nyaman di tap */
+                color: var(--whatsapp-green) !important;
+                filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+            }
+        }
+
     @keyframes wa-glow {
         0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
         70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
@@ -158,8 +192,29 @@ nav ul li a:hover {
     /* --- 7. RESPONSIVE MASTER (HP) --- */
     @media (max-width: 768px) {
         header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+        
+    .logo {
+        display: flex;
+        align-items: center;
+        /* 1. Perkecil gap (jarak antar elemen) di sini */
+        gap: 5px !important; 
+        max-width: 75%;
+        overflow: hidden;
+    }
+
+    .logo img {
+        height: 35px;
+        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
+        margin-right: 0 !important; 
+    }
+
+    .logo h1 {
+        font-size: 1rem !important;
+        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
+        margin: 0 !important; 
+        white-space: nowrap !important;
+        letter-spacing: -0.5px;
+    }
 
         /* Sembunyikan navigasi teks, munculkan tombol menu */
         nav ul { 
@@ -169,17 +224,32 @@ nav ul li a:hover {
         nav.show ul { display: flex !important; }
         
           #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
+    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
+    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
+    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
+    gap: 4px;                   /* Memberikan jarak antara ikon dan teks */
+    
+    /* Sisanya adalah dekorasi */
+    background: #f4ce14;
+    color: #1a5d1a;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
             color: var(--primary-color) !important; border: none; padding: 6px 12px;
             border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
         }
-@media (max-width: 768px) {
-    nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
-    }
-}
+
+    nav ul li a.active-link {
+                border-left: 5px solid var(--gold-light) !important;
+                padding-left: 20px;
+                color: var(--gold-light) !important;
+            }
+
+            nav ul li a.active-link i {
+                color: var(--gold-light) !important;
+            }
         
         
         .hero-content h1 { font-size: 1.4rem !important; }
