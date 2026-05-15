@@ -112,48 +112,73 @@
 
         /* --- 4. FORM ELEMENTS & TABS --- */
         @media (max-width: 768px) {
+    /* 1. Container Utama: Tambah Jarak Atas agar tidak nempel Header (65px) */
     .container {
-        padding: 85px 15px 2rem 15px !important; /* 85px memberikan jarak yang lega dari header */
+        padding: 85px 15px 1.5rem 15px !important; /* 85px = Jarak aman dari header */
+        flex: 1;
     }
-}
 
+    /* 2. Tab Container: Rapihkan sudut dan bayangan di HP */
+    .tab-container {
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    /* 3. Tab Menu: Paksa 1 baris dan bisa di-scroll ke samping */
     .tab-menu {
-        display: flex;
-        overflow-x: auto; /* Bisa di-scroll ke samping */
+        display: flex !important;
+        overflow-x: auto !important; /* Bisa digeser kiri-kanan */
         white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+        background: #f8f9fa;
+        -webkit-overflow-scrolling: touch; /* Scroll halus di iPhone */
+        scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
+    }
+    
+    .tab-menu::-webkit-scrollbar {
+        display: none; /* Sembunyikan scrollbar di Chrome/Safari */
     }
 
+    /* 4. Tab Link: Atur lebar agar tidak gepeng saat di-scroll */
     .tab-link {
-        flex: 0 0 auto; /* Tombol tab tidak mengecil paksa */
-        padding: 12px 20px;
-        font-size: 0.9rem;
-        min-width: 120px;
+        flex: 0 0 auto; /* Mencegah tombol mengecil otomatis */
+        padding: 15px 20px;
+        font-size: 0.85rem;
+        min-width: 130px; /* Ukuran standar tombol tab di HP */
+    }
+
+    /* 5. Tab Content: UBAH DARI 3 KOLOM MENJADI 1 KOLOM */
+    .tab-content {
+        padding: 20px 15px; /* Kurangi padding agar lebih luas */
     }
 
     .tab-content.active {
-        display: flex;      /* Ubah dari grid ke flex */
-        flex-direction: column; /* Berbaris ke bawah */
-        padding: 20px 15px;
+        display: flex !important; /* Paksa ganti dari Grid ke Flex */
+        flex-direction: column;   /* Berjejer ke bawah */
         gap: 15px;
     }
 
+    /* 6. Form Group & Label: Pastikan lebar penuh 100% */
     .form-group {
-        width: 100%; /* Pastikan input memenuhi lebar layar HP */
+        width: 100% !important;
+        margin-bottom: 5px;
     }
 
+    .form-group label {
+        font-size: 0.8rem;
+        margin-bottom: 3px;
+    }
+
+    /* 7. Judul Seksi (Title): Rapihkan jaraknya */
     .form-section-title {
-        font-size: 1rem;
-        margin-top: 10px;
+        grid-column: auto; /* Reset grid */
+        font-size: 0.95rem;
+        margin: 15px 0 5px;
+        padding-bottom: 5px;
     }
 
-    /* Jika pernyataan ada di dalam tab-content */
-    .form-group-full { /* Kelas khusus untuk input lebar (seperti alamat/pernyataan) */
-        grid-column: 1 / -1; 
-    }
-    
-    label {
-        font-size: 0.8rem; /* Perkecil sedikit label di HP */
+    /* Tambahan untuk inputan agar tidak zoom otomatis di iPhone */
+    input, select, textarea {
+        font-size: 16px !important; 
     }
 
         .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
