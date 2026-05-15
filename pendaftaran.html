@@ -56,9 +56,29 @@
 
         /* --- 3. RESPONSIVE HP (MOBILE) --- */
         @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+    .logo {
+        display: flex;
+        align-items: center;
+        /* 1. Perkecil gap (jarak antar elemen) di sini */
+        gap: 5px !important; 
+        max-width: 75%;
+        overflow: hidden;
+    }
+
+    .logo img {
+        height: 35px;
+        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
+        margin-right: 0 !important; 
+    }
+
+    .logo h1 {
+        font-size: 1rem !important;
+        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
+        margin: 0 !important; 
+        white-space: nowrap !important;
+        letter-spacing: -0.5px;
+    }
+}
 
         /* Sembunyikan navigasi teks, munculkan tombol menu */
         nav ul { 
@@ -93,7 +113,12 @@
 
             nav ul li { margin-bottom: 10px; width: 100%; }
             nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            nav ul li a.active { border-left: 4px solid var(--gold-light); padding-left: 10px; background: rgba(255,255,255,0.05); }
+            nav ul li a.active {
+        border-bottom: none !important;
+        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
+        padding-left: 10px;
+    }
+}
 
             /* Paksa Form Jadi 1 Kolom di HP */
             .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
