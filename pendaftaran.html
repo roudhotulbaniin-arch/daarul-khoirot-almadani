@@ -102,9 +102,56 @@
         }
 
         footer { background: #0d2e0d; color: white; padding: 30px 5%; text-align: center; margin-top: auto; }
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; }
+       /* --- TOMBOL WA DENGAN EFEK GLOW --- */
+.wa-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.wa-float i {
+    color: #25d366; /* Warna asli WhatsApp */
+    font-size: 60px; /* Ukuran ikon di Laptop */
+    /* Efek Glow Statis */
+    filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.6)); 
+    animation: wa-glow 2s infinite alternate; /* Menjalankan animasi bercahaya */
+}
+
+/* Animasi Glow Berdenyut */
+@keyframes wa-glow {
+    from {
+        filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.4));
+        transform: scale(1);
+    }
+    to {
+        filter: drop-shadow(0 0 15px rgba(37, 211, 102, 0.9));
+        transform: scale(1.05);
+    }
+}
+
+/* Efek saat Kursor Menyentuh (Hover) */
+.wa-float:hover i {
+    color: #128c7e; /* Berubah jadi hijau lebih tua */
+    filter: drop-shadow(0 0 20px rgba(18, 140, 126, 1));
+}
+
+/* Pengaturan khusus Mobile (HP) */
+@media screen and (max-width: 768px) {
+    .wa-float {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .wa-float i {
+        font-size: 50px; /* Ukuran sedikit diperkecil di HP agar fit */
+    }
+}
     </style>
 </head>
 <body>
