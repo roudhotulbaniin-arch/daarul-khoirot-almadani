@@ -1403,6 +1403,21 @@ function openTab(evt, targetId) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function nextTab(targetId) {
+    // Mencari tab yang aktif saat ini
+    const currentTab = document.querySelector('.tab-content.active');
+    const currentTabId = currentTab ? currentTab.id : 'santri';
+
+    // Jalankan validasi
+    if (validateInput(currentTabId)) {
+        openTab(null, targetId);
+    }
+}
+
+function prevTab(targetId) {
+    openTab(null, targetId);
+}
+
 function kirimWA() {
     const gV = (n) => document.getElementsByName(n)[0]?.value || "-";
     const gT = (id) => {
