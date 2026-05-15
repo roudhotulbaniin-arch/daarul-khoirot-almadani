@@ -112,99 +112,94 @@ I<!DOCTYPE html>
 
         /* --- 4. FORM ELEMENTS & TABS --- */
         @media (max-width: 768px) {
-    /* 1. Jarak agar tidak nempel header */
+    /* 1. Paksa Container Turun & Putih */
     .container {
         padding: 85px 15px 20px 15px !important;
-        display: flex;
-        flex-direction: column;
+        display: block !important; /* Gunakan block agar tidak berantakan */
+        background: #f4f4f4; /* Background luar abu-abu tipis */
     }
 
-    /* 2. Container Form (Kotak Putih) */
     .tab-container {
-        background: white !important;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        overflow: hidden;
+        background: #ffffff !important;
+        display: block !important;
+        border-radius: 12px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+        overflow: hidden !important;
+        width: 100% !important;
     }
 
-    /* 3. Menu Tab (Bisa di-scroll samping) */
+    /* 2. Menu Tab Horizontal Scroll */
     .tab-menu {
         display: flex !important;
-        background: #f8f9fa;
+        flex-direction: row !important;
         overflow-x: auto !important;
-        white-space: nowrap;
-        border-bottom: 2px solid #eee;
-        -webkit-overflow-scrolling: touch;
+        background: #f8f9fa !important;
+        border-bottom: 2px solid #eee !important;
     }
 
     .tab-link {
         flex: 0 0 auto !important;
-        padding: 15px 20px !important;
-        font-size: 0.85rem !important;
-        min-width: 120px;
+        padding: 15px !important;
+        font-size: 12px !important;
+        text-transform: uppercase;
+        border: none !important;
     }
 
-    /* 4. Tab Content (Satu Kolom) */
-    .tab-content.active {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 15px;
-        padding: 20px 15px !important;
-    }
-
-    /* 5. FUNGSI INPUT IKON (Perbaikan agar rapi di HP) */
+    /* 3. Perbaikan Input Ber-Ikon agar SEJAJAR */
     .input-ikon { 
-        display: flex; 
-        align-items: center; 
-        border: 1.5px solid var(--border-color); 
-        border-radius: 8px; 
-        padding: 0 12px; 
-        min-height: 48px; 
-        background: white; 
-        width: 100%;
-        box-sizing: border-box; /* Agar tidak meluber */
+        display: flex !important; 
+        flex-direction: row !important; /* Paksa ikon & input satu baris */
+        align-items: center !important; 
+        border: 1.5px solid #ccc !important; 
+        border-radius: 8px !important; 
+        padding: 0 12px !important; 
+        min-height: 48px !important; 
+        background: white !important;
+        margin-bottom: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .input-ikon i { 
-        color: var(--primary-color); 
-        margin-right: 10px; 
-        width: 20px; 
-        text-align: center; 
-        flex-shrink: 0; /* Ikon tidak boleh gepeng */
+        color: #1a5d1a !important; 
+        margin-right: 10px !important; 
+        width: 20px !important; 
+        text-align: center !important;
+        flex-shrink: 0 !important;
     }
 
     .input-ikon input, 
     .input-ikon select { 
-        flex: 1; 
-        border: none !important; /* Hapus border asli karena sudah ada di .input-ikon */
-        outline: none; 
-        background: transparent; 
-        height: 100%; 
-        width: 100%; 
-        font-size: 16px !important; /* Ukuran 16px agar iPhone tidak zoom otomatis */
-        padding: 10px 0;
+        flex: 1 !important; 
+        border: none !important; 
+        background: transparent !important; 
+        height: 100% !important;
+        font-size: 16px !important; /* Mencegah auto-zoom */
+        outline: none !important;
     }
 
-    /* 6. Label dan Judul Seksi */
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 600;
-        font-size: 0.85rem;
-        color: var(--primary-color);
+    /* 4. Tab Content agar satu kolom lurus ke bawah */
+    .tab-content.active {
+        display: block !important; /* Gunakan block agar elemen numpuk ke bawah */
+        padding: 20px 15px !important;
+    }
+
+    .form-group {
+        width: 100% !important;
+        display: block !important;
+        margin-bottom: 15px !important;
     }
 
     .form-section-title {
-        font-size: 1rem;
-        margin-top: 10px;
-        border-bottom: 2px solid #eee;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        display: flex !important;
+        align-items: center !important;
+        font-size: 1rem !important;
+        color: #1a5d1a !important;
+        border-bottom: 2px solid #eee !important;
+        margin: 20px 0 10px 0 !important;
     }
 }
-
+    
         /* --- 5. BUTTONS & FOOTER --- */
         .button-group { grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
         .btn-nav { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 1.2rem; transition: 0.3s; color: white; }
