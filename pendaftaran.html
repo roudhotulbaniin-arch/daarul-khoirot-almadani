@@ -176,10 +176,12 @@
 
 .tab-content.active { 
     display: grid; 
-    grid-template-columns: repeat(6, 3fr); /* Sistem 6 kolom untuk fleksibilitas 3-2 */
+    /* Gunakan 6 kolom agar fleksibel bisa dibagi 3, 2, atau 1 */
+    grid-template-columns: repeat(6, 1fr); 
     gap: 20px; 
+    padding: 30px;
 }
-
+        
 @keyframes fadeEffect {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -199,12 +201,25 @@
     gap: 10px; 
 }
 
+.form-section-title { 
+    grid-column: span 6; 
+}
+        
 /* Ukuran Input Default (3 Kolom) */
 .form-group { 
     grid-column: span 2; 
-    margin-bottom: 5px; 
+    display: flex;
+    flex-direction: column;
 }
 
+.form-group.setengah {
+    grid-column: span 3;
+}
+
+.form-group.full {
+    grid-column: span 6;
+}
+        
 /* Ukuran Input Lebar (2 Kolom / 50%) */
 .form-group.wide, .form-group.nik-group, .form-group.kk-group {
     grid-column: span 3;
