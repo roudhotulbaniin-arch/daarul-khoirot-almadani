@@ -29,7 +29,7 @@
             overflow-x: hidden; 
         }
 
-        /* --- 2. HEADER & NAVIGASI --- */
+      /* --- 2. HEADER & NAVIGASI --- */
         header { 
             background: var(--primary-color); 
             color: var(--white); 
@@ -56,63 +56,30 @@
 
         /* --- 3. RESPONSIVE HP (MOBILE) --- */
         @media (max-width: 768px) {
-            header { height: 60px; padding: 0 15px; }
-    .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
-        overflow: hidden;
-    }
+            header { height: 65px; padding: 0 15px; }
+            .logo h1 { font-size: 1rem; }
 
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
-    }
+            #menu-toggle {
+                display: block !important;
+                background: var(--gold-light);
+                color: var(--primary-color);
+                border: none; padding: 8px 12px; border-radius: 4px;
+                font-weight: bold; cursor: pointer;
+            }
 
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
-    }
-}
+            nav ul {
+                display: none; flex-direction: column; width: 100%;
+                position: absolute; top: 65px; left: 0;
+                background: var(--primary-color); padding: 15px;
+                z-index: 2000; border-bottom: 3px solid var(--gold-light);
+            }
 
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
+            nav.show ul { display: flex !important; }
 
-       
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute;
-            top: 60px; left: 0; background: var(--primary-color); padding: 20px;
-            gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-        }
-        nav.show ul { display: flex !important; }
-        nav ul li { margin-bottom: 10px; width: 100%; }
-        nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
-        .container { padding: 2rem 5%; }
-        .section-title-box { padding: 10px 20px; }
-        .section-title-box h2 { font-size: 1.2rem; }
-    }
-        
-           #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 8px;                   /* Memberikan jarak antara ikon dan teks */
-    
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
-                             
+            nav ul li { margin-bottom: 10px; width: 100%; }
+            nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav ul li a.active { border-left: 4px solid var(--gold-light); padding-left: 10px; background: rgba(255,255,255,0.05); }
+
             /* Paksa Form Jadi 1 Kolom di HP */
             .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
                 grid-template-columns: 1fr !important; gap: 15px !important;
