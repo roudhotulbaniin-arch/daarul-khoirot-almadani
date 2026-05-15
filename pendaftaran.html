@@ -118,40 +118,44 @@
     } 
 
         /* --- 6. MOBILE RESPONSIVE --- */
-     
-          @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+     @media (max-width: 768px) {
+    header { height: 65px; padding: 0 15px; }
+    .logo img { height: 35px; }
+    .logo h1 { font-size: 0.9rem !important; }
 
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-          #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 8px;                   /* Memberikan jarak antara ikon dan teks */
+    #menu-toggle { display: block; }
+
+    /* Dropdown Menu Mobile */
+    nav ul { 
+        display: none; 
+        flex-direction: column; 
+        width: 100%; 
+        position: absolute; 
+        top: 65px; 
+        left: 0; 
+        background: var(--primary-color); 
+        padding: 0; 
+        border-bottom: 4px solid var(--secondary-color);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    nav.show ul { display: flex !important; }
+
+    nav ul li { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
     
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
+    nav ul li a { 
+        display: block; 
+        padding: 15px 20px; 
+        width: 100%;
+        box-sizing: border-box;
+    }
 
     nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
+        background: rgba(255,255,255,0.1);
+        border-left: 5px solid var(--secondary-color);
+        color: var(--secondary-color);
     }
-}
+}
 
     </style>
 </head>
