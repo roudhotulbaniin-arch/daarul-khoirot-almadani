@@ -111,107 +111,25 @@ I<!DOCTYPE html>
         }
 
         /* --- 4. FORM ELEMENTS & TABS --- */
-        @media (max-width: 768px) {
-    /* 1. Paksa Container Turun & Putih */
-    @media screen and (max-width: 768px) {
-    /* 1. Paksa Container Turun (Agar tidak tertutup header) */
-    .container {
-        padding: 90px 15px 30px 15px !important;
-        display: block !important;
-        background: #f4f4f4 !important;
-    }
+        .container { padding: 2rem 5%; flex: 1; }
+        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
+        
+        .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
+        .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: #555; text-align: center; transition: 0.3s; text-transform: uppercase; }
+        .tab-link.active { background-color: #28a745 !important; color: white !important; }
 
-    /* 2. Mengembalikan Box Putih */
-    .tab-container {
-        background: #ffffff !important;
-        border-radius: 12px !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
-        overflow: hidden !important;
-        display: block !important;
-        width: 100% !important;
-    }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }
+        .tab-content.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
-    /* 3. Menu Tab (Harus Berjejer ke Samping & Bisa Digeser) */
-    .tab-menu {
-        display: flex !important;
-        flex-direction: row !important;
-        overflow-x: auto !important;
-        background: #f8f9fa !important;
-        border-bottom: 2px solid #eee !important;
-        -webkit-overflow-scrolling: touch;
-    }
+        .form-section-title { grid-column: 1 / -1; margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
 
-    .tab-link {
-        flex: 0 0 auto !important;
-        padding: 15px 20px !important;
-        font-size: 11px !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        border: none !important;
-        color: #555 !important;
-    }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
+        .required::after { content: " *"; color: #d63031; }
 
-    .tab-link.active {
-        background: #28a745 !important;
-        color: white !important;
-    }
-
-    /* 4. Tab Content (Satu Kolom Lurus ke Bawah) */
-    .tab-content.active {
-        display: block !important; /* Membatalkan grid 3 kolom */
-        padding: 20px 15px !important;
-    }
-
-    /* 5. MEMPERBAIKI INPUT BER-IKON (Agar Sejajar Kiri-Kanan) */
-    .form-group {
-        width: 100% !important;
-        margin-bottom: 15px !important;
-        display: block !important;
-    }
-
-    .input-ikon { 
-        display: flex !important; 
-        flex-direction: row !important;
-        align-items: center !important; 
-        border: 1.5px solid #ccc !important; 
-        border-radius: 8px !important; 
-        padding: 0 10px !important; 
-        min-height: 45px !important; 
-        background: white !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .input-ikon i { 
-        color: #1a5d1a !important; 
-        margin-right: 10px !important; 
-        width: 20px !important; 
-        text-align: center !important;
-        flex-shrink: 0 !important;
-    }
-
-    .input-ikon input, 
-    .input-ikon select { 
-        flex: 1 !important; 
-        border: none !important; 
-        background: transparent !important; 
-        height: 100% !important;
-        font-size: 16px !important;
-        outline: none !important;
-        width: 100% !important;
-    }
-
-    /* 6. Judul Seksi (Identitas Santri, dll) */
-    .form-section-title {
-        display: flex !important;
-        font-size: 1rem !important;
-        color: #1a5d1a !important;
-        border-bottom: 2px solid #eee !important;
-        margin: 15px 0 !important;
-        padding-bottom: 5px !important;
-    }
-}
-
+        .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
+        .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
+        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.9rem; }
         /* --- 5. BUTTONS & FOOTER --- */
         .button-group { grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; }
         .btn-nav { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 1.2rem; transition: 0.3s; color: white; }
