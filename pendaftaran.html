@@ -61,11 +61,33 @@
         .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: #555; text-align: center; transition: 0.3s; text-transform: uppercase; }
         .tab-link.active { background-color: #28a745 !important; color: white !important; }
 
-        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }
-        .tab-content.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+       /* --- PERBAIKAN GRID SISTEM --- */
+.tab-content {
+    display: none; /* Sembunyikan default */
+    background: #ffffff;
+    width: 100%;
+    padding: 30px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+    border: 1px solid #e0e0e0;
+    
+    /* Paksa Grid 3 Kolom di Desktop */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+}
 
-        .form-section-title { grid-column: 1 / -1; margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+/* Munculkan sebagai Grid saat aktif */
+.tab-content.active {
+    display: grid; 
+}
 
+/* Elemen yang harus memanjang satu baris penuh (Judul & Tombol) */
+.form-section-title, .info-bar, .button-group, .full-width, #box_pernyataan {
+    grid-column: 1 / -1; 
+}
+
+     
         .form-group { margin-bottom: 10px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
         .required::after { content: " *"; color: #d63031; }
