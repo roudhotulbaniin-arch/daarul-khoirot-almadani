@@ -29,7 +29,7 @@
             overflow-x: hidden; 
         }
 
-      /* --- 2. HEADER & NAVIGASI --- */
+     /* --- 2. HEADER & NAVIGASI --- */
         header { 
             background: var(--primary-color); 
             color: var(--white); 
@@ -39,38 +39,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        .logo { display: flex; align-items: center; gap: 10px; }
-        .logo img { height: 40px; }
-        .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; font-weight: 700; }
-
-        /* Navigasi Desktop */
-           display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav ul li a {
-    position: relative;
-    padding-bottom: 5px;
-    transition: 0.3s;
-}
-
-/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
-nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
-    }
-
-/* Efek saat kursor menempel (Hover) */
-nav ul li a:hover {
-    color: #f4ce14;
-}
-
-        /* Tombol Menu HP */
-        #menu-toggle { display: none; }
-
-        /* --- 3. RESPONSIVE HP (MOBILE) --- */
-        @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; }
+      @media (max-width: 768px) {
     .logo {
         display: flex;
         align-items: center;
@@ -93,7 +62,24 @@ nav ul li a:hover {
         white-space: nowrap !important;
         letter-spacing: -0.5px;
     }
-           #menu-toggle {
+}
+        /* Navigasi Desktop */
+        nav ul { list-style: none; display: flex; gap: 15px; }
+        nav ul li a { 
+            color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            padding: 5px 8px; transition: 0.3s; 
+        }
+        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); }
+
+        /* Tombol Menu HP */
+        #menu-toggle { display: none; }
+
+        /* --- 3. RESPONSIVE HP (MOBILE) --- */
+        @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+            .logo h1 { font-size: 1rem; }
+
+        #menu-toggle {
     display: flex !important;   /* Wajib: Mengaktifkan mode flex */
     flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
     align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
@@ -126,7 +112,6 @@ nav ul li a:hover {
                 grid-template-columns: 1fr !important; gap: 15px !important;
             }
         }
-
         /* --- 4. FORM ELEMENTS & TABS --- */
         .container { padding: 2rem 5%; flex: 1; }
         .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
