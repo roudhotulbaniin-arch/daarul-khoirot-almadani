@@ -289,7 +289,6 @@ input[readonly] {
     .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
     
     /* --- 9. FLOAT WHATSAPP --- */
-      /* --- 6. WA FLOAT --- */
     .whatsapp-float {
         position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
         padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
@@ -345,7 +344,25 @@ input[readonly] {
     background-color: #fff5f5;
 }
 
- /* --- 1. DASAR --- */
+ /* --- STYLE MENU AKTIF --- */
+nav ul li a {
+    position: relative;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
+
+/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
+}
+  
+    /* --- 1. DASAR --- */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
 
@@ -388,65 +405,37 @@ input[readonly] {
 
     /* Tombol menu disembunyikan di komputer */
     #menu-toggle { display: none; }
+/* --- 3. RESPONSIVE HP (MOBILE) --- */
+        @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+            .logo h1 { font-size: 1rem; }
 
-  /* --- RESPONSIVE HP --- */
-@media (max-width: 768px) {
-    header {
-        height: 65px;
-        padding: 0 15px;
-        position: relative;
-    }
+            #menu-toggle {
+                display: block !important;
+                background: var(--gold-light);
+                color: var(--primary-color);
+                border: none; padding: 8px 12px; border-radius: 4px;
+                font-weight: bold; cursor: pointer;
+            }
 
-    .logo img { height: 35px; }
-    .logo h1 { font-size: 1rem; margin-right: 10px; }
+            nav ul {
+                display: none; flex-direction: column; width: 100%;
+                position: absolute; top: 65px; left: 0;
+                background: var(--primary-color); padding: 15px;
+                z-index: 2000; border-bottom: 3px solid var(--gold-light);
+            }
 
-    /* NAV MOBILE */
-    nav ul {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 65px;
-        left: 0;
-        background: #1a5d1a;
-        padding: 15px;
-        border-bottom: 3px solid #f4ce14;
-        z-index: 999;
-    }
+            nav.show ul { display: flex !important; }
 
-    nav.show ul {
-        display: flex;
-    }
+            nav ul li { margin-bottom: 10px; width: 100%; }
+            nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav ul li a.active { border-left: 4px solid var(--gold-light); padding-left: 10px; background: rgba(255,255,255,0.05); }
 
-    nav ul li {
-        margin-bottom: 10px;
-    }
-
-    nav ul li a {
-        display: block;
-        padding: 10px;
-    }
-
-    /* ACTIVE DI MOBILE */
-    nav ul li a.active {
-        border-left: 4px solid #f4ce14;
-        padding-left: 10px;
-        background: rgba(255,255,255,0.05);
-    }
-
-    /* BUTTON MENU */
-    #menu-toggle {
-        display: block;
-        background: #f4ce14;
-        color: #1a5d1a;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        cursor: pointer;
-    }
-}
+            /* Paksa Form Jadi 1 Kolom di HP */
+            .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
+                grid-template-columns: 1fr !important; gap: 15px !important;
+            }
+        }
         
 </style>
 
@@ -459,7 +448,7 @@ input[readonly] {
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
     
-    <button id="menu-toggle">
+    <button id="menu-toggle" type="button">
         <i class="fas fa-bars"></i> Menu
     </button>
     
