@@ -364,11 +364,7 @@ input[readonly] {
     .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
     .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
  
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
- .locked-input {
+     .locked-input {
     background-color: #ffffff !important;
     color: #333 !important;
     opacity: 0.6 !important;
@@ -402,6 +398,17 @@ input[readonly] {
     border-color: #d33 !important;
     background-color: #fff5f5;
 }
+
+.whatsapp-float {
+        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
+        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
+        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
+    }
+    @keyframes wa-glow {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
         
 </style>
 </head>
