@@ -114,67 +114,219 @@
                 grid-template-columns: 1fr !important; gap: 15px !important;
             }
         }
-      /* --- 4. FORM ELEMENTS & TABS --- */
-        .container { padding: 2rem 5%; flex: 1; }
-        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto; }
         
-        .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-        .tab-link { flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: #555; text-align: center; transition: 0.3s; text-transform: uppercase; }
-        .tab-link.active { background-color: #28a745 !important; color: white !important; }
+     /* --- 2. CONTAINER UTAMA --- */
+.container { 
+    width: 100%;
+    max-width: 1100px; 
+    margin: 0 auto;
+    padding: 2rem 15px; 
+    flex: 1; 
+    box-sizing: border-box;
+}
 
-        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }
-        .tab-content.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+/* --- 3. TAB CONTAINER & MENU --- */
+.tab-container { 
+    background: white; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+}
 
-        .form-section-title { grid-column: 3 / -1; margin: 20px 0 10px; padding-bottom: 8px; border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.tab-menu { 
+    display: flex; 
+    background: #f8f9fa; 
+    border-bottom: 3px solid #eee; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+}
 
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
-        .required::after { content: " *"; color: #d63031; }
+.tab-link { 
+    flex: 1; 
+    padding: 18px 10px; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+    color: #333; 
+    background-color: #f1f1f1;
+    text-align: center; 
+    transition: 0.3s; 
+    text-transform: uppercase; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px; 
+    min-width: 120px;
+}
 
-        .input-ikon { display: flex; align-items: center; border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px; background: white; }
-        .input-ikon i { color: var(--primary-color); margin-right: 10px; width: 20px; text-align: center; }
-        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.9rem; }
+.tab-link.active { 
+    background-color: #28a745 !important; 
+    color: white !important; 
+}
 
-        
+/* --- 4. TAB CONTENT & GRID SYSTEM --- */
+.tab-content { 
+    display: none; 
+    padding: 30px; 
+    background-color: #ffffff;
+    animation: fadeEffect 0.4s;
+    box-sizing: border-box;
+}
 
-        @media (max-width: 768px) {
-    .tab-content {
-        grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
-        padding: 20px;
-        border-radius: 0 0 12px 12px;
+.tab-content.active { 
+    display: grid; 
+    grid-template-columns: repeat(6, 1fr); /* Sistem 6 kolom untuk fleksibilitas 3-2 */
+    gap: 20px; 
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 5. FORM ELEMENTS --- */
+.form-section-title { 
+    grid-column: span 6; /* Ambil baris penuh */
+    margin: 20px 0 10px; 
+    padding-bottom: 8px; 
+    border-bottom: 2px solid #eee; 
+    color: var(--primary-color);
+    font-weight: 700; 
+    text-transform: uppercase; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+/* Ukuran Input Default (3 Kolom) */
+.form-group { 
+    grid-column: span 2; 
+    margin-bottom: 5px; 
+}
+
+/* Ukuran Input Lebar (2 Kolom / 50%) */
+.form-group.wide, .form-group.nik-group, .form-group.kk-group {
+    grid-column: span 3;
+}
+
+/* Ukuran Input Full (1 Kolom / 100%) */
+.form-group.full-width {
+    grid-column: span 6;
+}
+
+.form-group label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    color: var(--primary-color); 
+}
+
+/* INPUT WITH ICON */
+.input-ikon {
+    display: flex; 
+    align-items: center; 
+    background: white; 
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px; 
+    padding: 0 12px; 
+    min-height: 48px; 
+    transition: 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-ikon:focus-within {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.input-ikon i { 
+    color: var(--primary-color); 
+    width: 20px; 
+    text-align: center; 
+    margin-right: 10px; 
+    flex-shrink: 0;
+}
+
+.input-ikon input, .input-ikon select { 
+    flex: 1; 
+    border: none; 
+    outline: none; 
+    background: transparent; 
+    height: 100%; 
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+/* --- 6. BUTTONS --- */
+.button-group {
+    grid-column: span 6;
+    display: flex; 
+    gap: 15px; 
+    margin-top: 20px; 
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-nav { 
+    flex: 1; 
+    padding: 15px; 
+    border: none; 
+    border-radius: 8px; 
+    font-weight: 800;
+    cursor: pointer; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px; 
+    font-size: 1.1rem; 
+    transition: 0.3s; 
+    color: white; 
+}
+
+.btn-prev { background-color: var(--gold-light) !important; color: #333 !important; }
+.btn-next { background-color: var(--primary-color) !important; }
+
+.btn-nav:hover { 
+    opacity: 0.9; 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+}
+
+/* --- 7. SPECIAL STATES --- */
+input[readonly] { background-color: #f8f9fa !important; cursor: not-allowed; }
+.input-samar { color: #999 !important; border-color: #ddd !important; font-style: italic; }
+
+/* --- 8. RESPONSIF MOBILE --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 85px 10px 20px; /* Jarak aman dari header fix */
     }
-    
-    .tab-content > .input-group,
-    .tab-content > .input-group.wide,
-    .form-section-title {
-        grid-column: span 1 !important;
-    }
-}  
 
-         footer { 
-        background: #0d2e0d; 
-        color: white; 
-        padding: 40px 5% 20px; 
-        text-align: center; 
-        width: 100%;
-        border: none;
-        outline: none;
+    .tab-content.active {
+        display: flex; /* Ganti grid ke flex di mobile */
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 15px;
     }
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-     
-        /* --- 6. WA FLOAT --- */
-    .whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
+
+    .form-group, .form-group.wide, .form-group.nik-group, .form-group.kk-group {
+        grid-column: span 6; /* Full width di mobile */
     }
-    @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+
+    .tab-link {
+        padding: 12px 5px;
+        font-size: 0.8rem;
+        min-width: 100px;
     }
+
+    .btn-nav {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
     </style>
 </head>
 <body>
