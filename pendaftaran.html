@@ -124,10 +124,19 @@
         .logo h1 { font-size: 1rem; }
 
         #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
+    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
+    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
+    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
+    gap: 8px;                   /* Memberikan jarak antara ikon dan teks */
+    
+    /* Sisanya adalah dekorasi */
+    background: #f4ce14;
+    color: #1a5d1a;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
 
         nav ul { 
             display: none; flex-direction: column; width: 100%; position: absolute;
