@@ -60,10 +60,30 @@ nav ul li a:hover {
         /* --- 3. RESPONSIVE HP (MOBILE) --- */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
-            .logo img { height: 35px; margin-right: 0 !important; }
-            .logo h1 {font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px;}
             
+    .logo {
+        display: flex;
+        align-items: center;
+        /* 1. Perkecil gap (jarak antar elemen) di sini */
+        gap: 5px !important; 
+        max-width: 75%;
+        overflow: hidden;
+    }
+
+    .logo img {
+        height: 35px;
+        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
+        margin-right: 0 !important; 
+    }
+
+    .logo h1 {
+        font-size: 1rem !important;
+        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
+        margin: 0 !important; 
+        white-space: nowrap !important;
+        letter-spacing: -0.5px;
+    }
+
            #menu-toggle {
     display: flex !important;   /* Wajib: Mengaktifkan mode flex */
     flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
@@ -102,13 +122,6 @@ nav ul li a:hover {
     box-shadow: none;        /* Menghilangkan bayangan kotak */
     padding: 0;
 }
-.whatsapp-float span { 
-    display: none;           /* Menghilangkan teks */
-}
-.whatsapp-float i { 
-    font-size: 45px;         /* Ikon diperbesar agar mudah diklik */
-    color: #25d366; 
-}
             
         /* --- FORM & TABS --- */
         container { padding: 2rem 5%; flex: 1; } .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1100px; margin: 0 auto;  }
@@ -135,7 +148,7 @@ nav ul li a:hover {
         .btn-prev { background-color: var(--gold-color) !important; }
         .btn-next { background-color: var(--primary-color) !important; }
 
-        footer { 
+           .footer { 
         background: #0d2e0d; 
         color: white; 
         padding: 40px 5% 20px; 
@@ -148,7 +161,8 @@ nav ul li a:hover {
     .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
     .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
             
-        .whatsapp-float {
+       /* Mode Desktop */
+   .whatsapp-float {
         position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
         padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
         text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
@@ -159,6 +173,21 @@ nav ul li a:hover {
         100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
             
+/* Mode Mobile (@media max-width: 768px) */
+.whatsapp-float { 
+    background: transparent; /* Menghilangkan kotak */
+    box-shadow: none;        /* Menghilangkan bayangan kotak */
+    padding: 0;
+}
+.whatsapp-float span { 
+    display: none;           /* Menghilangkan teks */
+}
+.whatsapp-float i { 
+    font-size: 45px;         /* Ikon diperbesar agar mudah diklik */
+    color: #25d366; 
+}
+            
+            
     </style>
 </head>
 <body>
@@ -166,7 +195,7 @@ nav ul li a:hover {
 <header>
     <div class="logo">
         <img src="main_logo.png" alt="Logo">
-        <h1>DAARUL KHOIROT</h1>
+        <h1>DAARUL KHOIROT ALMADANI </h1>
     </div>
     <button id="menu-toggle"><i class="fas fa-bars"></i></button>
     <nav>
@@ -181,7 +210,6 @@ nav ul li a:hover {
     </nav>
 </header>
 
-<div class="container">
    <form id="formPendaftaran" onsubmit="handleFormSubmit(event)">
 <div class="container">
     <div class="tab-container">
