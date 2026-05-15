@@ -115,19 +115,28 @@
             }
         }
         
-     /* --- 2. CONTAINER UTAMA --- */
+     
+/* --- 1. VARIABEL & RESET --- */
+:root {
+    --primary-color: #1a5d1a;
+    --gold-light: #f4ce14;
+    --border-color: #ddd;
+    --white: #ffffff;
+    --bg-light: #f8f9fa;
+}
+
+/* --- 2. CONTAINER UTAMA --- */
 .container { 
     width: 100%;
     max-width: 1100px; 
     margin: 0 auto;
     padding: 2rem 15px; 
-    flex: 1; 
     box-sizing: border-box;
 }
 
-/* --- 3. TAB CONTAINER & MENU --- */
+/* --- 3. TAB MENU (DESKTOP & MOBILE) --- */
 .tab-container { 
-    background: white; 
+    background: var(--white); 
     border-radius: 12px; 
     overflow: hidden; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
@@ -135,11 +144,14 @@
 
 .tab-menu { 
     display: flex; 
-    background: #f8f9fa; 
+    background: var(--bg-light); 
     border-bottom: 3px solid #eee; 
     overflow-x: auto; 
+    scrollbar-width: none; /* Firefox */
     -webkit-overflow-scrolling: touch;
 }
+
+.tab-menu::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
 .tab-link { 
     flex: 1; 
@@ -162,34 +174,32 @@
 
 .tab-link.active { 
     background-color: #28a745 !important; 
-    color: white !important; 
+    color: var(--white) !important; 
 }
 
-/* --- 4. TAB CONTENT & GRID SYSTEM --- */
+/* --- 4. TAB CONTENT & GRID (LAPTOP 3 KOLOM) --- */
 .tab-content { 
     display: none; 
     padding: 30px; 
-    background-color: #ffffff;
+    background-color: var(--white);
     animation: fadeEffect 0.4s;
     box-sizing: border-box;
 }
 
 .tab-content.active { 
     display: grid; 
-    /* Gunakan 6 kolom agar fleksibel bisa dibagi 3, 2, atau 1 */
-    grid-template-columns: repeat(6, 1fr); 
+    grid-template-columns: repeat(6, 1fr); /* Sistem 6 kolom */
     gap: 20px; 
-    padding: 30px;
 }
-        
+
 @keyframes fadeEffect {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- 5. FORM ELEMENTS --- */
+/* --- 5. FORM ELEMENTS (LOGIKA KOLOM) --- */
 .form-section-title { 
-    grid-column: span 6; /* Ambil baris penuh */
+    grid-column: span 6; 
     margin: 20px 0 10px; 
     padding-bottom: 8px; 
     border-bottom: 2px solid #eee; 
@@ -201,32 +211,21 @@
     gap: 10px; 
 }
 
-.form-section-title { 
-    grid-column: span 6; 
-}
-        
-/* Ukuran Input Default (3 Kolom) */
+/* Default Laptop: 3 Kolom (6 / 3 = span 2) */
 .form-group { 
     grid-column: span 2; 
+    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
 }
 
-.form-group.setengah {
-    grid-column: span 3;
-}
-
-.form-group.full {
-    grid-column: span 6;
-}
-        
-/* Ukuran Input Lebar (2 Kolom / 50%) */
+/* NIK/KK: 2 Kolom (6 / 2 = span 3) */
 .form-group.wide, .form-group.nik-group, .form-group.kk-group {
     grid-column: span 3;
 }
 
-/* Ukuran Input Full (1 Kolom / 100%) */
-.form-group.full-width {
+/* Alamat/Pernyataan: Baris Penuh (6 / 1 = span 6) */
+.form-group.full, .form-group.full-width {
     grid-column: span 6;
 }
 
@@ -238,11 +237,13 @@
     color: var(--primary-color); 
 }
 
-/* INPUT WITH ICON */
+.label-wajib::after { content: " *"; color: #e74c3c; font-weight: bold; }
+
+/* INPUT DENGAN IKON */
 .input-ikon {
     display: flex; 
     align-items: center; 
-    background: white; 
+    background: var(--white); 
     border: 1.5px solid var(--border-color);
     border-radius: 8px; 
     padding: 0 12px; 
@@ -250,11 +251,6 @@
     transition: 0.3s;
     width: 100%;
     box-sizing: border-box;
-}
-
-.input-ikon:focus-within {
-    border-color: #28a745;
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
 }
 
 .input-ikon i { 
@@ -267,7 +263,7 @@
 
 .input-ikon input, .input-ikon select { 
     flex: 1; 
-    border: none; 
+    border: none !important; 
     outline: none; 
     background: transparent; 
     height: 100%; 
@@ -275,7 +271,7 @@
     font-size: 0.95rem;
 }
 
-/* --- 6. BUTTONS --- */
+/* --- 6. TOMBOL NAVIGASI --- */
 .button-group {
     grid-column: span 6;
     display: flex; 
@@ -298,50 +294,41 @@
     gap: 10px; 
     font-size: 1.1rem; 
     transition: 0.3s; 
-    color: white; 
+    color: var(--white); 
 }
 
 .btn-prev { background-color: var(--gold-light) !important; color: #333 !important; }
 .btn-next { background-color: var(--primary-color) !important; }
 
-.btn-nav:hover { 
-    opacity: 0.9; 
-    transform: translateY(-2px); 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-}
-
-/* --- 7. SPECIAL STATES --- */
-input[readonly] { background-color: #f8f9fa !important; cursor: not-allowed; }
-.input-samar { color: #999 !important; border-color: #ddd !important; font-style: italic; }
-
-/* --- 8. RESPONSIF MOBILE --- */
+/* --- 7. RESPONSIF MOBILE (FIT HP) --- */
 @media (max-width: 768px) {
     .container {
-        padding: 85px 10px 20px; /* Jarak aman dari header fix */
+        padding: 85px 10px 20px; /* Jarak aman agar tidak nempel header hijau */
     }
 
     .tab-content.active {
-        display: flex; /* Ganti grid ke flex di mobile */
+        display: flex !important; /* Paksa satu kolom lurus ke bawah */
         flex-direction: column;
         padding: 20px 15px;
         gap: 15px;
     }
 
     .form-group, .form-group.wide, .form-group.nik-group, .form-group.kk-group {
-        grid-column: span 6; /* Full width di mobile */
+        grid-column: span 6 !important;
+        width: 100%;
     }
 
     .tab-link {
         padding: 12px 5px;
         font-size: 0.8rem;
-        min-width: 100px;
+        min-width: 110px;
     }
 
-    .btn-nav {
-        font-size: 1rem;
-        padding: 12px;
-    }
+    input, select { font-size: 16px !important; } /* Mencegah auto-zoom iPhone */
 }
+
+/* --- 8. STATUS KHUSUS --- */
+input[readonly] { background-color: #f8f9fa !important; cursor: not-allowed; opacity: 0.8; }
 
 .locked-input {
     background-color: #ffffff !important;
