@@ -56,6 +56,7 @@
 
         /* --- 3. RESPONSIVE HP (MOBILE) --- */
         @media (max-width: 768px) {
+            header { height: 60px; padding: 0 15px; }
     .logo {
         display: flex;
         align-items: center;
@@ -81,12 +82,21 @@
 }
 
         /* Sembunyikan navigasi teks, munculkan tombol menu */
-          nav ul { 
+
+       
+        nav ul { 
             display: none; flex-direction: column; width: 100%; position: absolute;
             top: 60px; left: 0; background: var(--primary-color); padding: 20px;
             gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
         }
         nav.show ul { display: flex !important; }
+        nav ul li { margin-bottom: 10px; width: 100%; }
+        nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
+        .container { padding: 2rem 5%; }
+        .section-title-box { padding: 10px 20px; }
+        .section-title-box h2 { font-size: 1.2rem; }
+    }
         
            #menu-toggle {
     display: flex !important;   /* Wajib: Mengaktifkan mode flex */
@@ -102,25 +112,7 @@
     border-radius: 4px;
     font-weight: bold;
 }
-
-            nav ul {
-                display: none; flex-direction: column; width: 100%;
-                position: absolute; top: 65px; left: 0;
-                background: var(--primary-color); padding: 15px;
-                z-index: 2000; border-bottom: 3px solid var(--gold-light);
-            }
-
-            nav.show ul { display: flex !important; }
-
-            nav ul li { margin-bottom: 10px; width: 100%; }
-            nav ul li a { display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-           nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
-
-        .container { padding: 2rem 5%; }
-        .section-title-box { padding: 10px 20px; }
-        .section-title-box h2 { font-size: 1.2rem; }
-    }
-
+                             
             /* Paksa Form Jadi 1 Kolom di HP */
             .tab-content, .form-grid, .form-grid-santri, .form-grid-upload {
                 grid-template-columns: 1fr !important; gap: 15px !important;
