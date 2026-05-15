@@ -363,16 +363,10 @@ input[readonly] {
     .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
     .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
     .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-   .whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
-    }
-    @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
+ 
+    .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
+     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
  .locked-input {
     background-color: #ffffff !important;
@@ -408,22 +402,8 @@ input[readonly] {
     border-color: #d33 !important;
     background-color: #fff5f5;
 }
-
-     /* BUTTON MENU */
-    #menu-toggle {
-        display: block;
-        background: #f4ce14;
-        color: #1a5d1a;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-weight: bold;
-        font-size: 0.8rem;
-        cursor: pointer;
-    }
-}
         
-    </style>
+</style>
 </head>
 <body>
 
@@ -1991,39 +1971,28 @@ function kirimWA() {
     const clickSound = document.getElementById('clickSound');
     const navLinks = document.querySelectorAll('nav ul li a'); 
     
-document.addEventListener("DOMContentLoaded", function() {
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
+// --- LOGIKA MENU NAVIGASI ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuBtn = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
 
-    // Toggle menu
-    menuToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        nav.classList.toggle('show');
-    });
+        if (menuBtn && nav) {
+            menuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                nav.classList.toggle('show');
+            });
 
-    // Active menu + auto close
-    const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-    const menuItems = document.querySelectorAll("nav ul li a");
-
-    menuItems.forEach(item => {
-        const href = item.getAttribute("href");
-
-        if (href === currentUrl) {
-            item.classList.add("active");
+            document.addEventListener('click', function() {
+                nav.classList.remove('show');
+            });
         }
-
-        item.addEventListener('click', function() {
-            nav.classList.remove('show');
+        
+        // Link Aktif
+        const path = window.location.pathname.split("/").pop() || "index.html";
+        document.querySelectorAll("nav ul li a").forEach(link => {
+            if (link.getAttribute("href") === path) link.classList.add("active");
         });
     });
-
-    // Klik luar = tutup menu
-    document.addEventListener('click', function(e) {
-        if (!nav.contains(e.target) && e.target !== menuToggle) {
-            nav.classList.remove('show');
-        }
-    });
-});
     
    </script>    
 
