@@ -114,6 +114,16 @@
                 grid-template-columns: 1fr !important; gap: 15px !important;
             }
         }
+/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
+nav ul li a.active {
+    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
+    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
+}
+
+/* Efek saat kursor menempel (Hover) */
+nav ul li a:hover {
+    color: #f4ce14;
+}
         
      
 /* --- 1. VARIABEL & RESET --- */
@@ -299,6 +309,36 @@
 
 .btn-prev { background-color: var(--gold-light) !important; color: #333 !important; }
 .btn-next { background-color: var(--primary-color) !important; }
+
+/* --- 7. RESPONSIF MOBILE (FIT HP) --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 85px 10px 20px; /* Jarak aman agar tidak nempel header hijau */
+    }
+
+    .tab-content.active {
+        display: flex !important; /* Paksa satu kolom lurus ke bawah */
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 15px;
+    }
+
+    .form-group, .form-group.wide, .form-group.nik-group, .form-group.kk-group {
+        grid-column: span 6 !important;
+        width: 100%;
+    }
+
+    .tab-link {
+        padding: 12px 5px;
+        font-size: 0.8rem;
+        min-width: 110px;
+    }
+
+    input, select { font-size: 16px !important; } /* Mencegah auto-zoom iPhone */
+}
+
+/* --- 8. STATUS KHUSUS --- */
+input[readonly] { background-color: #f8f9fa !important; cursor: not-allowed; opacity: 0.8; }
 
 /* --- 7. RESPONSIF MOBILE (FIT HP) --- */
 @media (max-width: 768px) {
