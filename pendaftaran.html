@@ -44,7 +44,9 @@
         .logo h1 { font-size: 1.3rem; color: var(--white); letter-spacing: 1px; font-weight: 700; }
 
         /* Navigasi Desktop */
-        nav ul { list-style: none; display: flex; gap: 15px; }
+           display: none; flex-direction: column; width: 100%; position: absolute; 
+            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
+        }
         nav ul li a {
     position: relative;
     padding-bottom: 5px;
@@ -53,9 +55,10 @@
 
 /* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
 nav ul li a.active {
-    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-}
+        border-bottom: none !important;
+        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
+        padding-left: 10px;
+    }
 
 /* Efek saat kursor menempel (Hover) */
 nav ul li a:hover {
