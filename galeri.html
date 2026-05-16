@@ -6,97 +6,171 @@
     <title>Daarul Khoirot | Galeri & Berita</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-<style>
-    /* --- 1. DASAR & VARIABLE --- */
-    :root {
-        --primary-color: #1a5d1a;
-        --secondary-color: #f4ce14;
-        --light-bg: #f4f7f6;
-        --dark-footer: #0d2e0d;
-    }
+    <style>
+        /* --- 1. DASAR & VARIABLE --- */
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --light-bg: #f4f7f6;
+            --dark-footer: #0d2e0d;
+        }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; scroll-behavior: smooth; }
-    body { background-color: var(--light-bg); overflow-x: hidden; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            scroll-behavior: smooth; 
+        }
 
-    /* --- 2. HEADER UTAMA --- */
-    header { 
-        background-color: var(--primary-color); color: white; padding: 0 5%; 
-        display: flex; justify-content: space-between; align-items: center; 
-        position: sticky; top: 0; z-index: 1000; height: 70px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-    }
+        body { 
+            background-color: var(--light-bg); 
+            overflow-x: hidden; 
+            color: #333; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
 
-    .logo { display: flex; align-items: center; text-decoration: none; color: white; flex-shrink: 0; }
-    /* PERBAIKAN LOGO: Memastikan gambar memiliki ruang */
-    .logo img { height: 45px; width: auto; margin-right: 12px; display: block; }
-    .logo h1 { font-size: 1.1rem; font-weight: 700; white-space: nowrap; letter-spacing: 0.5px; }
+        /* --- 2. HEADER UTAMA --- */
+        header { 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 0 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            height: 70px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
 
-    /* NAVIGASI DESKTOP */
-    nav { display: flex; align-items: center; }
-    nav ul { display: flex; list-style: none; gap: 20px; }
-    nav ul li a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding-bottom: 5px; transition: 0.3s; white-space: nowrap; }
-    nav ul li a.active { border-bottom: 3px solid var(--secondary-color); color: var(--secondary-color); }
-    nav ul li a:hover { color: var(--secondary-color); }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            text-decoration: none; 
+            color: white; 
+            flex-shrink: 0; 
+        }
 
-    #menu-toggle { display: none !important; }
+        .logo img { 
+            height: 45px; 
+            width: auto; 
+            margin-right: 12px; 
+            display: block; 
+        }
 
-    /* --- 3. CONTAINER GALERI --- */
-    .container { padding: 3rem 10%; flex: 1; }
+        .logo h1 { 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            white-space: nowrap; 
+            letter-spacing: 0.5px; 
+        }
 
-    /* PERBAIKAN JUDUL: Mengatur ikon kamera agar tidak menabrak teks */
-    .section-title-box {
-        display: flex; align-items: center; justify-content: center;
-        padding: 12px 25px; background-color: var(--primary-color);
-        color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        margin: 0 auto 2rem; width: fit-content;
-    }
-    .section-title-box i { font-size: 1.5rem; color: var(--secondary-color); }
-    .section-title-box h2 { font-size: 1.5rem; margin-left: 15px; font-weight: 700; }
+        /* NAVIGASI DESKTOP */
+        nav { 
+            display: flex; 
+            align-items: center; 
+        }
 
-    .gallery-grid {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px; margin-top: 20px;
-    }
-    .gallery-item {
-        overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        background: white; height: 280px; border: 4px solid white;
-    }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .gallery-item:hover img { transform: scale(1.08); }
+        nav ul { 
+            display: flex; 
+            list-style: none; 
+            gap: 20px; 
+        }
 
-    /* --- CONTAINER UTAMA --- */
-        .container { padding: 3rem 10%; flex: 1; }
+        nav ul li a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            padding-bottom: 5px; 
+            transition: 0.3s; 
+            white-space: nowrap; 
+        }
 
-        .section-title { text-align: center; margin-bottom: 2rem; }
+        nav ul li a.active { 
+            border-bottom: 3px solid var(--secondary-color); 
+            color: var(--secondary-color); 
+        }
+
+        nav ul li a:hover { 
+            color: var(--secondary-color); 
+        }
+
+        #menu-toggle { 
+            display: none !important; 
+        }
+
+        /* --- 3. CONTAINER UTAMA --- */
+        .container { 
+            padding: 3rem 10%; 
+            flex: 1; 
+        }
+
+        .section-title { 
+            text-align: center; 
+            margin-bottom: 2rem; 
+        }
+
         .section-title-box {
             display: inline-flex;
             align-items: center; 
-            padding: 10px 25px;
+            justify-content: center;
+            padding: 12px 25px; 
             background-color: var(--primary-color);
             color: white; 
             border-radius: 8px; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            margin-bottom: 10px;
         }
-        .section-title-box h2 { font-size: 1.5rem; margin: 0; padding-left: 15px; }
+
+        .section-title-box i { 
+            font-size: 1.5rem; 
+            color: var(--secondary-color); 
+        }
+
+        .section-title-box h2 { 
+            font-size: 1.5rem; 
+            margin: 0; 
+            padding-left: 15px; 
+            font-weight: 700;
+        }
 
         /* --- GALERI --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
+
         .gallery-item {
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             background: white;
-            height: 250px;
+            height: 260px;
+            border: 4px solid white;
         }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
 
-        /* --- PERBAIKAN KONTAINER BERITA --- */
-        .news-section { margin-top: 60px; }
+        .gallery-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease; 
+        }
+
+        .gallery-item:hover img { 
+            transform: scale(1.08); 
+        }
+
+        /* --- KONTAINER BERITA --- */
+        .news-section { 
+            margin-top: 60px; 
+        }
         
         .btn-news-header {
             display: inline-flex;
@@ -162,188 +236,215 @@
         .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
         .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
 
-    /* --- KHUSUS TAMPILAN HP (DI DALAM MEDIA QUERY) --- */
-@media (max-width: 768px) {
-    .article-card {
-        flex-direction: column; /* Kotak tanggal pindah ke atas teks */
-        text-align: center;      /* Semua teks jadi rata tengah */
-        padding: 25px 15px;
-    }
+        /* --- 4. RESPONSIVE MOBILE (HP) --- */
+        @media (max-width: 768px) {
+            header { height: 60px; padding: 0 15px; }
+            .logo img { height: 35px; margin-right: 8px; }
+            .logo h1 { font-size: 0.95rem; }
 
-    .date-badge {
-        margin-right: 0;         /* Hapus jarak samping */
-        margin-bottom: 15px;      /* Beri jarak ke teks di bawahnya */
-        width: 85px;             /* Ukuran kotak yang pas di HP */
-    }
+            #menu-toggle {
+                display: block !important; 
+                background: var(--secondary-color) !important;
+                color: var(--primary-color) !important; 
+                border: none; 
+                padding: 6px 12px;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.8rem; 
+                cursor: pointer;
+            }
 
-    .chevron-icon {
-        display: none;           /* Sembunyikan panah di HP agar bersih */
-    }
-}
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                width: 100%; 
+                position: absolute;
+                top: 60px; 
+                left: 0; 
+                background: var(--primary-color); 
+                padding: 20px;
+                gap: 15px; 
+                border-bottom: 3px solid var(--secondary-color); 
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            }
+            
+            nav.show ul { display: flex !important; }
+            nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
 
-    /* --- 4. RESPONSIVE MOBILE (HP) --- */
-    @media (max-width: 768px) {
-        header { height: 60px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem; }
+            .container { padding: 2rem 5%; }
+            .section-title-box { padding: 10px 20px; }
+            .section-title-box h2 { font-size: 1.2rem; }
 
-        #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+            /* Penyesuaian Kartu Berita di HP */
+            .article-card {
+                flex-direction: column; 
+                text-align: center;      
+                padding: 25px 15px;
+            }
+
+            .date-badge {
+                margin-right: 0;         
+                margin-bottom: 15px;      
+                width: 85px;             
+            }
+
+            .chevron-icon {
+                display: none;           
+            }
         }
 
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute;
-            top: 60px; left: 0; background: var(--primary-color); padding: 20px;
-            gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        /* --- 5. FOOTER --- */
+        footer { 
+            background: var(--dark-footer);  
+            color: white; 
+            padding: 40px 5% 20px;  
+            text-align: center;   
+            width: 100%;  
+            border: none;  
+            outline: none; 
         }
-        nav.show ul { display: flex !important; }
-        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
 
-        .container { padding: 2rem 5%; }
-        .section-title-box { padding: 10px 20px; }
-        .section-title-box h2 { font-size: 1.2rem; }
-    }
-
-           /* --- FOOTER --- */
-     footer { background: #0d2e0d;  color: white; /* Ini untuk teks alamat dan copyright */padding: 40px 5% 20px;  text-align: center;   width: 100%;  border: none;  outline: none; }
-/* Pastikan class f-title benar-benar spesifik */
-footer .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14 !important; /* Paksa warna kuning */display: block; /* Memastikan dia berdiri sendiri sebagai judul */}
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-</style>
+        footer .f-title { 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            color: #f4ce14 !important; 
+            display: block; 
+        }
+        
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+    </style>
 </head>
 <body>
 
 <header>
     <div class="logo">
-        <img src="main_logo.png" class="main-header-logo">
+        <img src="main_logo.png" class="main-header-logo" alt="Logo">
         <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
 
     <nav>
-            <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
-                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
-                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
-                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
-            </ul>
-   <button id="menu-toggle">
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="galeri.html" class="active"><i class="fas fa-images"></i> Galeri</a></li>
+            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+            <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+            <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+        </ul>
+    </nav>
+    
+    <button id="menu-toggle">
         <i class="fas fa-bars"></i> Menu
     </button>
 </header>
 
-    <div class="container">
-        <section id="galeri">
-            <div class="section-title">
-                <div class="section-title-box">
-                    <i class="fas fa-camera fa-2x"></i>
-                    <h2>Galeri Kegiatan</h2>
+<div class="container">
+    <!-- SECTION GALERI -->
+    <section id="galeri">
+        <div class="section-title">
+            <div class="section-title-box">
+                <i class="fas fa-camera"></i>
+                <h2>Galeri Kegiatan</h2>
+            </div>
+            <p style="color: #666; margin-top: 10px;">Dokumentasi Kegiatan Santri dan Acara Pondok Pesantren.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="tahfizul_quran.jpg" alt="Tahfizul Quran"></div>
+            <div class="gallery-item"><img src="santri_berprestasi.jpeg" alt="Santri Berprestasi"></div>
+            <div class="gallery-item"><img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah"></div>
+            <div class="gallery-item"><img src="makan_bersama.jpeg" alt="Makan Bersama"></div>
+            <div class="gallery-item"><img src="latihan_hadhroh.jpeg" alt="Extra Kurikuler"></div>
+            <div class="gallery-item"><img src="panitia_phbi.jpeg" alt="Acara Maulid Nabi"></div>
+            <div class="gallery-item"><img src="tasmiul_quran.jpeg" alt="Program Hafalan"></div>
+            <div class="gallery-item"><img src="penghargaan_santri.jpeg" alt="Penghargaan Santri"></div>
+        </div>
+    </section>
+
+    <!-- SECTION BERITA -->
+    <section id="berita" class="news-section">
+        <div style="text-align: center;">
+            <div class="btn-news-header">
+                <i class="fas fa-newspaper"></i> Berita Terbaru
+            </div>
+        </div>
+
+        <div class="news-container">
+            <a href="berita-pendaftaran-2025.html" class="article-card">
+                <div class="date-badge">
+                    <span class="day">15</span>
+                    <span class="month">Des</span>
                 </div>
-                <p style="color: #666; margin-top: 10px;">Dokumentasi Kegiatan Santri dan Acara Pondok Pesantren.</p>
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="tahfizul_quran.jpg" alt="Tahfizul Quran"></div>
-                <div class="gallery-item"><img src="santri_berprestasi.jpeg" alt="Santri Berprestasi"></div>
-                <div class="gallery-item"><img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah"></div>
-                <div class="gallery-item"><img src="makan_bersama.jpeg" alt="Makan Bersama"></div>
-                <div class="gallery-item"><img src="latihan_hadhroh.jpeg" alt="Extra Kurikuler"></div>
-                <div class="gallery-item"><img src="panitia_phbi.jpeg" alt="Acara Maulid Nabi"></div>
-                <div class="gallery-item"><img src="tasmiul_quran.jpeg" alt="Program Hafalan"></div>
-                <div class="gallery-item"><img src="penghargaan_santri.jpeg" alt="Penghargaan Santri"></div>
-            </div>
-        </section>
-
-        <section id="berita" class="news-section">
-            <div style="text-align: center;">
-                <div class="btn-news-header">
-                    <i class="fas fa-newspaper"></i> Berita Terbaru
+                <div class="article-text">
+                    <h3>Penerimaan Santri Baru Gelombang 1</h3>
+                    <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk pendidikan Islami yang berkualitas.</p>
                 </div>
-            </div>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+            </a>
 
-            <div class="news-container">
-                <a href="berita-pendaftaran-2025.html" class="article-card">
-                    <div class="date-badge">
-                        <span class="day">15</span>
-                        <span class="month">Des</span>
-                    </div>
-                    <div class="article-text">
-                        <h3>Penerimaan Santri Baru Gelombang 1</h3>
-                        <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk pendidikan Islami yang berkualitas.</p>
-                    </div>
-                    <i class="fas fa-chevron-right chevron-icon"></i>
-                </a>
+            <a href="berita-maulid-2025.html" class="article-card">
+                <div class="date-badge">
+                    <span class="day">10</span>
+                    <span class="month">Nov</span>
+                </div>
+                <div class="article-text">
+                    <h3>Peringatan Maulid Nabi Muhammad SAW</h3>
+                    <p>Alhamdulillah, rangkaian acara peringatan Maulid Nabi berjalan dengan lancar dan penuh keberkahan bersama keluarga besar yayasan.</p>
+                </div>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+            </a>
+        </div>
+    </section>
+</div>
 
-                <a href="berita-maulid-2025.html" class="article-card">
-                    <div class="date-badge">
-                        <span class="day">10</span>
-                        <span class="month">Nov</span>
-                    </div>
-                    <div class="article-text">
-                        <h3>Peringatan Maulid Nabi Muhammad SAW</h3>
-                        <p>Alhamdulillah, rangkaian acara peringatan Maulid Nabi berjalan dengan lancar dan penuh keberkahan bersama keluarga besar yayasan.</p>
-                    </div>
-                    <i class="fas fa-chevron-right chevron-icon"></i>
-                </a>
-            </div>
-        </section>
-    </div>
+<footer> 
+    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+</footer>
 
-   
-    <footer> 
-        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
-        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
-        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-    </footer>
-    
-    
-    <audio id="clickSound" src="click_sound.mp3"></audio>
+<audio id="clickSound" src="click_sound.mp3"></audio>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // --- 1. INISIALISASI ELEMEN ---
-       
         const clickSound = document.getElementById('clickSound');
         const navLinks = document.querySelectorAll('nav ul li a');
         const menuToggle = document.getElementById('menu-toggle');
         const nav = document.querySelector('nav');
 
-        // --- 2. LOGIKA MENU AKTIF (UNDERLINE KUNING) ---
-        // Mengambil nama file, misal: 'galeri.html'
+        // --- 2. LOGIKA MENU AKTIF ---
         const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-
         navLinks.forEach(item => {
             const itemHref = item.getAttribute("href");
             if (itemHref === currentUrl) {
                 item.classList.add("active");
+            } else {
+                item.classList.remove("active");
             }
         });
 
         // --- 3. MENU TOGGLE (HP) ---
         if (menuToggle && nav) {
             menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation(); // Agar tidak langsung tertutup saat klik tombol
+                e.stopPropagation();
                 nav.classList.toggle('show'); 
             });
         }
 
-        // --- 4. SUARA KLIK & NAVIGASI HALUS ---
+        // --- 4. SUARA KLIK & NAVIGASI ---
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Mainkan suara klik
                 if (clickSound) {
                     clickSound.currentTime = 0;
-                    clickSound.play();
+                    clickSound.play().catch(err => console.log("Audio play diblokir browser"));
                 }
                 
-                // Tutup menu HP otomatis
                 if (nav) nav.classList.remove('show');
 
-                // Delay navigasi agar suara klik terdengar dulu
                 const destination = this.href;
                 if (destination && !destination.includes('#') && !this.target) {
                     e.preventDefault();
@@ -354,22 +455,7 @@ footer .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; col
             });
         });
 
-        // --- 5. LOGIKA AUTO-PLAY MUROTTAL ---
-        let hasInteracted = false;
-        function playMurottal() {
-            if (!hasInteracted && murottal) {
-                murottal.volume = 0.4;
-                murottal.play().catch(err => console.log("Autoplay dicegah browser"));
-                hasInteracted = true;
-                // Hapus listener setelah interaksi pertama
-                document.removeEventListener('click', playMurottal);
-                document.removeEventListener('touchstart', playMurottal);
-            }
-        }
-        document.addEventListener('click', playMurottal);
-        document.addEventListener('touchstart', playMurottal); // Tambahan untuk pengguna HP
-
-        // --- 6. TUTUP MENU JIKA KLIK DI LUAR ---
+        // --- 5. TUTUP MENU JIKA KLIK DI LUAR ---
         document.addEventListener('click', function(e) {
             if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                 nav.classList.remove('show');
