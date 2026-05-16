@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daarul Khoirot | Info Islam</title>
-
+    <title>Daarul Khoirot | Galeri & Berita</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,31 +14,27 @@
     <style>
         /* --- 1. DESIGN VARIABLES & RESET --- */
         :root {
-            --primary-color: #1a5319;
+            --primary-color: #1a5d1a;
             --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
-            --gold-color: #D4AF37;
-            --gold-light: #f4ce14;
-            --white: #FFFFFF;
-            --bg-body: #f4f7f6;
-            --text-dark: #1a1a1a;
-            --border-color: #1a5d1a;
-            --border-light: #e1e7e1;
-            --whatsapp-green: #25d366;
-        } 
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #d4e4d4;
+        }
 
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Quicksand', sans-serif; /* Dikunci menggunakan Quicksand */
+            font-family: 'Quicksand', sans-serif; 
             scroll-behavior: smooth; 
         }
 
         body { 
             line-height: 1.6; 
-            color: #333; 
-            background-color: var(--bg-body); 
+            color: var(--text-dark); 
+            background-color: var(--light-bg); 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -65,8 +61,8 @@
             position: sticky; 
             top: 0; 
             z-index: 1000; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
-            min-height: 70px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+            min-height: 65px;
         }
 
         .logo { 
@@ -77,12 +73,12 @@
         }
         
         .logo img { 
-            height: 45px; 
+            height: 40px; 
             width: auto; 
         }
 
         .logo h1 { 
-            font-size: 1.2rem; 
+            font-size: 1.3rem; 
             letter-spacing: 0.5px; 
             white-space: nowrap;
         }
@@ -108,7 +104,7 @@
 
         nav ul li a i { 
             color: var(--secondary-color) !important; 
-            font-size: 1rem; 
+            font-size: 0.9rem; 
         }
 
         nav ul li a:hover { 
@@ -116,7 +112,7 @@
         }
 
         nav ul li a.active-link { 
-            border-bottom: 3px solid var(--secondary-color); 
+            border-bottom: 3px solid var(--secondary-color) !important; 
             color: var(--secondary-color) !important; 
         }
 
@@ -126,7 +122,7 @@
 
         /* --- 3. LAYOUT UTAMA --- */
         .container { 
-            padding: 4rem 5% 2rem; 
+            padding: 3rem 10%; 
             flex: 1; 
         }
 
@@ -142,37 +138,28 @@
             background-color: var(--primary-color);
             color: white; 
             border-radius: 8px; 
-            gap: 0;
+            box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2); 
+            gap: 15px;
         }
-
-        .section-icon {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center; 
-            color: var(--secondary-color);
-        }
-
+        
         .section-title-box h2 { 
             font-size: 1.6rem; 
             margin: 0; 
-            padding-left: 15px; 
         }
 
         /* Grid Widget Info Islam */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto 30px;
+            gap: 25px;
+            margin-bottom: 50px;
         }
 
         .info-card {
-            background: white;
-            padding: 25px;
+            background: var(--white);
+            padding: 20px;
             border-radius: 12px;
-            border: 1px solid var(--border-light); /* Mengganti box-shadow dengan border tipis */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             text-align: center;
             border-top: 4px solid var(--primary-color);
             display: flex;
@@ -191,7 +178,7 @@
             text-decoration: none;
             padding: 12px 15px;
             border-radius: 8px;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-color);
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -202,16 +189,17 @@
         .btn-akses:hover { 
             background: var(--primary-color); 
             color: white; 
+            box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
         }
 
         /* Sub-Heading Section */
         .sub-section-heading {
             color: var(--primary-color); 
             text-align: center; 
-            margin: 50px 0 25px; 
+            margin: 40px 0 25px; 
             border-bottom: 2px solid #e5ebe5; 
             padding-bottom: 10px;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
         }
 
         /* Struktur Artikel Pilihan & Liputan */
@@ -219,15 +207,14 @@
             background: var(--white);
             padding: 25px;
             border-radius: 12px;
-            border: 1px solid var(--border-light); /* Tanpa box-shadow */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             margin-bottom: 25px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
             transition: 0.3s ease;
         }
         
         .article-item:hover, .news-item:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
             border-left: 5px solid var(--secondary-color); 
         }
         
@@ -275,31 +262,7 @@
             color: #222 !important;
         }
 
-        /* --- 4. FLOATING WHATSAPP BUTTON --- */
-        .whatsapp-float {
-            position: fixed; 
-            bottom: 25px; 
-            right: 25px; 
-            background-color: #25d366; 
-            color: white !important;
-            padding: 12px 20px; 
-            border-radius: 8px !important; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            z-index: 9999; 
-            animation: wa-glow 2s infinite ease-in-out;
-        }
-
-        @keyframes wa-glow {
-            0% { transform: scale(1); }
-            70% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        } 
-
-        /* --- 5. FOOTER SYSTEM --- */
+        /* --- 4. FOOTER --- */
         footer { 
             background: var(--primary-dark); 
             color: white; 
@@ -310,98 +273,82 @@
             outline: none;
             margin-top: auto;
         }
-
+        
         .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* --- 6. RESPONSIVE LAYOUT (HP/MOBILE) --- */
+        /* --- 5. RESPONSIVE LAYOUT (HP) --- */
         @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; position: relative; } /* Diubah ke relative agar dropdown menu mendorong konten ke bawah */
+            header { height: 65px; padding: 0 15px; }
             
             .logo {
-                gap: 6px !important; 
-                max-width: 70%;
+                display: flex;
+                align-items: center;
+                gap: 5px !important; 
+                max-width: 75%;
+                overflow: hidden;
             }
 
-            .logo img { height: 38px; margin-right: 0 !important; }
+            .logo img {
+                height: 35px;
+                margin-right: 0 !important; 
+            }
 
             .logo h1 {
-                font-size: 0.95rem !important;
+                font-size: 1rem !important;
                 margin: 0 !important; 
                 white-space: nowrap !important;
-                letter-spacing: -0.3px;
+                letter-spacing: -0.5px;
             }
 
             #menu-toggle {
-                display: flex !important;   
-                flex-direction: row;        
-                align-items: center;        
-                gap: 6px;                   
-                background: var(--secondary-color);
-                color: var(--primary-dark);
+                display: block !important; 
+                background: var(--secondary-color) !important;
+                color: var(--primary-dark) !important; 
+                border: none; 
                 padding: 6px 14px;
-                border: none;
-                border-radius: 4px;
-                font-weight: bold;
-                font-size: 0.85rem;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.85rem; 
                 cursor: pointer;
             }
 
-            nav {
-                width: 100%;
-            }
-
-            nav ul { 
+            nav { 
                 display: none; 
-                flex-direction: column; 
-                width: 100%; 
                 position: absolute; 
                 top: 65px; 
                 left: 0; 
+                width: 100%; 
                 background: var(--primary-color); 
-                padding: 15px 0; 
+                padding: 10px 0;
                 border-bottom: 3px solid var(--secondary-color); 
-                gap: 0px;
-                z-index: 1001;
+                z-index: 1001; /* Ditinggikan agar selalu berada di atas iframe widget kalender */
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             }
 
-            nav.show ul { display: flex !important; }
-            
+            nav.show { display: block !important; }
+
+            nav ul { 
+                flex-direction: column; 
+                gap: 0; 
+            }
+
             nav ul li a {
-                padding: 12px 20px !important;
+                padding: 12px 25px !important;
+                font-size: 0.95rem;
                 width: 100%;
             }
-            
+
             nav ul li a.active-link {
-                border-bottom: none;
-                border-left: 5px solid var(--gold-light) !important;
-                padding-left: 15px !important; /* Dirapatkan menjadi 15px agar pas dengan ikon & border tepi */
-                color: var(--gold-light) !important;
+                border-bottom: none !important;
+                border-left: 5px solid var(--secondary-color) !important;
+                padding-left: 20px !important;
                 background: rgba(255,255,255,0.05);
             }
 
-            nav ul li a.active-link i {
-                color: var(--gold-light) !important;
-            }
-
-            /* WA Float Versi Ringkas (Tanpa Teks) untuk Layar HP */
-            .whatsapp-float {
-                background: transparent !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                bottom: 25px;
-                right: 25px;
-            }
-
-            .whatsapp-float span {
-                display: none !important;
-            }
-
-            .whatsapp-float i {
-                font-size: 55px; 
-                color: var(--whatsapp-green) !important;
-                filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+            .container {
+                padding: 2rem 5%;
             }
         }
     </style>
@@ -417,7 +364,7 @@
         <button id="menu-toggle">
             <i class="fas fa-bars"></i> Menu
         </button>
-          
+           
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
@@ -425,7 +372,7 @@
                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
                 <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
                 <li><a href="info_islam.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li> 
-                <li><a href="kontak.html"><i class="fas fa-comments"></i> Kontak</a></li>
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
     </header>
@@ -433,7 +380,7 @@
     <main class="container">
         <div class="section-title">
             <div class="section-title-box">
-                <span class="section-icon"><i class="fas fa-mosque"></i></span> 
+                <i class="fas fa-book-open fa-2x"></i>
                 <h2>Info Dunia Islam</h2>
             </div>
         </div>
@@ -508,11 +455,6 @@
 
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
-    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp fa-lg"></i>
-        <span>Tanya Admin</span>
-    </a>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const menuToggle = document.getElementById('menu-toggle');
@@ -520,7 +462,7 @@
             const clickSound = document.getElementById('clickSound');
             const menuItems = document.querySelectorAll("nav ul li a");
 
-            // Toggle Buka/Tutup Menu di HP
+            // Toggle Menu Navigasi HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -528,7 +470,7 @@
                 });
             }
 
-            // Penentuan Class Active Menu Secara Otomatis Sesuai Nama File URL
+            // Penentuan Otomatis Indikator Halaman Aktif (.active-link)
             const currentUrl = window.location.pathname.split("/").pop() || "index.html";
             menuItems.forEach(item => {
                 if (item.getAttribute("href") === currentUrl) {
@@ -537,13 +479,12 @@
                     item.classList.remove("active-link");
                 }
 
-                // Sistem Delay Navigasi untuk Memutar Efek Suara Klik
+                // Audio click delay system
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0;
                         clickSound.play().catch(() => {});
                     }
-                    
                     if (nav) nav.classList.remove('show');
 
                     const targetUrl = this.href;
@@ -556,7 +497,7 @@
                 });
             });
 
-            // Sembunyikan Menu HP jika pengguna melakukan klik di luar area navigasi
+            // Tutup menu HP saat klik di luar area
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
