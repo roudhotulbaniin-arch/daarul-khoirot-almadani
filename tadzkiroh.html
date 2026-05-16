@@ -333,14 +333,27 @@
             header { height: 65px; padding: 0 15px; }
             
             .logo {
-                gap: 6px !important; 
-                max-width: 70%;
-            }
+        display: flex;
+        align-items: center;
+        /* 1. Perkecil gap (jarak antar elemen) di sini */
+        gap: 5px !important; 
+        max-width: 75%;
+        overflow: hidden;
+    }
 
-            .logo img { height: 38px; margin-right: 0 !important; }
+    .logo img {
+        height: 35px;
+        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
+        margin-right: 0 !important; 
+    }
 
-            .logo h1 {
-                font-size: 1rem !important;
+    .logo h1 {
+        font-size: 1rem !important;
+        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
+        margin: 0 !important; 
+        white-space: nowrap !important;
+        letter-spacing: -0.5px;
+    }
                 margin: 0 !important; 
                 white-space: nowrap !important;
                 letter-spacing: -0.3px;
