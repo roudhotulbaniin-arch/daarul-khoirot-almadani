@@ -80,32 +80,11 @@
             letter-spacing: 0.5px;
         }
 
-        nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 20px; 
-        }
+       nav ul { list-style: none; display: flex; gap: 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 5px 10px; transition: 0.3s; }
+        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); border-bottom: 2px solid var(--gold-light); }
+        #menu-toggle { display: none; background: var(--gold-light); color: var(--primary-color); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; }
 
-        nav ul li a { 
-            color: white; 
-            text-decoration: none; 
-            font-size: 0.95rem; 
-            font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-            gap: 5px; 
-            position: relative;
-            padding-bottom: 5px;
-            transition: 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--gold-light);
-        }
-
-        #menu-toggle { 
-            display: none; 
-        }
 
         /* --- HERO SECTION --- */
         .hero-container { 
@@ -134,14 +113,14 @@
         }
 
         .hero-content h1 { 
-            font-size: 2.8rem; 
+            font-size: 4rem; 
             font-weight: 800; 
             white-space: nowrap; 
             text-shadow: 2px 2px 10px rgba(0,0,0,0.7); 
         }
 
         .hero-content p { 
-            font-size: 1.2rem; 
+            font-size: 1.8rem; 
             white-space: nowrap; 
             margin-top: 10px; 
         }
@@ -389,7 +368,7 @@
             .unit-grid { grid-template-columns: 1fr; }
             .unit-card { flex-direction: row; text-align: left; padding: 15px; }
 
-            /* WA Float Mobile */
+            /* --- WA FLOAT MOBILE (Hanya Ikon, Tanpa Background) --- */
             .whatsapp-float {
                 background: transparent !important;
                 box-shadow: none !important;
@@ -403,10 +382,11 @@
             }
 
             .whatsapp-float i {
-                font-size: 55px; 
+                font-size: 55px; /* Lebih besar agar nyaman di tap */
                 color: var(--whatsapp-green) !important;
-                filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+                filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
             }
+        
         }
     </style>
 </head>
