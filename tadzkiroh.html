@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="icon" type="image/png" href="main_logo.png">
+    <link rel="icon" type="image/png" href="main_logo.png">
 
     <style>
         /* --- 1. DESIGN VARIABLES & RESET --- */
@@ -28,23 +28,22 @@
             --whatsapp-green: #25d366;
         }
 
-        font-family: 'Quicksand', sans-serif;
-    }
-
-         h1, h2, h3, h4, h5, h6 {
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 700;
-    }
-
- .teks-tebal {
-        font-weight: 600;
-    }
-
+        /* RESET & GLOBAL FONT SETTING (Perbaikan Struktur CSS Utama) */
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
- 
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+        }
+
+        .teks-tebal {
+            font-weight: 600;
+        }
 
         body { 
             line-height: 1.6; 
@@ -54,7 +53,7 @@
             flex-direction: column; 
             min-height: 100vh;
             overflow-x: hidden;
-        }
+        }
 
         /* --- 2. HEADER & NAVIGASI DESKTOP --- */
         header { 
@@ -87,7 +86,6 @@
             font-size: 1.2rem; 
             letter-spacing: 0.5px; 
             white-space: nowrap;
-            font-family: 'Quicksand', sans-serif;
         }
 
         nav ul { 
@@ -164,7 +162,6 @@
             max-width: 600px; 
             margin: 0 auto;
             color: rgba(255, 255, 255, 0.9); 
-            font-family: 'Quicksand', sans-serif;
         }
 
         /* --- 4. KOMPONEN PENCARIAN --- */
@@ -517,7 +514,7 @@
         if(!data) return;
 
         document.getElementById('modal-body').innerHTML = `
-            <h2 style="color:var(--primary-color); margin-bottom:15px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; font-size:1.4rem;">${data.judul}</h2>
+            <h2 style="color:var(--primary-color); margin-bottom:15px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; font-size:1.4rem; font-family: 'Quicksand', sans-serif;">${data.judul}</h2>
             <p style="text-align:justify; margin-bottom:15px; color: #333; line-height: 1.8;">${data.isi}</p>
             <div class="arabic-text">${data.arab}</div>
             <div class="translation-text">${data.arti}</div>
