@@ -251,103 +251,59 @@
 
     
     /* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-
-        header { height: 65px; padding: 0 15px; }
-        
-    .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
-        overflow: hidden;
-    }
-
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
-    }
-
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
-    }
-
-
-
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-
-        
-nav ul { 
-                list-style: none;
-                display: flex; 
-                flex-direction: column; 
-                /* 1. Perkecil padding kontainer agar tidak ada ruang kosong di atas/bawah */
-                padding: 5px 0 !important; 
-                gap: 0 !important; /* 2. Paksa gap menjadi nol antar list */
+ @media (max-width: 768px) {
+            #menu-toggle {
+                display: flex !important;
+                align-items: center;
+                gap: 5px;
+                background: var(--gold-light);
+                color: var(--primary-color);
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                font-weight: bold;
+                font-size: 0.8rem;
+                cursor: pointer;
             }
 
-        nav ul li { width: 100%; }
+            /* Perbaikan: Navigasi disembunyikan total sebelum diklik */
+            nav {
+                display: none; 
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-color);
+                border-bottom: 3px solid var(--gold-light);
+            }
+
+            /* Hanya muncul saat class 'show' aktif */
+            nav.show { 
+                display: block !important; 
+            }
+
+            nav ul { 
+                flex-direction: column; 
+                gap: 0; 
+                padding: 5px 0 !important; 
+            }
 
             nav ul li a {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: white;
-                text-decoration: none;
-                /* 3. Padding diperkecil (8px) agar menu menempel rapat */
-                padding: 8px 25px !important; 
-                font-size: 0.95rem;
-                font-weight: 600;
+                padding: 10px 25px !important; /* Rapat sesuai request */
                 border-bottom: 1px solid rgba(255,255,255,0.05);
+                font-size: 0.95rem;
+                width: 100%;
             }
 
-
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-
-        }
-
-        nav.show ul { display: flex !important; }
-
-        
-
-          #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 4px;                   /* Memberikan jarak antara ikon dan teks */
-    
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-
-        }
-
-
-
-    nav ul li a.active-link {
+            /* Menu Aktif di Mobile */
+            nav ul li a.active-link {
                 border-left: 5px solid var(--gold-light) !important;
-                padding-left: 20px;
+                padding-left: 20px !important;
                 color: var(--gold-light) !important;
+                background: rgba(255,255,255,0.05);
             }
+            nav ul li a.active-link i { color: var(--gold-light) !important; }
 
-            nav ul li a.active-link i {
-                color: var(--gold-light) !important;
-            }
 
   /* --- WA FLOAT MOBILE (Hanya Ikon, Tanpa Background) --- */
             .whatsapp-float {
