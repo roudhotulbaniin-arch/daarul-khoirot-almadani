@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Galeri & Berita</title>
     
-    <!-- Font & Icon Assets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="main_logo.png">
+    <link rel="icon" type="image/png" href="main_logo.png">
 
     <style>
         /* --- 1. DESIGN VARIABLES & RESET --- */
@@ -28,7 +27,7 @@
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Quicksand', sans-serif; 
             scroll-behavior: smooth; 
         }
 
@@ -62,7 +61,7 @@
             position: sticky; 
             top: 0; 
             z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
             min-height: 65px;
         }
 
@@ -123,7 +122,7 @@
 
         /* --- 3. LAYOUT UTAMA --- */
         .container { 
-            padding: 4rem 10%; 
+            padding: 3rem 10%; 
             flex: 1; 
         }
 
@@ -139,7 +138,7 @@
             background-color: var(--primary-color);
             color: white; 
             border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2); 
             gap: 15px;
         }
         
@@ -160,7 +159,7 @@
             background: var(--white);
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             text-align: center;
             border-top: 4px solid var(--primary-color);
             display: flex;
@@ -190,6 +189,7 @@
         .btn-akses:hover { 
             background: var(--primary-color); 
             color: white; 
+            box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
         }
 
         /* Sub-Heading Section */
@@ -197,7 +197,7 @@
             color: var(--primary-color); 
             text-align: center; 
             margin: 40px 0 25px; 
-            border-bottom: 2px solid #ddd; 
+            border-bottom: 2px solid #e5ebe5; 
             padding-bottom: 10px;
             font-size: 1.5rem;
         }
@@ -207,13 +207,14 @@
             background: var(--white);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             margin-bottom: 25px;
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
         
         .article-item:hover, .news-item:hover { 
             transform: translateY(-3px); 
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
             border-left: 5px solid var(--secondary-color); 
         }
         
@@ -280,29 +281,26 @@
         /* --- 5. RESPONSIVE LAYOUT (HP) --- */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-              .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
-        overflow: hidden;
-    }
+            
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 5px !important; 
+                max-width: 75%;
+                overflow: hidden;
+            }
 
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
-    }
+            .logo img {
+                height: 35px;
+                margin-right: 0 !important; 
+            }
 
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
-    }
- 
+            .logo h1 {
+                font-size: 1rem !important;
+                margin: 0 !important; 
+                white-space: nowrap !important;
+                letter-spacing: -0.5px;
+            }
 
             #menu-toggle {
                 display: block !important; 
@@ -325,7 +323,8 @@
                 background: var(--primary-color); 
                 padding: 10px 0;
                 border-bottom: 3px solid var(--secondary-color); 
-                z-index: 999;
+                z-index: 1001; /* Ditinggikan agar selalu berada di atas iframe widget kalender */
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             }
 
             nav.show { display: block !important; }
@@ -343,9 +342,13 @@
 
             nav ul li a.active-link {
                 border-bottom: none !important;
-                border-left: 4px solid var(--secondary-color) !important;
+                border-left: 5px solid var(--secondary-color) !important;
                 padding-left: 20px !important;
                 background: rgba(255,255,255,0.05);
+            }
+
+            .container {
+                padding: 2rem 5%;
             }
         }
     </style>
@@ -382,7 +385,6 @@
             </div>
         </div>
 
-        <!-- Bagian Widget Kalender & Jadwal Sholat -->
         <div class="info-grid">
             <div class="info-card">
                 <h3>Kalender Hijriyah</h3>
@@ -404,7 +406,6 @@
             </div> 
         </div>
 
-        <!-- Bagian Liputan Berita Terbaru -->
         <h3 class="sub-section-heading">Liputan Berita Pesantren</h3>
 
         <div class="news-item">
@@ -424,7 +425,6 @@
             <a href="kajian_jihad.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Bagian Artikel Pilihan -->
         <h3 class="sub-section-heading">Artikel Pilihan</h3>
 
         <div class="article-item">
