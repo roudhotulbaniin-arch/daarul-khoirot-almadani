@@ -4,45 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Galeri & Berita</title>
+    
+    <!-- Font & Icon Assets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS MASTER --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
-
-font-family: 'Quicksand', sans-serif;
-    }
-font-family: 'Quicksand', sans-serif;
-        font-weight: 700;
-.teks-tebal {
-        font-weight: 600;
-    }
-        
+        /* --- 1. DESIGN VARIABLES & RESET --- */
         :root {
             --primary-color: #1a5d1a;
+            --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
             --light-bg: #f4f7f6;
-            --dark-footer: #0d2e0d;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #d4e4d4;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            scroll-behavior: smooth; 
         }
 
         body { 
             line-height: 1.6; 
-            color: #333; 
+            color: var(--text-dark); 
             background-color: var(--light-bg); 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- HEADER --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+        }
+
+        .teks-tebal {
+            font-weight: 600;
+        }
+
+        /* --- 2. HEADER & NAVIGASI DESKTOP --- */
         header { 
             background-color: var(--primary-color); 
             color: white; 
-            padding: 1rem 5%; 
+            padding: 10px 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -50,32 +62,76 @@ font-family: 'Quicksand', sans-serif;
             top: 0; 
             z-index: 1000; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            min-height: 65px;
         }
 
-        .logo { display: flex; align-items: center; }
-        .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
-        .main-header-logo { max-height: 40px; margin-right: 12px; }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        
+        .logo img { 
+            height: 40px; 
+            width: auto; 
+        }
 
-        nav ul { list-style: none; display: flex; gap: 20px; }
+        .logo h1 { 
+            font-size: 1.3rem; 
+            letter-spacing: 0.5px; 
+            white-space: nowrap;
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        }
+
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
-            font-size: 1rem; 
+            font-size: 0.95rem; 
             font-weight: 600; 
             display: flex; 
             align-items: center; 
-            gap: 8px; 
+            gap: 6px; 
             transition: 0.3s; 
+            position: relative;
+            padding-bottom: 5px;
         }
 
-        nav ul li a i { color: var(--secondary-color) !important; font-size: 0.9rem; }
-        nav ul li a:hover { color: var(--secondary-color) !important; }
-        .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
+        nav ul li a i { 
+            color: var(--secondary-color) !important; 
+            font-size: 0.9rem; 
+        }
 
-        /* --- KONTEN INFO ISLAM --- */
-        .container { padding: 4rem 10%; flex: 1; }
+        nav ul li a:hover { 
+            color: var(--secondary-color) !important; 
+        }
 
-        .section-title { text-align: center; margin-bottom: 3rem; }
+        /* Indikator halaman aktif */
+        nav ul li a.active-link { 
+            border-bottom: 3px solid var(--secondary-color) !important; 
+            color: var(--secondary-color) !important; 
+        }
+
+        #menu-toggle { 
+            display: none; 
+        }
+
+        /* --- 3. LAYOUT UTAMA --- */
+        .container { 
+            padding: 4rem 10%; 
+            flex: 1; 
+        }
+
+        .section-title { 
+            text-align: center; 
+            margin-bottom: 3rem; 
+        }
+
         .section-title-box {
             display: inline-flex;
             align-items: center; 
@@ -84,11 +140,15 @@ font-family: 'Quicksand', sans-serif;
             color: white; 
             border-radius: 8px; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-            margin-bottom: 15px;
+            gap: 15px;
         }
-        .section-title-box h2 { font-size: 1.6rem; margin: 0; padding-left: 15px; }
+        
+        .section-title-box h2 { 
+            font-size: 1.6rem; 
+            margin: 0; 
+        }
 
-        /* Grid Widget */
+        /* Grid Widget Info Islam */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -97,7 +157,7 @@ font-family: 'Quicksand', sans-serif;
         }
 
         .info-card {
-            background: white;
+            background: var(--white);
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -108,15 +168,18 @@ font-family: 'Quicksand', sans-serif;
             gap: 15px;
         }
 
-        .info-card h3 { color: var(--primary-color); font-size: 1.2rem; }
+        .info-card h3 { 
+            color: var(--primary-color); 
+            font-size: 1.2rem; 
+        }
 
         .btn-akses {
             background: #f1f8f1;
-            color: #1a5d1a;
+            color: var(--primary-color);
             text-decoration: none;
             padding: 12px 15px;
             border-radius: 8px;
-            border: 1px solid #d4e4d4;
+            border: 1px solid var(--border-color);
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -124,20 +187,46 @@ font-family: 'Quicksand', sans-serif;
             transition: 0.3s;
         }
 
-        .btn-akses:hover { background: #1a5d1a; color: white; }
+        .btn-akses:hover { 
+            background: var(--primary-color); 
+            color: white; 
+        }
 
-        /* Artikel Section */
+        /* Sub-Heading Section */
+        .sub-section-heading {
+            color: var(--primary-color); 
+            text-align: center; 
+            margin: 40px 0 25px; 
+            border-bottom: 2px solid #ddd; 
+            padding-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Struktur Artikel Pilihan */
         .article-item {
-            background: white;
+            background: var(--white);
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 25px;
             transition: 0.3s;
         }
-        .article-item:hover { transform: translateY(-5px); border-left: 5px solid var(--secondary-color); }
-        .article-item h3 { color: var(--primary-color); margin-bottom: 10px; }
-        .article-item p { color: #555; font-size: 0.95rem; margin-bottom: 15px; }
+        
+        .article-item:hover { 
+            transform: translateY(-3px); 
+            border-left: 5px solid var(--secondary-color); 
+        }
+        
+        .article-item h3 { 
+            color: var(--primary-color); 
+            margin-bottom: 10px; 
+        }
+        
+        .article-item p { 
+            color: #555; 
+            font-size: 0.95rem; 
+            margin-bottom: 15px; 
+        }
         
         .read-more {
             color: var(--primary-color);
@@ -147,130 +236,200 @@ font-family: 'Quicksand', sans-serif;
             align-items: center;
             gap: 5px;
         }
-        .read-more:hover { color: var(--secondary-color); }
-
-        /* --- FOOTER --- */
-        /* --- FOOTER --- */
-    footer { 
-        background: #0d2e0d; 
-        color: white; 
-        padding: 40px 5% 20px; 
-        text-align: center; 
-        width: 100%;
-        border: none;
-        outline: none;
-    }
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-      
-        @media (max-width: 992px) {
-            nav ul { display: none; }
-            .container { padding: 3rem 5%; }
-        }
-
-       
-     /* --- STYLE MENU AKTIF --- */
-nav ul li a {
-    position: relative;
-    padding-bottom: 5px;
-    transition: 0.3s;
-}
-
-/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
-nav ul li a.active {
-    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-}
-
-/* Efek saat kursor menempel (Hover) */
-nav ul li a:hover {
-    color: #f4ce14;
-}
-  
-    /* --- 1. DASAR --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
-
-    /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
-    header {
-        background: #1a5d1a; 
-        color: white; 
-        padding: 10px 4%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000;
-        min-height: 60px;
-    }
-
-    .logo { 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        flex-shrink: 0;
-    }
-
-    .logo img { height: 40px; width: auto; }
-
-    .logo h1 { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        white-space: nowrap; 
-        letter-spacing: 0.5px;
-    }
-
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
-    }
-
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; } 
-
-       /* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
-
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
         
-          #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+        .read-more:hover { 
+            color: var(--secondary-color); 
         }
-@media (max-width: 768px) {
-    nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
-    }
-}
+
+        /* --- 4. FORMAT TAMPILAN LIPUTAN BERITA --- */
+        .news-item {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .news-meta {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+
+        .news-item h3 {
+            color: #111;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .news-lead {
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 10px;
+        }
+
+        .news-content h4 {
+            color: var(--primary-color);
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-content ul {
+            list-style-type: none;
+            padding-left: 5px;
+            margin-bottom: 15px;
+        }
+
+        .news-content ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .news-content ul li::before {
+            content: "\f0a4";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+
+        .arabic-box {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: right;
+        }
+
+        .arabic-text {
+            font-size: 1.4rem;
+            font-weight: normal;
+            line-height: 2;
+            color: var(--primary-dark);
+            direction: rtl;
+        }
+
+        .translation-text {
+            text-align: left;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 10px;
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 10px;
+        }
+
+        .news-reporter {
+            font-size: 0.85rem;
+            color: #888;
+            font-style: italic;
+            margin-top: 25px;
+            text-align: right;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        /* --- 5. FOOTER --- */
+        footer { 
+            background: var(--primary-dark); 
+            color: white; 
+            padding: 40px 5% 20px; 
+            text-align: center; 
+            width: 100%;
+            border: none;
+            outline: none;
+            margin-top: auto;
+        }
+        
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* --- 6. RESPONSIVE LAYOUT (HP) --- */
+        @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 1rem !important; }
+            .container { padding: 2.5rem 5%; }
+
+            #menu-toggle {
+                display: block !important; 
+                background: var(--secondary-color) !important;
+                color: var(--primary-dark) !important; 
+                border: none; 
+                padding: 6px 14px;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.85rem; 
+                cursor: pointer;
+            }
+
+            nav { 
+                display: none; 
+                position: absolute; 
+                top: 65px; 
+                left: 0; 
+                width: 100%; 
+                background: var(--primary-color); 
+                padding: 10px 0;
+                border-bottom: 3px solid var(--secondary-color); 
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 999;
+            }
+
+            nav.show { display: block !important; }
+
+            nav ul { 
+                flex-direction: column; 
+                gap: 0; 
+            }
+
+            nav ul li a {
+                padding: 12px 25px !important;
+                font-size: 0.95rem;
+                width: 100%;
+            }
+
+            nav ul li a.active-link {
+                border-bottom: none !important;
+                border-left: 4px solid var(--secondary-color) !important;
+                padding-left: 20px !important;
+                background: rgba(255,255,255,0.05);
+            }
+        }
     </style>
 </head>
 <body>
 
-   <header>
-    <div class="logo">
-        <img src="main_logo.png" alt="Logo">
-        <h1>DAARUL KHOIROT ALMADANI</h1>
-    </div>
-    
-    <button id="menu-toggle">
-        <i class="fas fa-bars"></i> Menu
-    </button>
-       
+    <header>
+        <div class="logo">
+            <img src="main_logo.png" alt="Logo">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+        </div>
+        
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+           
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
@@ -291,6 +450,7 @@ nav ul li a:hover {
             </div>
         </div>
 
+        <!-- Bagian Widget Kalender & Jadwal Sholat -->
         <div class="info-grid">
             <div class="info-card">
                 <h3>Kalender Hijriyah</h3>
@@ -312,7 +472,53 @@ nav ul li a:hover {
             </div> 
         </div>
 
-        <h3 style="color: var(--primary-color); text-align: center; margin-bottom: 25px; border-bottom: 2px solid #ddd; padding-bottom: 10px;">Artikel Pilihan</h3>
+        <!-- Bagian Liputan Berita Terbaru -->
+        <h3 class="sub-section-heading">Liputan Berita Pesantren</h3>
+
+        <div class="news-item">
+            <div class="news-meta">
+                <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
+                <span><i class="fas fa-map-marker-alt"></i> Jatisari, Karawang</span>
+                <span><i class="fas fa-user-friends"></i> 35 Jamaah</span>
+            </div>
+            <h3>Kajian Rutin Ponpes Daarul Khoirot Al-Madani & Majlis Ta'lim Roudhotul Baniin</h3>
+            
+            <p class="news-lead">
+                <strong>KARAWANG</strong> – Pondok Pesantren Daarul Khoirot Al-Madani bersama Majlis Ta'lim Roudhotul Baniin kembali menggelar pengajian rutin malam Ahad di Dusun Sukamaju II, RT 02/RW 04, Desa Jatisari, Kec. Jatisari, Kab. Karawang. Acara ini dihadiri sekitar 35 jamaah yang terdiri dari pengurus, santri, serta warga bapak-bapak dan ibu-ibu dengan tujuan menghidupkan syiar Islam, menyebarkan ilmu bermanfaat, serta mengharap rida Allah SWT.
+            </p>
+
+            <div class="news-content">
+                <h4><i class="fas fa-clipboard-list"></i> Rangkaian Susunan Acara:</h4>
+                <ul>
+                    <li>Pembukaan (Basmalah, Kalimat Thayyibah, Al-Fatihah)</li>
+                    <li>Tawasul</li>
+                    <li>Pembacaan Ayat Suci Al-Qur’an</li>
+                    <li>Pembacaan Sholawat diiringi Tim Hadroh Santri</li>
+                    <li>Kajian Kitab Kifayatul Atqiya (Bait 107)</li>
+                    <li>Doa Tutup</li>
+                </ul>
+
+                <h4><i class="fas fa-book"></i> Pengantar Kitab:</h4>
+                <p>Kitab <em>Kifayatul Atqiya wa Minhajul Ashfiya</em> adalah karya monumental bidang tasawuf tulisan Syekh Abu Bakar bin Muhammad Syatha Ad-Dimyathi, syarah dari nadham Hidayatul Azkiya karya Syekh Zainuddin bin Ali Al-Malibari. Kitab ini berfokus pada akhlak, manajemen waktu, zuhud, dan keseimbangan dunia-akhirat.</p>
+
+                <h4><i class="fas fa-feather-alt"></i> Inti Kajian Bait 107 (Tanggung Jawab Pengajar Ilmu):</h4>
+                <p>Kajian dipimpin langsung oleh <strong>H. Wismo</strong> (Pimpinan Ponpes & Majlis Ta'lim) yang membedah Bait ke-107:</p>
+                
+                <div class="arabic-box">
+                    <p class="arabic-text">وَكَذَاكَ يَعْصِي مَنْ يُعَلِّمُ ذٰلِكَا إِلَّA لِعِلْمٍ نَافِعٍ لَا جَاهِلَا</p>
+                    <p class="translation-text"><strong>Artinya:</strong> "Dan demikian pula berdosa orang yang mengajarkan ilmu tersebut, kecuali jika ia mengajarkan ilmu yang bermanfaat, dan bukan mengajarkan kepada orang bodoh (yang berpotensi menyalahgunakannya)."</p>
+                </div>
+
+                <p>H. Wismo menjabarkan bahwa seorang pengajar bisa ikut berdosa jika mengajarkan ilmu kepada murid yang berniat menggunakannya untuk kemaksiatan atau merusak agama, diibaratkan seperti menjual pedang kepada perampok. Namun, wajib hukumnya mengajarkan ilmu yang bermanfaat (<em>ilman nafi'an</em>) demi menyembuhkan kebodohan dan memperbaiki ibadah murid.</p>
+
+                <h4><i class="fas fa-pray"></i> Doa dan Harapan Penutup:</h4>
+                <p>Acara berjalan khidmat dan jamaah menyimak dengan sangat antusias. Pengajian ditutup dengan doa bersama yang dipimpin oleh H. Wismo, dengan harapan agar seluruh mustami' (Read: jamaah) diberikan pemahaman yang mendalam serta kekuatan rohani untuk mengamalkan ilmu tasawuf praktis ini dalam kehidupan sehari-hari, sehingga membawa berkah bagi masyarakat Jatisari.</p>
+            </div>
+            <div class="news-reporter">Koresponden: "Uwa"</div>
+        </div>
+
+        <!-- Bagian Artikel Pilihan -->
+        <h3 class="sub-section-heading">Artikel Pilihan</h3>
 
         <div class="article-item">
             <h3>Tafsir Singkat Surah Al-Fatihah</h3>
@@ -331,47 +537,66 @@ nav ul li a:hover {
             <p>Menjadi anak yang shalih dan orang tua yang bijak adalah investasi abadi. Pelajari bagaimana Islam mengatur hubungan indah ini sebagai kunci kebahagiaan dunia dan akhirat.</p>
             <a href="anak_orangtua_shalih.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
         </div>
-
     </main>
 
-  <footer> 
+    <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
         <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
-   
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
     <script>
-        
-        const clickSound = document.getElementById('clickSound');
-        const navLinks = document.querySelectorAll('nav ul li a'); 
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.querySelector('nav');
+            const clickSound = document.getElementById('clickSound');
+            const menuItems = document.querySelectorAll("nav ul li a");
 
-      // --- TAMBAHAN UNTUK MENU HP ---
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
-
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
-        });
-    }
-
-
-    // Fungsi untuk menandai menu aktif berdasarkan URL
-    document.addEventListener("DOMContentLoaded", function() {
-        const currentUrl = window.location.pathname.split("/").pop();
-        const menuItems = document.querySelectorAll("nav ul li a");
-
-        menuItems.forEach(item => {
-            // Jika href menu sama dengan nama file saat ini
-            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
-                item.classList.add("active");
+            // Toggle Menu Navigasi HP
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('show');
+                });
             }
+
+            // Penentuan Otomatis Indikator Halaman Aktif (.active-link)
+            const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+            menuItems.forEach(item => {
+                if (item.getAttribute("href") === currentUrl) {
+                    item.classList.add("active-link");
+                } else {
+                    item.classList.remove("active-link");
+                }
+
+                // Audio click delay system
+                item.addEventListener('click', function(e) {
+                    if (clickSound) {
+                        clickSound.currentTime = 0;
+                        clickSound.play().catch(() => {});
+                    }
+                    if (nav) nav.classList.remove('show');
+
+                    const targetUrl = this.href;
+                    if (targetUrl && !targetUrl.includes('#') && !this.target) {
+                        e.preventDefault();
+                        setTimeout(() => { 
+                            window.location.href = targetUrl; 
+                        }, 200);
+                    }
+                });
+            });
+
+            // Tutup menu HP saat klik di luar area
+            document.addEventListener('click', function(e) {
+                if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                    nav.classList.remove('show');
+                }
+            });
         });
-    });
     </script>
 </body>
 </html>
