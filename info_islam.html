@@ -111,7 +111,6 @@
             color: var(--secondary-color) !important; 
         }
 
-        /* Indikator halaman aktif */
         nav ul li a.active-link { 
             border-bottom: 3px solid var(--secondary-color) !important; 
             color: var(--secondary-color) !important; 
@@ -202,8 +201,8 @@
             font-size: 1.5rem;
         }
 
-        /* Struktur Artikel Pilihan */
-        .article-item {
+        /* Struktur Artikel Pilihan & Liputan */
+        .article-item, .news-item {
             background: var(--white);
             padding: 25px;
             border-radius: 12px;
@@ -212,17 +211,17 @@
             transition: 0.3s;
         }
         
-        .article-item:hover { 
+        .article-item:hover, .news-item:hover { 
             transform: translateY(-3px); 
             border-left: 5px solid var(--secondary-color); 
         }
         
-        .article-item h3 { 
+        .article-item h3, .news-item h3 { 
             color: var(--primary-color); 
             margin-bottom: 10px; 
         }
         
-        .article-item p { 
+        .article-item p, .news-item p { 
             color: #555; 
             font-size: 0.95rem; 
             margin-bottom: 15px; 
@@ -241,16 +240,7 @@
             color: var(--secondary-color); 
         }
 
-        /* --- 4. FORMAT TAMPILAN LIPUTAN BERITA --- */
-        .news-item {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-            border-left: 5px solid var(--primary-color);
-        }
-
+        /* Meta Informasi Liputan */
         .news-meta {
             font-size: 0.85rem;
             color: #777;
@@ -265,90 +255,12 @@
             margin-right: 5px;
         }
 
-        .news-item h3 {
-            color: #111;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
         .news-lead {
             font-weight: 600;
-            color: #222;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed #ddd;
-            padding-bottom: 10px;
+            color: #222 !important;
         }
 
-        .news-content h4 {
-            color: var(--primary-color);
-            margin: 20px 0 10px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .news-content ul {
-            list-style-type: none;
-            padding-left: 5px;
-            margin-bottom: 15px;
-        }
-
-        .news-content ul li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 6px;
-            font-size: 0.95rem;
-        }
-
-        .news-content ul li::before {
-            content: "\f0a4";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            color: var(--secondary-color);
-        }
-
-        .arabic-box {
-            background: #f9f9f9;
-            border: 1px solid #eee;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            text-align: right;
-        }
-
-        .arabic-text {
-            font-size: 1.4rem;
-            font-weight: normal;
-            line-height: 2;
-            color: var(--primary-dark);
-            direction: rtl;
-        }
-
-        .translation-text {
-            text-align: left;
-            font-style: italic;
-            font-size: 0.95rem;
-            color: #555;
-            margin-top: 10px;
-            border-left: 3px solid var(--secondary-color);
-            padding-left: 10px;
-        }
-
-        .news-reporter {
-            font-size: 0.85rem;
-            color: #888;
-            font-style: italic;
-            margin-top: 25px;
-            text-align: right;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
-
-        /* --- 5. FOOTER --- */
+        /* --- 4. FOOTER --- */
         footer { 
             background: var(--primary-dark); 
             color: white; 
@@ -364,7 +276,7 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* --- 6. RESPONSIVE LAYOUT (HP) --- */
+        /* --- 5. RESPONSIVE LAYOUT (HP) --- */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
@@ -484,37 +396,12 @@
             <h3>Kajian Rutin Ponpes Daarul Khoirot Al-Madani & Majlis Ta'lim Roudhotul Baniin</h3>
             
             <p class="news-lead">
-                <strong>KARAWANG</strong> – Pondok Pesantren Daarul Khoirot Al-Madani bersama Majlis Ta'lim Roudhotul Baniin kembali menggelar pengajian rutin malam Ahad di Dusun Sukamaju II, RT 02/RW 04, Desa Jatisari, Kec. Jatisari, Kab. Karawang. Acara ini dihadiri sekitar 35 jamaah yang terdiri dari pengurus, santri, serta warga bapak-bapak dan ibu-ibu dengan tujuan menghidupkan syiar Islam, menyebarkan ilmu bermanfaat, serta mengharap rida Allah SWT.
+                <strong>KARAWANG</strong> – Pondok Pesantren Daarul Khoirot Al-Madani bersama Majlis Ta'lim Roudhotul Baniin kembali menggelar pengajian rutin malam Ahad di Dusun Sukamaju II, RT 02/RW 04, Desa Jatisari, Kec. Jatisari, Kab. Karawang. Acara ini dihadiri sekitar 35 jamaah yang terdiri dari pengurus, santri, serta warga bapak-bapak dan ibu-ibu.
             </p>
-
-            <div class="news-content">
-                <h4><i class="fas fa-clipboard-list"></i> Rangkaian Susunan Acara:</h4>
-                <ul>
-                    <li>Pembukaan (Basmalah, Kalimat Thayyibah, Al-Fatihah)</li>
-                    <li>Tawasul</li>
-                    <li>Pembacaan Ayat Suci Al-Qur’an</li>
-                    <li>Pembacaan Sholawat diiringi Tim Hadroh Santri</li>
-                    <li>Kajian Kitab Kifayatul Atqiya (Bait 107)</li>
-                    <li>Doa Tutup</li>
-                </ul>
-
-                <h4><i class="fas fa-book"></i> Pengantar Kitab:</h4>
-                <p>Kitab <em>Kifayatul Atqiya wa Minhajul Ashfiya</em> adalah karya monumental bidang tasawuf tulisan Syekh Abu Bakar bin Muhammad Syatha Ad-Dimyathi, syarah dari nadham Hidayatul Azkiya karya Syekh Zainuddin bin Ali Al-Malibari. Kitab ini berfokus pada akhlak, manajemen waktu, zuhud, dan keseimbangan dunia-akhirat.</p>
-
-                <h4><i class="fas fa-feather-alt"></i> Inti Kajian Bait 107 (Tanggung Jawab Pengajar Ilmu):</h4>
-                <p>Kajian dipimpin langsung oleh <strong>H. Wismo</strong> (Pimpinan Ponpes & Majlis Ta'lim) yang membedah Bait ke-107:</p>
-                
-                <div class="arabic-box">
-                    <p class="arabic-text">وَكَذَاكَ يَعْصِي مَنْ يُعَلِّمُ ذٰلِكَا إِلَّA لِعِلْمٍ نَافِعٍ لَا جَاهِلَا</p>
-                    <p class="translation-text"><strong>Artinya:</strong> "Dan demikian pula berdosa orang yang mengajarkan ilmu tersebut, kecuali jika ia mengajarkan ilmu yang bermanfaat, dan bukan mengajarkan kepada orang bodoh (yang berpotensi menyalahgunakannya)."</p>
-                </div>
-
-                <p>H. Wismo menjabarkan bahwa seorang pengajar bisa ikut berdosa jika mengajarkan ilmu kepada murid yang berniat menggunakannya untuk kemaksiatan atau merusak agama, diibaratkan seperti menjual pedang kepada perampok. Namun, wajib hukumnya mengajarkan ilmu yang bermanfaat (<em>ilman nafi'an</em>) demi menyembuhkan kebodohan dan memperbaiki ibadah murid.</p>
-
-                <h4><i class="fas fa-pray"></i> Doa dan Harapan Penutup:</h4>
-                <p>Acara berjalan khidmat dan jamaah menyimak dengan sangat antusias. Pengajian ditutup dengan doa bersama yang dipimpin oleh H. Wismo, dengan harapan agar seluruh mustami' (Read: jamaah) diberikan pemahaman yang mendalam serta kekuatan rohani untuk mengamalkan ilmu tasawuf praktis ini dalam kehidupan sehari-hari, sehingga membawa berkah bagi masyarakat Jatisari.</p>
-            </div>
-            <div class="news-reporter">Koresponden: "Uwa"</div>
+            <p>
+                Kajian yang dipimpin langsung oleh H. Wismo (Pimpinan Ponpes) ini membedah Bait ke-107 dari Kitab monumental <em>Kifayatul Atqiya wa Minhajul Ashfiya</em> karya Syekh Abu Bakar bin Muhammad Syatha Ad-Dimyathi, yang mengulas secara mendalam mengenai tanggung jawab besar seorang pengajar ilmu.
+            </p>
+            <a href="liputan-kajian-kifayatul.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <!-- Bagian Artikel Pilihan -->
