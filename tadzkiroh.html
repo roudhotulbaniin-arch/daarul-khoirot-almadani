@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Tadzkiroh</title>
 
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font & Icon Assets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
  
     <style>
-        /* --- CSS MASTER (Dipertahankan sesuai desain Anda) --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
-        
-              :root {
+        /* --- 1. DESIGN VARIABLES & RESET --- */
+        :root {
             --primary-color: #1a5319;
             --primary-dark: #0d2e0d;
+            --secondary-color: #f4ce14; /* Sinkronisasi warna gold/kuning */
             --gold-color: #D4AF37;
             --gold-light: #f4ce14;
             --white: #FFFFFF;
@@ -26,241 +26,373 @@
             --whatsapp-green: #25d366;
         }
 
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            scroll-behavior: smooth; 
+        }
+
         body { 
-            line-height: 1.6; color: #333; background-color: var(--light-bg); 
-            display: flex; flex-direction: column; min-height: 100vh;
+            line-height: 1.6; 
+            color: #333; 
+            background-color: var(--bg-body); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+        }
+
+        .teks-tebal {
+            font-weight: 600;
+        }
+
+        /* --- 2. HEADER & NAVIGASI DESKTOP --- */
         header { 
-            background-color: var(--primary-color); color: white; padding: 1rem 5%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            background-color: var(--primary-color); 
+            color: white; 
+            padding: 10px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            min-height: 70px;
         }
 
-        font-family: 'Quicksand', sans-serif;
-    }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        
+        .logo img { 
+            height: 45px; 
+            width: auto; 
+        }
 
-         h1, h2, h3, h4, h5, h6 {
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 700;
-    }
+        .logo h1 { 
+            font-size: 1.2rem; 
+            letter-spacing: 0.5px; 
+            white-space: nowrap;
+            font-family: 'Quicksand', sans-serif;
+        }
 
- .teks-tebal {
-        font-weight: 600;
-    }
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        }
 
-        .logo { display: flex; align-items: center; }
-        .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
-        .main-header-logo { max-height: 40px; margin-right: 12px; }
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            transition: 0.3s; 
+            position: relative;
+            padding-bottom: 5px;
+        }
 
-        nav ul { list-style: none; display: flex; gap: 20px; }
-        nav ul li a { color: white !important; text-decoration: none; font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        nav ul li a i { color: var(--secondary-color) !important; font-size: 1rem; }
-        .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
+        nav ul li a i { 
+            color: var(--secondary-color) !important; 
+            font-size: 1rem; 
+        }
 
+        nav ul li a:hover { 
+            color: var(--secondary-color) !important; 
+        }
+
+        nav ul li a.active-link { 
+            border-bottom: 3px solid var(--secondary-color); 
+            color: var(--secondary-color) !important; 
+        }
+
+        #menu-toggle { 
+            display: none; 
+        }
+
+        /* --- 3. HERO TADZKIROH --- */
         .hero-tadzkiroh {
-           position: relative;
-           width: 100%;
-           height: 400px; /* Sesuaikan tinggi agar gambar terlihat jelas */
-           background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('gambar_tadzkiroh_baru.jpg'); /* Pastikan nama file gambar benar */
-           background-size: cover; 
-           background-position: center 75%; 
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           justify-content: center;
-           text-align: center;
-           color: white;
-           padding: 20px;
-      
+            position: relative;
+            width: 100%;
+            height: 380px; 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('gambar_tadzkiroh_baru.jpg'); 
+            background-size: cover; 
+            background-position: center 75%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
         }
 
-        /* Mengatur Ikon Mikrofon agar besar dan kuning seperti di gambar */
         .hero-tadzkiroh i.header-icon { 
-           font-size: 3,5rem; 
-           color: var(--secondary-color); /* Ini akan mengambil warna kuning #f4ce14 */
-           margin-bottom: 15px; 
-         }
+            font-size: 3.5rem; 
+            color: var(--secondary-color); 
+            margin-bottom: 15px; 
+        }
 
-         /* Pengaturan Judul dan Deskripsi Hero */
-         .hero-tadzkiroh h2 { 
-             font-size:3.5rem; /* Ukuran teks judul besar */
-             text-transform: uppercase; 
-             letter-spacing: 2px; 
-             margin-bottom: 10px; 
-             font-weight: 800; 
-             color: white; /* Pastikan warna putih */
-             text-shadow: 2px 2px 10px rgba(0,0,0,0.5); /* Agar teks terbaca jelas di atas gambar */
-         }
+        .hero-tadzkiroh h2 { 
+            font-size: 3rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-bottom: 10px; 
+            font-weight: 800; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.6); 
+        }
 
-         .hero-tadzkiroh p { 
-             font-size: 1.3rem; 
-             max-width: 600px; 
-             margin: 0 auto;
-             color: rgba(255, 255, 255, 0.9); /* Putih sedikit transparan */
-         }
+        .hero-tadzkiroh p { 
+            font-size: 1.2rem; 
+            max-width: 600px; 
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9); 
+            font-family: 'Quicksand', sans-serif;
+        }
 
-        .search-container { max-width: 800px; margin: -30px auto 40px; position: relative; z-index: 10; padding: 0 20px; }
-        .search-box { width: 100%; padding: 15px 25px 15px 55px; border-radius: 50px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); font-size: 1rem; outline: none; }
-        .search-container i { position: absolute; left: 45px; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 1.1rem; }
+        /* --- 4. KOMPONEN PENCARIAN --- */
+        .search-container { 
+            max-width: 800px; 
+            margin: -30px auto 40px; 
+            position: relative; 
+            z-index: 10; 
+            padding: 0 20px; 
+        }
 
-        .container { padding: 0 5% 4rem; flex: 1; }
-        .ceramah-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .ceramah-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; display: flex; flex-direction: column; }
-        .ceramah-card:hover { transform: translateY(-10px); }
-        .card-image { background: #f1f8e9; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary-color); }
-        .card-body { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+        .search-box { 
+            width: 100%; 
+            padding: 15px 25px 15px 55px; 
+            border-radius: 50px; 
+            border: none; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
+            font-size: 1rem; 
+            outline: none; 
+        }
+
+        .search-container i { 
+            position: absolute; 
+            left: 45px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            color: var(--primary-color); 
+            font-size: 1.1rem; 
+        }
+
+        /* --- 5. GRID KARTU KONTEN --- */
+        .container { 
+            padding: 0 5% 4rem; 
+            flex: 1; 
+        }
+
+        .ceramah-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .ceramah-card { 
+            background: white; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            transition: 0.3s ease; 
+            border: 1px solid #eee; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .ceramah-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-image { 
+            background: #f1f8e9; 
+            height: 150px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 4rem; 
+            color: var(--primary-color); 
+        }
+
+        .card-body { 
+            padding: 25px; 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+        }
         
         .btn-selengkapnya { 
-            width: 100%; padding: 12px; background-color: var(--primary-color); color: white; 
-            border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: auto;
+            width: 100%; 
+            padding: 12px; 
+            background-color: var(--primary-color); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            margin-top: auto;
         }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 15px; width: 90%; max-width: 650px; position: relative; max-height: 85vh; overflow-y: auto; border-top: 6px solid var(--secondary-color); }
-        .close-btn { position: absolute; right: 20px; top: 10px; font-size: 35px; cursor: pointer; color: #666; }
+        .btn-selengkapnya:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* --- 6. POPUP MODAL BLOCK --- */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 9999; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.75); 
+            backdrop-filter: blur(4px); 
+        }
+
+        .modal-content { 
+            background: white; 
+            margin: 5% auto; 
+            padding: 30px; 
+            border-radius: 15px; 
+            width: 90%; 
+            max-width: 650px; 
+            position: relative; 
+            max-height: 85vh; 
+            overflow-y: auto; 
+            border-top: 6px solid var(--secondary-color); 
+        }
+
+        .close-btn { 
+            position: absolute; 
+            right: 20px; 
+            top: 10px; 
+            font-size: 35px; 
+            cursor: pointer; 
+            color: #666; 
+            transition: 0.2s;
+        }
+
+        .close-btn:hover { color: #000; }
 
         .arabic-text { 
-            font-size: 1.8rem; text-align: right; color: var(--primary-color); 
-            margin: 25px 0; line-height: 2.3; direction: rtl; 
+            font-size: 1.8rem; 
+            text-align: right; 
+            color: var(--primary-color); 
+            margin: 25px 0; 
+            line-height: 2.3; 
+            direction: rtl; 
             font-family: 'Amiri', 'Traditional Arabic', serif; 
         }
-        .translation-text { font-style: italic; border-left: 4px solid var(--secondary-color); padding: 10px 20px; background: #f9f9f9; color: #444; }
 
-       /* --- FOOTER --- */
-    footer { 
-        background: #0d2e0d; 
-        color: white; 
-        padding: 40px 5% 20px; 
-        text-align: center; 
-        width: 100%;
-        border: none;
-        outline: none;
-    }
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
-        /* --- STYLE MENU AKTIF --- */
-nav ul li a {
-    position: relative;
-    padding-bottom: 5px;
-    transition: 0.3s;
-}
-
-
-
-/* Efek saat kursor menempel (Hover) */
-nav ul li a:hover {
-    color: #f4ce14;
-}
-  
-    /* --- 1. DASAR --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body { background-color: #f4f7f6; overflow-x: hidden; color: #333; }
-
-    /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
-    header {
-        background: #1a5d1a; 
-        color: white; 
-        padding: 10px 4%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000;
-        min-height: 60px;
-    }
-
-    .logo { 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        flex-shrink: 0;
-    }
-
-    .logo img { height: 40px; width: auto; }
-
-    .logo h1 { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        white-space: nowrap; 
-        letter-spacing: 0.5px;
-    }
-
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
-    nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
-    }
-
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; }
-
-     /* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        
-    .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
-        overflow: hidden;
-    }
-
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
-    }
-
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
-    }
-
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-          #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 4px;                   /* Memberikan jarak antara ikon dan teks */
-    
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+        .translation-text { 
+            font-style: italic; 
+            border-left: 4px solid var(--secondary-color); 
+            padding: 12px 20px; 
+            background: #f9f9f9; 
+            color: #444; 
+            border-radius: 0 8px 8px 0;
         }
 
-    nav ul li a.active-link {
+        /* --- 7. FOOTER SYSTEM --- */
+        footer { 
+            background: var(--primary-dark); 
+            color: white; 
+            padding: 40px 5% 20px; 
+            text-align: center; 
+            width: 100%;
+            border: none;
+            outline: none;
+        }
+
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* --- 8. RESPONSIVE LAYOUT (HP/MOBILE) --- */
+        @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+            
+            .logo {
+                gap: 6px !important; 
+                max-width: 70%;
+            }
+
+            .logo img { height: 38px; margin-right: 0 !important; }
+
+            .logo h1 {
+                font-size: 0.95rem !important;
+                margin: 0 !important; 
+                white-space: nowrap !important;
+                letter-spacing: -0.3px;
+            }
+
+            #menu-toggle {
+                display: flex !important;   
+                flex-direction: row;        
+                align-items: center;        
+                gap: 6px;                   
+                background: var(--secondary-color);
+                color: var(--primary-dark);
+                padding: 6px 14px;
+                border: none;
+                border-radius: 4px;
+                font-weight: bold;
+                font-size: 0.85rem;
+                cursor: pointer;
+            }
+
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                width: 100%; 
+                position: absolute; 
+                top: 65px; 
+                left: 0; 
+                background: var(--primary-color); 
+                padding: 20px; 
+                border-bottom: 3px solid var(--secondary-color); 
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                gap: 15px;
+            }
+
+            nav.show ul { display: flex !important; }
+            
+            nav ul li a.active-link {
+                border-bottom: none;
                 border-left: 5px solid var(--gold-light) !important;
-                padding-left: 20px;
+                padding-left: 15px;
                 color: var(--gold-light) !important;
             }
 
             nav ul li a.active-link i {
                 color: var(--gold-light) !important;
             }
+
+            .hero-tadzkiroh { height: 300px; }
+            .hero-tadzkiroh h2 { font-size: 2rem; }
+            .hero-tadzkiroh p { font-size: 1rem; }
+            .hero-tadzkiroh i.header-icon { font-size: 2.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -288,7 +420,7 @@ nav ul li a:hover {
 </header>
 
 <section class="hero-tadzkiroh">
-    <i class="fas fa-microphone-alt" style="font-size: 5rem; color: var(--secondary-color); margin-bottom: 15px;"></i>
+    <i class="fas fa-microphone-alt header-icon"></i>
     <h2>Tadzkirah & Mauidzah</h2>
     <p>Nasihat islami penyejuk hati untuk santri dan wali santri.</p>
 </section>
@@ -300,38 +432,42 @@ nav ul li a:hover {
 
 <div class="container">
     <div class="ceramah-grid" id="ceramahGrid">
+        <!-- Kartu 1 -->
         <div class="ceramah-card">
             <div class="card-image"><i class="fas fa-book-reader"></i></div>
             <div class="card-body">
-                <span style="font-size:1rem; font-weight:800; color:var(--primary-color); margin-bottom:10px; display:block;">ADAB & AKHLAK</span>
-                <h4 style="color: var(--primary-color); margin-bottom: 15px;">Keutamaan Menuntut Ilmu</h4>
-                <p style="margin-bottom: 20px;">Niat yang ikhlas adalah kunci keberkahan. Mari simak kemuliaan para penuntut ilmu di jalan Allah.</p>
+                <span style="font-size:0.9rem; font-weight:800; color:var(--primary-color); margin-bottom:10px; display:block; letter-spacing:0.5px;">ADAB & AKHLAK</span>
+                <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size:1.2rem;">Keutamaan Menuntut Ilmu</h4>
+                <p style="margin-bottom: 20px; color:#555;">Niat yang ikhlas adalah kunci keberkahan. Mari simak kemuliaan para penuntut ilmu di jalan Allah.</p>
                 <button class="btn-selengkapnya" onclick="openPopUp(1)">Baca Selengkapnya</button>
             </div>
         </div>
 
+        <!-- Kartu 2 -->
         <div class="ceramah-card">
             <div class="card-image" style="background:#fff3e0;"><i class="fas fa-key" style="color:#ef6c00;"></i></div>
             <div class="card-body">
-                <span style="font-size:1rem; font-weight:800; color:#ef6c00; margin-bottom:10px; display:block;">MOTIVASI</span>
-                <h4 style="color: var(--primary-color); margin-bottom: 15px;">Tiga Kunci Sukses Santri</h4>
-                <p style="margin-bottom: 20px;">Rumus sukses dalam menghafal Al-Qur'an dan memahami ilmu agama dengan penuh istiqomah.</p>
+                <span style="font-size:0.9rem; font-weight:800; color:#ef6c00; margin-bottom:10px; display:block; letter-spacing:0.5px;">MOTIVASI</span>
+                <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size:1.2rem;">Tiga Kunci Sukses Santri</h4>
+                <p style="margin-bottom: 20px; color:#555;">Rumus sukses dalam menghafal Al-Qur'an dan memahami ilmu agama dengan penuh istiqomah.</p>
                 <button class="btn-selengkapnya" onclick="openPopUp(2)">Baca Selengkapnya</button>
             </div>
         </div>
 
+        <!-- Kartu 3 -->
         <div class="ceramah-card">
             <div class="card-image" style="background:#e1f5fe;"><i class="fas fa-heart" style="color:#0288d1;"></i></div>
             <div class="card-body">
-                <span style="font-size:1rem; font-weight:800; color:#0288d1; margin-bottom:10px; display:block;">TARBIYAH</span>
-                <h4 style="color: var(--primary-color); margin-bottom: 15px;">Adab Terhadap Guru</h4>
-                <p style="margin-bottom: 20px;">Keberkahan ilmu hanya bisa didapat melalui bakti dan adab yang luhur kepada pengajar.</p>
+                <span style="font-size:0.9rem; font-weight:800; color:#0288d1; margin-bottom:10px; display:block; letter-spacing:0.5px;">TARBIYAH</span>
+                <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size:1.2rem;">Adab Terhadap Guru</h4>
+                <p style="margin-bottom: 20px; color:#555;">Keberkahan ilmu hanya bisa didapat melalui bakti dan adab yang luhur kepada pengajar.</p>
                 <button class="btn-selengkapnya" onclick="openPopUp(3)">Baca Selengkapnya</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Container Modal PopUp -->
 <div id="nasehatModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closePopUp()">&times;</span>
@@ -339,46 +475,46 @@ nav ul li a:hover {
     </div>
 </div>
 
- <footer> 
-        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
-        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
-        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-    </footer>
+<footer> 
+    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+</footer>
 
-
+<!-- Komponen Audio Efek Klik -->
 <audio id="clickSound" src="click_sound.mp3"></audio>
 
 <script>
-    // 1. DATA NASEHAT
-  const nasehatData = {
-    1: {
-        judul: "Keutamaan Menuntut Ilmu & Pentingnya Niat",
-        isi: "Menuntut ilmu adalah ibadah yang mulia, namun keberkahannya sangat bergantung pada niat yang ikhlas semata-mata karena Allah. Selain ditinggikan derajatnya, Allah juga menjanjikan kemudahan jalan menuju surga bagi mereka yang melangkah dengan niat yang benar.",
-        arab: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى <br> يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ <br> مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
-        arti: "1. <b>Niat:</b> “Sesungguhnya setiap amalan tergantung pada niatnya.” (HR. Bukhari) <br> 2. <b>Derajat:</b> “Allah akan meninggikan orang-orang yang beriman dan berilmu beberapa derajat.” (QS. Al-Mujadilah: 11) <br><br> 3. <b>Jalan Surga:</b> “Barangsiapa menempuh jalan mencari ilmu, Allah mudahkan jalan ke surga.” (HR. Muslim)"
-    },
-    2: {
-        judul: "Tiga Kunci Sukses Santri",
-        isi: "Keberhasilan santri dalam menghafal Al-Qur'an dan memahami ilmu agama bertumpu pada 3 pilar utama: <b>Istiqomah</b> (konsisten), <b>Sabar</b> (menghadapi kesulitan), dan <b>Mujahadah</b> (bersungguh-sungguh).",
-        arab: "إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا <br> وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا <br> يَا أَيُّهَا الَّذِينَ آمَنُوا اصْبِرُوا وَصَابِرُوا",
-        arti: "1. <b>Istiqomah:</b> “Sesungguhnya orang-orang yang berkata Tuhan kami adalah Allah kemudian mereka istiqomah...” (QS. Fussilat: 30) <br><br> 2. <b>Mujahadah:</b> “Dan orang-orang yang bersungguh-sungguh di jalan Kami, Kami akan tunjukkan jalan Kami.” (QS. Al-Ankabut: 69) <br><br> 3. <b>Sabar:</b> “Wahai orang-orang yang beriman, bersabarlah kamu dan kuatkanlah kesabaranmu...” (QS. Ali Imran: 200)"
-    },
-    3: {
-        judul: "Adab Terhadap Guru",
-        isi: "Adab adalah pembuka pintu keberkahan. Tanpa adab, ilmu hanya akan menjadi wawasan tanpa membawa manfaat bagi jiwa. Menghormati guru adalah kunci utama mendapatkan ilmu yang manfaat.",
-        arab: "لَيْسَ مِنَّا مَنْ لَمْ يُجِلَّ كَبِيرَنَا وَيَعْرِفْ لِعَالِمِنَا حَقَّهُ",
-        arti: "“Tidak termasuk golongan kami orang yang tidak memuliakan yang lebih tua dan tidak mengerti hak guru kami.” (HR. Ahmad)"
-    }
-};
+    // 1. DATA DATABASE NASEHAT NABI / KITAB
+    const nasehatData = {
+        1: {
+            judul: "Keutamaan Menuntut Ilmu & Pentingnya Niat",
+            isi: "Menuntut ilmu adalah ibadah yang mulia, namun keberkahannya sangat bergantung pada niat yang ikhlas semata-mata karena Allah. Selain ditinggikan derajatnya, Allah juga menjanjikan kemudahan jalan menuju surga bagi mereka yang melangkah dengan niat yang benar.",
+            arab: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى <br> يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ <br> مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
+            arti: "1. <b>Niat:</b> “Sesungguhnya setiap amalan tergantung pada niatnya.” (HR. Bukhari) <br> 2. <b>Derajat:</b> “Allah akan meninggikan orang-orang yang beriman dan berilmu beberapa derajat.” (QS. Al-Mujadilah: 11) <br><br> 3. <b>Jalan Surga:</b> “Barangsiapa menempuh jalan mencari ilmu, Allah mudahkan jalan ke surga.” (HR. Muslim)"
+        },
+        2: {
+            judul: "Tiga Kunci Sukses Santri",
+            isi: "Keberhasilan santri dalam menghafal Al-Qur'an dan memahami ilmu agama bertumpu pada 3 pilar utama: <b>Istiqomah</b> (konsisten), <b>Sabar</b> (menghadapi kesulitan), dan <b>Mujahadah</b> (bersungguh-sungguh).",
+            arab: "إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا <br> وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا <br> يَا أَيُّهَا الَّذِينَ آمَنُوا اصْبِرُوا وَصَابِرُوا",
+            arti: "1. <b>Istiqomah:</b> “Sesungguhnya orang-orang yang berkata Tuhan kami adalah Allah kemudian mereka istiqomah...” (QS. Fussilat: 30) <br><br> 2. <b>Mujahadah:</b> “Dan orang-orang yang bersungguh-sungguh di jalan Kami, Kami akan tunjukkan jalan Kami.” (QS. Al-Ankabut: 69) <br><br> 3. <b>Sabar:</b> “Wahai orang-orang yang beriman, bersabarlah kamu dan kuatkanlah kesabaranmu...” (QS. Ali Imran: 200)"
+        },
+        3: {
+            judul: "Adab Terhadap Guru",
+            isi: "Adab adalah pembuka pintu keberkahan. Tanpa adab, ilmu hanya akan menjadi wawasan tanpa membawa manfaat bagi jiwa. Menghormati guru adalah kunci utama mendapatkan ilmu yang manfaat.",
+            arab: "لَيْسَ مِنَّا مَنْ لَمْ يُجِلَّ كَبِيرَنَا وَيَعْرِفْ لِعَالِمِنَا حَقَّهُ",
+            arti: "“Tidak termasuk golongan kami orang yang tidak memuliakan yang lebih tua dan tidak mengerti hak guru kami.” (HR. Ahmad)"
+        }
+    };
 
-    // 2. FUNGSI POPUP
+    // 2. LOGIKA KONTROL MODAL POPUP
     function openPopUp(id) {
         const data = nasehatData[id];
         if(!data) return;
 
         document.getElementById('modal-body').innerHTML = `
-            <h2 style="color:var(--primary-color); margin-bottom:15px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px;">${data.judul}</h2>
+            <h2 style="color:var(--primary-color); margin-bottom:15px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; font-size:1.4rem;">${data.judul}</h2>
             <p style="text-align:justify; margin-bottom:15px; color: #333; line-height: 1.8;">${data.isi}</p>
             <div class="arabic-text">${data.arab}</div>
             <div class="translation-text">${data.arti}</div>
@@ -390,7 +526,7 @@ nav ul li a:hover {
         document.getElementById('nasehatModal').style.display = "none";
     }
 
-    // 3. PENCARIAN
+    // 3. FITUR LIVE SEARCH / PENCARIAN CERAMAH
     function searchCeramah() {
         let input = document.getElementById('searchInput').value.toLowerCase();
         let cards = document.getElementsByClassName('ceramah-card');
@@ -400,45 +536,64 @@ nav ul li a:hover {
         }
     }
 
-    // 4. AUDIO & NAVIGASI
- 
-    const clickSound = document.getElementById('clickSound');
-    let hasInteracted = false;
-
-    document.addEventListener('click', () => {
-        if (!hasInteracted) {
-            murottal.volume = 0.3;
-            murottal.play().catch(() => {});
-            hasInteracted = true;
-        }
-    });
-
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('nasehatModal')) { closePopUp(); }
-    }
-
-    // --- TAMBAHAN UNTUK MENU HP ---
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
-
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
-        });
-    }
-
-    // Fungsi untuk menandai menu aktif berdasarkan URL
+    // 4. MANAJEMEN EVENT & NAVIGASI MOBILE
     document.addEventListener("DOMContentLoaded", function() {
-        const currentUrl = window.location.pathname.split("/").pop();
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+        const clickSound = document.getElementById('clickSound');
         const menuItems = document.querySelectorAll("nav ul li a");
 
+        // Toggle Buka/Tutup Menu di HP
+        if (menuToggle && nav) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                nav.classList.toggle('show');
+            });
+        }
+
+        // Otomatisasi Penentuan Class Active Menu Sesuai URL File
+        const currentUrl = window.location.pathname.split("/").pop() || "index.html";
         menuItems.forEach(item => {
-            // Jika href menu sama dengan nama file saat ini
-            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
-                item.classList.add("active");
+            if (item.getAttribute("href") === currentUrl) {
+                item.classList.add("active-link");
+            } else {
+                item.classList.remove("active-link");
+            }
+
+            // Integrasi Suara Klik Berwaktu Tunda
+            item.addEventListener('click', function(e) {
+                if (clickSound) {
+                    clickSound.currentTime = 0;
+                    clickSound.play().catch(() => {});
+                }
+                
+                if (nav) nav.classList.remove('show');
+
+                const targetUrl = this.href;
+                if (targetUrl && !targetUrl.includes('#') && !this.target) {
+                    e.preventDefault();
+                    setTimeout(() => { 
+                        window.location.href = targetUrl; 
+                    }, 200);
+                }
+            });
+        });
+
+        // Menutup Menu Utama HP jika Klik di Luar Area Menu
+        document.addEventListener('click', function(e) {
+            if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                nav.classList.remove('show');
             }
         });
     });
+
+    // Menutup Modal Popup jika Klik di Area Luar Box Putih Modal
+    window.onclick = function(event) {
+        const modal = document.getElementById('nasehatModal');
+        if (event.target == modal) { 
+            closePopUp(); 
+        }
+    }
 </script>
 
 </body>
