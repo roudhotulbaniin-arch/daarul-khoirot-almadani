@@ -80,12 +80,13 @@
             letter-spacing: 0.5px;
         }
 
-       nav ul { list-style: none; display: flex; gap: 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 5px 10px; transition: 0.3s; }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); border-bottom: 2px solid var(--gold-light); }
-        #menu-toggle { display: none; background: var(--gold-light); color: var(--primary-color); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; }
+    nav { display: flex; align-items: center; }
+    nav ul { display: flex; list-style: none; gap: 20px; }
+    nav ul li a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding-bottom: 5px; transition: 0.3s; white-space: nowrap; }
+    nav ul li a.active { border-bottom: 3px solid var(--secondary-color); color: var(--secondary-color); }
+    nav ul li a:hover { color: var(--secondary-color); }
 
-
+    #menu-toggle { display: none !important; }
         /* --- HERO SECTION --- */
         .hero-container { 
             position: relative; 
