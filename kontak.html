@@ -282,9 +282,31 @@
 
         /* Sembunyikan navigasi teks, munculkan tombol menu */
 
-        nav ul { 
+        
+nav ul { 
+                list-style: none;
+                display: flex; 
+                flex-direction: column; 
+                /* 1. Perkecil padding kontainer agar tidak ada ruang kosong di atas/bawah */
+                padding: 5px 0 !important; 
+                gap: 0 !important; /* 2. Paksa gap menjadi nol antar list */
+            }
 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
+        nav ul li { width: 100%; }
+
+            nav ul li a {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: white;
+                text-decoration: none;
+                /* 3. Padding diperkecil (8px) agar menu menempel rapat */
+                padding: 8px 25px !important; 
+                font-size: 0.95rem;
+                font-weight: 600;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
 
             top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
 
