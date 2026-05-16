@@ -10,7 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
- 
+
+  <link rel="icon" type="image/png" href="main_logo.png">
+
     <style>
         /* --- 1. DESIGN VARIABLES & RESET --- */
         :root {
@@ -26,13 +28,23 @@
             --whatsapp-green: #25d366;
         }
 
+        font-family: 'Quicksand', sans-serif;
+    }
+
+         h1, h2, h3, h4, h5, h6 {
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+    }
+
+ .teks-tebal {
+        font-weight: 600;
+    }
+
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            scroll-behavior: smooth; 
-        }
+ 
 
         body { 
             line-height: 1.6; 
@@ -42,16 +54,7 @@
             flex-direction: column; 
             min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-        }
-
-        .teks-tebal {
-            font-weight: 600;
-        }
+        }
 
         /* --- 2. HEADER & NAVIGASI DESKTOP --- */
         header { 
