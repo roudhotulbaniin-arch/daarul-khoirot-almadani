@@ -252,6 +252,7 @@
     
     /* --- 7. RESPONSIVE MASTER (HP) --- */
     @media (max-width: 768px) {
+
         header { height: 65px; padding: 0 15px; }
         
     .logo {
@@ -277,13 +278,22 @@
         letter-spacing: -0.5px;
     }
 
+
+
         /* Sembunyikan navigasi teks, munculkan tombol menu */
+
         nav ul { 
+
             display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; column; padding: 0px; border-bottom: 3px solid #f4ce14; 
+
+            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
+
         }
+
         nav.show ul { display: flex !important; }
+
         
+
           #menu-toggle {
     display: flex !important;   /* Wajib: Mengaktifkan mode flex */
     flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
@@ -298,9 +308,14 @@
     border-radius: 4px;
     font-weight: bold;
 }
+
             color: var(--primary-color) !important; border: none; padding: 6px 12px;
+
             border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+
         }
+
+
 
     nav ul li a.active-link {
                 border-left: 5px solid var(--gold-light) !important;
