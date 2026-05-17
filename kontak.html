@@ -5,24 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Kontak Kami</title>
 
-    <!-- Font & Icon Assets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="main_logo.png">
 
     <style>
-        /* --- 1. DESIGN VARIABLES & RESET --- */
+        /* ==========================================================================
+           1. DESIGN VARIABLES & RESET STYLE (FONT QUICKSAND UNTUK SEMUA)
+           ========================================================================== */
         :root {
-            --primary-color: #1a5319;
+            --primary-color: #1a5d1a;
             --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
-            --gold-color: #D4AF37;
-            --gold-light: #f4ce14;
-            --white: #FFFFFF;
-            --bg-body: #f4f7f6;
-            --text-dark: #1a1a1a;
-            --border-color: #1a5d1a;
+            --light-bg: #f4f7f6;
+            --text-dark: #333;
             --whatsapp-green: #25d366;
         } 
 
@@ -30,14 +28,17 @@
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            scroll-behavior: smooth; 
+            font-family: 'Quicksand', sans-serif; /* Dikunci menggunakan Quicksand global */
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body { 
             line-height: 1.6; 
-            color: #333; 
-            background-color: var(--bg-body); 
+            color: var(--text-dark); 
+            background-color: var(--light-bg); 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -45,7 +46,6 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif;
             font-weight: 700;
         }
 
@@ -53,11 +53,19 @@
             font-weight: 600;
         }
 
-        /* --- 2. HEADER & NAVIGASI DESKTOP --- */
+        /* Container Pembungkus */
+        .container { 
+            padding: 4rem 5% 2rem; 
+            flex: 1; 
+        }
+
+        /* ==========================================================================
+           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, GRID KONTAK, MAPS, & WA TOMBOL)
+           ========================================================================== */
         header { 
             background-color: var(--primary-color); 
             color: white; 
-            padding: 10px 5%; 
+            padding: 10px 4%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -65,7 +73,7 @@
             top: 0; 
             z-index: 1000; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            min-height: 70px;
+            min-height: 60px;
         }
 
         .logo { 
@@ -73,18 +81,19 @@
             align-items: center; 
             gap: 12px;
             flex-shrink: 0;
+            text-decoration: none;
+            color: white;
         }
         
         .logo img { 
-            height: 45px; 
+            height: 40px; 
             width: auto; 
         }
 
         .logo h1 { 
-            font-size: 1.2rem; 
+            font-size: 1.3rem; 
             letter-spacing: 0.5px; 
             white-space: nowrap;
-            font-family: 'Quicksand', sans-serif;
         }
 
         nav ul { 
@@ -115,7 +124,7 @@
             color: var(--secondary-color) !important; 
         }
 
-        nav ul li a.active-link { 
+        nav ul li a.active { 
             border-bottom: 3px solid var(--secondary-color); 
             color: var(--secondary-color) !important; 
         }
@@ -124,12 +133,7 @@
             display: none; 
         }
 
-        /* --- 3. KONTEN KONTAK --- */
-        .container { 
-            padding: 4rem 5% 2rem; 
-            flex: 1; 
-        }
-
+        /* Judul Menu Halaman */
         .section-title { 
             text-align: center; 
             margin-bottom: 3rem; 
@@ -142,7 +146,8 @@
             background-color: var(--primary-color);
             color: white; 
             border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            gap: 12px;
         }
 
         .section-icon {
@@ -156,12 +161,12 @@
         .section-title-box h2 { 
             font-size: 1.6rem; 
             margin: 0; 
-            padding-left: 15px; 
         }
 
+        /* Grid Info Kontak 3 Kolom */
         .contact-info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto 30px;
@@ -182,7 +187,7 @@
         }
 
         .contact-item .icon {
-           display: flex;           
+           display: flex;            
            align-items: center;     
            justify-content: center; 
            height: 100px;           
@@ -194,8 +199,8 @@
            line-height: 1;
         }
 
-        .ikon-wa i { color: #25D366; }      
-        .ikon-map i { color: #FF4444; }     
+        .ikon-wa i { color: #25d366; }      
+        .ikon-map i { color: #ff4444; }     
         .ikon-email i { color: #333; }      
         
         .contact-item h3 { 
@@ -208,76 +213,52 @@
             color: #555; 
         }
     
-        /* --- 4. INTEGRASI MAPS --- */
+        /* Integrasi Bingkai Peta Google Maps */
         .map-section {
-            width: 90%; 
+            width: 100%; 
             max-width: 1200px; 
             height: 450px;
             margin: 20px auto 50px; 
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 3px solid #1a5d1a; 
+            border: 3px solid var(--primary-color); 
         }
 
-        /* --- 5. FLOATING WHATSAPP BUTTON --- */
-        .whatsapp-float {
-            position: fixed; 
-            bottom: 25px; 
-            right: 25px; 
-            background-color: #25d366; 
-            color: white !important;
-            padding: 12px 20px; 
-            border-radius: 8px !important; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            z-index: 9999; 
-            animation: wa-glow 2s infinite ease-in-out;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        /* Default Style Desktop untuk WA Float (Berbentuk Pil Panjang) */
+        @media (min-width: 769px) {
+            .whatsapp-float {
+                position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important;
+                padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
+                text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                transition: transform 0.2s ease;
+            }
+            .whatsapp-float:hover { transform: scale(1.05); }
         }
 
-        @keyframes wa-glow {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        } 
-
-        /* --- 6. FOOTER SYSTEM --- */
+        /* Footer Kaki Halaman */
         footer { 
             background: var(--primary-dark); 
             color: white; 
             padding: 40px 5% 20px; 
             text-align: center; 
             width: 100%;
-            border: none;
-            outline: none;
         }
-
         .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* --- 7. RESPONSIVE LAYOUT (HP/MOBILE) --- */
+        /* ==========================================================================
+           3. BLOK STYLE MOBILE (HEADER, DROPDOWN MENU, GRID 1 KOLOM, & WA FLOAT)
+           ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             
-            .logo {
-                gap: 6px !important; 
-                max-width: 70%;
-            }
+            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; margin-right: 0 !important; }
+            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
-            .logo img { height: 38px; margin-right: 0 !important; }
-
-            .logo h1 {
-                font-size: 0.95rem !important;
-                margin: 0 !important; 
-                white-space: nowrap !important;
-                letter-spacing: -0.3px;
-            }
-
+            /* Hamburger Menu Mobile */
             #menu-toggle {
                 display: flex !important;   
                 flex-direction: row;        
@@ -293,7 +274,8 @@
                 cursor: pointer;
             }
 
-           nav ul { 
+            /* Dropdown Lipat Vertikal Menu HP */
+            nav ul { 
                 display: none; 
                 flex-direction: column; 
                 width: 100%; 
@@ -301,65 +283,86 @@
                 top: 65px; 
                 left: 0; 
                 background: var(--primary-color); 
-                padding: 15px; 
+                padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
                 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                gap: 10px;
+                gap: 15px;
             }
 
             nav.show ul { display: flex !important; }
+            nav ul li a { color: white !important; }
             
-            nav ul li a.active-link {
+            /* Indikator Menu Aktif di HP (Garis Samping Kiri) */
+            nav ul li a.active {
                 border-bottom: none;
-                border-left: 5px solid var(--gold-light) !important;
+                border-left: 5px solid var(--secondary-color) !important;
                 padding-left: 15px;
-                color: var(--gold-light) !important;
+                color: var(--secondary-color) !important;
             }
 
-            nav ul li a.active-link i {
-                color: var(--gold-light) !important;
+            .container { padding: 2rem 5% 2rem; }
+
+            /* Melebur Kisi Kontak Menjadi 1 Kolom Vertikal Kebawah */
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
-            /* WA Float Versi Ringkas (Tanpa Teks) untuk Layar HP */
+            
+            .map-section {
+                height: 320px;
+                width: 100%;
+            }
+
+            /* WA FLOAT DI HP: HANYA IKON TANPA BACKGROUND BULATAN */
             .whatsapp-float {
-                background: transparent !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                bottom: 25px;
-                right: 25px;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: transparent !important; 
+                color: var(--whatsapp-green) !important; 
+                width: auto;
+                height: auto;
+                border-radius: 0;
+                box-shadow: none !important; 
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                animation: wa-pulse-only-icon 2s infinite ease-in-out;
             }
 
-            .whatsapp-float span {
-                display: none !important;
-            }
+            .whatsapp-float span { display: none; }
+            .whatsapp-float i { font-size: 55px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
+        }
 
-            .whatsapp-float i {
-                font-size: 55px; 
-                color: var(--whatsapp-green) !important;
-                filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
-            }
+        @keyframes wa-pulse-only-icon {
+            0% { transform: scale(1); }
+            70% { transform: scale(1.12); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
+        <a href="index.html" class="logo">
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
-        </div>
+        </a>
         
         <button id="menu-toggle">
             <i class="fas fa-bars"></i> Menu
         </button>
           
-        <nav>
+        <nav id="main-nav">
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
                 <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
                 <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
                 <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
-                <li><a href="kontak.html" class="active-link"><i class="fas fa-comments"></i> Kontak</a></li>
+                <li><a href="kontak.html"class="active"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
     </header>
@@ -391,24 +394,23 @@
                 <p>daarulkhoirot2025@gmail.com<br>Aktif Jam Kerja</p>
             </div>
         </div>
-    </section>
         
-    <h3 style="font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 10px; color: var(--primary-color); font-family: 'Quicksand', sans-serif;">
-        Lokasi Pondok Pesantren
-    </h3>
+        <h3 style="font-size: 24px; font-weight: bold; text-align: center; margin: 40px 0 15px; color: var(--primary-color);">
+            Lokasi Pondok Pesantren
+        </h3>
 
-    <main>
         <div class="map-section">
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15862.906659771146!2d107.5186851!3d-6.383182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMjInNTkuNSJTIDEwN8KwMzEnMDluOSJF!5e0!3m2!1sid!2sid!4v1710000000000" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6432243555547!2d107.5255479!3d-6.3105479!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69772bf6259d87%3A0x6e289bc213aa4d4e!2sDusun%20Sukamaju%20II%2C%20Jatisari%2C%20Kec.%20Jatisari%2C%20Karawang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1715933000000!5m2!1sid!2sid" 
                 width="100%" 
                 height="100%" 
                 style="border:0;" 
                 allowfullscreen="" 
-                loading="lazy">
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
             </iframe>
-       </div>
-    </main>
+        </div>
+    </section>
 
     <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
@@ -417,13 +419,10 @@
         <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
-    <!-- Audio element untuk efek klik -->
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
-    <!-- Floating WhatsApp Action -->
     <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp fa-lg"></i>
-        <span>Tanya Admin</span>
+        <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
     </a>
 
     <script>
@@ -433,7 +432,7 @@
             const clickSound = document.getElementById('clickSound');
             const menuItems = document.querySelectorAll("nav ul li a");
 
-            // Toggle Buka/Tutup Menu di HP
+            // 1. Toggle Buka/Tutup Menu Lipat di HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -441,16 +440,17 @@
                 });
             }
 
-            // Penentuan Class Active Menu Secara Otomatis Sesuai Nama File URL
+            // 2. Otomatisasi Penentuan Class Active Menu Sesuai Nama File URL
             const currentUrl = window.location.pathname.split("/").pop() || "index.html";
             menuItems.forEach(item => {
-                if (item.getAttribute("href") === currentUrl) {
-                    item.classList.add("active-link");
+                const hrefAttr = item.getAttribute("href");
+                if (hrefAttr === currentUrl || (currentUrl === "" && hrefAttr === "index.html")) {
+                    item.classList.add("active");
                 } else {
-                    item.classList.remove("active-link");
+                    item.classList.remove("active");
                 }
 
-                // Sistem Delay Navigasi untuk Memutar Efek Suara Klik
+                // 3. Sistem Delay Navigasi untuk Memutar Efek Suara Klik Global
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0;
@@ -469,7 +469,7 @@
                 });
             });
 
-            // Sembunyikan Menu HP jika pengguna melakukan klik di luar area navigasi
+            // 4. Sembunyikan Menu HP jika pengguna melakukan klik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
