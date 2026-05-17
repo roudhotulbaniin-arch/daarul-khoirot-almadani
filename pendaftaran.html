@@ -128,6 +128,15 @@
         }
 
         /* Desain Struktur Tab Menu */
+        /* ==========================================================================
+           PERBAIKAN: MEMBUAT FORMULIR PENDAFTARAN MENJADI FULL WIDTH (DESKTOP)
+          ========================================================================== */
+         .container { 
+              padding: 3rem 4%; /* Mengurangi padding samping agar area form melebar maksimal */
+              flex: 1; 
+              max-width: 100%; /* Mengubah dari 1200px menjadi 100% agar full width mengikuti lebar layar */
+              width: 100%; 
+         }
         .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         
         .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
