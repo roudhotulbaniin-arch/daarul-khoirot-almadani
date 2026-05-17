@@ -1137,7 +1137,7 @@
         }
     }
 
-    // Ekspos fungsi ke lingkup jendela global agar terbaca oleh tag HTML biasa
+    // Ekspos fungsi ke lingkup global agar terbaca oleh tag HTML biasa
     window.handleFormSubmit = handleFormSubmit;
 </script>
 
@@ -1261,13 +1261,13 @@
         }
     }
 
-    // Inisialisasi Pertama Kali Load Data Provinsi Ayah
+    // Inisialisasi Mula Load Provinsi Utama
     document.addEventListener('DOMContentLoaded', () => {
         loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
     });
 
     /* ==========================================================================
-       LOGIKA VALIDASI INPUT & KONTROL TRANSER TAB FORMULIR MULTI-STEP
+       LOGIKA VALIDASI INPUT & KONTROL MUTASI TAB FORMULIR MULTI-STEP
        ========================================================================== */
     function lockFields(suffix, isLocked) {
         const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
@@ -1422,7 +1422,6 @@
         document.getElementsByName('pos_santri')[0].value = dataPesantren.pos;
     }
 
-    // Fungsi Pengendali Validasi Isian Tiap Lembar Tab Sebelum Lolos
     function validateInput(tabId) {
         const isNumeric = /^\d+$/;
         
@@ -1490,20 +1489,20 @@
             if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
             if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
         }
-        
-else if (tabId === 'pernyataan') {
-    const elCek = document.getElementsByName('cek_pernyataan')[0];
-    if (!elCek || !elCek.checked) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Persetujuan Diperlukan',
-            html: 'Ayah/Bunda wajib **menyetujui seluruh surat pernyataan** di atas untuk menyelesaikan pendaftaran santri.',
-            confirmButtonColor: '#1a5319',
-            confirmButtonText: 'Buka Pernyataan'
-        });
-        return false;
+        else if (tabId === 'pernyataan') {
+            const elCek = document.getElementsByName('cek_pernyataan')[0];
+            if (!elCek || !elCek.checked) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Persetujuan Diperlukan',
+                    text: 'Anda wajib menyetujui seluruh surat pernyataan sebelum dapat memproses pendaftaran.',
+                    confirmButtonColor: '#d33'
+                });
+                return false;
+            }
+        }
+        return true; 
     }
-
 
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
@@ -1546,7 +1545,6 @@ else if (tabId === 'pernyataan') {
         openTab(null, targetId);
     }
 
-    // Mengunci input data ayah otomatis jika berstatus Meninggal
     function toggleAyahFields(status) {
         const fieldsToLock = [
             'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
@@ -1576,7 +1574,6 @@ else if (tabId === 'pernyataan') {
         });
     }
 
-    // Toggle Input Catatan Tambahan Penyakit Tab Pernyataan
     function toggleDetail(val, inputName) {
         const targetBox = document.getElementsByName(inputName)[0];
         if (targetBox) {
@@ -1589,7 +1586,6 @@ else if (tabId === 'pernyataan') {
         }
     }
 
-    // Handler Checkbox Pelindung NISN usia dini
     function handleNoNISN(checked) {
         const nisnInput = document.getElementsByName('nisn')[0]; 
         if (!nisnInput) return;
@@ -1609,7 +1605,6 @@ else if (tabId === 'pernyataan') {
         }
     }
 
-    // Handler Checkbox Pelindung Nomor Handphone Orang Tua
     function toggleHP(cb, inputName) {
         const hpInput = document.getElementsByName(inputName)[0];
         if (!hpInput) return;
@@ -1629,37 +1624,16 @@ else if (tabId === 'pernyataan') {
         }
     }
 
-   // 1. Perbaikan Validasi saat Tombol Simpan di Tab Pernyataan Diklik
-function prosesSimpanFinal() {
-    if (validateInput('pernyataan')) {
-        if (typeof window.handleFormSubmit === "function") {
-            window.handleFormSubmit();
-        } else {
-            console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
+    function prosesSimpanFinal() {
+        if (validateInput('pernyataan')) {
+            if (typeof window.handleFormSubmit === "function") {
+                window.handleFormSubmit();
+            } else {
+                console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
+            }
         }
     }
-}
 
-// 2. Perbaikan Tampilan di dalam handleFormSubmit (Bagian Validasi Checkbox)
-// [Cari baris kode ini di dalam tag <script type="module"> Anda]
-const elCek = document.getElementsByName('cek_pernyataan')[0];
-
-if (!elCek || !elCek.checked) {
-    return Swal.fire({
-        icon: 'warning', // Mengubah ikon menjadi Warning agar lebih elegan dibanding Error merah biasa
-        title: 'Persetujuan Diperlukan',
-        html: 'Silakan **centang kotak persetujuan** di bawah surat pernyataan terlebih dahulu sebelum menyimpan data pendaftaran.',
-        confirmButtonColor: '#1a5319', // Menggunakan Hijau Utama Pondok Anda
-        confirmButtonText: 'Siap, Saya Mengerti',
-        customClass: {
-            popup: 'swal-custom-premium' // Kelas opsional jika ingin custom css tambahan
-        }
-    });
-}
-
-    /* ==========================================================================
-       SISTEM GENERATOR STRUKTUR CHAT KONFIRMASI WHATSAPP
-       ========================================================================== */
     function kirimWA() {
         const gV = (name) => {
             const el = document.getElementsByName(name)[0];
@@ -1678,7 +1652,6 @@ if (!elCek || !elCek.checked) {
         const elCek = document.getElementsByName('cek_pernyataan')[0];
         const status_setuju = (elCek && elCek.checked) ? "\u2705 SUDAH MENYETUJUI" : "\u274C BELUM MENYETUJUI";
 
-        // Unicode Emoji Assets
         const ICON_SANTRI = "\u{1F9D2}", ICON_AYAH = "\u{1F472}", ICON_IBU = "\u{1F9D5}";
         const RUMAH_AYAH = "\u{1F3E1}", RUMAH_IBU = "\u{1F3E0}", RUMAH_SANTRI = "\u{1F3D8}\uFE0F";
         const CLIP = "\u{1F4CB}", ICON_MEMO = "\u{1F4DD}";
