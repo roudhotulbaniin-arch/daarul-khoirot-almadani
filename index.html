@@ -11,59 +11,54 @@
     <link rel="icon" type="image/png" href="main_logo.png">
     
 <style>
-   :root {
-            --primary-color: #1a5d1a;
-            --secondary-color: #f4ce14;
-            --light-bg: #f4f7f6;
-            --dark-footer: #0d2e0d;
-            --whatsapp-green: #25d366;
-        }   
+    /* ==========================================================================
+       1. VARIABLES, RESET & GLOBAL SETTINGS (Berlaku Semua Perangkat)
+       ========================================================================== */
+    :root {
+        --primary-color: #1a5d1a;
+        --secondary-color: #f4ce14;
+        --light-bg: #f4f7f6;
+        --dark-footer: #0d2e0d;
+        --whatsapp-green: #25d366;
+    }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Quicksand', sans-serif; 
-        }
+    * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+        font-family: 'Quicksand', sans-serif; 
+    }
 
-        /* Mengunci Font Awesome agar tidak bentrok dengan font Quicksand */
-        .fa, .fas, .far, .fab, .box-header i, nav ul li a i, .about-wrap i {
-            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important;
-            font-weight: 900 !important;
-        }
+    body { 
+        background-color: var(--light-bg); 
+        overflow-x: hidden; 
+        color: #333; 
+        line-height: 1.6;
+    }
 
-        body { 
-            background-color: #f4f7f6; 
-            overflow-x: hidden; 
-            color: #333; 
-        }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+    }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-        }
+    .teks-tebal {
+        font-weight: 600;
+    }
 
-     /* --- STYLE MENU AKTIF --- */
-nav ul li a {
-    position: relative;
-    padding-bottom: 5px;
-    transition: 0.3s;
-}
+    /* Mengunci Font Awesome agar tidak bentrok dengan font Quicksand */
+    .fa, .fas, .far, .fab, .box-header i, nav ul li a i, .about-wrap i {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important;
+        font-weight: 900 !important;
+    }
 
-/* Garis bawah kuning hanya untuk menu yang memiliki class 'active' */
-nav ul li a.active {
-    border-bottom: 3px solid #f4ce14 !important; /* Warna kuning khas */
-    color: #f4ce14 !important; /* Opsional: teks ikut berubah warna */
-}
 
-/* Efek saat kursor menempel (Hover) */
-nav ul li a:hover {
-    color: #f4ce14;
-}
-  
-      /* --- 2. HEADER & NAVIGASI (KOMPUTER) --- */
+    /* ==========================================================================
+       2. BLOK DESKTOP (Pengaturan Tampilan Komputer / Laptop)
+       ========================================================================== */
+    
+    /* --- HEADER & NAVIGASI DESKTOP --- */
     header {
-        background: #1a5d1a; 
+        background: var(--primary-color); 
         color: white; 
         padding: 10px 4%; 
         display: flex; 
@@ -72,7 +67,8 @@ nav ul li a:hover {
         position: sticky; 
         top: 0; 
         z-index: 1000;
-        min-height: 60px;
+        min-height: 70px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .logo { 
@@ -82,7 +78,10 @@ nav ul li a:hover {
         flex-shrink: 0;
     }
 
-    .logo img { height: 40px; width: auto; }
+    .logo img { 
+        height: 45px; 
+        width: auto; 
+    }
 
     .logo h1 { 
         font-size: 1.3rem; 
@@ -91,192 +90,402 @@ nav ul li a:hover {
         letter-spacing: 0.5px;
     }
 
-    /* Navigasi Desktop */
-    nav ul { list-style: none; display: flex; gap: 20px; }
+    nav ul { 
+        list-style: none; 
+        display: flex; 
+        gap: 20px; 
+    }
+
     nav ul li a { 
-        color: white; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
-        display: flex; align-items: center; gap: 5px; 
+        color: white; 
+        text-decoration: none; 
+        font-size: 0.95rem; 
+        font-weight: 600; 
+        display: flex; 
+        align-items: center; 
+        gap: 6px; 
+        position: relative;
+        padding-bottom: 5px;
+        transition: 0.3s;
     }
 
-    /* Tombol menu disembunyikan di komputer */
-    #menu-toggle { display: none; }
-
-    /* --- 3. HERO --- */
-    .hero-container { position: relative; width: 100%; height: 500px; overflow: hidden; background: #000; }
-    .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-    .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
-    .hero-content h1 { font-size: 4rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
-    .hero-content p { font-size: 2rem; white-space: nowrap; margin-top: 10px; }
-
-    /* --- 4. BOX KONTEN & TENTANG LEMBAGA --- */
-    .content-box { background-color: #144514; margin: 30px auto; padding: 40px 5%; width: 94%; border-radius: 12px; color: white; border: 4px solid #f4ce14; }
-    .box-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 30px; white-space: nowrap; }
-    .box-header i { color: #f4ce14; font-size: 1.6rem; }
-    .box-header h2 { font-size: 1.6rem; border-bottom: 2px solid #f4ce14; padding-bottom: 5px; }
-
-    .about-wrap { 
-    display: flex; 
-    flex-direction: row; /* Membuat ikon dan teks sejajar ke samping */
-    align-items: center; /* Menyeimbangkan posisi ikon agar pas di tengah teks */
-    justify-content: center;
-    gap: 30px; /* Jarak antara ikon masjid dan teks profil */
-    padding: 20px 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.about-wrap i.fa-mosque { 
-    color: var(--secondary-color) !important; 
-    font-size: 6rem !important; /* Ukuran ikon masjid */
-    flex-shrink: 0; /* Mencegah ikon menjadi gepeng */
-}
-
-.about-wrap p { 
-    font-size: 1.4rem !important; 
-    line-height: 1.8;
-    color: white;
-    text-align: justify; /* MEMBUAT TEKS RATA KANAN-KIRI */
-    text-justify: inter-word; /* Mengatur spasi antar kata agar rapi */
-    margin: 0;
-}
-
-    /* --- 5. UNIT PENDIDIKAN (3 KOLOM KOMPUTER) --- */
-    .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .unit-card { 
-        background: white; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; 
-        align-items: center; text-align: center; gap: 15px; text-decoration: none; color: #333; 
-        border-bottom: 6px solid #f4ce14; transition: 0.3s;
-    }
-    .unit-card img { width: 60px; height: 60px; flex-shrink: 0; }
-    .unit-card h3 { font-size: 1rem; color: #1a5d1a; font-weight: 800; }
-
-    /* --- 6. WA FLOAT --- */
-    .whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
-    }
-    @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    nav ul li a i {
+        color: var(--secondary-color) !important;
+        font-size: 1rem;
     }
 
-    /* --- 7. RESPONSIVE MASTER (HP) --- */
-    @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-       .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
+    nav ul li a:hover {
+        color: var(--secondary-color);
+    }
+
+    nav ul li a.active {
+        border-bottom: 3px solid var(--secondary-color) !important; 
+        color: var(--secondary-color) !important; 
+    }
+
+    #menu-toggle { 
+        display: none; 
+    }
+
+    /* --- HERO DESKTOP --- */
+    .hero-container { 
+        position: relative; 
+        width: 100%; 
+        height: 500px; 
+        overflow: hidden; 
+        background: #000; 
+    }
+
+    .hero-container img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+        opacity: 0.6; 
+    }
+
+    .hero-content { 
+        position: absolute; 
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        text-align: center; 
+        color: white; 
+        width: 95%; 
+    }
+
+    .hero-content h1 { 
+        font-size: 4rem; 
+        font-weight: 800; 
+        white-space: nowrap; 
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.7); 
+    }
+
+    .hero-content p { 
+        font-size: 1.5rem; 
+        white-space: nowrap; 
+        margin-top: 10px; 
+    }
+
+    /* --- BOX KONTEN & TENTANG LEMBAGA DESKTOP --- */
+    .content-box { 
+        background-color: #144514; 
+        margin: 30px auto; 
+        padding: 40px 5%; 
+        width: 94%; 
+        border-radius: 12px; 
+        color: white; 
+        border: 1px solid rgba(255, 255, 255, 0.1); 
+        box-shadow: none !important;
+        height: auto !important;
         overflow: hidden;
     }
 
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
+    .box-header { 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        gap: 10px; 
+        margin-bottom: 30px; 
+        white-space: nowrap; 
     }
 
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
+    .box-header i { 
+        color: var(--secondary-color); 
+        font-size: 1.6rem; 
     }
 
+    .box-header h2 { 
+        font-size: 1.6rem; 
+        border-bottom: 2px solid var(--secondary-color); 
+        padding-bottom: 5px; 
+    }
 
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-         #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 4px;                   /* Memberikan jarak antara ikon dan teks */
-    
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
-
-    nav ul li a.active {
-                border-left: 5px solid var(--gold-light) !important;
-                padding-left: 20px;
-                color: var(--gold-light) !important;
-            }
-
-            nav ul li a.active i {
-                color: var(--gold-light) !important;
-            }
-
-        /* WA Float */
-            .whatsapp-float {
-               background: transparent !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                bottom: 25px;
-                right: 25px;
-                animation: wa-mobile-glow 2.5s infinite ease-in-out !important; 
-                transition: transform 0.3s ease;
-            }
-            .whatsapp-float span { display: none !important; }
-            .whatsapp-float i { 
-                font-size: 55px !important; 
-                color: var(--whatsapp-green) !important; 
-                background: transparent !important;
-            }
-
-        .hero-content h1 { font-size: 1.4rem !important; }
-        .hero-content p { font-size: 0.8rem !important; }
-        .hero-container { height: 250px; }
-        
-        .unit-grid { grid-template-columns: 1fr; }
-        .unit-card { flex-direction: row; text-align: left; padding: 15px; }
-
-            .about-wrap {
-        flex-direction: column; /* Di HP lebih rapi jika ikon di atas teks */
-        gap: 15px;
-        text-align: center;
+    .about-wrap { 
+        display: flex; 
+        flex-direction: row; 
+        align-items: center; 
+        justify-content: center;
+        gap: 30px; 
+        padding: 20px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
     }
 
     .about-wrap i.fa-mosque { 
-        font-size: 3.5rem !important; 
+        color: var(--secondary-color) !important; 
+        font-size: 6rem !important; 
+        flex-shrink: 0; 
     }
 
-    .about-wrap p {
-        font-size: 1.1rem !important;
-        text-align: justify; /* Tetap justified di HP atau ganti 'center' jika ingin rata tengah */
-    }
+    .about-wrap p { 
+        font-size: 1.25rem !important; 
+        line-height: 1.8;
+        color: white;
+        text-align: justify; 
+        text-justify: inter-word; 
+        margin: 0;
     }
 
-        /* --- FOOTER --- */
+    /* --- UNIT PENDIDIKAN DESKTOP --- */
+    .unit-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px; 
+    }
+
+    .unit-card { 
+        background: white; 
+        padding: 20px; 
+        border-radius: 12px; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+        gap: 15px; 
+        text-decoration: none; 
+        color: #333; 
+        border: 1px solid #e1e7e1; 
+        border-top: 4px solid var(--primary-color); 
+        transition: 0.3s;
+        box-shadow: none !important;
+        overflow: hidden;
+    }
+
+    .unit-card img { 
+        width: 60px; 
+        height: 60px; 
+        flex-shrink: 0; 
+    }
+
+    .unit-card h3 { 
+        font-size: 1.1rem; 
+        color: var(--primary-color); 
+        font-weight: 800; 
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* --- WA FLOAT DESKTOP --- */
+    .whatsapp-float {
+        position: fixed; 
+        bottom: 25px; 
+        right: 25px; 
+        background-color: var(--whatsapp-green); 
+        color: white !important;
+        padding: 10px 18px; 
+        border-radius: 30px !important; 
+        display: flex; 
+        align-items: center; 
+        gap: 8px; 
+        text-decoration: none; 
+        font-weight: 600; 
+        z-index: 9999; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .whatsapp-float i {
+        font-family: "Font Awesome 6 Brands" !important;
+        font-size: 22px;
+        -webkit-text-stroke: 1.2px var(--whatsapp-green);
+        paint-order: stroke fill;
+    }
+
+    /* --- FOOTER GLOBAL --- */
     footer { 
-        background: #0d2e0d; 
+        background: var(--dark-footer); 
         color: white; 
         padding: 40px 5% 20px; 
         text-align: center; 
         width: 100%;
         border: none;
         outline: none;
+        box-shadow: none !important;
     }
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
+
+    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
     .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
     .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+
+    /* ==========================================================================
+       3. BLOK MOBILE (Pengaturan Khusus HP / Layar di Bawah 768px)
+       ========================================================================== */
+    @media (max-width: 768px) {
+        
+        /* --- HEADER & LOGO HP --- */
+        header { 
+            height: 65px; 
+            padding: 0 15px; 
+            position: relative; 
+            box-shadow: none !important; 
+        }
+        
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 6px !important; 
+            max-width: 70%; 
+            overflow: hidden; 
+        }
+
+        .logo img { 
+            height: 38px; 
+            margin-right: 0 !important; 
+        }
+
+        .logo h1 { 
+            font-size: 0.95rem !important; 
+            margin: 0 !important; 
+            white-space: nowrap !important; 
+            letter-spacing: -0.3px; 
+        }
+
+        /* --- MENU TOGGLE BUTTON HP --- */
+        #menu-toggle {
+            display: flex !important;   
+            flex-direction: row;        
+            align-items: center;        
+            gap: 6px;                   
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: none !important;
+        }
+
+        /* --- DROPDOWN NAVIGASI MENU HP --- */
+        nav {
+            width: 100%;
+        }
+
+        nav ul { 
+            display: none; 
+            flex-direction: column; 
+            width: 100%; 
+            position: absolute; 
+            top: 65px; 
+            left: 0; 
+            background: var(--primary-color); 
+            padding: 15px 0; 
+            border-bottom: 3px solid var(--secondary-color); 
+            gap: 0px; 
+            z-index: 1001; 
+            box-shadow: none !important;
+        }
+        
+        nav.show ul { 
+            display: flex !important; 
+        }
+        
+        nav ul li a { 
+            padding: 12px 20px !important; 
+            width: 100%; 
+        }
+
+        nav ul li a.active {
+            border-bottom: none !important;
+            border-left: 5px solid var(--secondary-color) !important; 
+            padding-left: 15px !important; 
+            color: var(--secondary-color) !important; 
+            background: rgba(255,255,255,0.05);
+        }
+
+        nav ul li a.active i {
+            color: var(--secondary-color) !important;
+        }
+
+        /* --- HERO HP --- */
+        .hero-container { 
+            height: 250px; 
+        }
+
+        .hero-content h1 { 
+            font-size: 1.4rem !important; 
+            font-weight: 700 !important;
+        }
+
+        .hero-content p { 
+            font-size: 0.9rem !important; 
+            font-weight: 500 !important;
+        }
+
+        /* --- BOX UTAMA / TENTANG LEMBAGA HP --- */
+        .content-box {
+            height: auto !important;
+            min-height: min-content !important;
+            padding: 30px 4% !important;
+            overflow: hidden !important;
+        }
+
+        .about-wrap {
+            flex-direction: column; 
+            gap: 15px;
+            text-align: center;
+        }
+
+        .about-wrap i.fa-mosque { 
+            font-size: 3.5rem !important; 
+        }
+
+        .about-wrap p {
+            font-size: 1.05rem !important;
+            text-align: justify; 
+        }
+
+        /* --- GRID & KARTU UNIT PENDIDIKAN HP --- */
+        .unit-grid { 
+            grid-template-columns: 1fr !important; 
+            gap: 16px !important;
+            width: 100% !important;
+        }
+        
+        .unit-card { 
+            flex-direction: row; 
+            text-align: left; 
+            padding: 15px; 
+            align-items: center;
+            width: 100% !important;
+        }
+
+        .unit-card h3 {
+            font-size: 0.95rem !important;
+        }
+
+        /* --- ANIMASI GLOW WA MOBILE --- */
+        @keyframes wa-mobile-glow {
+            0% { filter: drop-shadow(0 0 3px rgba(37, 211, 102, 0.5)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 15px rgba(37, 211, 102, 0.85)); transform: scale(1.05); }
+            100% { filter: drop-shadow(0 0 3px rgba(37, 211, 102, 0.5)); transform: scale(1); }
+        }
+
+        /* --- WA FLOAT MOBILE --- */
+        .whatsapp-float {
+            background: transparent !important; 
+            box-shadow: none !important; 
+            padding: 0 !important;
+            bottom: 25px; 
+            right: 25px; 
+            animation: wa-mobile-glow 2.5s infinite ease-in-out !important; 
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float span { 
+            display: none !important; 
+        }
+
+        .whatsapp-float i { 
+            font-size: 52px !important; 
+            color: var(--whatsapp-green) !important; 
+            background: transparent !important;
+            -webkit-text-stroke: 1.3px #f4f7f6; 
+        }
+    }
 </style>
 
 </head>
