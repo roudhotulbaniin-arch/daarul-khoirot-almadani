@@ -1490,19 +1490,18 @@
             if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
         }
         else if (tabId === 'pernyataan') {
-            const elCek = document.getElementsByName('cek_pernyataan')[0];
-            if (!elCek || !elCek.checked) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Persetujuan Diperlukan',
-                    text: 'Anda wajib menyetujui seluruh surat pernyataan sebelum dapat memproses pendaftaran.',
-                    confirmButtonColor: '#d33'
-                });
-                return false;
-            }
-        }
-        return true; 
+    const elCek = document.getElementsByName('cek_pernyataan')[0];
+    if (!elCek || !elCek.checked) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Persetujuan Diperlukan',
+            html: 'Ayah/Bunda wajib **menyetujui seluruh surat pernyataan** di atas untuk menyelesaikan pendaftaran santri.',
+            confirmButtonColor: '#1a5319',
+            confirmButtonText: 'Buka Pernyataan'
+        });
+        return false;
     }
+
 
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
@@ -1624,15 +1623,33 @@
         }
     }
 
-    function prosesSimpanFinal() {
-        if (validateInput('pernyataan')) {
-            if (typeof window.handleFormSubmit === "function") {
-                window.handleFormSubmit();
-            } else {
-                console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
-            }
+    // 1. Perbaikan Validasi saat Tombol Simpan di Tab Pernyataan Diklik
+function prosesSimpanFinal() {
+    if (validateInput('pernyataan')) {
+        if (typeof window.handleFormSubmit === "function") {
+            window.handleFormSubmit();
+        } else {
+            console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
         }
     }
+}
+
+// 2. Perbaikan Tampilan di dalam handleFormSubmit (Bagian Validasi Checkbox)
+// [Cari baris kode ini di dalam tag <script type="module"> Anda]
+const elCek = document.getElementsByName('cek_pernyataan')[0];
+
+if (!elCek || !elCek.checked) {
+    return Swal.fire({
+        icon: 'warning', // Mengubah ikon menjadi Warning agar lebih elegan dibanding Error merah biasa
+        title: 'Persetujuan Diperlukan',
+        html: 'Silakan **centang kotak persetujuan** di bawah surat pernyataan terlebih dahulu sebelum menyimpan data pendaftaran.',
+        confirmButtonColor: '#1a5319', // Menggunakan Hijau Utama Pondok Anda
+        confirmButtonText: 'Siap, Saya Mengerti',
+        customClass: {
+            popup: 'swal-custom-premium' // Kelas opsional jika ingin custom css tambahan
+        }
+    });
+}
 
     function kirimWA() {
         const gV = (name) => {
