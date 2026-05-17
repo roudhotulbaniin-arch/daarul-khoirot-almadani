@@ -1426,66 +1426,68 @@
             return true;
         };
 
-        if (tabId === 'santri') {
-            if (!check('nama_santri', 'Nama Lengkap Santri')) return false;
-            if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
-            if (!check('nik', 'NIK Santri')) return false;
-            if (!check('no_kk', 'Nomor KK Santri')) return false;
-            if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
-
-            const nikVal = document.getElementsByName('nik')[0]?.value || "";
-            if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
-                Swal.fire('Format Salah', 'NIK Santri harus tepat 16 digit angka!', 'error');
-                return false;
-            }
-            const kkVal = document.getElementsByName('no_kk')[0]?.value || "";
-            if (kkVal.length !== 16 || !isNumeric.test(kkVal)) {
-                Swal.fire('Format Salah', 'Nomor KK Santri harus tepat 16 digit angka!', 'error');
-                return false;
-            }
-        } 
-        else if (tabId === 'ortu') {
-            const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
-            if (!check('st_ayah', 'Status Ayah')) return false;
-
-            if (statusAyah === 'Masih Hidup') {
-                if (!check('nik_ayah', 'NIK Ayah')) return false;
-                if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
-                
-                const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
-                if (nikA.length !== 16 || !isNumeric.test(nikA)) {
-                    Swal.fire('Format Salah', 'NIK Ayah harus tepat 16 digit angka!', 'error');
-                    return false;
-                }
-                const kkA = document.getElementsByName('kk_ayah')[0]?.value || "";
-                if (kkA.length !== 16 || !isNumeric.test(kkA)) {
-                    Swal.fire('Format Salah', 'Nomor KK Ayah harus tepat 16 digit angka!', 'error');
-                    return false;
-                }
-            }
-            if (!check('n_ibu', 'Nama Ibu Kandung')) return false;
-            if (!check('st_wali', 'Status Wali Santri')) return false;
-        }
-        else if (tabId === 'alamat') {
-            if (!check('milik_ayah', 'Status Kepemilikan Rumah')) return false;
-            if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
-            if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
-        }
-        else if (tabId === 'pernyataan') {
-            const elCek = document.getElementsByName('cek_pernyataan')[0];
-            if (!elCek || !elCek.checked) {
+        function validateInput(tabId) {
+    // 1. Validasi Tab Santri
+    if (tabId === 'santri') {
+        const requiredFields = [
+            'nama_santri', 'nik_santri', 'tempat_lahir_santri', 
+            'tanggal_lahir_santri', 'jenis_kelamin', 'anak_ke', 
+            'jumlah_saudara', 'cita_cita', 'hobi'
+        ];
+        for (let field of requiredFields) {
+            const el = document.getElementsByName(field)[0];
+            if (!el || !el.value.trim()) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Persetujuan Diperlukan',
-                    html: 'Ayah/Bunda wajib **menyetujui seluruh surat pernyataan** di atas untuk menyelesaikan pendaftaran santri.',
-                    confirmButtonColor: '#1a5319',
-                    confirmButtonText: 'Siap, Saya Mengerti'
+                    title: 'Data Belum Lengkap',
+                    text: 'Mohon lengkapi semua data santri yang wajib diisi.',
+                    confirmButtonColor: '#1a5d1a',
+                    confirmButtonText: 'Oke'
                 });
                 return false;
             }
         }
-        return true; 
     }
+    
+    // 2. Validasi Tab Orang Tua / Wali
+    else if (tabId === 'ortu') {
+        const requiredFields = [
+            'nama_ayah', 'status_ayah', 'no_wa_ayah', 
+            'nama_ibu', 'status_ibu', 'no_wa_ibu', 'alamat_lengkap'
+        ];
+        for (let field of requiredFields) {
+            const el = document.getElementsByName(field)[0];
+            if (!el || !el.value.trim()) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Data Belum Lengkap',
+                    text: 'Mohon lengkapi semua data orang tua / wali yang wajib diisi.',
+                    confirmButtonColor: '#1a5d1a',
+                    confirmButtonText: 'Oke'
+                });
+                return false;
+            }
+        }
+    }
+    
+    // 3. Validasi Tab Pernyataan (Ini yang bermasalah sebelumnya)
+    else if (tabId === 'pernyataan') {
+        const elCek = document.getElementsByName('cek_pernyataan')[0];
+        if (!elCek || !elCek.checked) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Persetujuan Diperlukan',
+                html: 'Ayah/Bunda wajib <b>menyetujui seluruh surat pernyataan</b> di atas untuk menyelesaikan pendaftaran santri.',
+                confirmButtonColor: '#1a5d1a',
+                confirmButtonText: 'Siap, Saya Mengerti'
+            });
+            return false;
+        }
+    }
+    
+    return true;
+}
+
 
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
