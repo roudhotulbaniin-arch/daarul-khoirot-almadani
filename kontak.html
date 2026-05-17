@@ -300,6 +300,17 @@
                 color: var(--secondary-color) !important;
             }
 
+           /* Memaksa semua ikon menu default menjadi warna putih pada tampilan mobile */
+nav ul li a i {
+    color: #ffffff !important;
+    margin-right: 10px; /* Memberi jarak antara ikon putih dengan teks */
+}
+
+/* Khusus untuk menu yang sedang aktif (Pendaftaran), ikonnya tetap mengikuti warna emas */
+nav ul li a.active-link i {
+    color: var(--gold-light) !important;
+}
+
             .container { padding: 2rem 5% 2rem; }
 
             /* Melebur Kisi Kontak Menjadi 1 Kolom Vertikal Kebawah */
