@@ -1028,52 +1028,42 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // 1. Perbaikan Validasi saat Tombol Simpan di Tab Pernyataan Diklik
-function prosesSimpanFinal() {
-    if (validateInput('pernyataan')) {
-        if (typeof window.handleFormSubmit === "function") {
-            window.handleFormSubmit();
-        } else {
-            console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
-        }
-    }
-}
+    async function handleFormSubmit() {
+        const form = document.getElementById('formPendaftaran');
+        const elCek = document.getElementsByName('cek_pernyataan')[0];
 
-// 2. Perbaikan Tampilan di dalam handleFormSubmit (Bagian Validasi Checkbox)
-// [Cari baris kode ini di dalam tag <script type="module"> Anda]
-const elCek = document.getElementsByName('cek_pernyataan')[0];
-
-if (!elCek || !elCek.checked) {
-    return Swal.fire({
-        icon: 'warning', // Mengubah ikon menjadi Warning agar lebih elegan dibanding Error merah biasa
-        title: 'Persetujuan Diperlukan',
-        html: 'Silakan **centang kotak persetujuan** di bawah surat pernyataan terlebih dahulu sebelum menyimpan data pendaftaran.',
-        confirmButtonColor: '#1a5319', // Menggunakan Hijau Utama Pondok Anda
-        confirmButtonText: 'Siap, Saya Mengerti',
-        customClass: {
-            popup: 'swal-custom-premium' // Kelas opsional jika ingin custom css tambahan
+        if (!elCek || !elCek.checked) {
+            return Swal.fire({
+                icon: 'warning', 
+                title: 'Persetujuan Diperlukan',
+                html: 'Silakan **centang kotak persetujuan** di bawah surat pernyataan terlebih dahulu sebelum menyimpan data pendaftaran.',
+                confirmButtonColor: '#1a5d1a', 
+                confirmButtonText: 'Siap, Saya Mengerti'
+            });
         }
-    });
-}
+
+        Swal.fire({
+            title: 'Sedang Menyimpan...',
+            text: 'Memproses seluruh data formulir dan mengompres berkas...',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
 
         try {
             const formData = new FormData(form);
             let dataFinal = {};
 
-            // Helper ekstraksi teks murni dari dropdown select
             const getTeks = (idOrName) => {
                 const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
                 return (el && el.tagName === 'SELECT') ? el.options[el.selectedIndex].text : (el?.value || "-");
             };
 
-            // Memasukkan seluruh input teks non-berkas ke objek data utama
             formData.forEach((value, key) => {
                 if (!(value instanceof File)) {
                     dataFinal[key] = value;
                 }
             });
 
-            // Konversi paksa data ID wilayah API menjadi string teks nama geografi asli
             const listWilayah = [
                 'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
                 'prov_ibu', 'kab_ibu', 'kec_ibu', 'desa_ibu',
@@ -1088,17 +1078,14 @@ if (!elCek || !elCek.checked) {
                 }
             });
 
-            // Masukkan data wawancara mandiri dari Tab Pernyataan yang berada di luar form tag asli
             const listWawancara = ['w_visi', 'w_pola', 'w_perilaku', 'w_sehat', 'box_sehat', 'w_tazir', 'w_harapan'];
             listWawancara.forEach(field => {
                 const targetEl = document.getElementsByName(field)[0];
                 if (targetEl) dataFinal[field] = targetEl.value || "-";
             });
 
-            // Set persetujuan digital
-            dataFinal['status_setuju'] = elCek.checked ? "SETUJU" : "TIDAK SETUJU";
+            dataFinal['status_setuju'] = "SETUJU";
 
-            // Kompresi Berkas Gambar (Maksimal 100KB agar penyimpanan Firebase optimal)
             const options = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
             const toBase64 = f => new Promise((res, rej) => {
                 const r = new FileReader(); r.readAsDataURL(f);
@@ -1117,7 +1104,6 @@ if (!elCek || !elCek.checked) {
                 dataFinal['file_ijazah_data'] = await toBase64(comp);
             }
 
-            // Bersihkan sisa properti sampah/mentah sebelum dikirim ke database
             delete dataFinal['up_kk'];
             delete dataFinal['up_ijazah'];
             delete dataFinal['cek_pernyataan'];
@@ -1130,7 +1116,7 @@ if (!elCek || !elCek.checked) {
                     icon: 'success',
                     title: 'Berhasil!',
                     text: 'Data pendaftaran santri baru berhasil tersimpan.',
-                    confirmButtonColor: '#1a5319'
+                    confirmButtonColor: '#1a5d1a'
                 }).then(() => {
                     if (typeof window.kirimWA === "function") window.kirimWA();
                     form.reset();
@@ -1143,7 +1129,6 @@ if (!elCek || !elCek.checked) {
         }
     }
 
-    // Ekspos fungsi ke lingkup global agar terbaca oleh tag HTML biasa
     window.handleFormSubmit = handleFormSubmit;
 </script>
 
@@ -1173,7 +1158,7 @@ if (!elCek || !elCek.checked) {
         try {
             const res = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`);
             const data = await res.json();
-            let opt = `<option value="">${placeholder}</option>`;
+            let opt = `<option value="${placeholder}">${placeholder}</option>`;
             data.forEach(d => { opt += `<option value="${d.id}">${d.name}</option>`; });
             el.innerHTML = opt;
             el.disabled = false;
@@ -1442,7 +1427,7 @@ if (!elCek || !elCek.checked) {
         };
 
         if (tabId === 'santri') {
-            if (!check('nama', 'Nama Lengkap Santri')) return false;
+            if (!check('nama_santri', 'Nama Lengkap Santri')) return false;
             if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
             if (!check('nik', 'NIK Santri')) return false;
             if (!check('no_kk', 'Nomor KK Santri')) return false;
@@ -1486,7 +1471,7 @@ if (!elCek || !elCek.checked) {
             if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
             if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
         }
-      else if (tabId === 'pernyataan') {
+        else if (tabId === 'pernyataan') {
             const elCek = document.getElementsByName('cek_pernyataan')[0];
             if (!elCek || !elCek.checked) {
                 Swal.fire({
@@ -1659,7 +1644,7 @@ if (!elCek || !elCek.checked) {
         m += "------------------------------------------\n\n";
 
         m += "*" + ICON_SANTRI + " DATA SANTRI*\n";
-        m += "• Nama: " + gV('nama') + "\n";
+        m += "• Nama: " + gV('nama_santri') + "\n";
         m += "• Unit: " + gT('tingkat_unit') + "\n";
         m += "• NIK: " + gV('nik') + "\n";
         m += "• No. KK: " + gV('no_kk') + "\n";
