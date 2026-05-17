@@ -7,238 +7,292 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
- <link rel="icon" type="image/png" href="main_logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="main_logo.png">
 
-
-
-  
     <style>
-        /* --- 1. DASAR & VARIABEL --- */
+        /* ==========================================================================
+           1. GLOBAL VARIABLES & RESET STYLE (FONT QUICKSAND UNTUK SEMUA)
+           ========================================================================== */
         :root {
-            --primary-color: #1a5319;
-            --primary-dark: #0d2e0d;
-            --gold-color: #D4AF37;
-            --gold-light: #f4ce14;
-            --white: #FFFFFF;
-            --bg-body: #f4f7f6;
-            --text-dark: #1a1a1a;
-            --border-color: #1a5d1a;
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --dark-green: #144514;
+            --dark-footer: #0d2e0d;
+            --light-bg: #f4f7f6;
+            --text-dark: #333;
             --whatsapp-green: #25d366;
+            --border-color: #1a5d1a;
         }
 
-        font-family: 'Quicksand', sans-serif;
-    }
-
-         h1, h2, h3, h4, h5, h6 {
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 700;
-    }
-
- .teks-tebal {
-        font-weight: 600;
-    }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
-
-        /* --- 2. HEADER & NAVIGASI --- */
-        header {
-            background: var(--primary-color);
-            color: white;
-            padding: 10px 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Quicksand', sans-serif; 
         }
-        .logo { display: flex; align-items: center; gap: 12px; }
-        .logo img { height: 40px; }
-        .logo h1 { font-size: 1.2rem; font-weight: 700; color: white; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body { 
+            background-color: var(--light-bg); 
+            color: var(--text-dark); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
         
-        nav ul { list-style: none; display: flex; gap: 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 5px 10px; transition: 0.3s; }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold-light); border-bottom: 2px solid var(--gold-light); }
-        #menu-toggle { display: none; background: var(--gold-light); color: var(--primary-color); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; }
+        h1, h2, h3, h4, h5, h6 { 
+            font-weight: 700; 
+        }
+        
+        .teks-tebal { 
+            font-weight: 600; 
+        }
 
-        /* --- 3. FORM & TABS --- */
-        .container { padding: 2rem 5%; flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; }
-        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        /* Container Tata Letak Form */
+        .container { 
+            padding: 3rem 10%; 
+            flex: 1; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            width: 100%; 
+        }
+
+        /* ==========================================================================
+           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, FORM, & WA TOMBOL)
+           ========================================================================== */
+        header {
+            background: var(--primary-color); 
+            color: white; 
+            padding: 10px 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            min-height: 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .logo h1 { 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            white-space: nowrap; 
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        #menu-toggle { display: none; } 
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        }
+
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            position: relative;
+            padding-bottom: 5px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        nav ul li a.active {
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--secondary-color) !important;
+        }
+
+        /* Desain Komponen Formulir & Struktur Tab Menu */
+        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         
         .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
         .tab-link { 
             flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; 
             color: var(--primary-color); background: #f1f1f1; transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 0.8rem;
+            display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 0.9rem;
         }
         .tab-link.active { background-color: var(--primary-color) !important; color: white !important; }
 
-        .tab-content { display: none; padding: 30px; animation: fadeIn 0.4s; }
-        .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .tab-content { display: none; padding: 40px; }
+        /* Tampilan Tab Aktif menggunakan Grid Responsif Multi-Kolom */
+        .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
 
-        /* --- 4. FORM ELEMENTS --- */
         .form-section-title { 
             grid-column: 1 / -1; margin: 15px 0 10px; padding-bottom: 8px; 
             border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700;
-            text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+            text-transform: uppercase; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
         }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.85rem; color: var(--primary-color); }
-        .required::after { content: " *"; color: #d63031; }
+        .form-group { margin-bottom: 5px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--primary-color); }
 
         .input-ikon {
             display: flex; align-items: center; background: white; 
             border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px;
         }
-        .input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; }
-        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.9rem; }
+        .input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 1.1rem; }
+        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.95rem; color: #333; }
         
-        /* State Form */
         input[readonly], select:disabled { background-color: #f8f9fa !important; cursor: not-allowed; opacity: 0.7; }
 
-        /* --- 5. BUTTONS & FOOTER --- */
+        /* Tombol Navigasi Formulir */
         .button-group { grid-column: 1 / -1; display: flex; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
         .btn-nav { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 1.1rem; transition: 0.3s; color: white; }
-        .btn-prev { background-color: var(--gold-light); }
-        .btn-next { background-color: var(--primary-color); }
+        .btn-prev { background-color: var(--secondary-color); color: var(--primary-color); }
+        .btn-next { background-color: var(--primary-color); color: white; }
         .btn-full { width: 100%; }
 
-        footer { 
-        background: #0d2e0d; 
-        color: white; 
-        padding: 40px 5% 20px; 
-        text-align: center; 
-        width: 100%;
-        border: none;
-        outline: none;
-    }
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #f4ce14; }
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-      .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); } 
+        /* Desain Khusus Grid Tambahan */
+        .form-grid, .form-grid-santri, .form-grid-upload { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; grid-column: 1 / -1; }
 
-         .whatsapp-float {
-        position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-        padding: 12px 20px; border-radius: 8px !important; display: flex; align-items: center; gap: 8px; 
-        text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
-    }
-
-    @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    } 
-
-        /* --- 6. MOBILE RESPONSIVE --- */
-     @media (max-width: 768px) {
-        header { height: 65px; padding: 0 15px; }
-        
-    .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
-        overflow: hidden;
-    }
-
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
-    }
-
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
-    }
-
-        /* Sembunyikan navigasi teks, munculkan tombol menu */
-        nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
-        }
-        nav.show ul { display: flex !important; }
-        
-          #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 4px;                   /* Memberikan jarak antara ikon dan teks */
-    
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
-
-    nav ul li a.active-link {
-                border-left: 5px solid var(--gold-light) !important;
-                padding-left: 20px;
-                color: var(--gold-light) !important;
-            }
-
-            nav ul li a.active-link i {
-                color: var(--gold-light) !important;
-            }
-
-            /* --- WA FLOAT MOBILE (Hanya Ikon, Tanpa Background) --- */
+        /* Default Style Desktop untuk WA Float */
+        @media (min-width: 769px) {
             .whatsapp-float {
-                background: transparent !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                bottom: 25px;
-                right: 25px;
+                position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important;
+                padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
+                text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                transition: transform 0.2s ease;
             }
-
-            .whatsapp-float span {
-                display: none !important;
-            }
-
-            .whatsapp-float i {
-                font-size: 55px; /* Lebih besar agar nyaman di tap */
-                color: var(--whatsapp-green) !important;
-                filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
-            }
+            .whatsapp-float:hover { transform: scale(1.05); }
         }
 
-  @keyframes wa-glow {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    } 
+        /* Footer Global */
+        footer { 
+            background: var(--dark-footer); 
+            color: white; 
+            padding: 40px 5% 20px; 
+            text-align: center; 
+            width: 100%;
+        }
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
+        /* ==========================================================================
+           3. BLOK STYLE MOBILE (HEADER, DROPDOWN MENU, & WA IKON SAJA)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; margin-right: 0 !important; }
+            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
+            /* Tombol Menu Hamburger Mobile */
+            #menu-toggle {
+                display: flex !important;  
+                flex-direction: row;      
+                align-items: center;       
+                gap: 4px;           
+                background: var(--secondary-color);
+                color: var(--primary-color);
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            
+            /* Navigasi Dropdown Vertikal Mobile */
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                width: 100%; 
+                position: absolute; 
+                top: 65px; 
+                left: 0; 
+                background: var(--primary-color); 
+                padding: 20px; 
+                border-bottom: 3px solid var(--secondary-color); 
+                gap: 15px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            }
+            
+            nav.show ul { display: flex; }
+            nav ul li a { color: white !important; }
+
+            /* Indikator Menu Aktif di Mobile (Garis Samping Kiri) */
+            nav ul li a.active {
+                border-bottom: none;
+                border-left: 4px solid var(--secondary-color);
+                padding-left: 10px;
+                color: var(--secondary-color) !important;
+            }
+
+            .container { padding: 2rem 4%; }
+            .tab-content { padding: 20px 15px; }
+            .tab-link { padding: 12px 5px; font-size: 0.75rem; }
+
+            /* WA FLOAT DI HP: HANYA IKON TANPA BACKGROUND */
+            .whatsapp-float {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: transparent !important; 
+                color: var(--whatsapp-green) !important; 
+                width: auto;
+                height: auto;
+                border-radius: 0;
+                box-shadow: none !important; 
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                animation: wa-pulse-only-icon 2s infinite ease-in-out;
+            }
+
+            .whatsapp-float span { display: none; }
+            .whatsapp-float i { font-size: 45px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
+        }
+
+        @keyframes wa-pulse-only-icon {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">
+    <a href="index.html" class="logo">
         <img src="main_logo.png" alt="Logo">
         <h1>DAARUL KHOIROT ALMADANI</h1>
-    </div>
-      <button id="menu-toggle">
+    </a>
+    
+    <button id="menu-toggle">
         <i class="fas fa-bars"></i> Menu
     </button>
 
-     <nav>
-          <ul>
+    <nav id="main-nav">
+        <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html" class="active-link"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
             <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
             <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
@@ -247,7 +301,7 @@
 </header>
 
 <div class="container">
-    <form id="formPendaftaran">
+    <form id="formPendaftaran" onsubmit="event.preventDefault(); window.handleFormSubmit();">
         <div class="tab-container">
             <div class="tab-menu">
                 <button type="button" class="tab-link active" onclick="openTab(event, 'santri')">
@@ -263,663 +317,680 @@
                     <i class="fas fa-file-signature"></i> PERNYATAAN
                 </button>
             </div>
-<div id="santri" class="tab-content active">
-    <div class="form-section-title"><i class="fas fa-id-card"></i> identitas Santri</div>
 
-    <div class="form-grid-santri">
-        <div class="form-group">
-            <label>Tanggal Pendaftaran*</label>
-            <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar"></div>
-        </div>
-        <div class="form-group">
-            <label>Nama Lengkap*</label>
-            <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama" placeholder="Sesuai KK/Akte"></div>
-        </div>
-        <div class="form-group">
-            <label>Pilihan Unit & Kelas*</label>
-            <div class="input-ikon">
-                <i class="fas fa-graduation-cap"></i>
-                <select name="tingkat_unit">
-                    <option value="">-- Pilih --</option>
-                    <optgroup label="UNIT TPQ">
-                       <option>TPQ - Tingkat 1</option>
-                       <option>TPQ - Tingkat 2</option>
-                    </optgroup>
-                    <optgroup label="UNIT MDT">
-                       <option>MDT - Tingkat 1</option>
-                       <option>MDT - Tingkat 2</option>
-                       <option>MDT - Tingkat 3</option>
-                       <option>MDT - Tingkat 4</option>
-                    </optgroup>
-                    <optgroup label="UNIT PESANTREN">
-                       <option>Pesantren Tahun 1</option>
-                       <option>Pesantren Tahun 2</option>
-                       <option>Pesantren Tahun 3</option>
-                    </optgroup>
-                </select>
+            <div id="santri" class="tab-content active">
+                <div class="form-section-title"><i class="fas fa-id-card"></i> Identitas Santri</div>
+
+                <div class="form-grid-santri">
+                    <div class="form-group">
+                        <label>Tanggal Pendaftaran*</label>
+                        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar" required></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Lengkap*</label>
+                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama" placeholder="Sesuai KK/Akte" required></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pilihan Unit & Kelas*</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-graduation-cap"></i>
+                            <select name="tingkat_unit" required>
+                                <option value="">-- Pilih --</option>
+                                <optgroup label="UNIT TPQ">
+                                   <option value="TPQ - Tingkat 1">TPQ - Tingkat 1</option>
+                                   <option value="TPQ - Tingkat 2">TPQ - Tingkat 2</option>
+                                </optgroup>
+                                <optgroup label="UNIT MDT">
+                                   <option value="MDT - Tingkat 1">MDT - Tingkat 1</option>
+                                   <option value="MDT - Tingkat 2">MDT - Tingkat 2</option>
+                                   <option value="MDT - Tingkat 3">MDT - Tingkat 3</option>
+                                   <option value="MDT - Tingkat 4">MDT - Tingkat 4</option>
+                                </optgroup>
+                                <optgroup label="UNIT PESANTREN">
+                                   <option value="Pesantren Tahun 1">Pesantren Tahun 1</option>
+                                   <option value="Pesantren Tahun 2">Pesantren Tahun 2</option>
+                                   <option value="Pesantren Tahun 3">Pesantren Tahun 3</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid-santri">
+                    <div class="form-group">
+                        <label>NIK*</label>
+                        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="number" name="nik" placeholder="16 Digit NIK" required></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor KK*</label>
+                        <div class="input-ikon"><i class="fas fa-address-card"></i><input type="number" name="no_kk" placeholder="16 Digit KK" required></div>
+                    </div>
+                    <div class="form-group">
+                        <label>NISN</label>
+                        <div class="input-ikon"><i class="fas fa-fingerprint"></i><input type="text" id="input_nisn" name="nisn" placeholder="10 Digit NISN"></div>
+                        <div style="margin-top: 8px; display: flex; align-items: center; gap: 6px;">
+                            <input type="checkbox" id="no_nisn" name="no_nisn" onchange="handleNoNISN(this.checked)">
+                            <label for="no_nisn" style="font-size: 0.85rem; color: #666; cursor: pointer; margin:0;">Belum Ada NISN</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid-santri">
+                    <div class="form-group">
+                        <label>Jenis Kelamin*</label>
+                        <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin" required><option value="">-- Pilih --</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_lahir"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <div class="input-ikon"><i class="fas fa-calendar-day"></i><input type="date" name="tgl_lahir"></div>
+                    </div>
+                </div>
+
+                <div class="form-grid-santri">
+                    <div class="form-group">
+                        <label>Anak Ke-</label>
+                        <div class="input-ikon"><i class="fas fa-list-ol"></i><input type="number" name="anak_ke"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah Saudara</label>
+                        <div class="input-ikon"><i class="fas fa-users"></i><input type="number" name="jml_saudara"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Cita-cita</label>
+                        <div class="input-ikon"><i class="fas fa-star"></i><select name="cita"><option value="">-- Pilih --</option><option value="Ulama/Da`i">Ulama/Da`i</option><option value="Hafizh/Hafizhah">Hafizh/Hafizhah</option><option value="Guru/Dosen">Guru/Dosen</option><option value="Dokter">Dokter</option><option value="Tentara/Polisi">Tentara/Polisi</option><option value="Pengusaha">Pengusaha</option><option value="Lainnya">Lainnya</option></select></div>
+                    </div>
+                </div>
+
+                <div class="form-grid-santri">
+                    <div class="form-group">
+                        <label>Hobi Santri</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-heart"></i>
+                            <select name="hobi">
+                                <option value="">-- Pilih --</option>
+                                <option value="Membaca Kitab/Buku">Membaca Kitab/Buku</option>
+                                <option value="Olahraga">Olahraga</option>
+                                <option value="Seni Kaligrafi">Seni Kaligrafi</option>
+                                <option value="Menghafal Al-Qur'an">Menghafal Al-Qur'an</option>
+                                <option value="Teknologi">Teknologi</option>
+                                <option value="Hadhroh">Hadhroh</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Kebutuhan Khusus</label>
+                        <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"><option value="">-- Pilih --</option><option value="Tidak Ada">Tidak Ada</option><option value="Lamban Belajar">Lamban Belajar</option><option value="Kesulitan Belajar Spesifik">Kesulitan Belajar Spesifik</option><option value="Gangguan Komunikasi">Gangguan Komunikasi</option><option value="Berbakat Memiliki Kecerdasan Luar Biasa">Berbakat Memiliki Kecerdasan Luar Biasa</option><option value="Lainnya">Lainnya</option></select></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Kebutuhan Disabilitas</label>
+                        <div class="input-ikon"><i class="fas fa-universal-access"></i><select name="disabilitas"><option value="">-- Pilih --</option><option value="Tidak ada">Tidak ada</option><option value="Tuna Netra">Tuna Netra</option><option value="Tuna Rungu">Tuna Rungu</option><option value="Tuna Wicara">Tuna Wicara</option><option value="Tuna Daksa">Tuna Daksa</option><option value="Tuna Grahita">Tuna Grahita</option><option value="Tuna Laras">Tuna Laras</option><option value="Lainnya">Lainnya</option></select></div>
+                    </div>
+                </div>
+
+                <div class="form-grid-santri" style="margin-top: 15px;">
+                    <div class="form-group">
+                        <label>Biaya Sekolah Oleh</label>
+                        <div class="input-ikon"><i class="fas fa-wallet"></i><select name="biaya"><option value="">-- Pilih --</option><option value="Orangtua">Orangtua</option><option value="Wali/Orangtua Asuh">Wali/Orangtua Asuh</option><option value="Tanggungan Sendiri">Tanggungan Sendiri</option><option value="Lainnya">Lainnya</option></select></div>
+                    </div>
+                </div>
+
+                <div class="form-section-title"><i class="fas fa-file-upload"></i> Dokumen Upload</div>
+                <div class="form-grid-upload">
+                    <div class="form-group">
+                        <label>Upload Foto KK</label>
+                        <div class="input-ikon"><i class="fas fa-file-image"></i><input type="file" name="up_kk"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Ijazah</label>
+                        <div class="input-ikon"><i class="fas fa-file-contract"></i><input type="file" name="up_ijazah"></div>
+                    </div>
+                </div>
+
+                <div class="button-group" style="padding: 10px 0;">
+                    <button type="button" class="btn-nav btn-next btn-full" onclick="nextTab('ortu')">
+                        Lanjut ke Data Orang Tua <i class="fas fa-chevron-circle-right fa-lg"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="form-grid-santri">
-        <div class="form-group">
-            <label>NIK*</label>
-            <div class="input-ikon"><i class="fas fa-id-card"></i><input type="number" name="nik" placeholder="16 Digit NIK"></div>
-        </div>
-        <div class="form-group">
-            <label>Nomor KK*</label>
-            <div class="input-ikon"><i class="fas fa-address-card"></i><input type="number" name="no_kk" placeholder="16 Digit KK"></div>
-        </div>
-        <div class="form-group">
-            <label>NISN</label>
-            <div class="input-ikon"><i class="fas fa-fingerprint"></i><input type="text" name="nisn" placeholder="10 Digit NISN"></div>
-            <div style="margin-top: 5px; display: flex; align-items: center; gap: 5px;">
-                <input type="checkbox" name="no_nisn" onchange="handleNoNISN(this.checked)">
-                <label for="no_nisn" style="font-size: 0.8rem; color: #666; cursor: pointer;">Belum Ada NISN</label>
+            <div id="ortu" class="tab-content">
+                <div class="form-section-title"><i class="fas fa-user-tie"></i> Data Ayah Kandung</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nama Lengkap Ayah*</label>
+                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="n_ayah" placeholder="Nama lengkap sesuai KK"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Status Ayah</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-heartbeat"></i>
+                            <select name="st_ayah">
+                                <option value="">-- Pilih --</option>                
+                                <option value="Masih Hidup">Masih Hidup</option>
+                                <option value="Meninggal">Meninggal</option>
+                                <option value="Tidak Diketahui">Tidak Diketahui</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Kewarganegaraan</label>
+                        <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ayah" value="Indonesia"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>NIK Ayah (16 Digit)*</label>
+                        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ayah" maxlength="16" placeholder="16 digit NIK"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Kartu Keluarga (KK)*</label>
+                        <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="kk_ayah" maxlength="16" placeholder="16 digit No KK"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ayah"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir Ayah</label>
+                        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ayah"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pendidikan Terakhir</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-graduation-cap"></i>
+                            <select name="pdk_ayah">
+                                <option value="">-- Pilih --</option>
+                                <option value="SD/Sederajat">SD/Sederajat</option>
+                                <option value="SMP/Sederajat">SMP/Sederajat</option>
+                                <option value="SMA/Sederajat">SMA/Sederajat</option>
+                                <option value="D1">D1</option>
+                                <option value="D2">D2</option>
+                                <option value="D3">D3</option>
+                                <option value="D4/S1">D4/S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                                <option value="Tidak Bersekolah">Tidak Bersekolah</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pekerjaan Utama</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-briefcase"></i>
+                            <select name="pjk_ayah">
+                                <option value="">-- Pilih --</option>
+                                <option value="Tidak Bekerja">Tidak Bekerja</option>
+                                <option value="Pensiunan">Pensiunan</option>
+                                <option value="PNS/TNI/Polri">PNS/TNI/Polri</option>
+                                <option value="Guru/Dosen">Guru/Dosen</option>
+                                <option value="Pegawai Swasta">Pegawai Swasta</option>
+                                <option value="Wira Swasta">Wira Swasta</option>
+                                <option value="Petani/Peternak">Petani/Peternak</option>
+                                <option value="Nelayan">Nelayan</option>
+                                <option value="Buruh">Buruh(Pabrik/Pertanian/Peternakan)</option>
+                                <option value="Sopir">Sopir</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Penghasilan Rata-rata / Bulan</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <select name="hasil_ayah">
+                                <option value="">-- Pilih --</option>
+                                <option value="Dibawah 800.000">Dibawah 800.000</option>
+                                <option value="800.001 - 1.500.000">800.001 - 1.500.000</option>
+                                <option value="1.500.001 - 2.500.000">1.500.001 - 2.500.000</option>
+                                <option value="2.500.001 - 5.000.000">2.500.001 - 5.000.000</option>
+                                <option value="5.000.001 - 10.000.000">5.000.001 - 10.000.000</option>
+                                <option value="10.000.001 - 20.000.000">10.000.001 - 20.000.000</option>
+                                <option value="Diatas 20.000.000">Diatas 20.000.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>No Handphone Ayah (WhatsApp)</label>
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <div class="input-ikon">
+                                <i class="fab fa-whatsapp"></i>
+                                <input type="text" id="hp_ayah" name="hp_ayah" placeholder="628...">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="cek_hp_ayah" onchange="toggleHP(this, 'hp_ayah')">
+                                <label for="cek_hp_ayah" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer; margin:0;">Tidak punya No Handphone</label>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="form-section-title"><i class="fas fa-user-nurse"></i> Data Ibu Kandung</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nama Lengkap Ibu*</label>
+                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="n_ibu"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Status Ibu</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-heartbeat"></i>
+                            <select name="st_ibu">
+                                <option value="">-- Pilih --</option>
+                                <option value="Masih Hidup">Masih Hidup</option>
+                                <option value="Meninggal">Meninggal</option>
+                                <option value="Tidak Diketahui">Tidak Diketahui</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Kewarganegaraan</label>
+                        <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ibu" value="Indonesia"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>N I K Ibu</label>
+                        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ibu" maxlength="16"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ibu"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pendidikan Terakhir</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-graduation-cap"></i>
+                            <select name="pdk_ibu">
+                                <option value="">-- Pilih --</option>
+                                <option value="SD/Sederajat">SD/Sederajat</option>
+                                <option value="SMP/Sederajat">SMP/Sederajat</option>
+                                <option value="SMA/Sederajat">SMA/Sederajat</option>
+                                <option value="D1">D1</option>
+                                <option value="D2">D2</option>
+                                <option value="D3">D3</option>
+                                <option value="D4/S1">D4/S1</option>
+                                <option value="S2">S2</option>
+                                <option value="S3">S3</option>
+                                <option value="Tidak Bersekolah">Tidak Bersekolah</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pekerjaan Utama</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-briefcase"></i>
+                            <select name="pjk_ibu">
+                                <option value="">-- Pilih --</option>
+                                <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+                                <option value="Pensiunan">Pensiunan</option>
+                                <option value="PNS/TNI/Polri">PNS/TNI/Polri</option>
+                                <option value="Guru/Dosen">Guru/Dosen</option>
+                                <option value="Pegawai Swasta">Pegawai Swasta</option>
+                                <option value="Wira Swasta">Wira Swasta</option>
+                                <option value="Petani/Peternak">Petani/Peternak</option>
+                                <option value="Nelayan">Nelayan</option>
+                                <option value="Buruh">Buruh(Pabrik/Pertanian/Peternakan)</option>
+                                <option value="Sopir">Sopir</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Penghasilan Rata-rata / Bulan</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <select name="hasil_ibu"> 
+                                <option value="">-- Pilih --</option>
+                                <option value="Dibawah 800.000">Dibawah 800.000</option>
+                                <option value="800.001 - 1.500.000">800.001 - 1.500.000</option>
+                                <option value="1.500.001 - 2.500.000">1.500.001 - 2.500.000</option>
+                                <option value="2.500.001 - 5.000.000">2.500.001 - 5.000.000</option>
+                                <option value="5.000.001 - 10.000.000">5.000.001 - 10.000.000</option>
+                                <option value="10.000.001 - 20.000.000">10.000.001 - 20.000.000</option>
+                                <option value="Diatas 20.000.000">Diatas 20.000.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>No Handphone Ibu</label>
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <div class="input-ikon">
+                                <i class="fab fa-whatsapp"></i>
+                                <input type="text" id="hp_ibu" name="hp_ibu" placeholder="628...">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="cek_hp_ibu" onchange="toggleHP(this, 'hp_ibu')">
+                                <label for="cek_hp_ibu" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer; margin:0;">Tidak punya No Handphone</label>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="form-group" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #ddd; grid-column: 1 / -1;">
+                    <label><b>Tentukan Status Wali Santri*</b></label>
+                    <div class="input-ikon" style="margin-top: 10px;">
+                        <i class="fas fa-users-cog"></i>
+                        <select name="st_wali">
+                            <option value="">-- Pilih --</option>
+                            <option value="ayah">Sama Dengan Ayah Kandung</option>
+                            <option value="ibu">Sama Dengan Ibu Kandung</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('santri')">
+                        <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
+                    </button>
+                    <button type="button" class="btn-nav btn-next" onclick="nextTab('alamat')">
+                        Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="form-grid-santri">
-        <div class="form-group">
-            <label>Jenis Kelamin*</label>
-            <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin"><option value="">-- Pilih --</option><option>Laki-laki</option><option>Perempuan</option></select></div>
-        </div>
-        <div class="form-group">
-            <label>Tempat Lahir</label>
-            <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_lahir"></div>
-        </div>
-        <div class="form-group">
-            <label>Tanggal Lahir</label>
-            <div class="input-ikon"><i class="fas fa-calendar-day"></i><input type="date" name="tgl_lahir"></div>
-        </div>
-    </div>
+            <div id="alamat" class="tab-content">
+                <div class="form-section-title"><i class="fas fa-male"></i> Data Ayah</div>
+                <div class="form-grid">
+                     <div class="form-group">
+                        <label>Status Kepemilikan Rumah</label>
+                        <div class="input-ikon"><i class="fas fa-house-user"></i>
+                            <select name="milik_ayah">
+                                <option value="">-- Pilih --</option>
+                                <option value="Milik Sendiri">Milik Sendiri</option>
+                                <option value="Rumah Orangtua">Rumah Orangtua</option>
+                                <option value="Rumah Saudara">Rumah Saudara</option>
+                                <option value="Sewa/Kontrak">Sewa/Kontrak</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Provinsi</label>
+                        <div class="input-ikon"><i class="fas fa-map"></i>     
+                            <select name="prov_ayah">
+                                <option value="">Pilih Provinsi</option>
+                                <option value="Jawa Barat">Jawa Barat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Kabupaten</label>
+                        <div class="input-ikon"><i class="fas fa-city"></i>
+                            <select name="kab_ayah">
+                                <option value="">Pilih Kabupaten</option>
+                                <option value="Karawang">Karawang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Kecamatan</label>
+                        <div class="input-ikon"><i class="fas fa-location-arrow"></i>
+                            <select name="kec_ayah">
+                                <option value="">Pilih Kecamatan</option>
+                                <option value="Jatisari">Jatisari</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Desa</label>
+                        <div class="input-ikon"><i class="fas fa-map-signs"></i>
+                            <select name="desa_ayah">
+                                <option value="">Pilih Desa</option>
+                                <option value="Jatisari">Jatisari</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Alamat</label> <div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_ayah" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
+                    <div class="form-group"><label>RT</label><div class="input-ikon"><i class="fas fa-thumbtack"></i><input type="text" name="rt_ayah" placeholder="RT"></div></div>
+                    <div class="form-group"><label>RW</label><div class="input-ikon"><i class="fas fa-thumbtack"></i><input type="text" name="rw_ayah" placeholder="RW"></div></div>
+                    <div class="form-group">
+                        <label>Kode Pos</label>
+                        <div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_ayah"></div>
+                    </div>
+                </div>
 
-    <div class="form-grid-santri">
-        <div class="form-group">
-            <label>Anak Ke-</label>
-            <div class="input-ikon"><i class="fas fa-list-ol"></i><input type="number" name="anak_ke"></div>
-        </div>
-        <div class="form-group">
-            <label>Jumlah Saudara</label>
-            <div class="input-ikon"><i class="fas fa-users"></i><input type="number" name="jml_saudara"></div>
-        </div>
-        <div class="form-group">
-            <label>Cita-cita</label>
-            <div class="input-ikon"><i class="fas fa-star"></i><select name="cita"><option value="">-- Pilih --</option><option>Ulama/Da`i</option><option>Hafizh/Hafizhah</option><option>Guru/Dosen</option><option>Dokter</option><option>Tentara/Polisi</option><option>Pengusaha</option><option>Lainnya</option></select></div>
-        </div>
-    </div>
-       <div class="form-group">
-           <label>Hobi Santri</label>
-           <div class="input-ikon">
-              <i class="fas fa-star"></i>
-              <select name="hobi"><option value="">-- Pilih --</option>
-                  <option>Membaca Kitab/Buku</option>
-                  <option>Olahraga</option>
-                  <option>Seni Kaligrafi</option>
-                  <option>Menghafal Al-Qur'an</option>
-                  <option>Teknologi</option>
-                  <option>Hadhroh</option>
-                  <option>Lainnya</option>
-              </select>
-          </div>
-      </div>
-        <div class="form-grid-santri">
-        <div class="form-group">
-            <label>Kebutuhan Khusus</label>
-            <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"><option value="">-- Pilih --</option><option>Tidak Ada</option><option>Lamban Belajar</option><option>Kesulitan Belajar Spesifik</option><option>Gangguan Komunikasi</option><option>Berbakat Memilili Kemampuan/Kecerdasan Luar Biasa</option><option>Lainnya</option></select></div>
-        </div>
-        <div class="form-group">
-            <label>Kebutuhan Disabilitas</label>
-            <div class="input-ikon"><i class="fas fa-universal-access"></i><select name="disabilitas"><option value="">-- Pilih --</option><option>Tidak ada</option><option>Tuna Netra</option><option>Tuna Rungu</option><option>Tuna Wicara</option><option>Tuna Daksa</option><option>Tuna Grahita</option><option>Tuna Laras</option><option>Lainnya</option></select></div>
-        </div>
-        <div class="form-group">
-            <label>Biaya Sekolah Oleh</label>
-            <div class="input-ikon"><i class="fas fa-wallet"></i><select name="biaya"><option value="">-- Pilih --</option><option>Orangtua</option><option>Wali/Orangtua Asuh</option><option>Tanggungan Sendiri</option><option>Lainnya</option></select></div>
-        </div>
-    </div>
+                <div class="form-section-title"><i class="fas fa-female"></i> Domisili Ibu Kandung</div>
+                <div class="form-group" style="margin-bottom:20px; max-width: 400px; grid-column:1/-1;">
+                    <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Ibu</label>
+                    <div class="input-ikon" style="border:2px solid var(--secondary-color);">
+                        <i class="fas fa-question-circle"></i>
+                        <select name="pilih_dom_ibu" onchange="toggleDomisiliIbu(this.value)">
+                            <option value="">-- Pilih Lokasi --</option>
+                            <option value="sama">Sama Dengan Ayah Kandung</option>
+                            <option value="beda">Beda Dengan Ayah Kandung</option>
+                        </select>
+                    </div>
+                </div>
 
-    <div class="form-section-title"><i class="fas fa-file-upload"></i> DOKUMEN UPLOAD</div>
-    <div class="form-grid-upload">
-        <div class="form-group">
-            <label>Upload Foto KK</label>
-            <div class="input-ikon"><i class="fas fa-file-image"></i><input type="file" name="up_kk"></div>
-        </div>
-        <div class="form-group">
-            <label>Upload Ijazah</label>
-            <div class="input-ikon"><i class="fas fa-file-contract"></i><input type="file" name="up_ijazah"></div>
-        </div>
-    </div>
+                <div id="box_ibu" class="form-grid" style="display: none;">
+                     <div class="form-group"><label>Provinsi</label><div class="input-ikon"><i class="fas fa-map"></i><select name="prov_ibu"><option value="">Pilih Provinsi</option></select></div></div>
+                     <div class="form-group"><label>Kabupaten</label><div class="input-ikon"><i class="fas fa-city"></i><select name="kab_ibu"><option value="">Pilih Kabupaten</option></select></div></div>
+                     <div class="form-group"><label>Kecamatan</label><div class="input-ikon"><i class="fas fa-location-arrow"></i><select name="kec_ibu"><option value="">Pilih Kecamatan</option></select></div></div>
+                     <div class="form-group"><label>Desa</label><div class="input-ikon"><i class="fas fa-map-signs"></i><select name="desa_ibu"><option value="">Pilih Desa</option></select></div></div>
+                     <div class="form-group"><label>Alamat Lengkap Ibu</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_ibu" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
+                     <div class="form-group"><label>RT</label><div class="input-ikon"><input type="text" name="rt_ibu" placeholder="RT"></div></div>
+                     <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" name="rw_ibu" placeholder="RW"></div></div>
+                     <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_ibu"></div></div>
+                </div>
+                    
+                <div class="form-section-title"><i class="fas fa-user-graduate"></i> Domisili Santri</div>
+                <div class="form-group" style="margin-bottom:20px; max-width: 400px; grid-column:1/-1;">
+                    <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili</label>
+                    <div class="input-ikon" style="border:2px solid var(--primary-color);">
+                        <i class="fas fa-bed"></i>
+                        <select name="pilih_dom_santri" onchange="handleMukim(this.value)">
+                            <option value="">-- Pilih Lokasi --</option>
+                            <option value="mukim">Mukim (Tinggal di Pesantren)</option>
+                            <option value="ayah">Tidak Mukim (Sama Dengan Ayah Kandung)</option>
+                            <option value="manual">Tidak Mukim (Beda Dengan Ayah Kandung)</option>
+                        </select>
+                    </div>
+                </div>
+               
+                <div id="box_santri" class="form-grid" style="display: none;">
+                     <div class="form-group"><label>Provinsi</label><div class="input-ikon"><i class="fas fa-map"></i><select name="prov_santri"><option value="">Pilih Provinsi</option></select></div></div>
+                     <div class="form-group"><label>Kabupaten</label><div class="input-ikon"><i class="fas fa-city"></i><select name="kab_santri"><option value="">Pilih Kabupaten</option></select></div></div>
+                     <div class="form-group"><label>Kecamatan</label><div class="input-ikon"><i class="fas fa-location-arrow"></i><select name="kec_santri"><option value="">Pilih Kecamatan</option></select></div></div>
+                     <div class="form-group"><label>Desa</label><div class="input-ikon"><i class="fas fa-map-signs"></i><select name="desa_santri"><option value="">Pilih Desa</option></select></div></div>
+                     <div class="form-group"><label>Alamat Lengkap Santri</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_santri" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
+                     <div class="form-group"><label>RT</label><div class="input-ikon"><input type="text" name="rt_santri" placeholder="RT"></div></div>
+                     <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" name="rw_santri" placeholder="RW"></div></div>
+                     <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_santri"></div></div>
+                </div>
 
-   <div class="button-group" style="padding: 30px 0;">
-        <button type="button" class="btn-nav btn-next btn-full" onclick="nextTab('ortu')">
-            Lanjut ke Data Orang Tua <i class="fas fa-chevron-circle-right fa-lg"></i>
-        </button>
-    </div>
-</div> 
-</div>
-<div id="ortu" class="tab-content">
-<div class="form-section-title"><i class="fas fa-user-tie"></i> Data Ayah Kandung</div>
-<div class="form-grid">
-    <div class="form-group">
-        <label>Nama Lengkap Ayah*</label>
-        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" id="n_ayah" placeholder="Nama lengkap sesuai KK"></div>
-    </div>
-    <div class="form-group">
-        <label>Status Ayah</label>
-        <div class="input-ikon">
-            <i class="fas fa-heartbeat"></i>
-            <select name="st_ayah">
-                <option value="">-- Pilih --</option>                
-                <option value="Masih Hidup">Masih Hidup</option>
-                <option value="Meninggal">Meninggal</option>
-                <option value="Tidak Diketahui">Tidak Diketahui</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Kewarganegaraan</label>
-        <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ayah" value="Indonesia"></div>
-    </div>
-    <div class="form-group">
-        <label>NIK Ayah (16 Digit)*</label>
-        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ayah" maxlength="16" placeholder="16 digit NIK"></div>
-    </div>
-    <div class="form-group">
-        <label>Nomor Kartu Keluarga (KK)*</label>
-        <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="kk_ayah" maxlength="16" placeholder="16 digit No KK"></div>
-    </div>
-    <div class="form-group">
-        <label>Tempat Lahir</label>
-        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ayah"></div>
-    </div>
-    <div class="form-group">
-        <label>Tanggal Lahir Ayah</label>
-        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ayah"></div>
-    </div>
-    <div class="form-group">
-        <label>Pendidikan Terakhir</label>
-        <div class="input-ikon">
-            <i class="fas fa-graduation-cap"></i>
-            <select name="pdk_ayah">
-                <option value="">-- Pilih --</option>
-                <option>SD/Sederajat</option>
-                <option>SMP/Sederajat</option>
-                <option>SMA/Sederajat</option>
-                <option>D1</option>
-                <option>D2</option>
-                <option>D3</option>
-                <option>D4/S1</option>
-                <option>S2</option>
-                <option>S3</option>
-                <option>Tidak Bersekolah</option>
-                <option>Lainnya</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Pekerjaan Utama</label>
-        <div class="input-ikon">
-            <i class="fas fa-briefcase"></i>
-            <select name="pjk_ayah">
-                <option value="">-- Pilih --</option>
-                <option>Tidak Bekerja</option>
-                <option>Pensiunan</option>
-                <option>PNS/TNI/Polri</option>
-                <option>Guru/Dosen</option>
-                <option>Pegawai Swasta</option>
-                <option>Wira Swasta</option>
-                <option>Petani/Peternak</option>
-                <option>Nelayan</option>
-                <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
-                <option>Sopir</option>
-                <option>Lainnya</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Penghasilan Rata-rata / Bulan</label>
-        <div class="input-ikon">
-            <i class="fas fa-money-bill-wave"></i>
-            <select name="hasil_ayah">
-                <option value="">-- Pilih --</option>
-                <option>Dibawah 800.000</option>
-                <option>800.001 - 1.500.000</option>
-                <option>1.500.001 - 2.500.000</option>
-                <option>2.500.001 - 5.000.000</option>
-                <option>5.000.001 - 10.000.000</option>
-                <option>10.000.001 - 20.000.000</option>
-                <option>Diatas 20.000.000</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>No Handphone Ayah (WhatsApp)</label>
-        <div style="display: flex; flex-direction: column; gap: 5px;">
-            <div class="input-ikon">
-                <i class="fab fa-whatsapp"></i>
-                <input type="text" name="hp_ayah" placeholder="628...">
+                <div class="form-section-title"><i class="fas fa-route"></i> Jarak & Transportasi</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Jarak ke Lembaga</label>
+                        <div class="input-ikon"><i class="fas fa-ruler-horizontal"></i>
+                            <select name="jarak">
+                                <option value="">-- Pilih --</option>
+                                <option value="Kurang dari 5 Km">Kurang dari 5 Km</option>
+                                <option value="5 - 10 Km">5 - 10 Km</option>
+                                <option value="Lebih dari 20 Km">Lebih dari 20 Km</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Transportasi</label>
+                        <div class="input-ikon"><i class="fas fa-motorcycle"></i>
+                            <select name="trans">
+                                <option value="">-- Pilih --</option>
+                                <option value="Jalan Kaki">Jalan Kaki</option>
+                                <option value="Naik Sepeda">Naik Sepeda</option>
+                                <option value="Naik Sepeda Motor">Naik Sepeda Motor</option>
+                                <option value="Naik Angkutan Umum">Naik Angkutan Umum</option>
+                                <option value="Antar Jemput">Antar Jemput</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Waktu Tempuh</label>
+                        <div class="input-ikon"><i class="fas fa-clock"></i>
+                            <select name="waktu">
+                                <option value="">-- Pilih --</option>
+                                <option value="1 - 10 menit">1 - 10 menit</option>
+                                <option value="10 - 20 menit">10 - 20 menit</option>
+                                <option value="20 - 30 menit">20 - 30 menit</option>
+                                <option value="Lebih dari 30 menit">Lebih dari 30 menit</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('ortu')">
+                        <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
+                    </button>
+                    <button type="button" class="btn-nav btn-next" onclick="nextTab('pernyataan')">
+                        Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
+                    </button>
+                </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <input type="checkbox" name="cek_hp_ayah" onchange="toggleHP(this, 'hp_ayah')">
-                <label for="cek_hp_ayah" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya No Handphone</label>
-            </div>
-        </div>
-    </div>
-</div> <div class="form-section-title"><i class="fas fa-user-nurse"></i> Data Ibu Kandung</div>
-<div class="form-grid">
-    <div class="form-group">
-        <label>Nama Lengkap Ibu*</label>
-        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="n_ibu"></div>
-    </div>
-    <div class="form-group">
-        <label>Status Ibu</label>
-        <div class="input-ikon">
-            <i class="fas fa-heartbeat"></i>
-            <select name="st_ibu">
-                <option value="">-- Pilih --</option>
-                <option>Masih Hidup</option>
-                <option>Meninggal</option>
-                <option>Tidak Diketahui</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Kewarganegaraan</label>
-        <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ibu" value="Indonesia"></div>
-    </div>
-    <div class="form-group">
-        <label>N I K Ibu</label>
-        <div class="input-ikon"><i class="fas fa-name-card"></i><input type="text" name="nik_ibu" maxlength="16"></div>
-    </div>
-    <div class="form-group">
-        <label>Tempat Lahir</label>
-        <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ibu"></div>
-    </div>
-    <div class="form-group">
-        <label>Tanggal Lahir</label>
-        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu"></div>
-    </div>
-    <div class="form-group">
-        <label>Pendidikan Terakhir</label>
-        <div class="input-ikon">
-            <i class="fas fa-graduation-cap"></i>
-            <select name="pdk_ibu">
-                <option value="">-- Pilih --</option>
-                <option>SD/Sederajat</option>
-                <option>SMP/Sederajat</option>
-                <option>SMA/Sederajat</option>
-                <option>D1</option>
-                <option>D2</option>
-                <option>D3</option>
-                <option>D4/S1</option>
-                <option>S2</option>
-                <option>S3</option>
-                <option>Tidak Bersekolah</option>
-                <option>Lainnya</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Pekerjaan Utama</label>
-        <div class="input-ikon">
-            <i class="fas fa-briefcase"></i>
-            <select id="pjk_ibu">
-                <option value="">-- Pilih --</option>
-                <option>Ibu Rumah Tangga</option>
-                <option>Pensiunan</option>
-                <option>PNS/TNI/Polri</option>
-                <option>Guru/Dosen</option>
-                <option>Pegawai Swasta</option>
-                <option>Wira Swasta</option>
-                <option>Petani/Peternak</option>
-                <option>Nelayan</option>
-                <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
-                <option>Sopir</option>
-                <option>Lainnya</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Penghasilan Rata-rata / Bulan</label>
-        <div class="input-ikon">
-            <i class="fas fa-money-bill-wave"></i>
-            <select name="hasil_ibu"> 
-                <option value="">-- Pilih --</option>
-                <option>Dibawah 800.000</option>
-                <option>800.001 - 1.500.000</option>
-                <option>1.500.001 - 2.500.000</option>
-                <option>2.500.001 - 5.000.000</option>
-                <option>5.000.001 - 10.000.000</option>
-                <option>10.000.001 - 20.000.000</option>
-                <option>Diatas 20.000.000</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>No Handphone Ibu</label>
-        <div style="display: flex; flex-direction: column; gap: 5px;">
-            <div class="input-ikon">
-                <i class="fab fa-whatsapp"></i>
-                <input type="text" name="hp_ibu" placeholder="628...">
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <input type="checkbox" name="cek_hp_ibu" onchange="toggleHP(this, 'hp_ibu')">
-                <label for="cek_hp_ibu" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya No Handphone</label>
-            </div>
-        </div>
-    </div>
-</div> <div class="form-group" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #ddd;">
-    <label><b>Tentukan Status Wali Santri*</b></label>
-    <div class="input-ikon" style="margin-top: 10px;">
-        <i class="fas fa-users-cog"></i>
-        <select name="st_wali">
-            <option value="">-- Pilih --</option>
-            <option value="ayah">Sama Dengan Ayah Kandung</option>
-            <option value="ibu">Sama Dengan Ibu Kandung</option>
-            <option value="lainnya">Lainnya</option>
-        </select>
-    </div>
-</div>
 
-<div class="button-group">
-    <button type="button" class="btn-nav btn-prev" onclick="prevTab('santri')">
-        <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
-    </button>
-    <button type="button" class="btn-nav btn-next" onclick="nextTab('alamat')">
-        Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
-    </button>
-</div>
-</div>
+            <div id="pernyataan" class="tab-content">
+                <div class="form-section-title"><i class="fas fa-microphone-alt"></i> Wawancara Mandiri Orangtua & Santri </div>
+                <div class="form-grid" style="grid-column: 1/-1; margin-bottom: 10px;">
+                    <div style="background: #e7f3ff; padding: 12px; border-radius: 6px; color: #004085; font-size: 0.95rem;">
+                        <i class="fas fa-info-circle"></i> Mohon dijawab dengan jujur agar Lembaga dapat memberikan pembinaan yang tepat bagi ananda.
+                    </div>
+                </div>
 
-<div id="alamat" class="tab-content" style="display: none;">
-<div class="form-section-title"><i class="fas fa-male"></i> Data Ayah</div>
-<div class="form-grid" name="block_ayah">
-     <div class="form-group">
-            <label>Status Kepemilikan Rumah</label>
-            <div class="input-ikon"><i class="fas fa-house-user"></i>
-                <select name="milik_ayah">
-                    <option value="">-- Pilih --</option>
-                    <option>Milik Sendiri</option>
-                    <option>Rumah Orangtua</option>
-                    <option>Rumah Saudara</option>
-                    <option>Sewa/Kontrak</option>
-                    <option>Lainnya</option>
-                </select>
-            </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Visi Orang Tua</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-eye"></i>
+                            <select name="w_visi">
+                                <option value="">-- Pilih Pandangan --</option>
+                                <option value="Urgensi Dunia/Akhirat">Dahulukan Akhirat Jangan Lupakan Dunia</option>
+                                <option value="Ibadah & Akhlak">Keseimbangan Ibadah, Akhlak, & Adab</option>
+                                <option value="Fokus Ibadah">Fokus Ibadah Ritual (Shalat, Ngaji)</option>
+                                <option value="Dunia Akhirat">Keseimbangan Ilmu Agama & Umum</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pola Disiplin Rumah</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-gavel"></i>
+                            <select name="w_pola">
+                                <option value="">-- Pilih Pola --</option>
+                                <option value="Sangat Ketat">Sangat Ketat (Banyak Sanksi)</option>
+                                <option value="Demokratis">Demokratis (Diskusi Bersama)</option>
+                                <option value="Longgar">Longgar (Ikuti Mau Anak)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Perilaku Dominan</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-child"></i>
+                            <select name="w_perilaku">
+                                <option value="">-- Pilih Perilaku --</option>
+                                <option value="Mandiri & Rajin">Mandiri, Rajin, & Penurut</option>
+                                <option value="Cukup Baik">Cukup Baik, Perlu Diingatkan</option>
+                                <option value="Kurang Mandiri">Kurang Mandiri / Harus selalu disuruh</option>
+                                <option value="Kepekaan">Kurang Peka / Harus selalu diingatkan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kondisi Kesehatan</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-heartbeat"></i>
+                            <select name="w_sehat" onchange="toggleDetail(this.value, 'box_sehat')">
+                                <option value="">-- Pilih Kondisi --</option>
+                                <option value="Sehat">Alhamdulillah Sehat</option>
+                                <option value="Pernah Sakit">Ada Riwayat Penyakit</option>
+                                <option value="Dalam Pengobatan">Butuh Penanganan Khusus</option>
+                            </select>
+                        </div>
+                        <input type="text" id="box_sehat" name="box_sehat" placeholder="Sebutkan penyakit & cara penanganannya..." style="display:none; margin-top:10px; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sikap Terhadap Sanksi</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-user-shield"></i>
+                            <select name="w_tazir">
+                                <option value="">-- Pilih Sikap --</option>
+                                <option value="Mendukung">Mendukung Sanksi Edukatif</option>
+                                <option value="Diskusi">Diskusi (Keberatan Jika Berat)</option>
+                                <option value="Pasrah">Pasrah Kepada Keputusan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Harapan Terbesar</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-star"></i>
+                            <select name="w_harapan">
+                                <option value="">-- Pilih Harapan --</option>
+                                <option value="Hafal Al-Quran">Menjadi Penghafal Al-Quran</option>
+                                <option value="Akhlakul Karimah">Memiliki Akhlak & Adab Baik</option>
+                                <option value="Mandiri & Berilmu">Pribadi Mandiri & Faqih</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section-title"><i class="fas fa-user-check"></i> Surat Pernyataan</div>
+                <div style="grid-column: 1 / -1; background: #fff; border: 2px solid #ddd; padding: 25px; border-radius: 10px; line-height: 1.8; color: #333; font-size: 0.95rem;">
+                    <p style="font-weight: bold; text-align: center; text-decoration: underline; margin-bottom: 20px;">DENGAN INI MENYATAKAN BAHWA :</p>
+                    <p>Bahwa selama saya menjadi santri di Lembaga Pendidikan DAARUL KHOIROT ALMADANI :</p>
+                    <ol style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>Akan mematuhi segala kewajiban, peraturan, dan tata tertib Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+                        <li>Akan menjaga nama baik sendiri, keluarga, pengajar, dan Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+                        <li>Apabila saya tidak menta'ati semua peraturan dan ketentuan yang telah ditetapkan, saya sanggup menerima sanksi (Ta'zir) apapun</li>
+                        <li>Saya selaku Orangtua santri menyerahkan sepenuhnya kepada Pengurus Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+                        <li>Saya selaku Orangtua Santri bersedia memberikan sumbangsih apapun yang saya mampu baik diri maupun harta kepada Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+                    </ol>
+                    <p style="font-style: italic;">Demikian surat pernyataan ini saya buat dengan sebenar-benarnya dan tanpa paksaan dari pihak manapun.</p>
+                </div>
+
+                <div style="grid-column: 1 / -1; background: #e8f5e9; border: 1px dashed #1a5d1a; padding: 20px; border-radius: 10px; margin-top: 10px; display: flex; align-items: center; gap: 15px;">
+                    <input type="checkbox" id="cek_pernyataan" name="cek_pernyataan" style="width: 25px; height: 25px; cursor: pointer; accent-color: #1a5d1a;">
+                    <label for="cek_pernyataan" style="font-weight: bold; color: #1a5d1a; cursor: pointer; font-size: 1rem; margin:0;">
+                        Saya Menyetujui Seluruh Pernyataan di Atas
+                    </label>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" style="background: #1a5d1a; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; flex: 1;">
+                        <i class="fas fa-save fa-lg"></i> Simpan Data
+                    </button>
+                    <button type="button" onclick="kirimWA()" style="background: #25d366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; flex: 1;">
+                        <i class="fab fa-whatsapp fa-lg"></i> Konfirmasi Admin
+                    </button>
+                </div>
+            </div> 
         </div>
-    <div class="form-group">
-        <label>Provinsi</label>
-        <div class="input-ikon"><i class="fas fa-map"></i>     
-            <select name="prov_ayah" onchange="loadKabAyah(this.value)">
-                <option value="">Pilih Provinsi</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Kabupaten</label>
-        <div class="input-ikon"><i class="fas fa-city"></i>
-            <select name="kab_ayah" onchange="loadKecAyah(this.value)">
-                <option value="">Pilih Kabupaten</option>
-            </select>
-        </div>
-    </div><div class="form-group">
-    <label>Kecamatan</label>
-    <div class="input-ikon"><i class="fas fa-location-arrow"></i>
-        <select name="kec_ayah" onchange="loadDesaDanPosAyah(this.value)">
-            <option value="">Pilih Kecamatan</option>
-        </select>
-    </div>
-</div>
-    <div class="form-group">
-        <label>Desa</label>
-        <div class="input-ikon"><i class="fas fa-map-signs"></i>
-            <select name="desa_ayah">
-                <option value="">Pilih Desa</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group"><label>Alamat</label> <div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_ayah" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
-    <div class="form-group"><label>RT</label><div class="input-ikon"><i class="fas fa-thumbtack"></i><input type="text" name="rt_ayah" placeholder="RT"></div></div>
-    <div class="form-group"><label>RW</label><div class="input-ikon"><i class="fas fa-thumbtack"></I><input type="text" name="rw_ayah" placeholder="RW"></div></div>
-    <div class="form-group">
-            <label>Kode Pos</label>
-            <div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_ayah"></div>
-        </div>
-    </div>
-
- <div class="form-section-title"><i class="fas fa-female"></i> Domisili Ibu Kandung</div>
-    <div class="form-group" style="margin-bottom:20px; max-width: 400px;">
-        <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Ibu</label>
-        <div class="input-ikon" style="border:2px solid var(--gold-color);">
-            <i class="fas fa-question-circle"></i>
-            <select name="pilih_dom_ibu" onchange="toggleDomisiliIbu(this.value)">
-                <option value="">-- Pilih Lokasi --</option>
-                <option value="sama">Sama Dengan Ayah Kandung</option>
-                <option value="beda">Beda Dengan Ayah Kandung</option>
-            </select>
-        </div>
-    </div>
-
-
-<div class="form-grid" name="box_ibu" style="display: none;">
-     <div class="form-group"><label>Provinsi</label><div class="input-ikon"><i class="fas fa-map"></i><select name="prov_ibu" onchange="loadKabIbu(this.value)"><option value="">Pilih Provinsi</option></select></div></div>
-     <div class="form-group"><label>Kabupaten</label><div class="input-ikon"><i class="fas fa-city"></i><select name="kab_ibu" onchange="loadKecIbu(this.value)"><option value="">Pilih Kabupaten</option></select></div></div>
-     <div class="form-group"><label>Kecamatan</label><div class="input-ikon"><i class="fas fa-location-arrow"></i><select name="kec_ibu" onchange="loadDesaDanPosIbu(this.value)"><option value="">Pilih Kecamatan</option></select></div></div>
-     <div class="form-group"><label>Desa</label><div class="input-ikon"><i class="fas fa-map-signs"></i><select name="desa_ibu"><option value="">Pilih Desa</option></select></div></div>
-     <div class="form-group"><label>Alamat Lengkap Ibu</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_ibu" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
-     <div class="form-group"><label>RT</label><div class="input-ikon"><input type="text" name="rt_ibu" placeholder="RT"></div></div>
-     <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" name="rw_ibu" placeholder="RW"></div></div>
-     <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_ibu"></div></div></div>
-        
-
- <div class="form-section-title"><i class="fas fa-user-graduate"></i> Domisili Santri</div>
-     <div class="form-group" style="margin-bottom:20px; max-width: 400px;">
-        <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili</label>
-            <div class="input-ikon" style="border:2px solid var(--primary-color);">
-                <i class="fas fa-bed"></i>
-              <select name="pilih_dom_santri" onchange="handleMukim(this.value)">
-    <option value="">-- Pilih Lokasi --</option>
-    <option value="mukim">Mukim (Tinggal di Pesantren)</option>
-    <option value="ayah">Tidak Mukim (Sama Dengan Ayah Kandung)</option>
-    <option value="manual">Tidak Mukim (Beda Dengan Ayah Kandung)</option>
-</select>
-
-            </div>
-        </div>
-   
-  <div class="form-grid" name="box_santri" style="display: none;">
-     <div class="form-group"><label>Provinsi</label><div class="input-ikon"><i class="fas fa-map"></i><select name="prov_santri" onchange="loadKabSantri(this.value)"><option value="">Pilih Provinsi</option></select></div></div>
-     <div class="form-group"><label>Kabupaten</label><div class="input-ikon"><i class="fas fa-city"></i><select name="kab_santri" onchange="loadKecSantri(this.value)"><option value="">Pilih Kabupaten</option></select></div></div>
-     <div class="form-group"><label>Kecamatan</label><div class="input-ikon"><i class="fas fa-location-arrow"></i><select name="kec_santri" onchange="loadDesaDanPosSantri(this.value)"><option value="">Pilih Kecamatan</option></select></div></div>
-     <div class="form-group"><label>Desa</label><div class="input-ikon"><i class="fas fa-map-signs"></i><select name="desa_santri"><option value="">Pilih Desa</option></select></div></div>
-     <div class="form-group"><label>Alamat Lengkap Ibu</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_santri" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
-     <div class="form-group"><label>RT</label><div class="input-ikon"><input type="text" name="rt_santri" placeholder="RT"></div></div>
-     <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" name="rw_santri" placeholder="RW"></div></div>
-     <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_santri"></div></div></div>
-
-    <div class="form-section-title"><i class="fas fa-route"></i> Jarak & Transportasi</div>
-    <div class="form-grid">
-        <div class="form-group">
-            <label>Jarak ke Lembaga</label>
-            <div class="input-ikon"><i class="fas fa-ruler-horizontal"></i>
-                <select name="jarak">
-                    <option value="">-- Pilih --</option>
-                    <option>Kurang dari 5 Km</option>
-                    <option>5 - 10 Km</option>
-                    <option>Lebih dari 20 Km</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Transportasi</label>
-            <div class="input-ikon"><i class="fas fa-motorcycle"></i>
-                <select name="trans">
-                    <option value="">-- Pilih --</option>
-                    <option>Jalan Kaki</option>
-                    <option>Naik Sepeda</option>
-                    <option>Naik Sepeda Motor</option>
-                    <option>Naik Angkutan Umum</option>
-                    <option>Antar Jemput</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Waktu Tempuh</label>
-            <div class="input-ikon"><i class="fas fa-clock"></i>
-                <select name="waktu">
-                    <option value="">-- Pilih --</option>
-                    <option>1 - 10 menit</option>
-                    <option>10 - 20 menit</option>
-                    <option>20 - 30 menit</option>
-                    <option>Lebih dari 30 menit</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="button-group">
-        <button type="button" class="btn-nav btn-prev" onclick="prevTab('ortu')">
-            <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
-        </button>
-        <button type="button" class="btn-nav btn-next" onclick="nextTab('pernyataan')">
-            Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
-        </button>
-    </div>
-</div>
-</div><div id="pernyataan" class="tab-content">
-    <div class="form-section-title"><i class="fas fa-microphone-alt"></i> Wawancara Mandiri Orangtua & Santri </div>
-    <div class="info-bar" style="margin-bottom: 25px; background: #e7f3ff; padding: 10px; border-radius: 5px;">
-        <i class="fas fa-info-circle"></i> Mohon dijawab dengan jujur agar Lembaga dapat memberikan pembinaan yang tepat bagi ananda.
-    </div>
-
-    <div class="form-grid" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
-    <div class="form-group">
-        <label>Visi Orang Tua</label>
-        <div class="input-ikon">
-            <i class="fas fa-eye"></i>
-            <select name="w_visi">
-                <option value="">-- Pilih Pandangan --</option>
-                <option value="Urgensi Dunia/Akhirat">Dahulukan Akhirat Jangan Lupakan Dunia</option>
-                <option value="Ibadah & Akhlak">Keseimbangan Ibadah, Akhlak, & Adab</optio
-                <option value="Fokus Ibadah">Fokus Ibadah Ritual (Shalat, Ngaji)</option>
-                <option value="Ibadah & Akhlak">Keseimbangan Ibadah, Akhlak, & Adab</option>
-                <option value="Dunia Akhirat">Keseimbangan Ilmu Agama & Umum</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Pola Disiplin Rumah</label>
-        <div class="input-ikon">
-            <i class="fas fa-gavel"></i>
-            <select name="w_pola">
-                <option value="">-- Pilih Pola --</option>
-                <option value="Sangat Ketat">Sangat Ketat (Banyak Sanksi)</option>
-                <option value="Demokratis">Demokratis (Diskusi Bersama)</option>
-                <option value="Longgar">Longgar (Ikuti Mau Anak)</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Perilaku Dominan</label>
-        <div class="input-ikon">
-            <i class="fas fa-child"></i>
-            <select name="w_perilaku">
-                <option value="">-- Pilih Perilaku --</option>
-                <option value="Mandiri & Rajin">Mandiri, Rajin, & Penurut</option>
-                <option value="Cukup Baik">Cukup Baik, Perlu Diingatkan</option>
-                <option value="Kurang Mandiri">Kurang Mandiri / Harus selalu disuruh</option>
-                <option value="Kepekaan">Kurang Peka / Harus selalu diingatkan</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Kondisi Kesehatan</label>
-        <div class="input-ikon">
-            <i class="fas fa-heartbeat"></i>
-            <select name="w_sehat" onchange="toggleDetail(this.value, 'box_sehat')">
-                <option value="">-- Pilih Kondisi --</option>
-                <option value="Sehat">Alhamdulillah Sehat</option>
-                <option value="Pernah Sakit">Ada Riwayat Penyakit</option>
-                <option value="Dalam Pengobatan">Butuh Penanganan Khusus</option>
-            </select>
-        </div>
-        <input type="text" name="box_sehat" placeholder="Sebutkan penyakit & cara penanganannya..." style="display:none; margin-top:10px; width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd;">
-    </div>
-
-    <div class="form-group">
-        <label>Sikap Terhadap Sanksi</label>
-        <div class="input-ikon">
-            <i class="fas fa-user-shield"></i>
-            <select name="w_tazir">
-                <option value="">-- Pilih Sikap --</option>
-                <option value="Mendukung">Mendukung Sanksi Edukatif</option>
-                <option value="Diskusi">Diskusi (Keberatan Jika Berat)</option>
-                <option value="Pasrah">Pasrah Kepada Keputusan</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Harapan Terbesar</label>
-        <div class="input-ikon">
-            <i class="fas fa-star"></i>
-            <select name="w_harapan">
-                <option value="">-- Pilih Harapan --</option>
-                <option value="Hafal Al-Quran">Menjadi Penghafal Al-Quran</option>
-                <option value="Akhlakul Karimah">Memiliki Akhlak & Adab Baik</option>
-                <option value="Mandiri & Berilmu">Pribadi Mandiri & Faqih</option>
-            </select>
-        </div>
-    </div>
-</div>
-
-    <div class="form-section-title"><i class="fas fa-user-check"></i> Surat Pernyataan</div>
-    <div style="background: #fff; border: 2px solid #ddd; padding: 25px; border-radius: 10px; line-height: 1.8; color: #333; font-size: 0.95rem;">
-        <p style="font-weight: bold; text-align: center; text-decoration: underline; margin-bottom: 20px;">DENGAN INI MENYATAKAN BAHWA :</p>
-        <p>Bahwa selama saya menjadi santri di Lembaga Pendidikan DAARUL KHOIROT ALMADANI :</p>
-        <ol style="margin-left: 20px; margin-bottom: 15px;">
-            <li>Akan mematuhi segala kewajiban, peraturan, dan tata tertib Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
-            <li>Akan menjaga nama baik sendiri, keluarga, pengajar, dan Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
-            <li>Apabila saya tidak menta'ati semua peraturan dan ketentuan yang telah ditetapkan, saya sanggup menerima sanksi (Ta'zir) apapun</li>
-            <li>Saya selaku Orangtua santri menyerahkan sepenuhnya kepada Pengurus Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
-            <li>Saya selaku Orangtua Santri bersedia memberikan sumbangsih apapun yang saya mampu baik diri maupun harta kepada Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
-        </ol>
-        <p style="font-style: italic;">Demikian surat pernyataan ini saya buat dengan sebenar-benarnya dan tanpa paksaan dari pihak manapun.</p>
-    </div>
-
-    <div style="background: #e8f5e9; border: 1px dashed #1a5d1a; padding: 20px; border-radius: 10px; margin-top: 20px; display: flex; align-items: center; gap: 15px;">
-        <input type="checkbox" name="cek_pernyataan" style="width: 25px; height: 25px; cursor: pointer; accent-color: #1a5d1a;">
-        <label for="cek_pernyataan" style="font-weight: bold; color: #1a5d1a; cursor: pointer; font-size: 1rem;">
-            Saya Menyetujui Seluruh Pernyataan di Atas
-        </label>
-    </div>
-
-    <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-        <button type="submit" style="background: #1a5d1a; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
-            <i class="fas fa-save fa-lg"></i> Simpan
-        </button>
-        
-        <button type="button" onclick="kirimWA()" style="background: #25d366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
-            <i class="fab fa-whatsapp fa-lg"></i> Konfirmasi
-        </button>
-    </div>
-</div> 
-</div></div>     
+    </form>
+</div>     
 
 <footer> 
-        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
-        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
-        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-    </footer> 
+    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+</footer> 
 
-<a href="https://wa.me/6281401643188" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
-</a>
+<audio id="clickSound" src="click_sound.mp3"></audio>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -937,13 +1008,13 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Fungsi Submit Global
+    // Fungsi Submit Global Utama Firebase Firestore
     window.handleFormSubmit = async () => {
         const form = document.getElementById('formPendaftaran');
         const isAgreed = document.getElementById('cek_pernyataan').checked;
 
         if(!isAgreed) {
-            return Swal.fire('Peringatan', 'Harap centang persetujuan!', 'warning');
+            return Swal.fire('Peringatan', 'Harap centang persetujuan surat pernyataan di bagian akhir!', 'warning');
         }
 
         Swal.fire({ title: 'Menyimpan...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
@@ -955,51 +1026,135 @@
 
             await addDoc(collection(db, "pendaftaran_santri"), data);
             
-            Swal.fire('Berhasil!', 'Data tersimpan. Membuka WhatsApp...', 'success').then(() => {
-                kirimWA(data);
+            Swal.fire('Berhasil!', 'Data pendaftaran tersimpan. Membuka konfirmasi WhatsApp...', 'success').then(() => {
+                window.prosesWhatsAppKonfirmasi(data);
                 location.reload();
             });
         } catch (e) {
-            Swal.fire('Gagal', e.message, 'error');
+            Swal.fire('Gagal Menyimpan', e.message, 'error');
         }
     };
 
-    function kirimWA(data) {
-        let msg = `*PENDAFTARAN SANTRI BARU*\nNama: ${data.nama_santri}\nUnit: ${data.tingkat_unit}\nStatus: Terkirim via Web`;
+    window.prosesWhatsAppKonfirmasi = (data) => {
+        let msg = `*PENDAFTARAN SANTRI BARU*\nNama: ${data.nama || '-'}\nUnit Pilihan: ${data.tingkat_unit || '-'}\nStatus: Terkirim via Form Web`;
         window.open(`https://wa.me/6281401643188?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script
-
 <script>
-    // Tab Navigation Logic
+    // Sistem Kontrol Navigasi Tab Formulir Multi-Step
     function openTab(evt, tabId) {
         document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
         document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-        document.getElementById(tabId).style.display = 'grid';
-        if(evt) evt.currentTarget.classList.add('active');
+        
+        const targetTab = document.getElementById(tabId);
+        targetTab.style.display = 'grid';
+        
+        if(evt) {
+            evt.currentTarget.classList.add('active');
+        } else {
+            // Jika navigasi dipicu lewat tombol Lanjut/Kembali bawah
+            const assocBtn = document.querySelector(`.tab-link[onclick*="${tabId}"]`);
+            if(assocBtn) assocBtn.classList.add('active');
+        }
         window.scrollTo(0, 0);
     }
 
     function nextTab(id) { 
-        // Tambahkan validasi input di sini jika perlu
         openTab(null, id);
-        const btn = document.querySelector(`.tab-link[onclick*="${id}"]`);
-        if(btn) {
-            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-            btn.classList.add('active');
+    }
+
+    function prevTab(id) { 
+        openTab(null, id); 
+    }
+
+    // Toggle Menonaktifkan Input NISN apabila belum memilikinya
+    function handleNoNISN(checked) {
+        const nisnInput = document.getElementById('input_nisn');
+        if(checked) {
+            nisnInput.value = "";
+            nisnInput.setAttribute('readonly', true);
+        } else {
+            nisnInput.removeAttribute('readonly');
         }
     }
 
-    function prevTab(id) { openTab(null, id); }
+    // Menutup/Membuka Input WhatsApp HP Orangtua jika dicentang "Tidak Punya"
+    function toggleHP(checkbox, inputName) {
+        const targetInput = document.getElementById(inputName);
+        if(checkbox.checked) {
+            targetInput.value = "";
+            targetInput.setAttribute('readonly', true);
+        } else {
+            targetInput.removeAttribute('readonly');
+        }
+    }
 
-    // Mobile Menu Toggle
-    document.getElementById('menu-toggle').onclick = () => {
-        document.querySelector('nav').classList.toggle('show');
-    };
+    // Menampilkan input catatan riwayat sakit anak
+    function toggleDetail(val, inputName) {
+        const targetBox = document.getElementById(inputName);
+        if(val === "Pernah Sakit" || val === "Dalam Pengobatan") {
+            targetBox.style.display = "block";
+        } else {
+            targetBox.style.display = "none";
+            targetBox.value = "";
+        }
+    }
+
+    // Mengatur Visibilitas Form Dropdown Domisili Ibu
+    function toggleDomisiliIbu(val) {
+        const boxIbu = document.getElementById('box_ibu');
+        boxIbu.style.display = (val === "beda") ? "grid" : "none";
+    }
+
+    // Mengatur Aliran Alamat Domisili untuk Santri yang Bermukim/Tidak
+    function handleMukim(val) {
+        const boxSantri = document.getElementById('box_santri');
+        boxSantri.style.display = (val === "manual") ? "grid" : "none";
+    }
+
+    // Trigger Eksternal Pengiriman Pesan WA Konfirmasi Mandiri Tanpa Data Form Lengkap
+    function kirimWA() {
+        const sName = document.querySelector('input[name="nama"]').value || 'Santri';
+        let customMsg = `*KONFIRMASI PENDAFTARAN*\nAssalamu'alaikum Admin, saya ingin mengonfirmasi pengisian formulir pendaftaran atas nama: *${sName}*. Mohon dicek kembali. Terima kasih.`;
+        window.open(`https://wa.me/6281401643188?text=${encodeURIComponent(customMsg)}`, '_blank');
+    }
+
+    // Pemicu Pengendali Menu Hamburgers Dropdown HP & Efek Klik Navigasi global
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+        const clickSound = document.getElementById('clickSound');
+        const links = document.querySelectorAll('nav ul li a');
+
+        if(menuToggle && nav) {
+            menuToggle.onclick = (e) => {
+                e.stopPropagation();
+                nav.classList.toggle('show');
+            };
+        }
+
+        links.forEach(l => {
+            l.addEventListener('click', function() {
+                if(clickSound) {
+                    clickSound.currentTime = 0;
+                    clickSound.play().catch(() => {});
+                }
+                if(nav) nav.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if(nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                nav.classList.remove('show');
+            }
+        });
+    });
 </script>
+
+<a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
+</a>
 
 </body>
 </html>
