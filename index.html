@@ -24,18 +24,32 @@
             --whatsapp-green: #25d366;
         }
 
-          * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
-          body { background-color: var(--bg-body); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
-        
-         font-family: 'Quicksand', sans-serif; }
-         h1, h2, h3, h4, h5, h6 {font-family: 'Quicksand', sans-serif;font-weight: 700; }
-         .teks-tebal {    font-weight: 600; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Quicksand', sans-serif; 
+        }
 
-          /* ==========================================================================
+        body { 
+            background-color: var(--light-bg); 
+            color: var(--text-dark); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        h1, h2, h3, h4, h5, h6 { 
+            font-weight: 700; 
+        }
+        
+        .teks-tebal { 
+            font-weight: 600; 
+        }
+
+        /* ==========================================================================
            2. BLOK STYLE DESKTOP (TAMPILAN UTAMA KOMPUTER)
            ========================================================================== */
-        
-        /* Header & Navigasi Desktop */
         header {
             background: var(--primary-color); 
             color: white; 
@@ -63,9 +77,10 @@
             font-weight: 700; 
             white-space: nowrap; 
             letter-spacing: 0.5px;
+            color: white;
         }
 
-        #menu-toggle { display: none; } /* Tersembunyi di Desktop */
+        #menu-toggle { display: none; } 
 
         nav ul { 
             list-style: none; 
@@ -74,34 +89,34 @@
         }
 
         nav ul li a { 
-            color: white; 
+            color: white !important; /* Memaksa warna putih kontras di desktop browser */
             text-decoration: none; 
             font-size: 0.95rem; 
             font-weight: 600; 
             display: flex; 
             align-items: center; 
-            gap: 5px; 
+            gap: 6px; 
             position: relative;
             padding-bottom: 5px;
             transition: 0.3s;
         }
 
         nav ul li a:hover {
-            color: var(--secondary-color);
+            color: var(--secondary-color) !important;
         }
 
-        /* Indikator Menu Aktif di Desktop (Garis Bawah) */
+        /* Indikator Menu Aktif di Desktop (Garis Bawah Kuning) */
         nav ul li a.active {
             border-bottom: 3px solid var(--secondary-color);
-            color: var(--secondary-color);
+            color: var(--secondary-color) !important;
         }
 
         /* Hero Banner */
         .hero-container { position: relative; width: 100%; height: 500px; overflow: hidden; background: #000; }
         .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
         .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
-        .hero-content h1 { font-size: 2.8rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
-        .hero-content p { font-size: 1.2rem; white-space: nowrap; margin-top: 10px; }
+        .hero-content h1 { font-size: 4rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+        .hero-content p { font-size: 1.8rem; white-space: nowrap; margin-top: 10px; }
 
         /* Komponen Konten Box & Tentang Lembaga */
         .content-box { 
@@ -152,7 +167,7 @@
             margin: 0;
         }
 
-        /* Grid Unit Pendidikan (3 Kolom Jajar Samping) */
+        /* Grid Unit Pendidikan */
         .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         
         .unit-card { 
@@ -174,19 +189,6 @@
         .unit-card img { width: 60px; height: 60px; flex-shrink: 0; }
         .unit-card h3 { font-size: 1rem; color: var(--primary-color); font-weight: 800; }
 
-        /* Floating WhatsApp Button */
-        .whatsapp-float {
-            position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
-            padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
-            text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
-        }
-        
-        @keyframes wa-glow {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
         /* Footer Global */
         footer { 
             background: var(--dark-footer); 
@@ -204,27 +206,27 @@
            3. BLOK STYLE MOBILE (RESPONSIF SMARTPHONE & TABLET)
            ========================================================================== */
         @media (max-width: 768px) {
-            /* Header & Logo Mobile */
             header { height: 65px; padding: 0 15px; }
             .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
             .logo img { height: 35px; margin-right: 0 !important; }
             .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
-            /* Tombol Menu Hamburger */
+            /* Tombol Menu Hamburger Mobile */
             #menu-toggle {
                 display: flex !important;  
                 flex-direction: row;      
                 align-items: center;       
                 gap: 4px;           
-                background: #f4ce14;
-                color: #1a5d1a;
+                background: var(--secondary-color);
+                color: var(--primary-color);
                 padding: 6px 12px;
                 border: none;
                 border-radius: 4px;
                 font-weight: bold;
+                cursor: pointer;
             }
             
-            /* Sistem Navigasi Vertikal Dropdown Mobile */
+            /* Navigasi Dropdown Vertikal Mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -240,20 +242,22 @@
             
             nav.show ul { display: flex; }
 
-            /* Indikator Menu Aktif di Mobile (Garis Samping) */
+            nav ul li a {
+                color: white !important;
+            }
+
+            /* Indikator Menu Aktif di Mobile (Garis Samping Kiri) */
             nav ul li a.active {
                 border-bottom: none;
                 border-left: 4px solid var(--secondary-color);
                 padding-left: 10px;
-                color: var(--secondary-color);
+                color: var(--secondary-color) !important;
             }
 
-            /* Penyesuaian Dimensi Hero */
             .hero-container { height: 250px; }
             .hero-content h1 { font-size: 1.4rem; white-space: normal; }
             .hero-content p { font-size: 0.9rem; white-space: normal; }
 
-            /* Penyesuaian Bagian Tentang Lembaga */
             .about-wrap {
                 flex-direction: column; 
                 gap: 15px;
@@ -262,52 +266,55 @@
             .about-wrap i.fa-mosque { font-size: 3.5rem; }
             .about-wrap p { font-size: 1.1rem; text-align: justify; }
 
-            /* Grid Unit Pendidikan (Berubah Jadi 1 baris vertikal kebawah) */
             .unit-grid { grid-template-columns: 1fr; }
             .unit-card { flex-direction: row; text-align: left; padding: 15px; justify-content: flex-start; }
 
+            /* Bulat Tanpa Box + Efek Pulse Glow WA Float khusus HP */
             .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #25d366;
-        color: #fff !important;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        z-index: 9999;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        animation: wa-pulse-glow 2s infinite ease-in-out;
-    }
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: var(--whatsapp-green);
+                color: #fff !important;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                z-index: 9999;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                animation: wa-pulse-glow 2s infinite ease-in-out;
+            }
 
-    /* Sembunyikan teks "Tanya Admin", hanya menyisakan ikon bulat */
-    .whatsapp-float span {
-        display: none;
-    }
+            .whatsapp-float span { display: none; }
+            .whatsapp-float i { font-size: 30px; margin: 0; }
+        }
 
-    .whatsapp-float i {
-        font-size: 30px;
-        margin: 0;
-    }
-}
+        /* Animasi Efek untuk WA HP */
+        @keyframes wa-pulse-glow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7), 0 4px 10px rgba(0, 0, 0, 0.3);
+            }
+            70% {
+                transform: scale(1.08);
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0), 0 6px 15px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 4px 10px rgba(0, 0, 0, 0.3);
+            }
+        }
 
-@keyframes wa-pulse-glow {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7), 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-    70% {
-        transform: scale(1.08);
-        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0), 0 6px 15px rgba(0, 0, 0, 0.2);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
+        /* Default Style Desktop untuk WA Float (Berbentuk Pil/Tombol Panjang) */
+        @media (min-width: 769px) {
+            .whatsapp-float {
+                position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important;
+                padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
+                text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
         }
     </style>
 </head>
@@ -325,7 +332,7 @@
 
     <nav id="main-nav">
         <ul>
-            li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
             <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
@@ -391,7 +398,6 @@
     <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
 </footer>
 
-<!-- Audio SFX Click -->
 <audio id="clickSound" src="click_sound.mp3"></audio>
 
 <script>
@@ -415,7 +421,7 @@
                 clickSound.play().catch(err => console.log("SFX play blocked"));
             }
             
-            nav.classList.remove('show'); // Tutup menu di HP otomatis
+            nav.classList.remove('show'); 
 
             const destination = this.href;
             if(destination && !destination.includes('#')) {
@@ -425,7 +431,7 @@
         });
     });
 
-    // Otomatisasi Penanda Aktif Berdasarkan Nama File URL (Solusi Sinkronisasi Class)
+    // Sinkronisasi Deteksi Halaman Aktif Otomatis
     document.addEventListener("DOMContentLoaded", function() {
         const currentUrl = window.location.pathname.split("/").pop();
         navLinks.forEach(item => {
@@ -439,7 +445,6 @@
     });
 </script>
     
-<!-- Tombol WA -->
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp fa-lg"></i>
     <span>Tanya Admin</span>
