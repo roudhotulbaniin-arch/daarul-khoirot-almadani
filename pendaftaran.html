@@ -1028,27 +1028,33 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Fungsi Submit Utama Terintegrasi Firebase Firestore
-    async function handleFormSubmit(event) {
-        if (event) event.preventDefault();
-        const form = document.getElementById('formPendaftaran');
-        const elCek = document.getElementsByName('cek_pernyataan')[0];
-
-        if (!elCek || !elCek.checked) {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Persetujuan Diperlukan',
-                text: 'Silakan centang persetujuan pernyataan sebelum menyimpan pendaftaran.',
-                confirmButtonColor: '#d33'
-            });
+    // 1. Perbaikan Validasi saat Tombol Simpan di Tab Pernyataan Diklik
+function prosesSimpanFinal() {
+    if (validateInput('pernyataan')) {
+        if (typeof window.handleFormSubmit === "function") {
+            window.handleFormSubmit();
+        } else {
+            console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
         }
+    }
+}
 
-        Swal.fire({
-            title: 'Sedang Menyimpan...',
-            text: 'Memproses seluruh data formulir dan mengompres berkas...',
-            allowOutsideClick: false,
-            didOpen: () => Swal.showLoading()
-        });
+// 2. Perbaikan Tampilan di dalam handleFormSubmit (Bagian Validasi Checkbox)
+// [Cari baris kode ini di dalam tag <script type="module"> Anda]
+const elCek = document.getElementsByName('cek_pernyataan')[0];
+
+if (!elCek || !elCek.checked) {
+    return Swal.fire({
+        icon: 'warning', // Mengubah ikon menjadi Warning agar lebih elegan dibanding Error merah biasa
+        title: 'Persetujuan Diperlukan',
+        html: 'Silakan **centang kotak persetujuan** di bawah surat pernyataan terlebih dahulu sebelum menyimpan data pendaftaran.',
+        confirmButtonColor: '#1a5319', // Menggunakan Hijau Utama Pondok Anda
+        confirmButtonText: 'Siap, Saya Mengerti',
+        customClass: {
+            popup: 'swal-custom-premium' // Kelas opsional jika ingin custom css tambahan
+        }
+    });
+}
 
         try {
             const formData = new FormData(form);
@@ -1623,33 +1629,15 @@
         }
     }
 
-    // 1. Perbaikan Validasi saat Tombol Simpan di Tab Pernyataan Diklik
-function prosesSimpanFinal() {
-    if (validateInput('pernyataan')) {
-        if (typeof window.handleFormSubmit === "function") {
-            window.handleFormSubmit();
-        } else {
-            console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
+    function prosesSimpanFinal() {
+        if (validateInput('pernyataan')) {
+            if (typeof window.handleFormSubmit === "function") {
+                window.handleFormSubmit();
+            } else {
+                console.error("Modul Firebase handleFormSubmit tidak ditemukan!");
+            }
         }
     }
-}
-
-// 2. Perbaikan Tampilan di dalam handleFormSubmit (Bagian Validasi Checkbox)
-// [Cari baris kode ini di dalam tag <script type="module"> Anda]
-const elCek = document.getElementsByName('cek_pernyataan')[0];
-
-if (!elCek || !elCek.checked) {
-    return Swal.fire({
-        icon: 'warning', // Mengubah ikon menjadi Warning agar lebih elegan dibanding Error merah biasa
-        title: 'Persetujuan Diperlukan',
-        html: 'Silakan **centang kotak persetujuan** di bawah surat pernyataan terlebih dahulu sebelum menyimpan data pendaftaran.',
-        confirmButtonColor: '#1a5319', // Menggunakan Hijau Utama Pondok Anda
-        confirmButtonText: 'Siap, Saya Mengerti',
-        customClass: {
-            popup: 'swal-custom-premium' // Kelas opsional jika ingin custom css tambahan
-        }
-    });
-}
 
     function kirimWA() {
         const gV = (name) => {
