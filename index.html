@@ -161,9 +161,10 @@
     }
 
     .hero-content p { 
-        font-size: 1.5rem; 
+        font-size: 2rem; 
         white-space: nowrap; 
         margin-top: 10px; 
+        color: var(--secondary-color) !important;
     }
 
     /* --- BOX KONTEN & TENTANG LEMBAGA DESKTOP --- */
@@ -401,19 +402,9 @@
         }
 
         /* --- HERO HP --- */
-        .hero-container { 
-            height: 250px; 
-        }
-
-        .hero-content h1 { 
-            font-size: 1.4rem !important; 
-            font-weight: 700 !important;
-        }
-
-        .hero-content p { 
-            font-size: 0.9rem !important; 
-            font-weight: 500 !important;
-        }
+       .hero-content h1 { font-size: 1.4rem !important; }
+        .hero-content p { font-size: 0.9rem !important; }
+        .hero-container { height: 250px; }
 
         /* --- BOX UTAMA / TENTANG LEMBAGA HP --- */
         .content-box {
@@ -439,23 +430,9 @@
         }
 
         /* --- GRID & KARTU UNIT PENDIDIKAN HP --- */
-        .unit-grid { 
-            grid-template-columns: 1fr !important; 
-            gap: 16px !important;
-            width: 100% !important;
-        }
-        
-        .unit-card { 
-            flex-direction: row; 
-            text-align: left; 
-            padding: 15px; 
-            align-items: center;
-            width: 100% !important;
-        }
-
-        .unit-card h3 {
-            font-size: 0.95rem !important;
-        }
+         .unit-grid { grid-template-columns: 1fr; }
+        .unit-card { flex-direction: row; text-align: left; padding: 15px; }
+ 
 
         /* --- ANIMASI GLOW WA MOBILE --- */
         @keyframes wa-mobile-glow {
