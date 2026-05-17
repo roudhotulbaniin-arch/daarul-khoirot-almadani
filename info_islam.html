@@ -267,17 +267,6 @@
             color: #222 !important;
         }
 
-        /* Default Style Desktop untuk WA Float (Bentuk Pil Panjang) */
-        @media (min-width: 769px) {
-            .whatsapp-float {
-                position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important;
-                padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
-                text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-                transition: transform 0.2s ease;
-            }
-            .whatsapp-float:hover { transform: scale(1.05); }
-        }
-
         /* Footer Global */
         footer { 
             background: var(--primary-dark); 
@@ -349,34 +338,6 @@
                 gap: 20px;
             }
 
-            /* WA FLOAT DI HP: HANYA IKON TANPA BACKGROUND BULATAN */
-            .whatsapp-float {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: transparent !important; 
-                color: var(--whatsapp-green) !important; 
-                width: auto;
-                height: auto;
-                border-radius: 0;
-                box-shadow: none !important; 
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                animation: wa-pulse-only-icon 2s infinite ease-in-out;
-            }
-
-            .whatsapp-float span { display: none; }
-            .whatsapp-float i { font-size: 45px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
-        }
-
-        @keyframes wa-pulse-only-icon {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.12); }
-            100% { transform: scale(1); }
-        }
     </style>
 </head>
 <body>
