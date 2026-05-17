@@ -1183,7 +1183,6 @@ if (!elCek || !elCek.checked) {
         }
     }
 
-    // Pengendali Berantai Wilayah Alamat Ayah
     function loadKabAyah(val) {
         document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
         document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
@@ -1219,7 +1218,6 @@ if (!elCek || !elCek.checked) {
         }
     }
 
-    // Pengendali Berantai Wilayah Alamat Ibu
     function loadKabIbu(val) {
         document.getElementById('kab_ibu').innerHTML = '<option value="">Pilih Kabupaten</option>';
         document.getElementById('kec_ibu').innerHTML = '<option value="">Pilih Kecamatan</option>';
@@ -1243,7 +1241,6 @@ if (!elCek || !elCek.checked) {
         }
     }
 
-    // Pengendali Berantai Wilayah Alamat Domisili Santri
     function loadKabSantri(val) {
         document.getElementById('kab_santri').innerHTML = '<option value="">Pilih Kabupaten</option>';
         document.getElementById('kec_santri').innerHTML = '<option value="">Pilih Kecamatan</option>';
@@ -1267,7 +1264,6 @@ if (!elCek || !elCek.checked) {
         }
     }
 
-    // Inisialisasi Mula Load Provinsi Utama
     document.addEventListener('DOMContentLoaded', () => {
         loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
     });
@@ -1446,7 +1442,7 @@ if (!elCek || !elCek.checked) {
         };
 
         if (tabId === 'santri') {
-            if (!check('nama_santri', 'Nama Lengkap Santri')) return false;
+            if (!check('nama', 'Nama Lengkap Santri')) return false;
             if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
             if (!check('nik', 'NIK Santri')) return false;
             if (!check('no_kk', 'Nomor KK Santri')) return false;
@@ -1465,7 +1461,6 @@ if (!elCek || !elCek.checked) {
         } 
         else if (tabId === 'ortu') {
             const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
-            if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
             if (!check('st_ayah', 'Status Ayah')) return false;
 
             if (statusAyah === 'Masih Hidup') {
@@ -1483,31 +1478,29 @@ if (!elCek || !elCek.checked) {
                     return false;
                 }
             }
-            if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
+            if (!check('n_ibu', 'Nama Ibu Kandung')) return false;
             if (!check('st_wali', 'Status Wali Santri')) return false;
         }
         else if (tabId === 'alamat') {
-            if (!check('prov_ayah', 'Provinsi')) return false;
-            if (!check('kab_ayah', 'Kabupaten')) return false;
-            if (!check('kec_ayah', 'Kecamatan')) return false;
-            if (!check('desa_ayah', 'Desa')) return false;
-            if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
+            if (!check('milik_ayah', 'Status Kepemilikan Rumah')) return false;
             if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
             if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
         }
         else if (tabId === 'pernyataan') {
-    const elCek = document.getElementsByName('cek_pernyataan')[0];
-    if (!elCek || !elCek.checked) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Persetujuan Diperlukan',
-            html: 'Ayah/Bunda wajib **menyetujui seluruh surat pernyataan** di atas untuk menyelesaikan pendaftaran santri.',
-            confirmButtonColor: '#1a5319',
-            confirmButtonText: 'Buka Pernyataan'
-        });
-        return false;
+            const elCek = document.getElementsByName('cek_pernyataan')[0];
+            if (!elCek || !elCek.checked) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Persetujuan Diperlukan',
+                    html: 'Ayah/Bunda wajib **menyetujui seluruh surat pernyataan** di atas untuk menyelesaikan pendaftaran santri.',
+                    confirmButtonColor: '#1a5319',
+                    confirmButtonText: 'Siap, Saya Mengerti'
+                });
+                return false;
+            }
+        }
+        return true; 
     }
-
 
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
@@ -1666,7 +1659,7 @@ if (!elCek || !elCek.checked) {
         m += "------------------------------------------\n\n";
 
         m += "*" + ICON_SANTRI + " DATA SANTRI*\n";
-        m += "• Nama: " + gV('nama_santri') + "\n";
+        m += "• Nama: " + gV('nama') + "\n";
         m += "• Unit: " + gT('tingkat_unit') + "\n";
         m += "• NIK: " + gV('nik') + "\n";
         m += "• No. KK: " + gV('no_kk') + "\n";
@@ -1694,7 +1687,7 @@ if (!elCek || !elCek.checked) {
 
         m += "*" + ICON_IBU + " DATA IBU*\n";
         m += "• Status: " + gV('st_ibu') + "\n";
-        m += "• Nama Ibu: " + gV('nama_ibu') + "\n";
+        m += "• Nama Ibu: " + gV('n_ibu') + "\n";
         m += "• WN: " + gV('wn_ibu') + "\n";
         m += "• NIK Ibu: " + gV('nik_ibu') + "\n";
         m += "• TTL: " + gV('tmpt_ibu') + ", " + gV('tgl_ibu') + "\n";
@@ -1738,7 +1731,6 @@ if (!elCek || !elCek.checked) {
         window.open("https://wa.me/" + adminNumber + "?text=" + encodeURIComponent(m), '_blank');
     }
 
-    // Pengendali Responsif Menu Navigasi Hamburger HP
     document.addEventListener("DOMContentLoaded", function() {
         const menuToggle = document.getElementById('menu-toggle');
         const nav = document.querySelector('nav');
