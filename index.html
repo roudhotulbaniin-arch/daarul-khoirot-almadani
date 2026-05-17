@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot Almadani | Beranda</title>
     
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
- <link rel="icon" type="image/png" href="main_logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="main_logo.png">
 
     <style>
         /* --- 1. DESIGN VARIABLES & RESET --- */
@@ -21,11 +21,18 @@
             --whatsapp-green: #25d366;
         }   
 
+        /* Mengunci font Quicksand ke seluruh elemen teks */
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Quicksand', sans-serif !important; 
+            font-family: 'Quicksand', sans-serif; 
+        }
+
+        /* PERBAIKAN UTAMA: Mencegah ikon Font Awesome berubah menjadi kotak silang */
+        .fa, .fas, .far, .fab, .box-header i, nav ul li a i, .about-wrap i {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important;
+            font-weight: 900 !important;
         }
 
         body { 
@@ -35,7 +42,7 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif !important;
+            font-family: 'Quicksand', sans-serif;
             font-weight: 700;
         }
 
@@ -110,8 +117,8 @@
         .hero-container { position: relative; width: 100%; height: 500px; overflow: hidden; background: #000; }
         .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
         .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
-        .hero-content h1 { font-family: 'Quicksand', sans-serif !important; font-size: 4rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
-        .hero-content p { font-family: 'Quicksand', sans-serif !important; font-size: 1.2rem; white-space: nowrap; margin-top: 10px; }
+        .hero-content h1 { font-size: 2.8rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+        .hero-content p { font-size: 1.2rem; white-space: nowrap; margin-top: 10px; }
 
         /* --- 4. BOX KONTEN & TENTANG LEMBAGA --- */
         .content-box { background-color: #144514; margin: 30px auto; padding: 40px 5%; width: 94%; border-radius: 12px; color: white; border: 1px solid rgba(255,255,255,0.1); box-shadow: none !important; }
@@ -152,9 +159,9 @@
             align-items: center; text-align: center; gap: 15px; text-decoration: none; color: #333; 
             border: 1px solid #e1e7e1; border-top: 4px solid #1a5d1a; transition: 0.3s; box-shadow: none !important;
         }
-        .unit-card img { width: 50px; height: 50px; flex-shrink: 0; }
-        .unit-card h3 { font-size: 1rem; color: #1a5d1a; font-weight: 800; }
-        .unit-card p { font-size: 0.8rem; color: #555; }
+        .unit-card img { width: 60px; height: 60px; flex-shrink: 0; }
+        .unit-card h3 { font-size: 1.1rem; color: #1a5d1a; font-weight: 800; }
+        .unit-card p { font-size: 0.9rem; color: #555; }
 
         /* --- 6. FLOATING WHATSAPP BUTTON --- */
         .whatsapp-float {
@@ -237,8 +244,8 @@
 
             /* Mengunci Ukuran Teks Jargon di Hero Box HP */
             .hero-container { height: 250px; }
-            .hero-content h1 { font-size: 1.3rem !important; font-weight: 700 !important; }
-            .hero-content p { font-size: 0.8rem !important; font-weight: 500 !important; }
+            .hero-content h1 { font-size: 1.4rem !important; font-weight: 700 !important; }
+            .hero-content p { font-size: 0.9rem !important; font-weight: 500 !important; }
             
             /* Tentang Lembaga di HP */
             .about-wrap {
@@ -260,7 +267,7 @@
                 padding: 0 !important;
                 bottom: 25px;
                 right: 25px;
-                animation: none !important; /* Menghapus sisa sirkulasi bayangan */
+                animation: none !important; 
             }
 
             .whatsapp-float span {
@@ -270,7 +277,7 @@
             .whatsapp-float i {
                 font-size: 55px; 
                 color: var(--whatsapp-green) !important;
-                filter: none !important; /* Pembersihan drop shadow ikon */
+                filter: none !important; 
             }
         }
 
