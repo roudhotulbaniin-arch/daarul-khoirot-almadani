@@ -262,6 +262,15 @@
                 gap: 16px;
             }
 
+            #pernyataan .form-grid {
+                grid-template-columns: 1fr !important; /* Paksa grid 3 kolom desktop hancur menjadi 1 kolom penuh di HP */
+                gap: 16px; /* Jarak antar kolom input yang pas untuk layar HP */
+            }
+
+            #pernyataan .form-group {
+                  width: 100%;
+            }
+
             /* WA FLOAT DI HP: HANYA IKON TANPA BACKGROUND BULATAN */
             .whatsapp-float {
                 position: fixed;
