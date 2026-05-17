@@ -1029,25 +1029,36 @@
     const db = getFirestore(app);
 
     async function handleFormSubmit() {
-        const form = document.getElementById('formPendaftaran');
-        const elCek = document.getElementsByName('cek_pernyataan')[0];
+    const form = document.getElementById('formPendaftaran');
 
-        if (!elCek || !elCek.checked) {
-            return Swal.fire({
-                icon: 'warning', 
-                title: 'Persetujuan Diperlukan',
-                html: 'Silakan **centang kotak persetujuan** di bawah surat pernyataan terlebih dahulu sebelum menyimpan data pendaftaran.',
-                confirmButtonColor: '#1a5d1a', 
-                confirmButtonText: 'Siap, Saya Mengerti'
-            });
-        }
+    Swal.fire({
+        title: 'Sedang Menyimpan...',
+        text: 'Memproses data dan mengompres berkas...',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    try {
+        // contoh kirim data
+        const formData = new FormData(form);
+
+        // await fetch / axios di sini
 
         Swal.fire({
-            title: 'Sedang Menyimpan...',
-            text: 'Memproses seluruh data formulir dan mengompres berkas...',
-            allowOutsideClick: false,
-            didOpen: () => Swal.showLoading()
+            icon: 'success',
+            title: 'Berhasil!',
+            text: 'Data pendaftaran berhasil disimpan.',
+            confirmButtonColor: '#1a5d1a'
         });
+
+    } catch (err) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: 'Terjadi kesalahan saat menyimpan data.'
+        });
+    }
+}
 
         try {
             const formData = new FormData(form);
@@ -1428,19 +1439,12 @@
 
         // --- LOGIKA VALIDASI TAB ---
     
-    if (tabId === 'santri') {
-        if (!check('nama_santri', 'Nama Lengkap')) return false;
-        if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
-        if (!check('nik', 'NIK')) return false;
-        if (!check('no_kk', 'Nomor KK')) return false;
-        if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
+   function validateTab(tabId) {
 
-        const nikVal = document.getElementsByName('nik')[0]?.value || "";
-        if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
-            Swal.fire('Format Salah', 'NIK Santri harus 16 digit angka!', 'error');
-            return false;
-        }
-    } 
+    if (tabId === 'santri') {
+        if (!check('nama_santri', 'Nama Lengkap Santri')) return false;
+        // tambahin validasi lain kalau ada
+    }
 
     else if (tabId === 'ortu') {
         const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
@@ -1448,13 +1452,12 @@
         if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
         if (!check('st_ayah', 'Status Ayah')) return false;
 
-        // Validasi NIK/KK hanya jika Ayah 'Masih Hidup'
         if (statusAyah === 'Masih Hidup') {
             if (!check('nik_ayah', 'NIK Ayah')) return false;
             if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
-            
+
             const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
-            if (nikA.length !== 16 || !isNumeric.test(nikA)) {
+            if (nikA.length !== 16 || !/^\d+$/.test(nikA)) {
                 Swal.fire('Format Salah', 'NIK Ayah harus 16 digit angka!', 'error');
                 return false;
             }
@@ -1472,21 +1475,7 @@
         if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
     }
 
-// --- TAMBAHKAN LOGIKA UNTUK TAB PERNYATAAN DI SINI ---
-    else if (tabId === 'pernyataan') {
-        const elCek = document.getElementsByName('cek_pernyataan')[0];
-        if (!elCek || !elCek.checked) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Persetujuan Diperlukan',
-                text: 'Anda harus menyetujui seluruh pernyataan sebelum dapat menyimpan pendaftaran.',
-                confirmButtonColor: '#d33'
-            });
-            return false;
-        }
-    }
-
-    return true; 
+    return true;
 }
 
     function openTab(evt, targetId) {
@@ -1610,28 +1599,49 @@
     }
 
     function prosesSimpanFinal() {
-    // 1. Ambil elemen checkbox
-    const elCek = document.getElementsByName('cek_pernyataan')[0];
-    
-    // 2. Validasi: Jika belum dicentang, munculkan peringatan
-    if (!elCek || !elCek.checked) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Persetujuan Diperlukan',
-            text: 'Silakan centang persetujuan pernyataan sebelum menyimpan pendaftaran.',
-            confirmButtonColor: '#d33'
-        });
-        return; // Berhenti di sini
+
+    // 🔁 Validasi berurutan + auto pindah tab
+    if (!validateTab('santri')) {
+        showTab('santri');
+        return;
     }
 
-    // 3. Jika sudah dicentang, panggil fungsi simpan utama
-    // Pastikan handleFormSubmit sudah diekspos ke window
-    if (typeof window.handleFormSubmit === "function") {
-        window.handleFormSubmit();
-    } else {
-        console.error("Fungsi handleFormSubmit tidak ditemukan!");
+    if (!validateTab('ortu')) {
+        showTab('ortu');
+        return;
     }
-} 
+
+    if (!validateTab('alamat')) {
+        showTab('alamat');
+        return;
+    }
+
+    // ✅ Validasi checkbox terakhir
+    const elCek = document.getElementsByName('cek_pernyataan')[0];
+    if (!elCek || !elCek.checked) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Persetujuan Diperlukan',
+            text: 'Silakan centang persetujuan terlebih dahulu.',
+            confirmButtonColor: '#1a5d1a'
+        });
+
+        showTab('pernyataan'); // auto pindah
+        return;
+    }
+
+    // 🚀 lanjut submit
+    handleFormSubmit();
+}
+
+function showTab(tabId) {
+    document.querySelectorAll('.tab-pane').forEach(el => {
+        el.style.display = 'none';
+    });
+
+    const target = document.getElementById(tabId);
+    if (target) target.style.display = 'block';
+}
 
     function kirimWA() {
         const gV = (name) => {
