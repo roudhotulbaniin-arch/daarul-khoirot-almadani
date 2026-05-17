@@ -5,428 +5,267 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot Almadani | Beranda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="main_logo.png">
     
-<style>
-    /* ==========================================================================
-       1. VARIABLES, RESET & GLOBAL SETTINGS (Berlaku Semua Perangkat)
-       ========================================================================== */
-    :root {
-        --primary-color: #1a5d1a;
-        --secondary-color: #f4ce14;
-        --light-bg: #f4f7f6;
-        --dark-footer: #0d2e0d;
-        --whatsapp-green: #25d366;
-    }
-
-    * { 
-        margin: 0; 
-        padding: 0; 
-        box-sizing: border-box; 
-        font-family: 'Quicksand', sans-serif; 
-    }
-
-    body { 
-        background-color: var(--light-bg); 
-        overflow-x: hidden; 
-        color: #333; 
-        line-height: 1.6;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Quicksand', sans-serif;
-        font-weight: 700;
-    }
-
-    .teks-tebal {
-        font-weight: 600;
-    }
-
-    /* Mengunci Font Awesome agar tidak bentrok dengan font Quicksand */
-    .fa, .fas, .far, .fab, .box-header i, nav ul li a i, .about-wrap i {
-        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important;
-        font-weight: 900 !important;
-    }
-
-
-    /* ==========================================================================
-       2. BLOK DESKTOP (Pengaturan Tampilan Komputer / Laptop)
-       ========================================================================== */
-    
-    /* --- HEADER & NAVIGASI DESKTOP --- */
-    header {
-        background: var(--primary-color); 
-        color: white; 
-        padding: 10px 4%; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        position: sticky; 
-        top: 0; 
-        z-index: 1000;
-        min-height: 70px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .logo { 
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        flex-shrink: 0;
-    }
-
-    .logo img { 
-        height: 45px; 
-        width: auto; 
-    }
-
-    .logo h1 { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        white-space: nowrap; 
-        letter-spacing: 0.5px;
-    }
-
-    nav ul { 
-        list-style: none; 
-        display: flex; 
-        gap: 20px; 
-    }
-
-    nav ul li a { 
-        color: white; 
-        text-decoration: none; 
-        font-size: 0.95rem; 
-        font-weight: 600; 
-        display: flex; 
-        align-items: center; 
-        gap: 6px; 
-        position: relative;
-        padding-bottom: 5px;
-        transition: 0.3s;
-    }
-
-    nav ul li a i {
-        color: white; 
-        font-size: 1rem;
-    }
-
-    nav ul li a:hover {
-        color: var(--secondary-color);
-    }
-
-    nav ul li a.active {
-        border-bottom: 3px solid var(--secondary-color) !important; 
-        color: var(--secondary-color) !important; 
-    }
-
-    #menu-toggle { 
-        display: none; 
-    }
-
-    /* --- HERO DESKTOP --- */
-    .hero-container { 
-        position: relative; 
-        width: 100%; 
-        height: 500px; 
-        overflow: hidden; 
-        background: #000; 
-    }
-
-    .hero-container img { 
-        width: 100%; 
-        height: 100%; 
-        object-fit: cover; 
-        opacity: 0.6; 
-    }
-
-    .hero-content { 
-        position: absolute; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        text-align: center; 
-        color: white; 
-        width: 95%; 
-    }
-
-    .hero-content h1 { 
-        font-size: 4rem; 
-        font-weight: 800; 
-        white-space: nowrap; 
-        text-shadow: 2px 2px 10px rgba(0,0,0,0.7); 
-    }
-
-    .hero-content p { 
-        font-size: 2rem; 
-        white-space: nowrap; 
-        margin-top: 10px; 
-        color: var(--secondary-color) !important;
-    }
-
-    /* --- BOX KONTEN & TENTANG LEMBAGA DESKTOP --- */
-    .content-box { 
-        background-color: #144514; 
-        margin: 30px auto; 
-        padding: 40px 5%; 
-        width: 94%; 
-        border-radius: 12px; 
-        color: white; 
-        border: 1px solid rgba(255, 255, 255, 0.1); 
-        box-shadow: none !important;
-        height: auto !important;
-        overflow: hidden;
-    }
-
-    .box-header { 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        gap: 10px; 
-        margin-bottom: 30px; 
-        white-space: nowrap; 
-    }
-
-    .box-header i { 
-        color: var(--secondary-color); 
-        font-size: 1.6rem; 
-    }
-
-    .box-header h2 { 
-        font-size: 1.6rem; 
-        border-bottom: 2px solid var(--secondary-color); 
-        padding-bottom: 5px; 
-    }
-
-    .about-wrap { 
-        display: flex; 
-        flex-direction: row; 
-        align-items: center; 
-        justify-content: center;
-        gap: 30px; 
-        padding: 20px 5%;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .about-wrap i.fa-mosque { 
-        color: var(--secondary-color) !important; 
-        font-size: 6rem !important; 
-        flex-shrink: 0; 
-    }
-
-    .about-wrap p { 
-        font-size: 1.25rem !important; 
-        line-height: 1.8;
-        color: white;
-        text-align: justify; 
-        text-justify: inter-word; 
-        margin: 0;
-    }
-
-    /* --- UNIT PENDIDIKAN DESKTOP --- */
-    .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .unit-card { 
-        background: white; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; 
-        align-items: center; text-align: center; gap: 15px; text-decoration: none; color: #333; 
-        border-bottom: 6px solid #f4ce14; transition: 0.3s;
-    }
-    .unit-card img { width: 60px; height: 60px; flex-shrink: 0; }
-    .unit-card h3 { font-size: 1rem; color: #1a5d1a; font-weight: 800; }
-
-
-    /* --- WA FLOAT DESKTOP --- */
-    .whatsapp-float {
-        position: fixed; 
-        bottom: 25px; 
-        right: 25px; 
-        background-color: var(--whatsapp-green); 
-        color: white !important;
-        padding: 10px 18px; 
-        border-radius: 30px !important; 
-        display: flex; 
-        align-items: center; 
-        gap: 8px; 
-        text-decoration: none; 
-        font-weight: 600; 
-        z-index: 9999; 
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    }
-
-    .whatsapp-float i {
-        font-family: "Font Awesome 6 Brands" !important;
-        font-size: 22px;
-        -webkit-text-stroke: 1.2px var(--whatsapp-green);
-        paint-order: stroke fill;
-    }
-
-    /* --- FOOTER GLOBAL --- */
-    footer { 
-        background: var(--dark-footer); 
-        color: white; 
-        padding: 40px 5% 20px; 
-        text-align: center; 
-        width: 100%;
-        border: none;
-        outline: none;
-        box-shadow: none !important;
-    }
-
-    .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
-    .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
-
-    /* ==========================================================================
-       3. BLOK MOBILE (Pengaturan Khusus HP / Layar di Bawah 768px)
-       ========================================================================== */
-    @media (max-width: 768px) {
-        
-        /* --- HEADER & LOGO HP --- */
-        header { 
-            height: 65px; 
-            padding: 0 15px; 
-            position: relative; 
-            box-shadow: none !important; 
-        }
-        
-         .logo {
-        display: flex;
-        align-items: center;
-        /* 1. Perkecil gap (jarak antar elemen) di sini */
-        gap: 5px !important; 
-        max-width: 75%;
-        overflow: hidden;
-    }
-
-    .logo img {
-        height: 35px;
-        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
-        margin-right: 0 !important; 
-    }
-
-    .logo h1 {
-        font-size: 1rem !important;
-        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
-        margin: 0 !important; 
-        white-space: nowrap !important;
-        letter-spacing: -0.5px;
-    }
-
-        /* --- MENU TOGGLE BUTTON HP --- */
-         #menu-toggle {
-    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
-    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
-    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
-    gap: 4px;                   /* Memberikan jarak antara ikon dan teks */
-    
-    /* Sisanya adalah dekorasi */
-    background: #f4ce14;
-    color: #1a5d1a;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
-color: var(--primary-color) !important; border: none; padding: 6px 12px;
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-        }
-        
-        /* --- DROPDOWN NAVIGASI MENU HP --- */
-        nav {
-            width: 100%;
+    <style>
+        /* ==========================================================================
+           1. GLOBAL VARIABLES & RESET STYLE
+           ========================================================================== */
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --dark-green: #144514;
+            --dark-footer: #0d2e0d;
+            --light-bg: #f4f7f6;
+            --text-dark: #333;
         }
 
-      
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
+
+        body { 
+            background-color: var(--light-bg); 
+            overflow-x: hidden; 
+            color: var(--text-dark); 
+        }
+
+        /* ==========================================================================
+           2. BLOK STYLE DESKTOP (TAMPILAN UTAMA KOMPUTER)
+           ========================================================================== */
+        
+        /* Header & Navigasi Desktop */
+        header {
+            background: var(--primary-color); 
+            color: white; 
+            padding: 10px 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            min-height: 60px;
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            flex-shrink: 0;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .logo h1 { 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            white-space: nowrap; 
+            letter-spacing: 0.5px;
+        }
+
+        #menu-toggle { display: none; } /* Tersembunyi di Desktop */
+
         nav ul { 
-            display: none; flex-direction: column; width: 100%; position: absolute; 
-            top: 65px; left: 0; background: #1a5d1a; padding: 20px; border-bottom: 3px solid #f4ce14; 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
         }
-        nav.show ul { display: flex !important; }
-        
+
         nav ul li a { 
-            padding: 12px 20px !important; 
-            width: 100%; 
+            color: white; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            position: relative;
+            padding-bottom: 5px;
+            transition: 0.3s;
         }
 
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Indikator Menu Aktif di Desktop (Garis Bawah) */
         nav ul li a.active {
-           border-left: 5px solid var(--gold-light) !important;
-                padding-left: 20px;
-                color: var(--gold-light) !important;
-            }
-
-
-        nav ul li a.active i {
-            color: var(--secondary-color) !important;
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--secondary-color);
         }
 
-        /* --- HERO HP --- */
-       .hero-content h1 { font-size: 1.4rem !important; }
-        .hero-content p { font-size: 0.9rem !important; }
-        .hero-container { height: 250px; }
+        /* Hero Banner */
+        .hero-container { position: relative; width: 100%; height: 500px; overflow: hidden; background: #000; }
+        .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
+        .hero-content h1 { font-size: 2.8rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+        .hero-content p { font-size: 1.2rem; white-space: nowrap; margin-top: 10px; }
 
-        /* --- BOX UTAMA / TENTANG LEMBAGA HP --- */
-        .content-box {
-            height: auto !important;
-            min-height: min-content !important;
-            padding: 30px 4% !important;
-            overflow: hidden !important;
+        /* Komponen Konten Box & Tentang Lembaga */
+        .content-box { 
+            background-color: var(--dark-green); 
+            margin: 30px auto; 
+            padding: 40px 5%; 
+            width: 94%; 
+            border-radius: 12px; 
+            color: white; 
+            border: 4px solid var(--secondary-color); 
         }
+        
+        .box-header { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-bottom: 30px; 
+            white-space: nowrap; 
+        }
+        
+        .box-header i { color: var(--secondary-color); font-size: 1.6rem; }
+        .box-header h2 { font-size: 1.6rem; border-bottom: 2px solid var(--secondary-color); padding-bottom: 5px; }
 
-        .about-wrap {
-            flex-direction: column; 
-            gap: 15px;
-            text-align: center;
+        .about-wrap { 
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: center;
+            gap: 30px; 
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .about-wrap i.fa-mosque { 
-            font-size: 3.5rem !important; 
+            color: var(--secondary-color); 
+            font-size: 6rem; 
+            flex-shrink: 0; 
         }
 
-        .about-wrap p {
-            font-size: 1.05rem !important;
+        .about-wrap p { 
+            font-size: 1.4rem; 
+            line-height: 1.8;
+            color: white;
             text-align: justify; 
+            text-justify: inter-word; 
+            margin: 0;
         }
 
-        /* --- GRID & KARTU UNIT PENDIDIKAN HP --- */
-         .unit-grid { grid-template-columns: 1fr; }
-        .unit-card { flex-direction: row; text-align: left; padding: 15px; }
- 
-
-        /* --- ANIMASI GLOW WA MOBILE --- */
-        @keyframes wa-mobile-glow {
-            0% { filter: drop-shadow(0 0 3px rgba(37, 211, 102, 0.5)); transform: scale(1); }
-            50% { filter: drop-shadow(0 0 15px rgba(37, 211, 102, 0.85)); transform: scale(1.05); }
-            100% { filter: drop-shadow(0 0 3px rgba(37, 211, 102, 0.5)); transform: scale(1); }
+        /* Grid Unit Pendidikan (3 Kolom Jajar Samping) */
+        .unit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        
+        .unit-card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            gap: 15px; 
+            text-decoration: none; 
+            color: var(--text-dark); 
+            border-bottom: 6px solid var(--secondary-color); 
+            transition: 0.3s;
         }
+        
+        .unit-card:hover { transform: translateY(-5px); }
+        .unit-card img { width: 60px; height: 60px; flex-shrink: 0; }
+        .unit-card h3 { font-size: 1rem; color: var(--primary-color); font-weight: 800; }
 
-        /* --- WA FLOAT MOBILE --- */
+        /* Floating WhatsApp Button */
         .whatsapp-float {
-            background: transparent !important; 
-            box-shadow: none !important; 
-            padding: 0 !important;
-            bottom: 25px; 
-            right: 25px; 
-            animation: wa-mobile-glow 2.5s infinite ease-in-out !important; 
-            transition: transform 0.3s ease;
+            position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white !important;
+            padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
+            text-decoration: none; font-weight: bold; z-index: 9999; animation: wa-glow 2s infinite ease-in-out;
+        }
+        
+        @keyframes wa-glow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
-        .whatsapp-float span { 
-            display: none !important; 
+        /* Footer Global */
+        footer { 
+            background: var(--dark-footer); 
+            color: white; 
+            padding: 40px 5% 20px; 
+            text-align: center; 
+            width: 100%;
         }
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        .whatsapp-float i { 
-            font-size: 52px !important; 
-            color: var(--whatsapp-green) !important; 
-            background: transparent !important;
-            -webkit-text-stroke: 1.3px #f4f7f6; 
+
+        /* ==========================================================================
+           3. BLOK STYLE MOBILE (RESPONSIF SMARTPHONE & TABLET)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            /* Header & Logo Mobile */
+            header { height: 65px; padding: 0 15px; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 1rem; margin-right: 10px; }
+
+            /* Tombol Menu Hamburger */
+            #menu-toggle {
+                display: block; 
+                background: var(--secondary-color);
+                color: var(--primary-color); 
+                border: none; 
+                padding: 6px 12px;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.8rem; 
+                cursor: pointer;
+            }
+
+            /* Sistem Navigasi Vertikal Dropdown Mobile */
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                width: 100%; 
+                position: absolute; 
+                top: 65px; 
+                left: 0; 
+                background: var(--primary-color); 
+                padding: 20px; 
+                border-bottom: 3px solid var(--secondary-color); 
+                gap: 15px;
+            }
+            
+            nav.show ul { display: flex; }
+
+            /* Indikator Menu Aktif di Mobile (Garis Samping) */
+            nav ul li a.active {
+                border-bottom: none;
+                border-left: 4px solid var(--secondary-color);
+                padding-left: 10px;
+                color: var(--secondary-color);
+            }
+
+            /* Penyesuaian Dimensi Hero */
+            .hero-container { height: 250px; }
+            .hero-content h1 { font-size: 1.4rem; white-space: normal; }
+            .hero-content p { font-size: 0.9rem; white-space: normal; }
+
+            /* Penyesuaian Bagian Tentang Lembaga */
+            .about-wrap {
+                flex-direction: column; 
+                gap: 15px;
+                text-align: center;
+            }
+            .about-wrap i.fa-mosque { font-size: 3.5rem; }
+            .about-wrap p { font-size: 1.1rem; text-align: justify; }
+
+            /* Grid Unit Pendidikan (Berubah Jadi 1 baris vertikal kebawah) */
+            .unit-grid { grid-template-columns: 1fr; }
+            .unit-card { flex-direction: row; text-align: left; padding: 15px; justify-content: flex-start; }
         }
-    }
-</style>
-
+    </style>
 </head>
 <body>
 
@@ -442,7 +281,7 @@ color: var(--primary-color) !important; border: none; padding: 6px 12px;
 
     <nav id="main-nav">
         <ul>
-            <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
             <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
@@ -479,64 +318,60 @@ color: var(--primary-color) !important; border: none; padding: 6px 12px;
     <div class="unit-grid">
         <a href="unit_tpq.html" class="unit-card">
             <img src="logo_tpq.png" alt="TPQ">
-            <div><h3>TPQ ROUDHOTUL BANIIN</h3><p>Dasar baca Al-Qur'an (Tahsin & Tajwid) usia dini.</p></div>
+            <div>
+                <h3>TPQ ROUDHOTUL BANIIN</h3>
+                <p>Dasar baca Al-Qur'an (Tahsin & Tajwid) usia dini.</p>
+            </div>
         </a>
         <a href="unit_mdt.html" class="unit-card">
             <img src="logo_mdt.png" alt="MDT">
-            <div><h3>MDT ROUDHOTUL BANIIN</h3><p>Pendalaman Fiqih, Aqidah, dan Bahasa Arab Madrasah.</p></div>
+            <div>
+                <h3>MDT ROUDHOTUL BANIIN</h3>
+                <p>Pendalaman Fiqih, Aqidah, dan Bahasa Arab Madrasah.</p>
+            </div>
         </a>
         <a href="unit_ponpes.html" class="unit-card">
             <img src="logo_ponpes.png" alt="Ponpes">
-            <div><h3>PONPES DAARUL KHOIROT ALMADANI</h3><p>Tahfidz Al-Qur'an dan kajian Kitab Kuning intensif.</p></div>
+            <div>
+                <h3>PONPES DAARUL KHOIROT ALMADANI</h3>
+                <p>Tahfidz Al-Qur'an dan kajian Kitab Kuning intensif.</p>
+            </div>
         </a>
     </div> 
 </section>
 
-    <footer> 
-        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
-        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
-        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-    </footer>
+<footer> 
+    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+</footer>
 
-  
-    <audio id="clickSound" src="click_sound.mp3"></audio>
+<!-- Audio SFX Click -->
+<audio id="clickSound" src="click_sound.mp3"></audio>
 
-    <script>
-   
+<script>
     const clickSound = document.getElementById('clickSound');
     const navLinks = document.querySelectorAll('nav ul li a'); 
-    
-    // --- TAMBAHAN UNTUK MENU HP ---
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
 
+    // Toggle menu HP
     if (menuToggle) {
         menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('show'); // Menambah/menghapus class 'show' untuk munculkan menu
+            nav.classList.toggle('show');
         });
     }
-    // ------------------------------
 
-    let hasInteracted = false;
-
-    function playMurottal() {
-        if (!hasInteracted) {
-            murottal.volume = 0.4; 
-            murottal.play().catch(e => console.log("Audio Play Error"));
-            hasInteracted = true;
-            document.removeEventListener('click', playMurottal);
-        }
-    }
-    document.addEventListener('click', playMurottal);
-
+    // Navigasi dengan efek suara klik
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            clickSound.currentTime = 0; 
-            clickSound.play();
+            if(clickSound) {
+                clickSound.currentTime = 0; 
+                clickSound.play().catch(err => console.log("SFX play blocked"));
+            }
             
-            // Tutup menu otomatis setelah klik link (khusus HP)
-            nav.classList.remove('show');
+            nav.classList.remove('show'); // Tutup menu di HP otomatis
 
             const destination = this.href;
             if(destination && !destination.includes('#')) {
@@ -546,25 +381,25 @@ color: var(--primary-color) !important; border: none; padding: 6px 12px;
         });
     });
 
-    // Fungsi untuk menandai menu aktif berdasarkan URL
+    // Otomatisasi Penanda Aktif Berdasarkan Nama File URL (Solusi Sinkronisasi Class)
     document.addEventListener("DOMContentLoaded", function() {
         const currentUrl = window.location.pathname.split("/").pop();
-        const menuItems = document.querySelectorAll("nav ul li a");
-
-        menuItems.forEach(item => {
-            // Jika href menu sama dengan nama file saat ini
-            if (item.getAttribute("href") === currentUrl || (currentUrl === "" && item.getAttribute("href") === "index.html")) {
+        navLinks.forEach(item => {
+            const hrefAttr = item.getAttribute("href");
+            if (hrefAttr === currentUrl || (currentUrl === "" && hrefAttr === "index.html")) {
                 item.classList.add("active");
+            } else {
+                item.classList.remove("active");
             }
         });
     });
 </script>
     
-
-    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp fa-lg"></i>
-        <span>Tanya Admin</span>
-    </a>
+<!-- Tombol WA -->
+<a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp fa-lg"></i>
+    <span>Tanya Admin</span>
+</a>
 
 </body>
 </html>
