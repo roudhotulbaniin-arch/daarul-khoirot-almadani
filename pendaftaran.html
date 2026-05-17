@@ -491,14 +491,14 @@
 <div class="form-section-title"><i class="fas fa-user-tie"></i> Data Ayah Kandung</div>
 <div class="form-grid">
     <div class="form-group">
-        <label>Nama Lengkap Ayah*</label>
-        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" id="n_ayah" placeholder="Nama lengkap sesuai KK"></div>
+        <label>Nama Lengkap Ayah<span style="color: red;">*</span></label>
+        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" id="n_ayah" placeholder="Nama lengkap sesuai KK required"></div>
     </div>
     <div class="form-group">
-        <label>Status Ayah</label>
+        <label>Status Ayah<span style="color: red;">*</span></label>
         <div class="input-ikon">
             <i class="fas fa-heartbeat"></i>
-            <select name="st_ayah">
+            <select name="st_ayah" required>
                 <option value="">-- Pilih --</option>                
                 <option value="Masih Hidup">Masih Hidup</option>
                 <option value="Meninggal">Meninggal</option>
@@ -511,12 +511,12 @@
         <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ayah" value="Indonesia"></div>
     </div>
     <div class="form-group">
-        <label>NIK Ayah (16 Digit)*</label>
-        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ayah" maxlength="16" placeholder="16 digit NIK"></div>
+        <label>NIK Ayah (16 Digit)<span style="color: red;">*</span></label>
+        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ayah" maxlength="16" placeholder="16 digit NIK" required></div>
     </div>
     <div class="form-group">
-        <label>Nomor Kartu Keluarga (KK)*</label>
-        <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="kk_ayah" maxlength="16" placeholder="16 digit No KK"></div>
+        <label>Nomor Kartu Keluarga (KK)<span style="color: red;">*</span></label>
+        <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="kk_ayah" maxlength="16" placeholder="16 digit No KK" required></div>
     </div>
     <div class="form-group">
         <label>Tempat Lahir</label>
@@ -547,10 +547,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label>Pekerjaan Utama</label>
+        <label>Pekerjaan Utama<span style="color: red;">*</span></label>
         <div class="input-ikon">
             <i class="fas fa-briefcase"></i>
-            <select name="pjk_ayah">
+            <select name="pjk_ayah" required>
                 <option value="">-- Pilih --</option>
                 <option>Tidak Bekerja</option>
                 <option>Pensiunan</option>
@@ -567,10 +567,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label>Penghasilan Rata-rata / Bulan</label>
+        <label>Penghasilan Rata-rata / Bulan<span style="color: red;">*</span></label>
         <div class="input-ikon">
             <i class="fas fa-money-bill-wave"></i>
-            <select name="hasil_ayah">
+            <select name="hasil_ayah" required>
                 <option value="">-- Pilih --</option>
                 <option>Dibawah 800.000</option>
                 <option>800.001 - 1.500.000</option>
@@ -583,11 +583,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label>No Handphone Ayah (WhatsApp)</label>
+        <label>No Handphone Ayah (WhatsApp) <span style="color: red;">*</span></label>
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <div class="input-ikon">
                 <i class="fab fa-whatsapp"></i>
-                <input type="text" name="hp_ayah" placeholder="628...">
+                <input type="text" name="hp_ayah" placeholder="628..." required>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" name="cek_hp_ayah" onchange="toggleHP(this, 'hp_ayah')">
@@ -598,8 +598,8 @@
 </div> <div class="form-section-title"><i class="fas fa-user-nurse"></i> Data Ibu Kandung</div>
 <div class="form-grid">
     <div class="form-group">
-        <label>Nama Lengkap Ibu*</label>
-        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="n_ibu"></div>
+        <label>Nama Lengkap Ibu<span style="color: red;">*</span></label>
+        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="n_ibu" required></div>
     </div>
     <div class="form-group">
         <label>Status Ibu</label>
@@ -618,16 +618,16 @@
         <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ibu" value="Indonesia"></div>
     </div>
     <div class="form-group">
-        <label>N I K Ibu</label>
-        <div class="input-ikon"><i class="fas fa-name-card"></i><input type="text" name="nik_ibu" maxlength="16"></div>
+        <label>N I K Ibu<span style="color: red;">*</span></label>
+        <div class="input-ikon"><i class="fas fa-name-card"></i><input type="text" name="nik_ibu required" maxlength="16"></div>
     </div>
     <div class="form-group">
         <label>Tempat Lahir</label>
         <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ibu"></div>
     </div>
     <div class="form-group">
-        <label>Tanggal Lahir</label>
-        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu"></div>
+        <label>Tanggal Lahir<span style="color: red;">*</span></label>
+        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu" required></div>
     </div>
     <div class="form-group">
         <label>Pendidikan Terakhir</label>
@@ -686,11 +686,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label>No Handphone Ibu</label>
+        <label>No Handphone Ibu<span style="color: red;">*</span></label>
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <div class="input-ikon">
                 <i class="fab fa-whatsapp"></i>
-                <input type="text" name="hp_ibu" placeholder="628...">
+                <input type="text" name="hp_ibu" placeholder="628..." required>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" name="cek_hp_ibu" onchange="toggleHP(this, 'hp_ibu')">
@@ -699,10 +699,10 @@
         </div>
     </div>
 </div> <div class="form-group" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #ddd;">
-    <label><b>Tentukan Status Wali Santri*</b></label>
+    <label><b>Tentukan Status Wali Santri<span style="color: red;">*</span></b></label>
     <div class="input-ikon" style="margin-top: 10px;">
         <i class="fas fa-users-cog"></i>
-        <select name="st_wali">
+        <select name="st_wali" required>
             <option value="">-- Pilih --</option>
             <option value="ayah">Sama Dengan Ayah Kandung</option>
             <option value="ibu">Sama Dengan Ibu Kandung</option>
@@ -725,9 +725,9 @@
 <div class="form-section-title"><i class="fas fa-male"></i> Data Ayah</div>
 <div class="form-grid" name="block_ayah">
      <div class="form-group">
-            <label>Status Kepemilikan Rumah</label>
+            <label>Status Kepemilikan Rumah<span style="color: red;">*</span></label>
             <div class="input-ikon"><i class="fas fa-house-user"></i>
-                <select name="milik_ayah">
+                <select name="milik_ayah" required>
                     <option value="">-- Pilih --</option>
                     <option>Milik Sendiri</option>
                     <option>Rumah Orangtua</option>
@@ -738,9 +738,9 @@
             </div>
         </div>
     <div class="form-group">
-        <label>Provinsi</label>
+        <label>Provinsi<span style="color: red;">*</span></label>
         <div class="input-ikon"><i class="fas fa-map"></i>     
-            <select name="prov_ayah" onchange="loadKabAyah(this.value)">
+            <select name="prov_ayah required" onchange="loadKabAyah(this.value)">
                 <option value="">Pilih Provinsi</option>
             </select>
         </div>
