@@ -1009,7 +1009,136 @@
 
 <audio id="clickSound" src="click_sound.mp3"></audio>
 
+<!-- LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
 
+<!-- FIREBASE MODULE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* =========================
+   FIREBASE INIT
+========================= */
+const firebaseConfig = {
+    apiKey: "AIza...",
+    authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
+    projectId: "daarul-khoirot-pendaftaran",
+    storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
+    messagingSenderId: "963910462284",
+    appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+/* =========================
+   HELPER
+========================= */
+const getText = (idOrName) => {
+    const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
+    if (!el) return "-";
+    return el.tagName === "SELECT"
+        ? el.options[el.selectedIndex]?.text || "-"
+        : el.value || "-";
+};
+
+const toBase64 = file => new Promise((res, rej) => {
+    const r = new FileReader();
+    r.readAsDataURL(file);
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+});
+
+/* =========================
+   SUBMIT FORM
+========================= */
+async function handleFormSubmit(e) {
+    if (e) e.preventDefault();
+
+    const form = document.getElementById("formPendaftaran");
+
+    Swal.fire({
+        title: "Menyimpan...",
+        text: "Mohon tunggu",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    try {
+        const formData = new FormData(form);
+        let data = {};
+
+        // Ambil semua data non file
+        formData.forEach((val, key) => {
+            if (!(val instanceof File)) data[key] = val;
+        });
+
+        // Replace dropdown value → text
+        [
+            'prov_ayah','kab_ayah','kec_ayah','desa_ayah',
+            'prov_ibu','kab_ibu','kec_ibu','desa_ibu',
+            'prov_santri','kab_santri','kec_santri','desa_santri',
+            'pjk_ibu','pjk_ayah','tingkat_unit'
+        ].forEach(f => {
+            const txt = getText(f);
+            if (txt && txt !== "-- Pilih --") data[f] = txt;
+        });
+
+        /* =========================
+           KOMPRES FILE
+        ========================= */
+        const opt = { maxSizeMB: 0.1, maxWidthOrHeight: 1024 };
+
+        const kk = document.getElementsByName("up_kk")[0]?.files[0];
+        if (kk) {
+            const c = await imageCompression(kk, opt);
+            data.file_kk_data = await toBase64(c);
+        }
+
+        const ijazah = document.getElementsByName("up_ijazah")[0]?.files[0];
+        if (ijazah) {
+            const c = await imageCompression(ijazah, opt);
+            data.file_ijazah_data = await toBase64(c);
+        }
+
+        /* =========================
+           PERSETUJUAN
+        ========================= */
+        const cek = document.getElementsByName("cek_pernyataan")[0];
+        data.status_setuju = cek?.checked ? "SETUJU" : "TIDAK SETUJU";
+
+        /* =========================
+           CLEAN DATA
+        ========================= */
+        delete data.up_kk;
+        delete data.up_ijazah;
+        delete data.cek_pernyataan;
+
+        data.waktu_simpan = new Date().toISOString();
+
+        /* =========================
+           SAVE FIRESTORE
+        ========================= */
+        const res = await addDoc(collection(db, "pendaftaran_santri"), data);
+
+        if (res.id) {
+            Swal.fire("Berhasil", "Data tersimpan", "success").then(() => {
+                window.kirimWA?.();
+                form.reset();
+                location.reload();
+            });
+        }
+
+    } catch (err) {
+        console.error(err);
+        Swal.fire("Error", err.message, "error");
+    }
+}
+
+window.handleFormSubmit = handleFormSubmit;
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
 
