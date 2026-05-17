@@ -357,18 +357,18 @@
 
     <div class="form-grid-santri">
         <div class="form-group">
-            <label>Tanggal Pendaftaran*</label>
-            <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar"></div>
+            <label>Tanggal Pendaftaran<span style="color: red;">*</span></label>
+            <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar" required></div>
         </div>
         <div class="form-group">
-            <label>Nama Lengkap*</label>
-            <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama" placeholder="Sesuai KK/Akte"></div>
+            <label>Nama Lengkap<span style="color: red;">*</span></label>
+            <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama" placeholder="Sesuai KK/Akte" required></div>
         </div>
         <div class="form-group">
-            <label>Pilihan Unit & Kelas*</label>
+            <label>Pilihan Unit & Kelas<span style="color: red;">*</span></label>
             <div class="input-ikon">
                 <i class="fas fa-graduation-cap"></i>
-                <select name="tingkat_unit">
+                <select name="tingkat_unit" required>
                     <option value="">-- Pilih --</option>
                     <optgroup label="UNIT TPQ">
                        <option>TPQ - Tingkat 1</option>
@@ -392,12 +392,12 @@
 
     <div class="form-grid-santri">
         <div class="form-group">
-            <label>NIK*</label>
-            <div class="input-ikon"><i class="fas fa-id-card"></i><input type="number" name="nik" placeholder="16 Digit NIK"></div>
+            <label>NIK<span style="color: red;">*</span></label>
+            <div class="input-ikon"><i class="fas fa-id-card"></i><input type="number" name="nik" placeholder="16 Digit NIK" required></div>
         </div>
         <div class="form-group">
-            <label>Nomor KK*</label>
-            <div class="input-ikon"><i class="fas fa-address-card"></i><input type="number" name="no_kk" placeholder="16 Digit KK"></div>
+            <label>Nomor KK<span style="color: red;">*</span></label>
+            <div class="input-ikon"><i class="fas fa-address-card"></i><input type="number" name="no_kk" placeholder="16 Digit KK" required></div>
         </div>
         <div class="form-group">
             <label>NISN</label>
@@ -411,8 +411,8 @@
 
     <div class="form-grid-santri">
         <div class="form-group">
-            <label>Jenis Kelamin*</label>
-            <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin"><option value="">-- Pilih --</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+            <label>Jenis Kelamin<span style="color: red;">*</span></label>
+            <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin" required><option value="">-- Pilih --</option><option>Laki-laki</option><option>Perempuan</option></select></div>
         </div>
         <div class="form-group">
             <label>Tempat Lahir</label>
