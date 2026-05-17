@@ -269,25 +269,28 @@
             .unit-grid { grid-template-columns: 1fr; }
             .unit-card { flex-direction: row; text-align: left; padding: 15px; justify-content: flex-start; }
 
-            /* Bulat Tanpa Box + Efek Pulse Glow WA Float khusus HP */
+        /* Bulat Tanpa Box + Efek Pulse Glow WA Float khusus HP */
             .whatsapp-float {
-                background: transparent !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                bottom: 25px;
-                right: 25px;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: var(--whatsapp-green);
+                color: #fff !important;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                z-index: 9999;
+                animation: wa-pulse-glow 2s infinite ease-in-out;
             }
 
-            .whatsapp-float span {
-                display: none !important;
-            }
+            .whatsapp-float span { display: none; }
+            .whatsapp-float i { font-size: 30px; margin: 0; }
+        }
 
-            .whatsapp-float i {
-                font-size: 55px; /* Lebih besar agar nyaman di tap */
-                color: var(--whatsapp-green) !important;
-                filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
-            }
-        
         /* Animasi Efek untuk WA HP */
         @keyframes wa-pulse-glow {
             0% {
@@ -302,7 +305,8 @@
                 transform: scale(1);
                 box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 4px 10px rgba(0, 0, 0, 0.3);
             }
-        )
+        }
+
         /* Default Style Desktop untuk WA Float (Berbentuk Pil/Tombol Panjang) */
         @media (min-width: 769px) {
             .whatsapp-float {
