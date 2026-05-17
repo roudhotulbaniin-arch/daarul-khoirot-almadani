@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot Almadani | Beranda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="main_logo.png">
     
 <style>
      :root {
@@ -80,8 +84,8 @@ nav ul li a:hover {
     .hero-container { position: relative; width: 100%; height: 500px; overflow: hidden; background: #000; }
     .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
     .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
-    .hero-content h1 { font-size: 2.8rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
-    .hero-content p { font-size: 1.2rem; white-space: nowrap; margin-top: 10px; }
+    .hero-content h1 { font-size: 4rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+    .hero-content p { font-size: 1.8rem; white-space: nowrap; margin-top: 10px; }
 
     /* --- 4. BOX KONTEN & TENTANG LEMBAGA --- */
     .content-box { background-color: #144514; margin: 30px auto; padding: 40px 5%; width: 94%; border-radius: 12px; color: white; border: 4px solid #f4ce14; }
@@ -158,8 +162,29 @@ nav ul li a:hover {
     /* --- 7. RESPONSIVE MASTER (HP) --- */
     @media (max-width: 768px) {
         header { height: 65px; padding: 0 15px; }
-        .logo img { height: 35px; }
-        .logo h1 { font-size: 1rem !important; margin-right: 10px; }
+        
+    .logo {
+        display: flex;
+        align-items: center;
+        /* 1. Perkecil gap (jarak antar elemen) di sini */
+        gap: 5px !important; 
+        max-width: 75%;
+        overflow: hidden;
+    }
+
+    .logo img {
+        height: 35px;
+        /* 2. Pastikan tidak ada margin kanan yang mendorong teks */
+        margin-right: 0 !important; 
+    }
+
+    .logo h1 {
+        font-size: 1rem !important;
+        /* 3. Atur margin teks menjadi 0 agar menempel ke logo */
+        margin: 0 !important; 
+        white-space: nowrap !important;
+        letter-spacing: -0.5px;
+    }
 
         /* Sembunyikan navigasi teks, munculkan tombol menu */
         nav ul { 
@@ -169,26 +194,58 @@ nav ul li a:hover {
         nav.show ul { display: flex !important; }
         
           #menu-toggle {
-            display: block !important; background: var(--secondary-color) !important;
+    display: flex !important;   /* Wajib: Mengaktifkan mode flex */
+    flex-direction: row;        /* Menjamin ikon dan teks berjejer ke samping */
+    align-items: center;        /* Menyejajarkan ikon dan teks agar simetris tengah */
+    gap: 4px;                   /* Memberikan jarak antara ikon dan teks */
+    
+    /* Sisanya adalah dekorasi */
+    background: #f4ce14;
+    color: #1a5d1a;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
             color: var(--primary-color) !important; border: none; padding: 6px 12px;
             border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
         }
-@media (max-width: 768px) {
-    nav ul li a.active {
-        border-bottom: none !important;
-        border-left: 4px solid #f4ce14 !important; /* Di HP lebih rapi garis samping */
-        padding-left: 10px;
-    }
-}
-        
-        
-        .hero-content h1 { font-size: 1.4rem !important; }
-        .hero-content p { font-size: 0.9rem !important; }
+
+    nav ul li a.active-link {
+                border-left: 5px solid var(--gold-light) !important;
+                padding-left: 20px;
+                color: var(--gold-light) !important;
+            }
+
+            nav ul li a.active-link i {
+                color: var(--gold-light) !important;
+            }
+    
+        .hero-content h1 { font-size: 1.6rem !important; }
+        .hero-content p { font-size: 1rem !important; }
         .hero-container { height: 250px; }
         
         .unit-grid { grid-template-columns: 1fr; }
         .unit-card { flex-direction: row; text-align: left; padding: 15px; }
     }
+
+    .whatsapp-float {
+                background: transparent !important; 
+                box-shadow: none !important; 
+                padding: 0 !important;
+                bottom: 25px; 
+                right: 25px; 
+                animation: wa-mobile-glow 2.5s infinite ease-in-out !important; 
+                transition: transform 0.3s ease;
+            }
+            .whatsapp-float span { display: none !important; }
+            .whatsapp-float i { 
+                font-size: 52px !important; 
+                color: var(--whatsapp-green) !important; 
+                background: transparent !important;
+                -webkit-text-stroke: 1.3px #f4f7f6; 
+            }
+        }
 
         /* --- FOOTER --- */
     footer { 
@@ -245,7 +302,7 @@ nav ul li a:hover {
     </div>
     <div class="about-wrap">
         <i class="fas fa-mosque"></i>
-        <p>Lembaga Pendidikan <strong>DAARUL KHOIROT ALMADANI</strong> adalah pusat pendidikan Islam yang berdedikasi tinggi. Kami memadukan pengajaran Al-Qur'an dan ilmu agama dengan pembentukan karakter santri yang beraqidah, berakhlaqul karimah, dan bermanfaat bagi ummat.</p>
+        <p>LEMBAGA PENDIDIKAN <strong>DAARUL KHOIROT ALMADANI</strong> adalah pusat pendidikan Islam yang berdedikasi tinggi. Kami memadukan pengajaran Al-Qur'an dan ilmu agama dengan pembentukan karakter santri yang beraqidah, berakhlaqul karimah, dan bermanfaat bagi ummat.</p>
     </div>
 </section>
 
@@ -271,7 +328,7 @@ nav ul li a:hover {
 </section>
 
     <footer> 
-        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-title"><p>LEMBAGA PENDIDIKAN</p><p>DAARUL KHOIROT ALMADANI</p></div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
         <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
@@ -282,7 +339,7 @@ nav ul li a:hover {
 
     <script>
    
-    const clickSound = document.getElementById('clickSound');
+    const clickSound = document.getElementById('clickSound'); 
     const navLinks = document.querySelectorAll('nav ul li a'); 
     
     // --- TAMBAHAN UNTUK MENU HP ---
