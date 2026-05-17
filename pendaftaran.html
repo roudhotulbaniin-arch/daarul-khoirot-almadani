@@ -1503,7 +1503,7 @@ else if (tabId === 'pernyataan') {
         });
         return false;
     }
-}
+
 
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
@@ -1628,7 +1628,8 @@ else if (tabId === 'pernyataan') {
             hpInput.style.cursor = 'text';
         }
     }
-   // 1. Perbaikan Validasi saat Tombol Simpan di Tab Pernyataan Diklik
+
+   // 1. Perbaikan Validasi saat Tombol Simpan di Tab Pernyataan Diklik
 function prosesSimpanFinal() {
     if (validateInput('pernyataan')) {
         if (typeof window.handleFormSubmit === "function") {
