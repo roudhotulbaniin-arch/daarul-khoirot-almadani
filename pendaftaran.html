@@ -1310,21 +1310,33 @@ function loadDesaDanPosSantri(val) {
 }
 
 /* =========================================================
-   LOGIKA REFORMASI LOCK FIELDS & REPLIKASI DOMISILI
+   LOGIKA REFORMASI LOCK FIELDS & REPLIKASI DOMISILI (FULL NAME MODE)
 ========================================================= */
+
+// Fungsi pembantu pintar untuk mengambil elemen berdasarkan atribut 'name' di dalam container tertentu
+function getElByName(name, suffix = '') {
+    if (suffix) {
+        const box = document.querySelector(`[name="box_${suffix}"]`);
+        return box ? box.querySelector(`[name="${name}"]`) : null;
+    }
+    return document.getElementsByName(name)[0];
+}
+
 function lockFields(suffix, isLocked) {
+    // 1. Kunci Dropdown Wilayah
     const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
-    dropdowns.forEach(id => {
-       const el = getEl(id);
+    dropdowns.forEach(name => {
+        const el = getElByName(name, suffix);
         if (el) {
             el.disabled = isLocked;
             el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
         }
     });
 
+    // 2. Kunci Input Teks Alamat
     const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
     inputs.forEach(name => {
-        const el = document.getElementsByName(name)[0];
+        const el = getElByName(name, suffix);
         if (el) {
             if (isLocked) {
                 el.setAttribute('readonly', 'true');
@@ -1340,53 +1352,49 @@ function lockFields(suffix, isLocked) {
 
 function resetFields(suffix) {
     const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
-    dropdowns.forEach(id => {
-        const el = document.getElementById(id);
+    dropdowns.forEach(name => {
+        const el = getElByName(name, suffix);
         if (el) el.innerHTML = `<option value="">Pilih Data</option>`;
     });
 
     const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
     inputs.forEach(name => {
-        const el = document.getElementsByName(name)[0];
+        const el = getElByName(name, suffix);
         if (el) el.value = "";
     });
 }
 
 function dataAyahLengkap() {
-    const prov = getEl('prov_ayah')?.value;
-    const kab  = getEl('kab_ayah')?.value;
-    const kec  = getEl('kec_ayah')?.value;
-    const desa = getEl('desa_ayah')?.value;
-
-    const alamat = getEl('al_ayah')?.value?.trim();
-    const rt     = getEl('rt_ayah')?.value?.trim();
-    const rw     = getEl('rw_ayah')?.value?.trim();
-    const pos    = getEl('pos_ayah')?.value?.trim();
+    const prov   = getElByName('prov_ayah')?.value;
+    const kab    = getElByName('kab_ayah')?.value;
+    const kec    = getElByName('kec_ayah')?.value;
+    const desa   = getElByName('desa_ayah')?.value;
+    const alamat = getElByName('al_ayah')?.value?.trim();
+    const rt     = getElByName('rt_ayah')?.value?.trim();
+    const rw     = getElByName('rw_ayah')?.value?.trim();
+    const pos    = getElByName('pos_ayah')?.value?.trim();
 
     return !!(prov && kab && kec && desa && alamat && rt && rw && pos);
 }
     
 function copyDataAlamat(from, to) {
-    const fields = ['al', 'rt', 'rw', 'pos'];
+    const fields = ['al', 'rt', 'rw', 'pos', 'prov', 'kab', 'kec', 'desa'];
+    
     fields.forEach(f => {
-        const sourceVal = document.getElementsByName(`${f}_${from}`)[0]?.value;
-        const targetEl = document.getElementsByName(`${f}_${to}`)[0];
-        if (targetEl) targetEl.value = sourceVal || "";
+        const sourceEl = getElByName(`${f}_${from}`);
+        const targetEl = getElByName(`${f}_${to}`);
+        
+        if (sourceEl && targetEl) {
+            if (sourceEl.tagName === 'SELECT') {
+                if (sourceEl.selectedIndex >= 0) {
+                    targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
+                    targetEl.value = sourceEl.value;
+                }
+            } else {
+                targetEl.value = sourceEl.value || "";
+            }
+        }
     });
-
-  const selects = ['prov', 'kab', 'kec', 'desa'];
-
-selects.forEach(s => {
-    const sourceEl = getEl(`${s}_${from}`);
-    const targetEl = getEl(`${s}_${to}`);
-
-    if (sourceEl && targetEl && sourceEl.selectedIndex >= 0) {
-        targetEl.innerHTML = `<option value="${sourceEl.value}">
-            ${sourceEl.options[sourceEl.selectedIndex].text}
-        </option>`;
-        targetEl.value = sourceEl.value;
-    }
-});
 }
 
 function isiAlamatPesantren() {
@@ -1398,33 +1406,30 @@ function isiAlamatPesantren() {
         al: "Dusun Sukamaju II", rt: "002", rw: "004", pos: "41374"
     };
 
-   const setSelect = (name, val, text) => {
-    const el = getEl(name);
-    if (el) {
-        el.innerHTML = `<option value="${val}">${text}</option>`;
-        el.value = val;
-    }
-};
+    const setSelectByName = (name, val, text) => {
+        const el = getElByName(name);
+        if (el) {
+            el.innerHTML = `<option value="${val}">${text}</option>`;
+            el.value = val;
+        }
+    };
 
-    setSelect('prov_santri', dataPesantren.prov, dataPesantren.prov_text);
-    setSelect('kab_santri', dataPesantren.kab, dataPesantren.kab_text);
-    setSelect('kec_santri', dataPesantren.kec, dataPesantren.kec_text);
-    setSelect('desa_santri', dataPesantren.desa, dataPesantren.desa_text);
+    setSelectByName('prov_santri', dataPesantren.prov, dataPesantren.prov_text);
+    setSelectByName('kab_santri', dataPesantren.kab, dataPesantren.kab_text);
+    setSelectByName('kec_santri', dataPesantren.kec, dataPesantren.kec_text);
+    setSelectByName('desa_santri', dataPesantren.desa, dataPesantren.desa_text);
 
-    document.getElementsByName('al_santri')[0].value = dataPesantren.al;
-    document.getElementsByName('rt_santri')[0].value = dataPesantren.rt;
-    document.getElementsByName('rw_santri')[0].value = dataPesantren.rw;
-    document.getElementsByName('pos_santri')[0].value = dataPesantren.pos;
+    if (getElByName('al_santri')) getElByName('al_santri').value = dataPesantren.al;
+    if (getElByName('rt_santri')) getElByName('rt_santri').value = dataPesantren.rt;
+    if (getElByName('rw_santri')) getElByName('rw_santri').value = dataPesantren.rw;
+    if (getElByName('pos_santri')) getElByName('pos_santri').value = dataPesantren.pos;
 }
 
 function toggleDomisiliIbu(val) {
-    const box = document.getElementById('box_ibu');
+    const box = getElByName('box_ibu');
     
-    // Jika elemen box_ibu ada di HTML, atur tampilannya. Jika tidak ada, lompati (jangan di-return/dihentikan)
     if (box) {
         box.style.display = (val === "") ? 'none' : 'grid';
-    } else {
-        console.warn("Peringatan: Elemen id 'box_ibu' tidak ditemukan di HTML, tetapi proses data tetap dilanjutkan.");
     }
 
     if (val === 'sama') {
@@ -1436,10 +1441,8 @@ function toggleDomisiliIbu(val) {
                 confirmButtonColor: '#2d6a4f'
             });
             
-            // Menggunakan sintaks standar browser jika fungsi kustom getEl() tidak ada
-            const elDomIbu = document.getElementsByName('pilih_dom_ibu')[0];
+            const elDomIbu = getElByName('pilih_dom_ibu');
             if (elDomIbu) elDomIbu.value = "";
-            
             if (box) box.style.display = 'none';
             return;
         }
@@ -1448,19 +1451,23 @@ function toggleDomisiliIbu(val) {
         lockFields('ibu', true);
 
     } else if (val === 'beda') {
-        resetFields('ibu');
         lockFields('ibu', false);
-        loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
+        resetFields('ibu');
+        
+        const provIbuEl = getElByName('prov_ibu');
+        if (provIbuEl) {
+            provIbuEl.id = "prov_ibu_temp"; // Jembatan ID sementara agar fungsi loadWilayah API Anda bekerja
+            loadWilayah('provinces', 'prov_ibu_temp', 'Pilih Provinsi');
+        }
     }
 }
 
-// Pastikan fungsi diekspos ke window scope
-window.toggleDomisiliIbu = toggleDomisiliIbu;
 function toggleDomisiliSantri(val) {
-    const box = document.getElementById('box_santri');
-    if (!box) return;
-
-    box.style.display = (val === "") ? 'none' : 'grid';
+    const box = getElByName('box_santri');
+    
+    if (box) {
+        box.style.display = (val === "") ? 'none' : 'grid';
+    }
 
     if (val === 'mukim') {
         isiAlamatPesantren();
@@ -1473,8 +1480,9 @@ function toggleDomisiliSantri(val) {
                 text: 'Lengkapi Alamat Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
                 confirmButtonColor: '#f4ce14'
             });
-            document.getElementsByName('pilih_dom_santri')[0].value = "";
-            box.style.display = 'none';
+            const elDomSantri = getElByName('pilih_dom_santri');
+            if (elDomSantri) elDomSantri.value = "";
+            if (box) box.style.display = 'none';
             return;
         }
         copyDataAlamat('ayah', 'santri');
@@ -1482,10 +1490,23 @@ function toggleDomisiliSantri(val) {
     } else if (val === 'beda') {
         resetFields('santri');
         lockFields('santri', false);
-        loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
+        
+        const provSantriEl = getElByName('prov_santri');
+        if (provSantriEl) {
+            provSantriEl.id = "prov_santri_temp";
+            loadWilayah('provinces', 'prov_santri_temp', 'Pilih Provinsi');
+        }
     }
 }
 
+// Ekspos ulang ke window scope agar aman dipanggil HTML inline
+window.lockFields = lockFields;
+window.resetFields = resetFields;
+window.dataAyahLengkap = dataAyahLengkap;
+window.copyDataAlamat = copyDataAlamat;
+window.toggleDomisiliIbu = toggleDomisiliIbu;
+window.toggleDomisiliSantri = toggleDomisiliSantri;
+    
 /* =========================================================
    FIXED: LOGIKA PENGUNCIAN FIELD STATUS AYAH (READONLY & DISABLED)
 ========================================================= */
