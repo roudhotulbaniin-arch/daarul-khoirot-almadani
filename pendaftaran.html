@@ -561,7 +561,7 @@
         <label>Status Ayah<span style="color: red;">*</span></label>
         <div class="input-ikon">
             <i class="fas fa-heartbeat"></i>
-            <select name="st_ayah">
+            <select name="st_ayah" onchange="toggleAyahFields(this.value)"> 
                 <option value="">-- Pilih --</option>                
                 <option value="Masih Hidup">Masih Hidup</option>
                 <option value="Meninggal">Meninggal</option>
