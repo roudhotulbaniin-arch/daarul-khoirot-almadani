@@ -1191,6 +1191,10 @@
 </script>
 
 <script>
+function getEl(key) {
+  return document.getElementById(key) || document.getElementsByName(key)[0];
+}
+
 /* =========================================================
    SINKRONISASI DATA WILAYAH & KODE POS (ULTRA COMPATIBLE)
 ========================================================= */
