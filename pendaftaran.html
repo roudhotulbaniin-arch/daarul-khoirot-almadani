@@ -849,7 +849,7 @@
         <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Ibu</label>
         <div class="input-ikon" style="border:2px solid var(--gold-color);">
             <i class="fas fa-question-circle"></i>
-            <select name="pilih_dom_ibu" onchange="toggleDomisiliIbu(this.value)">
+            <select name="pilih_dom_ibu" onchange="toggleDomisiliIbu(this.value)"> 
                 <option value="">-- Pilih Lokasi --</option>
                 <option value="sama">Sama Dengan Ayah Kandung</option>
                 <option value="beda">Beda Dengan Ayah Kandung</option>
@@ -874,11 +874,13 @@
         <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili</label>
             <div class="input-ikon" style="border:2px solid var(--primary-color);">
                 <i class="fas fa-bed"></i>
-              <select name="pilih_dom_santri" onchange="handleMukim(this.value)">
-    <option value="">-- Pilih Lokasi --</option>
-    <option value="mukim">Mukim (Tinggal di Pesantren)</option>
-    <option value="ayah">Tidak Mukim (Sama Dengan Ayah Kandung)</option>
-    <option value="manual">Tidak Mukim (Beda Dengan Ayah Kandung)</option>
+<select name="pilih_dom_santri" onchange="toggleDomisiliSantri(this.value)"> 
+         <option value="">-- Pilih --</option>
+            <option value="mukim">Mukim (Alamat Pesantren)</option>
+            <option value="sama">Tidak Mukim (Sama dengan Ayah)</option>
+            <option value="beda">Tidak Mukim (Beda dengan Ayah)</option>
+        
+    <option value="manual">Isi Manual</option>
 </select>
 
             </div>
@@ -1417,27 +1419,31 @@ function isiAlamatPesantren() {
 
 function toggleDomisiliIbu(val) {
     const box = document.getElementById('box_ibu');
-    if (!box) return;
+    if (!box) {
+        console.error("box_ibu tidak ditemukan");
+        return;
+    }
 
-    box.style.display = (val === "") ? 'none' : 'grid';
+    box.style.display = val ? 'grid' : 'none';
 
-    if (val === 'ayah') {
+    if (val === 'sama') {
         if (!dataAyahLengkap()) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Peringatan',
-                text: 'Lengkapi Alamat Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
-                confirmButtonColor: '#2d6a4f'
+                text: 'Lengkapi Alamat Ayah terlebih dahulu'
             });
-            document.getElementsByName('pilih_dom_ibu')[0].value = "";
+            getEl('pilih_dom_ibu').value = "";
             box.style.display = 'none';
             return;
         }
+
         copyDataAlamat('ayah', 'ibu');
         lockFields('ibu', true);
-    } else if (val === 'manual') {
-        lockFields('ibu', false);
+
+    } else if (val === 'beda') {
         resetFields('ibu');
+        lockFields('ibu', false);
         loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
     }
 }
@@ -1465,7 +1471,7 @@ function toggleDomisiliSantri(val) {
         }
         copyDataAlamat('ayah', 'santri');
         lockFields('santri', true);
-    } else if (val === 'manual') {
+    } else if (val === 'beda') {
         resetFields('santri');
         lockFields('santri', false);
         loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
