@@ -1194,8 +1194,8 @@
 /* =========================
    HELPER (WAJIB DI ATAS)
 ========================= */
-function getEl(idorname){
-  return document.getElementById(idorname) || document.getElementsByName(idorname)[0];
+function getEl(name){
+  return document.getElementsByName(name)[0];
 }
 
 /* =========================================================
@@ -1214,7 +1214,7 @@ const mappingPosKarawang = {
 };
 
 async function loadWilayah(endpoint, elementId, placeholder) {
-    const el = document.getElementById(elementId);
+    const el = getEl(elementId);
     if (!el) {
         console.error(`Elemen dengan ID Dom: "${elementId}" tidak ditemukan saat memuat ${endpoint}`);
         return;
@@ -1247,19 +1247,22 @@ async function loadWilayah(endpoint, elementId, placeholder) {
 }
 
 function loadKabAyah(val) {
-    document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
-    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
-    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
-    const inputPos = document.getElementsByName('pos_ayah')[0];
+    getEl('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
+    getEl('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    getEl('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+
+    const inputPos = getEl('pos_ayah');
     if (inputPos) inputPos.value = "";
+
     if (val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
 }
-
 function loadKecAyah(val) {
-    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
-    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
-    const inputPos = document.getElementsByName('pos_ayah')[0];
+    getEl('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    getEl('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+
+   const inputPos = getEl('pos_ayah');
     if (inputPos) inputPos.value = "";
+
     if (val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
 }
 
@@ -1311,7 +1314,7 @@ function loadDesaDanPosSantri(val) {
 function lockFields(suffix, isLocked) {
     const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
     dropdowns.forEach(id => {
-        const el = document.getElementById(id);
+       const el = getEl(id);
         if (el) {
             el.disabled = isLocked;
             el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
@@ -1349,18 +1352,19 @@ function resetFields(suffix) {
 }
 
 function dataAyahLengkap() {
-    const prov = document.getElementById('prov_ayah')?.value;
-    const kab  = document.getElementById('kab_ayah')?.value;
-    const kec  = document.getElementById('kec_ayah')?.value;
-    const desa = document.getElementById('desa_ayah')?.value;
-    const alamat = document.getElementsByName('al_ayah')[0]?.value.trim();
-    const rt     = document.getElementsByName('rt_ayah')[0]?.value.trim();
-    const rw     = document.getElementsByName('rw_ayah')[0]?.value.trim();
-    const pos    = document.getElementsByName('pos_ayah')[0]?.value.trim();
+    const prov = getEl('prov_ayah')?.value;
+    const kab  = getEl('kab_ayah')?.value;
+    const kec  = getEl('kec_ayah')?.value;
+    const desa = getEl('desa_ayah')?.value;
+
+    const alamat = getEl('al_ayah')?.value?.trim();
+    const rt     = getEl('rt_ayah')?.value?.trim();
+    const rw     = getEl('rw_ayah')?.value?.trim();
+    const pos    = getEl('pos_ayah')?.value?.trim();
 
     return !!(prov && kab && kec && desa && alamat && rt && rw && pos);
 }
-
+    
 function copyDataAlamat(from, to) {
     const fields = ['al', 'rt', 'rw', 'pos'];
     fields.forEach(f => {
@@ -1369,16 +1373,19 @@ function copyDataAlamat(from, to) {
         if (targetEl) targetEl.value = sourceVal || "";
     });
 
-    const selects = ['prov', 'kab', 'kec', 'desa'];
-    selects.forEach(s => {
-        const sourceEl = document.getElementById(`${s}_${from}`);
-        const targetEl = document.getElementById(`${s}_${to}`);
-        if (sourceEl && targetEl && sourceEl.selectedIndex >= 0) {
-            targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
-            targetEl.value = sourceEl.value;
-        }
-    });
-}
+  const selects = ['prov', 'kab', 'kec', 'desa'];
+
+selects.forEach(s => {
+    const sourceEl = getEl(`${s}_${from}`);
+    const targetEl = getEl(`${s}_${to}`);
+
+    if (sourceEl && targetEl && sourceEl.selectedIndex >= 0) {
+        targetEl.innerHTML = `<option value="${sourceEl.value}">
+            ${sourceEl.options[sourceEl.selectedIndex].text}
+        </option>`;
+        targetEl.value = sourceEl.value;
+    }
+});
 
 function isiAlamatPesantren() {
     const dataPesantren = {
@@ -1389,13 +1396,13 @@ function isiAlamatPesantren() {
         al: "Dusun Sukamaju II", rt: "002", rw: "004", pos: "41374"
     };
 
-    const setSelect = (id, val, text) => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.innerHTML = `<option value="${val}">${text}</option>`;
-            el.value = val;
-        }
-    };
+   const setSelect = (name, val, text) => {
+    const el = getEl(name);
+    if (el) {
+        el.innerHTML = `<option value="${val}">${text}</option>`;
+        el.value = val;
+    }
+};
 
     setSelect('prov_santri', dataPesantren.prov, dataPesantren.prov_text);
     setSelect('kab_santri', dataPesantren.kab, dataPesantren.kab_text);
