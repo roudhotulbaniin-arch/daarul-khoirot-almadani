@@ -358,7 +358,7 @@
     <div class="form-grid-santri">
         <div class="form-group">
             <label>Tanggal Pendaftaran<span style="color: red;">*</span></label>
-            <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar" required></div>
+            <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar"></div>
         </div>
         <div class="form-group">
             <label>Nama Lengkap<span style="color: red;">*</span></label>
@@ -550,7 +550,7 @@
         <label>Pekerjaan Utama<span style="color: red;">*</span></label>
         <div class="input-ikon">
             <i class="fas fa-briefcase"></i>
-            <select name="pjk_ayah" required>
+            <select name="pjk_ayah">
                 <option value="">-- Pilih --</option>
                 <option>Tidak Bekerja</option>
                 <option>Pensiunan</option>
@@ -570,7 +570,7 @@
         <label>Penghasilan Rata-rata / Bulan<span style="color: red;">*</span></label>
         <div class="input-ikon">
             <i class="fas fa-money-bill-wave"></i>
-            <select name="hasil_ayah" required>
+            <select name="hasil_ayah">
                 <option value="">-- Pilih --</option>
                 <option>Dibawah 800.000</option>
                 <option>800.001 - 1.500.000</option>
@@ -587,7 +587,7 @@
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <div class="input-ikon">
                 <i class="fab fa-whatsapp"></i>
-                <input type="text" name="hp_ayah" placeholder="628..." required>
+                <input type="text" name="hp_ayah" placeholder="628...">
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" name="cek_hp_ayah" onchange="toggleHP(this, 'hp_ayah')">
@@ -627,7 +627,7 @@
     </div>
     <div class="form-group">
         <label>Tanggal Lahir<span style="color: red;">*</span></label>
-        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu" required></div>
+        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu"></div>
     </div>
     <div class="form-group">
         <label>Pendidikan Terakhir</label>
@@ -690,7 +690,7 @@
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <div class="input-ikon">
                 <i class="fab fa-whatsapp"></i>
-                <input type="text" name="hp_ibu" placeholder="628..." required>
+                <input type="text" name="hp_ibu" placeholder="628...">
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" name="cek_hp_ibu" onchange="toggleHP(this, 'hp_ibu')">
