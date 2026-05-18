@@ -1187,7 +1187,7 @@
 <script>
   
 /* =========================================================
-   SINKRONISASI DATA WILAYAH & KODE POS
+   SINKRONISASI DATA WILAYAH & KODE POS (ULTRA COMPATIBLE)
 ========================================================= */
 const mappingPosKarawang = {
     "3215010": "41311", "3215011": "41361", "3215012": "41361", "3215013": "41361",
@@ -1203,13 +1203,27 @@ const mappingPosKarawang = {
 
 async function loadWilayah(endpoint, elementId, placeholder) {
     const el = document.getElementById(elementId);
-    if (!el) return;
+    if (!el) {
+        console.error(`Elemen dengan ID Dom: "${elementId}" tidak ditemukan saat memuat ${endpoint}`);
+        return;
+    }
     
     el.innerHTML = '<option value="">Loading...</option>';
     el.disabled = true;
 
+    // Menggunakan API alternatif yang jauh lebih stabil untuk memintas pembatasan CORS browser
+    const primaryUrl = `https://kurniawandata.github.io/api-wilayah-indonesia/api/${endpoint}.json`;
+    const fallbackUrl = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`;
+
     try {
-        const res = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`);
+        let res = await fetch(primaryUrl).catch(() => null);
+        
+        if (!res || !res.ok) {
+            res = await fetch(fallbackUrl).catch(() => null);
+        }
+
+        if (!res || !res.ok) throw new Error("Semua server API Wilayah gagal merespons.");
+
         const data = await res.json();
         let opt = `<option value="">${placeholder}</option>`;
         data.forEach(d => {
@@ -1219,72 +1233,49 @@ async function loadWilayah(endpoint, elementId, placeholder) {
         el.disabled = false;
     } catch (e) {
         el.innerHTML = `<option value="">Gagal memuat</option>`;
-        console.error("Error:", e);
+        console.error("Eror API Wilayah:", e);
     }
 }
 
-// Handler Berantai untuk Data Ayah
 function loadKabAyah(val) {
-    // Reset pilihan di bawahnya
     document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
     document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
     document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
-    document.getElementsByName('pos_ayah')[0].value = "";
-    
-    if(val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+    const inputPos = document.getElementsByName('pos_ayah')[0];
+    if (inputPos) inputPos.value = "";
+    if (val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
 }
 
 function loadKecAyah(val) {
     document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
     document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
-    document.getElementsByName('pos_ayah')[0].value = "";
-    
-    if(val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
+    const inputPos = document.getElementsByName('pos_ayah')[0];
+    if (inputPos) inputPos.value = "";
+    if (val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
 }
 
 function loadDesaDanPosAyah(val) {
-    if(val) {
-        // Load Desa tetap berjalan
-        loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
-        
-        const inputPos = document.getElementsByName('pos_ayah')[0];
-        if (inputPos) {
-            const kodeAuto = mappingPosKarawang[val];
-            
-            if (kodeAuto) {
-                // Wilayah Karawang: Otomatis & Kunci
-                inputPos.value = kodeAuto;
-                inputPos.readOnly = true;
-                inputPos.style.backgroundColor = "#f0f0f0";
-                inputPos.style.color = "#6c757d";
-            } else {
-                // Luar Karawang: Buka Akses Manual
-                inputPos.value = "";
-                inputPos.readOnly = false;
-                inputPos.style.backgroundColor = "#ffffff";
-                inputPos.style.color = "#000000";
-                inputPos.placeholder = "Isi Kode Pos Manual";
-            }
+    if (!val) return;
+    loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
+    
+    const inputPos = document.getElementsByName('pos_ayah')[0];
+    if (inputPos) {
+        const kodeAuto = mappingPosKarawang[val];
+        if (kodeAuto) {
+            inputPos.value = kodeAuto;
+            inputPos.readOnly = true;
+            inputPos.style.backgroundColor = "#f0f0f0";
+            inputPos.style.color = "#6c757d";
+        } else {
+            inputPos.value = "";
+            inputPos.readOnly = false;
+            inputPos.style.backgroundColor = "#ffffff";
+            inputPos.style.color = "#000000";
+            inputPos.placeholder = "Isi Kode Pos Manual";
         }
     }
 }
 
-// Inisialisasi awal load Provinsi
-document.addEventListener('DOMContentLoaded', () => {
-    loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
-});
-// Handler Berantai Ayah
-function loadKabAyah(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten'); }
-function loadKecAyah(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan'); }
-function loadDesaDanPosAyah(val) {
-    if(val) {
-        loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
-        const inputPos = document.getElementsByName('pos_ayah')[0];
-        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
-    }
-}
-
-// Handler Berantai Ibu
 function loadKabIbu(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten'); }
 function loadKecIbu(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan'); }
 function loadDesaDanPosIbu(val) {
@@ -1295,7 +1286,6 @@ function loadDesaDanPosIbu(val) {
     }
 }
 
-// Handler Berantai Santri
 function loadKabSantri(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten'); }
 function loadKecSantri(val) { if(val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan'); }
 function loadDesaDanPosSantri(val) {
@@ -1306,42 +1296,60 @@ function loadDesaDanPosSantri(val) {
     }
 }
 
-
 /* =========================================================
-   3. LOGIKA FORM & VALIDASI
+   LOGIKA REFORMASI LOCK FIELDS & REPLIKASI DOMISILI
 ========================================================= */
-function lockFields(role, lock = true) {
-    const container = document.getElementById(`box_${role}`);
-    if (!container) return;
-    container.querySelectorAll('input, select, textarea').forEach(el => {
-        if (el.name === `pilih_dom_${role}`) return; // Jangan kunci switchnya
-        if (el.tagName === 'SELECT') {
-            el.disabled = lock;
-        } else {
-            el.readOnly = lock;
+function lockFields(suffix, isLocked) {
+    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
+    dropdowns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.disabled = isLocked;
+            el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
         }
-        el.style.backgroundColor = lock ? "#f8f9fa" : "transparent";
+    });
+
+    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
+    inputs.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) {
+            if (isLocked) {
+                el.setAttribute('readonly', 'true');
+            } else {
+                el.removeAttribute('readonly');
+            }
+            el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
+            el.style.color = isLocked ? "#6c757d" : "#000000";
+            el.style.cursor = isLocked ? "not-allowed" : "text";
+        }
+    });
+}
+
+function resetFields(suffix) {
+    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
+    dropdowns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = `<option value="">Pilih Data</option>`;
+    });
+
+    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
+    inputs.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) el.value = "";
     });
 }
 
 function dataAyahLengkap() {
-    // Ambil nilai dari dropdown (menggunakan ID)
     const prov = document.getElementById('prov_ayah')?.value;
     const kab  = document.getElementById('kab_ayah')?.value;
     const kec  = document.getElementById('kec_ayah')?.value;
     const desa = document.getElementById('desa_ayah')?.value;
-    
-    // Ambil nilai dari input teks (menggunakan Name)
     const alamat = document.getElementsByName('al_ayah')[0]?.value.trim();
     const rt     = document.getElementsByName('rt_ayah')[0]?.value.trim();
     const rw     = document.getElementsByName('rw_ayah')[0]?.value.trim();
     const pos    = document.getElementsByName('pos_ayah')[0]?.value.trim();
 
-    // Logika: Semua harus terisi
-    if (!prov || !kab || !kec || !desa || !alamat || !rt || !rw || !pos) {
-        return false;
-    }
-    return true;
+    return !!(prov && kab && kec && desa && alamat && rt && rw && pos);
 }
 
 function toggleDomisiliIbu(val) {
@@ -1355,126 +1363,45 @@ function toggleDomisiliIbu(val) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Peringatan',
-                text: 'Lengkapi Data Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
+                text: 'Lengkapi Alamat Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
                 confirmButtonColor: '#2d6a4f'
             });
-            // Reset pilihan ke default
             document.getElementsByName('pilih_dom_ibu')[0].value = "";
             box.style.display = 'none';
             return;
         }
-
-        // Jalankan fungsi salin data
         copyDataAlamat('ayah', 'ibu');
-        // Kunci field (lockFields) agar readonly dan abu-abu
         lockFields('ibu', true);
-
     } else if (val === 'beda') {
         lockFields('ibu', false);
-        // Reset field jika sebelumnya bekas 'sama'
-        const fields = ['al_ibu', 'rt_ibu', 'rw_ibu', 'pos_ibu'];
-        fields.forEach(f => {
-            const el = document.getElementsByName(f)[0];
-            if(el) el.value = "";
-        });
+        resetFields('ibu');
         loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
     }
 }
 
-async function copyDataAlamat(from, to) {
-    try {
-        // A. Salin Input Teks (Alamat, RT, RW, Kode Pos)
-        const fields = ['al', 'rt', 'rw', 'pos'];
-        fields.forEach(f => {
-            const sourceVal = document.getElementsByName(`${f}_${from}`)[0]?.value;
-            const targetEl = document.getElementsByName(`${f}_${to}`)[0];
-            if (targetEl) targetEl.value = sourceVal || "";
-        });
-
-        // B. Salin Dropdown (Provinsi, Kab, Kec, Desa)
-        const selects = ['prov', 'kab', 'kec', 'desa'];
-        selects.forEach(s => {
-            const sourceEl = document.getElementById(`${s}_${from}`);
-            const targetEl = document.getElementById(`${s}_${to}`);
-            
-            if (sourceEl && targetEl && sourceEl.selectedIndex >= 0) {
-                // Memaksa opsi yang dipilih di 'Ayah' muncul di 'Ibu'
-                targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
-                targetEl.value = sourceEl.value;
-            }
-        });
-    } catch (err) {
-        console.error("Gagal menyalin data:", err);
-    }
-}
-
-// Toggle Domisili Ibu
-function lockFields(suffix, isLocked) {
-    // 1. Tangani Dropdown (Select)
-    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
-    dropdowns.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.disabled = isLocked;
-            el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
-        }
-    });
-
-    // 2. Tangani Input Teks (Alamat, RT, RW, Pos)
-    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
-    inputs.forEach(name => {
-        const el = document.getElementsByName(name)[0];
-        if (el) {
-            el.readOnly = isLocked;
-            el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
-            el.style.color = isLocked ? "#6c757d" : "#000000"; // Teks jadi abu-abu
-            el.style.cursor = isLocked ? "not-allowed" : "text";
-        }
-    });
-}
-
-function resetFields(suffix) {
-    // 1. Reset Dropdown ke opsi awal
-    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
-    dropdowns.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = `<option value="">Pilih ${id.split('_')[0].toUpperCase()}</option>`;
-    });
-
-    // 2. Reset Input Teks
-    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
-    inputs.forEach(name => {
-        const el = document.getElementsByName(name)[0];
-        if (el) el.value = "";
-    });
-}
-
-// Toggle Domisili Santri
 function toggleDomisiliSantri(val) {
     const box = document.getElementById('box_santri');
     if (!box) return;
 
-    // Tampilkan box kecuali jika pilihan kosong
     box.style.display = (val === "") ? 'none' : 'grid';
 
     if (val === 'mukim') {
-        // Isi otomatis dengan alamat Pesantren (Contoh: Karawang)
         isiAlamatPesantren();
-        lockFields('santri', true); // Kunci agar tidak diubah
-
+        lockFields('santri', true);
     } else if (val === 'sama') {
-        // Validasi data Ayah
-        if (!dataAyahLengkap())  
-         Swal.fire({
+        if (!dataAyahLengkap()) {
+            Swal.fire({
                 icon: 'warning',
                 title: 'Peringatan',
-                text: 'Lengkapi Data Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
+                text: 'Lengkapi Alamat Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
                 confirmButtonColor: '#f4ce14'
             });
-
+            document.getElementsByName('pilih_dom_santri')[0].value = "";
+            box.style.display = 'none';
+            return;
+        }
         copyDataAlamat('ayah', 'santri');
         lockFields('santri', true);
-
     } else if (val === 'beda') {
         resetFields('santri');
         lockFields('santri', false);
@@ -1482,24 +1409,34 @@ function toggleDomisiliSantri(val) {
     }
 }
 
+function copyDataAlamat(from, to) {
+    const fields = ['al', 'rt', 'rw', 'pos'];
+    fields.forEach(f => {
+        const sourceVal = document.getElementsByName(`${f}_${from}`)[0]?.value;
+        const targetEl = document.getElementsByName(`${f}_${to}`)[0];
+        if (targetEl) targetEl.value = sourceVal || "";
+    });
+
+    const selects = ['prov', 'kab', 'kec', 'desa'];
+    selects.forEach(s => {
+        const sourceEl = document.getElementById(`${s}_${from}`);
+        const targetEl = document.getElementById(`${s}_${to}`);
+        if (sourceEl && targetEl && sourceEl.selectedIndex >= 0) {
+            targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
+            targetEl.value = sourceEl.value;
+        }
+    });
+}
+
 function isiAlamatPesantren() {
-    // Contoh Alamat Pesantren
     const dataPesantren = {
-        prov: "32", // Kode Provinsi Jawa Barat
-        prov_text: "JAWA BARAT",
-        kab: "3215", // Kode Kab. Karawang
-        kab_text: "KABUPATEN KARAWANG",
-        kec: "321516", // Contoh Kode Kec. Jatisari
-        kec_text: "JATISARI",
-        desa: "3215162001", // Contoh Kode Desa
-        desa_text: "JATISARI",
-        al: "Dusun Sukamaju II",
-        rt: "002",
-        rw: "004",
-        pos: "41374"
+        prov: "32", prov_text: "JAWA BARAT",
+        kab: "3215", kab_text: "KABUPATEN KARAWANG",
+        kec: "321516", kec_text: "JATISARI",
+        desa: "3215162001", desa_text: "JATISARI",
+        al: "Dusun Sukamaju II", rt: "002", rw: "004", pos: "41374"
     };
 
-    // Set Dropdown secara paksa (Force Insert)
     const setSelect = (id, val, text) => {
         const el = document.getElementById(id);
         if (el) {
@@ -1513,12 +1450,93 @@ function isiAlamatPesantren() {
     setSelect('kec_santri', dataPesantren.kec, dataPesantren.kec_text);
     setSelect('desa_santri', dataPesantren.desa, dataPesantren.desa_text);
 
-    // Set Input Teks
     document.getElementsByName('al_santri')[0].value = dataPesantren.al;
     document.getElementsByName('rt_santri')[0].value = dataPesantren.rt;
     document.getElementsByName('rw_santri')[0].value = dataPesantren.rw;
     document.getElementsByName('pos_santri')[0].value = dataPesantren.pos;
 }
+
+// EKSPOS KE OBJECT WINDOW AGAR DAPAT DIBACA HTML SECARA GLOBAL
+window.loadWilayah = loadWilayah;
+window.loadKabAyah = loadKabAyah;
+window.loadKecAyah = loadKecAyah;
+window.loadDesaDanPosAyah = loadDesaDanPosAyah;
+window.loadKabIbu = loadKabIbu;
+window.loadKecIbu = loadKecIbu;
+window.loadDesaDanPosIbu = loadDesaDanPosIbu;
+window.loadKabSantri = loadKabSantri;
+window.loadKecSantri = loadKecSantri;
+window.loadDesaDanPosSantri = loadDesaDanPosSantri;
+window.lockFields = lockFields;
+window.resetFields = resetFields;
+window.toggleDomisiliIbu = toggleDomisiliIbu;
+window.toggleDomisiliSantri = toggleDomisiliSantri;
+
+// Trigger muat Provinsi pertama kali ketika dokumen selesai dimuat penuh
+document.addEventListener('DOMContentLoaded', () => {
+    window.loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+});
+
+/* =========================================================
+   FIXED: LOGIKA PENGUNCIAN FIELD STATUS AYAH (READONLY & DISABLED)
+========================================================= */
+function toggleAyahFields(status) {
+    // Daftar semua name atribut field data ayah yang ingin dikunci
+    const fieldsToLock = [
+        'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
+        'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
+    ];
+    
+    // Kondisi penguncian aktif jika status adalah 'Meninggal' atau 'Tidak Diketahui'
+    const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
+
+    fieldsToLock.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (el) {
+            if (isLocked) {
+                // 1. Bersihkan nilai (Reset value)
+                if (el.type === 'date' || el.tagName === 'SELECT') {
+                    el.value = ""; 
+                } else {
+                    el.value = "-"; // Beri tanda strip untuk input teks agar tidak kosong saat divalidasi
+                }
+                
+                // 2. Terapkan Penguncian Sesuai Tipe Elemen
+                if (el.tagName === 'SELECT') {
+                    el.disabled = true; // Dropdown wajib menggunakan disabled
+                } else {
+                    el.readOnly = true; // Input biasa menggunakan readOnly
+                }
+
+                // 3. Modifikasi Visual (Styling Terkunci)
+                el.style.backgroundColor = "#e9ecef";
+                el.style.color = "#6c757d";
+                el.style.cursor = "not-allowed";
+                el.style.opacity = "0.8";
+
+            } else {
+                // Jika status 'Masih Hidup', kembalikan ke kondisi normal
+                if (el.value === "-") el.value = "";
+                
+                if (el.tagName === 'SELECT') {
+                    el.disabled = false;
+                } else {
+                    el.readOnly = false;
+                }
+
+                // Kembalikan Desain ke Setelan Semula
+                el.style.backgroundColor = "#ffffff";
+                el.style.color = "#000000";
+                el.style.cursor = "text";
+                el.style.opacity = "1";
+            }
+        }
+    });
+}
+
+// Pastikan fungsi diekspos ke window scope agar bisa dipanggil oleh onChange di HTML
+window.toggleAyahFields = toggleAyahFields;
+
 
     /* =========================================================
        FUNGSI NAVIGASI & VALIDASI TERPADU
