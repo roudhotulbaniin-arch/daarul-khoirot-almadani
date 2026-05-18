@@ -1191,6 +1191,8 @@
 </script>
 
 <script>
+document.querySelector(`[name="${elementId}"]`)
+
 function getEl(key) {
   return document.getElementById(key) || document.getElementsByName(key)[0];
 }
@@ -1411,7 +1413,7 @@ function toggleDomisiliIbu(val) {
 
     box.style.display = (val === "") ? 'none' : 'grid';
 
-    if (val === 'sama') {
+    if (val === 'ayah') {
         if (!dataAyahLengkap()) {
             Swal.fire({
                 icon: 'warning',
@@ -1455,7 +1457,7 @@ function toggleDomisiliSantri(val) {
         }
         copyDataAlamat('ayah', 'santri');
         lockFields('santri', true);
-    } else if (val === 'beda') {
+    } else if (val === 'manual') {
         resetFields('santri');
         lockFields('santri', false);
         loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
