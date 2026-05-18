@@ -1213,39 +1213,38 @@ const mappingPosKarawang = {
     "3215161": "41354", "3215051": "41361"
 };
 
-async function loadWilayah(endpoint, elementId, placeholder) {
-    const el = getEl(elementId);
+async function loadWilayah(endpoint, elementName, placeholder) {
+    const el = getEl(elementName);
     if (!el) {
-        console.error(`Elemen dengan ID Dom: "${elementId}" tidak ditemukan saat memuat ${endpoint}`);
+        console.error(`Elemen "${elementName}" tidak ditemukan`);
         return;
     }
-    
+
     el.innerHTML = '<option value="">Loading...</option>';
     el.disabled = true;
 
-    const primaryUrl = `https://kurniawandata.github.io/api-wilayah-indonesia/api/${endpoint}.json`;
-    const fallbackUrl = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`;
+    const url = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`;
 
     try {
-        let res = await fetch(primaryUrl).catch(() => null);
-        if (!res || !res.ok) {
-            res = await fetch(fallbackUrl).catch(() => null);
-        }
-        if (!res || !res.ok) throw new Error("Semua server API Wilayah gagal merespons.");
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Gagal load API");
 
         const data = await res.json();
+
         let opt = `<option value="">${placeholder}</option>`;
         data.forEach(d => {
             opt += `<option value="${d.id}">${d.name}</option>`;
         });
+
         el.innerHTML = opt;
         el.disabled = false;
-    } catch (e) {
-        el.innerHTML = `<option value="">Gagal memuat</option>`;
-        console.error("Eror API Wilayah:", e);
+
+    } catch (err) {
+        console.error("ERROR API:", err);
+        el.innerHTML = `<option value="">Gagal memuat data</option>`;
     }
 }
-
+    
 function loadKabAyah(val) {
     getEl('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
     getEl('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
