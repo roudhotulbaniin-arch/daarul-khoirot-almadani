@@ -1595,35 +1595,7 @@
 
     /* =========================================================
        FUNGSI CONDITIONAL FIELD (INPUT MODIFIERS)
-    ========================================================= */
-    function toggleAyahFields(status) {
-        const fieldsToLock = [
-            'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
-            'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
-        ];
-        const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
-
-        fieldsToLock.forEach(name => {
-            const el = document.getElementsByName(name)[0];
-            if (el) {
-                if (isLocked) {
-                    if (el.type === 'date' || el.tagName === 'SELECT') {
-                        el.value = ""; 
-                    } else {
-                        el.value = "-";
-                    }
-                    el.tagName === 'SELECT' ? el.disabled = true : el.readOnly = true;
-                    el.style.backgroundColor = "#e9ecef";
-                    el.style.opacity = "0.7";
-                } else {
-                    if (el.value === "-") el.value = "";
-                    el.tagName === 'SELECT' ? el.disabled = false : el.readOnly = false;
-                    el.style.backgroundColor = "#ffffff";
-                    el.style.opacity = "1";
-                }
-            }
-        });
-    }
+    ==========================================================*/
 
     function handleNoNISN(checked) {
         const nisnInput = document.getElementsByName('nisn')[0]; 
@@ -1860,6 +1832,7 @@ document.addEventListener("DOMContentLoaded", function() {
     pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
     pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
 });
+
 function openTab(evt, targetId) {
     const tabcontents = document.getElementsByClassName("tab-content");
     for (let i = 0; i < tabcontents.length; i++) {
@@ -1891,6 +1864,36 @@ function openTab(evt, targetId) {
     // --- TAMBAHKAN BARIS INI AGAR BISA DIAKSES OLEH HTML ---
     window.openTab = openTab; 
 }
+
+function toggleAyahFields(status) {
+        const fieldsToLock = [
+            'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
+            'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
+        ];
+        const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
+
+        fieldsToLock.forEach(name => {
+            const el = document.getElementsByName(name)[0];
+            if (el) {
+                if (isLocked) {
+                    if (el.type === 'date' || el.tagName === 'SELECT') {
+                        el.value = ""; 
+                    } else {
+                        el.value = "-";
+                    }
+                    el.tagName === 'SELECT' ? el.disabled = true : el.readOnly = true;
+                    el.style.backgroundColor = "#e9ecef";
+                    el.style.opacity = "0.7";
+                } else {
+                    if (el.value === "-") el.value = "";
+                    el.tagName === 'SELECT' ? el.disabled = false : el.readOnly = false;
+                    el.style.backgroundColor = "#ffffff";
+                    el.style.opacity = "1";
+                }
+            }
+        });
+    }
+
 
 </script>
     
