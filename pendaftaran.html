@@ -1191,11 +1191,6 @@
 </script>
 
 <script>
-document.querySelector(`[name="${elementId}"]`)
-
-function getEl(key) {
-  return document.getElementById(key) || document.getElementsByName(key)[0];
-}
 
 /* =========================================================
    SINKRONISASI DATA WILAYAH & KODE POS (ULTRA COMPATIBLE)
@@ -1211,6 +1206,10 @@ const mappingPosKarawang = {
     "3215250": "41311", "3215260": "41311", "3215022": "41361", "3215014": "41316",
     "3215161": "41354", "3215051": "41361"
 };
+
+function getEl(idOrName){
+  return document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
+}
 
 async function loadWilayah(endpoint, elementId, placeholder) {
     const el = document.getElementById(elementId);
@@ -1877,6 +1876,7 @@ window.toggleDomisiliIbu = toggleDomisiliIbu;
 window.toggleDomisiliSantri = toggleDomisiliSantri;
 window.prosesSimpanFinal = prosesSimpanFinal;
 window.kirimWA = kirimWA;
+}
 </script>
 
 
