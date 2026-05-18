@@ -4,32 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Tafsir Al-Fatihah</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="main_logo.png">
+    
+
     <style>
-        /* CSS MASTER */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
-        
+        /* ==========================================================================
+           1. DESIGN VARIABLES, FONTS & RESET (SERAGAM MASTER INDEX)
+           ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
+            --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
             --light-bg: #f4f7f6;
-            --dark-footer: #113d11;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #d4e4d4;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            scroll-behavior: smooth; 
         }
 
         body { 
-            line-height: 1.6; 
-            color: #333; 
+            line-height: 1.8; 
+            color: var(--text-dark); 
             background-color: var(--light-bg); 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- HEADER & NAVIGASI --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           2. HEADER & NAVIGASI DESKTOP (SERAGAM MASTER INDEX)
+           ========================================================================== */
         header { 
             background-color: var(--primary-color); 
             color: white; 
-            padding: 1rem 5%; 
+            padding: 10px 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -37,106 +63,231 @@
             top: 0; 
             z-index: 1000; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            min-height: 65px;
         }
 
-        .logo { display: flex; align-items: center; }
-        .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
-        .main-header-logo { max-height: 38px; margin-right: 12px; }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        
+        .logo img { 
+            height: 40px; 
+            width: auto; 
+        }
 
-        nav ul { list-style: none; display: flex; gap: 20px; }
+        .logo h1 { 
+            font-size: 1.3rem; 
+            letter-spacing: 0.5px; 
+            white-space: nowrap;
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        }
+
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
-            font-size: 0.85rem; 
+            font-size: 0.95rem; 
             font-weight: 600; 
             display: flex; 
             align-items: center; 
-            gap: 8px; 
+            gap: 6px; 
             transition: 0.3s; 
+            position: relative;
+            padding-bottom: 5px;
         }
-        nav ul li a i { color: var(--secondary-color) !important; }
-        nav ul li a:hover { color: var(--secondary-color) !important; }
-        .active-link { border-bottom: 2px solid var(--secondary-color); color: var(--secondary-color) !important; padding-bottom: 5px; }
 
-        /* --- KONTEN ARTIKEL --- */
-        .container { padding: 3rem 5%; flex: 1; }
-        .section-title { text-align: center; margin-bottom: 2rem; }
+        nav ul li a i { 
+            color: var(--secondary-color) !important; 
+            font-size: 0.9rem; 
+        }
+
+        nav ul li a:hover { 
+            color: var(--secondary-color) !important; 
+        }
+
+        nav ul li a.active-link { 
+            border-bottom: 3px solid var(--secondary-color) !important; 
+            color: var(--secondary-color) !important; 
+        }
+
+        #menu-toggle { 
+            display: none; 
+        }
+
+        /* ==========================================================================
+           3. KONTEN UTAMA & ARTIKEL TAFSIR
+           ========================================================================== */
+        .container { 
+            padding: 3rem 15%; 
+            flex: 1; 
+        }
+
+        .section-title { 
+            text-align: center; 
+            margin-bottom: 2rem; 
+        }
+
         .section-title-box {
             display: inline-flex;
             align-items: center; 
+            gap: 12px;
             padding: 10px 25px;
             background-color: var(--primary-color);
             color: white; 
             border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
         }
-        .section-title-box h2 { font-size: 1.6rem; margin: 0; padding-left: 15px; }
+
+        .section-title-box h2 { 
+            font-size: 1.6rem; 
+            margin: 0; 
+        }
 
         .article-body {
-            max-width: 850px;
-            margin: 0 auto;
-            background: white;
+            background: var(--white);
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
-        .article-body h3 { color: var(--primary-color); margin: 25px 0 10px; border-left: 4px solid var(--secondary-color); padding-left: 15px;}
+
+        .article-body h3 { 
+            color: var(--primary-color); 
+            margin: 30px 0 15px; 
+            border-left: 4px solid var(--secondary-color); 
+            padding-left: 15px;
+        }
         
         .quran-text {
-            font-size: 1.8rem;
-            text-align: right;
-            margin: 20px 0;
-            font-family: 'Amiri', serif; 
+            font-family: 'Traditional Arabic', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: normal;
             line-height: 2.2;
-            color: #222;
+            color: #111;
+            text-align: right;
+            direction: rtl;
+            margin: 25px 0;
+            padding-right: 15px;
         }
 
         .article-image {
             width: 100%;
             max-height: 400px;
             object-fit: cover;
-            margin: 20px auto;
+            margin: 20px auto 30px;
             border-radius: 8px;
+            border: 1px solid #ddd;
         }
 
-        /* --- TOMBOL KEMBALI (PERBAIKAN) --- */
+        /* ==========================================================================
+           4. TOMBOL KEMBALI & GAP LAYOUT
+           ========================================================================== */
+        .bottom-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
         .btn-kembali {
             color: white;
             background: var(--primary-color);
-            padding: 15px 40px; /* Lebar ditambah */
+            padding: 15px 40px;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             display: inline-block;
-            font-size: 1.3rem; /* Ukuran teks ditambah */
+            font-size: 1.3rem;
             transition: 0.3s;
-            min-width: 280px; /* Lebar minimal tombol */
+            min-width: 280px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .btn-kembali:hover {
-            background: #144614;
-            transform: translateY(-2px);
+        .btn-kembali:hover { 
+            background: #144614; 
+            transform: translateY(-2px); 
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
-        /* --- FOOTER --- */
+        .btn-kembali i {
+            margin-right: 8px;
+        }
+
+        /* ==========================================================================
+           5. FOOTER (SERAGAM MASTER INDEX)
+           ========================================================================== */
         footer { 
-            background: #0d2e0d; 
+            background: var(--primary-dark); 
             color: white; 
-            padding: 20px 5%; 
+            padding: 40px 5% 20px; 
             text-align: center; 
             width: 100%;
+            margin-top: auto;
         }
-        .f-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
-        .f-address, .f-contact { font-size: 0.85rem; margin-bottom: 5px; opacity: 0.9; }
-        .f-copy { font-size: 0.8rem; opacity: 0.4; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
+        
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
+        /* ==========================================================================
+           6. RESPONSIVE LAYOUT / HP (SERAGAM MASTER INDEX)
+           ========================================================================== */
         @media (max-width: 768px) {
-            nav ul { display: none; }
+            header { height: 65px; padding: 0 15px; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 0.95rem !important; }
+            .container { padding: 2rem 5%; }
             .article-body { padding: 20px; }
-            .btn-kembali { width: 100%; }
+            .article-image { max-height: 250px; }
+            .section-title-box h2 { font-size: 1.3rem; }
+            .quran-text { font-size: 1.8rem; line-height: 2; }
+            
+            /* Penyesuaian Ukuran Tombol di HP agar Tidak Ketinggian/Kelebaran */
+            .btn-kembali { 
+                width: auto; 
+                min-width: 200px; 
+                padding: 10px 20px; 
+                font-size: 1rem; 
+            }
+
+            #menu-toggle {
+                display: block !important; 
+                background: var(--secondary-color) !important;
+                color: var(--primary-dark) !important; 
+                border: none; 
+                padding: 6px 14px;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.85rem; 
+                cursor: pointer;
+            }
+
+            nav { 
+                display: none; 
+                position: absolute; 
+                top: 65px; 
+                left: 0; 
+                width: 100%; 
+                background: var(--primary-color); 
+                padding: 10px 0;
+                border-bottom: 3px solid var(--secondary-color); 
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 999;
+            }
+
+            nav.show { display: block !important; }
+            nav ul { flex-direction: column; gap: 0; display: flex; }
+            nav ul li a { padding: 12px 25px !important; font-size: 0.95rem; width: 100%; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 20px !important; }
         }
     </style>
 </head>
@@ -144,9 +295,14 @@
 
     <header>
         <div class="logo">
-            <img src="main_logo.png" alt="Logo" class="main-header-logo">
+            <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
         </div>
+
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
@@ -161,68 +317,96 @@
 
     <main class="container">
         <section id="artikel">
+            
             <div class="section-title">
                 <div class="section-title-box">
-                    <i class="fas fa-book-open fa-2x"></i>
+                    <i class="fas fa-book-open fa-lg"></i>
                     <h2>Tafsir Singkat Surah Al-Fatihah</h2>
                 </div>
-                <p style="color: #666; margin-top: 10px;">Ditulis oleh Ustadz Badrusalam | 10 Desember 2025</p>
+                <p style="color: #666; margin-top: 12px;">Ditulis oleh Ustadz Badrusalam | 10 Desember 2025</p>
             </div>
           
             <div class="article-body">
                 <img src="basmalah_kaligrafi.jpg" alt="Kaligrafi Basmalah" class="article-image">
                 
                 <p style="margin-bottom: 20px; text-align: justify;">
-                    Surah Al-Fatihah, yang berarti "Pembukaan", adalah surah pertama dalam Al-Qur'an dan memiliki kedudukan yang sangat mulia. Surah ini sering disebut sebagai <i>Ummul Kitab</i> (Induk Kitab) karena mencakup seluruh makna dasar ajaran Islam.
+                    Surah Al-Fatihah, yang berarti "Pembukaan", adalah surah pertama dalam Al-Qur'an dan memiliki kedudukan yang sangat mulia. Surah ini sering disebut sebagai <em>Ummul Kitab</em> (Induk Kitab) karena mencakup seluruh makna dasar ajaran Islam.
                 </p>
 
                 <h3>1. Pujian kepada Allah (Ayat 1-4)</h3>
                 <p class="quran-text">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-                <p>Diawali dengan Basmalah, mengingatkan kita bahwa setiap permulaan haruslah dengan menyebut nama Allah, yang Maha Pengasih dan Maha Penyayang.</p>
+                <p style="margin-bottom: 25px; text-align: justify;">Diawali dengan Basmalah, mengingatkan kita bahwa setiap permulaan haruslah dengan menyebut nama Allah, yang Maha Pengasih dan Maha Penyayang.</p>
 
                 <h3>2. Ikrar Peribadatan (Ayat 5)</h3>
                 <p class="quran-text">اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ</p>
-                <p>Ini adalah inti dari Tauhid. <b>"Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan."</b></p>
+                <p style="margin-bottom: 25px; text-align: justify;">Ini adalah inti dari Tauhid. <strong>"Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan."</strong></p>
 
                 <h3>3. Permohonan Hidayah (Ayat 6-7)</h3>
                 <p class="quran-text">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ</p>
-                <p style="text-align: justify;">Puncak dari surah ini adalah permohonan kita yang paling mendasar: petunjuk menuju jalan yang lurus (<i>Shiratal Mustaqim</i>).</p>
+                <p style="text-align: justify;">Puncak dari surah ini adalah permohonan kita yang paling mendasar: petunjuk menuju jalan yang lurus (<em>Shiratal Mustaqim</em>).</p>
                 
                 <img src="muslim_praying.jpg" alt="Muslim Berdoa" class="article-image">
 
                 <p style="text-align: right; margin-top: 30px; font-style: italic;">Wallahu a'lam bish-shawab.</p>
-                
-                <div style="text-align: center; margin-top: 40px;">
-                    <a href="info_islam.html" class="btn-kembali">
-                        <i class="fas fa-chevron-circle-left"></i> Kembali ke Info Dunia Islam
-                    </a>
-                </div>
             </div>
+            
         </section>
+
+        <div class="bottom-actions">
+            <a href="info_islam.html" class="btn-kembali">
+                <i class="fas fa-chevron-circle-left"></i> Info Dunia Islam
+            </a>
+        </div>
     </main>
 
-    <footer> 
+    <footer>
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
-    
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
     <script>
-       
-        const clickSound = document.getElementById('clickSound');
-        const navLinks = document.querySelectorAll('nav ul li a'); 
-        let hasInteracted = false;
+        document.addEventListener("DOMContentLoaded", function() {
+            const clickSound = document.getElementById('clickSound');
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelectorAll('nav ul li a'); 
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                clickSound.currentTime = 0; 
-                clickSound.play();
-                e.preventDefault(); 
-                setTimeout(() => { window.location.href = this.href; }, 200); 
+            // Toggle Buka/Tutup Menu HP
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('show');
+                });
+            }
+
+            // Audio Click Delay System untuk Transisi Link Navigasi
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (clickSound) {
+                        clickSound.currentTime = 0; 
+                        clickSound.play().catch(() => {});
+                    }
+                    if (nav) nav.classList.remove('show');
+
+                    const destination = this.href;
+                    if (destination && !destination.includes('#') && !this.target) {
+                        e.preventDefault();
+                        setTimeout(() => { 
+                            window.location.href = destination; 
+                        }, 200); 
+                    }
+                });
+            });
+
+            // Tutup menu jika pengguna mengklik di luar area navigasi
+            document.addEventListener('click', function(e) {
+                if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                    nav.classList.remove('show');
+                }
             });
         });
     </script>
