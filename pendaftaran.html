@@ -344,6 +344,25 @@
     transform: translateY(-1px) !important;
     box-shadow: 0 6px 15px rgba(26, 83, 25, 0.3) !important;
 }
+
+/* Gaya dasar teks pesan error di bawah input */
+.error-message {
+    color: #d33;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none; /* Sembunyikan di awal */
+}
+
+/* Efek border pada input saat real-time validation */
+.input-error {
+    border: 2px solid #d33 !important;
+    background-color: #fff5f5 !important;
+}
+
+.input-success {
+    border: 2px solid #2a7526 !important;
+    background-color: #f5fff5 !important;
+}
     </style>
 </head>
 <body>
@@ -428,13 +447,21 @@
 
     <div class="form-grid-santri">
         <div class="form-group">
-            <label>NIK<span style="color: red;">*</span></label>
-            <div class="input-ikon"><i class="fas fa-id-card"></i><input type="number" name="nik" placeholder="16 Digit NIK"></div>
-        </div>
-        <div class="form-group">
-            <label>Nomor KK<span style="color: red;">*</span></label>
-            <div class="input-ikon"><i class="fas fa-address-card"></i><input type="number" name="no_kk" placeholder="16 Digit KK"></div>
-        </div>
+    <label>NIK<span style="color: red;">*</span></label>
+    <div class="input-ikon">
+        <i class="fas fa-id-card"></i>
+        <input type="number" name="nik" id="nikSantri" placeholder="16 Digit NIK" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);">
+    </div>
+    <div id="errorNikSantri" class="error-message"></div>
+</div>
+       <div class="form-group">
+    <label>Nomor KK<span style="color: red;">*</span></label>
+    <div class="input-ikon">
+        <i class="fas fa-address-card"></i>
+        <input type="number" name="no_kk" id="kkAyah" placeholder="16 Digit KK" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);">
+    </div>
+    <div id="errorKkAyah" class="error-message"></div>
+</div>
         <div class="form-group">
             <label>NISN</label>
             <div class="input-ikon"><i class="fas fa-fingerprint"></i><input type="text" name="nisn" placeholder="10 Digit NISN"></div>
@@ -546,10 +573,14 @@
         <label>Kewarganegaraan</label>
         <div class="input-ikon"><i class="fas fa-flag"></i><input type="text" name="wn_ayah" value="Indonesia"></div>
     </div>
-    <div class="form-group">
-        <label>NIK Ayah (16 Digit)<span style="color: red;">*</span></label>
-        <div class="input-ikon"><i class="fas fa-id-card"></i><input type="text" name="nik_ayah" maxlength="16" placeholder="16 digit NIK"></div>
+   <div class="form-group">
+    <label>NIK Ayah (16 Digit)<span style="color: red;">*</span></label>
+    <div class="input-ikon">
+        <i class="fas fa-id-card"></i>
+        <input type="text" name="nik_ayah" id="nikAyah" maxlength="16" placeholder="16 digit NIK">
     </div>
+    <div id="errorNikAyah" class="error-message"></div>
+</div>
     <div class="form-group">
         <label>Nomor Kartu Keluarga (KK)<span style="color: red;">*</span></label>
         <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="kk_ayah" maxlength="16" placeholder="16 digit No KK"></div>
@@ -1846,6 +1877,47 @@
             }
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const isNumeric = /^\d+$/;
+
+    // Fungsi helper universal untuk validasi real-time kolom 16 digit (NIK / KK)
+   document.addEventListener("DOMContentLoaded", function() {
+    const isNumeric = /^\d+$/;
+
+    // 1. Definisikan fungsi mesin validasinya
+    function pasangValidasi16Digit(inputId, errorId, labelNama) {
+        const inputEl = document.getElementById(inputId);
+        const errorEl = document.getElementById(errorId);
+
+        if (inputEl && errorEl) {
+            inputEl.addEventListener("input", function() {
+                const val = inputEl.value.trim();
+
+                if (val === "") {
+                    inputEl.classList.remove("input-error", "input-success");
+                    errorEl.style.display = "none";
+                } 
+                else if (val.length !== 16 || !isNumeric.test(val)) {
+                    inputEl.classList.add("input-error");
+                    inputEl.classList.remove("input-success");
+                    errorEl.textContent = `${labelNama} harus berupa 16 digit angka!`;
+                    errorEl.style.display = "block";
+                } 
+                else {
+                    inputEl.classList.add("input-success");
+                    inputEl.classList.remove("input-error");
+                    errorEl.style.display = "none";
+                }
+            });
+        }
+    }
+
+    // 2. Panggil fungsi di atas untuk mengaktifkan ketiga kolom tersebut
+    pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
+    pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
+    pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
+});
 </script>
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
