@@ -1013,16 +1013,15 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
 
-<!-- FIREBASE MODULE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getApps, initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 /* =========================
-   FIREBASE INIT
+   FIREBASE INIT (ANTI DUPLIKAT)
 ========================= */
 const firebaseConfig = {
-    apiKey: "AIza...",
+    apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
     authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
     projectId: "daarul-khoirot-pendaftaran",
     storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
@@ -1030,8 +1029,11 @@ const firebaseConfig = {
     appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
 };
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+const app = getApps().length === 0 
+    ? initializeApp(firebaseConfig) 
+    : getApps()[0];
+
+const db = getFirestore(app);
 
 /* =========================
    HELPER
@@ -1070,12 +1072,10 @@ async function handleFormSubmit(e) {
         const formData = new FormData(form);
         let data = {};
 
-        // Ambil semua data non file
         formData.forEach((val, key) => {
             if (!(val instanceof File)) data[key] = val;
         });
 
-        // Replace dropdown value → text
         [
             'prov_ayah','kab_ayah','kec_ayah','desa_ayah',
             'prov_ibu','kab_ibu','kec_ibu','desa_ibu',
@@ -1086,9 +1086,6 @@ async function handleFormSubmit(e) {
             if (txt && txt !== "-- Pilih --") data[f] = txt;
         });
 
-        /* =========================
-           KOMPRES FILE
-        ========================= */
         const opt = { maxSizeMB: 0.1, maxWidthOrHeight: 1024 };
 
         const kk = document.getElementsByName("up_kk")[0]?.files[0];
@@ -1103,24 +1100,15 @@ async function handleFormSubmit(e) {
             data.file_ijazah_data = await toBase64(c);
         }
 
-        /* =========================
-           PERSETUJUAN
-        ========================= */
         const cek = document.getElementsByName("cek_pernyataan")[0];
         data.status_setuju = cek?.checked ? "SETUJU" : "TIDAK SETUJU";
 
-        /* =========================
-           CLEAN DATA
-        ========================= */
         delete data.up_kk;
         delete data.up_ijazah;
         delete data.cek_pernyataan;
 
         data.waktu_simpan = new Date().toISOString();
 
-        /* =========================
-           SAVE FIRESTORE
-        ========================= */
         const res = await addDoc(collection(db, "pendaftaran_santri"), data);
 
         if (res.id) {
@@ -1138,118 +1126,7 @@ async function handleFormSubmit(e) {
 }
 
 window.handleFormSubmit = handleFormSubmit;
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
-        authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
-        projectId: "daarul-khoirot-pendaftaran",
-        storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
-        messagingSenderId: "963910462284",
-        appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function handleFormSubmit(event) {
-        if (event) event.preventDefault();
-        const form = document.getElementById('formPendaftaran');
-
-        Swal.fire({
-            title: 'Sedang Menyimpan...',
-            text: 'Memproses data dan mengompres foto...',
-            allowOutsideClick: false,
-            didOpen: () => Swal.showLoading()
-        });
-
-        try {
-            const formData = new FormData(form);
-            let dataFinal = {};
-
-            // Helper Ambil Teks Dropdown agar Alamat tidak muncul KODE angka
-            const getTeks = (idOrName) => {
-                const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
-                return (el && el.tagName === 'SELECT') ? el.options[el.selectedIndex].text : (el?.value || "-");
-            };
-
-            // Susun Data Non-File secara manual
-            formData.forEach((value, key) => {
-                if (!(value instanceof File)) {
-                    dataFinal[key] = value;
-                }
-            });
-
-            // Paksa timpa field alamat & pekerjaan dengan teks literal asli
-            const listWilayah = [
-                'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
-                'prov_ibu', 'kab_ibu', 'kec_ibu', 'desa_ibu',
-                'prov_santri', 'kab_santri', 'kec_santri', 'desa_santri',
-                'pjk_ibu', 'pjk_ayah', 'tingkat_unit'
-            ];
-
-            listWilayah.forEach(field => {
-                const teks = getTeks(field);
-                if (teks && teks !== "-- Pilih --") dataFinal[field] = teks;
-            });
-
-            // Proses Kompresi Foto (KK & Ijazah)
-            const options = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
-            const toBase64 = f => new Promise((res, rej) => {
-                const r = new FileReader(); 
-                r.readAsDataURL(f);
-                r.onload = () => res(r.result); 
-                r.onerror = e => rej(e);
-            });
-
-            const fKK = document.getElementsByName('up_kk')[0]?.files[0];
-            if (fKK) {
-                const comp = await imageCompression(fKK, options);
-                dataFinal['file_kk_data'] = await toBase64(comp);
-            }
-
-            const fIjazah = document.getElementsByName('up_ijazah')[0]?.files[0];
-            if (fIjazah) {
-                const comp = await imageCompression(fIjazah, options);
-                dataFinal['file_ijazah_data'] = await toBase64(comp);
-            }
-
-            // Logika Persetujuan Syarat & Ketentuan
-            const elPernyataan = document.getElementsByName('cek_pernyataan')[0];
-            if (elPernyataan) {
-                dataFinal['status_setuju'] = elPernyataan.checked ? "SETUJU" : "TIDAK SETUJU";
-            }
-
-            // Final Cleaning Payload Data
-            delete dataFinal['up_kk'];
-            delete dataFinal['up_ijazah'];
-            delete dataFinal['cek_pernyataan'];
-            dataFinal['waktu_simpan'] = new Date().toISOString();
-
-            // Simpan ke Firestore
-            const docRef = await addDoc(collection(db, "pendaftaran_santri"), dataFinal);
-
-            if (docRef.id) {
-                Swal.fire('Berhasil!', 'Data pendaftaran tersimpan.', 'success').then(() => {
-                    if (typeof window.kirimWA === "function") window.kirimWA();
-                    form.reset();
-                    location.reload();
-                });
-            }
-        } catch (error) {
-            console.error(error);
-            Swal.fire('Gagal!', error.message, 'error');
-        }
-    }
-
-    // Ekspos ke global scope window
-    window.handleFormSubmit = handleFormSubmit;
 </script>
 
 <script>
