@@ -1113,20 +1113,17 @@
             const formData = new FormData(form);
             let dataFinal = {};
 
-            // Helper Ambil Teks Dropdown agar Alamat tidak muncul KODE angka
             const getTeks = (idOrName) => {
                 const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
                 return (el && el.tagName === 'SELECT') ? el.options[el.selectedIndex].text : (el?.value || "-");
             };
 
-            // Susun Data Non-File secara manual
             formData.forEach((value, key) => {
                 if (!(value instanceof File)) {
                     dataFinal[key] = value;
                 }
             });
 
-            // Paksa timpa field alamat & pekerjaan dengan teks literal asli
             const listWilayah = [
                 'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
                 'prov_ibu', 'kab_ibu', 'kec_ibu', 'desa_ibu',
@@ -1139,7 +1136,6 @@
                 if (teks && teks !== "-- Pilih --") dataFinal[field] = teks;
             });
 
-            // Proses Kompresi Foto (KK & Ijazah)
             const options = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
             const toBase64 = f => new Promise((res, rej) => {
                 const r = new FileReader(); 
@@ -1160,19 +1156,16 @@
                 dataFinal['file_ijazah_data'] = await toBase64(comp);
             }
 
-            // Logika Persetujuan Syarat & Ketentuan
             const elPernyataan = document.getElementsByName('cek_pernyataan')[0];
             if (elPernyataan) {
                 dataFinal['status_setuju'] = elPernyataan.checked ? "SETUJU" : "TIDAK SETUJU";
             }
 
-            // Final Cleaning Payload Data
             delete dataFinal['up_kk'];
             delete dataFinal['up_ijazah'];
             delete dataFinal['cek_pernyataan'];
             dataFinal['waktu_simpan'] = new Date().toISOString();
 
-            // Simpan ke Firestore
             const docRef = await addDoc(collection(db, "pendaftaran_santri"), dataFinal);
 
             if (docRef.id) {
@@ -1188,116 +1181,124 @@
         }
     }
 
-    // Ekspos ke global scope window
     window.handleFormSubmit = handleFormSubmit;
 </script>
 
 <script>
-    /* =========================================================
-       SINKRONISASI DATA WILAYAH & KODE POS
-    ========================================================= */
-    const mappingPosKarawang = {
-        "3215010": "41311", "3215011": "41361", "3215012": "41361", "3215013": "41361",
-        "3215020": "41314", "3215021": "41361", "3215030": "41315", "3215040": "41363",
-        "3215050": "41361", "3215060": "41375", "3215070": "41374", "3215080": "41384",
-        "3215090": "41383", "3215100": "41373", "3215110": "41371", "3215120": "41372",
-        "3215130": "41381", "3215140": "41382", "3215150": "41353", "3215160": "41354",
-        "3215170": "41352", "3215180": "41351", "3215190": "41353", "3215200": "41355",
-        "3215210": "41351", "3215220": "41351", "3215230": "41351", "3215240": "41384",
-        "3215250": "41311", "3215260": "41311", "3215022": "41361", "3215014": "41316",
-        "3215161": "41354", "3215051": "41361"
-    };
+  
+  /* =========================================================
+       SINKRONISASI DATA WILAYAH & KODE POS (FIXED API & CORS)
+========================================================= */
+const mappingPosKarawang = {
+    "3215010": "41311", "3215011": "41361", "3215012": "41361", "3215013": "41361",
+    "3215020": "41314", "3215021": "41361", "3215030": "41315", "3215040": "41363",
+    "3215050": "41361", "3215060": "41375", "3215070": "41374", "3215080": "41384",
+    "3215090": "41383", "3215100": "41373", "3215110": "41371", "3215120": "41372",
+    "3215130": "41381", "3215140": "41382", "3215150": "41353", "3215160": "41354",
+    "3215170": "41352", "3215180": "41351", "3215190": "41353", "3215200": "41355",
+    "3215210": "41351", "3215220": "41351", "3215230": "41351", "3215240": "41384",
+    "3215250": "41311", "3215260": "41311", "3215022": "41361", "3215014": "41316",
+    "3215161": "41354", "3215051": "41361"
+};
 
-    async function loadWilayah(endpoint, elementId, placeholder) {
-        const el = document.getElementById(elementId);
-        if (!el) return;
+async function loadWilayah(endpoint, elementId, placeholder) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    
+    el.innerHTML = '<option value="">Loading...</option>';
+    el.disabled = true;
+
+    // URL Utama dan URL Cadangan GitHub Mirror untuk mengantisipasi CORS / Downtime
+    const primaryUrl = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`;
+    const fallbackUrl = `https://kurniawandata.github.io/api-wilayah-indonesia/api/${endpoint}.json`;
+
+    try {
+        // Menggunakan fetch dengan mode cors eksternal
+        let res = await fetch(primaryUrl, { mode: 'cors' }).catch(() => null);
         
-        el.innerHTML = '<option value="">Loading...</option>';
+        // Evaluasi jika server utama tidak merespons atau mengembalikan error status
+        if (!res || !res.ok) {
+            console.warn(`Server utama emsifa terkendala. Mengalihkan ke server cadangan untuk: ${endpoint}`);
+            res = await fetch(fallbackUrl, { mode: 'cors' });
+        }
+
+        const data = await res.json();
+        let opt = `<option value="">${placeholder}</option>`;
+        data.forEach(d => {
+            opt += `<option value="${d.id}">${d.name}</option>`;
+        });
+        el.innerHTML = opt;
+        el.disabled = false;
+    } catch (e) {
+        el.innerHTML = `<option value="">Gagal memuat data wilayah</option>`;
         el.disabled = true;
+        console.error("Kesalahan fatal saat memuat API Wilayah:", e);
+    }
+}
 
-        try {
-            const res = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`);
-            const data = await res.json();
-            let opt = `<option value="">${placeholder}</option>`;
-            data.forEach(d => {
-                opt += `<option value="${d.id}">${d.name}</option>`;
-            });
-            el.innerHTML = opt;
-            el.disabled = false;
-        } catch (e) {
-            el.innerHTML = `<option value="">Gagal memuat</option>`;
-            console.error("Error:", e);
+function loadKabAyah(val) {
+    document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
+    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    const inputPos = document.getElementsByName('pos_ayah')[0];
+    if (inputPos) inputPos.value = "";
+    if (val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+}
+
+function loadKecAyah(val) {
+    document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
+    document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    const inputPos = document.getElementsByName('pos_ayah')[0];
+    if (inputPos) inputPos.value = "";
+    if (val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
+}
+
+function loadDesaDanPosAyah(val) {
+    if (!val) return;
+    loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
+    
+    const inputPos = document.getElementsByName('pos_ayah')[0];
+    if (inputPos) {
+        const kodeAuto = mappingPosKarawang[val];
+        if (kodeAuto) {
+            inputPos.value = kodeAuto;
+            inputPos.readOnly = true;
+            inputPos.style.backgroundColor = "#f0f0f0";
+            inputPos.style.color = "#6c757d";
+        } else {
+            inputPos.value = "";
+            inputPos.readOnly = false;
+            inputPos.style.backgroundColor = "#ffffff";
+            inputPos.style.color = "#000000";
+            inputPos.placeholder = "Isi Kode Pos Manual";
         }
     }
+}
 
-    // Handler Berantai Ayah
-    function loadKabAyah(val) {
-        document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
-        document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
-        document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
-        const inputPos = document.getElementsByName('pos_ayah')[0];
-        if (inputPos) inputPos.value = "";
-        
-        if (val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+function loadKabIbu(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten'); }
+function loadKecIbu(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan'); }
+function loadDesaDanPosIbu(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_ibu')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
     }
+}
 
-    function loadKecAyah(val) {
-        document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
-        document.getElementById('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
-        const inputPos = document.getElementsByName('pos_ayah')[0];
-        if (inputPos) inputPos.value = "";
-        
-        if (val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
+function loadKabSantri(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten'); }
+function loadKecSantri(val) { if(val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan'); }
+function loadDesaDanPosSantri(val) {
+    if(val) {
+        loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa');
+        const inputPos = document.getElementsByName('pos_santri')[0];
+        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
     }
+}
 
-    function loadDesaDanPosAyah(val) {
-        if (!val) return;
-        loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
-        
-        const inputPos = document.getElementsByName('pos_ayah')[0];
-        if (inputPos) {
-            const kodeAuto = mappingPosKarawang[val];
-            if (kodeAuto) {
-                inputPos.value = kodeAuto;
-                inputPos.readOnly = true;
-                inputPos.style.backgroundColor = "#f0f0f0";
-                inputPos.style.color = "#6c757d";
-            } else {
-                inputPos.value = "";
-                inputPos.readOnly = false;
-                inputPos.style.backgroundColor = "#ffffff";
-                inputPos.style.color = "#000000";
-                inputPos.placeholder = "Isi Kode Pos Manual";
-            }
-        }
-    }
-
-    // Handler Berantai Ibu
-    function loadKabIbu(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten'); }
-    function loadKecIbu(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan'); }
-    function loadDesaDanPosIbu(val) {
-        if(val) {
-            loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa');
-            const inputPos = document.getElementsByName('pos_ibu')[0];
-            if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
-        }
-    }
-
-    // Handler Berantai Santri
-    function loadKabSantri(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten'); }
-    function loadKecSantri(val) { if(val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan'); }
-    function loadDesaDanPosSantri(val) {
-        if(val) {
-            loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa');
-            const inputPos = document.getElementsByName('pos_santri')[0];
-            if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
-        }
-    }
-
-    // Inisialisasi awal load Provinsi Ayah
-    document.addEventListener('DOMContentLoaded', () => {
-        loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+});
+ 
 
     /* =========================================================
        LOGIKA FORM LOCK, REPLICATION, & DOMISILI
@@ -1494,7 +1495,6 @@
             return true;
         };
 
-        // --- VALIDASI TAB SANTRI ---
         if (tabId === 'santri') {
             if (!check('nama_santri', 'Nama Lengkap')) return false;
             if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
@@ -1516,7 +1516,6 @@
                 return false;
             }
         } 
-        // --- VALIDASI TAB ORANG TUA ---
         else if (tabId === 'ortu') {
             const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
 
@@ -1544,7 +1543,6 @@
             if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
             if (!check('st_wali', 'Status Wali Santri')) return false;
         }
-        // --- VALIDASI TAB ALAMAT ---
         else if (tabId === 'alamat') {
             if (!check('prov_ayah', 'Provinsi')) return false;
             if (!check('kab_ayah', 'Kabupaten')) return false;
@@ -1552,7 +1550,6 @@
             if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
             if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
         }
-        // --- VALIDASI TAB PERNYATAAN ---
         else if (tabId === 'pernyataan') {
             const elCek = document.getElementsByName('cek_pernyataan')[0];
             if (!elCek || !elCek.checked) {
@@ -1582,7 +1579,6 @@
     function nextTab(targetId) {
         const currentTab = document.querySelector('.tab-content.active');
         const currentTabId = currentTab ? currentTab.id : 'santri';
-
         if (validateInput(currentTabId)) {
             openTab(null, targetId);
         }
@@ -1593,13 +1589,15 @@
     }
 
     /* =========================================================
-       FUNGSI CONDITIONAL FIELD (INPUT MODIFIERS)
+       FIXED: FUNGSI CONDITIONAL FIELD STATUS AYAH 
     ========================================================= */
     function toggleAyahFields(status) {
         const fieldsToLock = [
             'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
             'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
         ];
+        
+        // Memastikan status 'Meninggal' atau 'Tidak Diketahui' memicu status lock
         const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
 
         fieldsToLock.forEach(name => {
@@ -1611,13 +1609,26 @@
                     } else {
                         el.value = "-";
                     }
-                    el.tagName === 'SELECT' ? el.disabled = true : el.readOnly = true;
+                    
+                    // Mengunci field bertipe select ataupun text/date biasa
+                    if (el.tagName === 'SELECT') {
+                        el.disabled = true;
+                    } else {
+                        el.readOnly = true;
+                    }
                     el.style.backgroundColor = "#e9ecef";
+                    el.style.color = "#6c757d";
                     el.style.opacity = "0.7";
                 } else {
                     if (el.value === "-") el.value = "";
-                    el.tagName === 'SELECT' ? el.disabled = false : el.readOnly = false;
+                    
+                    if (el.tagName === 'SELECT') {
+                        el.disabled = false;
+                    } else {
+                        el.readOnly = false;
+                    }
                     el.style.backgroundColor = "#ffffff";
+                    el.style.color = "#000000";
                     el.style.opacity = "1";
                 }
             }
@@ -1693,7 +1704,6 @@
         const elCek = document.getElementsByName('cek_pernyataan')[0];
         const status_setuju = (elCek && elCek.checked) ? "✅ SUDAH MENYETUJUI" : "❌ BELUM MENYETUJUI";
 
-        // Emoji Unicode
         const ICON_SANTRI   = "🧒";
         const ICON_AYAH     = "👲";
         const ICON_IBU      = "🧕";
@@ -1707,7 +1717,6 @@
         m += "*DAARUL KHOIROT AL-MADANI*\n";
         m += "------------------------------------------\n\n";
 
-        // DATA SANTRI
         m += `*${ICON_SANTRI} DATA SANTRI*\n`;
         m += "• Nama: " + gV('nama_santri') + "\n";
         m += "• Unit: " + gV('tingkat_unit') + "\n";
@@ -1723,7 +1732,6 @@
         m += "• Disabilitas: " + gV('disabilitas') + "\n";
         m += "• Biaya Oleh: " + gV('biaya') + "\n\n";
 
-        // DATA AYAH
         m += `*${ICON_AYAH} DATA AYAH*\n`;
         m += "• Status: " + gV('st_ayah') + "\n";
         m += "• Nama Ayah: " + gV('nama_ayah') + "\n";
@@ -1736,7 +1744,6 @@
         m += "• Penghasilan: " + gV('hasil_ayah') + "\n";
         m += "• No. HP: " + gV('hp_ayah') + "\n\n";
 
-        // DATA IBU
         m += `*${ICON_IBU} DATA IBU*\n`;
         m += "• Status: " + gV('st_ibu') + "\n";
         m += "• Nama Ibu: " + gV('nama_ibu') + "\n";
@@ -1748,7 +1755,6 @@
         m += "• Penghasilan: " + gV('hasil_ibu') + "\n";
         m += "• No. HP: " + gV('hp_ibu') + "\n\n";
 
-        // DATA ALAMAT 
         m += `*${RUMAH_AYAH} ALAMAT AYAH*\n`;
         m += "• Status Milik: " + gV('milik_ayah') + "\n";
         m += "• Alamat: " + gV('al_ayah') + ", RT." + gV('rt_ayah') + "/RW." + gV('rw_ayah') + "\n";
@@ -1765,7 +1771,6 @@
         m += "  Desa: " + gT('desa_santri') + ", Kec: " + gT('kec_santri') + "\n";
         m += "• Wilayah: " + gT('kab_santri') + ", " + gT('prov_santri') + "\n\n";
 
-        // DATA WAWANCARA & TAMBAHAN
         m += `*${CLIP} INFORMASI TAMBAHAN*\n`;
         m += "• Visi: " + gV('w_visi') + "\n";
         m += "• Pola: " + gV('w_pola') + "\n";
@@ -1787,10 +1792,9 @@
     }
 
     /* =========================================================
-       DOM EVENT LISTENERS & GLOBAL FUNCTION INTEGRATION
+       DOM EVENT LISTENERS
     ========================================================= */
     document.addEventListener("DOMContentLoaded", function() {
-        /* 1. LOGIKA NAVIGASI MENU (RESPONSIVE MENU TOGGLE) */
         const menuToggle = document.getElementById('menu-toggle');
         const nav = document.querySelector('nav');
         const currentUrl = window.location.pathname.split("/").pop() || "index.html";
@@ -1819,7 +1823,6 @@
             }
         });
 
-        /* 2. LOGIKA VALIDASI REAL-TIME (16 DIGIT NIK / KK) */
         const isNumeric = /^\d+$/;
 
         function pasangValidasi16Digit(inputId, errorId, labelNama) {
@@ -1854,7 +1857,9 @@
         pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
     });
 
-    /* 3. ENGINE SWITCH TAB (EKSPOS KE WINDOW GLOBAL SCOPE) */
+    /* =========================================================
+       ENGINE SWITCH TAB
+    ========================================================= */
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
         for (let i = 0; i < tabcontents.length; i++) {
@@ -1884,7 +1889,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Ikat ke scope global agar inline attribute HTML 'onclick' berjalan normal
+    // PENGIKATAN GLOBAL SCOPE (Mencegah Kendala Undefined Function di HTML)
     window.openTab = openTab;
     window.nextTab = nextTab;
     window.prevTab = prevTab;
@@ -1895,6 +1900,8 @@
     window.toggleDomisiliSantri = toggleDomisiliSantri;
     window.prosesSimpanFinal = prosesSimpanFinal;
     window.kirimWA = kirimWA;
+</script>
+
 </script>
  
 
