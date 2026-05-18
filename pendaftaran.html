@@ -1076,7 +1076,8 @@
 
 <audio id="clickSound" src="click_sound.mp3"></audio>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
 
 <script type="module">
@@ -1123,7 +1124,7 @@
                 }
             });
 
-            // Paksa timpa field alamat & pekerjaan dengan teks literal asli
+            // Paksa timpa field alamat, pekerjaan, & unit dengan teks literal asli
             const listWilayah = [
                 'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
                 'prov_ibu', 'kab_ibu', 'kec_ibu', 'desa_ibu',
@@ -1185,14 +1186,12 @@
         }
     }
 
-    // Ekspos ke global scope window
+    // Ekspos ke global scope window agar bisa dipanggil komponen HTML biasa
     window.handleFormSubmit = handleFormSubmit;
 </script>
 
 <script>
-    /* =========================================================
-       SINKRONISASI DATA WILAYAH & KODE POS
-    ========================================================= */
+    /* --- MAPPING KODE POS KARAWANG --- */
     const mappingPosKarawang = {
         "3215010": "41311", "3215011": "41361", "3215012": "41361", "3215013": "41361",
         "3215020": "41314", "3215021": "41361", "3215030": "41315", "3215040": "41363",
@@ -1205,6 +1204,7 @@
         "3215161": "41354", "3215051": "41361"
     };
 
+    /* --- API LOADER WILAYAH INDONESIA --- */
     async function loadWilayah(endpoint, elementId, placeholder) {
         const el = document.getElementById(elementId);
         if (!el) return;
@@ -1222,12 +1222,12 @@
             el.innerHTML = opt;
             el.disabled = false;
         } catch (e) {
-            el.innerHTML = `<option value="">Gagal memuat</option>`;
+            el.innerHTML = `<option value="">Gagal memuat</option>';`;
             console.error("Error:", e);
         }
     }
 
-    // Handler Berantai Ayah
+    /* --- HANDLER BERANTAI WILAYAH DATA AYAH --- */
     function loadKabAyah(val) {
         document.getElementById('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
         document.getElementById('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
@@ -1269,7 +1269,7 @@
         }
     }
 
-    // Handler Berantai Ibu
+    /* --- HANDLER BERANTAI WILAYAH DATA IBU --- */
     function loadKabIbu(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten'); }
     function loadKecIbu(val) { if(val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan'); }
     function loadDesaDanPosIbu(val) {
@@ -1280,7 +1280,7 @@
         }
     }
 
-    // Handler Berantai Santri
+    /* --- HANDLER BERANTAI WILAYAH DATA SANTRI --- */
     function loadKabSantri(val) { if(val) loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten'); }
     function loadKecSantri(val) { if(val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan'); }
     function loadDesaDanPosSantri(val) {
@@ -1291,14 +1291,7 @@
         }
     }
 
-    // Inisialisasi awal load Provinsi Ayah
-    document.addEventListener('DOMContentLoaded', () => {
-        loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
-    });
-
-    /* =========================================================
-       LOGIKA FORM LOCK, REPLICATION, & DOMISILI
-    ========================================================= */
+    /* --- UTILITY: LOCK, RESET & VALIDASI AWAL FORM ALAMAT --- */
     function lockFields(suffix, isLocked) {
         const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
         dropdowns.forEach(id => {
@@ -1348,6 +1341,7 @@
         return !!(prov && kab && kec && desa && alamat && rt && rw && pos);
     }
 
+    /* --- TOGGLE DOMISILI INTERAKTIF --- */
     function toggleDomisiliIbu(val) {
         const box = document.getElementById('box_ibu');
         if (!box) return;
@@ -1456,117 +1450,19 @@
         document.getElementsByName('pos_santri')[0].value = dataPesantren.pos;
     }
 
-    /* =========================================================
-       FUNGSI NAVIGASI & VALIDASI TERPADU
-    ========================================================= */
-   function validateInput(tabId) {
-    const isNumeric = /^\d+$/;
-    
-    // Helper kustom untuk memunculkan alert warning premium yang seragam
-    const showWarningAlert = (message) => {
-        Swal.fire({
-            title: 'Data Belum Lengkap',
-            html: message,
-            icon: 'warning',
-            iconColor: '#bc6c25', // Warna emas premium
-            confirmButtonText: 'Lengkapi Data',
-            confirmButtonColor: '#1a5319', // Hijau tua khas
-            background: '#ffffff',
-            showClass: { popup: 'animate__animated animate__fadeInUp animate__faster' },
-            hideClass: { popup: 'animate__animated animate__fadeOutDown animate__faster' },
-            customClass: {
-                popup: 'premium-popup',
-                title: 'premium-title',
-                htmlContainer: 'premium-text',
-                confirmButton: 'premium-button'
-            }
-        });
-    };
-
-    const check = (name, label) => {
-        const el = document.getElementsByName(name)[0];
-        if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
-            showWarningAlert(`Field <b>${label}</b> wajib diisi!`);
-            return false;
-        }
-        return true;
-    };
-
-    // --- VALIDASI TAB SANTRI ---
-    if (tabId === 'santri') {
-        if (!check('nama_santri', 'Nama Lengkap')) return false;
-        if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
-        if (!check('nik', 'NIK')) return false;
-        if (!check('no_kk', 'Nomor KK')) return false;
-        if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
-
-        const nikVal = document.getElementsByName('nik')[0]?.value || "";
-        if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
+    /* --- SISTEM VALIDASI TERPADU PREMIUM (TAB BY TAB) --- */
+    function validateInput(tabId) {
+        const isNumeric = /^\d+$/;
+        
+        const showWarningAlert = (message) => {
             Swal.fire({
-                title: 'Format Salah',
-                text: 'NIK Santri harus 16 digit angka!',
-                icon: 'error',
-                iconColor: '#d33',
-                confirmButtonText: 'Perbaiki NIK',
-                confirmButtonColor: '#1a5319',
-                customClass: { popup: 'premium-popup', title: 'premium-title', confirmButton: 'premium-button' }
-            });
-            return false;
-        }
-    } 
-    
-    // --- VALIDASI TAB ORANG TUA ---
-    else if (tabId === 'ortu') {
-        const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
-
-        if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
-        if (!check('st_ayah', 'Status Ayah')) return false;
-
-        if (statusAyah === 'Masih Hidup') {
-            if (!check('nik_ayah', 'NIK Ayah')) return false;
-            if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
-            
-            const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
-            if (nikA.length !== 16 || !isNumeric.test(nikA)) {
-                Swal.fire({
-                    title: 'Format Salah',
-                    text: 'NIK Ayah harus 16 digit angka!',
-                    icon: 'error',
-                    iconColor: '#d33',
-                    confirmButtonText: 'Perbaiki NIK',
-                    confirmButtonColor: '#1a5319',
-                    customClass: { popup: 'premium-popup', title: 'premium-title', confirmButton: 'premium-button' }
-                });
-                return false;
-            }
-        }
-        if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
-        if (!check('st_wali', 'Status Wali Santri')) return false;
-    }
-    
-    // --- VALIDASI TAB ALAMAT ---
-    else if (tabId === 'alamat') {
-        if (!check('prov_ayah', 'Provinsi')) return false;
-        if (!check('kab_ayah', 'Kabupaten')) return false;
-        if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
-        if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
-        if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
-    }
-    
-    // --- VALIDASI TAB PERNYATAAN ---
-    else if (tabId === 'pernyataan') {
-        const elCek = document.getElementsByName('cek_pernyataan')[0];
-        if (!elCek || !elCek.checked) {
-            Swal.fire({
-                title: 'Persetujuan Diperlukan',
-                text: 'Silakan centang kotak persetujuan di bawah sebelum mengirimkan data pendaftaran.',
+                title: 'Data Belum Lengkap',
+                html: message,
                 icon: 'warning',
-                iconColor: '#bc6c25',
-                confirmButtonText: 'Baik, Saya Mengerti',
-                confirmButtonColor: '#1a5319',
+                iconColor: '#bc6c25', // Emas premium
+                confirmButtonText: 'Lengkapi Data',
+                confirmButtonColor: '#1a5319', // Hijau tua khas pondok
                 background: '#ffffff',
-                showClass: { popup: 'animate__animated animate__fadeInUp animate__faster' },
-                hideClass: { popup: 'animate__animated animate__fadeOutDown animate__faster' },
                 customClass: {
                     popup: 'premium-popup',
                     title: 'premium-title',
@@ -1574,13 +1470,122 @@
                     confirmButton: 'premium-button'
                 }
             });
-            return false;
+        };
+
+        const check = (name, label) => {
+            const el = document.getElementsByName(name)[0];
+            if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
+                showWarningAlert(`Field <b>${label}</b> wajib diisi!`);
+                return false;
+            }
+            return true;
+        };
+
+        // --- VALIDASI TAB SANTRI ---
+        if (tabId === 'santri') {
+            if (!check('nama_santri', 'Nama Lengkap')) return false;
+            if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
+            if (!check('nik', 'NIK')) return false;
+            if (!check('no_kk', 'Nomor KK')) return false;
+            if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
+
+            const nikVal = document.getElementsByName('nik')[0]?.value || "";
+            if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
+                Swal.fire({
+                    title: 'Format Salah',
+                    text: 'NIK Santri harus 16 digit angka!',
+                    icon: 'error',
+                    iconColor: '#d33',
+                    confirmButtonText: 'Perbaiki NIK',
+                    confirmButtonColor: '#1a5319'
+                });
+                return false;
+            }
+        } 
+        // --- VALIDASI TAB ORANG TUA ---
+        else if (tabId === 'ortu') {
+            const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
+
+            if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
+            if (!check('st_ayah', 'Status Ayah')) return false;
+
+            if (statusAyah === 'Masih Hidup') {
+                if (!check('nik_ayah', 'NIK Ayah')) return false;
+                if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
+                
+                const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
+                if (nikA.length !== 16 || !isNumeric.test(nikA)) {
+                    Swal.fire({
+                        title: 'Format Salah',
+                        text: 'NIK Ayah harus 16 digit angka!',
+                        icon: 'error',
+                        iconColor: '#d33',
+                        confirmButtonText: 'Perbaiki NIK',
+                        confirmButtonColor: '#1a5319'
+                    });
+                    return false;
+                }
+            }
+            if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
+            if (!check('st_wali', 'Status Wali Santri')) return false;
         }
+        // --- VALIDASI TAB ALAMAT ---
+        else if (tabId === 'alamat') {
+            if (!check('prov_ayah', 'Provinsi')) return false;
+            if (!check('kab_ayah', 'Kabupaten')) return false;
+            if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
+            if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
+            if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
+        }
+        // --- VALIDASI TAB PERNYATAAN ---
+        else if (tabId === 'pernyataan') {
+            const elCek = document.getElementsByName('cek_pernyataan')[0];
+            if (!elCek || !elCek.checked) {
+                Swal.fire({
+                    title: 'Persetujuan Diperlukan',
+                    text: 'Silakan centang kotak persetujuan di bawah sebelum mengirimkan data pendaftaran.',
+                    icon: 'warning',
+                    iconColor: '#bc6c25',
+                    confirmButtonText: 'Baik, Saya Mengerti',
+                    confirmButtonColor: '#1a5319'
+                });
+                return false;
+            }
+        }
+        return true; 
     }
-    return true; 
-}
-    
-  function nextTab(targetId) {
+
+    /* --- NAVIGASI MULTI-TAB --- */
+    function openTab(evt, targetId) {
+        const tabcontents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].style.display = "none";
+            tabcontents[i].classList.remove("active");
+        }
+
+        const tablinks = document.getElementsByClassName("tab-link");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        const targetTab = document.getElementById(targetId);
+        if (targetTab) {
+            targetTab.style.display = "block";
+            targetTab.classList.add("active");
+        } else {
+            console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
+        }
+
+        if (evt && evt.currentTarget) {
+            evt.currentTarget.classList.add('active');
+        } else {
+            const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
+            if (autoBtn) autoBtn.classList.add('active');
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextTab(targetId) {
         const currentTab = document.querySelector('.tab-content.active');
         const currentTabId = currentTab ? currentTab.id : 'santri';
 
@@ -1593,9 +1598,35 @@
         openTab(null, targetId);
     }
 
-    /* =========================================================
-       FUNGSI CONDITIONAL FIELD (INPUT MODIFIERS)
-    ==========================================================*/
+    /* --- MODIFIER CONDITIONAL INPUT (LOCK & AUTOFIND) --- */
+    function toggleAyahFields(status) {
+        const fieldsToLock = [
+            'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
+            'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
+        ];
+        const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
+
+        fieldsToLock.forEach(name => {
+            const el = document.getElementsByName(name)[0];
+            if (el) {
+                if (isLocked) {
+                    if (el.type === 'date' || el.tagName === 'SELECT') {
+                        el.value = ""; 
+                    } else {
+                        el.value = "-";
+                    }
+                    el.tagName === 'SELECT' ? el.disabled = true : el.readOnly = true;
+                    el.style.backgroundColor = "#e9ecef";
+                    el.style.opacity = "0.7";
+                } else {
+                    if (el.value === "-") el.value = "";
+                    el.tagName === 'SELECT' ? el.disabled = false : el.readOnly = false;
+                    el.style.backgroundColor = "#ffffff";
+                    el.style.opacity = "1";
+                }
+            }
+        });
+    }
 
     function handleNoNISN(checked) {
         const nisnInput = document.getElementsByName('nisn')[0]; 
@@ -1645,9 +1676,7 @@
         }
     }
 
-    /* =========================================================
-       INTEGRASI WHATSAPP REPORT NOTIFICATION
-    ========================================================= */
+    /* --- NOTIFIKASI TELEGRAM/WHATSAPP REPORT ENGINE --- */
     function kirimWA() {
         const gV = (name) => {
             const el = document.getElementsByName(name)[0];
@@ -1666,7 +1695,7 @@
         const elCek = document.getElementsByName('cek_pernyataan')[0];
         const status_setuju = (elCek && elCek.checked) ? "✅ SUDAH MENYETUJUI" : "❌ BELUM MENYETUJUI";
 
-        // Emoji Unicode
+        // Emoji Unicode Definition
         const ICON_SANTRI   = "🧒";
         const ICON_AYAH     = "👲";
         const ICON_IBU      = "🧕";
@@ -1680,7 +1709,6 @@
         m += "*DAARUL KHOIROT AL-MADANI*\n";
         m += "------------------------------------------\n\n";
 
-        // DATA SANTRI
         m += `*${ICON_SANTRI} DATA SANTRI*\n`;
         m += "• Nama: " + gV('nama_santri') + "\n";
         m += "• Unit: " + gV('tingkat_unit') + "\n";
@@ -1696,7 +1724,6 @@
         m += "• Disabilitas: " + gV('disabilitas') + "\n";
         m += "• Biaya Oleh: " + gV('biaya') + "\n\n";
 
-        // DATA AYAH
         m += `*${ICON_AYAH} DATA AYAH*\n`;
         m += "• Status: " + gV('st_ayah') + "\n";
         m += "• Nama Ayah: " + gV('nama_ayah') + "\n";
@@ -1709,7 +1736,6 @@
         m += "• Penghasilan: " + gV('hasil_ayah') + "\n";
         m += "• No. HP: " + gV('hp_ayah') + "\n\n";
 
-        // DATA IBU
         m += `*${ICON_IBU} DATA IBU*\n`;
         m += "• Status: " + gV('st_ibu') + "\n";
         m += "• Nama Ibu: " + gV('nama_ibu') + "\n";
@@ -1721,7 +1747,6 @@
         m += "• Penghasilan: " + gV('hasil_ibu') + "\n";
         m += "• No. HP: " + gV('hp_ibu') + "\n\n";
 
-        // DATA ALAMAT 
         m += `*${RUMAH_AYAH} ALAMAT AYAH*\n`;
         m += "• Status Milik: " + gV('milik_ayah') + "\n";
         m += "• Alamat: " + gV('al_ayah') + ", RT." + gV('rt_ayah') + "/RW." + gV('rw_ayah') + "\n";
@@ -1738,7 +1763,6 @@
         m += "  Desa: " + gT('desa_santri') + ", Kec: " + gT('kec_santri') + "\n";
         m += "• Wilayah: " + gT('kab_santri') + ", " + gT('prov_santri') + "\n\n";
 
-        // DATA WAWANCARA & TAMBAHAN
         m += `*${CLIP} INFORMASI TAMBAHAN*\n`;
         m += "• Visi: " + gV('w_visi') + "\n";
         m += "• Pola: " + gV('w_pola') + "\n";
@@ -1759,144 +1783,77 @@
         window.open(waUrl, '_blank');
     }
 
-    /* =========================================================
-       DOM EVENT LISTENERS (UI NAVIGATION RESPONSIVENESS)
-    ========================================================= */
-document.addEventListener("DOMContentLoaded", function() {
-    /* =========================================================
-       1. LOGIKA NAVIGASI MENU (RESPONSIVE MENU TOGGLE)
-    ========================================================= */
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
-    const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-    const menuItems = document.querySelectorAll("nav ul li a");
-
-    if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            nav.classList.toggle('show');
-        });
-    }
-
-    menuItems.forEach(item => {
-        const href = item.getAttribute("href");
-        if (href === currentUrl) {
-            item.classList.add("active");
-        }
-        item.addEventListener('click', function() {
-            if (nav) nav.classList.remove('show');
-        });
-    });
-
-    document.addEventListener('click', function(e) {
-        if (nav && menuToggle && !nav.contains(e.target) && e.target !== menuToggle) {
-            nav.classList.remove('show');
-        }
-    });
+    // Ambil akses scope global window agar fungsi navigasi dikenal tag <button onclick="...">
+    window.openTab = openTab;
+    window.kirimWA = kirimWA;
 
     /* =========================================================
-       2. LOGIKA VALIDASI REAL-TIME (16 DIGIT NIK / KK)
+       3. DOM EVENT LISTENERS & INHERENT INITIALIZATION
     ========================================================= */
-    const isNumeric = /^\d+$/;
+    document.addEventListener("DOMContentLoaded", function() {
+        // A. Navigasi Responsive Menu Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+        const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+        const menuItems = document.querySelectorAll("nav ul li a");
 
-    // Mesin Validator Utama
-    function pasangValidasi16Digit(inputId, errorId, labelNama) {
-        const inputEl = document.getElementById(inputId);
-        const errorEl = document.getElementById(errorId);
-
-        if (inputEl && errorEl) {
-            inputEl.addEventListener("input", function() {
-                const val = inputEl.value.trim();
-
-                if (val === "") {
-                    inputEl.classList.remove("input-error", "input-success");
-                    errorEl.style.display = "none";
-                } 
-                else if (val.length !== 16 || !isNumeric.test(val)) {
-                    inputEl.classList.add("input-error");
-                    inputEl.classList.remove("input-success");
-                    errorEl.textContent = `${labelNama} harus berupa 16 digit angka!`;
-                    errorEl.style.display = "block";
-                } 
-                else {
-                    inputEl.classList.add("input-success");
-                    inputEl.classList.remove("input-error");
-                    errorEl.style.display = "none";
-                }
+        if (menuToggle && nav) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                nav.classList.toggle('show');
             });
         }
-    }
 
-    // Mengaktifkan sistem pada kolom ID masing-masing
-    pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
-    pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
-    pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
-});
+        menuItems.forEach(item => {
+            const href = item.getAttribute("href");
+            if (href === currentUrl) {
+                item.classList.add("active");
+            }
+            item.addEventListener('click', function() {
+                if (nav) nav.classList.remove('show');
+            });
+        });
 
-function openTab(evt, targetId) {
-    const tabcontents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabcontents.length; i++) {
-        tabcontents[i].style.display = "none";
-        tabcontents[i].classList.remove("active");
-    }
-
-    const tablinks = document.getElementsByClassName("tab-link");
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    const targetTab = document.getElementById(targetId);
-    if (targetTab) {
-        targetTab.style.display = "block";
-        targetTab.classList.add("active");
-    } else {
-        console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
-    }
-
-    if (evt && evt.currentTarget) {
-        evt.currentTarget.classList.add('active');
-    } else {
-        const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
-        if (autoBtn) autoBtn.classList.add('active');
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // --- TAMBAHKAN BARIS INI AGAR BISA DIAKSES OLEH HTML ---
-    window.openTab = openTab; 
-}
-
-function toggleAyahFields(status) {
-        const fieldsToLock = [
-            'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah', 
-            'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
-        ];
-        const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
-
-        fieldsToLock.forEach(name => {
-            const el = document.getElementsByName(name)[0];
-            if (el) {
-                if (isLocked) {
-                    if (el.type === 'date' || el.tagName === 'SELECT') {
-                        el.value = ""; 
-                    } else {
-                        el.value = "-";
-                    }
-                    el.tagName === 'SELECT' ? el.disabled = true : el.readOnly = true;
-                    el.style.backgroundColor = "#e9ecef";
-                    el.style.opacity = "0.7";
-                } else {
-                    if (el.value === "-") el.value = "";
-                    el.tagName === 'SELECT' ? el.disabled = false : el.readOnly = false;
-                    el.style.backgroundColor = "#ffffff";
-                    el.style.opacity = "1";
-                }
+        document.addEventListener('click', function(e) {
+            if (nav && menuToggle && !nav.contains(e.target) && e.target !== menuToggle) {
+                nav.classList.remove('show');
             }
         });
-    }
 
+        // B. Real-time Validator Engine (16-Digit Checker)
+        const isNumeric = /^\d+$/;
+        function pasangValidasi16Digit(inputId, errorId, labelNama) {
+            const inputEl = document.getElementById(inputId);
+            const errorEl = document.getElementById(errorId);
 
-</script>
-    
+            if (inputEl && errorEl) {
+                inputEl.addEventListener("input", function() {
+                    const val = inputEl.value.trim();
+                    if (val === "") {
+                        inputEl.classList.remove("input-error", "input-success");
+                        errorEl.style.display = "none";
+                    } else if (val.length !== 16 || !isNumeric.test(val)) {
+                        inputEl.classList.add("input-error");
+                        inputEl.classList.remove("input-success");
+                        errorEl.textContent = `${labelNama} harus berupa 16 digit angka!`;
+                        errorEl.style.display = "block";
+                    } else {
+                        inputEl.classList.add("input-success");
+                        inputEl.classList.remove("input-error");
+                        errorEl.style.display = "none";
+                    }
+                });
+            }
+        }
+
+        pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
+        pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
+        pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
+
+        // C. Fetch Data Awal (Provinsi Ayah)
+        loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+    });
+</script>  
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
