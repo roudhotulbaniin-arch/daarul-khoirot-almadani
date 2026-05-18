@@ -1448,6 +1448,7 @@
             if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
             if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
         }
+            
        else if (tabId === 'pernyataan') {
             const elCek = document.getElementsByName('cek_pernyataan')[0];
             if (!elCek || !elCek.checked) {
@@ -1475,6 +1476,35 @@
                 return false;
             }
         }
+    function openTab(evt, targetId) {
+        const tabcontents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].style.display = "none";
+            tabcontents[i].classList.remove("active");
+        }
+
+        const tablinks = document.getElementsByClassName("tab-link");
+        for (let i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        const targetTab = document.getElementById(targetId);
+        if (targetTab) {
+            targetTab.style.display = "block";
+            targetTab.classList.add("active");
+        } else {
+            console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
+        }
+
+        if (evt && evt.currentTarget) {
+            evt.currentTarget.classList.add('active');
+        } else {
+            const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
+            if (autoBtn) autoBtn.classList.add('active');
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
         for (let i = 0; i < tabcontents.length; i++) {
