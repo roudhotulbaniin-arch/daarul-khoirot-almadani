@@ -1448,21 +1448,33 @@
             if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
             if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
         }
-        else if (tabId === 'pernyataan') {
+       else if (tabId === 'pernyataan') {
             const elCek = document.getElementsByName('cek_pernyataan')[0];
             if (!elCek || !elCek.checked) {
                 Swal.fire({
-                    icon: 'error',
                     title: 'Persetujuan Diperlukan',
-                    text: 'Anda harus menyetujui seluruh pernyataan sebelum dapat menyimpan pendaftaran.',
-                    confirmButtonColor: '#d33'
+                    text: 'Silakan centang kotak persetujuan di bawah sebelum mengirimkan data pendaftaran.',
+                    icon: 'warning',
+                    iconColor: '#bc6c25', // Warna emas/cokelat hangat premium untuk warning
+                    confirmButtonText: 'Baik, Saya Mengerti',
+                    confirmButtonColor: '#1a5319', // Hijau tua khas Daarul Khoirot
+                    background: '#ffffff',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInUp animate__faster' // Efek muncul halus
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutDown animate__faster'
+                    },
+                    customClass: {
+                        popup: 'premium-popup',
+                        title: 'premium-title',
+                        htmlContainer: 'premium-text',
+                        confirmButton: 'premium-button'
+                    }
                 });
                 return false;
             }
         }
-        return true; 
-    }
-
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
         for (let i = 0; i < tabcontents.length; i++) {
