@@ -1419,22 +1419,28 @@ function isiAlamatPesantren() {
 
 function toggleDomisiliIbu(val) {
     const box = document.getElementById('box_ibu');
-    if (!box) {
-        console.error("box_ibu tidak ditemukan");
-        return;
+    
+    // Jika elemen box_ibu ada di HTML, atur tampilannya. Jika tidak ada, lompati (jangan di-return/dihentikan)
+    if (box) {
+        box.style.display = (val === "") ? 'none' : 'grid';
+    } else {
+        console.warn("Peringatan: Elemen id 'box_ibu' tidak ditemukan di HTML, tetapi proses data tetap dilanjutkan.");
     }
-
-    box.style.display = val ? 'grid' : 'none';
 
     if (val === 'sama') {
         if (!dataAyahLengkap()) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Peringatan',
-                text: 'Lengkapi Alamat Ayah terlebih dahulu'
+                text: 'Lengkapi Alamat Ayah terlebih dahulu',
+                confirmButtonColor: '#2d6a4f'
             });
-            getEl('pilih_dom_ibu').value = "";
-            box.style.display = 'none';
+            
+            // Menggunakan sintaks standar browser jika fungsi kustom getEl() tidak ada
+            const elDomIbu = document.getElementsByName('pilih_dom_ibu')[0];
+            if (elDomIbu) elDomIbu.value = "";
+            
+            if (box) box.style.display = 'none';
             return;
         }
 
@@ -1448,6 +1454,8 @@ function toggleDomisiliIbu(val) {
     }
 }
 
+// Pastikan fungsi diekspos ke window scope
+window.toggleDomisiliIbu = toggleDomisiliIbu;
 function toggleDomisiliSantri(val) {
     const box = document.getElementById('box_santri');
     if (!box) return;
