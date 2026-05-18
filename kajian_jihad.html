@@ -144,6 +144,17 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
+        /* --- STYLE BARU UNTUK WADAH TOMBOL DI BAWAH --- */
+        .bottom-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px; /* Jarak renggang antara tombol dengan batas bawah artikel */
+            margin-bottom: 10px; /* Jarak renggang aman sebelum menyentuh footer */
+            width: 100%;
+        }
+
+
+
         .full-news-card {
             background: var(--white);
             padding: 40px;
@@ -323,9 +334,7 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* --- 5. RESPONSIVE LAYOUT (HP) --- */
-        @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; }
+        header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
             .logo h1 { font-size: 1rem !important; }
             .container { padding: 2rem 5%; }
@@ -333,7 +342,15 @@
             .hero-banner { max-height: 250px; margin-bottom: 20px; }
             .news-header h2 { font-size: 1.4rem; }
             .arabic-text { font-size: 1.5rem; line-height: 2; }
-   .btn-kembali { width: 100%; }
+            
+            /* PERBAIKAN UKURAN TOMBOL UNTUK HP */
+            .btn-kembali { 
+                width: auto;             /* Lebar otomatis mengikuti panjang teks */
+                min-width: 200px;        /* Batas lebar minimal yang lebih pas di HP */
+                padding: 10px 20px;      /* Mengurangi tinggi dan ruang dalam tombol */
+                font-size: 1rem;         /* Ukuran font diperkecil agar proporsional */
+            }
+
 
             #menu-toggle {
                 display: block !important; 
@@ -392,10 +409,6 @@
     </header>
 
     <main class="container">
-        <a href="info_islam.html" class="btn-kembali"><i class="fas fa-arrow-left"></i>
-Info Dunia Islam
-</a>
-
         <article class="full-news-card">
             
             <div class="hero-banner">
@@ -468,6 +481,11 @@ Info Dunia Islam
                 <span class="reporter-tag">Koresponden: "Uwa"</span>
             </div>
         </article>
+    <div class="bottom-actions">
+        <a href="info_islam.html" class="btn-kembali">
+            <i class="fas fa-arrow-left"></i> Info Dunia Islam
+        </a>
+    </div>
     </main>
 
     <footer> 
