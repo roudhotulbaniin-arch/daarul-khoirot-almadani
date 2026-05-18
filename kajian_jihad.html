@@ -122,19 +122,26 @@
             flex: 1; 
         }
 
+        /* --- TOMBOL KEMBALI (PERBAIKAN) --- */
         .btn-kembali {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary-color);
+            color: white;
+            background: var(--primary-color);
+            padding: 15px 40px; /* Lebar ditambah */
             text-decoration: none;
+            border-radius: 8px;
             font-weight: 600;
-            margin-bottom: 20px;
-            transition: 0.2s;
+            display: inline-block;
+            font-size: 1.3rem; /* Ukuran teks ditambah */
+            transition: 0.3s;
+            min-width: 280px; /* Lebar minimal tombol */
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .btn-kembali:hover {
-            color: var(--secondary-color);
+            background: #144614;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         .full-news-card {
