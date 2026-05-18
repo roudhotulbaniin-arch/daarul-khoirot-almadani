@@ -1848,44 +1848,44 @@
     /* =========================================================
        DOM EVENT LISTENERS (UI NAVIGATION RESPONSIVENESS)
     ========================================================= */
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuToggle = document.getElementById('menu-toggle');
-        const nav = document.querySelector('nav');
-        const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-        const menuItems = document.querySelectorAll("nav ul li a");
+document.addEventListener("DOMContentLoaded", function() {
+    /* =========================================================
+       1. LOGIKA NAVIGASI MENU (RESPONSIVE MENU TOGGLE)
+    ========================================================= */
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.querySelector('nav');
+    const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+    const menuItems = document.querySelectorAll("nav ul li a");
 
-        if (menuToggle && nav) {
-            menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                nav.classList.toggle('show');
-            });
-        }
-
-        menuItems.forEach(item => {
-            const href = item.getAttribute("href");
-            if (href === currentUrl) {
-                item.classList.add("active");
-            }
-            item.addEventListener('click', function() {
-                if (nav) nav.classList.remove('show');
-            });
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            nav.classList.toggle('show');
         });
+    }
 
-        document.addEventListener('click', function(e) {
-            if (nav && menuToggle && !nav.contains(e.target) && e.target !== menuToggle) {
-                nav.classList.remove('show');
-            }
+    menuItems.forEach(item => {
+        const href = item.getAttribute("href");
+        if (href === currentUrl) {
+            item.classList.add("active");
+        }
+        item.addEventListener('click', function() {
+            if (nav) nav.classList.remove('show');
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener('click', function(e) {
+        if (nav && menuToggle && !nav.contains(e.target) && e.target !== menuToggle) {
+            nav.classList.remove('show');
+        }
+    });
+
+    /* =========================================================
+       2. LOGIKA VALIDASI REAL-TIME (16 DIGIT NIK / KK)
+    ========================================================= */
     const isNumeric = /^\d+$/;
 
-    // Fungsi helper universal untuk validasi real-time kolom 16 digit (NIK / KK)
-   document.addEventListener("DOMContentLoaded", function() {
-    const isNumeric = /^\d+$/;
-
-    // 1. Definisikan fungsi mesin validasinya
+    // Mesin Validator Utama
     function pasangValidasi16Digit(inputId, errorId, labelNama) {
         const inputEl = document.getElementById(inputId);
         const errorEl = document.getElementById(errorId);
@@ -1913,12 +1913,11 @@
         }
     }
 
-    // 2. Panggil fungsi di atas untuk mengaktifkan ketiga kolom tersebut
+    // Mengaktifkan sistem pada kolom ID masing-masing
     pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
     pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
     pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
 });
-</script>
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
