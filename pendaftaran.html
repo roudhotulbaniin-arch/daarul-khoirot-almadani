@@ -1580,39 +1580,7 @@
     return true; 
 }
     
-  function openTab(evt, targetId) {
-    const tabcontents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabcontents.length; i++) {
-        tabcontents[i].style.display = "none";
-        tabcontents[i].classList.remove("active");
-    }
-
-    const tablinks = document.getElementsByClassName("tab-link");
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    const targetTab = document.getElementById(targetId);
-    if (targetTab) {
-        targetTab.style.display = "block";
-        targetTab.classList.add("active");
-    } else {
-        console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
-    }
-
-    if (evt && evt.currentTarget) {
-        evt.currentTarget.classList.add('active');
-    } else {
-        const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
-        if (autoBtn) autoBtn.classList.add('active');
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // --- TAMBAHKAN BARIS INI AGAR BISA DIAKSES OLEH HTML ---
-    window.openTab = openTab; 
-}
-
-    function nextTab(targetId) {
+  function nextTab(targetId) {
         const currentTab = document.querySelector('.tab-content.active');
         const currentTabId = currentTab ? currentTab.id : 'santri';
 
@@ -1892,10 +1860,44 @@ document.addEventListener("DOMContentLoaded", function() {
     pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
     pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
 });
+function openTab(evt, targetId) {
+    const tabcontents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+        tabcontents[i].classList.remove("active");
+    }
+
+    const tablinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    const targetTab = document.getElementById(targetId);
+    if (targetTab) {
+        targetTab.style.display = "block";
+        targetTab.classList.add("active");
+    } else {
+        console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
+    }
+
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active');
+    } else {
+        const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
+        if (autoBtn) autoBtn.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // --- TAMBAHKAN BARIS INI AGAR BISA DIAKSES OLEH HTML ---
+    window.openTab = openTab; 
+}
+
+</script>
+    
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
 </a>
 
 </body>
-</html> 
+</html>
