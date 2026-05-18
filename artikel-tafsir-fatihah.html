@@ -208,24 +208,14 @@
         <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
-    <audio id="murottal" src="murottal_start.mp3" loop></audio>
+    
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
     <script>
-        const murottal = document.getElementById('murottal');
+       
         const clickSound = document.getElementById('clickSound');
         const navLinks = document.querySelectorAll('nav ul li a'); 
-        let hasInteracted = false;
-
-        function playMurottal() {
-            if (!hasInteracted) {
-                murottal.volume = 0.4; 
-                murottal.play().catch(e => console.log(e));
-                hasInteracted = true;
-                document.removeEventListener('click', playMurottal);
-            }
-        }
-        document.addEventListener('click', playMurottal);
+        let hasInteracted = false;
 
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
