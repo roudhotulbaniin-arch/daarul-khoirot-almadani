@@ -1428,93 +1428,126 @@
     /* =========================================================
        FUNGSI NAVIGASI & VALIDASI TERPADU
     ========================================================= */
-    function validateInput(tabId) {
-        const isNumeric = /^\d+$/;
-        
-        const check = (name, label) => {
-            const el = document.getElementsByName(name)[0];
-            if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Data Belum Lengkap',
-                    html: `Field <b>${label}</b> wajib diisi!`,
-                    confirmButtonColor: '#1a5319'
-                });
-                return false;
+   function validateInput(tabId) {
+    const isNumeric = /^\d+$/;
+    
+    // Helper kustom untuk memunculkan alert warning premium yang seragam
+    const showWarningAlert = (message) => {
+        Swal.fire({
+            title: 'Data Belum Lengkap',
+            html: message,
+            icon: 'warning',
+            iconColor: '#bc6c25', // Warna emas premium
+            confirmButtonText: 'Lengkapi Data',
+            confirmButtonColor: '#1a5319', // Hijau tua khas
+            background: '#ffffff',
+            showClass: { popup: 'animate__animated animate__fadeInUp animate__faster' },
+            hideClass: { popup: 'animate__animated animate__fadeOutDown animate__faster' },
+            customClass: {
+                popup: 'premium-popup',
+                title: 'premium-title',
+                htmlContainer: 'premium-text',
+                confirmButton: 'premium-button'
             }
-            return true;
-        };
+        });
+    };
 
-        if (tabId === 'santri') {
-            if (!check('nama_santri', 'Nama Lengkap')) return false;
-            if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
-            if (!check('nik', 'NIK')) return false;
-            if (!check('no_kk', 'Nomor KK')) return false;
-            if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
-
-            const nikVal = document.getElementsByName('nik')[0]?.value || "";
-            if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
-                Swal.fire('Format Salah', 'NIK Santri harus 16 digit angka!', 'error');
-                return false;
-            }
-        } 
-        else if (tabId === 'ortu') {
-            const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
-
-            if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
-            if (!check('st_ayah', 'Status Ayah')) return false;
-
-            if (statusAyah === 'Masih Hidup') {
-                if (!check('nik_ayah', 'NIK Ayah')) return false;
-                if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
-                
-                const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
-                if (nikA.length !== 16 || !isNumeric.test(nikA)) {
-                    Swal.fire('Format Salah', 'NIK Ayah harus 16 digit angka!', 'error');
-                    return false;
-                }
-            }
-            if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
-            if (!check('st_wali', 'Status Wali Santri')) return false;
+    const check = (name, label) => {
+        const el = document.getElementsByName(name)[0];
+        if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
+            showWarningAlert(`Field <b>${label}</b> wajib diisi!`);
+            return false;
         }
-        else if (tabId === 'alamat') {
-            if (!check('prov_ayah', 'Provinsi')) return false;
-            if (!check('kab_ayah', 'Kabupaten')) return false;
-            if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
-            if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
-            if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
+        return true;
+    };
+
+    // --- VALIDASI TAB SANTRI ---
+    if (tabId === 'santri') {
+        if (!check('nama_santri', 'Nama Lengkap')) return false;
+        if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
+        if (!check('nik', 'NIK')) return false;
+        if (!check('no_kk', 'Nomor KK')) return false;
+        if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
+
+        const nikVal = document.getElementsByName('nik')[0]?.value || "";
+        if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
+            Swal.fire({
+                title: 'Format Salah',
+                text: 'NIK Santri harus 16 digit angka!',
+                icon: 'error',
+                iconColor: '#d33',
+                confirmButtonText: 'Perbaiki NIK',
+                confirmButtonColor: '#1a5319',
+                customClass: { popup: 'premium-popup', title: 'premium-title', confirmButton: 'premium-button' }
+            });
+            return false;
         }
+    } 
+    
+    // --- VALIDASI TAB ORANG TUA ---
+    else if (tabId === 'ortu') {
+        const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
+
+        if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
+        if (!check('st_ayah', 'Status Ayah')) return false;
+
+        if (statusAyah === 'Masih Hidup') {
+            if (!check('nik_ayah', 'NIK Ayah')) return false;
+            if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
             
-       else if (tabId === 'pernyataan') {
-            const elCek = document.getElementsByName('cek_pernyataan')[0];
-            if (!elCek || !elCek.checked) {
+            const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
+            if (nikA.length !== 16 || !isNumeric.test(nikA)) {
                 Swal.fire({
-                    title: 'Persetujuan Diperlukan',
-                    text: 'Silakan centang kotak persetujuan di bawah sebelum mengirimkan data pendaftaran.',
-                    icon: 'warning',
-                    iconColor: '#bc6c25',
-                    confirmButtonText: 'Baik, Saya Mengerti',
+                    title: 'Format Salah',
+                    text: 'NIK Ayah harus 16 digit angka!',
+                    icon: 'error',
+                    iconColor: '#d33',
+                    confirmButtonText: 'Perbaiki NIK',
                     confirmButtonColor: '#1a5319',
-                    background: '#ffffff',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInUp animate__faster'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutDown animate__faster'
-                    },
-                    customClass: {
-                        popup: 'premium-popup',
-                        title: 'premium-title',
-                        htmlContainer: 'premium-text',
-                        confirmButton: 'premium-button'
-                    }
+                    customClass: { popup: 'premium-popup', title: 'premium-title', confirmButton: 'premium-button' }
                 });
                 return false;
             }
         }
-
-        return true; 
+        if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
+        if (!check('st_wali', 'Status Wali Santri')) return false;
     }
+    
+    // --- VALIDASI TAB ALAMAT ---
+    else if (tabId === 'alamat') {
+        if (!check('prov_ayah', 'Provinsi')) return false;
+        if (!check('kab_ayah', 'Kabupaten')) return false;
+        if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
+        if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
+        if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
+    }
+    
+    // --- VALIDASI TAB PERNYATAAN ---
+    else if (tabId === 'pernyataan') {
+        const elCek = document.getElementsByName('cek_pernyataan')[0];
+        if (!elCek || !elCek.checked) {
+            Swal.fire({
+                title: 'Persetujuan Diperlukan',
+                text: 'Silakan centang kotak persetujuan di bawah sebelum mengirimkan data pendaftaran.',
+                icon: 'warning',
+                iconColor: '#bc6c25',
+                confirmButtonText: 'Baik, Saya Mengerti',
+                confirmButtonColor: '#1a5319',
+                background: '#ffffff',
+                showClass: { popup: 'animate__animated animate__fadeInUp animate__faster' },
+                hideClass: { popup: 'animate__animated animate__fadeOutDown animate__faster' },
+                customClass: {
+                    popup: 'premium-popup',
+                    title: 'premium-title',
+                    htmlContainer: 'premium-text',
+                    confirmButton: 'premium-button'
+                }
+            });
+            return false;
+        }
+    }
+    return true; 
+}
     
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
