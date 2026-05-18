@@ -308,6 +308,42 @@
             70% { transform: scale(1.12); }
             100% { transform: scale(1); }
         }
+
+      /* --- SWEETALERT2 PREMIUM DESIGN --- */
+.premium-popup {
+    border-radius: 16px !important; /* Lekukan halus modern */
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15) !important; /* Bayangan mewah */
+    padding: 2rem !important;
+    font-family: 'Poppins', 'Segoe UI', sans-serif !important;
+}
+
+.premium-title {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #1a5319 !important; /* Warna judul hijau tua */
+    margin-top: 15px !important;
+}
+
+.premium-text {
+    font-size: 1rem !important;
+    color: #555555 !important;
+    line-height: 1.6 !important;
+}
+
+.premium-button {
+    border-radius: 8px !important; /* Membulat serasi dengan tombol utama form */
+    padding: 12px 30px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 4px 10px rgba(26, 83, 25, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.premium-button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 15px rgba(26, 83, 25, 0.3) !important;
+}
     </style>
 </head>
 <body>
@@ -1456,12 +1492,12 @@
                     title: 'Persetujuan Diperlukan',
                     text: 'Silakan centang kotak persetujuan di bawah sebelum mengirimkan data pendaftaran.',
                     icon: 'warning',
-                    iconColor: '#bc6c25', // Warna emas/cokelat hangat premium untuk warning
+                    iconColor: '#bc6c25',
                     confirmButtonText: 'Baik, Saya Mengerti',
-                    confirmButtonColor: '#1a5319', // Hijau tua khas Daarul Khoirot
+                    confirmButtonColor: '#1a5319',
                     background: '#ffffff',
                     showClass: {
-                        popup: 'animate__animated animate__fadeInUp animate__faster' // Efek muncul halus
+                        popup: 'animate__animated animate__fadeInUp animate__faster'
                     },
                     hideClass: {
                         popup: 'animate__animated animate__fadeOutDown animate__faster'
@@ -1476,6 +1512,10 @@
                 return false;
             }
         }
+
+        return true; 
+    }
+    
     function openTab(evt, targetId) {
         const tabcontents = document.getElementsByClassName("tab-content");
         for (let i = 0; i < tabcontents.length; i++) {
