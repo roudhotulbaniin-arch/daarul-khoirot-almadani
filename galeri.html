@@ -195,7 +195,7 @@
         }
 
         /* ==========================================================================
-           5. LIPUTAN BERITA UTAMA (CARD MODE)
+           5. LIPUTAN BERITA UTAMA (GRID MODE UNTUK BERITA BER-BANNER)
            ========================================================================== */
         .news-section-divider {
             text-align: center;
@@ -382,33 +382,7 @@
 
         .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
         .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
-
-        /* Floating WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--whatsapp-green);
-            color: white !important;
-            padding: 12px 20px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 9999;
-            transition: 0.3s;
-            animation: pulse-wa 2s infinite;
-        }
-        
-        @keyframes pulse-wa {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
+    
         /* Footer */
         footer { 
             background: var(--dark-footer); 
@@ -466,6 +440,9 @@
             
             nav.show ul { display: flex !important; }
 
+nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
+
+
             .container { padding: 2rem 5%; }
             .section-title-box h2 { font-size: 1.3rem; }
             .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -488,9 +465,6 @@
                 display: none;
             }
 
-            .whatsapp-float span { display: none; }
-            .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
-        }
     </style>
 </head>
 <body>
@@ -548,6 +522,7 @@
             </div>
 
             <main class="news-grid">
+                
                 <article class="news-card">
                     <div class="news-image">
                         <span class="news-badge">Liputan Berita</span>
@@ -565,6 +540,25 @@
                         </a>
                     </div>
                 </article>
+
+                <article class="news-card">
+                    <div class="news-image">
+                        <span class="news-badge">Infrastruktur</span>
+                        <img src="1000245181.jpg" alt="Pembangunan Kobong Panggung">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
+                            <span><i class="fas fa-tools"></i> Progres Fisik</span>
+                        </div>
+                        <h3>Pembangunan Kobong Panggung Struktur Cor Beton Mulai Memasuki Tahap Baru</h3>
+                        <p>Proses pembangunan fasilitas asrama/kobong panggung ukuran 3x9 meter di area pondok pesantren berjalan lancar menggunakan pilar cor beton kokoh dan dinding GRC panel.</p>
+                        <a href="berita_pembangunan.html" class="btn-readmore">
+                            Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
             </main>
 
             <div class="news-container">
