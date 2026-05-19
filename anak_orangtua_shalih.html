@@ -4,38 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Anak & Orang Tua Shalih</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-         /* --- PEMANGGILAN FONT AL-QUR'AN (KFGQPC HAFS) --- */
-        @font-face {
-            font-family: 'Uthmani';
-            src: url('https://cdn.rawgit.com/neofans/KFGQPC-Uthman-Taha-Hafs/master/font.ttf');
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="main_logo.png">
 
-        /* CSS MASTER */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
-        
+    <style>
+        /* --- 1. DESIGN VARIABLES & RESET --- */
         :root {
             --primary-color: #1a5d1a;
+            --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
             --light-bg: #f4f7f6;
-            --dark-footer: #113d11;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #d4e4d4;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Quicksand', sans-serif; 
+        }
+        
+        html {
+            scroll-behavior: smooth; 
         }
 
         body { 
-            line-height: 1.6; 
-            color: #333; 
+            line-height: 1.8; 
+            color: var(--text-dark); 
             background-color: var(--light-bg); 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- HEADER --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+        }
+
+        /* --- 2. HEADER & NAVIGASI DESKTOP --- */
         header { 
             background-color: var(--primary-color); 
             color: white; 
-            padding: 1rem 5%; 
+            padding: 10px 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -43,50 +61,192 @@
             top: 0; 
             z-index: 1000; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            min-height: 65px;
         }
 
-        .logo { display: flex; align-items: center; }
-        .logo h1 { font-size: 1.3rem; letter-spacing: 1px; }
-        .main-header-logo { max-height: 38px; margin-right: 12px; }
-
-        nav ul { list-style: none; display: flex; gap: 20px; }
-        nav ul li a { color: white !important; text-decoration: none; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        nav ul li a i { color: var(--secondary-color) !important; }
-
-        /* --- ARTIKEL --- */
-        .main-content { padding: 3rem 5%; flex: 1; }
-
-        .section-title { text-align: center; margin-bottom: 2rem; }
-        .section-title-box {
-            display: inline-flex;
+        .logo { 
+            display: flex; 
             align-items: center; 
-            padding: 10px 25px;
-            background-color: var(--primary-color);
-            color: white; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-        }
-        .section-title-box h2 { font-size: 1.5rem; margin: 0; padding-left: 15px; }
-
-        .article-body {
-            max-width: 850px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            gap: 12px;
+            flex-shrink: 0;
         }
         
-        .article-body h3 { color: var(--primary-color); margin: 25px 0 10px; border-left: 4px solid var(--secondary-color); padding-left: 15px; }
-        .article-body p { margin-bottom: 15px; text-align: justify; color: #444; }
+        .logo img { 
+            height: 40px; 
+            width: auto; 
+        }
 
-        .quran-text {
-            font-size: 1.5rem;
+        .logo h1 { 
+            font-size: 1.3rem; 
+            letter-spacing: 0.5px; 
+            white-space: nowrap;
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        }
+
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            transition: 0.3s; 
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav ul li a i { 
+            color: var(--secondary-color) !important; 
+            font-size: 0.9rem; 
+        }
+
+        nav ul li a:hover { 
+            color: var(--secondary-color) !important; 
+        }
+
+        nav ul li a.active-link { 
+            border-bottom: 3px solid var(--secondary-color) !important; 
+            color: var(--secondary-color) !important; 
+        }
+
+        #menu-toggle { 
+            display: none; 
+        }
+
+        /* --- 3. KONTEN UTAMA ARTIKEL --- */
+        .container { 
+            padding: 3rem 15%; 
+            flex: 1; 
+        }
+
+        .full-news-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .hero-banner {
+            width: 100%;
+            max-height: 450px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            background-color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center; 
+        }
+
+        .news-header {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .news-tag {
+            background: #e6f0e6;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .news-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 6px;
+        }
+
+        .news-body p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #333;
+            text-align: justify;
+        }
+
+        .news-body strong.location {
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+        }
+
+        .content-block-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 30px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 10px;
+        }
+
+        /* Desain Khusus Blok Kutipan / Hadits / Ayat Arab */
+        .arabic-container {
+            background: #fdfbf7;
+            border: 1px solid #e3dec3;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: normal;
+            line-height: 2.2;
+            color: #111;
             text-align: right;
-            margin: 20px 0;
-            font-family: 'Amiri', serif;
-            line-height: 1.5;
-            color: #222;
+            direction: rtl;
+            margin-bottom: 15px;
+        }
+
+        .translation-box {
+            border-top: 1px dashed #dcd6bc;
+            padding-top: 15px;
+            font-style: italic;
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .translation-box strong {
+            font-style: normal;
+            color: var(--primary-dark);
         }
 
         .highlight-box {
@@ -94,48 +254,115 @@
             padding: 20px;
             border-radius: 8px;
             border-left: 5px solid var(--primary-color);
-            margin: 20px 0;
+            margin: 25px 0;
         }
 
-        .article-image {
+        .news-footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .reporter-tag {
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        /* --- BUTTON & LAYOUT BAWAH --- */
+        .bottom-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px; 
+            margin-bottom: 10px; 
             width: 100%;
-            border-radius: 10px;
-            margin: 20px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* --- TOMBOL KEMBALI --- */
         .btn-kembali {
             color: white;
             background: var(--primary-color);
-            padding: 15px 60px; 
+            padding: 15px 40px;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             display: inline-block;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: 0.3s;
-            min-width: 300px;
+            min-width: 280px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .btn-kembali:hover { background: var(--dark-footer); transform: translateY(-2px); }
+        .btn-kembali:hover {
+            background: #144614;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
 
-        /* --- FOOTER --- */
+        /* --- 4. FOOTER --- */
         footer { 
-            background: #0d2e0d; 
+            background: var(--primary-dark); 
             color: white; 
-            padding: 20px 5%; 
+            padding: 40px 5% 20px; 
             text-align: center; 
             width: 100%;
+            margin-top: auto;
         }
-        .f-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
-        .f-address, .f-contact { font-size: 0.85rem; margin-bottom: 5px; opacity: 0.9; }
-        .f-copy { font-size: 0.8rem; opacity: 0.4; margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+        
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        @media (max-width: 992px) {
-            nav ul { display: none; }
-            .container { padding: 3rem 5%; }
+        /* --- 5. RESPONSIVE MODES --- */
+        @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 1rem !important; }
+            .container { padding: 2rem 5%; }
+            .full-news-card { padding: 20px; }
+            .hero-banner { max-height: 250px; margin-bottom: 20px; }
+            .news-header h2 { font-size: 1.4rem; }
+            .arabic-text { font-size: 1.8rem; line-height: 2; }
+            
+            .btn-kembali { 
+                width: auto;             
+                min-width: 200px;        
+                padding: 10px 20px;      
+                font-size: 1rem;         
+            }
+
+            #menu-toggle {
+                display: block !important; 
+                background: var(--secondary-color) !important;
+                color: var(--primary-dark) !important; 
+                border: none; 
+                padding: 6px 14px;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.85rem; 
+                cursor: pointer;
+            }
+
+            nav { 
+                display: none; 
+                position: absolute; 
+                top: 65px; 
+                left: 0; 
+                width: 100%; 
+                background: var(--primary-color); 
+                padding: 10px 0;
+                border-bottom: 3px solid var(--secondary-color); 
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 999;
+            }
+
+            nav.show { display: block !important; }
+            nav ul { flex-direction: column; gap: 0; }
+            nav ul li a { padding: 12px 25px !important; font-size: 0.95rem; width: 100%; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 20px !important; }
         }
     </style>
 </head>
@@ -143,70 +370,143 @@
 
     <header>
         <div class="logo">
-            <img src="main_logo.png" alt="Logo" class="main-header-logo">
+            <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
         </div>
+        
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+           
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><a href="info_islam.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li>
+                <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
+                <li><a href="info_islam.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li> 
                 <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="main-content">
-        <section id="artikel-shalih">
-            <div class="section-title">
-                <div class="section-title-box">
-                    <i class="fas fa-heart fa-2x"></i>
-                    <h2>Membangun Generasi & Keluarga Shalih</h2>
-                </div>
-                <p style="color: #666; margin-top: 15px;">Ditulis oleh Tim Redaksi | 18 Desember 2025</p>
+    <main class="container">
+        <article class="full-news-card">
+            
+            <div class="hero-banner">
+                <img src="https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?auto=format&fit=crop&q=80&w=850" alt="Ilustrasi Keluarga Islami">
             </div>
-        
-            <div class="article-body">
-                <img src="https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?auto=format&fit=crop&q=80&w=850" alt="Ilustrasi Keluarga Islami" class="article-image">
 
+            <div class="news-header">
+                <span class="news-tag">Info Islam</span>
+                <h2>Membangun Generasi & Keluarga Shalih</h2>
+                <div class="news-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 18 Desember 2025</span>
+                    <span><i class="fas fa-user"></i> Tim Redaksi</span>
+                    <span><i class="fas fa-book-open"></i> Keluarga Sakinah</span>
+                </div>
+            </div>
+
+            <div class="news-body">
                 <p>
-                    Keluarga adalah madrasah pertama bagi setiap insan. Menjadi anak yang shalih dan orang tua yang shalih bukanlah sekadar impian, melainkan sebuah investasi dunia dan akhirat yang sangat berharga.
+                    <strong class="location">KARAWANG</strong> – Keluarga adalah madrasah pertama bagi setiap insan. Menjadi anak yang shalih dan orang tua yang shalih bukanlah sekadar impian, melainkan sebuah investasi dunia dan akhirat yang sangat berharga.
                 </p>
 
-                <h3>1. Keutamaan Anak Shalih</h3>
-                <p>Anak yang shalih adalah aset terbesar orang tua. Rasulullah ﷺ bersabda bahwa doa anak yang shalih adalah satu dari tiga amalan yang tidak akan terputus pahalanya meskipun orang tua telah tiada.</p>
+                <h4 class="content-block-title"><i class="fas fa-star"></i> 1. Keutamaan Anak Shalih</h4>
+                <p>
+                    Anak yang shalih adalah aset terbesar orang tua. Rasulullah ﷺ bersabda bahwa doa anak yang shalih adalah satu dari tiga amalan yang tidak akan terputus pahalanya meskipun orang tua telah tiada.
+                </p>
                 
                 <div class="highlight-box">
-                    <p style="font-weight: bold; color: var(--primary-color);">Hadits Riwayat Muslim:</p>
-                    <p style="font-style: italic;">"Jika seseorang meninggal dunia, maka terputuslah amalannya kecuali tiga perkara: sedekah jariyah, ilmu yang bermanfaat, atau <b>anak shalih yang mendoakannya.</b>"</p>
+                    <p style="font-weight: bold; color: var(--primary-color); margin-bottom: 6px;"><i class="fas fa-quote-left"></i> Hadits Riwayat Muslim:</p>
+                    <p style="font-style: italic;">
+                        "Jika seseorang meninggal dunia, maka terputuslah amalannya kecuali tiga perkara: sedekah jariyah, ilmu yang bermanfaat, atau <strong>anak shalih yang mendoakannya.</strong>"
+                    </p>
                 </div>
 
-                <h3>2. Kewajiban & Kemuliaan Orang Tua</h3>
-                <p>Orang tua memiliki peran sentral dalam mencetak karakter anak. Mendidik anak dengan kasih sayang dan nilai-nilai Islam akan mengangkat derajat orang tua di surga kelak.</p>
-                
-                <p class="quran-text">رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِنْ ذُرِّيَّتِي ۚ رَبَّنَا وَتَقَبَّلْ دُعَاءِ</p>
-                <p style="font-size: 0,9rem; color: #666; text-align: left;">
-                    "Ya Tuhanku, jadikanlah aku dan anak cucuku orang-orang yang tetap mendirikan shalat, ya Tuhan kami, perkenankanlah doaku." (QS. Ibrahim: 40)
+                <h4 class="content-block-title"><i class="fas fa-star"></i> 2. Kewajiban & Kemuliaan Orang Tua</h4>
+                <p>
+                    Orang tua memiliki peran sentral dalam mencetak karakter anak. Mendidik anak dengan kasih sayang dan nilai-nilai Islam akan mengangkat derajat orang tua di surga kelak.
                 </p>
-
-                <h3>3. Saling Mendoakan</h3>
-                <p>Hubungan antara anak dan orang tua dalam Islam adalah hubungan yang penuh keberkahan. Anak wajib berbakti (Birrul Walidain), dan orang tua wajib membimbing dengan hikmah.</p>
                 
-                <p style="text-align: right; margin-top: 30px; font-style: italic; color: #888;">Wallahu a'lam bish-shawab.</p>
-                
-                <div style="text-align: center; margin-top: 40px;">
-                    <a href="info_islam.html" class="btn-kembali">
-                        <i class="fas fa-chevron-circle-left"></i> Kembali ke Info Islam
-                    </a>
+                <div class="arabic-container">
+                    <p class="arabic-text">رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِنْ ذُرِّيَّتِي ۚ رَبَّنَا وَتَقَبَّلْ دُعَاءِ</p>
+                    <div class="translation-box">
+                        <strong>Artinya:</strong> "Ya Tuhanku, jadikanlah aku dan anak cucuku orang-orang yang tetap mendirikan shalat, ya Tuhan kami, perkenankanlah doaku." <strong>(QS. Ibrahim: 40)</strong>
+                    </div>
                 </div>
+
+                <h4 class="content-block-title"><i class="fas fa-star"></i> 3. Saling Mendoakan</h4>
+                <p>
+                    Hubungan antara anak dan orang tua dalam Islam adalah hubungan yang penuh keberkahan. Anak wajib berbakti (<em>Birrul Walidain</em>), dan orang tua wajib membimbing dengan hikmah.
+                </p>
+                
+                <p style="text-align: right; margin-top: 30px; font-style: italic;">Wallahu a'lam bish-shawab.</p>
             </div>
-        </section>
+
+            <div class="news-footer">
+                <span>Kategori: Tarbiyah Islamiyah</span>
+                <span class="reporter-tag">Penyusun: Redaksi Dakwah</span>
+            </div>
+        </article>
+
+        <div class="bottom-actions">
+            <a href="info_islam.html" class="btn-kembali">
+                <i class="fas fa-arrow-left"></i> Kembali ke Info Islam
+            </a>
+        </div>
     </main>
 
     <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
+
+    <audio id="clickSound" src="click_sound.mp3"></audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.querySelector('nav');
+            const clickSound = document.getElementById('clickSound');
+            const menuItems = document.querySelectorAll("nav ul li a, .btn-kembali");
+
+            // Menu Toggle untuk Mode Mobile
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('show');
+                });
+            }
+
+            // Handler Efek Suara Click & Navigasi Halaman
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (clickSound) {
+                        clickSound.currentTime = 0;
+                        clickSound.play().catch(() => {});
+                    }
+                    if (nav) nav.classList.remove('show');
+
+                    const targetUrl = this.href;
+                    if (targetUrl && !targetUrl.includes('#') && !this.target) {
+                        e.preventDefault();
+                        setTimeout(() => { 
+                            window.location.href = targetUrl; 
+                        }, 200);
+                    }
+                });
+            });
+
+            // Tutup menu jika klik di luar area navigasi
+            document.addEventListener('click', function(e) {
+                if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                    nav.classList.remove('show');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
