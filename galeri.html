@@ -366,4 +366,149 @@
             <li><a href="galeri.html" class="active"><i class="fas fa-images"></i> Galeri</a></li>
             <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
-            <li><a href="info_islam.html"><i class="fas fa-mosque
+            <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+            <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+        </ul>
+    </nav>
+    
+    <button id="menu-toggle">
+        <i class="fas fa-bars"></i> Menu
+    </button>
+</header>
+
+<div class="container">
+    <section id="galeri">
+        <div class="section-title">
+            <div class="section-title-box">
+                <i class="fas fa-camera"></i>
+                <h2>Galeri Kegiatan</h2>
+            </div>
+            <p style="color: #666; margin-top: 10px;">Dokumentasi Kegiatan Santri dan Acara Pondok Pesantren.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="tahfizul_quran.jpg" alt="Tahfizul Quran"></div>
+            <div class="gallery-item"><img src="santri_berprestasi.jpeg" alt="Santri Berprestasi"></div>
+            <div class="gallery-item"><img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah"></div>
+            <div class="gallery-item"><img src="makan_bersama.jpeg" alt="Makan Bersama"></div>
+            <div class="gallery-item"><img src="latihan_hadhroh.jpeg" alt="Extra Kurikuler"></div>
+            <div class="gallery-item"><img src="panitia_phbi.jpeg" alt="Acara Maulid Nabi"></div>
+            <div class="gallery-item"><img src="tasmiul_quran.jpeg" alt="Program Hafalan"></div>
+            <div class="gallery-item"><img src="penghargaan_santri.jpeg" alt="Penghargaan Santri"></div>
+        </div>
+    </section>
+
+    <section id="berita" class="news-section">
+        <div style="text-align: center;">
+            <div class="btn-news-header">
+                <i class="fas fa-newspaper"></i> Berita Terbaru
+            </div>
+        </div>
+
+        <div class="news-container">
+            <a href="artikel-pembangunan-kobong.html" class="article-card">
+                <div class="date-badge">
+                    <span class="day">19</span>
+                    <span class="month">Mei</span>
+                </div>
+                <div class="article-text">
+                    <h3>Pembangunan Kobong Santri Model Panggung Dimulai</h3>
+                    <p>Optimalisasi lahan kosong berupa lorong jemuran di antara bangunan dapur utama dan MCK. Kamar santri dibangun dengan model panggung 3 pintu menggunakan tiang pilar beton cor bertulang.</p>
+                </div>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+            </a>
+
+            <a href="berita-pendaftaran-2025.html" class="article-card">
+                <div class="date-badge">
+                    <span class="day">15</span>
+                    <span class="month">Des</span>
+                </div>
+                <div class="article-text">
+                    <h3>Penerimaan Santri Baru Gelombang 1</h3>
+                    <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk pendidikan Islami yang berkualitas.</p>
+                </div>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+            </a>
+
+            <a href="berita-maulid-2025.html" class="article-card">
+                <div class="date-badge">
+                    <span class="day">10</span>
+                    <span class="month">Nov</span>
+                </div>
+                <div class="article-text">
+                    <h3>Peringatan Maulid Nabi Muhammad SAW</h3>
+                    <p>Alhamdulillah, rangkaian acara peringatan Maulid Nabi berjalan dengan lancar dan penuh keberkahan bersama keluarga besar yayasan.</p>
+                </div>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+            </a>
+        </div>
+    </section>
+</div>
+
+<footer> 
+    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+</footer>
+
+<audio id="clickSound" src="click_sound.mp3"></audio>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- 1. INISIALISASI ELEMEN ---
+        const clickSound = document.getElementById('clickSound');
+        const navLinks = document.querySelectorAll('nav ul li a');
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
+
+        // --- 2. LOGIKA MENU AKTIF OTOMATIS ---
+        const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+        navLinks.forEach(item => {
+            const itemHref = item.getAttribute("href");
+            if (itemHref === currentUrl) {
+                item.classList.add("active");
+            } else {
+                item.classList.remove("active");
+            }
+        });
+
+        // --- 3. MENU TOGGLE (HP) ---
+        if (menuToggle && nav) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                nav.classList.toggle('show'); 
+            });
+        }
+
+        // --- 4. SUARA KLIK & NAVIGASI ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (clickSound) {
+                    clickSound.currentTime = 0;
+                    clickSound.play().catch(err => console.log("Audio play diblokir browser"));
+                }
+                
+                if (nav) nav.classList.remove('show');
+
+                const destination = this.href;
+                if (destination && !destination.includes('#') && !this.target) {
+                    e.preventDefault();
+                    setTimeout(() => { 
+                        window.location.href = destination; 
+                    }, 200);
+                }
+            });
+        });
+
+        // --- 5. TUTUP MENU JIKA KLIK DI LUAR ---
+        document.addEventListener('click', function(e) {
+            if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                nav.classList.remove('show');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
