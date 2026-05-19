@@ -195,20 +195,22 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .btn-kembali {
+         .btn-kembali {
             background-color: #e2e8f0;
             color: #334155;
         }
+ 
 
         .btn-daftar {
             background-color: var(--primary-color);
             color: white;
         }
 
-        .btn-kembali:hover {
+          .btn-kembali:hover {
             background-color: #cbd5e1;
             transform: translateY(-2px);
         }
+
 
         .btn-daftar:hover {
             background-color: #134613;
@@ -297,6 +299,14 @@
             }
             
             nav.show ul { display: flex !important; }
+
+  /* Indikator Menu Aktif di Mobile (Garis Samping Kiri) */
+            nav ul li a.active {
+                border-bottom: none;
+                border-left: 4px solid var(--secondary-color);
+                padding-left: 10px;
+                color: var(--secondary-color) !important;
+            }
 
             .container { padding: 2rem 5%; }
             .section-title h2 { font-size: 1.6rem; }
