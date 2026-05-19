@@ -195,10 +195,9 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .btn-kembali {
-            background-color: #e2e8f0;
-            color: #334155;
-        }
+     .btn-kembali {
+            background-color: var(--secondary-color); color: color: #334155; 
+        } 
 
         .btn-daftar {
             background-color: var(--primary-color);
@@ -206,9 +205,12 @@
         }
 
         .btn-kembali:hover {
-            background-color: #cbd5e1;
-            transform: translateY(-2px);
-        }
+    background-color: #134613; /* Hijau tua khas pondok */
+    color: var(--secondary-color); /* Teks berubah menjadi kuning emas */
+    border-color: #134613;
+    transform: translateY(-2px);
+}
+
 
         .btn-daftar:hover {
             background-color: #134613;
@@ -310,7 +312,63 @@
 
             .whatsapp-float span { display: none; }
             .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
-        }     
+        }  
+
+      /* --- ANIMASI & STYLE WA FLOAT HP (HANYA IKON TANPA BACKGROUND BULATAN) --- */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: transparent !important; /* Menghilangkan background hijau */
+        color: #25d366 !important; /* Mengubah warna ikon menjadi hijau khas WhatsApp */
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        box-shadow: none !important; /* Menghilangkan bayangan kotak/bulatan */
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        animation: wa-pulse-only-icon 2s infinite ease-in-out;
+    }
+
+    /* Sembunyikan teks "Tanya Admin" */
+    .whatsapp-float span {
+        display: none;
+    }
+
+    /* Memperbesar ukuran ikon agar tetap jelas terlihat tanpa box */
+    .whatsapp-float i {
+        font-size: 55px; 
+        margin: 0;
+        /* Memberikan efek bayangan lembut langsung pada bentuk ikonnya */
+        filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); 
+    }
+}
+
+/* Animasi khusus untuk ikon (efek membesar-mengecil halus) */
+@keyframes wa-pulse-only-icon {
+    0% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(1.12); /* Sedikit membesar di tengah durasi */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+        /* Default Style Desktop untuk WA Float (Berbentuk Pil/Tombol Panjang) */
+        @media (min-width: 769px) {
+            .whatsapp-float {
+                position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important;
+                padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
+                text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+        }       
     </style>
 </head>
 <body>
