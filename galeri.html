@@ -126,7 +126,7 @@
         }
 
         /* ==========================================================================
-           3. KONTEN UTAMA GALERI & BERITA
+           3. KONTEN UTAMA (CONTAINER & SECTION TITLE)
            ========================================================================== */
         .container { 
             padding: 3rem 10%; 
@@ -138,10 +138,25 @@
             margin-bottom: 3rem; 
         }
 
-        .section-title h2 { 
-            font-size: 2.2rem; 
-            color: var(--primary-color); 
-            margin-bottom: 10px; 
+        .section-title-box {
+            display: inline-flex;
+            align-items: center; 
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+            margin-bottom: 15px;
+        }
+
+        .section-title-box i {
+            color: var(--secondary-color);
+        }
+        
+        .section-title-box h2 { 
+            font-size: 1.5rem; 
+            margin: 0; 
+            padding-left: 15px; 
         }
 
         .section-title p {
@@ -149,13 +164,63 @@
             font-size: 1.05rem;
         }
 
-        /* Grid Berita */
+        /* ==========================================================================
+           4. GALERI FOTO GRID
+           ========================================================================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            background: white;
+            height: 250px;
+            border: 4px solid white;
+        }
+
+        .gallery-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease; 
+        }
+
+        .gallery-item:hover img { 
+            transform: scale(1.08); 
+        }
+
+        /* ==========================================================================
+           5. LIPUTAN BERITA UTAMA (CARD MODE)
+           ========================================================================== */
+        .news-section-divider {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-news-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
         }
 
         .news-card {
@@ -241,7 +306,6 @@
             text-align: justify;
         }
 
-        /* Tombol Baca Selengkapnya dengan Hover Invert */
         .btn-readmore {
             margin-top: auto;
             background: var(--primary-color);
@@ -265,6 +329,59 @@
             color: #0d2e0d !important;
             border-color: var(--secondary-color);
         }
+
+        /* ==========================================================================
+           6. LIST BERITA KATEGORI (DATE BADGE MODE)
+           ========================================================================== */
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .date-badge {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            min-width: 85px;
+            height: 85px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-right: 25px;
+        }
+
+        .date-badge .day { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+        .date-badge .month { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
+
+        .article-text { flex: 1; }
+        .article-text h3 { color: var(--primary-color); font-size: 1.25rem; margin-bottom: 5px; }
+        .article-text p { color: #666; font-size: 0.95rem; margin: 0; text-align: justify; }
+
+        .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
+        .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
 
         /* Floating WhatsApp */
         .whatsapp-float {
@@ -314,7 +431,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           4. RESPONSIVE SMARTPHONE & TABLET
+           7. RESPONSIVE SMARTPHONE & TABLET
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 60px; padding: 0 15px; }
@@ -350,8 +467,26 @@
             nav.show ul { display: flex !important; }
 
             .container { padding: 2rem 5%; }
-            .section-title h2 { font-size: 1.8rem; }
+            .section-title-box h2 { font-size: 1.3rem; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
             .news-grid { grid-template-columns: 1fr; gap: 20px; }
+
+            /* Penyesuaian list berita di HP */
+            .article-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px 15px;
+            }
+
+            .date-badge {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 85px;
+            }
+
+            .chevron-icon {
+                display: none;
+            }
 
             .whatsapp-float span { display: none; }
             .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
@@ -383,32 +518,81 @@
     </header>
 
     <div class="container">
-        <section class="section-title">
-            <h2>GALERI & LIPUTAN BERITA</h2>
-            <p>Dokumentasi visual serta liputan berkala rangkaian kegiatan di Lembaga Pendidikan Daarul Khoirot Almadani.</p>
+        
+        <section id="galeri">
+            <div class="section-title">
+                <div class="section-title-box">
+                    <i class="fas fa-camera fa-2x"></i>
+                    <h2>Galeri Kegiatan</h2>
+                </div>
+                <p>Dokumentasi Kegiatan Santri dan Acara Pondok Pesantren.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="tahfizul_quran.jpg" alt="Tahfizul Quran"></div>
+                <div class="gallery-item"><img src="santri_berprestasi.jpeg" alt="Santri Berprestasi"></div>
+                <div class="gallery-item"><img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah"></div>
+                <div class="gallery-item"><img src="makan_bersama.jpeg" alt="Makan Bersama"></div>
+                <div class="gallery-item"><img src="latihan_hadhroh.jpeg" alt="Extra Kurikuler"></div>
+                <div class="gallery-item"><img src="panitia_phbi.jpeg" alt="Acara Maulid Nabi"></div>
+                <div class="gallery-item"><img src="tasmiul_quran.jpeg" alt="Program Hafalan"></div>
+                <div class="gallery-item"><img src="penghargaan_santri.jpeg" alt="Penghargaan Santri"></div>
+            </div>
         </section>
 
-        <main class="news-grid">
-            
-            <article class="news-card">
-                <div class="news-image">
-                    <span class="news-badge">Liputan Berita</span>
-                    <img src="banner_kitab.png" alt="Kajian Kitab Kifayatul Atqiya">
+        <section id="berita" class="news-section">
+            <div class="news-section-divider">
+                <div class="btn-news-header">
+                    <i class="fas fa-newspaper"></i> Berita Terbaru
                 </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
-                    </div>
-                    <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
-                    <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
-                    <a href="berita_kajian_kitab.html" class="btn-readmore">
-                        Baca Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
+            </div>
 
+            <main class="news-grid">
+                <article class="news-card">
+                    <div class="news-image">
+                        <span class="news-badge">Liputan Berita</span>
+                        <img src="banner_kitab.png" alt="Kajian Kitab Kifayatul Atqiya">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
+                        </div>
+                        <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
+                        <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
+                        <a href="berita_kajian_kitab.html" class="btn-readmore">
+                            Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
             </main>
+
+            <div class="news-container">
+                <a href="berita-pendaftaran-2025.html" class="article-card">
+                    <div class="date-badge">
+                        <span class="day">15</span>
+                        <span class="month">Des</span>
+                    </div>
+                    <div class="article-text">
+                        <h3>Penerimaan Santri Baru Gelombang 1</h3>
+                        <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk pendidikan Islami yang berkualitas.</p>
+                    </div>
+                    <i class="fas fa-chevron-right chevron-icon"></i>
+                </a>
+
+                <a href="berita-maulid-2025.html" class="article-card">
+                    <div class="date-badge">
+                        <span class="day">10</span>
+                        <span class="month">Nov</span>
+                    </div>
+                    <div class="article-text">
+                        <h3>Peringatan Maulid Nabi Muhammad SAW</h3>
+                        <p>Alhamdulillah, rangkaian acara peringatan Maulid Nabi berjalan dengan lancar dan penuh keberkahan bersama keluarga besar yayasan.</p>
+                    </div>
+                    <i class="fas fa-chevron-right chevron-icon"></i>
+                </a>
+            </div>
+        </section>
     </div>
 
     <footer>
@@ -425,12 +609,12 @@
         document.addEventListener("DOMContentLoaded", function() {
             const murottal = document.getElementById('murottal');
             const clickSound = document.getElementById('clickSound');
-            const menuItems = document.querySelectorAll('nav ul li a, .btn-readmore');
+            const menuItems = document.querySelectorAll('nav ul li a, .btn-readmore, .article-card');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
             let hasInteracted = false;
 
-            // Auto-play Murottal
+            // Auto-play Murottal saat user pertama kali berinteraksi
             function playMurottal() {
                 if (!hasInteracted && murottal) {
                     murottal.volume = 0.3; 
@@ -443,7 +627,7 @@
             document.addEventListener('click', playMurottal);
             document.addEventListener('touchstart', playMurottal); 
 
-            // Menu Toggle HP
+            // Menu Toggle untuk HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -451,7 +635,7 @@
                 });
             }
 
-            // Click Sound Delay Navigasi
+            // Suara Klik & Pengaturan Delay Navigasi Halaman
             menuItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
@@ -472,7 +656,7 @@
                 });
             });
 
-            // Tutup menu klik luar area
+            // Tutup menu otomatis jika mengeklik di luar area menu
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
