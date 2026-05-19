@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Info Islam</title>
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,17 +13,17 @@
 
     <style>
         /* ==========================================================================
-           1. GLOBAL VARIABLES & RESET STYLE (FONT QUICKSAND UNTUK SEMUA)
+           1. GLOBAL VARIABLES & RESET STYLE
            ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
-            --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
             --light-bg: #f4f7f6;
-            --text-dark: #333;
-            --border-light: #e1e7e1;
+            --dark-footer: #0d2e0d;
             --whatsapp-green: #25d366;
-        } 
+            --text-dark: #333;
+            --white: #ffffff;
+        }
 
         * { 
             margin: 0; 
@@ -37,99 +37,102 @@
         }
 
         body { 
-            line-height: 1.6; 
-            color: var(--text-dark); 
             background-color: var(--light-bg); 
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
+            overflow-x: hidden; 
+            color: var(--text-dark); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-weight: 700;
         }
 
-        .teks-tebal {
-            font-weight: 600;
-        }
-
-        /* Container Konten Utama */
-        .container { 
-            padding: 4rem 5% 2rem; 
-            flex: 1; 
-        }
-
         /* ==========================================================================
-           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, CARDS, & WA TOMBOL)
+           2. HEADER & NAVIGASI DESKTOP
            ========================================================================== */
         header { 
             background-color: var(--primary-color); 
             color: white; 
-            padding: 10px 4%; 
+            padding: 0 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
+            height: 70px; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            min-height: 60px;
         }
 
         .logo { 
             display: flex; 
             align-items: center; 
-            gap: 12px;
-            flex-shrink: 0;
-            text-decoration: none;
-            color: white;
+            text-decoration: none; 
+            color: white; 
+            flex-shrink: 0; 
         }
-        
+
         .logo img { 
-            height: 40px; 
+            height: 45px; 
             width: auto; 
+            margin-right: 12px; 
+            display: block; 
         }
 
         .logo h1 { 
-            font-size: 1.3rem; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            white-space: nowrap; 
             letter-spacing: 0.5px; 
-            white-space: nowrap;
+        }
+
+        nav { 
+            display: flex; 
+            align-items: center; 
         }
 
         nav ul { 
-            list-style: none; 
             display: flex; 
+            list-style: none; 
             gap: 20px; 
         }
 
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
-            font-size: 0.95rem; 
             font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
+            font-size: 0.9rem; 
+            padding-bottom: 5px; 
             transition: 0.3s; 
-            position: relative;
-            padding-bottom: 5px;
+            white-space: nowrap; 
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         nav ul li a:hover { 
             color: var(--secondary-color) !important; 
         }
 
-        nav ul li a.active { 
-            border-bottom: 3px solid var(--secondary-color); 
+        nav ul li a.active-link { 
+            border-bottom: 3px solid var(--secondary-color) !important; 
             color: var(--secondary-color) !important; 
         }
 
         #menu-toggle { 
-            display: none; 
+            display: none !important; 
         }
 
-        /* Judul Section */
+        /* ==========================================================================
+           3. KONTEN INFO ISLAM
+           ========================================================================== */
+        .container { 
+            padding: 3rem 10%; 
+            flex: 1; 
+        }
+
         .section-title { 
             text-align: center; 
             margin-bottom: 3rem; 
@@ -138,35 +141,32 @@
         .section-title-box {
             display: inline-flex;
             align-items: center; 
-            padding: 10px 25px;
+            padding: 12px 25px;
             background-color: var(--primary-color);
             color: white; 
             border-radius: 8px; 
-            gap: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
         }
-
-        .section-title-box i { font-size: 1.5rem; color: var(--secondary-color); } 
-
+        
         .section-title-box h2 { 
-            font-size: 1.6rem; 
+            font-size: 1.5rem; 
             margin: 0; 
+            padding-left: 15px; 
         }
 
-        /* Grid Widget Tiga Kolom */
+        /* Grid Widget */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
         }
 
         .info-card {
-            background: white;
+            background: var(--white);
             padding: 25px;
             border-radius: 12px;
-            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             text-align: center;
             border-top: 4px solid var(--primary-color);
             display: flex;
@@ -181,11 +181,11 @@
 
         .btn-akses {
             background: #f1f8f1;
-            color: var(--primary-color);
+            color: #1a5d1a;
             text-decoration: none;
             padding: 12px 15px;
             border-radius: 8px;
-            border: 1px solid var(--border-light);
+            border: 1px solid #d4e4d4;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -193,46 +193,50 @@
             transition: 0.3s;
         }
 
+        /* Hover Tukar Warna Serasi */
         .btn-akses:hover { 
             background: var(--primary-color); 
             color: white; 
+            border-color: var(--primary-color);
         }
 
-        .sub-section-heading {
+        /* Artikel Section */
+        .article-section-title {
             color: var(--primary-color); 
             text-align: center; 
-            margin: 50px 0 25px; 
-            border-bottom: 2px solid #e5ebe5; 
+            margin-bottom: 30px; 
+            border-bottom: 2px solid #ddd; 
             padding-bottom: 10px;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
         }
 
-        /* Elemen Artikel & Berita */
-        .article-item, .news-item {
-            background: white;
-            padding: 25px;
+        .article-item {
+            background: var(--white);
+            padding: 30px;
             border-radius: 12px;
-            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 25px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: 0.3s ease;
+            transition: 0.3s;
+            border-left: 0 solid transparent;
         }
         
-        .article-item:hover, .news-item:hover { 
+        .article-item:hover { 
+            transform: translateY(-4px); 
             border-left: 5px solid var(--secondary-color); 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
         
-        .article-item h3, .news-item h3 { 
+        .article-item h3 { 
             color: var(--primary-color); 
             margin-bottom: 10px; 
+            font-size: 1.3rem;
         }
         
-        .article-item p, .news-item p { 
+        .article-item p { 
             color: #555; 
             font-size: 0.95rem; 
             margin-bottom: 15px; 
+            text-align: justify;
         }
         
         .read-more {
@@ -242,132 +246,134 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            transition: 0.2s;
         }
         
         .read-more:hover { 
             color: var(--secondary-color); 
         }
 
-        .news-meta {
-            font-size: 0.85rem;
-            color: #777;
-            margin-bottom: 12px;
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-green);
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 50px;
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 9999;
+            transition: 0.3s;
+            animation: pulse-wa 2s infinite;
+        }
+        
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
-        .news-meta span i {
-            color: var(--primary-color);
-            margin-right: 5px;
-        }
-
-        .news-lead {
-            font-weight: 600;
-            color: #222 !important;
-        }
-
-        /* Footer Global */
+        /* Footer */
         footer { 
-            background: var(--primary-dark); 
+            background: var(--dark-footer); 
             color: white; 
             padding: 40px 5% 20px; 
             text-align: center; 
             width: 100%;
             margin-top: auto;
         }
-        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+
+        footer .f-title { 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            color: var(--secondary-color) !important; 
+            display: block; 
+        }
+        
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           3. BLOK STYLE MOBILE (HEADER, DROPDOWN MENU, GRID 1 KOLOM, & WA FLOAT)
+           4. RESPONSIVE SMARTPHONE & TABLET
            ========================================================================== */
         @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; }
-            
-            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
-            .logo img { height: 35px; margin-right: 0 !important; }
-            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
+            header { height: 60px; padding: 0 15px; }
+            .logo img { height: 35px; margin-right: 8px; }
+            .logo h1 { font-size: 0.95rem; }
 
-            /* Hamburger Menu Mobile */
             #menu-toggle {
-                display: flex !important;   
-                flex-direction: row;        
-                align-items: center;        
-                gap: 4px;                   
-                background: var(--secondary-color);
-                color: var(--primary-color);
+                display: block !important; 
+                background: var(--secondary-color) !important;
+                color: var(--primary-color) !important; 
+                border: none; 
                 padding: 6px 12px;
-                border: none;
-                border-radius: 4px;
-                font-weight: bold;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.8rem; 
                 cursor: pointer;
             }
 
-            /* Dropdown Lipat Vertikal Menu HP */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
                 width: 100%; 
-                position: absolute; 
-                top: 65px; 
+                position: absolute;
+                top: 60px; 
                 left: 0; 
-                background: #1a5d1a; 
-                padding: 20px; 
-                border-bottom: 3px solid #f4ce14; 
-                gap: 15px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                background: var(--primary-color); 
+                padding: 20px;
+                gap: 15px; 
+                border-bottom: 3px solid var(--secondary-color); 
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
             }
             
             nav.show ul { display: flex !important; }
 
-            /* Indikator Menu Aktif di HP (Garis Samping Kiri) */
-            nav ul li a.active {
-                border-bottom: none;
-                border-left: 5px solid var(--secondary-color) !important;
-                padding-left: 15px;
-                color: var(--secondary-color) !important;
-            }
+            .container { padding: 2rem 5%; }
+            .section-title-box h2 { font-size: 1.3rem; }
+            .info-grid { grid-template-columns: 1fr; gap: 20px; }
+            .article-item { padding: 20px; }
 
-            .container { padding: 2rem 4% 2rem; }
-
-            /* Melebur Grid Tiga Kolom Menjadi 1 Kolom Penuh */
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
+            .whatsapp-float span { display: none; }
+            .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="logo">
+        <div class="logo">
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
-        </a>
-        
-        <button id="menu-toggle">
-            <i class="fas fa-bars"></i> Menu
-        </button>
-          
-        <nav id="main-nav">
+        </div>
+
+        <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
                 <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
-                <li><a href="info_islam.html"class="active"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
+                <li><a href="info_islam.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li>
                 <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
+
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
     </header>
 
     <main class="container">
         <div class="section-title">
             <div class="section-title-box">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-book-open fa-2x"></i>
                 <h2>Info Dunia Islam</h2>
             </div>
         </div>
@@ -387,32 +393,13 @@
                 <h3>Akses Cepat</h3>
                 <a href="https://quran.com/id" target="_blank" class="btn-akses"><i class="fas fa-book-open"></i> Al-Qur'an Online</a>
                 <a href="https://hadits.id" target="_blank" class="btn-akses"><i class="fas fa-scroll"></i> Hadits Online</a>
-                <a href="https://kisahmuslim.com/" target="_blank" class="btn-akses"><i class="fas fa-history"></i> Kisah Hikmah</a>
-                <a href="https://quran.nu.or.id/doa" target="_blank" class="btn-akses"><i class="fas fa-hands-helping"></i> Doa Harian</a>
-                <p style="font-size: 0.7rem; color: #999;">*Membuka jendela baru</p>
+                <a href="https://islam.nu.or.id/hikmah" target="_blank" class="btn-akses"><i class="fas fa-history"></i> Kisah Hikmah</a>
+                <a href="https://rumaysho.com" target="_blank" class="btn-akses"><i class="fas fa-hands-helping"></i> Doa Harian</a>
+                <p style="font-size: 0.75rem; color: #999; font-style: italic;">*Membuka jendela baru</p>
             </div> 
         </div>
 
-        <h3 class="sub-section-heading">Liputan Berita Pesantren</h3>
-
-        <div class="news-item">
-            <div class="news-meta">
-                <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
-                <span><i class="fas fa-map-marker-alt"></i> Jatisari, Karawang</span>
-                <span><i class="fas fa-user-friends"></i> 35 Jamaah</span>
-            </div>
-            <h3>Kajian Rutin Ponpes Daarul Khoirot Al-Madani & Majlis Ta'lim Roudhotul Baniin</h3>
-            
-            <p class="news-lead">
-                <strong>KARAWANG</strong> – Pondok Pesantren Daarul Khoirot Al-Madani bersama Majlis Ta'lim Roudhotul Baniin kembali menggelar pengajian rutin malam Ahad di Dusun Sukamaju II, RT 02/RW 04, Desa Jatisari, Kec. Jatisari, Kab. Karawang. Acara ini dihadiri sekitar 35 jamaah yang terdiri dari pengurus, santri, serta warga bapak-bapak dan ibu-ibu.
-            </p>
-            <p>
-                Kajian yang dipimpin langsung oleh H. Wismo (Pimpinan Ponpes) ini membedah Bait ke-107 dari Kitab monumental <em>Kifayatul Atqiya wa Minhajul Ashfiya</em> karya Syekh Abu Bakar bin Muhammad Syatha Ad-Dimyathi, yang mengulas secara mendalam mengenai tanggung jawab besar seorang pengajar ilmu.
-            </p>
-            <a href="kajian_jihad.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <h3 class="sub-section-heading">Artikel Pilihan</h3>
+        <h3 class="article-section-title">Artikel Pilihan</h3>
 
         <div class="article-item">
             <h3>Tafsir Singkat Surah Al-Fatihah</h3>
@@ -437,56 +424,64 @@
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
+    <audio id="murottal" src="murottal_start.mp3" loop></audio>
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const murottal = document.getElementById('murottal');
+            const clickSound = document.getElementById('clickSound');
+            const menuItems = document.querySelectorAll('nav ul li a, .article-item a');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
-            const clickSound = document.getElementById('clickSound');
-            const menuItems = document.querySelectorAll("nav ul li a");
+            let hasInteracted = false;
 
-            // 1. Toggle Buka/Tutup Menu di HP
+            // Auto-play Murottal (Pengunjung Interaksi)
+            function playMurottal() {
+                if (!hasInteracted && murottal) {
+                    murottal.volume = 0.3; 
+                    murottal.play().catch(() => console.log("Autoplay blocked"));
+                    hasInteracted = true;
+                    document.removeEventListener('click', playMurottal);
+                    document.removeEventListener('touchstart', playMurottal);
+                }
+            }
+            document.addEventListener('click', playMurottal);
+            document.addEventListener('touchstart', playMurottal); 
+
+            // Menu Toggle HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    nav.classList.toggle('show');
+                    nav.classList.toggle('show'); 
                 });
             }
 
-            // 2. Otomatisasi Penentuan Class Active Menu Sesuai Nama File URL
-            const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+            // Click Sound Delay Navigasi
             menuItems.forEach(item => {
-                const hrefAttr = item.getAttribute("href");
-                if (hrefAttr === currentUrl || (currentUrl === "" && hrefAttr === "index.html")) {
-                    item.classList.add("active");
-                } else {
-                    item.classList.remove("active");
-                }
-
-                // 3. Sistem Delay Navigasi untuk Memutar Efek Suara Klik
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
-                        clickSound.currentTime = 0;
+                        clickSound.currentTime = 0; 
+                        clickSound.volume = 0.8;
                         clickSound.play().catch(() => {});
                     }
                     
                     if (nav) nav.classList.remove('show');
 
-                    const targetUrl = this.href;
+                    const targetUrl = this.getAttribute("href");
                     if (targetUrl && !targetUrl.includes('#') && !this.target) {
-                        e.preventDefault();
+                        e.preventDefault(); 
                         setTimeout(() => { 
                             window.location.href = targetUrl; 
-                        }, 200);
+                        }, 200); 
                     }
                 });
             });
 
-            // 4. Sembunyikan Menu HP jika pengguna melakukan klik di luar area navigasi
+            // Tutup menu klik luar area
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
@@ -494,5 +489,11 @@
             });
         });
     </script>
+
+    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp fa-lg"></i>
+        <span>Tanya Admin</span>
+    </a>
+
 </body>
 </html>
