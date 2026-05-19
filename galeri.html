@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Galeri & Berita</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +22,7 @@
             --dark-footer: #0d2e0d;
             --whatsapp-green: #25d366;
             --text-dark: #333;
+            --white: #ffffff;
         }
 
         * { 
@@ -47,15 +49,9 @@
             font-weight: 700;
         }
 
-        .teks-tebal {
-            font-weight: 600;
-        }
-
         /* ==========================================================================
-           2. BLOK STYLE DESKTOP (TAMPILAN UTAMA KOMPUTER)
+           2. HEADER & NAVIGASI DESKTOP
            ========================================================================== */
-        
-        /* Header Utama & Navigasi Desktop */
         header { 
             background-color: var(--primary-color); 
             color: white; 
@@ -120,9 +116,8 @@
             color: var(--secondary-color) !important; 
         }
 
-        /* Indikator Aktif Desktop (Garis Bawah) */
-        nav ul li a.active { 
-            border-bottom: 3px solid var(--secondary-color); 
+        nav ul li a.active-link { 
+            border-bottom: 3px solid var(--secondary-color) !important; 
             color: var(--secondary-color) !important; 
         }
 
@@ -130,7 +125,9 @@
             display: none !important; 
         }
 
-        /* Tata Letak Konten Desktop */
+        /* ==========================================================================
+           3. KONTEN UTAMA GALERI & BERITA
+           ========================================================================== */
         .container { 
             padding: 3rem 10%; 
             flex: 1; 
@@ -138,138 +135,171 @@
 
         .section-title { 
             text-align: center; 
-            margin-bottom: 2rem; 
+            margin-bottom: 3rem; 
         }
 
-        .section-title-box {
-            display: inline-flex;
-            align-items: center; 
-            justify-content: center;
-            padding: 12px 25px; 
-            background-color: var(--primary-color);
-            color: white; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-            margin-bottom: 10px;
+        .section-title h2 { 
+            font-size: 2.2rem; 
+            color: var(--primary-color); 
+            margin-bottom: 10px; 
         }
 
-        .section-title-box i { 
-            font-size: 1.5rem; 
-            color: var(--secondary-color); 
+        .section-title p {
+            color: #666;
+            font-size: 1.05rem;
         }
 
-        .section-title-box h2 { 
-            font-size: 1.5rem; 
-            margin: 0; 
-            padding-left: 15px; 
-            font-weight: 700;
-        }
-
-        /* Kisi Galeri Kegiatan */
-        .gallery-grid {
+        /* Grid Berita */
+        .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            background: white;
-            height: 260px;
-            border: 4px solid white;
-        }
-
-        .gallery-item img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: transform 0.5s ease; 
-        }
-
-        .gallery-item:hover img { 
-            transform: scale(1.08); 
-        }
-
-        /* Kontainer Berita Utama */
-        .news-section { 
-            margin-top: 60px; 
-        }
-        
-        .btn-news-header {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 35px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .news-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .article-card {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 20px;
+        .news-card {
+            background: var(--white);
             border-radius: 12px;
-            text-decoration: none;
-            color: inherit;
+            overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .article-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--secondary-color);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        }
-
-        .date-badge {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            min-width: 85px;
-            height: 85px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            margin-right: 25px;
-            flex-shrink: 0;
         }
 
-        .date-badge .day { font-size: 1.6rem; font-weight: 800; line-height: 1; }
-        .date-badge .month { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
 
-        .article-text { flex: 1; }
-        .article-text h3 { color: var(--primary-color); font-size: 1.25rem; margin-bottom: 5px; }
-        .article-text p { color: #666; font-size: 0.95rem; margin: 0; line-height: 1.6; }
+        .news-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background-color: #e5e5e5;
+        }
 
-        .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
-        .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
 
-        /* Footer Kaki Halaman */
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+
+        .news-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .news-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .news-meta {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+
+        .news-content h3 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .news-content p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* Tombol Baca Selengkapnya dengan Hover Invert */
+        .btn-readmore {
+            margin-top: auto;
+            background: var(--primary-color);
+            color: white !important;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s ease;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-readmore:hover {
+            background: var(--secondary-color);
+            color: #0d2e0d !important;
+            border-color: var(--secondary-color);
+        }
+
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-green);
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 9999;
+            transition: 0.3s;
+            animation: pulse-wa 2s infinite;
+        }
+        
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Footer */
         footer { 
             background: var(--dark-footer); 
             color: white; 
             padding: 40px 5% 20px; 
             text-align: center; 
             width: 100%; 
+            margin-top: auto;
         }
 
         footer .f-title { 
@@ -283,12 +313,10 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-
         /* ==========================================================================
-           3. BLOK STYLE MOBILE (RESPONSIF SMARTPHONE & TABLET)
+           4. RESPONSIVE SMARTPHONE & TABLET
            ========================================================================== */
         @media (max-width: 768px) {
-            /* Header & Dropdown Menu */
             header { height: 60px; padding: 0 15px; }
             .logo img { height: 35px; margin-right: 8px; }
             .logo h1 { font-size: 0.95rem; }
@@ -320,195 +348,143 @@
             }
             
             nav.show ul { display: flex !important; }
-            
-            /* Indikator Aktif Mobile (Garis Samping) */
-            nav ul li a.active { 
-                border-bottom: none; 
-                border-left: 4px solid var(--secondary-color); 
-                padding-left: 10px; 
-            }
 
-            /* Ruang Konten & Judul Mobile */
             .container { padding: 2rem 5%; }
-            .section-title-box { padding: 10px 20px; }
-            .section-title-box h2 { font-size: 1.2rem; }
+            .section-title h2 { font-size: 1.8rem; }
+            .news-grid { grid-template-columns: 1fr; gap: 20px; }
 
-            /* Kartu Artikel Menjadi Format Baris Vertikal */
-            .article-card {
-                flex-direction: column; 
-                text-align: center;       
-                padding: 25px 15px;
-            }
-
-            .date-badge {
-                margin-right: 0;         
-                margin-bottom: 15px;      
-                width: 85px;             
-            }
-
-            .chevron-icon {
-                display: none;           
-            }
+            .whatsapp-float span { display: none; }
+            .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">
-        <img src="main_logo.png" class="main-header-logo" alt="Logo">
-        <h1>DAARUL KHOIROT ALMADANI</h1>
+    <header>
+        <div class="logo">
+            <img src="main_logo.png" alt="Logo">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
+                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li>
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+            </ul>
+        </nav>
+
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+    </header>
+
+    <div class="container">
+        <section class="section-title">
+            <h2>GALERI & LIPUTAN BERITA</h2>
+            <p>Dokumentasi visual serta liputan berkala rangkaian kegiatan di Lembaga Pendidikan Daarul Khoirot Almadani.</p>
+        </section>
+
+        <main class="news-grid">
+            
+            <article class="news-card">
+                <div class="news-image">
+                    <span class="news-badge">Liputan Berita</span>
+                    <img src="banner_kitab.png" alt="Kajian Kitab Kifayatul Atqiya">
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
+                    </div>
+                    <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
+                    <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
+                    <a href="berita_kajian_kitab.html" class="btn-readmore">
+                        Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            </main>
     </div>
 
-    <nav>
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-            <li><a href="galeri.html" class="active"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
-            <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
-            <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
-        </ul>
-    </nav>
-    
-    <button id="menu-toggle">
-        <i class="fas fa-bars"></i> Menu
-    </button>
-</header>
+    <footer>
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
 
-<div class="container">
-    <section id="galeri">
-        <div class="section-title">
-            <div class="section-title-box">
-                <i class="fas fa-camera"></i>
-                <h2>Galeri Kegiatan</h2>
-            </div>
-            <p style="color: #666; margin-top: 10px;">Dokumentasi Kegiatan Santri dan Acara Pondok Pesantren.</p>
-        </div>
+    <audio id="murottal" src="murottal_start.mp3" loop></audio>
+    <audio id="clickSound" src="click_sound.mp3"></audio>
 
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="tahfizul_quran.jpg" alt="Tahfizul Quran"></div>
-            <div class="gallery-item"><img src="santri_berprestasi.jpeg" alt="Santri Berprestasi"></div>
-            <div class="gallery-item"><img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah"></div>
-            <div class="gallery-item"><img src="makan_bersama.jpeg" alt="Makan Bersama"></div>
-            <div class="gallery-item"><img src="latihan_hadhroh.jpeg" alt="Extra Kurikuler"></div>
-            <div class="gallery-item"><img src="panitia_phbi.jpeg" alt="Acara Maulid Nabi"></div>
-            <div class="gallery-item"><img src="tasmiul_quran.jpeg" alt="Program Hafalan"></div>
-            <div class="gallery-item"><img src="penghargaan_santri.jpeg" alt="Penghargaan Santri"></div>
-        </div>
-    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const murottal = document.getElementById('murottal');
+            const clickSound = document.getElementById('clickSound');
+            const menuItems = document.querySelectorAll('nav ul li a, .btn-readmore');
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.querySelector('nav');
+            let hasInteracted = false;
 
-    <section id="berita" class="news-section">
-        <div style="text-align: center;">
-            <div class="btn-news-header">
-                <i class="fas fa-newspaper"></i> Berita Terbaru
-            </div>
-        </div>
-
-        <div class="news-container">
-            <a href="kobong_panggung.html" class="article-card">
-                <div class="date-badge">
-                    <span class="day">19</span>
-                    <span class="month">Mei</span>
-                </div>
-                <div class="article-text">
-                    <h3>Pembangunan Kobong Santri Model Panggung Dimulai</h3>
-                    <p>Optimalisasi lahan kosong berupa lorong jemuran di antara bangunan dapur utama dan MCK. Kamar santri dibangun dengan model panggung 3 pintu menggunakan tiang pilar beton cor bertulang.</p>
-                </div>
-                <i class="fas fa-chevron-right chevron-icon"></i>
-            </a>
-
-            <a href="berita-pendaftaran-2025.html" class="article-card">
-                <div class="date-badge">
-                    <span class="day">15</span>
-                    <span class="month">Des</span>
-                </div>
-                <div class="article-text">
-                    <h3>Penerimaan Santri Baru Gelombang 1</h3>
-                    <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk pendidikan Islami yang berkualitas.</p>
-                </div>
-                <i class="fas fa-chevron-right chevron-icon"></i>
-            </a>
-
-            <a href="berita-maulid-2025.html" class="article-card">
-                <div class="date-badge">
-                    <span class="day">10</span>
-                    <span class="month">Nov</span>
-                </div>
-                <div class="article-text">
-                    <h3>Peringatan Maulid Nabi Muhammad SAW</h3>
-                    <p>Alhamdulillah, rangkaian acara peringatan Maulid Nabi berjalan dengan lancar dan penuh keberkahan bersama keluarga besar yayasan.</p>
-                </div>
-                <i class="fas fa-chevron-right chevron-icon"></i>
-            </a>
-        </div>
-    </section>
-</div>
-
-<footer> 
-    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
-    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
-    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-    <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-</footer>
-
-<audio id="clickSound" src="click_sound.mp3"></audio>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // --- 1. INISIALISASI ELEMEN ---
-        const clickSound = document.getElementById('clickSound');
-        const navLinks = document.querySelectorAll('nav ul li a');
-        const menuToggle = document.getElementById('menu-toggle');
-        const nav = document.querySelector('nav');
-
-        // --- 2. LOGIKA MENU AKTIF OTOMATIS ---
-        const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-        navLinks.forEach(item => {
-            const itemHref = item.getAttribute("href");
-            if (itemHref === currentUrl) {
-                item.classList.add("active");
-            } else {
-                item.classList.remove("active");
-            }
-        });
-
-        // --- 3. MENU TOGGLE (HP) ---
-        if (menuToggle && nav) {
-            menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                nav.classList.toggle('show'); 
-            });
-        }
-
-        // --- 4. SUARA KLIK & NAVIGASI ---
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (clickSound) {
-                    clickSound.currentTime = 0;
-                    clickSound.play().catch(err => console.log("Audio play diblokir browser"));
+            // Auto-play Murottal
+            function playMurottal() {
+                if (!hasInteracted && murottal) {
+                    murottal.volume = 0.3; 
+                    murottal.play().catch(() => {});
+                    hasInteracted = true;
+                    document.removeEventListener('click', playMurottal);
+                    document.removeEventListener('touchstart', playMurottal);
                 }
-                
-                if (nav) nav.classList.remove('show');
+            }
+            document.addEventListener('click', playMurottal);
+            document.addEventListener('touchstart', playMurottal); 
 
-                const destination = this.href;
-                if (destination && !destination.includes('#') && !this.target) {
-                    e.preventDefault();
-                    setTimeout(() => { 
-                        window.location.href = destination; 
-                    }, 200);
+            // Menu Toggle HP
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('show'); 
+                });
+            }
+
+            // Click Sound Delay Navigasi
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (clickSound) {
+                        clickSound.currentTime = 0; 
+                        clickSound.volume = 0.8;
+                        clickSound.play().catch(() => {});
+                    }
+                    
+                    if (nav) nav.classList.remove('show');
+
+                    const targetUrl = this.getAttribute("href");
+                    if (targetUrl && !targetUrl.includes('#') && !this.target) {
+                        e.preventDefault(); 
+                        setTimeout(() => { 
+                            window.location.href = targetUrl; 
+                        }, 200); 
+                    }
+                });
+            });
+
+            // Tutup menu klik luar area
+            document.addEventListener('click', function(e) {
+                if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                    nav.classList.remove('show');
                 }
             });
         });
+    </script>
 
-        // --- 5. TUTUP MENU JIKA KLIK DI LUAR ---
-        document.addEventListener('click', function(e) {
-            if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
-                nav.classList.remove('show');
-            }
-        });
-    });
-</script>
+    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp fa-lg"></i>
+        <span>Tanya Admin</span>
+    </a>
 
 </body>
 </html>
