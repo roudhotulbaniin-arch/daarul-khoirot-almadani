@@ -3,30 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daarul Khoirot | Kontak Kami</title>
+    <title>Daarul Khoirot | Galeri & Berita Terbaru</title>
 
-<meta property="og:type" content="article" />
-<meta property="og:title" content="Fasilitas Kobong Panggung Tradisional - Daarul Khoirot Almadani" />
-<meta property="og:description" content="Melihat lebih dekat fasilitas kobong panggung, asrama santri berkonsep tradisional yang nyaman dan penuh berkah di Pondok Pesantren Daarul Khoirot Almadani." />
-<meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/kobong_panggung.html" />
-<meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Kobong Panggung Daarul Khoirot Almadani" />
-
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Hubungi Kami (Kontak Resmi) - Daarul Khoirot Almadani" />
-<meta property="og:description" content="Layanan informasi resmi Pondok Pesantren Daarul Khoirot Almadani Karawang. Hubungi nomor telepon, WhatsApp, email, atau lihat peta lokasi map kami di sini." />
-<meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/kontak.html" />
-<meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Kontak Resmi Daarul Khoirot Almadani" />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Hubungi Kami (Kontak Resmi) - Daarul Khoirot Almadani" />
-<meta name="twitter:description" content="Layanan informasi resmi, nomor telepon, email, dan peta lokasi Pondok Pesantren Daarul Khoirot Almadani." />
-<meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Galeri & Berita Terbaru - Daarul Khoirot Almadani" />
+    <meta property="og:description" content="Informasi terkini, progres pembangunan, serta dokumentasi kegiatan santri Pondok Pesantren Daarul Khoirot Almadani Karawang." />
+    <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/galeri.html" />
+    <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Galeri Resmi Daarul Khoirot Almadani" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +23,7 @@
 
     <style>
         /* ==========================================================================
-           1. DESIGN VARIABLES & RESET STYLE (FONT QUICKSAND UNTUK SEMUA)
+           1. DESIGN VARIABLES & RESET STYLE
            ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
@@ -45,13 +32,14 @@
             --light-bg: #f4f7f6;
             --text-dark: #333;
             --whatsapp-green: #25d366;
+            --white: #ffffff;
         } 
 
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Quicksand', sans-serif; /* Dikunci menggunakan Quicksand global */
+            font-family: 'Quicksand', sans-serif;
         }
 
         html {
@@ -68,22 +56,17 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-        }
-
-        .teks-tebal {
-            font-weight: 600;
-        }
-
         /* Container Pembungkus */
         .container { 
             padding: 4rem 5% 2rem; 
             flex: 1; 
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         /* ==========================================================================
-           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, GRID KONTAK, MAPS, & WA TOMBOL)
+           2. NAVIGATION & HEADER STYLE (DESKTOP)
            ========================================================================== */
         header { 
             background-color: var(--primary-color); 
@@ -156,25 +139,29 @@
             display: none; 
         }
 
-        /* Judul Menu Halaman */
+        /* ==========================================================================
+           3. SECTION TITLE STYLE (BOX SERAGAM)
+           ========================================================================== */
         .section-title { 
             text-align: center; 
             margin-bottom: 3rem; 
+            margin-top: 2rem;
         }
 
         .section-title-box {
             display: inline-flex;
             align-items: center; 
-            padding: 10px 25px;
+            padding: 12px 25px;
             background-color: var(--primary-color);
             color: white; 
             border-radius: 8px; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             gap: 12px;
+            margin-bottom: 15px;
         }
 
         .section-icon {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
             justify-content: center; 
@@ -182,73 +169,144 @@
         }
 
         .section-title-box h2 { 
-            font-size: 1.6rem; 
+            font-size: 1.5rem; 
             margin: 0; 
         }
 
-        /* Grid Info Kontak 3 Kolom */
-        .contact-info-grid {
+        .section-title p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* ==========================================================================
+           4. GRID SELECTION CODE (GALERI & BERITA DESKTOP)
+           ========================================================================== */
+        /* --- KODE KOTAK GALERI --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 5px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            background: var(--white);
+            height: 250px;
+            border: 4px solid var(--white);
+        }
+
+        .gallery-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease; 
+        }
+
+        .gallery-item:hover img { 
+            transform: scale(1.08); 
+        }
+
+        /* --- KODE KOTAK BERITA TERBARU --- */
+        .news-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto 30px;
-            
+            gap: 25px;
+            margin-bottom: 40px;
+        }
 
-        .contact-item {
-            background: white;
-            padding: 30px;
+        .news-card {
+            background: var(--white);
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: 0.3s;
-            border-top: 5px solid var(--primary-color) !important; 
-        }
-
-        .contact-item:hover { 
-            transform: translateY(-5px); 
-        }
-
-        .contact-item .icon {
-           display: flex;            
-           align-items: center;     
-           justify-content: center; 
-           height: 100px;           
-           margin-bottom: 20px;     
-        }
-
-        .contact-item .icon i {
-           font-size: 4.5rem;       
-           line-height: 1;
-        }
-
-        .ikon-wa i { color: #25d366; }      
-        .ikon-map i { color: #ff4444; }     
-        .ikon-email i { color: #333; }      
-        
-        .contact-item h3 { 
-            margin-bottom: 10px; 
-            color: var(--primary-color); 
-        }
-
-        .contact-item p { 
-            font-size: 1rem; 
-            color: #555; 
-        }
-    
-        /* Integrasi Bingkai Peta Google Maps */
-        .map-section {
-            width: 100%; 
-            max-width: 1200px; 
-            height: 450px;
-            margin: 20px auto 50px; 
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 3px solid var(--primary-color); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            padding: 25px 20px; 
+            text-decoration: none !important;
+            color: inherit;
+            height: 100%; 
+            box-sizing: border-box;
+            /* Tambahan Aturan Border Sisi Kiri */
+            border-left: 5px solid var(--primary-color) !important;
+            border-top: 1px solid #eef2ee;
+            border-right: 1px solid #eef2ee;
+            border-bottom: 1px solid #eef2ee;
         }
 
-        /* Default Style Desktop untuk WA Float (Berbentuk Pil Panjang) */
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left-color: var(--secondary-color) !important; /* Berubah Kuning saat Disentuh */
+        }
+
+        /* Lencana Tanggal di Tengah Atas */
+        .news-card .date-badge {
+            background: var(--secondary-color);
+            color: var(--primary-dark);
+            width: 75px;
+            height: 75px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px; 
+            flex-shrink: 0;
+        }
+        .news-card .date-badge .day { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+        .news-card .date-badge .month { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+
+        .news-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .news-meta {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .news-meta span i { color: var(--primary-color); margin-right: 5px; }
+
+        .news-content h3 {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            text-align: center;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 4.8rem; /* Batas Atas Ruang Judul Desktop */
+        }
+
+        .news-content p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            text-align: justify;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 5.8rem; /* Batas Atas Ruang Deskripsi Desktop */
+        }
+
+        /* WA Float Desktop */
         @media (min-width: 769px) {
             .whatsapp-float {
                 position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important;
@@ -259,32 +317,31 @@
             .whatsapp-float:hover { transform: scale(1.05); }
         }
 
-        /* Footer Kaki Halaman */
+        /* Footer Halaman */
         footer { 
             background: var(--primary-dark); 
             color: white; 
             padding: 40px 5% 20px; 
             text-align: center; 
             width: 100%;
+            margin-top: auto;
         }
         .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           3. BLOK STYLE MOBILE (HEADER, DROPDOWN MENU, GRID 1 KOLOM, & WA FLOAT)
+           5. RESPONSIVE MOBILE STYLE (PERBAIKAN KISI JADI 1 KOLOM KEBAWAH)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             
-            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
-            .logo img { height: 35px; margin-right: 0 !important; }
-            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
+            .logo { max-width: 75%; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 1rem !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
-            /* Hamburger Menu Mobile */
             #menu-toggle {
                 display: flex !important;   
-                flex-direction: row;        
                 align-items: center;        
                 gap: 6px;                   
                 background: var(--secondary-color);
@@ -297,7 +354,6 @@
                 cursor: pointer;
             }
 
-            /* Dropdown Lipat Vertikal Menu HP */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -313,9 +369,7 @@
             }
 
             nav.show ul { display: flex !important; }
-            nav ul li a { color: white !important; }
             
-            /* Indikator Menu Aktif di HP (Garis Samping Kiri) */
             nav ul li a.active {
                 border-bottom: none;
                 border-left: 5px solid var(--secondary-color) !important;
@@ -323,51 +377,42 @@
                 color: var(--secondary-color) !important;
             }
 
-           /* Memaksa semua ikon menu default menjadi warna putih pada tampilan mobile */
-nav ul li a i {
-    color: #ffffff !important;
-    margin-right: 10px; /* Memberi jarak antara ikon putih dengan teks */
-}
+            nav ul li a i {
+                color: #ffffff !important;
+                margin-right: 10px;
+            }
 
-/* Khusus untuk menu yang sedang aktif (Pendaftaran), ikonnya tetap mengikuti warna emas */
-nav ul li a.active i {
-    color: var(--gold-light) !important;
-}
-
             .container { padding: 2rem 5% 2rem; }
 
-            /* Melebur Kisi Kontak Menjadi 1 Kolom Vertikal Kebawah */
-            .contact-info-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .map-section {
-                height: 320px;
-                width: 100%;
+            /* Perbaikan Ukuran Box Title di HP */
+            .section-title-box { padding: 10px 20px; }
+            .section-title-box h2 { font-size: 1.25rem; }
+
+            /* PERBAIKAN UTAMA: Grid Paksa Turun Menjadi 1 Kolom Penuh */
+            .gallery-grid, .news-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
             }
 
-            /* WA FLOAT DI HP: HANYA IKON TANPA BACKGROUND BULATAN */
+            /* Pelepas Kunci Tinggi Di HP Agar Teks Tidak Bertabrakan Keluar */
+            .news-card {
+                height: auto !important;
+                padding: 20px !important;
+            }
+
+            .news-content h3, .news-content p {
+                height: auto !important;
+                -webkit-line-clamp: unset !important;
+            }
+
+            /* WA Float HP Mode */
             .whatsapp-float {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: transparent !important; 
-                color: var(--whatsapp-green) !important; 
-                width: auto;
-                height: auto;
-                border-radius: 0;
-                box-shadow: none !important; 
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
+                position: fixed; bottom: 20px; right: 20px; background: transparent !important; 
+                color: var(--whatsapp-green) !important; z-index: 9999;
                 animation: wa-pulse-only-icon 2s infinite ease-in-out;
             }
-
             .whatsapp-float span { display: none; }
-            .whatsapp-float i { font-size: 55px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
+            .whatsapp-float i { font-size: 55px; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
         }
 
         @keyframes wa-pulse-only-icon {
@@ -392,60 +437,105 @@ nav ul li a.active i {
         <nav id="main-nav">
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="galeri.html" class="active"><i class="fas fa-images"></i> Galeri</a></li>
                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
                 <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
                 <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
-                <li><a href="kontak.html"class="active"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="container" id="kontak">
+    <main class="container">
+        
         <div class="section-title">
             <div class="section-title-box">
-                <span class="section-icon"><i class="fas fa-comments"></i></span> 
-                <h2>Hubungi Kami</h2>
+                <span class="section-icon"><i class="fas fa-camera"></i></span> 
+                <h2>Galeri Kegiatan</h2>
             </div>
+            <p>Dokumentasi Kegiatan Santri dan Agenda Pondok Pesantren.</p>
         </div>
 
-        <div class="contact-info-grid">
-            <div class="contact-item">
-                <span class="icon ikon-map"><i class="fas fa-map-marker-alt"></i></span>
-                <h3>Alamat</h3>
-                <p>Dusun Sukamaju II, RT.002 / RW.004,<br>Desa Jatisari, Kec. Jatisari, Karawang</p>
-            </div>
-
-            <div class="contact-item">
-                <span class="icon ikon-wa"><i class="fab fa-whatsapp"></i></span>
-                <h3>WhatsApp</h3>
-                <p>+62 814 0164 3188<br>Aktif Jam Kerja</p>
-            </div>
-
-            <div class="contact-item">
-                <span class="icon ikon-email"><i class="fas fa-envelope-open-text"></i></span>
-                <h3>Email</h3>
-                <p>daarulkhoirot2025@gmail.com<br>Aktif Jam Kerja</p>
-            </div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="tahfizul_quran.jpg" alt="Tahfizul Quran" loading="lazy"></div>
+            <div class="gallery-item"><img src="santri_berprestasi.jpeg" alt="Santri Berprestasi" loading="lazy"></div>
+            <div class="gallery-item"><img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah" loading="lazy"></div>
+            <div class="gallery-item"><img src="makan_bersama.jpeg" alt="Makan Bersama" loading="lazy"></div>
         </div>
-        
-        <h3 style="font-size: 24px; font-weight: bold; text-align: center; margin: 40px 0 15px; color: var(--primary-color);">
-            Lokasi Pondok Pesantren
-        </h3>
 
-        <div class="map-section">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15862.906659771146!2d107.5186851!3d-6.383182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMjInNTkuNSJTIDEwN8KwMzEnMDcuMyJF!5e0!3m2!1sid!2sid!4v1710000000000" 
-     
-                width="100%" 
-                height="100%" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+
+        <div class="section-title">
+            <div class="section-title-box">
+                <span class="section-icon"><i class="fas fa-newspaper"></i></span> 
+                <h2>Berita Terbaru</h2>
+            </div>
+            <p>Informasi Resmi dan Kabar Terkini seputar Pondok Pesantren.</p>
         </div>
-    </section>
+
+        <div class="news-grid">
+            
+            <a href="kobong_panggung.html" class="news-card">
+                <div class="date-badge">
+                    <span class="day">19</span>
+                    <span class="month">Mei</span>
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
+                        <span><i class="fas fa-tools"></i> Progres Fisik</span>
+                    </div>
+                    <h3>Pembangunan Kobong Panggung Struktur Cor Beton Mulai Memasuki Tahap Baru</h3>
+                    <p>Proses pembangunan fasilitas asrama/kobong panggung ukuran 3x9 meter di area pondok pesantren berjalan lancar menggunakan pilar cor beton kokoh dan dinding GRC panel.</p>
+                </div>
+            </a>
+
+            <a href="#" class="news-card">
+                <div class="date-badge">
+                    <span class="day">16</span>
+                    <span class="month">Mei</span>
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
+                    </div>
+                    <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
+                    <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang keilmuan Islam.</p>
+                </div>
+            </a>
+
+            <a href="pendaftaran.html" class="news-card">
+                <div class="date-badge">
+                    <span class="day">15</span>
+                    <span class="month">Des</span>
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Des 2025</span>
+                        <span><i class="fas fa-bullhorn"></i> Info Pendaftaran</span>
+                    </div>
+                    <h3>Penerimaan Santri Baru Gelombang 1 Halaman Galeri Resmi Dibuka</h3>
+                    <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk mendapatkan pendidikan Islami yang berkualitas dan berkarakter.</p>
+                </div>
+            </a>
+
+            <a href="#" class="news-card">
+                <div class="date-badge">
+                    <span class="day">10</span>
+                    <span class="month">Nov</span>
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Nov 2025</span>
+                        <span><i class="fas fa-star"></i> Kegiatan Pesantren</span>
+                    </div>
+                    <h3>Peringatan Maulid Nabi Muhammad SAW Berlangsung Khidmat</h3>
+                    <p>Seluruh santri dan pengasuh pondok mengikuti serangkaian pembacaan Sholawat Diba' serta tausiyah keagamaan guna meneladani akhlakul karimah Baginda Rasulullah SAW.</p>
+                </div>
+            </a>
+
+        </div>
+    </main>
 
     <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
@@ -467,7 +557,6 @@ nav ul li a.active i {
             const clickSound = document.getElementById('clickSound');
             const menuItems = document.querySelectorAll("nav ul li a");
 
-            // 1. Toggle Buka/Tutup Menu Lipat di HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -475,17 +564,7 @@ nav ul li a.active i {
                 });
             }
 
-            // 2. Otomatisasi Penentuan Class Active Menu Sesuai Nama File URL
-            const currentUrl = window.location.pathname.split("/").pop() || "index.html";
             menuItems.forEach(item => {
-                const hrefAttr = item.getAttribute("href");
-                if (hrefAttr === currentUrl || (currentUrl === "" && hrefAttr === "index.html")) {
-                    item.classList.add("active");
-                } else {
-                    item.classList.remove("active");
-                }
-
-                // 3. Sistem Delay Navigasi untuk Memutar Efek Suara Klik Global
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0;
@@ -504,7 +583,6 @@ nav ul li a.active i {
                 });
             });
 
-            // 4. Sembunyikan Menu HP jika pengguna melakukan klik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
