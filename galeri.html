@@ -64,7 +64,7 @@
         }
 
         /* ==========================================================================
-           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, FORM 3 KOLOM, & WA TOMBOL)
+           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, & BUTTONS)
            ========================================================================== */
         header {
             background: var(--primary-color); 
@@ -197,12 +197,32 @@
             transform: scale(1.08); 
         }
 
-     /* ==========================================================================
-           5. LIPUTAN BERITA UTAMA (SERAGAM HORIZONTAL - 3 KOLOM DESKTOP)
+        /* ==========================================================================
+           5. LIPUTAN BERITA UTAMA (KOTAK VERTIKAL - 3 KOLOM SERAGAM DESKTOP)
            ========================================================================== */
+        .news-section {
+            padding: 0 10% 3rem 10%;
+        }
+
+        .news-section-divider {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-news-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
         .news-grid {
             display: grid;
-            /* Mengunci layout desktop menjadi 3 kolom sama rata (Total 3fr) */
             grid-template-columns: repeat(3, 1fr); 
             gap: 25px;
             max-width: 1200px;
@@ -215,165 +235,14 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: 0.3s ease;
-            
-            /* MERUBAH MENJADI HORIZONTAL (Seperti Unit Pendidikan / Article Card) */
             display: flex;
-            flex-direction: row; 
-            align-items: center; 
-            
-            padding: 20px;
-            text-decoration: none !important;
-            color: inherit;
-            border: 1px solid transparent;
-            height: 100%; 
-            box-sizing: border-box;
-        }
-
-        .news-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary-color);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        /* Desain Badge Tanggal di Sebelah Kiri */
-        .news-card .date-badge {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            min-width: 75px;
-            height: 75px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-right: 20px; /* Jarak ke kanan arah teks */
-            flex-shrink: 0; 
-        }
-
-        .news-card .date-badge .day { 
-            font-size: 1.4rem; 
-            font-weight: 800; 
-            line-height: 1; 
-        }
-        
-        .news-card .date-badge .month { 
-            font-size: 0.8rem; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-        }
-
-        /* Pembungkus Teks di Sebelah Kanan */
-        .news-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Teks rata kiri */
-            width: 100%;
-            flex: 1;
-        }
-
-        .news-meta {
-            font-size: 0.75rem;
-            color: #777;
-            margin-bottom: 8px;
-            display: flex;
-            gap: 12px;
-            justify-content: flex-start;
-        }
-
-        .news-meta span i {
-            color: var(--primary-color);
-            margin-right: 4px;
-        }
-
-        /* Judul Berita (Rata Kiri & Batasi 2 Baris agar Seragam) */
-        .news-content h3 {
-            font-size: 1.1rem;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            line-height: 1.4;
-            text-align: left;
-            
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 3.1rem; /* Mengunci tinggi ruang judul */
-        }
-
-        /* Deskripsi Berita (Rata Kiri/Justify & Batasi 3 Baris) */
-        .news-content p {
-            font-size: 0.85rem;
-            color: #555;
-            line-height: 1.5;
-            margin: 0;
-            text-align: justify;
-            
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Efek Icon Chevron (Panah) Khas Article Card */
-        .chevron-icon { 
-            color: #ddd; 
-            font-size: 1.2rem; 
-            margin-left: 15px; 
-            transition: 0.3s; 
-        }
-        .news-card:hover .chevron-icon { 
-            color: var(--primary-color); 
-            transform: translateX(5px); 
-        }
-
-         
-        /* Footer */
-        footer { 
-            background: var(--dark-footer); 
-            color: white; 
-            padding: 40px 5% 20px; 
-            text-align: center; 
-            width: 100%; 
-            margin-top: auto;
-        }
-
-        footer .f-title { 
-            font-size: 1.2rem; 
-            font-weight: bold; 
-            margin-bottom: 10px; 
-            color: var(--secondary-color) !important; 
-            display: block; 
-        }
-        
-        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
-    /* ==========================================================================
-           5. LIPUTAN BERITA UTAMA (KOTAK VERTIKAL - 3 KOLOM SERAGAM)
-           ========================================================================== */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Mengunci 3 kolom (3fr total) */
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto 40px;
-        }
-
-        .news-card {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: 0.3s ease;
-            display: flex;
-            flex-direction: column; /* Kotak memanjang ke bawah */
+            flex-direction: column; 
             align-items: center; 
             padding: 25px 20px; 
             text-decoration: none !important;
             color: inherit;
             border: 1px solid transparent;
-            height: 100%; /* Kotak satu baris otomatis sama tinggi */
+            height: 100%; 
             box-sizing: border-box;
         }
 
@@ -420,7 +289,6 @@
 
         .news-meta span i { color: var(--primary-color); margin-right: 5px; }
 
-        /* Mengunci area judul agar baris teks di bawahnya sejajar lurus */
         .news-content h3 {
             font-size: 1.15rem;
             color: var(--primary-color);
@@ -431,10 +299,9 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 4.8rem; /* Batas tinggi ruang judul */
+            height: 4.8rem; 
         }
 
-        /* Mengunci area paragraf deskripsi */
         .news-content p {
             font-size: 0.9rem;
             color: #555;
@@ -445,11 +312,11 @@
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 5.8rem; /* Batas tinggi ruang paragraf */
+            height: 5.8rem; 
         }
 
         /* ==========================================================================
-           6. LIST BERITA KATEGORI (BAGIAN BAWAH - DIKEMBALIKAN KE SEMULA)
+           6. LIST BERITA KATEGORI (BAGIAN BAWAH)
            ========================================================================== */
         .news-container {
             display: flex;
@@ -457,6 +324,7 @@
             gap: 15px;
             max-width: 1200px;
             margin: 0 auto 40px;
+            padding: 0 10%;
         }
 
         .article-card {
@@ -502,68 +370,103 @@
         .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
         .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
 
-   /* --- 4. RESPONSIVE MOBILE (HP) --- */
-
-    @media (max-width: 768px) {
-
-        header { height: 60px; padding: 0 15px; }
-
-        .logo img { height: 35px; }
-
-        .logo h1 { font-size: 1rem; }
-
-
-
-        #menu-toggle {
-
-            display: block !important; background: var(--secondary-color) !important;
-
-            color: var(--primary-color) !important; border: none; padding: 6px 12px;
-
-            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
-
+        /* ==========================================================================
+           7. FOOTER STYLE
+           ========================================================================== */
+        footer { 
+            background: var(--dark-footer); 
+            color: white; 
+            padding: 40px 5% 20px; 
+            text-align: center; 
+            width: 100%; 
+            margin-top: auto;
         }
 
-
-
-        nav ul { 
-
-            display: none; flex-direction: column; width: 100%; position: absolute;
-
-            top: 60px; left: 0; background: var(--primary-color); padding: 20px;
-
-            gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-
+        footer .f-title { 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+            color: var(--secondary-color) !important; 
+            display: block; 
         }
+        
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        nav.show ul { display: flex !important; }
+        /* ==========================================================================
+           8. RESPONSIVE MOBILE STYLE (MEDIA QUERY HP)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            header { height: 60px; padding: 0 15px; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 1rem; }
 
-        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
+            #menu-toggle {
+                display: block !important; 
+                background: var(--secondary-color) !important;
+                color: var(--primary-color) !important; 
+                border: none; 
+                padding: 6px 12px;
+                border-radius: 4px; 
+                font-weight: bold; 
+                font-size: 0.8rem; 
+                cursor: pointer;
+            }
 
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                width: 100%; 
+                position: absolute;
+                top: 60px; 
+                left: 0; 
+                background: var(--primary-color); 
+                padding: 20px;
+                gap: 15px; 
+                border-bottom: 3px solid var(--secondary-color); 
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            }
 
+            nav.show ul { display: flex !important; }
+            nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
 
-        .container { padding: 2rem 5%; }
+            .container, .news-section, .news-container { padding: 2rem 5%; }
+            .section-title-box { padding: 10px 20px; }
+            .section-title-box h2 { font-size: 1.2rem; }
 
-        .section-title-box { padding: 10px 20px; }
+            /* PERBAIKAN TOTAL GRID BERITA & GALERI DI HP */
+            .news-grid, .gallery-grid { 
+                grid-template-columns: 1fr !important; 
+                gap: 20px !important;
+            }
 
-        .section-title-box h2 { font-size: 1.2rem; }
+            .news-card {
+                height: auto !important;
+                padding: 20px !important;
+            }
 
-    }
+            /* Lepas pengunci tinggi teks di HP agar muat dibaca utuh */
+            .news-content h3, .news-content p {
+                height: auto !important;
+                -webkit-line-clamp: unset !important;
+            }
 
-  /* TAMBAHKAN KODE INI UNTUK MEMPERBAIKI KOTAK BERITA/GALERI DI HP */
-    .news-grid, .berita-grid, .gallery-grid { 
-        grid-template-columns: 1fr !important; /* Paksa menjadi 1 kolom vertikal ke bawah */
-        gap: 20px;
-    }
-
-    /* Buka kunci pembatas tinggi teks (jika ada) agar teksnya muat penuh di HP */
-    .news-item h3, .berita-item h3, .news-item p, .berita-item p {
-        height: auto !important;
-        -webkit-line-clamp: unset !important;
-    }
-}
-
-     
+            /* Responsive untuk list baris terbawah */
+            .article-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .news-container .date-badge {
+                margin-right: 0 !important;
+            }
+            .article-text h3 {
+                text-align: center;
+            }
+            .chevron-icon {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -612,85 +515,85 @@
                 <div class="gallery-item"><img src="penghargaan_santri.jpeg" alt="Penghargaan Santri" loading="lazy"></div>
             </div>
         </section>
-</div>
-
-<section id="berita" class="news-section">
-    <div class="news-section-divider">
-        <div class="btn-news-header">
-            <i class="fas fa-newspaper"></i> Berita Terbaru
-        </div>
     </div>
 
-    <div class="news-grid">
-        
-        <a href="kobong_panggung.html" class="news-card">
-            <div class="date-badge">
-                <span class="day">19</span>
-                <span class="month">Mei</span>
+    <section id="berita" class="news-section">
+        <div class="news-section-divider">
+            <div class="btn-news-header">
+                <i class="fas fa-newspaper"></i> Berita Terbaru
             </div>
-            <div class="news-content">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
-                    <span><i class="fas fa-tools"></i> Progres Fisik</span>
-                </div>
-                <h3>Pembangunan Kobong Panggung Struktur Cor Beton Mulai Memasuki Tahap Baru</h3>
-                <p>Proses pembangunan fasilitas asrama/kobong panggung ukuran 3x9 meter di area pondok pesantren berjalan lancar menggunakan pilar cor beton kokoh dan dinding GRC panel.</p>
-            </div>
-        </a>
-        
-        <a href="kajian_jihad.html" class="news-card">
-            <div class="date-badge">
-                <span class="day">16</span>
-                <span class="month">Mei</span>
-            </div>
-            <div class="news-content">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
-                </div>
-                <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
-                <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
-            </div>
-        </a>
+        </div>
 
-        <a href="berita-pendaftaran-2025.html" class="news-card">
-            <div class="date-badge">
-                <span class="day">15</span>
-                <span class="month">Des</span>
-            </div>
-            <div class="news-content">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar-alt"></i> Des 2025</span>
-                    <span><i class="fas fa-bullhorn"></i> Info Pendaftaran</span>
+        <div class="news-grid">
+            
+            <a href="kobong_panggung.html" class="news-card">
+                <div class="date-badge">
+                    <span class="day">19</span>
+                    <span class="month">Mei</span>
                 </div>
-                <h3>Penerimaan Santri Baru Gelombang 1 Halaman Galeri Resmi Dibuka</h3>
-                <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk mendapatkan pendidikan Islami yang berkualitas sejak dini.</p>
-            </div>
-        </a>
-
-        <a href="berita-maulid-2025.html" class="news-card">
-            <div class="date-badge">
-                <span class="day">10</span>
-                <span class="month">Nov</span>
-            </div>
-            <div class="news-content">
-                <div class="news-meta">
-                    <span><i class="fas fa-calendar-alt"></i> Nov 2025</span>
-                    <span><i class="fas fa-star"></i> Kegiatan Pesantren</span>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
+                        <span><i class="fas fa-tools"></i> Progres Fisik</span>
+                    </div>
+                    <h3>Pembangunan Kobong Panggung Struktur Cor Beton Mulai Memasuki Tahap Baru</h3>
+                    <p>Proses pembangunan fasilitas asrama/kobong panggung ukuran 3x9 meter di area pondok pesantren berjalan lancar menggunakan pilar cor beton kokoh dan dinding GRC panel.</p>
                 </div>
-                <h3>Peringatan Maulid Nabi Muhammad SAW di Pondok Pesantren</h3>
-                <p>Alhamdulillah, seluruh rangkaian acara utama peringatan besar Maulid Nabi Muhammad SAW berjalan dengan sangat lancar, khidmat, dan penuh keberkahan bersama seluruh keluarga besar yayasan.</p>
-            </div>
-        </a>
+            </a>
+            
+            <a href="kajian_jihad.html" class="news-card">
+                <div class="date-badge">
+                    <span class="day">16</span>
+                    <span class="month">Mei</span>
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
+                    </div>
+                    <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
+                    <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
+                </div>
+            </a>
 
-    </div> </section>
+            <a href="berita-pendaftaran-2025.html" class="news-card">
+                <div class="date-badge">
+                    <span class="day">15</span>
+                    <span class="month">Des</span>
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Des 2025</span>
+                        <span><i class="fas fa-bullhorn"></i> Info Pendaftaran</span>
+                    </div>
+                    <h3>Penerimaan Santri Baru Gelombang 1 Halaman Galeri Resmi Buku</h3>
+                    <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk mendapatkan pendidikan Islami yang berkualitas sejak dini.</p>
+                </div>
+            </a>
 
-</div>
+            <a href="berita-maulid-2025.html" class="news-card">
+                <div class="date-badge">
+                    <span class="day">10</span>
+                    <span class="month">Nov</span>
+                </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> Nov 2025</span>
+                        <span><i class="fas fa-star"></i> Kegiatan Pesantren</span>
+                    </div>
+                    <h3>Peringatan Maulid Nabi Muhammad SAW di Pondok Pesantren</h3>
+                    <p>Alhamdulillah, seluruh rangkaian acara utama peringatan besar Maulid Nabi Muhammad SAW berjalan dengan sangat lancar, khidmat, dan penuh keberkahan bersama seluruh keluarga besar yayasan.</p>
+                </div>
+            </a>
+
+        </div> 
+    </section>
+
     <footer>
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
     <audio id="murottal" src="murottal_start.mp3" loop></audio>
@@ -700,7 +603,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const murottal = document.getElementById('murottal');
             const clickSound = document.getElementById('clickSound');
-            const menuItems = document.querySelectorAll('nav ul li a, .news-card, .article-card, .wa-floating');
+            const menuItems = document.querySelectorAll('nav ul li a, .news-card, .article-card');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
             let hasInteracted = false;
