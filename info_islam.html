@@ -203,7 +203,7 @@
             border-color: var(--primary-color);
         }
 
-        /* Artikel Section */
+              /* Artikel Section */
         .article-section-title {
             color: var(--primary-color); 
             text-align: center; 
@@ -220,22 +220,20 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 25px;
             transition: 0.3s;
-            border-left: 5px solid transparent;
+            /* SEKARANG SEMUA KARTU PUNYA BORDER KIRI DEFAULT HIJAU */
+            border-left: 5px solid var(--primary-color); 
         }
         
-        /* Memberi aksen border kiri kuning khusus artikel sedekah seperti di gambar */
+        /* Khusus kartu donasi/sedekah, warnanya kuning sejak awal */
         .article-item.highlight-donasi {
             border-left: 5px solid var(--secondary-color);
         }
         
+        /* Efek hover saat disentuh */
         .article-item:hover { 
             transform: translateY(-4px); 
-            border-left: 5px solid var(--primary-color); 
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        }
-
-        .article-item.highlight-donasi:hover {
-            border-left: 5px solid var(--secondary-color);
+            /* Tetap mempertahankan warna border masing-masing saat hover */
         }
         
         .article-item h3 { 
@@ -389,15 +387,15 @@
                 <h3>Akses Cepat</h3>
                 <a href="https://quran.com/id" target="_blank" class="btn-akses"><i class="fas fa-book-open"></i> Al-Qur'an Online</a>
                 <a href="https://hadits.id" target="_blank" class="btn-akses"><i class="fas fa-scroll"></i> Hadits Online</a>
-                <a href="https://islam.nu.or.id/hikmah" target="_blank" class="btn-akses"><i class="fas fa-history"></i> Kisah Hikmah</a>
-                <a href="https://rumaysho.com" target="_blank" class="btn-akses"><i class="fas fa-hands-helping"></i> Doa Harian</a>
+                <a href="https://kisahmuslim.com/" target="_blank" class="btn-akses"><i class="fas fa-history"></i> Kisah Hikmah</a>
+                <a href="https://quran.nu.or.id/doa/doa-keseharian"target="_blank" class="btn-akses"><i class="fas fa-hands-helping"></i> Doa Harian</a>
                 <p style="font-size: 0.75rem; color: #999; font-style: italic;">*Membuka jendela baru</p>
             </div> 
         </div>
 
         <h3 class="article-section-title">Artikel Pilihan</h3>
 
-        <div class="article-item">
+              <div class="article-item">
             <h3>Tafsir Singkat Surah Al-Fatihah</h3>
             <p>Al-Fatihah adalah Ummul Kitab (Induk Kitab) yang mencakup seluruh makna dasar ajaran Islam, menekankan Tauhid dan permohonan hidayah kepada Allah SWT dalam setiap langkah kehidupan kita.</p>
             <a href="artikel-tafsir-fatihah.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
@@ -421,7 +419,9 @@
             <a href="keutamaan_sedekah.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
         </div>
 
-    </main> <footer> 
+    </main> 
+
+<footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
