@@ -197,14 +197,14 @@
             transform: scale(1.08); 
         }
 
-        /* ==========================================================================
-           5. LIPUTAN BERITA UTAMA (SERAGAM 3 KOLOM DI DESKTOP)
+     /* ==========================================================================
+           5. LIPUTAN BERITA UTAMA (SERAGAM HORIZONTAL - 3 KOLOM DESKTOP)
            ========================================================================== */
         .news-grid {
             display: grid;
-            /* Mengunci grid agar PASTI membagi ruang menjadi 3 kolom sama rata (33.33% masing-masing) */
+            /* Mengunci layout desktop menjadi 3 kolom sama rata (Total 3fr) */
             grid-template-columns: repeat(3, 1fr); 
-            gap: 25px; /* Sedikit dipersempit dari 30px agar kartu tidak terlalu sempit di layar tanggung */
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto 40px;
         }
@@ -215,14 +215,18 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: 0.3s ease;
+            
+            /* MERUBAH MENJADI HORIZONTAL (Seperti Unit Pendidikan / Article Card) */
             display: flex;
-            flex-direction: column;
+            flex-direction: row; 
             align-items: center; 
-            padding: 25px 20px; /* Menyesuaikan padding agar pas dengan lebar 3 kolom */
+            
+            padding: 20px;
             text-decoration: none !important;
             color: inherit;
             border: 1px solid transparent;
-            height: 100%; /* Membuat tinggi semua kartu otomatis seragam mengikuti yang paling tinggi */
+            height: 100%; 
+            box-sizing: border-box;
         }
 
         .news-card:hover {
@@ -231,10 +235,11 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
+        /* Desain Badge Tanggal di Sebelah Kiri */
         .news-card .date-badge {
             background: var(--secondary-color);
             color: var(--primary-color);
-            width: 75px;
+            min-width: 75px;
             height: 75px;
             display: flex;
             flex-direction: column;
@@ -242,8 +247,8 @@
             align-items: center;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px; 
-            flex-shrink: 0;
+            margin-right: 20px; /* Jarak ke kanan arah teks */
+            flex-shrink: 0; 
         }
 
         .news-card .date-badge .day { 
@@ -258,127 +263,71 @@
             text-transform: uppercase; 
         }
 
+        /* Pembungkus Teks di Sebelah Kanan */
         .news-content {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start; /* Teks rata kiri */
             width: 100%;
             flex: 1;
         }
 
         .news-meta {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #777;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             display: flex;
-            gap: 15px;
-            justify-content: center;
+            gap: 12px;
+            justify-content: flex-start;
         }
 
         .news-meta span i {
             color: var(--primary-color);
-            margin-right: 5px;
+            margin-right: 4px;
         }
 
+        /* Judul Berita (Rata Kiri & Batasi 2 Baris agar Seragam) */
         .news-content h3 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: var(--primary-color);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             line-height: 1.4;
-            text-align: center;
+            text-align: left;
+            
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 3.1rem; /* Mengunci tinggi ruang judul */
         }
 
+        /* Deskripsi Berita (Rata Kiri/Justify & Batasi 3 Baris) */
         .news-content p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.5;
             margin: 0;
             text-align: justify;
+            
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        /* ==========================================================================
-           6. LIST BERITA KATEGORI (BAGIAN BAWAH)
-           ========================================================================== */
-        .news-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Efek Icon Chevron (Panah) Khas Article Card */
+        .chevron-icon { 
+            color: #ddd; 
+            font-size: 1.2rem; 
+            margin-left: 15px; 
+            transition: 0.3s; 
+        }
+        .news-card:hover .chevron-icon { 
+            color: var(--primary-color); 
+            transform: translateX(5px); 
         }
 
-        .article-card {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-decoration: none !important;
-            color: inherit;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .article-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--secondary-color);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            text-decoration: none !important;
-        }
-
-        .news-container .date-badge {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            min-width: 85px;
-            height: 85px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            margin-right: 25px;
-            flex-shrink: 0;
-        }
-
-        .news-container .date-badge .day { font-size: 1.6rem; font-weight: 800; line-height: 1; }
-        .news-container .date-badge .month { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
-
-        .article-text { flex: 1; }
-        .article-text h3 { color: var(--primary-color); font-size: 1.25rem; margin-bottom: 5px; }
-        .article-text p { color: #666; font-size: 0.95rem; margin: 0; text-align: justify; }
-
-        .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
-        .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
-
-        /* ==========================================================================
-           7. FLOATING WHATSAPP BUTTON
-           ========================================================================== */
-        .wa-floating {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background-color: var(--whatsapp-green);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none !important;
-            z-index: 9999;
-            font-weight: bold;
-            font-size: 0.95rem;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .wa-floating:hover {
-            transform: scale(1.05);
-            background-color: #20ba5a;
-            color: white !important;
-        }
-        
+         
         /* Footer */
         footer { 
             background: var(--dark-footer); 
@@ -400,7 +349,7 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* ==========================================================================
+     /* ==========================================================================
            8. BLOK STYLE MOBILE (RESPONSIVE DROPDOWN & REVERSE LAYOUT)
            ========================================================================== */
         @media (max-width: 768px) {
@@ -445,29 +394,53 @@
                 border-left: 4px solid var(--secondary-color);
                 padding-left: 10px;
                 color: var(--secondary-color) !important;
-            }
+                }
 
             .container { padding: 2rem 5%; }
             .section-title-box h2 { font-size: 1.3rem; }
             .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
-            .news-grid { grid-template-columns: 1fr; gap: 25px; }
-
-            .article-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 25px 15px;
+            
+            /* SINKRONISASI LAYOUT BERITA BARU DI MOBILE */
+            .news-grid { 
+                grid-template-columns: 1fr; /* Dipaksa jadi 1 kolom vertikal */
+                gap: 20px; 
             }
 
-            .news-container .date-badge {
+            .news-card {
+                flex-direction: column; /* Struktur horizontal kembali jadi vertikal agar tidak gepeng */
+                text-align: center;
+                padding: 25px 20px;
+            }
+
+            .news-card .date-badge {
                 margin-right: 0;
-                margin-bottom: 15px;
+                margin-bottom: 15px; /* Jarak badge ke bawah (ke arah teks) */
                 width: 85px;
+                height: 85px;
+            }
+
+            .news-content {
+                align-items: center; /* Teks berita jadi rata tengah di HP */
+            }
+
+            .news-content h3 {
+                text-align: center;
+                font-size: 1.15rem;
+                height: auto; /* Lepas kunci tinggi agar teks panjang tidak terpotong di HP */
+                -webkit-line-clamp: unset; /* Tampilkan semua judul di HP jika diperlukan */
+                overflow: visible;
+            }
+
+            .news-content p {
+                text-align: center;
+                -webkit-line-clamp: 3; /* Deskripsi tetap kita amankan maksimal 3 baris */
             }
 
             .chevron-icon {
-                display: none;
+                display: none; /* Sembunyikan panah di HP agar space layar lebih luas */
             }
 
+            /* TOMBOL WHATSAPP */
             .wa-floating {
                 bottom: 20px;
                 right: 20px;
