@@ -349,105 +349,175 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-     /* ==========================================================================
-           8. BLOK STYLE MOBILE (RESPONSIVE DROPDOWN & REVERSE LAYOUT)
+        /* ==========================================================================
+           5. LIPUTAN BERITA UTAMA (SERAGAM 3 KOLOM DI DESKTOP)
            ========================================================================== */
-        @media (max-width: 768px) {
-            header { height: 65px; padding: 0 15px; }
-            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
-            .logo img { height: 35px; margin-right: 0 !important; }
-            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
-
-            #menu-toggle {
-                display: flex !important;  
-                flex-direction: row;      
-                align-items: center;       
-                gap: 4px;           
-                background: var(--secondary-color);
-                color: var(--primary-color);
-                padding: 6px 12px;
-                border: none;
-                border-radius: 4px;
-                font-weight: bold;
-                cursor: pointer;
-            }
-            
-            nav ul { 
-                display: none; 
-                flex-direction: column; 
-                width: 100%; 
-                position: absolute; 
-                top: 65px; 
-                left: 0; 
-                background: var(--primary-color); 
-                padding: 20px; 
-                border-bottom: 3px solid var(--secondary-color); 
-                gap: 15px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            }
-            
-            nav.show ul { display: flex; }
-            nav ul li a { color: white !important; }
-
-            nav ul li a.active {
-                border-bottom: none;
-                border-left: 4px solid var(--secondary-color);
-                padding-left: 10px;
-                color: var(--secondary-color) !important;
-                }
-
-            .container { padding: 2rem 5%; }
-            .section-title-box h2 { font-size: 1.3rem; }
-            .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
-            
-            /* SINKRONISASI LAYOUT BERITA BARU DI MOBILE */
-            .news-grid { 
-                grid-template-columns: 1fr; /* Dipaksa jadi 1 kolom vertikal */
-                gap: 20px; 
-            }
-
-            .news-card {
-                flex-direction: column; /* Struktur horizontal kembali jadi vertikal agar tidak gepeng */
-                text-align: center;
-                padding: 25px 20px;
-            }
-
-            .news-card .date-badge {
-                margin-right: 0;
-                margin-bottom: 15px; /* Jarak badge ke bawah (ke arah teks) */
-                width: 85px;
-                height: 85px;
-            }
-
-            .news-content {
-                align-items: center; /* Teks berita jadi rata tengah di HP */
-            }
-
-            .news-content h3 {
-                text-align: center;
-                font-size: 1.15rem;
-                height: auto; /* Lepas kunci tinggi agar teks panjang tidak terpotong di HP */
-                -webkit-line-clamp: unset; /* Tampilkan semua judul di HP jika diperlukan */
-                overflow: visible;
-            }
-
-            .news-content p {
-                text-align: center;
-                -webkit-line-clamp: 3; /* Deskripsi tetap kita amankan maksimal 3 baris */
-            }
-
-            .chevron-icon {
-                display: none; /* Sembunyikan panah di HP agar space layar lebih luas */
-            }
-
-            /* TOMBOL WHATSAPP */
-            .wa-floating {
-                bottom: 20px;
-                right: 20px;
-                padding: 10px 16px;
-                font-size: 0.85rem;
-            }
+        .news-grid {
+            display: grid;
+            /* Membagi ruang menjadi pasti 3 kolom sama rata di desktop */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
         }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            padding: 25px 20px; 
+            text-decoration: none !important;
+            color: inherit;
+            border: 1px solid transparent;
+            height: 100%; /* Kotak kanan-kiri pasti sama tinggi */
+            box-sizing: border-box;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .news-card .date-badge {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            width: 75px;
+            height: 75px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px; 
+            flex-shrink: 0;
+        }
+
+        .news-card .date-badge .day { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            line-height: 1; 
+        }
+        
+        .news-card .date-badge .month { 
+            font-size: 0.8rem; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+        }
+
+        .news-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .news-meta {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+
+        /* Mengunci Ruang Judul Supaya Garis Teks di Bawahnya Sejajar */
+        .news-content h3 {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            text-align: center;
+            
+            /* Pembatasan baris (Line Clamp) */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Maksimal judul 3 baris */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 4.8rem; /* Ruang judul dikunci flat sama tinggi */
+        }
+
+        /* Mengunci Ruang Deskripsi Paragraf */
+        .news-content p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            text-align: justify;
+            
+            display: -webkit-box;
+            -webkit-line-clamp: 4; /* Maksimal deskripsi 4 baris */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 5.8rem; /* Ruang deskripsi dikunci flat sama tinggi */
+        }
+
+        /* ==========================================================================
+           6. LIST BERITA KATEGORI (BAGIAN BAWAH - DIKEMBALIKAN KE SEMULA)
+           ========================================================================== */
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .article-card {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none !important;
+            color: inherit;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .news-container .date-badge {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            min-width: 85px;
+            height: 85px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+
+        .news-container .date-badge .day { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+        .news-container .date-badge .month { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
+
+        .article-text { flex: 1; }
+        .article-text h3 { color: var(--primary-color); font-size: 1.25rem; margin-bottom: 5px; text-align: left; }
+        .article-text p { color: #666; font-size: 0.95rem; margin: 0; text-align: justify; }
+
+        .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
+        .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
+     
     </style>
 </head>
 <body>
