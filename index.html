@@ -277,6 +277,90 @@ nav ul li a.active {
     line-height: 1.5;
 }
 
+/* Container Utama Grid Donasi */
+.donasi-grid-clean {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* Kartu Donasi Khusus */
+.donasi-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: center;
+    border: 1px solid #eaeaea;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.donasi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    border-color: var(--primary-color);
+}
+
+.donasi-icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: #f4f7f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.donasi-icon-box i {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+}
+
+.donasi-card h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.donasi-card p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Tombol Donasi via WhatsApp */
+.btn-donasi {
+    background-color: var(--primary-color);
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    width: 100%;
+    display: block;
+    transition: background 0.2s;
+}
+
+.btn-donasi:hover {
+    background-color: var(--dark-green);
+}
+
+/* RESPONSIF: Jika dibuka di HP, otomatis menumpuk vertikal */
+@media (max-width: 768px) {
+    .donasi-grid-clean {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
 /* Default Style Desktop untuk WA Float (Berbentuk Pil/Tombol Panjang) */
 @media (min-width: 769px) {
     .whatsapp-float {
@@ -587,6 +671,52 @@ Kabupaten Karawang</td>
                 <p>Program akselerasi Tahfidz Al-Qur'an 30 Juz dan kajian Kitab Kuning intensif.</p>
             </div>
         </a>
+    </div>
+</section>
+
+<section class="kartu-modern-clean">
+    <h2 class="judul-seragam">
+        <i class="fas fa-heart"></i> Peluang Amal Jariyah
+    </h2>
+    <p style="color: #666; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6;">
+        Mari berinvestasi untuk akhirat dengan mendukung pendidikan para santri penghafal Al-Qur'an dan pengembangan fasilitas dakwah di Pondok Pesantren Daarul Khoirot Almadani.
+    </p>
+
+    <div class="donasi-grid-clean">
+        
+        <div class="donasi-card">
+            <div class="donasi-icon-box">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h3>Donatur Tetap / Orang Tua Asuh</h3>
+            <p>Bantuan rutin bulanan untuk menyokong kebutuhan pokok, kitab, serta fasilitas pendidikan santri yatim dan dhuafa.</p>
+            <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20bertanya%20mengenai%20program%20Donatur%20Tetap%20/%20Orang%20Tua%20Asuh." class="btn-donasi" target="_blank">
+                <i class="fab fa-whatsapp"></i> Jadi Donatur Tetap
+            </a>
+        </div>
+
+        <div class="donasi-card">
+            <div class="donasi-icon-box">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h3>Donasi Pembangunan</h3>
+            <p>Wakaf jariyah berupa dana maupun material bangunan (semen, pasir, bata, GRC, dll) untuk perluasan asrama/kobong dan ruang belajar.</p>
+            <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20berkontribusi%20untuk%20Donasi%20Pembangunan%20Pesantren." class="btn-donasi" target="_blank">
+                <i class="fab fa-whatsapp"></i> Titip Wakaf Pembangunan
+            </a>
+        </div>
+
+        <div class="donasi-card">
+            <div class="donasi-icon-box">
+                <i class="fas fa-hand-holding-heart"></i>
+            </div>
+            <h3>Donasi Operasional</h3>
+            <p>Dukungan umum untuk operasional harian pondok, kegiatan dakwah, kajian berkala, serta pemeliharaan kebersihan lingkungan pesantren.</p>
+            <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." class="btn-donasi" target="_blank">
+                <i class="fab fa-whatsapp"></i> Salurkan Donasi
+            </a>
+        </div>
+
     </div>
 </section>
  
