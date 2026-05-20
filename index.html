@@ -193,10 +193,16 @@ nav ul li a.active {
     margin: 0 auto;     
 }
 
+
+
 /* Reset Khusus untuk Kartu yang Berada di Dalam Grid Split */
 .beranda-split-grid .kartu-modern-clean {
     width: 100%;
     margin: 0;
+}
+.beranda-split-grid .kartu-modern-clean[style*="background: #fafafa"] {
+    border: 1px solid #eaeaea !important; /* Membuat border tipis di sekeliling */
+    border-top: 4px solid var(--primary-color) !important; /* Memaksa border-top tebal tetap muncul */
 }
 
 .motto-clean-box {
@@ -496,7 +502,8 @@ footer {
         </div>
     </div>
 
-    <div class="kartu-modern-clean" style="background: #fafafa; border: 1px solid #eaeaea;">
+    <div class="kartu-modern-clean" style="background: #fafafa;">
+ 
         <h2 class="judul-seragam">
             <i class="fas fa-balance-scale"></i> Legalitas Resmi
         </h2>
