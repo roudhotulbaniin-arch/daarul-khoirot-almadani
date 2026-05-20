@@ -349,13 +349,12 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* ==========================================================================
-           5. LIPUTAN BERITA UTAMA (SERAGAM 3 KOLOM DI DESKTOP)
+    /* ==========================================================================
+           5. LIPUTAN BERITA UTAMA (KOTAK VERTIKAL - 3 KOLOM SERAGAM)
            ========================================================================== */
         .news-grid {
             display: grid;
-            /* Membagi ruang menjadi pasti 3 kolom sama rata di desktop */
-            grid-template-columns: repeat(3, 1fr); 
+            grid-template-columns: repeat(3, 1fr); /* Mengunci 3 kolom (3fr total) */
             gap: 25px;
             max-width: 1200px;
             margin: 0 auto 40px;
@@ -368,13 +367,13 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: 0.3s ease;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Kotak memanjang ke bawah */
             align-items: center; 
             padding: 25px 20px; 
             text-decoration: none !important;
             color: inherit;
             border: 1px solid transparent;
-            height: 100%; /* Kotak kanan-kiri pasti sama tinggi */
+            height: 100%; /* Kotak satu baris otomatis sama tinggi */
             box-sizing: border-box;
         }
 
@@ -399,17 +398,8 @@
             flex-shrink: 0;
         }
 
-        .news-card .date-badge .day { 
-            font-size: 1.4rem; 
-            font-weight: 800; 
-            line-height: 1; 
-        }
-        
-        .news-card .date-badge .month { 
-            font-size: 0.8rem; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-        }
+        .news-card .date-badge .day { font-size: 1.4rem; font-weight: 800; line-height: 1; }
+        .news-card .date-badge .month { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
 
         .news-content {
             display: flex;
@@ -428,40 +418,34 @@
             justify-content: center;
         }
 
-        .news-meta span i {
-            color: var(--primary-color);
-            margin-right: 5px;
-        }
+        .news-meta span i { color: var(--primary-color); margin-right: 5px; }
 
-        /* Mengunci Ruang Judul Supaya Garis Teks di Bawahnya Sejajar */
+        /* Mengunci area judul agar baris teks di bawahnya sejajar lurus */
         .news-content h3 {
             font-size: 1.15rem;
             color: var(--primary-color);
             margin-bottom: 12px;
             line-height: 1.4;
             text-align: center;
-            
-            /* Pembatasan baris (Line Clamp) */
             display: -webkit-box;
-            -webkit-line-clamp: 3; /* Maksimal judul 3 baris */
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 4.8rem; /* Ruang judul dikunci flat sama tinggi */
+            height: 4.8rem; /* Batas tinggi ruang judul */
         }
 
-        /* Mengunci Ruang Deskripsi Paragraf */
+        /* Mengunci area paragraf deskripsi */
         .news-content p {
             font-size: 0.9rem;
             color: #555;
             line-height: 1.6;
             margin: 0;
             text-align: justify;
-            
             display: -webkit-box;
-            -webkit-line-clamp: 4; /* Maksimal deskripsi 4 baris */
+            -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 5.8rem; /* Ruang deskripsi dikunci flat sama tinggi */
+            height: 5.8rem; /* Batas tinggi ruang paragraf */
         }
 
         /* ==========================================================================
@@ -567,14 +551,15 @@
             </div>
         </section>
 
-        <section id="berita" class="news-section">
+       <section id="berita" class="news-section">
             <div class="news-section-divider">
                 <div class="btn-news-header">
                     <i class="fas fa-newspaper"></i> Berita Terbaru
                 </div>
             </div>
 
-            <main class="news-grid">
+            <div class="news-grid">
+                
                 <a href="kobong_panggung.html" class="news-card">
                     <div class="date-badge">
                         <span class="day">19</span>
@@ -604,39 +589,39 @@
                         <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
                     </div>
                 </a>
-            </main> 
 
-            <div class="news-container">
-                <a href="berita-pendaftaran-2025.html" class="article-card">
+                <a href="berita-pendaftaran-2025.html" class="news-card">
                     <div class="date-badge">
                         <span class="day">15</span>
                         <span class="month">Des</span>
                     </div>
-                    <div class="article-text">
-                        <h3>Penerimaan Santri Baru Gelombang 1</h3>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Des 2025</span>
+                            <span><i class="fas fa-bullhorn"></i> Info Pendaftaran</span>
+                        </div>
+                        <h3>Penerimaan Santri Baru Gelombang 1 Halaman Galeri Resmi Dibuka</h3>
                         <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk pendidikan Islami yang berkualitas.</p>
                     </div>
-                    <i class="fas fa-chevron-right chevron-icon"></i>
                 </a>
 
-                <a href="berita-maulid-2025.html" class="article-card">
+                <a href="berita-maulid-2025.html" class="news-card">
                     <div class="date-badge">
                         <span class="day">10</span>
                         <span class="month">Nov</span>
                     </div>
-                    <div class="article-text">
-                        <h3>Peringatan Maulid Nabi Muhammad SAW</h3>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Nov 2025</span>
+                            <span><i class="fas fa-star"></i> Kegiatan Pesantren</span>
+                        </div>
+                        <h3>Peringatan Maulid Nabi Muhammad SAW di Pondok Pesantren</h3>
                         <p>Alhamdulillah, rangkaian acara peringatan Maulid Nabi berjalan dengan lancar dan penuh keberkahan bersama keluarga besar yayasan.</p>
                     </div>
-                    <i class="fas fa-chevron-right chevron-icon"></i>
                 </a>
-            </div>
-        </section>
-    </div>
 
-    <a href="https://wa.me/6281401643188" class="wa-floating" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-whatsapp fa-lg"></i> Tanya Admin
-    </a>
+            </div> 
+        </section>
 
     <footer>
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
