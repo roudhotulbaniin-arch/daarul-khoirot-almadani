@@ -541,6 +541,83 @@ footer {
     .hero-content h1 { font-size: 1.5rem; white-space: normal; }
     .hero-content p { font-size: 0.8rem; white-space: normal; }
 
+        /* ==========================================================================
+           HERO BANNER SEDEKAH 
+           ========================================================================== */
+        .sedekah-banner {
+            background: linear-gradient(135deg, rgba(26, 93, 26, 0.95), rgba(13, 46, 13, 0.9)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200') no-repeat center center;
+            background-size: cover;
+            color: var(--white);
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiasan aksen pola Islami samar di latar belakang */
+        .sedekah-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            opacity: 0.05;
+            background-image: radial-gradient(var(--secondary-color) 1px, transparent 0);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        .sedekah-banner h2 {
+            font-size: 1.6rem;
+            color: var(--secondary-color);
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .sedekah-banner p {
+            font-size: 1rem;
+            max-width: 650px;
+            line-height: 1.5;
+            margin: 0;
+            opacity: 0.95;
+        }
+
+        .sedekah-banner .banner-icon {
+            background: rgba(255, 255, 255, 0.15);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 0 15px rgba(244, 206, 20, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .sedekah-banner {
+                padding: 30px 20px;
+            }
+            .sedekah-banner h2 {
+                font-size: 1.3rem;
+            }
+            .sedekah-banner p {
+                font-size: 0.9rem;
+            }
+            .sedekah-banner .banner-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+
     /* --- STYLE WA FLOAT HP (HANYA IKON TANPA BACKGROUND BULATAN) --- */
     .whatsapp-float {
         position: fixed;
@@ -751,6 +828,10 @@ Kabupaten Karawang</td>
 <section class="artikel-preview-card">
     <div class="artikel-preview-content">
         <h2><i class="fas fa-book-open"></i> Tadzkiroh: Keutamaan Amal Jariyah</h2>
+
+<div class="sedekah-wrapper">
+        <img src="sedekah_utama.png" alt="Tadzkiroh: Keutamaan Sedekah">
+    </div>
         <p>
             "Setiap huruf Al-Qur'an yang dilantunkan oleh para santri penghafal Quran, mengalirkan pahala abadi yang tiada terputus bagi mereka yang menopangnya..."
         </p>
