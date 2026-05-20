@@ -550,6 +550,19 @@
 
     }
 
+  /* TAMBAHKAN KODE INI UNTUK MEMPERBAIKI KOTAK BERITA/GALERI DI HP */
+    .news-grid, .berita-grid, .gallery-grid { 
+        grid-template-columns: 1fr !important; /* Paksa menjadi 1 kolom vertikal ke bawah */
+        gap: 20px;
+    }
+
+    /* Buka kunci pembatas tinggi teks (jika ada) agar teksnya muat penuh di HP */
+    .news-item h3, .berita-item h3, .news-item p, .berita-item p {
+        height: auto !important;
+        -webkit-line-clamp: unset !important;
+    }
+}
+
      
     </style>
 </head>
