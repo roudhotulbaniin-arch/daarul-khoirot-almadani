@@ -198,30 +198,13 @@
         }
 
         /* ==========================================================================
-           5. LIPUTAN BERITA UTAMA (GRID KARTU)
+           5. LIPUTAN BERITA UTAMA (SERAGAM 3 KOLOM DI DESKTOP)
            ========================================================================== */
-        .news-section-divider {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .btn-news-header {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 35px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
+            /* Mengunci grid agar PASTI membagi ruang menjadi 3 kolom sama rata (33.33% masing-masing) */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px; /* Sedikit dipersempit dari 30px agar kartu tidak terlalu sempit di layar tanggung */
             max-width: 1200px;
             margin: 0 auto 40px;
         }
@@ -235,17 +218,17 @@
             display: flex;
             flex-direction: column;
             align-items: center; 
-            padding: 30px 25px;
+            padding: 25px 20px; /* Menyesuaikan padding agar pas dengan lebar 3 kolom */
             text-decoration: none !important;
             color: inherit;
             border: 1px solid transparent;
+            height: 100%; /* Membuat tinggi semua kartu otomatis seragam mengikuti yang paling tinggi */
         }
 
         .news-card:hover {
             transform: translateY(-5px);
             border-color: var(--secondary-color);
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            text-decoration: none !important;
         }
 
         .news-card .date-badge {
