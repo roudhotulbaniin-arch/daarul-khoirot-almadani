@@ -194,7 +194,6 @@ nav ul li a.active {
 }
 
 
-
 /* Reset Khusus untuk Kartu yang Berada di Dalam Grid Split */
 .beranda-split-grid .kartu-modern-clean {
     width: 100%;
@@ -281,83 +280,105 @@ nav ul li a.active {
 .donasi-grid-clean {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    margin-top: 20px;
+    gap: 30px;
+    margin-top: 25px;
 }
 
-/* Kartu Donasi Khusus */
+/* Kartu Donasi Modern (Clean Style) */
 .donasi-card {
     background: #ffffff;
-    border-radius: 12px;
-    padding: 25px 20px;
-    text-align: center;
-    border: 1px solid #eaeaea;
+    border-radius: 16px;
+    padding: 30px 24px;
+    border-top: 4px solid var(--primary-color); /* Menegaskan border-top seragam */
+    border-left: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     transition: all 0.3s ease;
 }
 
 .donasi-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     border-color: var(--primary-color);
 }
 
 .donasi-icon-box {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     background-color: #f4f7f6;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    margin: 0 auto 20px auto;
 }
 
 .donasi-icon-box i {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: var(--primary-color);
 }
 
 .donasi-card h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--primary-color);
-    margin-bottom: 12px;
-    font-weight: 700;
-}
-
-.donasi-card p {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
     margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
 }
 
-/* Tombol Donasi via WhatsApp */
+/* Struktur Detail Poin di Dalam Kartu */
+.donasi-detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.donasi-detail-list li {
+    margin-bottom: 12px;
+}
+
+.donasi-detail-list strong {
+    color: var(--primary-color);
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+/* Tombol Hubungi Admin via WA */
 .btn-donasi {
     background-color: var(--primary-color);
     color: #ffffff !important;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-radius: 8px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     width: 100%;
+    text-align: center;
     display: block;
     transition: background 0.2s;
+    box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
 }
 
 .btn-donasi:hover {
     background-color: var(--dark-green);
 }
 
-/* RESPONSIF: Jika dibuka di HP, otomatis menumpuk vertikal */
-@media (max-width: 768px) {
+/* RESPONSIF MOBILE */
+@media (max-width: 992px) {
     .donasi-grid-clean {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 25px;
     }
 }
 
@@ -678,42 +699,105 @@ Kabupaten Karawang</td>
     <h2 class="judul-seragam">
         <i class="fas fa-heart"></i> Peluang Amal Jariyah
     </h2>
-    <p style="color: #666; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6;">
-        Mari berinvestasi untuk akhirat dengan mendukung pendidikan para santri penghafal Al-Qur'an dan pengembangan fasilitas dakwah di Pondok Pesantren Daarul Khoirot Almadani.
+    <p style="color: #666; font-size: 0.95rem; margin-bottom: 30px; line-height: 1.6;">
+        Mari berinvestasi untuk akhirat dengan mendukung pendidikan para santri penghafal Al-Qur'an serta pengembangan sarana dakwah di Pondok Pesantren Daarul Khoirot Almadani.
     </p>
 
     <div class="donasi-grid-clean">
         
         <div class="donasi-card">
-            <div class="donasi-icon-box">
-                <i class="fas fa-user-graduate"></i>
+            <div>
+                <div class="donasi-icon-box">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3>1. Donatur Tetap / Orang Tua Asuh</h3>
+                
+                <ul class="donasi-detail-list">
+                    <li>
+                        <strong>Latar Belakang:</strong>
+                        Banyak santri berbakat memiliki keterbatasan ekonomi untuk memenuhi biaya operasional bulanan, kitab, dan kebutuhan pokok di pesantren.
+                    </li>
+                    <li>
+                        <strong>Tujuan Program:</strong>
+                        Memastikan keberlangsungan pendidikan dan hafalan Quran santri tanpa terhambat kendala finansial.
+                    </li>
+                    <li>
+                        <strong>Sasaran Program:</strong>
+                        Santri Yatim, Piatu, dan Dhuafa yang menempuh pendidikan di Daarul Khoirot Almadani.
+                    </li>
+                    <li>
+                        <strong>Benefit Program:</strong>
+                        Pahala jariyah yang terus mengalir dari setiap ayat yang dihafal santri, laporan perkembangan belajar, serta doa tulus berkala dari para santri.
+                    </li>
+                </ul>
             </div>
-            <h3>Donatur Tetap / Orang Tua Asuh</h3>
-            <p>Bantuan rutin bulanan untuk menyokong kebutuhan pokok, kitab, serta fasilitas pendidikan santri yatim dan dhuafa.</p>
+            
             <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20bertanya%20mengenai%20program%20Donatur%20Tetap%20/%20Orang%20Tua%20Asuh." class="btn-donasi" target="_blank">
-                <i class="fab fa-whatsapp"></i> Jadi Donatur Tetap
+                <i class="fab fa-whatsapp"></i> Jadi Orang Tua Asuh
             </a>
         </div>
 
         <div class="donasi-card">
-            <div class="donasi-icon-box">
-                <i class="fas fa-tools"></i>
+            <div>
+                <div class="donasi-icon-box">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>2. Donasi & Wakaf Pembangunan</h3>
+                
+                <ul class="donasi-detail-list">
+                    <li>
+                        <strong>Latar Belakang:</strong>
+                        Seiring bertambahnya jumlah santri, kebutuhan ruang belajar, kamar asrama (kobong panggung), dan fasilitas sanitasi yang layak semakin mendesak.
+                    </li>
+                    <li>
+                        <strong>Tujuan Program:</strong>
+                        Menyediakan sarana prasarana infrastruktur pondok yang aman, nyaman, dan memadai untuk proses belajar mengajar.
+                    </li>
+                    <li>
+                        <strong>Sasaran Program:</strong>
+                        Pembangunan fisik gedung, asrama panggung, ruang kelas, sarana ibadah, dan pengadaan material (semen, bata, GRC, tipblok, dll).
+                    </li>
+                    <li>
+                        <strong>Benefit Program:</strong>
+                        Investasi aset akhirat berupa pahala wakaf yang tidak terputus selama bangunan tersebut digunakan untuk sujud, mengaji, dan menghafal Al-Qur'an.
+                    </li>
+                </ul>
             </div>
-            <h3>Donasi Pembangunan</h3>
-            <p>Wakaf jariyah berupa dana maupun material bangunan (semen, pasir, bata, GRC, dll) untuk perluasan asrama/kobong dan ruang belajar.</p>
+            
             <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20berkontribusi%20untuk%20Donasi%20Pembangunan%20Pesantren." class="btn-donasi" target="_blank">
                 <i class="fab fa-whatsapp"></i> Titip Wakaf Pembangunan
             </a>
         </div>
 
         <div class="donasi-card">
-            <div class="donasi-icon-box">
-                <i class="fas fa-hand-holding-heart"></i>
+            <div>
+                <div class="donasi-icon-box">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>3. Donasi Operasional Umum</h3>
+                
+                <ul class="donasi-detail-list">
+                    <li>
+                        <strong>Latar Belakang:</strong>
+                        Aktivitas harian pondok seperti pengajian berkala, pemeliharaan kebersihan lingkungan, utilitas air/listrik, dan konsumsi harian membutuhkan biaya rutin yang stabil.
+                    </li>
+                    <li>
+                        <strong>Tujuan Program:</strong>
+                        Menjaga roda harian pesantren dan kegiatan dakwah sosial keagamaan tetap berjalan lancar tanpa hambatan teknis.
+                    </li>
+                    <li>
+                        <strong>Sasaran Program:</strong>
+                        Biaya harian dapur umum santri, tagihan listrik, perawatan kebersihan, dan pemeliharaan rutin fasilitas pondok.
+                    </li>
+                    <li>
+                        <strong>Benefit Program:</strong>
+                        Menjadi bagian penting dari penopang tegaknya syiar Islam dan mendapatkan kebaikan dari setiap kenyamanan beribadah di lingkungan pesantren.
+                    </li>
+                </ul>
             </div>
-            <h3>Donasi Operasional</h3>
-            <p>Dukungan umum untuk operasional harian pondok, kegiatan dakwah, kajian berkala, serta pemeliharaan kebersihan lingkungan pesantren.</p>
+            
             <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." class="btn-donasi" target="_blank">
-                <i class="fab fa-whatsapp"></i> Salurkan Donasi
+                <i class="fab fa-whatsapp"></i> Salurkan Donasi Operasional
             </a>
         </div>
 
