@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Info Islam</title>
 
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Info Dunia Islam - Daarul Khoirot Almadani" />
-<meta property="og:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman di Pondok Pesantren Daarul Khoirot Almadani." />
-<meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/info_islam.html" />
-<meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Info Dunia Islam Daarul Khoirot Almadani" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Info Dunia Islam - Daarul Khoirot Almadani" />
+    <meta property="og:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman di Pondok Pesantren Daarul Khoirot Almadani." />
+    <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/info_islam.html" />
+    <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Info Dunia Islam Daarul Khoirot Almadani" />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Info Dunia Islam - Daarul Khoirot Almadani" />
-<meta name="twitter:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman." />
-<meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Info Dunia Islam - Daarul Khoirot Almadani" />
+    <meta name="twitter:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman." />
+    <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,7 +64,7 @@
         }
 
         /* ==========================================================================
-           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, FORM 3 KOLOM, & WA TOMBOL)
+           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI)
            ========================================================================== */
         header {
             background: var(--primary-color); 
@@ -129,7 +129,7 @@
         }
 
         /* ==========================================================================
-           3. KONTEN INFO ISLAM
+           3. KONTEN INFO ISLAM & ARTIKEL
            ========================================================================== */
         .container { 
             padding: 3rem 10%; 
@@ -146,7 +146,7 @@
             align-items: center; 
             padding: 12px 25px;
             background-color: var(--primary-color);
-            color: var(--secondary-color);; 
+            color: var(--secondary-color);
             border-radius: 8px; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
         }
@@ -158,7 +158,7 @@
             color: white;
         }
 
-        /* Grid Widget */
+        /* Grid Widget Atas */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -197,7 +197,6 @@
             transition: 0.3s;
         }
 
-        /* Hover Tukar Warna Serasi */
         .btn-akses:hover { 
             background: var(--primary-color); 
             color: white; 
@@ -221,13 +220,22 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 25px;
             transition: 0.3s;
-            border-left: 0 solid transparent;
+            border-left: 5px solid transparent;
+        }
+        
+        /* Memberi aksen border kiri kuning khusus artikel sedekah seperti di gambar */
+        .article-item.highlight-donasi {
+            border-left: 5px solid var(--secondary-color);
         }
         
         .article-item:hover { 
             transform: translateY(-4px); 
-            border-left: 5px solid var(--secondary-color); 
+            border-left: 5px solid var(--primary-color); 
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .article-item.highlight-donasi:hover {
+            border-left: 5px solid var(--secondary-color);
         }
         
         .article-item h3 { 
@@ -241,6 +249,7 @@
             font-size: 0.95rem; 
             margin-bottom: 15px; 
             text-align: justify;
+            line-height: 1.6;
         }
         
         .read-more {
@@ -279,7 +288,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           4. BLOK STYLE MOBILE (HEADER, NAVIGASI, & RESPONSIVE LAYOUT)
+           4. BLOK STYLE MOBILE (RESPONSIVE LAYOUT)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -287,7 +296,6 @@
             .logo img { height: 35px; margin-right: 0 !important; }
             .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
-            /* Tombol Menu Hamburger Mobile */
             #menu-toggle {
                 display: flex !important;  
                 flex-direction: row;      
@@ -302,7 +310,6 @@
                 cursor: pointer;
             }
             
-            /* Navigasi Dropdown Vertikal Mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -320,7 +327,6 @@
             nav.show ul { display: flex; }
             nav ul li a { color: white !important; }
 
-            /* Indikator Menu Aktif di Mobile (Garis Samping Kiri) */
             nav ul li a.active {
                 border-bottom: none;
                 border-left: 4px solid var(--secondary-color) !important;
@@ -360,6 +366,7 @@
     </header>
 
     <main class="container">
+        
         <div class="section-title">
             <div class="section-title-box">
                 <i class="fas fa-book-open fa-2x"></i>
@@ -407,20 +414,18 @@
             <p>Menjadi anak yang shalih dan orang tua yang bijak adalah investasi abadi. Pelajari bagaimana Islam mengatur hubungan indah ini sebagai kunci kebahagiaan dunia dan akhirat.</p>
             <a href="anak_orangtua_shalih.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
         </div>
-    </main>
 
-        <div class="article-item">
+        <div class="article-item highlight-donasi">
             <h3>Menyemai Benih Investasi Akhirat Lewat Sedekah Jariyah</h3>
-            <p><i>Assalamu'alaikum Warahmatullahi Wabarakatuh Segala puji bagi Allah SWT, shalawat serta salam semoga tercurah kepada Baginda Rasulullah ﷺ.</i> Sedekah ke pondok pesantren pencetak penghafal Al-Qur'an dan penuntut ilmu agama merupakan bentuk investasi akhirat yang paling strategis. Temukan bagaimana 3 gerbang pahala tak terputus menyatu di dalam ekosistem pesantren di sini...</p>
+            <p><i>Assalamu'alaikum Warahmatullahi Wabarakatuh. Segala puji bagi Allah SWT, shalawat serta salam semoga tercurah kepada Baginda Rasulullah ﷺ.</i> Sedekah ke pondok pesantren pencetak penghafal Al-Qur'an dan penuntut ilmu agama merupakan bentuk investasi akhirat yang paling strategis. Temukan bagaimana 3 gerbang pahala tak terputus menyatu di dalam ekosistem pesantren di sini...</p>
             <a href="keutamaan_sedekah.html" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
         </div>
 
-
-    <footer> 
+    </main> <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
     <audio id="murottal" src="murottal_start.mp3" loop></audio>
@@ -435,7 +440,7 @@
             const nav = document.querySelector('nav');
             let hasInteracted = false;
 
-            // Auto-play Murottal (Pengunjung Interaksi)
+            // Auto-play Murottal
             function playMurottal() {
                 if (!hasInteracted && murottal) {
                     murottal.volume = 0.3; 
