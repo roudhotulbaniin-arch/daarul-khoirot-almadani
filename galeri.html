@@ -501,6 +501,55 @@
 
         .chevron-icon { color: #ddd; font-size: 1.2rem; margin-left: 20px; transition: 0.3s; }
         .article-card:hover .chevron-icon { color: var(--primary-color); transform: translateX(5px); }
+
+   /* --- 4. RESPONSIVE MOBILE (HP) --- */
+
+    @media (max-width: 768px) {
+
+        header { height: 60px; padding: 0 15px; }
+
+        .logo img { height: 35px; }
+
+        .logo h1 { font-size: 1rem; }
+
+
+
+        #menu-toggle {
+
+            display: block !important; background: var(--secondary-color) !important;
+
+            color: var(--primary-color) !important; border: none; padding: 6px 12px;
+
+            border-radius: 4px; font-weight: bold; font-size: 0.8rem; cursor: pointer;
+
+        }
+
+
+
+        nav ul { 
+
+            display: none; flex-direction: column; width: 100%; position: absolute;
+
+            top: 60px; left: 0; background: var(--primary-color); padding: 20px;
+
+            gap: 15px; border-bottom: 3px solid var(--secondary-color); box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+
+        }
+
+        nav.show ul { display: flex !important; }
+
+        nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
+
+
+
+        .container { padding: 2rem 5%; }
+
+        .section-title-box { padding: 10px 20px; }
+
+        .section-title-box h2 { font-size: 1.2rem; }
+
+    }
+
      
     </style>
 </head>
