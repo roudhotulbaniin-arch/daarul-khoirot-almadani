@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tadzkiroh: Keutamaan Sedekah Jariyah ke Pondok Pesantren</title>
+    <title>Daarul Khoirot | Keutamaan Sedekah Jariyah</title>
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Daarul Khoirot Almadani | Pondok Pesantren" />
-<meta property="og:description" content="Lembaga Pendidikan Islam dan Tahfizul Quran di Karawang. Membina generasi bertakwa, cerdas, dan berakhlak mulia." />
-<meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/index.html" />
+<meta property="og:title" content="Info Dunia Islam - Daarul Khoirot Almadani" />
+<meta property="og:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman di Pondok Pesantren Daarul Khoirot Almadani." />
+<meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/info_islam.html" />
 <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Info Dunia Islam Daarul Khoirot Almadani" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Daarul Khoirot Almadani | Pondok Pesantren" />
-<meta name="twitter:description" content="Lembaga Pendidikan Islam dan Tahfizul Quran di Karawang." />
+<meta name="twitter:title" content="Info Dunia Islam - Daarul Khoirot Almadani" />
+<meta name="twitter:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman." />
 <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail-share.png" />
-
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="main_logo.png">
-    
+
     <style>
         /* ==========================================================================
            1. GLOBAL VARIABLES & RESET STYLE
@@ -32,34 +32,33 @@
         :root {
             --primary-color: #1a5d1a;
             --secondary-color: #f4ce14;
-            --dark-green: #144514;
-            --dark-footer: #0d2e0d;
             --light-bg: #f4f7f6;
-            --text-dark: #333;
+            --dark-footer: #0d2e0d;
             --whatsapp-green: #25d366;
+            --text-dark: #333;
+            --white: #ffffff;
         }
 
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Quicksand', sans-serif; 
+            font-family: 'Quicksand', sans-serif;
         }
+
+        html { scroll-behavior: smooth; }
 
         body { 
             background-color: var(--light-bg); 
+            overflow-x: hidden; 
             color: var(--text-dark); 
-            min-height: 100vh; 
             display: flex; 
             flex-direction: column; 
-        }
-        
-        h1, h2, h3, h4, h5, h6 { 
-            font-weight: 700; 
+            min-height: 100vh; 
         }
 
         /* ==========================================================================
-           2. HEADER & NAVIGATION (SERAGAM DENGAN INDEX)
+           2. NAVIGATION STYLE (SINKRON DENGAN INFO_ISLAM)
            ========================================================================== */
         header {
             background: var(--primary-color); 
@@ -72,6 +71,7 @@
             top: 0; 
             z-index: 1000;
             min-height: 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logo { 
@@ -79,10 +79,9 @@
             align-items: center; 
             gap: 12px; 
             flex-shrink: 0;
+            text-decoration: none;
         }
-
         .logo img { height: 40px; width: auto; }
-
         .logo h1 { 
             font-size: 1.3rem; 
             font-weight: 700; 
@@ -93,12 +92,7 @@
 
         #menu-toggle { display: none; } 
 
-        nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 20px; 
-        }
-
+        nav ul { list-style: none; display: flex; gap: 20px; }
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
@@ -111,297 +105,114 @@
             padding-bottom: 5px;
             transition: 0.3s;
         }
-
-        nav ul li a:hover {
-            color: var(--secondary-color) !important;
-        }
-
+        nav ul li a:hover { color: var(--secondary-color) !important; }
         nav ul li a.active {
             border-bottom: 3px solid var(--secondary-color);
             color: var(--secondary-color) !important;
         }
 
         /* ==========================================================================
-           3. KARTU MODERN CLEAN & KONTEN ARTIKEL
-           ========================================================================== */
-        .kartu-modern-clean {
-            background: #ffffff;
-            padding: 40px 35px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); 
-            color: var(--text-dark);
-            width: 94%;
-            max-width: 1200px;
-            margin: 30px auto;
+           3. KONTEN ARTIKEL & STRUKTUR DONASI
+           ========================================================================= */
+        .container { padding: 3rem 10%; flex: 1; }
+
+        .article-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border-top: 4px solid var(--primary-color);
         }
 
-        .judul-seragam {
-            font-size: 1.6rem;
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            font-weight: 700;
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .article-header { margin-bottom: 25px; }
+        .article-header h2 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 10px; }
+        .article-meta { font-size: 0.85rem; color: #777; display: flex; gap: 15px; border-bottom: 1px dashed #e0e0e0; padding-bottom: 12px; }
 
-        .article-meta {
-            font-size: 0.85rem;
-            color: #777;
-            margin-bottom: 25px;
-            display: flex;
-            gap: 15px;
-            border-bottom: 1px dashed #e0e0e0;
-            padding-bottom: 12px;
-        }
+        .article-body p { font-size: 1.05rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; text-indent: 30px; }
+        .hadits-box { background-color: #f1f8f1; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 0 12px 12px 0; margin: 25px 0; font-style: italic; color: #144514; font-size: 1.05rem; line-height: 1.7; }
 
-        .article-body p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #333;
-            text-align: justify;
-            margin-bottom: 20px;
-            text-indent: 30px;
-        }
-
-        .hadits-box {
-            background-color: #f4f7f6;
-            border-left: 4px solid var(--primary-color);
-            padding: 20px 25px;
-            border-radius: 0 12px 12px 0;
-            margin: 25px 0;
-            font-style: italic;
-            color: var(--dark-green);
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-
-        /* ==========================================================================
-           4. GRID PROGRAM DONASI (ACTION BOX HUBUNGAN ARTIKEL)
-           ========================================================================== */
-        .donasi-section-title {
-            text-align: center;
-            margin: 45px 0 25px 0;
-            padding-top: 30px;
-            border-top: 1px dashed #e0e0e0;
-        }
-
-        .donasi-section-title h2 {
-            color: var(--primary-color);
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
-
-        .donasi-section-title p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .donasi-grid-clean {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 25px;
-        }
-
+        /* Section Program Donasi */
+        .donasi-title { text-align: center; margin: 45px 0 25px 0; padding-top: 30px; border-top: 1px dashed #e0e0e0; color: var(--primary-color); }
+        .donasi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 25px; }
         .donasi-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 30px 24px;
-            border-top: 4px solid var(--primary-color);
-            border-left: 1px solid #eaeaea;
-            border-right: 1px solid #eaeaea;
-            border-bottom: 1px solid #eaeaea;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: all 0.3s ease;
+            background: var(--white); border-radius: 12px; padding: 25px; border: 1px solid #eaeaea; border-top: 4px solid var(--primary-color);
+            display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: 0.3s;
         }
+        .donasi-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-color: var(--primary-color); }
+        .donasi-card h4 { color: var(--primary-color); font-size: 1.15rem; margin-bottom: 15px; text-align: center; }
+        
+        .donasi-list { list-style: none; padding: 0; margin-bottom: 20px; font-size: 0.9rem; color: #444; }
+        .donasi-list li { margin-bottom: 10px; line-height: 1.5; }
+        .donasi-list strong { color: var(--primary-color); display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 2px; }
 
-        .donasi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            border-color: var(--primary-color);
+        .btn-donasi-wa {
+            background-color: var(--primary-color); color: white !important; text-decoration: none; padding: 12px;
+            border-radius: 8px; font-weight: bold; text-align: center; display: block; transition: 0.2s; box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
         }
+        .btn-donasi-wa:hover { background-color: #144514; }
 
-        .donasi-icon-box {
-            width: 55px;
-            height: 55px;
-            background-color: #f4f7f6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px auto;
-        }
-
-        .donasi-icon-box i {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .donasi-card h3 {
-            font-size: 1.15rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-align: center;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .donasi-detail-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 25px 0;
-            font-size: 0.9rem;
-            color: #444;
-            line-height: 1.6;
-        }
-
-        .donasi-detail-list li {
-            margin-bottom: 12px;
-        }
-
-        .donasi-detail-list strong {
-            color: var(--primary-color);
-            display: block;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 2px;
-        }
-
-        .btn-donasi {
-            background-color: var(--primary-color);
-            color: #ffffff !important;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            width: 100%;
-            text-align: center;
-            display: block;
-            transition: background 0.2s;
-            box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
-        }
-
-        .btn-donasi:hover {
-            background-color: var(--dark-green);
-        }
-
-        /* ==========================================================================
-           5. GLOBAL FOOTER & WA FLOAT PIL Desktop
-           ========================================================================== */
-        @media (min-width: 769px) {
-           
-        footer { 
-            background: var(--dark-footer); 
-            color: white; 
-            padding: 40px 5% 20px; 
-            text-align: center; 
-            width: 100%;
-            margin-top: auto;
-        }
-        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+        /* Footer */
+        footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; text-align: center; width: 100%; margin-top: auto; }
+        footer .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color) !important; display: block; }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           6. RESPONSIVE MOBILE HANDPHONE
+           4. BLOK STYLE MOBILE RESPONSIVE
            ========================================================================== */
-        @media (max-width: 992px) {
-            .donasi-grid-clean {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-        }
-
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-            .logo { max-width: 75%; overflow: hidden; }
-            .logo h1 { font-size: 1rem !important; letter-spacing: -0.5px; }
+            .logo { gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 1rem !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
             #menu-toggle {
-                display: flex !important;  
-                flex-direction: row;      
-                align-items: center;       
-                gap: 4px;           
-                background: var(--secondary-color);
-                color: var(--primary-color);
-                padding: 6px 12px;
-                border: none;
-                border-radius: 4px;
-                font-weight: bold;
-                cursor: pointer;
+                display: flex !important; flex-direction: row; align-items: center; gap: 4px;           
+                background: var(--secondary-color); color: var(--primary-color); padding: 6px 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;
             }
-            
             nav ul { 
-                display: none; 
-                flex-direction: column; 
-                width: 100%; 
-                position: absolute; 
-                top: 65px; 
-                left: 0; 
-                background: var(--primary-color); 
-                padding: 20px; 
-                border-bottom: 3px solid var(--secondary-color); 
-                gap: 15px;
+                display: none; flex-direction: column; width: 100%; position: absolute; top: 65px; left: 0; 
+                background: var(--primary-color); padding: 20px; border-bottom: 3px solid var(--secondary-color); gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             }
-            
             nav.show ul { display: flex; }
             nav ul li a { color: white !important; }
+            nav ul li a.active { border-bottom: none; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px; color: var(--secondary-color) !important; }
 
-            nav ul li a.active {
-                border-bottom: none;
-                border-left: 4px solid var(--secondary-color);
-                padding-left: 10px;
-                color: var(--secondary-color) !important;
-            }
-
-            .kartu-modern-clean {
-                padding: 25px 20px;
-          } 
-      
+            .container { padding: 2rem 5%; }
+            .article-card { padding: 25px 20px; }
+            .article-header h2 { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR (SERAGAM DENGAN INDEX.HTML) -->
     <header>
-        <div class="logo">
-            <img src="logo.png" alt="Logo">
+        <a href="index.html" class="logo">
+            <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
-        </div>
-        <button id="menu-toggle">
-            <i class="fas fa-bars"></i> <span>MENU</span>
-        </button>
-        <nav id="main-nav">
+        </a>
+        <nav>
             <ul>
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="profil.html">Profil</a></li>
-                <li><a href="keutamaan_sedekah.html" class="active">Tadzkiroh</a></li>
-                <li><a href="kontak.html">Kontak</a></li>
+                <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
+                <li><a href="info_islam.html" class="active"><i class="fas fa-mosque"></i> Info Islam</a></li>
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
+        <button id="menu-toggle"><i class="fas fa-bars"></i> Menu</button>
     </header>
 
-    <!-- KONTEN UTAMA ARTIKEL -->
-    <main class="kartu-modern-clean">
-        <article>
-            <h1 class="judul-seragam"><i class="fas fa-book-open"></i> Menyemai Benih Investasi Akhirat Lewat Sedekah Jariyah</h1>
-            
-            <div class="article-meta">
-                <span><i class="far fa-calendar-alt"></i> Mei 2026</span>
-                <span><i class="far fa-user"></i> Admin Pesantren</span>
-                <span><i class="fas fa-tags"></i> Tadzkiroh, Info Islami</span>
+    <main class="container">
+        <div class="article-card">
+            <div class="article-header">
+                <h2>Menyemai Benih Investasi Akhirat Lewat Sedekah Jariyah</h2>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar-alt"></i> Mei 2026</span>
+                    <span><i class="far fa-user"></i> Admin Pesantren</span>
+                    <span><i class="fas fa-tags"></i> Info Islam, Artikel</span>
+                </div>
             </div>
 
             <div class="article-body">
@@ -419,93 +230,77 @@
                 
                 <p>Ketiga, melalui didikan yang bersendikan akidah Ahlus Sunnah wal Jama'ah dan akhlakul karimah (mengacu pada kitab Akhlaq Lil Baniin), pesantren terus melahirkan generasi anak-anak shalih. Doa-doa tulus yang senantiasa dipanjatkan oleh para santri penghafal Al-Qur'an dalam setiap halaqah dan shalat malam mereka, akan menjadi perisai dan cahaya kubur yang luar biasa bagi para orang tua asuh dan segenap kaum muslimin yang telah tulus ikhlas mendukung perjuangan belajar mereka.</p>
             </div>
-        </article>
 
-        <!-- SEPARATOR JEMBATAN KE DONASI -->
-        <div class="donasi-section-title">
-            <h2><i class="fas fa-heart"></i> Wujudkan Aksi Nyata Amal Jariyah Anda</h2>
-            <p>Berdasarkan keutamaan agung di atas, Pondok Pesantren Daarul Khoirot Almadani membuka pintu kesempatan bagi Anda untuk mengambil peran dalam 3 program kebaikan berikut:</p>
-        </div>
-
-        <!-- GRID 3 PROGRAM DONASI TERSTRUKTUR LENGKAP -->
-        <div class="donasi-grid-clean">
-            
-            <!-- PROGRAM 1 -->
-            <div class="donasi-card">
-                <div>
-                    <div class="donasi-icon-box"><i class="fas fa-user-graduate"></i></div>
-                    <h3>1. Donatur Tetap / Orang Tua Asuh</h3>
-                    <ul class="donasi-detail-list">
-                        <li><strong>Latar Belakang:</strong> Banyak santri berbakat memiliki keterbatasan ekonomi untuk memenuhi biaya operasional bulanan, kitab, dan kebutuhan pokok di pesantren.</li>
-                        <li><strong>Tujuan Program:</strong> Memastikan keberlangsungan pendidikan dan hafalan Quran santri tanpa terhambat kendala finansial.</li>
-                        <li><strong>Sasaran Program:</strong> Santri Yatim, Piatu, dan Dhuafa yang menempuh pendidikan di Daarul Khoirot Almadani.</li>
-                        <li><strong>Benefit Program:</strong> Pahala jariyah mengalir dari setiap ayat yang dihafal santri, laporan perkembangan belajar, serta doa tulus berkala dari para santri.</li>
-                    </ul>
-                </div>
-                <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20bertanya%20mengenai%20program%20Donatur%20Tetap%20/%20Orang%20Tua%20Asuh." class="btn-donasi" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Jadi Orang Tua Asuh
-                </a>
+            <div class="donasi-title">
+                <h3><i class="fas fa-heart"></i> Pintu Amal Jariyah Anda</h3>
+                <p style="font-size:0.95rem; color:#666; margin-top:5px;">Wujudkan aksi nyata mendukung para pejuang Quran melalui 3 program pilihan:</p>
             </div>
 
-            <!-- PROGRAM 2 -->
-            <div class="donasi-card">
-                <div>
-                    <div class="donasi-icon-box"><i class="fas fa-tools"></i></div>
-                    <h3>2. Donasi & Wakaf Pembangunan</h3>
-                    <ul class="donasi-detail-list">
-                        <li><strong>Latar Belakang:</strong> Seiring bertambahnya jumlah santri, kebutuhan ruang belajar, kamar asrama (kobong panggung), dan fasilitas sanitasi yang layak semakin mendesak.</li>
-                        <li><strong>Tujuan Program:</strong> Menyediakan sarana prasarana infrastruktur pondok yang aman, nyaman, dan memadai untuk proses belajar mengajar.</li>
-                        <li><strong>Sasaran Program:</strong> Pembangunan fisik gedung, asrama panggung, ruang kelas, sarana ibadah, dan pengadaan material (semen, bata, GRC, tipblok, dll).</li>
-                        <li><strong>Benefit Program:</strong> Investasi aset akhirat berupa pahala wakaf yang tidak terputus selama bangunan tersebut digunakan untuk sujud, mengaji, dan menghafal Al-Qur'an.</li>
+            <div class="donasi-grid">
+                <div class="donasi-card">
+                    <h4>1. Donatur / Orang Tua Asuh</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Membantu keterbatasan ekonomi sebagian santri dalam memenuhi kebutuhan bulanan dan kitab.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Menjamin kelancaran hafalan Quran bagi santri Yatim, Piatu, dan Dhuafa.</li>
+                        <li><strong>Benefit:</strong> Aliran pahala dari setiap ayat yang dihafal santri serta doa berkala dari mereka.</li>
                     </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20bertanya%20mengenai%20program%20Donatur%20Tetap%20/%20Orang%20Tua%20Asuh." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Jadi Orang Tua Asuh</a>
                 </div>
-                <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20berkontribusi%20untuk%20Donasi%20Pembangunan%20Pesantren." class="btn-donasi" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Titip Wakaf Pembangunan
-                </a>
-            </div>
 
-            <!-- PROGRAM 3 -->
-            <div class="donasi-card">
-                <div>
-                    <div class="donasi-icon-box"><i class="fas fa-hand-holding-heart"></i></div>
-                    <h3>3. Donasi Operasional Umum</h3>
-                    <ul class="donasi-detail-list">
-                        <li><strong>Latar Belakang:</strong> Aktivitas harian pondok seperti pengajian berkala, pemeliharaan kebersihan lingkungan, utilitas air/listrik, dan konsumsi harian membutuhkan biaya rutin yang stabil.</li>
-                        <li><strong>Tujuan Program:</strong> Menjaga roda harian pesantren dan kegiatan dakwah sosial keagamaan tetap berjalan lancar tanpa hambatan teknis.</li>
-                        <li><strong>Sasaran Program:</strong> Biaya harian dapur umum santri, tagihan listrik, perawatan kebersihan, dan pemeliharaan rutin fasilitas pondok.</li>
-                        <li><strong>Benefit Program:</strong> Menjadi bagian penting dari penopang tegaknya syiar Islam dan mendapatkan kebaikan dari setiap kenyamanan beribadah di lingkungan pesantren.</li>
+                <div class="donasi-card">
+                    <h4>2. Wakaf Pembangunan</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Kebutuhan ruang asrama (kobong panggung) dan ruang kelas seiring bertambahnya santri.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Pembelian material infrastruktur utama (semen, cor beton, papan GRC, blockboard).</li>
+                        <li><strong>Benefit:</strong> Investasi fisik akhirat yang pahalanya terus mengalir abadi selama bangunan tegak digunakan ibadah.</li>
                     </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20berkontribusi%20untuk%20Donasi%20Pembangunan%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Wakaf Pembangunan</a>
                 </div>
-                <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." class="btn-donasi" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Salurkan Donasi Operasional
-                </a>
-            </div>
 
+                <div class="donasi-card">
+                    <h4>3. Operasional Umum</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Pengeluaran rutin operasional dapur umum santri, tagihan listrik, air, dan kebersihan pondok.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Menjaga stabilitas kelancaran aktivitas pengajian dan roda harian pesantren.</li>
+                        <li><strong>Benefit:</strong> Mendapatkan kebaikan mutlak dari setiap kenyamanan beribadah para santri di pondok.</li>
+                    </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Donasi Operasional</a>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- GLOBAL FOOTER (SERAGAM DENGAN INDEX.HTML) -->
-    <footer>
-        <div class="f-title">YPI DAARUL KHOIROT ALMADANI</div>
-        <div class="f-address">Dusun Sukamaju II RT 02/RW 04, Desa Jatisari, Kecamatan Jatisari, Kabupaten Karawang, Jawa Barat</div>
-        <div class="f-contact">Hubungi Admin: +62 814-0164-3188</div>
-        <div class="f-copy">&copy; 2026 YPI Daarul Khoirot Almadani. All Rights Reserved.</div>
+    <footer> 
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
-    <!-- INTERACTIVE FLOATING WA BUTTON -->
-    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
-    </a>
+    
+    <audio id="clickSound" src="click_sound.mp3"></audio>
 
-    <!-- SCRIPT DROPDOWN MENU MOBILE -->
     <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const mainNav = document.getElementById('main-nav');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', function() {
-                mainNav.classList.toggle('show');
+        document.addEventListener("DOMContentLoaded", function() {
+            const clickSound = document.getElementById('clickSound');
+            const menuItems = document.querySelectorAll('nav ul li a, .donasi-grid a');
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.querySelector('nav');
+            let hasInteracted = false;
+     
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (clickSound) { clickSound.currentTime = 0; clickSound.volume = 0.8; clickSound.play().catch(() => {}); }
+                    if (nav) nav.classList.remove('show');
+
+                    const targetUrl = this.getAttribute("href");
+                    if (targetUrl && !targetUrl.includes('#') && !this.target) {
+                        e.preventDefault(); 
+                        setTimeout(() => { window.location.href = targetUrl; }, 200); 
+                    }
+                });
             });
-        }
+        });
     </script>
 </body>
 </html>
