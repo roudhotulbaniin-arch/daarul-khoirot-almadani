@@ -354,6 +354,59 @@ nav ul li a.active {
     margin-bottom: 2px;
 }
 
+/* Card Preview Artikel di Beranda */
+.artikel-preview-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    margin: 30px auto;
+    width: 94%;
+    max-width: 1200px;
+    border-top: 4px solid var(--primary-color);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+}
+
+.artikel-preview-content h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.artikel-preview-content p {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.7;
+    font-style: italic;
+    max-width: 900px;
+    margin: 0 auto 25px auto;
+}
+
+/* Tombol Cantik Menuju Halaman Artikel Lengkap */
+.btn-baca-artikel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.15);
+    margin: 0 auto;
+}
+
+.btn-baca-artikel:hover {
+    background-color: var(--dark-green);
+    transform: translateY(-2px);
+}
+
 /* Tombol Hubungi Admin via WA */
 .btn-donasi {
     background-color: var(--primary-color);
@@ -691,6 +744,19 @@ Kabupaten Karawang</td>
                 <h3>PONPES DAARUL KHOIROT ALMADANI</h3>
                 <p>Program akselerasi Tahfidz Al-Qur'an 30 Juz dan kajian Kitab Kuning intensif.</p>
             </div>
+        </a>
+    </div>
+</section>
+
+<section class="artikel-preview-card">
+    <div class="artikel-preview-content">
+        <h2><i class="fas fa-book-open"></i> Tadzkiroh: Keutamaan Amal Jariyah</h2>
+        <p>
+            "Setiap huruf Al-Qur'an yang dilantunkan oleh para santri penghafal Quran, mengalirkan pahala abadi yang tiada terputus bagi mereka yang menopangnya..."
+        </p>
+        
+        <a href="keutamaan_sedekah.html" class="btn-baca-artikel">
+            Mulai Membaca <i class="fas fa-arrow-right"></i>
         </a>
     </div>
 </section>
