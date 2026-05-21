@@ -181,16 +181,28 @@
             border: 1px solid transparent;
         }
 
-        .btn-kembali:hover { 
-            color: #ffffff;
-            background: var(--primary-dark);   /* Berubah menjadi hijau gelap mantap */
-            transform: translateY(-2px); 
+          /* Spesifik Tombol Beranda (Kuning Emas) */
+        .btn-home-action {
+            color: var(--primary-dark);
+            background: var(--secondary-color);
+        }
+        .btn-home-action:hover {
+            color: var(--primary-dark);
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
-        .btn-kembali i {
-            margin-right: 10px;
-            color: inherit;
+        /* Spesifik Tombol Info Islam (Hijau) */
+        .btn-info-action {
+            color: #ffffff;
+            background: var(--primary-color);
+        }
+        .btn-info-action:hover {
+            color: #ffffff;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         /* Footer */
@@ -388,6 +400,7 @@
                     <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Donasi Operasional</a>
                 </div>
             </div>
+      </main>
 
             <!-- TOMBOL KEMBALI MULTI-AKSI BERANDA & INFO ISLAM -->
             <div class="bottom-actions">
@@ -400,7 +413,6 @@
             </div>
 
         </div>
-    </main>
 
     <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
