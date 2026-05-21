@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daarul Khoirot | Fikih Puasa</title>
+    <title>Daarul Khoirot | Keutamaan Sedekah Jariyah</title>
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Info Dunia Islam - Daarul Khoirot Almadani" />
     <meta property="og:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman di Pondok Pesantren Daarul Khoirot Almadani." />
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/info_islam.html" />
     <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail_share_1.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Info Dunia Islam Daarul Khoirot Almadani" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -112,7 +114,7 @@
         }
 
         /* ==========================================================================
-           3. KONTEN ARTIKEL CARD
+           3. KONTEN ARTIKEL & STRUKTUR DONASI
            ========================================================================= */
         .container { padding: 3rem 10%; flex: 1; }
 
@@ -129,19 +131,29 @@
         .article-meta { font-size: 0.85rem; color: #777; display: flex; gap: 15px; border-bottom: 1px dashed #e0e0e0; padding-bottom: 12px; }
 
         .article-body p { font-size: 1.05rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; text-indent: 30px; }
-        
-        .article-footer-meta {
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.95rem;
-            color: #666;
+
+        /* Section Program Donasi */
+        .donasi-title { text-align: center; margin: 45px 0 25px 0; padding-top: 30px; border-top: 1px dashed #e0e0e0; color: var(--primary-color); }
+        .donasi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 25px; }
+        .donasi-card {
+            background: var(--white); border-radius: 12px; padding: 25px; border: 1px solid #eaeaea; border-top: 4px solid var(--primary-color);
+            display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: 0.3s;
         }
+        .donasi-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-color: var(--primary-color); }
+        .donasi-card h4 { color: var(--primary-color); font-size: 1.15rem; margin-bottom: 15px; text-align: center; }
+        
+        .donasi-list { list-style: none; padding: 0; margin-bottom: 20px; font-size: 0.9rem; color: #444; }
+        .donasi-list li { margin-bottom: 10px; line-height: 1.5; }
+        .donasi-list strong { color: var(--primary-color); display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 2px; }
+
+        .btn-donasi-wa {
+            background-color: var(--primary-color); color: white !important; text-decoration: none; padding: 12px;
+            border-radius: 8px; font-weight: bold; text-align: center; display: block; transition: 0.2s; box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
+        }
+        .btn-donasi-wa:hover { background-color: #144514; }
 
         /* ==========================================================================
-           4. ACTION BUTTONS STYLE
+           4. TOMBOL KEMBALI MULTI-AKSI & HOVER EFFECT (DI LUAR KARTU)
            ========================================================================== */
         .bottom-actions {
             display: flex;
@@ -205,7 +217,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           5. RESPONSIVE MODES (MOBILE WIDTH FIX)
+           5. RESPONSIVE MODES (MOBILE FULL WIDTH REPAIRED)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -214,27 +226,19 @@
             .container { padding: 2rem 5%; }
             .article-card { padding: 25px 20px; }
             .article-header h2 { font-size: 1.4rem; }
-            
-            .article-footer-meta {
-                flex-direction: column;
-                gap: 8px;
-            }
 
-            /* Mengatur kontainer tombol di mobile agar berjejer rapi */
             .bottom-actions {
-                flex-direction: row;
-                justify-content: center;
-                gap: 12px;
+                flex-direction: column;
+                gap: 15px;
                 margin-top: 25px;
                 padding: 0;
             }
 
-            /* Perbaikan Utama: Tombol tidak lagi full width (100%) */
             .btn-kembali { 
-                width: auto !important; 
-                min-width: 150px !important; 
-                padding: 10px 18px; 
-                font-size: 0.9rem; 
+                width: auto; 
+                min-width: 200px; 
+                padding: 12px 20px; 
+                font-size: 1rem; 
             }
 
             #menu-toggle {
@@ -292,23 +296,116 @@
     <main class="container">
         <div class="article-card">
             <div class="article-header">
-                <h2>Keutamaan Amal Diangkat Saat Berpuasa</h2>
+                <h2>Menyemai Benih Investasi Akhirat Lewat Sedekah Jariyah</h2>
                 <div class="article-meta">
                     <span><i class="far fa-calendar-alt"></i> Mei 2026</span>
                     <span><i class="far fa-user"></i> Admin Pesantren</span>
-                    <span><i class="fas fa-tags"></i> Fiqih Puasa, Artikel</span>
+                    <span><i class="fas fa-tags"></i> Info Islam, Artikel</span>
                 </div>
             </div>
 
             <div class="article-body">
-                <p>Amal Diangkat: Rasulullah ﷺ menyukai saat amalnya diangkat dan dipersembahkan kepada Allah dalam keadaan berpuasa.</p>
+                <p>Sedekah merupakan salah satu bukti nyata keimanan seorang hamba kepada Rabb-nya. Di antara berbagai macam jenis sedekah, ada satu pintu amalan khusus yang dampaknya tidak akan pernah terputus meskipun raga telah berkalang tanah dan ruh telah berpindah ke alam barzakh, yaitu Sedekah Jariyah. Menyalurkan sedekah ke pondok pesantren pencetak penghafal Al-Qur'an dan penuntut ilmu agama merupakan bentuk investasi akhirat yang paling strategis dan penuh berkah.</p>
+
+                <div class="dalil-section" style="margin-top: 30px; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h4 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px;">
+                        <i class="fas fa-book-open"></i> Dalil Al-Qur'an & Hadits Tentang Sedekah
+                    </h4>
+
+                    <div class="dalil-item" style="margin-bottom: 25px;">
+                        <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">1. Al-Qur'an Surah At-Taghabun Ayat 16</p>
+                        <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
+                فاتَّقُوا اللَّهَ مَا اسْتَطَعْتُمْ وَاسْمَعُوا وَأَطِيعُوا وَأَنفِقُوا خَيْراً لأَنفُسِكُمْ وَمَن يُوقَ شُحَّ نَفْسِهِ فَأُوْلَئِكَ هُمُ linemen_ الْمُفْلِحُونَ  
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
+                            "Maka bertakwalah kamu kepada Allah menurut kesanggupanmu dan dengarlah serta ta`atlah; nafkahkanlah nafkah yang baik untuk dirimu. Dan barangsiapa yang dipelihara dari kekikiran dirinya maka mereka itulah orang-orang yang beruntung."
+                        </p>
+                    </div>
+
+                    <div class="dalil-item" style="margin-bottom: 15px;">
+                        <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">2. Hadits Riwayat Bukhari dan Muslim</p>
+                        <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
+                مَا مِنْكُمْ أَحَدٌ إِلاَّ سَيُكَلِّمُهُ رَبُّهُ لَيْسَ بَيْنَهُ وَبَيْنَهُ تُرْجُمَانٌ فَيَنْظُرُ أَيْمَنَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ مِنْ عَمَلِهِ وَيَنْظُرُ أَشْأَمَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ وَيَنْظُرُ بَيْنَ يَدَيْهِ فَلاَ يَرَى إِلاَّ النَّارَ تِلْقَاءَ وَجْهِهِ فَاتَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ 
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
+                            "Tiada seorang (pun) dari kalian, melainkan (kelak) Allah akan berbicara kepadanya tanpa seorang penerjemah. Maka ia melihat ke kanan, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke kiri, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke depan, tidaklah dilihatnya melainkan neraka di hadapan wajahnya. Maka peliharalah (diri) kalian dari api neraka, sekalipun dengan sebiji buah kurma (yang disedekahkan).”
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kisah-section" style="margin-top: 30px; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h4 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px;">
+                        <i class="fas fa-history"></i> Kisah Inspiratif Kedermawanan Sahabat Nabi
+                    </h4>
+
+                    <div class="kisah-item" style="margin-bottom: 25px;">
+                        <h5 style="color: #1a5d1a; font-size: 1.1rem; margin-bottom: 8px;">Utsman bin Affan dan Sumur Raumah</h5>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6;">
+                            Ketika kaum Muslimin berhijrah ke Madinah, mereka mengalami krisis air bersih. Satu-satunya sumber air yang segar adalah <strong>Sumur Raumah</strong> milik seorang Yahudi yang menjual airnya dengan harga sangat mahal. 
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6; margin-top: 8px;">
+                            Mendengar sabda Rasulullah ﷺ yang menjanjikan surga bagi siapa saja yang membeli sumur itu, <strong>Utsman bin Affan R.A.</strong> segera menemui sang pemilik. Melalui negosiasi yang cerdas, Utsman membeli setengah kepemilikan sumur (bergantian hari), dan kemudian menebus seluruhnya. Utsman lalu mewakafkan sumur tersebut secara mutlak untuk kepentingan umat Islam dan penduduk Madinah secara gratis. Sumur wakaf ini terus mengalirkan keberkahan bahkan hingga hari ini.
+                        </p>
+                    </div>
+
+                    <div class="kisah-item">
+                        <h5 style="color: #1a5d1a; font-size: 1.1rem; margin-bottom: 8px;">Abu Dahdah dan Kebun Kurma Terbaik</h5>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6;">
+                            Suatu ketika, seorang anak yatim mengadu kepada Rasulullah ﷺ karena sebatang pohon kurma milik tetangganya menghalangi pembangunan pagar kebunnya. Rasulullah ﷺ membujuk pemilik pohon agar memberikan pohon itu kepada si anak yatim dengan imbalan <i>"sebatang pohon kurma di surga"</i>, namun pemiliknya menolak.
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6; margin-top: 8px;">
+                            Mendengar tawaran Rasulullah ﷺ tersebut, sahabat bernama <strong>Abu Dahdah R.A.</strong> langsung mengambil peluang emas itu. Beliau menemui pemilik pohon kurma tersebut dan menukarnya dengan <strong>seluruh kebun kurmanya yang berisi 600 pohon kurma subur</strong> beserta rumah dan sumur di dalamnya. 
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6; margin-top: 8px;">
+                            Abu Dahdah kemudian memberikan satu pohon itu kepada si anak yatim demi membahagiakannya. Ketika mengetahui hal ini, Rasulullah ﷺ bersabda dengan gembira, <i>"Betapa banyak tandan kurma yang besar dan rindang di surga milik Abu Dahdah!"</i>
+                        </p>
+                    </div>
+                </div>
+ 
+                <p>Mengapa sedekah ke pondok pesantren memiliki kedudukan yang sangat istimewa di sisi Allah SWT? Jawabannya terletak pada konvergensi atau menyatunya ketiga komponen utama dalam hadits di atas di dalam ekosistem pesantren. Ketika seorang muhsinin menginfakkan hartanya ke pondok pesantren, ia secara tidak langsung sedang meraih ketiga gerbang pahala tersebut sekaligus.</p>
+
+                <p>Pertama, harta yang diinfakkan mengalir langsung menjadi penopang aktivitas para santri penghafal Quran. Setiap butir beras yang dimakan menjadi energi bagi mereka untuk melafalkan ayat-ayat suci. Setiap huruf Al-Qur'an dan ilmu syariat yang dipelajari serta diamalkan oleh santri, pahala kebaikannya akan mengalir utuh kepada donatur tanpa mengurangi pahala santri tersebut sedikit pun. Inilah esensi ilmu yang bermanfaat yang terus memproduksi pahala tanpa henti.</p>
+
+                <p>Kedua, kontribusi dalam pembangunan fisik sarana prasarana pesantren—seperti pembangunan asrama panggung (kobong) yang kokoh maupun ruang kelas tempat mengaji—akan terus mencatatkan pahala wakaf yang abadi. Selama bangunan tersebut berdiri tegak menaungi para santri sujud, berdzikir, dan menghafalkan kalamullah, selama itu pula pahala jariyah terus dikirimkan ke timbangan amal kebaikan donatur, siang dan malam tanpa terputus.</p>
                 
-                <p style="text-align: right; font-style: italic; margin-top: 30px;">Wallahu a'lam bish-shawab.</p>
+                <p>Ketiga, melalui didikan yang bersendikan akidah Ahlus Sunnah wal Jama'ah dan akhlakul karimah (mengacu pada kitab Akhlaq Lil Baniin), pesantren terus melahirkan generasi anak-anak shalih. Doa-doa tulus yang senantiasa dipanjatkan oleh para santri penghafal Al-Qur'an dalam setiap halaqah dan shalat malam mereka, akan menjadi perisai dan cahaya kubur yang luar biasa bagi para orang tua asuh dan segenap kaum muslimin yang telah tulus ikhlas mendukung perjuangan belajar mereka.</p>
             </div>
 
-            <div class="article-footer-meta">
-                <div><strong>Kategori:</strong> Fiqih Puasa</div>
-                <div><strong>Penyusun:</strong> Redaksi Dakwah</div>
+            <div class="donasi-title">
+                <h3><i class="fas fa-heart"></i> Pintu Amal Jariyah Anda</h3>
+                <p style="font-size:0.95rem; color:#666; margin-top:5px;">Wujudkan aksi nyata mendukung para pejuang Quran melalui 3 program pilihan:</p>
+            </div>
+
+            <div class="donasi-grid">
+                <div class="donasi-card">
+                    <h4>1. Donatur / Orang Tua Asuh</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Membantu keterbatasan ekonomi sebagian santri dalam memenuhi kebutuhan bulanan dan kitab.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Menjamin kelancaran hafalan Quran bagi santri Yatim, Piatu, dan Dhuafa.</li>
+                        <li><strong>Benefit:</strong> Aliran pahala dari setiap ayat yang dihafal santri serta doa berkala dari mereka.</li>
+                    </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20bertanya%20mengenai%20program%20Donatur%20Tetap%20/%20Orang%20Tua%20Asuh." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Jadi Orang Tua Asuh</a>
+                </div>
+
+                <div class="donasi-card">
+                    <h4>2. Wakaf Pembangunan</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Kebutuhan ruang asrama (kobong panggung) dan ruang kelas seiring bertambahnya santri.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Pembelian material infrastruktur utama (semen, cor beton, papan GRC, blockboard).</li>
+                        <li><strong>Benefit:</strong> Investasi fisik akhirat yang pahalanya terus mengalir abadi selama bangunan tegak digunakan ibadah.</li>
+                    </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20berkontribusi%20untuk%20Donasi%20Pembangunan%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Wakaf Pembangunan</a>
+                </div>
+
+                <div class="donasi-card">
+                    <h4>3. Operasional Umum</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Pengeluaran rutin operasional dapur umum santri, tagihan listrik, air, dan kebersihan pondok.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Menjaga stabilitas kelancaran aktivitas pengajian dan roda harian pesantren.</li>
+                        <li><strong>Benefit:</strong> Mendapatkan kebaikan mutlak dari setiap kenyamanan beribadah para santri di pondok.</li>
+                    </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Donasi Operasional</a>
+                </div>
             </div>
         </div>
 
@@ -334,7 +431,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const clickSound = document.getElementById('clickSound');
-            const menuItems = document.querySelectorAll('nav ul li a, .bottom-actions a');
+            const menuItems = document.querySelectorAll('nav ul li a, .donasi-grid a, .bottom-actions a');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
 
