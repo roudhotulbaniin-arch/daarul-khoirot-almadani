@@ -176,7 +176,7 @@
             display: inline-block;
         }
 
-        /* Grid Program Unggulan */
+        /* Grid Program Utama & Ekstrakurikuler */
         .program-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -210,7 +210,7 @@
         }
 
         /* ==========================================================================
-           PEMBERBARUAN DESAIN TABEL KALDIK (ANTI-SCROLL HP)
+           DESAIN TABEL KALDIK DESKTOP (NORMAL)
            ========================================================================== */
         .table-responsive {
             margin-top: 15px;
@@ -256,11 +256,16 @@
             display: inline-block;
         }
 
-               /* ==========================================================================
-           PERBAIKAN TOTAL TABEL KALDIK: ANTI-TABRAKAN & TANPA GARIS DALAM KARTU
+        /* ==========================================================================
+           MEDIA QUERY KALDIK RESPONSIF HP (MINIMALIS - TANPA CONTAINER KARTU LUAR)
            ========================================================================== */
         @media (max-width: 600px) {
-            /* Sembunyikan Header Asli */
+            /* Sembunyikan border tabel bawaan desktop agar menyatu */
+            table {
+                border: none;
+                border-radius: 0;
+            }
+
             table thead {
                 display: none;
             }
@@ -270,17 +275,19 @@
                 width: 100%;
             }
             
+            /* Setiap baris KBM dipisahkan oleh garis bawah tipis saja, tanpa kotak pembungkus */
             table tr {
-                margin-bottom: 20px;
-                border: 1px solid var(--border-color);
-                border-radius: 12px;
-                padding: 15px;
-                background: #ffffff;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+                margin-bottom: 0;
+                border: none;
+                border-bottom: 1px solid #e2eede; 
+                padding: 15px 0;
+                background: transparent !important; /* Hilangkan selang-seling warna kotak */
+                box-shadow: none;
             }
             
-            table tr:nth-child(even) {
-                background-color: #fafdfa;
+            table tr:last-child {
+                border-bottom: none; /* Baris terakhir tidak perlu garis bawah */
+                padding-bottom: 0;
             }
 
             table td {
@@ -288,17 +295,13 @@
                 justify-content: space-between;
                 align-items: flex-start;
                 text-align: right;
-                padding: 8px 0;
-                border-bottom: none; /* GARIS SAMBUNG DI DALAM KARTU DIHILANGKAN TOTAL */
+                padding: 6px 0;
+                border: none;
                 font-size: 0.95rem;
                 gap: 15px;
             }
-            
-            table td:last-child {
-                padding-bottom: 0;
-            }
 
-            /* Memunculkan Label Kiri Menggunakan Flexbox */
+            /* Judul Kolom Sebelah Kiri */
             table td::before {
                 content: attr(data-label);
                 text-align: left;
@@ -308,14 +311,12 @@
                 width: 100px;
             }
 
-            /* Memastikan teks isi kanan terbungkus dengan rapi */
+            /* Membungkus isi konten teks kanan */
             table td strong, table td span, table td {
                 white-space: normal;
                 word-break: break-word;
             }
         }
-
-        
 
         /* ==========================================================================
            5. FOOTER (SERAGAM MASTER INDEX)
@@ -437,7 +438,7 @@
 
         <section class="edu-section">
             <h3 class="section-title"><i class="fas fa-calendar-alt"></i> Kalender Pendidikan 2026</h3>
-            <p style="margin-bottom: 15px;">Berikut adalah acuan agenda utama proses belajar mengajar dan kegiatan santri sepanjang semester berjalan:</p>
+            <p style="margin-bottom: 20px;">Berikut adalah acuan agenda utama proses belajar mengajar dan kegiatan santri sepanjang semester berjalan:</p>
             
             <div class="table-responsive">
                 <table>
