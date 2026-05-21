@@ -284,37 +284,53 @@
         /* ==========================================================================
            3. BLOK STYLE MOBILE (RESPONSIF SMARTPHONE & TABLET)
            ========================================================================== */
-        @media (max-width: 768px) {
-            header { height: 60px; padding: 0 15px; }
-            .logo img { height: 35px; margin-right: 8px; }
-            .logo h1 { font-size: 0.95rem; }
+  @media (max-width: 768px) {
+            header { height: 65px; padding: 0 15px; }
+            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; margin-right: 0 !important; }
+            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
+            /* Tombol Menu Hamburger Mobile */
             #menu-toggle {
-                display: block !important; 
-                background: var(--secondary-color) !important;
-                color: var(--primary-color) !important; 
-                border: none; 
+                display: flex !important;  
+                flex-direction: row;      
+                align-items: center;       
+                gap: 4px;           
+                background: var(--secondary-color);
+                color: var(--primary-color);
                 padding: 6px 12px;
-                border-radius: 4px; 
-                font-weight: bold; 
-                font-size: 0.8rem; 
+                border: none;
+                border-radius: 4px;
+                font-weight: bold;
                 cursor: pointer;
             }
-
+            
+            /* Navigasi Dropdown Vertikal Mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
                 width: 100%; 
-                position: absolute;
-                top: 60px; 
+                position: absolute; 
+                top: 65px; 
                 left: 0; 
                 background: var(--primary-color); 
-                padding: 20px;
-                gap: 15px; 
+                padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
-                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+                gap: 15px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             }
             
+            nav.show ul { display: flex; }
+            nav ul li a { color: white !important; }
+
+            /* Indikator Menu Aktif di Mobile (Garis Samping Kiri) */
+            nav ul li a.active {
+                border-bottom: none;
+                border-left: 4px solid var(--secondary-color);
+                padding-left: 10px;
+                color: var(--secondary-color) !important;
+            }
+
             nav.show ul { display: flex !important; }
 
             .container { padding: 2rem 5%; }
