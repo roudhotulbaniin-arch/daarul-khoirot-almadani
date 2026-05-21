@@ -10,8 +10,6 @@
     <meta property="og:description" content="Akses fitur jadwal shalat, kalender Hijriyah, serta bacaan artikel pilihan keislaman di Pondok Pesantren Daarul Khoirot Almadani." />
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/info_islam.html" />
     <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail_share_1.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Info Dunia Islam Daarul Khoirot Almadani" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -153,7 +151,7 @@
         .btn-donasi-wa:hover { background-color: #144514; }
 
         /* ==========================================================================
-           4. TOMBOL KEMBALI MULTI-AKSI & HOVER EFFECT (DI LUAR KARTU)
+           4. TOMBOL KEMBALI MULTI-AKSI (UKURAN PROPORSIONAL / TIDAK FULL WIDTH)
            ========================================================================== */
         .bottom-actions {
             display: flex;
@@ -175,7 +173,7 @@
             justify-content: center;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            min-width: 280px;
+            min-width: 250px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.06);
             border: 1px solid transparent;
@@ -217,7 +215,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           5. RESPONSIVE MODES (MOBILE FULL WIDTH REPAIRED)
+           5. RESPONSIVE MODES (TOMBOL TETAP PROPORSIONAL / TIDAK MELEBAR FULL)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -228,16 +226,16 @@
             .article-header h2 { font-size: 1.4rem; }
 
             .bottom-actions {
-                flex-direction: row;
+                flex-direction: column;
+                align-items: center; /* Menjaga susunan tombol tetap center di tengah layar HP */
                 gap: 15px;
                 margin-top: 25px;
                 padding: 0;
             }
 
             .btn-kembali { 
-                width: auto !important; 
-                min-width: 200px !important; 
-                padding: 12px 20px; 
+                width: auto; /* Menonaktifkan paksaan lebar 100% */
+                padding: 12px 25px; 
                 font-size: 1rem; 
             }
 
@@ -315,7 +313,7 @@
                     <div class="dalil-item" style="margin-bottom: 25px;">
                         <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">1. Al-Qur'an Surah At-Taghabun Ayat 16</p>
                         <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
-                فاتَّقُوا اللَّهَ مَا اسْتَطَعْتُمْ وَاسْمَعُوا وَأَطِيعُوا وَأَنفِقُوا خَيْراً لأَنفُسِكُمْ وَمَن يُوقَ شُحَّ نَفْسِهِ فَأُوْلَئِكَ هُمُ linemen_ الْمُفْلِحُونَ  
+                فاتَّقُوا اللَّهَ مَا اسْتَطَعْتُمْ وَاسْمَعُوا وَأَطِيعُوا وَأَنفِقُوا خَيْراً لأَنفُSِكُمْ وَمَن يُوقَ شُحَّ نَفْسِهِ فَأُوْلَئِكَ هُمُ الْمُفْلِحُونَ  
                         </p>
                         <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
                             "Maka bertakwalah kamu kepada Allah menurut kesanggupanmu dan dengarlah serta ta`atlah; nafkahkanlah nafkah yang baik untuk dirimu. Dan barangsiapa yang dipelihara dari kekikiran dirinya maka mereka itulah orang-orang yang beruntung."
@@ -325,7 +323,7 @@
                     <div class="dalil-item" style="margin-bottom: 15px;">
                         <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">2. Hadits Riwayat Bukhari dan Muslim</p>
                         <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
-                مَا مِنْكُمْ أَحَدٌ إِلاَّ سَيُكَلِّمُهُ رَبُّهُ لَيْسَ بَيْنَهُ وَبَيْنَهُ تُرْجُمَانٌ فَيَنْظُرُ أَيْمَنَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ مِنْ عَمَلِهِ وَيَنْظُرُ أَشْأَمَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ وَيَنْظُرُ بَيْنَ يَدَيْهِ فَلاَ يَرَى إِلاَّ النَّارَ تِلْقَاءَ وَجْهِهِ فَاتَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ 
+                مَا مِنْكُمْ أَحَدٌ إِلاَّ سَيُكَلِّمُهُ رَبُّهُ لَيْسَ بَيْنَهُ وَبَيْنَهُ تُرْجُمَانٌ فَيَنْظُرُ أَيْمَنَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ مِنْ عَمَلِهِ وَيَنْظُرُ أَشْأَمَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ وَيَنْظُرُ بَيْنَ يَدَيْهِ فَلاَ يَرَى إِلاَّ النَّارَ تِلْقَاءَ وَجْهِهِ فَATَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ 
                         </p>
                         <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
                             "Tiada seorang (pun) dari kalian, melainkan (kelak) Allah akan berbicara kepadanya tanpa seorang penerjemah. Maka ia melihat ke kanan, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke kiri, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke depan, tidaklah dilihatnya melainkan neraka di hadapan wajahnya. Maka peliharalah (diri) kalian dari api neraka, sekalipun dengan sebiji buah kurma (yang disedekahkan).”
