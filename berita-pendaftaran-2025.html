@@ -41,7 +41,10 @@
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Quicksand', sans-serif; 
+        }
+
+        html {
             scroll-behavior: smooth; 
         }
 
@@ -66,7 +69,7 @@
         header { 
             background-color: var(--primary-color); 
             color: white; 
-            padding: 10px 5%; 
+            padding: 10px 4%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -80,6 +83,8 @@
         .logo { 
             display: flex; 
             align-items: center; 
+            text-decoration: none;
+            color: white;
             gap: 12px;
             flex-shrink: 0;
         }
@@ -87,6 +92,7 @@
         .logo img { 
             height: 40px; 
             width: auto; 
+            display: block;
         }
 
         .logo h1 { 
@@ -112,11 +118,6 @@
             transition: 0.3s; 
             position: relative;
             padding-bottom: 5px;
-        }
-
-        nav ul li a i { 
-            color: var(--secondary-color) !important; 
-            font-size: 0.9rem; 
         }
 
         nav ul li a:hover { 
@@ -209,13 +210,18 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
         }
 
+        .highlight-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
         .highlight-box ul {
             margin-left: 20px;
-            margin-top: 10px;
         }
 
         .highlight-box ul li {
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            font-size: 1rem;
         }
 
         /* ==========================================================================
@@ -224,39 +230,36 @@
         .bottom-actions {
             display: flex;
             justify-content: center;
-            margin-top: 35px;
-            margin-bottom: 15px;
+            margin-top: 30px;
+            margin-bottom: 10px;
             width: 100%;
         }
 
         .btn-kembali {
-            color: #ffffff;                    /* Teks putih mantap */
-            background: var(--primary-color);  /* Latar hijau utama pesantren */
-            padding: 15px 40px;
+            color: #ffffff;
+            background: var(--primary-color);
+            padding: 14px 30px;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            min-width: 280px;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            min-width: 250px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: 1px solid transparent;
         }
 
         .btn-kembali:hover { 
-            color: #ffffff;
-            background: var(--primary-dark);   /* Transisi halus ke hijau gelap */
+            background: var(--primary-dark);
             transform: translateY(-2px); 
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         .btn-kembali i {
             margin-right: 10px;
-            color: inherit;                    /* Mengikuti warna teks putih pembungkusnya */
         }
 
         /* ==========================================================================
@@ -281,23 +284,26 @@
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
-            .logo h1 { font-size: 0.9rem !important; }
+            .logo h1 { font-size: 0.95rem !important; }
             .container { padding: 2rem 5%; }
             .article-container { padding: 20px; }
             .featured-image { max-height: 250px; margin-bottom: 20px; }
             .article-container h2 { font-size: 1.4rem; }
             
+            .bottom-actions {
+                padding: 0;
+            }
+
             .btn-kembali { 
-                width: auto; 
-                min-width: 200px; 
-                padding: 10px 20px; 
+                width: 300px; 
+                padding: 12px 25px; 
                 font-size: 1rem; 
             }
 
             #menu-toggle {
                 display: block !important; 
                 background: var(--secondary-color) !important;
-                color: var(--primary-dark) !important; 
+                color: var(--primary-color) !important; 
                 border: none; 
                 padding: 6px 14px;
                 border-radius: 4px; 
@@ -307,32 +313,37 @@
             }
 
             nav { 
+                display: block; 
+            }
+
+            nav ul { 
                 display: none; 
+                flex-direction: column; 
+                width: 100%; 
                 position: absolute; 
                 top: 65px; 
                 left: 0; 
-                width: 100%; 
                 background: var(--primary-color); 
-                padding: 10px 0;
+                padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
+                gap: 15px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
                 z-index: 999;
             }
 
-            nav.show { display: block !important; }
-            nav ul { flex-direction: column; gap: 0; display: flex; }
-            nav ul li a { padding: 12px 25px !important; font-size: 0.95rem; width: 100%; }
-            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 20px !important; }
+            nav.show ul { display: flex; }
+            nav ul li a { color: white !important; padding: 0 !important; width: auto; padding-bottom: 0 !important; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; color: var(--secondary-color) !important; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
+        <a href="index.html" class="logo">
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
-        </div>
+        </a>
 
         <button id="menu-toggle">
             <i class="fas fa-bars"></i> Menu
@@ -394,7 +405,7 @@
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
     <audio id="clickSound" src="click_sound.mp3"></audio>
@@ -404,7 +415,7 @@
             const clickSound = document.getElementById('clickSound');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
-            const navLinks = document.querySelectorAll('nav ul li a'); 
+            const actionItems = document.querySelectorAll('nav ul li a, .btn-kembali'); 
 
             // Toggle Buka/Tutup Menu HP
             if (menuToggle && nav) {
@@ -414,16 +425,17 @@
                 });
             }
 
-            // Audio Click Delay System untuk Transisi Link Navigasi
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+            // Audio Click Delay System untuk Transisi Link Navigasi & Tombol Kembali
+            actionItems.forEach(item => {
+                item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0; 
+                        clickSound.volume = 0.8;
                         clickSound.play().catch(() => {});
                     }
                     if (nav) nav.classList.remove('show');
 
-                    const destination = this.href;
+                    const destination = this.getAttribute("href");
                     if (destination && !destination.includes('#') && !this.target) {
                         e.preventDefault();
                         setTimeout(() => { 
