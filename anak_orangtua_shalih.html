@@ -328,7 +328,7 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* --- 5. RESPONSIVE MODES --- */
+        /* --- 5. RESPONSIVE MODES (HP) --- */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
@@ -359,22 +359,33 @@
             }
 
             nav { 
+                display: block; 
+            }
+
+            /* SAMA PERSIS DENGAN CONFIG INDEX.HTML */
+            nav ul { 
                 display: none; 
+                flex-direction: column; 
+                width: 100%; 
                 position: absolute; 
                 top: 65px; 
                 left: 0; 
-                width: 100%; 
                 background: var(--primary-color); 
-                padding: 10px 0;
+                padding: 20px; /* Jarak penahan alami di sisi kiri */
                 border-bottom: 3px solid var(--secondary-color); 
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 999;
+                gap: 15px;
             }
+            
+            nav.show ul { display: flex; }
+            nav ul li a { color: white !important; padding: 0 !important; width: auto; }
 
-            nav.show { display: block !important; }
-            nav ul { flex-direction: column; gap: 0; }
-            nav ul li a { padding: 12px 25px !important; font-size: 0.95rem; width: 100%; }
-            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 20px !important; }
+            /* Konfigurasi aktif link yang identik dengan index.html */
+            nav ul li a.active-link { 
+                border-bottom: none !important; 
+                border-left: 4px solid var(--secondary-color) !important; 
+                padding-left: 10px !important; 
+                color: var(--secondary-color) !important;
+            }
         }
     </style>
 </head>
@@ -473,7 +484,7 @@
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
     <audio id="clickSound" src="click_sound.mp3"></audio>
