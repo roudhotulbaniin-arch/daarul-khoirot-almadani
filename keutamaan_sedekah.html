@@ -141,7 +141,7 @@
         }
 
         /* ==========================================================================
-           4. ACTION BUTTONS STYLE (RESPONSIVE FIX)
+           4. ACTION BUTTONS STYLE
            ========================================================================== */
         .bottom-actions {
             display: flex;
@@ -205,7 +205,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           5. RESPONSIVE MODES (MOBILE FULL WIDTH REPAIRED)
+           5. RESPONSIVE MODES (MOBILE WIDTH FIX)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -220,20 +220,21 @@
                 gap: 8px;
             }
 
-            /* Memaksa kontainer tombol menata vertikal di HP */
+            /* Mengatur kontainer tombol di mobile agar berjejer rapi */
             .bottom-actions {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                justify-content: center;
+                gap: 12px;
                 margin-top: 25px;
-                padding: 0; /* Placed cleanly beneath container layout */
+                padding: 0;
             }
 
-            /* Memaksa tombol melebar full screen mengikuti kartu di atasnya */
+            /* Perbaikan Utama: Tombol tidak lagi full width (100%) */
             .btn-kembali { 
-                width: 100% !important; 
-                min-width: unset !important; 
-                padding: 12px 20px; 
-                font-size: 1rem; 
+                width: auto !important; 
+                min-width: 150px !important; 
+                padding: 10px 18px; 
+                font-size: 0.9rem; 
             }
 
             #menu-toggle {
