@@ -10,15 +10,7 @@
     <meta property="og:description" content="Lihat dokumentasi kegiatan harian santri, program tahfizul quran, kajian, dan momentum kebersamaan di Pondok Pesantren Daarul Khoirot Almadani." />
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/galeri.html" />
     <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Galeri Kegiatan Daarul Khoirot Almadani" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Galeri Kegiatan & Fasilitas - Daarul Khoirot Almadani" />
-    <meta name="twitter:description" content="Dokumentasi visual kegiatan santri dan lingkungan Pondok Pesantren Daarul Khoirot Almadani." />
-    <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
- 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,10 +53,6 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-        }
-
         /* ==========================================================================
            2. HEADER & NAVIGASI DESKTOP (SERAGAM MASTER INDEX)
            ========================================================================== */
@@ -91,24 +79,10 @@
             flex-shrink: 0;
         }
         
-        .logo img { 
-            height: 40px; 
-            width: auto; 
-            display: block;
-        }
+        .logo img { height: 40px; width: auto; display: block; }
+        .logo h1 { font-size: 1.3rem; letter-spacing: 0.5px; white-space: nowrap; }
 
-        .logo h1 { 
-            font-size: 1.3rem; 
-            letter-spacing: 0.5px; 
-            white-space: nowrap;
-        }
-
-        nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 20px; 
-        }
-
+        nav ul { list-style: none; display: flex; gap: 20px; }
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
@@ -122,31 +96,26 @@
             padding-bottom: 5px;
         }
 
-        nav ul li a:hover { 
-            color: var(--secondary-color) !important; 
-        }
-
+        nav ul li a:hover { color: var(--secondary-color) !important; }
         nav ul li a.active-link { 
             border-bottom: 3px solid var(--secondary-color) !important; 
             color: var(--secondary-color) !important; 
         }
 
-        #menu-toggle { 
-            display: none; 
-        }
+        #menu-toggle { display: none; }
 
         /* ==========================================================================
-           3. KONTEN UTAMA LAYOUT (CONTAINER & SECTION TITLE)
+           3. MAIN CONTAINER & SECTION TITLE
            ========================================================================== */
         .container { 
-            padding: 3rem 10% 0 10%; 
+            padding: 3rem 10%; 
             flex: 1; 
             display: flex;
             flex-direction: column;
-            gap: 3rem;
+            gap: 2rem;
         }
 
-        .gallery-section {
+        .main-section-box {
             background: var(--white);
             padding: 35px;
             border-radius: 12px;
@@ -155,7 +124,7 @@
 
         .section-title { 
             text-align: center; 
-            margin-bottom: 2.5rem; 
+            margin-bottom: 2rem; 
         }
 
         .section-title-box {
@@ -169,65 +138,114 @@
             margin-bottom: 15px;
         }
 
-        .section-title-box i {
-            color: var(--secondary-color);
-        }
-        
-        .section-title-box h2 { 
-            font-size: 1.5rem; 
-            margin: 0; 
-            padding-left: 15px; 
+        .section-title-box i { color: var(--secondary-color); }
+        .section-title-box h2 { font-size: 1.5rem; margin: 0; padding-left: 15px; }
+        .section-title p { color: #666; font-size: 1.05rem; }
+
+        /* ==========================================================================
+           4. SISTEM FILTER TAB MINI
+           ========================================================================== */
+        .tab-filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
         }
 
-        .section-title p {
-            color: #666;
-            font-size: 1.05rem;
+        .filter-btn {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            background: #e6f0e6;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn.active-tab {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(26, 93, 26, 0.2);
+        }
+
+        /* Klasifikasi Grid Penggabungan Elemen (Sembunyi/Tampil via Animasi) */
+        .combined-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Item yang disembunyikan filter */
+        .filterable-item {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .filterable-item.hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ==========================================================================
-           4. GALERI FOTO GRID
+           5. STYLE ELEMEN INTERNAL KARTU (GALERI VS BERITA)
            ========================================================================== */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
+        
+        /* Model Tipe A: Galeri Foto murni */
+        .gallery-card-item {
             overflow: hidden;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             background: white;
             height: 250px;
             border: 4px solid white;
+            position: relative;
         }
 
-        .gallery-item img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: transform 0.5s ease; 
+        .gallery-card-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .gallery-item:hover img { 
-            transform: scale(1.08); 
+        .gallery-card-item:hover img {
+            transform: scale(1.08);
         }
 
-        /* ==========================================================================
-           5. LIPUTAN BERITA UTAMA (KOTAK VERTIKAL)
-           ========================================================================== */
-        .news-section {
-            padding: 3rem 10%;
+        /* Label pita kecil di atas foto galeri untuk penanda */
+        .gallery-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(26, 93, 26, 0.85);
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 2;
+            backdrop-filter: blur(2px);
         }
 
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        /* Model Tipe B: Berita & Rilis (Sama dengan konsep master sebelumnya) */
         .news-card {
             background: var(--white);
             border-radius: 12px;
@@ -254,8 +272,8 @@
         .news-card .date-badge {
             background: var(--secondary-color);
             color: var(--primary-color);
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -266,30 +284,15 @@
             flex-shrink: 0;
         }
 
-        .news-card .date-badge .day { font-size: 1.4rem; font-weight: 800; line-height: 1; }
-        .news-card .date-badge .month { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        .news-card .date-badge .day { font-size: 1.3rem; font-weight: 800; line-height: 1; }
+        .news-card .date-badge .month { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
 
-        .news-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            flex: 1;
-        }
-
-        .news-meta {
-            font-size: 0.8rem;
-            color: #777;
-            margin-bottom: 12px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
+        .news-content { display: flex; flex-direction: column; align-items: center; width: 100%; flex: 1; }
+        .news-meta { font-size: 0.8rem; color: #777; margin-bottom: 12px; display: flex; gap: 15px; justify-content: center; }
         .news-meta span i { color: var(--primary-color); margin-right: 5px; }
 
         .news-content h3 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--primary-color);
             margin-bottom: 12px;
             line-height: 1.4;
@@ -298,11 +301,11 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 4.8rem; 
+            height: 4.6rem; 
         }
 
         .news-content p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #555;
             line-height: 1.6;
             margin: 0;
@@ -311,7 +314,7 @@
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 5.8rem; 
+            height: 5.5rem; 
         }
 
         /* ==========================================================================
@@ -369,25 +372,22 @@
             nav ul li a { color: white !important; padding: 0 !important; width: auto; padding-bottom: 0 !important; }
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; color: var(--secondary-color) !important; }
 
-            .container, .news-section { padding: 2rem 5%; }
-            .gallery-section { padding: 20px; }
+            .container { padding: 2rem 5%; gap: 1.5rem; }
+            .main-section-box { padding: 20px; }
             .section-title-box { padding: 10px 20px; }
             .section-title-box h2 { font-size: 1.2rem; }
 
-            .news-grid, .gallery-grid { 
+            .tab-filter-container { gap: 8px; margin-bottom: 1.5rem; }
+            .filter-btn { padding: 8px 14px; font-size: 0.85rem; }
+
+            .combined-grid { 
                 grid-template-columns: 1fr !important; 
                 gap: 20px !important;
             }
 
-            .news-card {
-                height: auto !important;
-                padding: 20px !important;
-            }
-
-            .news-content h3, .news-content p {
-                height: auto !important;
-                -webkit-line-clamp: unset !important;
-            }
+            .news-card { height: auto !important; padding: 20px !important; }
+            .news-content h3, .news-content p { height: auto !important; -webkit-line-clamp: unset !important; }
+            .gallery-card-item { height: 220px; }
         }
     </style>
 </head>
@@ -418,99 +418,151 @@
 
     <main class="container">
         
-        <section id="galeri" class="gallery-section">
+        <section class="main-section-box">
             <div class="section-title">
                 <div class="section-title-box">
-                    <i class="fas fa-camera fa-2x"></i>
-                    <h2>Galeri Kegiatan</h2>
+                    <i class="fas fa-images fa-2x"></i>
+                    <h2>Galeri & Liputan Berita</h2>
                 </div>
-                <p>Dokumentasi Kegiatan Santri dan Acara Pondok Pesantren.</p>
+                <p>Gunakan tab filter di bawah untuk memilah rilis informasi dan dokumentasi visual pondok.</p>
             </div>
 
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="tahfizul_quran.jpg" alt="Tahfizul Quran" loading="lazy"></div>
-                <div class="gallery-item"><img src="santri_berprestasi.jpeg" alt="Santri Berprestasi" loading="lazy"></div>
-                <div class="gallery-item"><img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah" loading="lazy"></div>
-                <div class="gallery-item"><img src="makan_bersama.jpeg" alt="Makan Bersama" loading="lazy"></div>
-                <div class="gallery-item"><img src="latihan_hadhroh.jpeg" alt="Extra Kurikuler" loading="lazy"></div>
-                <div class="gallery-item"><img src="panitia_phbi.jpeg" alt="Acara Maulid Nabi" loading="lazy"></div>
-                <div class="gallery-item"><img src="tasmiul_quran.jpeg" alt="Program Hafalan" loading="lazy"></div>
-                <div class="gallery-item"><img src="penghargaan_santri.jpeg" alt="Penghargaan Santri" loading="lazy"></div>
+            <div class="tab-filter-container">
+                <button class="filter-btn active-tab" data-target="all"><i class="fas fa-th-large"></i> Semua Kegiatan</button>
+                <button class="filter-btn" data-target="pendaftaran"><i class="fas fa-bullhorn"></i> Berita & Pengumuman</button>
+                <button class="filter-btn" data-target="phbi"><i class="fas fa-star"></i> Acara & Hari Besar</button>
+                <button class="filter-btn" data-target="aktivitas"><i class="fas fa-user-friends"></i> Aktivitas Santri</button>
+            </div>
+
+            <div class="combined-grid">
+
+                <div class="filterable-item" data-category="pendaftaran">
+                    <a href="kobong_panggung.html" class="news-card">
+                        <div class="date-badge">
+                            <span class="day">19</span>
+                            <span class="month">Mei</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
+                                <span><i class="fas fa-tools"></i> Progres Fisik</span>
+                            </div>
+                            <h3>Pembangunan Kobong Panggung Struktur Cor Beton Mulai Memasuki Tahap Baru</h3>
+                            <p>Proses pembangunan fasilitas asrama/kobong panggung ukuran 3x9 meter di area pondok pesantren berjalan lancar menggunakan pilar cor beton kokoh dan dinding GRC panel.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <a href="kajian_jihad.html" class="news-card">
+                        <div class="date-badge">
+                            <span class="day">16</span>
+                            <span class="month">Mei</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
+                            </div>
+                            <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
+                            <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="filterable-item" data-category="pendaftaran">
+                    <a href="berita-pendaftaran-2025.html" class="news-card">
+                        <div class="date-badge">
+                            <span class="day">15</span>
+                            <span class="month">Des</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar-alt"></i> Des 2025</span>
+                                <span><i class="fas fa-bullhorn"></i> Info Pendaftaran</span>
+                            </div>
+                            <h3>Penerimaan Santri Baru Gelombang 1 Halaman Galeri Resmi Buku</h3>
+                            <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk mendapatkan pendidikan Islami yang berkualitas sejak dini.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="filterable-item" data-category="phbi">
+                    <a href="berita-maulid-2025.html" class="news-card">
+                        <div class="date-badge">
+                            <span class="day">10</span>
+                            <span class="month">Nov</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar-alt"></i> Nov 2025</span>
+                                <span><i class="fas fa-star"></i> Kegiatan Pesantren</span>
+                            </div>
+                            <h3>Peringatan Maulid Nabi Muhammad SAW di Pondok Pesantren</h3>
+                            <p>Alhamdulillah, seluruh rangkaian acara utama peringatan besar Maulid Nabi Muhammad SAW berjalan dengan sangat lancar, khidmat, dan penuh keberkahan bersama seluruh keluarga besar yayasan.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Aktivitas</span>
+                        <img src="tahfizul_quran.jpg" alt="Tahfizul Quran" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Aktivitas</span>
+                        <img src="santri_berprestasi.jpeg" alt="Santri Berprestasi" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Aktivitas</span>
+                        <img src="shalat_berjamaah.jpeg" alt="Shalat Berjamaah" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Aktivitas</span>
+                        <img src="makan_bersama.jpeg" alt="Makan Bersama" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Aktivitas</span>
+                        <img src="latihan_hadhroh.jpeg" alt="Extra Kurikuler" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="phbi">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Acara PHBI</span>
+                        <img src="panitia_phbi.jpeg" alt="Acara Maulid Nabi" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Aktivitas</span>
+                        <img src="tasmiul_quran.jpeg" alt="Program Hafalan" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="aktivitas">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Aktivitas</span>
+                        <img src="penghargaan_santri.jpeg" alt="Penghargaan Santri" loading="lazy">
+                    </div>
+                </div>
+
             </div>
         </section>
     </main>
-
-    <section id="berita" class="news-section">
-        <div class="section-title">
-            <div class="section-title-box">
-                <i class="fas fa-newspaper fa-2x"></i>
-                <h2>Berita Terbaru</h2>
-            </div>
-            <p>Informasi dan Kabar Terkini seputar Kegiatan Pondok Pesantren.</p>
-        </div>
-
-        <div class="news-grid">
-            <a href="kobong_panggung.html" class="news-card">
-                <div class="date-badge">
-                    <span class="day">19</span>
-                    <span class="month">Mei</span>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
-                        <span><i class="fas fa-tools"></i> Progres Fisik</span>
-                    </div>
-                    <h3>Pembangunan Kobong Panggung Struktur Cor Beton Mulai Memasuki Tahap Baru</h3>
-                    <p>Proses pembangunan fasilitas asrama/kobong panggung ukuran 3x9 meter di area pondok pesantren berjalan lancar menggunakan pilar cor beton kokoh dan dinding GRC panel.</p>
-                </div>
-            </a>
-            
-            <a href="kajian_jihad.html" class="news-card">
-                <div class="date-badge">
-                    <span class="day">16</span>
-                    <span class="month">Mei</span>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Karawang</span>
-                    </div>
-                    <h3>Kajian Kitab Kifayatul Atqiya: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h3>
-                    <p>Pondok Pesantren Daarul Khoirot Al-Madani membedah Bait ke-107 mengenai konsekuensi serta tanggung jawab moral seorang guru dalam menyebarkan cabang ilmu.</p>
-                </div>
-            </a>
-
-            <a href="berita-pendaftaran-2025.html" class="news-card">
-                <div class="date-badge">
-                    <span class="day">15</span>
-                    <span class="month">Des</span>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fas fa-calendar-alt"></i> Des 2025</span>
-                        <span><i class="fas fa-bullhorn"></i> Info Pendaftaran</span>
-                    </div>
-                    <h3>Penerimaan Santri Baru Gelombang 1 Halaman Galeri Resmi Buku</h3>
-                    <p>Pendaftaran santri baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra-putri Anda untuk mendapatkan pendidikan Islami yang berkualitas sejak dini.</p>
-                </div>
-            </a>
-
-            <a href="berita-maulid-2025.html" class="news-card">
-                <div class="date-badge">
-                    <span class="day">10</span>
-                    <span class="month">Nov</span>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fas fa-calendar-alt"></i> Nov 2025</span>
-                        <span><i class="fas fa-star"></i> Kegiatan Pesantren</span>
-                    </div>
-                    <h3>Peringatan Maulid Nabi Muhammad SAW di Pondok Pesantren</h3>
-                    <p>Alhamdulillah, seluruh rangkaian acara utama peringatan besar Maulid Nabi Muhammad SAW berjalan dengan sangat lancar, khidmat, dan penuh keberkahan bersama seluruh keluarga besar yayasan.</p>
-                </div>
-            </a>
-        </div> 
-    </section>
 
     <footer>
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
@@ -526,9 +578,16 @@
         document.addEventListener("DOMContentLoaded", function() {
             const murottal = document.getElementById('murottal');
             const clickSound = document.getElementById('clickSound');
-            const actionItems = document.querySelectorAll('nav ul li a, .logo, .news-card');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
+            
+            // Elemen Navigasi Link Klik Suara
+            const linkActionItems = document.querySelectorAll('nav ul li a, .logo, .news-card');
+            
+            // Elemen Kontrol Filter Tab Mini
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const filterableItems = document.querySelectorAll('.filterable-item');
+            
             let hasInteracted = false;
 
             // Fitur Auto Play Background Audio Murottal saat User Pertama Kali Klik Layar
@@ -552,15 +611,42 @@
                 });
             }
 
-            // Audio Click Delay System untuk Navigasi & Kartu Berita
-            actionItems.forEach(item => {
+            // LOGIKA FILTER TAB UTAMA (CSS + JS RINGAN)
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Mainkan efek suara klik
+                    if (clickSound) {
+                        clickSound.currentTime = 0;
+                        clickSound.volume = 0.8;
+                        clickSound.play().catch(() => {});
+                    }
+
+                    // Ubah tombol aktif
+                    filterButtons.forEach(btn => btn.classList.remove('active-tab'));
+                    this.classList.add('active-tab');
+
+                    const targetKategori = this.getAttribute('data-target');
+
+                    // Sembunyikan atau tampilkan elemen berdasarkan kecocokan data-category
+                    filterableItems.forEach(item => {
+                        const itemKategori = item.getAttribute('data-category');
+                        if (targetKategori === 'all' || itemKategori === targetKategori) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Audio Click Delay System untuk Navigasi Utama halaman luar
+            linkActionItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0; 
                         clickSound.volume = 0.8;
                         clickSound.play().catch(() => {});
                     }
-                    
                     if (nav) nav.classList.remove('show');
 
                     const destination = this.getAttribute("href");
