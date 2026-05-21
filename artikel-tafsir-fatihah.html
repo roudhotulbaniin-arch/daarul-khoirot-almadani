@@ -347,39 +347,33 @@
                 cursor: pointer;
             }
 
-            nav { 
+            nav {
+                display: block; /* Mengikuti logika JS toggle class 'show' */
+            }
+
+            /* SERAGAM DENGAN INDEX.HTML */
+            nav ul { 
                 display: none; 
+                flex-direction: column; 
+                width: 100%; 
                 position: absolute; 
                 top: 65px; 
                 left: 0; 
-                width: 100%; 
                 background: var(--primary-color); 
-                padding: 10px 0;
+                padding: 20px; /* Memberi ruang sisi kiri secara alami */
                 border-bottom: 3px solid var(--secondary-color); 
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 999;
+                gap: 15px;
             }
+            
+            nav.show ul { display: flex; }
+            nav ul li a { color: white !important; }
 
-            nav.show { display: block !important; }
-            
-            /* FIX: Menambahkan padding-left agar list menu bergeser sedikit dan memberi ruang untuk border-left */
-            nav ul { 
-                flex-direction: column; 
-                gap: 0; 
-                padding-left: 10px !important; 
-            }
-            
-            nav ul li a { 
-                padding: 12px 15px !important; 
-                font-size: 0.95rem; 
-                width: 100%; 
-            }
-            
-            /* FIX: Memastikan border-left memiliki ruang bernapas dan terlihat tegak sempurna tanpa terpotong pinggir layar */
-            nav ul li a.active-link { 
-                border-bottom: none !important; 
-                border-left: 4px solid var(--secondary-color) !important; 
-                padding-left: 15px !important; 
+            /* Gaya aktif murni menggunakan border asli bawaan index.html */
+            nav ul li a.active-link {
+                border-bottom: none !important;
+                border-left: 4px solid var(--secondary-color) !important;
+                padding-left: 10px !important;
+                color: var(--secondary-color) !important;
             }
         }
     </style>
@@ -433,7 +427,7 @@
                 <h4 class="content-block-title"><i class="fas fa-star"></i> 1. Pujian kepada Allah (Ayat 1-4)</h4>
                 
                 <div class="arabic-container">
-                    <p class="arabic-text">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+                    <p class="arabic-text">بِسْمِ اللّٰهِ Rَّحْمٰنِ Rَّحِيْمِ</p>
                     <div class="translation-box">
                         <strong>Artinya:</strong> "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang."
                     </div>
@@ -459,7 +453,7 @@
                 <h4 class="content-block-title"><i class="fas fa-star"></i> 3. Permohonan Hidayah (Ayat 6-7)</h4>
                 
                 <div class="arabic-container">
-                    <p class="arabic-text">اِهْدِنَا الصِّrَاطَ الْمُسْتَقِيْمَۙ</p>
+                    <p class="arabic-text">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ</p>
                     <div class="translation-box">
                         <strong>Artinya:</strong> "Bimbinglah kami ke jalan yang lurus."
                     </div>
@@ -489,7 +483,7 @@
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">&copy; 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
     <audio id="clickSound" src="click_sound.mp3"></audio>
