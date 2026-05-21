@@ -29,6 +29,7 @@
             --white: #ffffff;
             --text-dark: #333333;
             --border-color: #d4e4d4;
+            --card-bg: #fafdfa; /* Background seragam untuk semua kartu */
         }
 
         * { 
@@ -188,7 +189,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 25px;
-            background: #fafdfa;
+            background: var(--card-bg);
             transition: 0.3s;
         }
 
@@ -257,13 +258,13 @@
         }
 
         /* ==========================================================================
-           MEDIA QUERY KALDIK RESPONSIF HP (MINIMALIS - TANPA CONTAINER KARTU LUAR)
+           MEDIA QUERY KALDIK RESPONSIF HP (KARTU SERAGAM & RAPI)
            ========================================================================== */
         @media (max-width: 600px) {
-            /* Sembunyikan border tabel bawaan desktop agar menyatu */
+            /* Hilangkan border tabel dasar desktop */
             table {
                 border: none;
-                border-radius: 0;
+                background: transparent;
             }
 
             table thead {
@@ -275,43 +276,43 @@
                 width: 100%;
             }
             
-            /* Setiap baris KBM dipisahkan oleh garis bawah tipis saja, tanpa kotak pembungkus */
+            /* Mengubah baris tabel (tr) menjadi KARTU yang SERAGAM dengan program-card */
             table tr {
-                margin-bottom: 0;
-                border: none;
-                border-bottom: 1px solid #e2eede; 
-                padding: 15px 0;
-                background: transparent !important; /* Hilangkan selang-seling warna kotak */
+                margin-bottom: 20px;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                padding: 18px;
+                background: var(--card-bg) !important; /* Warna background kartu seragam */
                 box-shadow: none;
             }
             
             table tr:last-child {
-                border-bottom: none; /* Baris terakhir tidak perlu garis bawah */
-                padding-bottom: 0;
+                margin-bottom: 0;
             }
 
+            /* Setiap baris informasi di dalam kartu */
             table td {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
                 text-align: right;
-                padding: 6px 0;
+                padding: 8px 0;
                 border: none;
                 font-size: 0.95rem;
                 gap: 15px;
             }
 
-            /* Judul Kolom Sebelah Kiri */
+            /* Menampilkan label di sisi kiri kartu */
             table td::before {
                 content: attr(data-label);
                 text-align: left;
                 font-weight: 700;
                 color: var(--primary-color);
                 flex-shrink: 0;
-                width: 100px;
+                width: 95px; /* Mengunci lebar kolom label agar rapi sejajar */
             }
 
-            /* Membungkus isi konten teks kanan */
+            /* Proteksi pembungkus teks konten kanan agar tidak menabrak kiri */
             table td strong, table td span, table td {
                 white-space: normal;
                 word-break: break-word;
