@@ -9,7 +9,7 @@
     <meta property="og:title" content="Program Pendidikan & Kurikulum - Daarul Khoirot Almadani" />
     <meta property="og:description" content="Jelajahi program pendidikan unggulan, kurikulum Tahfidz & Kitab Kuning, serta kalender akademik resmi Pondok Pesantren Daarul Khoirot Almadani." />
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/pendidikan.html" />
-    <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
+    <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/thumbnail_share_1.jpg" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -209,12 +209,12 @@
             color: #111;
         }
 
-        /* Desain Tabel Kalender Pendidikan */
+        /* ==========================================================================
+           PEMBERBARUAN DESAIN TABEL KALDIK (ANTI-SCROLL HP)
+           ========================================================================== */
         .table-responsive {
-            overflow-x: auto;
             margin-top: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            width: 100%;
         }
 
         table {
@@ -222,6 +222,9 @@
             border-collapse: collapse;
             text-align: left;
             background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
         }
 
         th, td {
@@ -250,6 +253,54 @@
             border-radius: 4px;
             font-size: 0.85rem;
             font-weight: 600;
+            display: inline-block;
+        }
+
+        /* MEDIA QUERY KHUSUS TABEL RESPONSIF STACK (FIT SCREEN) */
+        @media (max-width: 600px) {
+            table thead {
+                display: none;
+            }
+            
+            table, table tbody, table tr, table td {
+                display: block;
+                width: 100%;
+            }
+            
+            table tr {
+                margin-bottom: 15px;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                padding: 10px;
+                background: #ffffff;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            }
+            
+            table tr:nth-child(even) {
+                background-color: #fafdfa;
+            }
+
+            table td {
+                text-align: right;
+                padding: 8px 10px;
+                border-bottom: 1px dashed #eee;
+                position: relative;
+                font-size: 0.95rem;
+            }
+            
+            table td:last-child {
+                border-bottom: none;
+            }
+
+            table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                text-align: left;
+                font-weight: 700;
+                color: var(--primary-color);
+            }
         }
 
         /* ==========================================================================
@@ -385,24 +436,24 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Awal KBM Semester Ganjil</strong></td>
-                            <td>Juli 2026</td>
-                            <td><span class="status-badge">Santri Masuk</span></td>
+                            <td data-label="Agenda"><strong>Awal KBM Semester Ganjil</strong></td>
+                            <td data-label="Waktu">Juli 2026</td>
+                            <td data-label="Keterangan"><span class="status-badge">Santri Masuk</span></td>
                         </tr>
                         <tr>
-                            <td><strong>Ujian Tengah Semester (UTS)</strong></td>
-                            <td>September 2026</td>
-                            <td>Evaluasi Belajar Tengah Gelombang</td>
+                            <td data-label="Agenda"><strong>Ujian Tengah Semester (UTS)</strong></td>
+                            <td data-label="Waktu">September 2026</td>
+                            <td data-label="Keterangan">Evaluasi Belajar Tengah Gelombang</td>
                         </tr>
                         <tr>
-                            <td><strong>Ujian Akhir Semester (UAS)</strong></td>
-                            <td>Desember 2026</td>
-                            <td>Penilaian Capaian Kitab & Formal</td>
+                            <td data-label="Agenda"><strong>Ujian Akhir Semester (UAS)</strong></td>
+                            <td data-label="Waktu">Desember 2026</td>
+                            <td data-label="Keterangan">Penilaian Capaian Kitab &amp; Formal</td>
                         </tr>
                         <tr>
-                            <td><strong>Libur Semester Ganjil</strong></td>
-                            <td>Akhir Desember 2026</td>
-                            <td><span class="status-badge">Perizinan Pulang</span></td>
+                            <td data-label="Agenda"><strong>Libur Semester Ganjil</strong></td>
+                            <td data-label="Waktu">Akhir Desember 2026</td>
+                            <td data-label="Keterangan"><span class="status-badge">Perizinan Pulang</span></td>
                         </tr>
                     </tbody>
                 </table>
