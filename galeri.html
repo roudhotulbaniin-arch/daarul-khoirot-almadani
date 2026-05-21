@@ -143,31 +143,36 @@
         .section-title p { color: #666; font-size: 1.05rem; }
 
         /* ==========================================================================
-           4. SISTEM FILTER TAB MINI
+           4. SISTEM FILTER TAB MINI (TAMPILAN DESKTOP - 4 KOLOM)
            ========================================================================== */
         .tab-filter-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: grid;
+            /* Mengunci susunan maksimal 4 kolom sejajar rata di desktop */
+            grid-template-columns: repeat(4, minmax(0, 220px));
+            gap: 15px;
+            justify-content: center; /* Memastikan rangkaian grid berada di tengah halaman */
             margin-bottom: 2.5rem;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            padding-bottom: 25px;
         }
 
         .filter-btn {
+            width: 100%; /* Memaksa lebar tombol penuh mengisi ruang grid agar seragam */
             background: var(--white);
             color: var(--primary-color);
             border: 1px solid var(--border-color);
-            padding: 10px 18px;
+            padding: 12px 15px;
             font-size: 0.95rem;
             font-weight: 600;
-            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            justify-content: center; /* Mengatur teks dan ikon presisi di tengah tombol */
             gap: 8px;
+
+            /* KUNCI KESERAGAMAN: Bentuk kotak dengan sudut melengkung halus, bukan oval */
+            border-radius: 6px;
         }
 
         .filter-btn:hover {
@@ -377,8 +382,20 @@
             .section-title-box { padding: 10px 20px; }
             .section-title-box h2 { font-size: 1.2rem; }
 
-            .tab-filter-container { gap: 8px; margin-bottom: 1.5rem; }
-            .filter-btn { padding: 8px 14px; font-size: 0.85rem; }
+            /* Penyesuaian Tombol Filter di HP: Formasi Grid 2x2 Simetris */
+            .tab-filter-container { 
+                grid-template-columns: repeat(2, 1fr); /* Membagi menjadi 2 kolom rata kanan-kiri */
+                gap: 10px; 
+                margin-bottom: 1.5rem; 
+                padding-bottom: 15px;
+            }
+            
+            .filter-btn { 
+                padding: 10px 8px; 
+                font-size: 0.8rem; 
+                border-radius: 6px; /* Tetap mempertahankan bentuk kotak melengkung halus di HP */
+                transform: none !important; /* Menghilangkan penyesuaian khusus desktop */
+            }
 
             .combined-grid { 
                 grid-template-columns: 1fr !important; 
