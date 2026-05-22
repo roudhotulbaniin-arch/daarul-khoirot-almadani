@@ -65,7 +65,7 @@
         header { 
             background-color: var(--primary-color); 
             color: white; 
-            padding: 10px 5%; 
+            padding: 10px 4%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -79,6 +79,8 @@
         .logo { 
             display: flex; 
             align-items: center; 
+            text-decoration: none;
+            color: white;
             gap: 12px;
             flex-shrink: 0;
         }
@@ -86,6 +88,7 @@
         .logo img { 
             height: 40px; 
             width: auto; 
+            display: block;
         }
 
         .logo h1 { 
@@ -126,10 +129,12 @@
             display: none; 
         }
 
-        /* --- 3. KONTEN UTAMA ARTIKEL --- */
+        /* --- 3. KONTEN UTAMA ARTIKEL (FULL WIDTH FIX) --- */
         .container { 
-            padding: 3rem 15%; 
+            padding: 3rem 10%; 
             flex: 1; 
+            display: flex;
+            justify-content: center;
         }
 
         .full-news-card {
@@ -138,6 +143,9 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             overflow: hidden;
+            width: 100%;
+            max-width: 1200px; /* Lebar maksimal penuh standar desktop */
+            box-sizing: border-box;
         }
 
         .hero-banner {
@@ -271,37 +279,62 @@
             font-weight: 600;
         }
 
-        /* --- BUTTON & LAYOUT BAWAH --- */
-        .bottom-actions {
+        /* --- 4. SISTEM 2 TOMBOL KEMBALI SEJAJAR (1 BARIS 50:50) --- */
+        .bottom-actions-group {
             display: flex;
-            justify-content: center;
-            margin-top: 30px; 
-            margin-bottom: 10px; 
+            gap: 20px;
             width: 100%;
+            margin-top: 35px;
+            box-sizing: border-box;
         }
 
-        .btn-kembali {
+        .bottom-actions-group .btn-kembali-double {
+            flex: 1; /* Otomatis membagi baris menjadi lebar yang seimbang */
             color: white;
-            background: var(--primary-color);
-            padding: 15px 40px;
+            padding: 14px 20px;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
-            display: inline-block;
-            font-size: 1.3rem;
-            transition: 0.3s;
-            min-width: 280px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+            box-sizing: border-box;
         }
 
-        .btn-kembali:hover {
-            background: #144614;
+        /* Tombol Utama (Kembali ke Info Islam) */
+        .btn-kembali-double.btn-main-color {
+            background: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            color: white !important;
+        }
+        
+        .btn-kembali-double.btn-main-color:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
-        /* --- 4. FOOTER --- */
+        /* Tombol Kedua (Kembali ke Beranda) */
+        .btn-kembali-double.btn-alt-color {
+            background: #ffffff;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important;
+        }
+
+        .btn-kembali-double.btn-alt-color:hover {
+            background: #e6f0e6;
+            transform: translateY(-2px);
+        }
+
+        .btn-kembali-double i {
+            margin-right: 8px;
+        }
+
+        /* --- 5. FOOTER --- */
         footer { 
             background: var(--primary-dark); 
             color: white; 
@@ -315,41 +348,46 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* --- 5. RESPONSIVE MODES --- */
+        /* --- 6. RESPONSIVE MODES (HP) --- */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-            .logo img { height: 35px; }
-            .logo h1 { font-size: 0.95rem !important; }
+            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; margin-right: 0 !important; }
+            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
+            
             .container { padding: 2rem 5%; }
             .full-news-card { padding: 20px; }
             .hero-banner { max-height: 250px; margin-bottom: 20px; }
             .news-header h2 { font-size: 1.4rem; }
             .arabic-text { font-size: 1.8rem; line-height: 2; }
             
-            .btn-kembali { 
-                width: auto;             
-                min-width: 200px;        
-                padding: 10px 20px;      
-                font-size: 1rem;         
+            /* Susunan tombol otomatis vertikal pada perangkat seluler */
+            .bottom-actions-group {
+                flex-direction: column;
+                gap: 12px;
+                margin-top: 25px;
+            }
+            .bottom-actions-group .btn-kembali-double {
+                width: 100%;
+                font-size: 0.95rem;
+                padding: 12px 15px;
             }
 
             #menu-toggle {
-                display: block !important; 
-                background: var(--secondary-color) !important;
-                color: var(--primary-dark) !important; 
-                border: none; 
-                padding: 6px 14px;
-                border-radius: 4px; 
-                font-weight: bold; 
-                font-size: 0.85rem; 
+                display: flex !important;  
+                flex-direction: row;      
+                align-items: center;       
+                gap: 4px;           
+                background: var(--secondary-color);
+                color: var(--primary-color);
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                font-weight: bold;
                 cursor: pointer;
             }
 
-            nav {
-                display: block; /* Mengikuti logika JS toggle class 'show' */
-            }
-
-            /* SERAGAM DENGAN INDEX.HTML */
+            nav { display: block; }
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -358,15 +396,15 @@
                 top: 65px; 
                 left: 0; 
                 background: var(--primary-color); 
-                padding: 20px; /* Memberi ruang sisi kiri secara alami */
+                padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
                 gap: 15px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                z-index: 999;
             }
             
             nav.show ul { display: flex; }
             nav ul li a { color: white !important; padding: 0 !important; }
-
-            /* Gaya aktif murni menggunakan border asli bawaan index.html */
             nav ul li a.active-link {
                 border-bottom: none !important;
                 border-left: 4px solid var(--secondary-color) !important;
@@ -379,10 +417,10 @@
 <body>
 
     <header>
-        <div class="logo">
+        <a href="index.html" class="logo">
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
-        </div>
+        </a>
         
         <button id="menu-toggle">
             <i class="fas fa-bars"></i> Menu
@@ -426,7 +464,7 @@
                 <h4 class="content-block-title"><i class="fas fa-star"></i> 1. Pujian kepada Allah (Ayat 1-4)</h4>
                 
                 <div class="arabic-container">
-                    <p class="arabic-text">بِسْمِ اللّٰهِ Rَّحْمٰنِ Rَّحِيْمِ</p>
+                    <p class="arabic-text">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
                     <div class="translation-box">
                         <strong>Artinya:</strong> "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang."
                     </div>
@@ -439,7 +477,7 @@
                 <h4 class="content-block-title"><i class="fas fa-star"></i> 2. Ikrar Peribadatan (Ayat 5)</h4>
                 
                 <div class="arabic-container">
-                    <p class="arabic-text">اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ</p>
+                    <p class="arabic-text">اِيَّاكُ نَعْبُدُ وَاِيَّاكُ نَسْتَعِيْنُۗ</p>
                     <div class="translation-box">
                         <strong>Artinya:</strong> "Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan."
                     </div>
@@ -452,7 +490,7 @@
                 <h4 class="content-block-title"><i class="fas fa-star"></i> 3. Permohonan Hidayah (Ayat 6-7)</h4>
                 
                 <div class="arabic-container">
-                    <p class="arabic-text">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ</p>
+                    <p class="arabic-text">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ</p>
                     <div class="translation-box">
                         <strong>Artinya:</strong> "Bimbinglah kami ke jalan yang lurus."
                     </div>
@@ -469,13 +507,17 @@
                 <span>Kategori: Tafsir Qur'an</span>
                 <span class="reporter-tag">Penyusun: Redaksi Dakwah</span>
             </div>
-        </article>
 
-        <div class="bottom-actions">
-            <a href="info_islam.html" class="btn-kembali">
-                <i class="fas fa-arrow-left"></i> Kembali ke Info Dunia Islam
-            </a>
-        </div>
+            <div class="bottom-actions-group">
+                <a href="info_islam.html" class="btn-kembali-double btn-main-color">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Info Islam
+                </a>
+                <a href="index.html" class="btn-kembali-double btn-alt-color">
+                    <i class="fas fa-home"></i> Kembali ke Beranda
+                </a>
+            </div>
+
+        </article>
     </main>
 
     <footer> 
@@ -492,7 +534,7 @@
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
             const clickSound = document.getElementById('clickSound');
-            const menuItems = document.querySelectorAll("nav ul li a, .btn-kembali");
+            const actionItems = document.querySelectorAll("nav ul li a, .btn-kembali-double, .logo");
 
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
@@ -501,7 +543,7 @@
                 });
             }
 
-            menuItems.forEach(item => {
+            actionItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0;
@@ -509,7 +551,7 @@
                     }
                     if (nav) nav.classList.remove('show');
 
-                    const targetUrl = this.href;
+                    const targetUrl = this.getAttribute("href");
                     if (targetUrl && !targetUrl.includes('#') && !this.target) {
                         e.preventDefault();
                         setTimeout(() => { 
