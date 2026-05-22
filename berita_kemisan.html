@@ -197,18 +197,28 @@
         }
 
         .news-meta-strip {
-            font-size: 0.85rem;
-            color: #666;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
+    display: flex;
+    flex-wrap: wrap; /* Agar otomatis turun rapi jika dibuka di layar HP yang sangat kecil */
+    gap: 20px;       /* Jarak horizontal dan vertikal antar item agar sama rata (simetris) */
+    align-items: center; /* Membuat ikon dan teks sejajar secara vertikal */
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee; /* Opsional: memberi garis tipis di bawahnya agar lebih estetis */
+}
 
-        .news-meta-strip span i {
-            color: var(--primary-color);
-            margin-right: 6px;
-        }
+.news-meta-strip span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* Jarak antara ikon Font Awesome dengan teks di sebelahnya */
+}
+
+.news-meta-strip span i {
+    color: var(--primary-color);
+    font-size: 0.95rem; /* Ukuran ikon sedikit disesuaikan agar seimbang dengan teks */
+}
+ 
 
         .news-body-content p {
             margin-bottom: 20px;
@@ -423,7 +433,7 @@
             }
 
             .btn-kembali { 
-                width: 100%;                    
+                width: auto;                    
                 padding: 12px 25px;      
                 font-size: 1rem;         
             }
@@ -519,11 +529,9 @@
                     <h3>Penutup</h3>
                     <p>Pengajian rutin Kemisan ini diakhiri dengan sesi tanya jawab interaktif dan ditutup dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
                 </div>
-
-                <div class="bottom-actions">
-                    <a href="galeri.html" class="btn-kembali"><i class="fas fa-arrow-left"></i> Galeri & Liputan Berita</a>
-                </div>
-            </section>          
+            </section>   
+   <div class="bottom-actions">
+                    <a href="galeri.html" class="btn-kembali"><i class="fas fa-arrow-left"></i> Galeri & Liputan Berita</a>       
         </div>
     </main> 
 
