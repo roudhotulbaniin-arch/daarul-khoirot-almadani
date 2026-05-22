@@ -183,14 +183,14 @@
         }
       
         /* ==========================================================================
-           5. ADAPTIVE GALLERY IMAGE STYLE (SOLUSI BINGKAI: UTUH & ANTI TERPOTONG)
+           5. ADAPTIVE GALLERY IMAGE STYLE (SINKRON, PENUH & SERAGAM)
            ========================================================================== */
         .gallery-card-item {
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            background: #eef2ee; /* Memberi warna dudukan bingkai yang elegan untuk sisa ruang foto */ 
-            height: 280px; /* Tinggi seragam yang sangat ideal untuk monitor komputer desktop */
+            background: var(--white); 
+            height: 320px; /* Dipertinggi agar proporsi foto di monitor komputer terlihat pas & sejajar */
             border: 4px solid white;
             position: relative;
             display: block;
@@ -199,14 +199,14 @@
         .gallery-card-item img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Foto mengempis pas secara proporsional, dijamin 100% tidak terpotong */
-            object-position: center center;
+            object-fit: cover; /* Mengisi penuh kotak secara profesional tanpa ada ruang kosong */
+            object-position: center center; /* Pemotongan seimbang di tengah sehingga objek utama aman */
             transition: transform 0.5s ease;
             display: block;
         }
 
         .gallery-card-item:hover img {
-            transform: scale(1.03); 
+            transform: scale(1.04); 
         }
 
         .gallery-badge {
@@ -233,10 +233,10 @@
             display: flex;
             flex-direction: column; 
             align-items: center; 
-            padding: 25px 20px; 
+            padding: 30px 20px; 
             text-decoration: none !important;
             color: inherit;
-            height: 280px; /* Disamakan dengan tinggi gallery-card agar baris grid desktop sejajar sempurna */
+            height: 320px; /* Sejajar sempurna dengan tinggi kartu galeri foto di desktop */
             box-sizing: border-box;
             border-left: 5px solid var(--primary-color) !important;
         }
@@ -256,19 +256,19 @@
             align-items: center;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
             flex-shrink: 0;
         }
         .news-card .date-badge .day { font-size: 1.3rem; font-weight: 800; line-height: 1; }
         .news-card .date-badge .month { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
         .news-content { display: flex; flex-direction: column; align-items: center; width: 100%; flex: 1; }
-        .news-meta { font-size: 0.8rem; color: #777; margin-bottom: 10px; display: flex; gap: 15px; justify-content: center; }
+        .news-meta { font-size: 0.8rem; color: #777; margin-bottom: 12px; display: flex; gap: 15px; justify-content: center; }
         .news-meta span i { color: var(--primary-color); margin-right: 5px; }
         
         .news-content h3 {
             font-size: 1.05rem;
             color: var(--primary-color);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             line-height: 1.4;
             text-align: center;
             display: -webkit-box;
@@ -364,11 +364,10 @@
             .news-card { height: auto !important; padding: 20px !important; }
             .news-content h3, .news-content p { height: auto !important; -webkit-line-clamp: unset !important; }
             
-            /* Tampilan Galeri Foto HP dibuat fleksibel sesuai aspek rasio asli gambar */
+            /* Sesuai Aslinya di HP: Mengikuti aspek rasio asli gambar tanpa dipotong */
             .gallery-card-item { 
                 height: auto !important; 
                 border: 3px solid white;
-                background: #ffffff;
             }
             .gallery-card-item img {
                 height: auto !important;
