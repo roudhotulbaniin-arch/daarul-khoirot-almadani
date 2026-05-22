@@ -180,31 +180,28 @@
         }
       
         /* ==========================================================================
-           5. STYLE ELEMEN INTERNAL KARTU (GALERI VS BERITA)
+           5. STYLE ELEMEN INTERNAL KARTU (GALERI VS BERITA) - DIKEMBALIKAN PRESISI
            ========================================================================== */
-          .news-banner-container {
-            width: 100%;
-            margin: 20px 0 30px 0;
-            background: #fdfdfd;
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-        .news-banner-container img {
-            width: 100%;
-            height: auto;
-            max-height: 480px;
-            object-fit: cover;
-            border-radius: 6px;
+        .gallery-card-item {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            background: #ffffff; 
+            height: 250px;
+            border: 4px solid white;
+            position: relative;
             display: block;
-        } 
-
-        .news-banner-container img:hover img {
-            transform: scale(1.08); /* Kembalikan efek zoom khas galeri */
         }
-
+        .gallery-card-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* KEMBALI KE COVER AGAR GRID GALERI KOTAK PENUH & RAPI */
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        .gallery-card-item:hover img {
+            transform: scale(1.08); 
+        }
         .gallery-badge {
             position: absolute;
             top: 10px;
@@ -654,7 +651,6 @@
                 }
             });
         });
-
     </script>
 </body>
 </html>
