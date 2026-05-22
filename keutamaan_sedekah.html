@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="main_logo.png">
 
     <style>
@@ -58,7 +58,7 @@
         }
 
         /* ==========================================================================
-           2. NAVIGATION STYLE
+           2. NAVIGATION STYLE (SERAGAM MASTER INDEX)
            ========================================================================== */
         header {
             background: var(--primary-color); 
@@ -70,7 +70,7 @@
             position: sticky; 
             top: 0; 
             z-index: 1000;
-            min-height: 60px;
+            min-height: 65px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
@@ -80,8 +80,9 @@
             gap: 12px; 
             flex-shrink: 0;
             text-decoration: none;
+            color: white;
         }
-        .logo img { height: 40px; width: auto; }
+        .logo img { height: 40px; width: auto; display: block; }
         .logo h1 { 
             font-size: 1.3rem; 
             font-weight: 700; 
@@ -107,14 +108,14 @@
         }
         nav ul li a:hover { color: var(--secondary-color) !important; }
         nav ul li a.active {
-            border-bottom: 3px solid var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color) !important;
             color: var(--secondary-color) !important;
         }
 
         /* ==========================================================================
            3. KONTEN ARTIKEL & STRUKTUR DONASI
            ========================================================================= */
-        .container { padding: 3rem 10%; flex: 1; }
+        .container { padding: 3rem 10%; flex: 1; display: flex; flex-direction: column; gap: 2rem; }
 
         .article-card {
             background: var(--white);
@@ -124,31 +125,58 @@
             border-top: 4px solid var(--primary-color);
         }
 
+        .hero-banner {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .article-header { margin-bottom: 25px; }
-        .article-header h2 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 10px; }
+        .article-header .news-tag {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .article-header h2 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 12px; line-height: 1.4; }
         .article-meta { font-size: 0.85rem; color: #777; display: flex; gap: 15px; border-bottom: 1px dashed #e0e0e0; padding-bottom: 12px; }
+        .article-meta span i { color: var(--primary-color); margin-right: 5px; }
 
         .article-body p { font-size: 1.05rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; text-indent: 30px; }
 
         /* Section Program Donasi */
         .donasi-title { text-align: center; margin: 45px 0 25px 0; padding-top: 30px; border-top: 1px dashed #e0e0e0; color: var(--primary-color); }
+        .donasi-title h3 { font-size: 1.4rem; margin-bottom: 8px; }
         .donasi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 25px; }
+        
         .donasi-card {
             background: var(--white); border-radius: 12px; padding: 25px; border: 1px solid #eaeaea; border-top: 4px solid var(--primary-color);
             display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: 0.3s;
         }
         .donasi-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-color: var(--primary-color); }
-        .donasi-card h4 { color: var(--primary-color); font-size: 1.15rem; margin-bottom: 15px; text-align: center; }
+        .donasi-card h4 { color: var(--primary-color); font-size: 1.15rem; margin-bottom: 15px; text-align: center; border-bottom: 1px solid #f4f7f6; padding-bottom: 10px; }
         
         .donasi-list { list-style: none; padding: 0; margin-bottom: 20px; font-size: 0.9rem; color: #444; }
-        .donasi-list li { margin-bottom: 10px; line-height: 1.5; }
-        .donasi-list strong { color: var(--primary-color); display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 2px; }
+        .donasi-list li { margin-bottom: 12px; line-height: 1.6; text-align: left; }
+        .donasi-list strong { color: var(--primary-color); display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 0.5px; }
 
         .btn-donasi-wa {
             background-color: var(--primary-color); color: white !important; text-decoration: none; padding: 12px;
             border-radius: 8px; font-weight: bold; text-align: center; display: block; transition: 0.2s; box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
         }
         .btn-donasi-wa:hover { background-color: #144514; }
+        .btn-donasi-wa i { margin-right: 6px; }
 
         /* ==========================================================================
            4. TOMBOL KEMBALI MULTI-AKSI
@@ -157,8 +185,8 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 35px; 
-            margin-bottom: 25px;
+            margin-top: 15px; 
+            margin-bottom: 10px;
             width: 100%;
             flex-wrap: wrap;
         }
@@ -171,9 +199,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            min-width: 250px;
+            min-width: 260px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.06);
             border: 1px solid transparent;
@@ -215,28 +243,30 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
         /* ==========================================================================
-           5. RESPONSIVE MODES (SAMA PERSIS DENGAN CONFIG INDEX.HTML)
+           5. RESPONSIVE MODES (SERAGAM MASTER INDEX)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
             .logo h1 { font-size: 0.95rem !important; }
-            .container { padding: 2rem 5%; }
+            .container { padding: 2rem 5%; gap: 1.5rem; }
             .article-card { padding: 25px 20px; }
             .article-header h2 { font-size: 1.4rem; }
+            .article-body p { font-size: 0.95rem; text-indent: 20px; }
 
             .bottom-actions {
                 flex-direction: column;
                 align-items: center; 
                 gap: 15px;
-                margin-top: 25px;
+                margin-top: 10px;
                 padding: 0;
             }
 
             .btn-kembali { 
-                width: 300px;
+                width: 100%;
+                max-width: 300px;
                 padding: 12px 25px; 
-                font-size: 1rem; 
+                font-size: 0.95rem; 
             }
 
             #menu-toggle {
@@ -251,11 +281,6 @@
                 cursor: pointer;
             }
 
-            nav { 
-                display: block; 
-            }
-
-            /* SAMA PERSIS DENGAN CONFIG INDEX.HTML */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -264,15 +289,15 @@
                 top: 65px; 
                 left: 0; 
                 background: var(--primary-color); 
-                padding: 20px; /* Jarak penahan alami di sisi kiri */
+                padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
                 gap: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             }
             
-            nav.show ul { display: flex; }
+            nav.show ul { display: flex !important; }
             nav ul li a { color: white !important; padding: 0 !important; width: auto; }
 
-            /* Konfigurasi aktif link yang identik dengan index.html */
             nav ul li a.active { 
                 border-bottom: none !important; 
                 border-left: 4px solid var(--secondary-color) !important; 
@@ -289,46 +314,41 @@
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
         </a>
+        <button id="menu-toggle"><i class="fas fa-bars"></i> Menu</button>
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
                 <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-                 <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
-                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
                 <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
                 <li><a href="info_islam.html" class="active"><i class="fas fa-mosque"></i> Info Islam</a></li>
                 <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
-        <button id="menu-toggle"><i class="fas fa-bars"></i> Menu</button>
     </header>
 
-     <main class="container">
-        <article class="full-news-card">
+    <main class="container">
+        <div class="article-card">
             
             <div class="hero-banner">
                 <img src="sedekah_utama.png" alt="Banner Keutamaan Sedekah ke Pesantren">
             </div>
 
-            <div class="news-header">
+            <div class="article-header">
                 <span class="news-tag">Artikel Pilihan</span>
-                <h2>Keutamaan Sedekah Jariyah</h2>
-                <div class="news-meta">
+                <h2>Menyemai Benih Investasi Akhirat Lewat Sedekah Jariyah</h2>
+                <div class="article-meta">
                     <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
                     <span><i class="fas fa-user"></i> Admin</span>
-                    <span><i class="fas fa-book-open"></i> </span>
+                    <span><i class="fas fa-book-open"></i> Pilihan Ummat</span>
                 </div>
             </div>
  
-        <div class="article-card">
-            <div class="article-header">
-                <h2>Menyemai Benih Investasi Akhirat Lewat Sedekah Jariyah</h2>
-               </div>
-
             <div class="article-body">
                 <p>Sedekah merupakan salah satu bukti nyata keimanan seorang hamba kepada Rabb-nya. Di antara berbagai macam jenis sedekah, ada satu pintu amalan khusus yang dampaknya tidak akan pernah terputus meskipun raga telah berkalang tanah dan ruh telah berpindah ke alam barzakh, yaitu Sedekah Jariyah. Menyalurkan sedekah ke pondok pesantren pencetak penghafal Al-Qur'an dan penuntut ilmu agama merupakan bentuk investasi akhirat yang paling strategis dan penuh berkah.</p>
 
-                <div class="dalil-section" style="margin-top: 30px; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div class="dalil-section" style="margin: 30px 0; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                     <h4 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px;">
                         <i class="fas fa-book-open"></i> Dalil Al-Qur'an & Hadits Tentang Sedekah
                     </h4>
@@ -336,7 +356,7 @@
                     <div class="dalil-item" style="margin-bottom: 25px;">
                         <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">1. Al-Qur'an Surah At-Taghabun Ayat 16</p>
                         <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
-                فاتَّقُوا اللَّهَ مَا اسْتَطَعْتُمْ وَاسْمَعُوا وَأَطِيعُوا وَأَنفِقُوا خَيْراً لأَنفُSِكُمْ وَمَن يُوقَ شُحَّ نَفْسِهِ فَأُوْلَئِكَ هُمُ الْمُفْلِحُونَ  
+                            فَاتَّقُوا اللَّهَ مَا اسْتَطَعْتُمْ وَاسْمَعُوا وَأَطِيعُوا وَأَنفِقُوا خَيْرًا لِّأَنفُسِكُمْ ۗ وَمَن يُوقَ شُحَّ نَفْسِهِ فَأُولَٰئِكَ هُمُ الْمُفْلِحُونَ
                         </p>
                         <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
                             "Maka bertakwalah kamu kepada Allah menurut kesanggupanmu dan dengarlah serta ta`atlah; nafkahkanlah nafkah yang baik untuk dirimu. Dan barangsiapa yang dipelihara dari kekikiran dirinya maka mereka itulah orang-orang yang beruntung."
@@ -346,7 +366,7 @@
                     <div class="dalil-item" style="margin-bottom: 15px;">
                         <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">2. Hadits Riwayat Bukhari dan Muslim</p>
                         <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
-                مَا مِنْكُمْ أَحَدٌ إِلاَّ سَيُكَلِّمُهُ رَبُّهُ لَيْسَ بَيْنَهُ وَبَيْنَهُ تُرْجُمَانٌ فَيَنْظُرُ أَيْمَنَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ مِنْ عَمَلِهِ وَيَنْظُرُ أَشْأَمَ مِنْهُ فَلاَ يَرَى إِلاَّ مَا قَدَّمَ وَيَنْظُرُ بَيْنَ يَدَيْهِ فَلاَ يَرَى إِلاَّ النَّارَ تِلْقَاءَ وَجْهِهِ فَATَّقُوا النَّARَ وَلَوْ بِشِقِّ تَمْرَةٍ 
+                            مَا مِنْكُمْ أَحَدٌ إِلَّا سَيُكَلِّمُهُ رَبُّهُ لَيْسَ بَيْنَهُ وَبَيْنَهُ تُرْجُمَانٌ فَيَنْظُرُ أَيْمَنَ مِنْهُ فَلَا يَرَى إِلَّا مَا قَدَّمَ مِنْ عَمَلِهِ وَيَنْظُرُ أَشْأَمَ مِنْهُ فَلَا يَرَى إِلَّا مَا قَدَّمَ وَيَنْظُرُ بَيْنَ يَدَيْهِ فَلَا يَرَى إِلَّا النَّارَ تِلْقَاءَ وَجْهِهِ فَاتَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ
                         </p>
                         <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
                             "Tiada seorang (pun) dari kalian, melainkan (kelak) Allah akan berbicara kepadanya tanpa seorang penerjemah. Maka ia melihat ke kanan, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke kiri, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke depan, tidaklah dilihatnya melainkan neraka di hadapan wajahnya. Maka peliharalah (diri) kalian dari api neraka, sekalipun dengan sebiji buah kurma (yang disedekahkan).”
@@ -354,7 +374,7 @@
                     </div>
                 </div>
 
-                <div class="kisah-section" style="margin-top: 30px; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div class="kisah-section" style="margin: 30px 0; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                     <h4 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px;">
                         <i class="fas fa-history"></i> Kisah Inspiratif Kedermawanan Sahabat Nabi
                     </h4>
@@ -383,7 +403,7 @@
                     </div>
                 </div>
  
-                <p>Mengapa sedekah ke pondok pesantren memiliki kedudukan yang sangat istimewa di sisi Allah SWT? Jawabannya terletak pada konvergensi atau menyatunya ketiga komponen utama dalam hadits di atas di dalam ekosistem pesantren. Ketika seorang muhsinin menginfakkan hartanya ke pondok pesantren, ia secara tidak langsung sedang meraih ketiga gerbang pahala tersebut sekaligus.</p>
+                <p>Mengapa sedekah ke pondok pesantren memiliki kedudukan yang sangat istimewa di sisi Allah SWT? Jawabannya terletak pada konvergensi atau menyatunya ketiga komponen utama pahala jariyah di dalam ekosistem pesantren. Ketika seorang muhsinin menginfakkan hartanya ke pondok pesantren, ia secara tidak langsung sedang meraih ketiga gerbang pahala tersebut sekaligus.</p>
 
                 <p>Pertama, harta yang diinfakkan mengalir langsung menjadi penopang aktivitas para santri penghafal Quran. Setiap butir beras yang dimakan menjadi energi bagi mereka untuk melafalkan ayat-ayat suci. Setiap huruf Al-Qur'an dan ilmu syariat yang dipelajari serta diamalkan oleh santri, pahala kebaikannya akan mengalir utuh kepada donatur tanpa mengurangi pahala santri tersebut sedikit pun. Inilah esensi ilmu yang bermanfaat yang terus memproduksi pahala tanpa henti.</p>
 
@@ -422,7 +442,7 @@
                     <h4>3. Operasional Umum</h4>
                     <ul class="donasi-list">
                         <li><strong>Latar Belakang:</strong> Pengeluaran rutin operasional dapur umum santri, tagihan listrik, air, dan kebersihan pondok.</li>
-                        <li><strong>Tujuan & Sasaran:</strong> Menjaga stabilitas kelancaran aktivitas pengajian dan roda harian pesantren.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Mengatur stabilitas kelancaran aktivitas pengajian dan roda harian pesantren.</li>
                         <li><strong>Benefit:</strong> Mendapatkan kebaikan mutlak dari setiap kenyamanan beribadah para santri di pondok.</li>
                     </ul>
                     <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Donasi Operasional</a>
