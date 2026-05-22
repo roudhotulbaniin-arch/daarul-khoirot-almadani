@@ -91,6 +91,7 @@
             color: var(--secondary-color) !important; 
         }
         #menu-toggle { display: none; }
+
         /* ==========================================================================
            3. MAIN CONTAINER & SECTION TITLE
            ========================================================================== */
@@ -124,6 +125,7 @@
         .section-title-box i { color: var(--secondary-color); }
         .section-title-box h2 { font-size: 1.5rem; margin: 0; padding-left: 15px; }
         .section-title p { color: #666; font-size: 1.05rem; }
+
         /* ==========================================================================
            4. SISTEM FILTER TAB MINI
            ========================================================================== */
@@ -180,14 +182,14 @@
         }
       
         /* ==========================================================================
-           5. PERBAIKAN FITUR GAMBER GALERI (ANTI TERPOTONG & ANTI KOPONG)
+           5. ADAPTIVE GALLERY IMAGE STYLE (ANTI KOPONG & ANTI TERPOTONG)
            ========================================================================== */
         .gallery-card-item {
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             background: #ffffff; 
-            height: 250px; /* Tinggi seragam di desktop */
+            height: 240px; /* Seragam rapi khusus tampilan komputer desktop */
             border: 4px solid white;
             position: relative;
             display: block;
@@ -197,21 +199,22 @@
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            /* POSISI ELEMENT PENTING: Menjaga kepala ustadz / objek atas agar tidak terpotong */
-            object-position: center 15%; 
+            object-position: center center;
             transition: transform 0.5s ease;
             display: block;
         }
 
-        /* KHUSUS BANNER FLYER (Agar teks flyer terbaca utuh & proporsional tanpa terpotong) */
+        /* Khusus banner brosur vertikal/horizontal agar rasionya presisi utuh */
+        .gallery-card-item.banner-flyer {
+            height: auto; 
+        }
         .gallery-card-item.banner-flyer img {
             object-fit: contain;
-            background-color: #f7f9f7; /* Mengisi background samping jika rasio berbeda */
-            object-position: center;
+            height: auto;
         }
 
         .gallery-card-item:hover img {
-            transform: scale(1.05); 
+            transform: scale(1.04); 
         }
         .gallery-badge {
             position: absolute;
@@ -219,7 +222,7 @@
             left: 10px;
             background: rgba(26, 93, 26, 0.85);
             color: white;
-            padding: 3px 10px;
+            padding: 4px 12px;
             font-size: 0.75rem;
             font-weight: bold;
             border-radius: 4px;
@@ -309,7 +312,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           7. RESPONSIVE LAYOUT / HP (DIOPTIMALKAN SEPERTI KOBONG PANGGUNG)
+           7. RESPONSIVE LAYOUT SMARTPHONE (TOTAL FIX UNTUK GAMBAR HP)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -365,8 +368,15 @@
             .news-card { height: auto !important; padding: 20px !important; }
             .news-content h3, .news-content p { height: auto !important; -webkit-line-clamp: unset !important; }
             
-            /* TINGGI ADAPTIF DI HP: Agar foto terlihat natural & pas di layar smartphone */
-            .gallery-card-item { height: 210px; }
+            /* SOLUSI UTAMA DI HP: Bebaskan tinggi card agar gambar tampil penuh & tidak kopong */
+            .gallery-card-item { 
+                height: auto !important; 
+                border: 3px solid white;
+            }
+            .gallery-card-item img {
+                height: auto !important;
+                object-fit: contain !important; 
+            }
         }
     </style>
 </head>
