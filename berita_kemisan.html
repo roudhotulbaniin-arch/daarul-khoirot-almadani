@@ -35,7 +35,6 @@
             --white: #ffffff;
             --text-dark: #333333;
             --border-color: #d4e4d4;
-            --card-bg: #fafdfa;
         }
 
         * { 
@@ -57,6 +56,11 @@
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
         }
 
         /* ==========================================================================
@@ -121,36 +125,21 @@
            3. MAIN CONTAINER & TWO COLUMN LAYOUT SYSTEM
            ========================================================================== */
         .container { 
-            padding: 3rem 10%; 
+            padding: 3rem 15%; 
             flex: 1; 
         }
 
-        .news-main-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            align-items: start;
-        }
-
-        /* ==========================================================================
-           4. LEFT COLUMN AREA: ARTIKEL KONTEN & BANNER DOCUMENTATION
-           ========================================================================== */
-        .news-left-column {
+        .full-news-card {
             background: var(--white);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            border-top: 4px solid var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
 
-        .article-main-title {
-            color: var(--primary-color);
-            font-size: 1.7rem;
-            line-height: 1.4;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
+        /* ==========================================================================
+           4. ARTIKEL KONTEN & BANNER DOCUMENTATION
+           ========================================================================== */
         .hero-banner {
             width: 100%;
             max-height: 450px;
@@ -196,29 +185,18 @@
             margin-bottom: 15px;
         }
 
-        .news-meta-strip {
-    display: flex;
-    flex-wrap: wrap; /* Agar otomatis turun rapi jika dibuka di layar HP yang sangat kecil */
-    gap: 20px;       /* Jarak horizontal dan vertikal antar item agar sama rata (simetris) */
-    align-items: center; /* Membuat ikon dan teks sejajar secara vertikal */
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee; /* Opsional: memberi garis tipis di bawahnya agar lebih estetis */
-}
+        .news-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
 
-.news-meta-strip span {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px; /* Jarak antara ikon Font Awesome dengan teks di sebelahnya */
-}
-
-.news-meta-strip span i {
-    color: var(--primary-color);
-    font-size: 0.85rem; /* Ukuran ikon sedikit disesuaikan agar seimbang dengan teks */
-}
- 
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 6px;
+        }
 
         .news-body-content p {
             margin-bottom: 20px;
@@ -262,13 +240,15 @@
         }
 
         /* Tipografi Teks Berita */
-        .news-body-content h3 {
+        .content-block-title {
             color: var(--primary-color);
-            margin: 35px 0 15px 0;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
+            margin: 30px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             border-left: 4px solid var(--secondary-color);
-            padding-left: 12px;
-            font-weight: 700;
+            padding-left: 10px;
         }
 
         /* Blok Kutipan Khusus / Nasihat */
@@ -310,17 +290,27 @@
             color: var(--primary-color);
         }
 
-        /* --- TOMBOL KEMBALI --- */
+        .news-footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* --- LAYOUT BUTTON BAWAH --- */
         .bottom-actions {
             display: flex;
             justify-content: center;
-            margin-top: 40px;
-            margin-bottom: 10px;
+            margin-top: 30px; 
+            margin-bottom: 10px; 
             width: 100%;
         }
 
         .btn-kembali {
-            color: #ffffff;
+            color: white;
             background: var(--primary-color);
             padding: 14px 30px;
             text-decoration: none;
@@ -337,7 +327,7 @@
         }
 
         .btn-kembali:hover { 
-            background: var(--primary-dark);
+            background: #144614;
             transform: translateY(-2px); 
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
@@ -347,7 +337,7 @@
         }
  
         /* ==========================================================================
-           6. FOOTER AREA (SERAGAM STRUKTUR MASTER)
+           5. FOOTER AREA (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
         footer { 
             background: var(--primary-dark); 
@@ -370,15 +360,8 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           7. BLOK RESPONSIVE / LAYOUT SELEKSI HP (SERAGAM STRUKTUR MASTER)
+           6. BLOK RESPONSIVE / LAYOUT SELEKSI HP (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
-        @media (max-width: 992px) {
-            .news-main-layout {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-        }
-
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
@@ -422,9 +405,10 @@
             }
 
             .container { padding: 2rem 5%; }
-            .news-left-column { padding: 20px; }
-            .article-main-title { font-size: 1.35rem; }
-            .news-meta-strip { gap: 10px; font-size: 0.75rem; }
+            .full-news-card { padding: 20px; }
+            .hero-banner { max-height: 250px; margin-bottom: 20px; }
+            .news-header h2 { font-size: 1.4rem; }
+            .news-meta { gap: 10px; font-size: 0.75rem; }
             .news-body-content { font-size: 0.95rem; }
             .news-banner-container { margin: 15px 0 20px 0; padding: 5px; }
 
@@ -433,7 +417,7 @@
             }
 
             .btn-kembali { 
-                width: auto;                    
+                width: 300px;                    
                 padding: 12px 25px;      
                 font-size: 1rem;         
             }
@@ -464,16 +448,15 @@
     </header>
 
     <main class="container">
-             <article class="full-news-card"> 
+        <article class="full-news-card"> 
 
-                <div class="news-banner-container">
-                    <img src="banner_kemisan.png" alt="Banner Utama Pengajian Kemisan">
-                </div>
+            <div class="hero-banner">
+                <img src="banner_kemisan.png" alt="Banner Utama Pengajian Kemisan">
+            </div>
 
-                <div class="news-header">
+            <div class="news-header">
                 <span class="news-tag">Liputan Berita</span>
-                <h1>Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan
-                </h1>
+                <h2>Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan</h2>
                 <div class="news-meta">
                     <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
                     <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
@@ -482,54 +465,64 @@
                 </div>
             </div> 
 
-                <div class="news-body-content">
-                    <p><strong>KARAWANG</strong> – Majlis Ta’lim Roudhotul Baniin kembali menggelar kegiatan pengajian rutin mingguan khusus ibu-ibu yang akrab dikenal dengan sebutan "Pengajian Kemisan". Kegiatan yang penuh keberkahan ini dilaksanakan bertempat di gedung Majlis Ta’lim Roudhotul Baniin, Dusun Sukamaju II RT 02/RW 04, Desa Jatisari, Kecamatan Jatisari, Kabupaten Karawang.</p>
-                    
-                    <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
+            <div class="news-body-content">
+                <p><strong>KARAWANG</strong> – Majlis Ta’lim Roudhotul Baniin kembali menggelar kegiatan pengajian rutin mingguan khusus ibu-ibu yang akrab dikenal dengan sebutan "Pengajian Kemisan". Kegiatan yang penuh keberkahan ini dilaksanakan bertempat di gedung Majlis Ta’lim Roudhotul Baniin, Dusun Sukamaju II RT 02/RW 04, Desa Jatisari, Kecamatan Jatisari, Kabupaten Karawang.</p>
+                
+                <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
 
-                    <h3>Jalannya Acara</h3>
-                    <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
+                <h4 class="content-block-title"><i class="fas fa-star"></i> Jalannya Acara</h4>
+                <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
 
-                    <div class="news-banner-container">
-                        <img src="mc.jpg" alt="Suasana Pembukaan Acara">
-                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Pembacaan selawat dan zikir bersama dipandu oleh Ummi Hani.</span>
-                    </div>
-                    
-                    <p>Memasuki acara inti, tausiyah sekaligus pemaparan materi ilmiah keislaman disampaikan langsung oleh <strong>Al-Ustadz H. Wismo</strong>, selaku pimpinan dari Majlis Ta'lim Roudhotul Baniin.</p>
-
-                    <h3>Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h3>
-                    <p>Pada kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
-                    
-                    <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
-
-                    <div class="news-banner-container">
-                        <img src="muallim.jpg" alt="Penyampaian Materi Al-Ustadz H. Wismo">
-                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Al-Ustadz H. Wismo saat memberikan pemaparan materi Aqidah Ahlus Sunnah Wal Jama'ah.</span>
-                    </div>
-
-                    <div class="news-quote-box">
-                        <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
-                    </div>
-
-                    <p>Lebih lanjut, beliau juga memaparkan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
-                    
-                    <ul class="news-bullet-list">
-                        <li><strong>Menjaga Lisan dan Hati:</strong> Tidak mudah menghakimi, menyalahkan, apalagi mengkafirkan sesama Muslim hanya karena adanya perbedaan pandangan dalam masalah cabang <em>(furu'iyah)</em>.</li>
-                        <li><strong>Meningkatkan Ketauhidan:</strong> Menanamkan keyakinan yang kuat di dalam dada bahwa segala sesuatu terjadi murni atas ketentuan dan kehendak Allah SWT, sehingga melahirkan sifat tawakal dan rida.</li>
-                        <li><strong>Membangun Harmoni Sosial:</strong> Mengedepankan akhlakul karimah dalam bertetangga, menjaga kerukunan di tengah masyarakat, serta senantiasa menghormati para ulama.</li>
-                    </ul>
-
-                    <div class="news-banner-container">
-                        <img src="mustami.jpg" alt="Foto Jamaah Pengajian">
-                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
-                    </div>
-
-                    <h3>Penutup</h3>
-                    <p>Pengajian rutin Kemisan ini diakhiri dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
+                <div class="news-banner-container">
+                    <img src="mc.jpg" alt="Suasana Pembukaan Acara">
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Pembacaan selawat dan zikir bersama dipandu oleh Ummi Hani.</span>
                 </div>
-            </section>   
-   <div class="bottom-actions">
-                    <a href="galeri.html" class="btn-kembali"><i class="fas fa-arrow-left"></i> Galeri & Liputan Berita</a>       
+                
+                <p>Memasuki acara inti, tausiyah sekaligus pemaparan materi ilmiah keislaman disampaikan langsung oleh <strong>Al-Ustadz H. Wismo</strong>, selaku pimpinan dari Majlis Ta'lim Roudhotul Baniin.</p>
+
+                <h4 class="content-block-title"><i class="fas fa-book-open"></i> Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h4>
+                <p>Pada kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
+                
+                <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
+
+                <div class="news-banner-container">
+                    <img src="muallim.jpg" alt="Penyampaian Materi Al-Ustadz H. Wismo">
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Al-Ustadz H. Wismo saat memberikan pemaparan materi Aqidah Ahlus Sunnah Wal Jama'ah.</span>
+                </div>
+
+                <div class="news-quote-box">
+                    <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
+                </div>
+
+                <p>Lebih lanjut, beliau juga memaparan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
+                
+                <ul class="news-bullet-list">
+                    <li><strong>Menjaga Lisan dan Hati:</strong> Tidak mudah menghakimi, menyalahkan, apalagi mengkafirkan sesama Muslim hanya karena adanya perbedaan pandangan dalam masalah cabang <em>(furu'iyah)</em>.</li>
+                    <li><strong>Meningkatkan Ketauhidan:</strong> Menanamkan keyakinan yang kuat di dalam dada bahwa segala sesuatu terjadi murni atas ketentuan dan kehendak Allah SWT, sehingga melahirkan sifat tawakal dan rida.</li>
+                    <li><strong>Membangun Harmoni Sosial:</strong> Mengedepankan akhlakul karimah dalam bertetangga, menjaga kerukunan di tengah masyarakat, serta senantiasa menghormati para ulama.</li>
+                </ul>
+
+                <div class="news-banner-container">
+                    <img src="mustami.jpg" alt="Foto Jamaah Pengajian">
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
+                </div>
+
+                <h4 class="content-block-title"><i class="fas fa-check-circle"></i> Penutup</h4>
+                <p>Pengajian rutin Kemisan ini diakhiri dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
+                
+                <p style="text-align: right; margin-top: 30px; font-style: italic;">Khidmatul Ma'had – Admin.</p>
+            </div>
+
+            <div class="news-footer">
+                <span>Kategori: Liputan Kegiatan</span>
+                <span class="reporter-tag">Kontributor: Dokumentasi Internal</span>
+            </div>
+        </article>   
+
+        <div class="bottom-actions">
+            <a href="galeri.html" class="btn-kembali">
+                <i class="fas fa-arrow-left"></i> Galeri & Liputan Berita
+            </a>       
         </div>
     </main> 
 
@@ -603,6 +596,5 @@
             });
         });
     </script>
-
 </body>
 </html>
