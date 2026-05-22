@@ -223,13 +223,13 @@
             padding-left: 10px;
         }
 
-        /* --- CONTAINER GRID GALERI (SAMA DENGAN GALERI.HTML) --- */
+        /* --- CONTAINER GRID GALERI --- */
         .photo-gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin: 25px 0;
-            align-items: start; /* Mencegah card ketarik memanjang ke bawah secara paksa */
+            align-items: start; /* Mengikuti tinggi alami masing-masing foto */
         }
 
         .gallery-item {
@@ -239,7 +239,7 @@
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             transition: transform 0.3s ease;
-            height: auto !important; /* Adaptif mengikuti foto */
+            height: auto !important;
         }
 
         .gallery-item:hover {
@@ -248,9 +248,9 @@
 
         .gallery-wrapper {
             width: 100%;
-            height: auto !important; /* Hilangkan tinggi statis agar pembungkus mengikuti rasio asli */
+            height: auto !important;
             overflow: hidden;
-            background: transparent; /* Hilangkan background abu-abu latar belakang */
+            background: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -258,9 +258,9 @@
 
         .gallery-wrapper img {
             width: 100% !important;
-            height: auto !important; /* Rasio tinggi mengalir alami */
+            height: auto !important;
             display: block;
-            object-fit: contain !important; /* Menjaga keaslian gambar 100% tanpa terpotong */
+            object-fit: contain !important;
         }
 
         .gallery-caption {
@@ -385,7 +385,7 @@
             .hero-banner { max-height: 250px; margin-bottom: 20px; }
             .news-header h2 { font-size: 1.4rem; }
             
-            /* SINKRONISASI TOTAL SPERTI DI GALERI.HTML UNTUK LAYAR HP */
+            /* Sinkronisasi Galeri HP */
             .photo-gallery-grid { grid-template-columns: 1fr; gap: 16px; }
             .gallery-item { height: auto !important; }
             .gallery-wrapper { height: auto !important; }
@@ -522,6 +522,34 @@
                             <img src="bekisting_rangka_kayu.jpg" alt="Pemasangan Bekisting Dan Rangka Kayu">
                         </div>
                         <div class="gallery-caption">Pemasangan balok kayu penyangga dan struktur lantai panggung</div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-wrapper">
+                            <img src="cor_1.jpg" alt="Proses Pengecoran Tiang dan Sloof Cor">
+                        </div>
+                        <div class="gallery-caption">Proses pengecoran tiang bawah & sloof cor (Progres 01)</div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-wrapper">
+                            <img src="cor_2.jpg" alt="Proses Pengecoran Tiang dan Sloof Cor">
+                        </div>
+                        <div class="gallery-caption">Proses pengecoran tiang bawah & sloof cor (Progres 02)</div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-wrapper">
+                            <img src="cor_3.jpg" alt="Proses Pengecoran Tiang dan Sloof Cor">
+                        </div>
+                        <div class="gallery-caption">Proses pengecoran tiang bawah & sloof cor (Progres 03)</div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-wrapper">
+                            <img src="cor_4.jpg" alt="Proses Pengecoran Tiang dan Sloof Cor">
+                        </div>
+                        <div class="gallery-caption">Proses pengecoran tiang bawah & sloof cor (Progres 04)</div>
                     </div>
 
                 </div>
