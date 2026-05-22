@@ -164,7 +164,7 @@
         }
         .combined-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
         }
         .filterable-item {
@@ -179,18 +179,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
       
-/* ==========================================================================
+        /* ==========================================================================
            5. STYLE ELEMEN INTERNAL KARTU (GALERI VS BERITA)
            ========================================================================== */
         .gallery-card-item {
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            background: #f7f9f7; /* Mengubah background dasar menjadi abu-hijau lembut */
+            background: #f4f7f6; /* Latar belakang abu lembut pengisi ruang kosong foto vertikal */
             height: 250px;
             border: 4px solid white;
             position: relative;
-            /* Tambahan agar gambar vertikal berada tepat di tengah kotak */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -198,12 +197,89 @@
         .gallery-card-item img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* UBAH DARI 'cover' MENJADI 'contain' AGAR GAMBAR TIDAK TERPOTONG */
-            background-color: #ffffff; /* Memberikan dasar putih di belakang gambar */
+            object-fit: contain; /* DIUBAH AGAR GAMBAR PORTRAIT/VERTIKAL MAUPUN LANDSCAPE TIDAK TERPOTONG */
+            background-color: #ffffff; /* Warna dasar murni di belakang gambar */
             transition: transform 0.5s ease;
         }
         .gallery-card-item:hover img {
-            transform: scale(1.05); /* Sedikit dikurangi agar efek zoom tidak memotong tepi saat contain */
+            transform: scale(1.04); /* Skala diperhalus agar tidak memicu pemotongan tepi bingkai */
+        }
+        .gallery-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(26, 93, 26, 0.85);
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 2;
+            backdrop-filter: blur(2px);
+        }
+        .news-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            padding: 25px 20px; 
+            text-decoration: none !important;
+            color: inherit;
+            height: 100%; 
+            box-sizing: border-box;
+            border-left: 5px solid var(--primary-color) !important;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color) !important;
+        }
+        .news-card .date-badge {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px; 
+            flex-shrink: 0;
+        }
+        .news-card .date-badge .day { font-size: 1.3rem; font-weight: 800; line-height: 1; }
+        .news-card .date-badge .month { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+        .news-content { display: flex; flex-direction: column; align-items: center; width: 100%; flex: 1; }
+        .news-meta { font-size: 0.8rem; color: #777; margin-bottom: 12px; display: flex; gap: 15px; justify-content: center; }
+        .news-meta span i { color: var(--primary-color); margin-right: 5px; }
+        .news-content h3 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            text-align: center;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 4.6rem; 
+        }
+        .news-content p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            text-align: justify;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 5.5rem; 
         }
 
         /* ==========================================================================
@@ -220,6 +296,7 @@
         .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        
         /* ==========================================================================
            7. RESPONSIVE LAYOUT / HP (SERAGAM MASTER INDEX)
            ========================================================================== */
