@@ -182,44 +182,28 @@
         /* ==========================================================================
            5. STYLE ELEMEN INTERNAL KARTU (GALERI VS BERITA)
            ========================================================================== */
-          .gallery-card-item {
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            background: #ffffff; 
-            height: 250px;
-            border: 4px solid white;
-            position: relative;
-            height: auto;
-            display: block; /* Kembalikan ke block untuk handling layout grid murni */
+          .news-banner-container {
+            width: 100%;
+            margin: 20px 0 30px 0;
+            background: #fdfdfd;
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
-        .gallery-card-item img {
+
+        .news-banner-container img {
             width: 100%;
             height: auto;
+            max-height: 480px;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            border-radius: 6px;
             display: block;
-        }
-        .gallery-card-item:hover img {
+        } 
+
+        .news-banner-container img:hover img {
             transform: scale(1.08); /* Kembalikan efek zoom khas galeri */
         }
-
-/* AUTO BEHAVIOR */
-.gallery-card-item img.landscape {
-    width: 100%;
-    height: auto;
-}
-
-.gallery-card-item img.portrait {
-    height: 100%;
-    width: auto;
-}
-
-.gallery-card-item img.square {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
 
         .gallery-badge {
             position: absolute;
