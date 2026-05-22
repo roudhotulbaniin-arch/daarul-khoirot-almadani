@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daarul Khoirot | Galeri & Berita</title>
-
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Galeri Kegiatan & Fasilitas - Daarul Khoirot Almadani" />
     <meta property="og:description" content="Lihat dokumentasi kegiatan harian santri, program tahfizul quran, kajian, dan momentum kebersamaan di Pondok Pesantren Daarul Khoirot Almadani." />
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/galeri.html" />
     <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="main_logo.png">
-
     <style>
         /* ==========================================================================
            1. DESIGN VARIABLES, FONTS & RESET (SERAGAM MASTER INDEX)
@@ -31,18 +28,15 @@
             --border-color: #d4e4d4;
             --card-bg: #fafdfa;
         }
-
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
             font-family: 'Quicksand', sans-serif; 
         }
-
         html {
             scroll-behavior: smooth;
         }
-
         body { 
             line-height: 1.8; 
             color: var(--text-dark); 
@@ -52,7 +46,6 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
         /* ==========================================================================
            2. HEADER & NAVIGASI DESKTOP (SERAGAM MASTER INDEX)
            ========================================================================== */
@@ -69,7 +62,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
             min-height: 65px;
         }
-
         .logo { 
             display: flex; 
             align-items: center; 
@@ -78,10 +70,8 @@
             gap: 12px;
             flex-shrink: 0;
         }
-        
         .logo img { height: 40px; width: auto; display: block; }
         .logo h1 { font-size: 1.3rem; letter-spacing: 0.5px; white-space: nowrap; }
-
         nav ul { list-style: none; display: flex; gap: 20px; }
         nav ul li a { 
             color: white !important; 
@@ -95,15 +85,12 @@
             position: relative;
             padding-bottom: 5px;
         }
-
         nav ul li a:hover { color: var(--secondary-color) !important; }
         nav ul li a.active-link { 
             border-bottom: 3px solid var(--secondary-color) !important; 
             color: var(--secondary-color) !important; 
         }
-
         #menu-toggle { display: none; }
-
         /* ==========================================================================
            3. MAIN CONTAINER & SECTION TITLE
            ========================================================================== */
@@ -114,19 +101,16 @@
             flex-direction: column;
             gap: 2rem;
         }
-
         .main-section-box {
             background: var(--white);
             padding: 35px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.04);
         }
-
         .section-title { 
             text-align: center; 
             margin-bottom: 2rem; 
         }
-
         .section-title-box {
             display: inline-flex;
             align-items: center; 
@@ -137,27 +121,23 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
             margin-bottom: 15px;
         }
-
         .section-title-box i { color: var(--secondary-color); }
         .section-title-box h2 { font-size: 1.5rem; margin: 0; padding-left: 15px; }
         .section-title p { color: #666; font-size: 1.05rem; }
-
         /* ==========================================================================
            4. SISTEM FILTER TAB MINI (TAMPILAN DESKTOP - 4 KOLOM)
            ========================================================================== */
         .tab-filter-container {
             display: grid;
-            /* Mengunci susunan maksimal 4 kolom sejajar rata di desktop */
             grid-template-columns: repeat(4, minmax(0, 220px));
             gap: 15px;
-            justify-content: center; /* Memastikan rangkaian grid berada di tengah halaman */
+            justify-content: center; 
             margin-bottom: 2.5rem;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 25px;
         }
-
         .filter-btn {
-            width: 100%; /* Memaksa lebar tombol penuh mengisi ruang grid agar seragam */
+            width: 100%; 
             background: var(--white);
             color: var(--primary-color);
             border: 1px solid var(--border-color);
@@ -168,52 +148,39 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: center; /* Mengatur teks dan ikon presisi di tengah tombol */
+            justify-content: center; 
             gap: 8px;
-
-            /* KUNCI KESERAGAMAN: Bentuk kotak dengan sudut melengkung halus, bukan oval */
             border-radius: 6px;
         }
-
         .filter-btn:hover {
             background: #e6f0e6;
             border-color: var(--primary-color);
         }
-
         .filter-btn.active-tab {
             background: var(--primary-color);
             color: var(--white);
             border-color: var(--primary-color);
             box-shadow: 0 4px 10px rgba(26, 93, 26, 0.2);
         }
-
-        /* Klasifikasi Grid Penggabungan Elemen (Sembunyi/Tampil via Animasi) */
         .combined-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
-
-        /* Item yang disembunyikan filter */
         .filterable-item {
             display: block;
             animation: fadeIn 0.4s ease-in-out;
         }
-
         .filterable-item.hidden {
             display: none !important;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         /* ==========================================================================
            5. STYLE ELEMEN INTERNAL KARTU (GALERI VS BERITA)
            ========================================================================== */
-        
-        /* Model Tipe A: Galeri Foto murni */
         .gallery-card-item {
             overflow: hidden;
             border-radius: 12px;
@@ -223,19 +190,15 @@
             border: 4px solid white;
             position: relative;
         }
-
         .gallery-card-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-
         .gallery-card-item:hover img {
             transform: scale(1.08);
         }
-
-        /* Label pita kecil di atas foto galeri untuk penanda */
         .gallery-badge {
             position: absolute;
             top: 10px;
@@ -249,8 +212,6 @@
             z-index: 2;
             backdrop-filter: blur(2px);
         }
-
-        /* Model Tipe B: Berita & Rilis (Sama dengan konsep master sebelumnya) */
         .news-card {
             background: var(--white);
             border-radius: 12px;
@@ -267,13 +228,11 @@
             box-sizing: border-box;
             border-left: 5px solid var(--primary-color) !important;
         }
-
         .news-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             border-color: var(--secondary-color) !important;
         }
-
         .news-card .date-badge {
             background: var(--secondary-color);
             color: var(--primary-color);
@@ -288,14 +247,11 @@
             margin-bottom: 20px; 
             flex-shrink: 0;
         }
-
         .news-card .date-badge .day { font-size: 1.3rem; font-weight: 800; line-height: 1; }
         .news-card .date-badge .month { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
-
         .news-content { display: flex; flex-direction: column; align-items: center; width: 100%; flex: 1; }
         .news-meta { font-size: 0.8rem; color: #777; margin-bottom: 12px; display: flex; gap: 15px; justify-content: center; }
         .news-meta span i { color: var(--primary-color); margin-right: 5px; }
-
         .news-content h3 {
             font-size: 1.1rem;
             color: var(--primary-color);
@@ -308,7 +264,6 @@
             overflow: hidden;
             height: 4.6rem; 
         }
-
         .news-content p {
             font-size: 0.85rem;
             color: #555;
@@ -321,7 +276,6 @@
             overflow: hidden;
             height: 5.5rem; 
         }
-
         /* ==========================================================================
            6. FOOTER (SERAGAM MASTER INDEX)
            ========================================================================== */
@@ -333,11 +287,9 @@
             width: 100%;
             margin-top: auto;
         }
-        
         .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
         /* ==========================================================================
            7. RESPONSIVE LAYOUT / HP (SERAGAM MASTER INDEX)
            ========================================================================== */
@@ -345,7 +297,6 @@
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
             .logo h1 { font-size: 0.95rem !important; }
-            
             #menu-toggle {
                 display: block !important; 
                 background: var(--secondary-color) !important;
@@ -357,7 +308,6 @@
                 font-size: 0.85rem; 
                 cursor: pointer;
             }
-
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -372,36 +322,29 @@
                 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
                 z-index: 999;
             }
-
             nav.show ul { display: flex !important; }
             nav ul li a { color: white !important; padding: 0 !important; width: auto; padding-bottom: 0 !important; }
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; color: var(--secondary-color) !important; }
-
             .container { padding: 2rem 5%; gap: 1.5rem; }
             .main-section-box { padding: 20px; }
             .section-title-box { padding: 10px 20px; }
             .section-title-box h2 { font-size: 1.2rem; }
-
-            /* Penyesuaian Tombol Filter di HP: Formasi Grid 2x2 Simetris */
             .tab-filter-container { 
-                grid-template-columns: repeat(2, 1fr); /* Membagi menjadi 2 kolom rata kanan-kiri */
+                grid-template-columns: repeat(2, 1fr); 
                 gap: 10px; 
                 margin-bottom: 1.5rem; 
                 padding-bottom: 15px;
             }
-            
             .filter-btn { 
                 padding: 10px 8px; 
                 font-size: 0.8rem; 
-                border-radius: 6px; /* Tetap mempertahankan bentuk kotak melengkung halus di HP */
-                transform: none !important; /* Menghilangkan penyesuaian khusus desktop */
+                border-radius: 6px; 
+                transform: none !important; 
             }
-
             .combined-grid { 
                 grid-template-columns: 1fr !important; 
                 gap: 20px !important;
             }
-
             .news-card { height: auto !important; padding: 20px !important; }
             .news-content h3, .news-content p { height: auto !important; -webkit-line-clamp: unset !important; }
             .gallery-card-item { height: 220px; }
@@ -409,17 +352,14 @@
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
         </a>
-
         <button id="menu-toggle">
             <i class="fas fa-bars"></i> Menu
         </button>
-
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
@@ -432,9 +372,7 @@
             </ul>
         </nav>
     </header>
-
     <main class="container">
-        
         <section class="main-section-box">
             <div class="section-title">
                 <div class="section-title-box">
@@ -443,15 +381,30 @@
                 </div>
                 <p>Gunakan tab filter di bawah untuk memilah rilis informasi dan dokumentasi visual pondok.</p>
             </div>
-
             <div class="tab-filter-container">
                 <button class="filter-btn active-tab" data-target="all"><i class="fas fa-th-large"></i> Semua Kegiatan</button>
                 <button class="filter-btn" data-target="pendaftaran"><i class="fas fa-bullhorn"></i> Berita & Pengumuman</button>
                 <button class="filter-btn" data-target="phbi"><i class="fas fa-star"></i> Acara & Hari Besar</button>
                 <button class="filter-btn" data-target="aktivitas"><i class="fas fa-user-friends"></i> Aktivitas Santri</button>
             </div>
-
             <div class="combined-grid">
+                
+                <div class="filterable-item" data-category="phbi">
+                    <a href="berita-pengajian-kemisan.html" class="news-card">
+                        <div class="date-badge">
+                            <span class="day">21</span>
+                            <span class="month">Mei</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
+                                <span><i class="fas fa-users"></i> Majlis Ta'lim</span>
+                            </div>
+                            <h3>Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan</h3>
+                            <p>Majlis Ta’lim Roudhotul Baniin Jatisari menggelar pengajian rutin bersama Al-Ustadz H. Wismo untuk memantapkan pondasi Aqidah Al-Asy'ariyah dan penerapannya dalam akhlak sosial.</p>
+                        </div>
+                    </a>
+                </div>
 
                 <div class="filterable-item" data-category="pendaftaran">
                     <a href="kobong_panggung.html" class="news-card">
@@ -521,6 +474,34 @@
                     </a>
                 </div>
 
+                <div class="filterable-item" data-category="phbi">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Banner Utama Pengajian</span>
+                        <img src="banner_utama_pengajian.jpg" alt="Dokumentasi Utama Pengajian Kemisan" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="phbi">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Dok. Pembukaan Majelis</span>
+                        <img src="dokumentasi_pembukaan.jpg" alt="Dokumentasi Pembukaan Pengajian Kemisan" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="phbi">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Dok. Pemaparan Materi</span>
+                        <img src="dokumentasi_materi.jpg" alt="Dokumentasi Materi Tausiyah" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="filterable-item" data-category="phbi">
+                    <div class="gallery-card-item">
+                        <span class="gallery-badge">Dok. Jamaah Pengajian</span>
+                        <img src="dokumentasi_jamaah.jpg" alt="Dokumentasi Jamaah Majlis Ta'lim" loading="lazy">
+                    </div>
+                </div>
+
                 <div class="filterable-item" data-category="aktivitas">
                     <div class="gallery-card-item">
                         <span class="gallery-badge">Aktivitas</span>
@@ -577,20 +558,17 @@
                     </div>
                 </div>
 
-            </div>
+            </div>        
         </section>
     </main>
-
     <footer>
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
         <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
         <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
         <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
-
     <audio id="murottal" src="murottal_start.mp3" loop></audio>
     <audio id="clickSound" src="click_sound.mp3"></audio>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const murottal = document.getElementById('murottal');
@@ -598,16 +576,12 @@
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
             
-            // Elemen Navigasi Link Klik Suara
             const linkActionItems = document.querySelectorAll('nav ul li a, .logo, .news-card');
             
-            // Elemen Kontrol Filter Tab Mini
             const filterButtons = document.querySelectorAll('.filter-btn');
             const filterableItems = document.querySelectorAll('.filterable-item');
             
             let hasInteracted = false;
-
-            // Fitur Auto Play Background Audio Murottal saat User Pertama Kali Klik Layar
             function playMurottal() {
                 if (!hasInteracted && murottal) {
                     murottal.volume = 0.3; 
@@ -620,7 +594,6 @@
             document.addEventListener('click', playMurottal);
             document.addEventListener('touchstart', playMurottal); 
 
-            // Toggle Buka/Tutup Menu HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -628,23 +601,16 @@
                 });
             }
 
-            // LOGIKA FILTER TAB UTAMA (CSS + JS RINGAN)
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Mainkan efek suara klik
                     if (clickSound) {
                         clickSound.currentTime = 0;
                         clickSound.volume = 0.8;
                         clickSound.play().catch(() => {});
                     }
-
-                    // Ubah tombol aktif
                     filterButtons.forEach(btn => btn.classList.remove('active-tab'));
                     this.classList.add('active-tab');
-
                     const targetKategori = this.getAttribute('data-target');
-
-                    // Sembunyikan atau tampilkan elemen berdasarkan kecocokan data-category
                     filterableItems.forEach(item => {
                         const itemKategori = item.getAttribute('data-category');
                         if (targetKategori === 'all' || itemKategori === targetKategori) {
@@ -656,7 +622,6 @@
                 });
             });
 
-            // Audio Click Delay System untuk Navigasi Utama halaman luar
             linkActionItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
@@ -665,7 +630,6 @@
                         clickSound.play().catch(() => {});
                     }
                     if (nav) nav.classList.remove('show');
-
                     const destination = this.getAttribute("href");
                     if (destination && !destination.includes('#') && !this.target) {
                         e.preventDefault(); 
@@ -676,7 +640,6 @@
                 });
             });
 
-            // Tutup menu jika pengguna mengklik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
