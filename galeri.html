@@ -125,7 +125,7 @@
         .section-title-box h2 { font-size: 1.5rem; margin: 0; padding-left: 15px; }
         .section-title p { color: #666; font-size: 1.05rem; }
         /* ==========================================================================
-           4. SISTEM FILTER TAB MINI (TAMPILAN DESKTOP - 4 KOLOM)
+           4. SISTEM FILTER TAB MINI
            ========================================================================== */
         .tab-filter-container {
             display: grid;
@@ -179,52 +179,40 @@
             to { opacity: 1; transform: translateY(0); }
         }
       
-           /* ==========================================================================
-           5. STYLE ELEMEN INTERNAL KARTU (SISTEM MASONRY - FOTO UTUH & RAPI)
+        /* ==========================================================================
+           5. PERBAIKAN FITUR GAMBER GALERI (ANTI TERPOTONG & ANTI KOPONG)
            ========================================================================== */
-        /* Ubah combined-grid dari standard grid menjadi CSS Columns */
-        .combined-grid {
-            display: block;
-            column-count: 3; /* Membagi galeri menjadi 3 kolom di desktop */
-            column-gap: 20px;
-            width: 100%;
-        }
-
-        /* Pastikan item tidak terputus saat perpindahan kolom */
-        .filterable-item {
-            display: inline-block;
-            width: 100%;
-            margin-bottom: 20px;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .filterable-item.hidden {
-            display: none !important;
-        }
-
         .gallery-card-item {
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             background: #ffffff; 
-            height: auto; /* TINGGI OTOMATIS: Mengikuti bentuk asli foto */
+            height: 250px; /* Tinggi seragam di desktop */
             border: 4px solid white;
             position: relative;
             display: block;
         }
-
+        
         .gallery-card-item img {
             width: 100%;
-            height: auto; /* FOTO TAMPIL UTUH: Tidak akan pernah terpotong */
-            object-fit: contain; 
-            display: block;
+            height: 100%;
+            object-fit: cover; 
+            /* POSISI ELEMENT PENTING: Menjaga kepala ustadz / objek atas agar tidak terpotong */
+            object-position: center 15%; 
             transition: transform 0.5s ease;
+            display: block;
+        }
+
+        /* KHUSUS BANNER FLYER (Agar teks flyer terbaca utuh & proporsional tanpa terpotong) */
+        .gallery-card-item.banner-flyer img {
+            object-fit: contain;
+            background-color: #f7f9f7; /* Mengisi background samping jika rasio berbeda */
+            object-position: center;
         }
 
         .gallery-card-item:hover img {
             transform: scale(1.05); 
         }
-
         .gallery-badge {
             position: absolute;
             top: 10px;
@@ -238,6 +226,8 @@
             z-index: 2;
             backdrop-filter: blur(2px);
         }
+        
+        /* BERITA CARD STYLE */
         .news-card {
             background: var(--white);
             border-radius: 12px;
@@ -319,7 +309,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           7. RESPONSIVE LAYOUT / HP (SERAGAM MASTER INDEX)
+           7. RESPONSIVE LAYOUT / HP (DIOPTIMALKAN SEPERTI KOBONG PANGGUNG)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -367,19 +357,16 @@
                 padding: 10px 8px; 
                 font-size: 0.8rem; 
                 border-radius: 6px; 
-                transform: none !important; 
             }
-              .combined-grid {
-                column-count: 1 !important; /* Di HP cukup 1 kolom memanjang ke bawah */
-                column-gap: 0;
+            .combined-grid { 
+                grid-template-columns: 1fr !important; 
+                gap: 20px !important;
             }
-            .gallery-card-item {
-                height: auto;
-            }
-
             .news-card { height: auto !important; padding: 20px !important; }
             .news-content h3, .news-content p { height: auto !important; -webkit-line-clamp: unset !important; }
-            .gallery-card-item { height: 220px; }
+            
+            /* TINGGI ADAPTIF DI HP: Agar foto terlihat natural & pas di layar smartphone */
+            .gallery-card-item { height: 210px; }
         }
     </style>
 </head>
@@ -507,7 +494,7 @@
                 </div>
 
                 <div class="filterable-item" data-category="phbi">
-                    <div class="gallery-card-item">
+                    <div class="gallery-card-item banner-flyer">
                         <span class="gallery-badge">Banner Utama Pengajian</span>
                         <img src="banner_kemisan.png" alt="Dokumentasi Utama Pengajian Kemisan" loading="lazy">
                     </div>
