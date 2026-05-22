@@ -127,7 +127,7 @@
 
         .news-main-layout {
             display: grid;
-            grid-template-columns: 2.3fr 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
             align-items: start;
         }
@@ -265,43 +265,29 @@
             color: var(--primary-color);
         }
 
-/* --- TOMBOL KEMBALI --- */
-        .bottom-actions {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .btn-kembali {
-            color: #ffffff;
-            background: var(--primary-color);
-            padding: 14px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
+        /* --- TOMBOL KEMBALI (100% IDENTIK KAJIAN_JIHAD.HTML) --- */
+        .back-to-news-btn {
+            margin-top: 15px;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            min-width: 250px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            gap: 8px;
+            background-color: #f5f5f5;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
-        .btn-kembali:hover { 
-            background: var(--primary-dark);
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-            .btn-kembali i {
-            margin-right: 10px;
+        .back-to-news-btn:hover {
+            background-color: var(--primary-color);
+            color: white !important;
+            border-color: var(--primary-color);
         }
  
-       
         /* ==========================================================================
            6. FOOTER AREA (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
@@ -417,16 +403,13 @@
                     Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan
                 </h1>
 
-                 <div class="news-header">
-                <span class="news-tag">Liputan Berita</span>
-                <h2>Kajian Rutin Ponpes Daarul Khoirot Al-Madani Karawang: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h2>
-                <div class="news-meta">
-                <span><i class="fas fa-map-marker-alt" style="color: #c0392b;"></i> Jatisari, Karawang</span>
-                <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
-                <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
-                <span><i class="fas fa-user-friends"></i> Admin</span>
+                <div class="news-meta-strip">
+                    <span><i class="fas fa-tag"></i> Liputan Berita</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Jatisari, Karawang</span>
+                    <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
+                    <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
+                    <span><i class="fas fa-user-friends"></i> Admin</span>
                 </div>
-            </div>
 
                 <div class="news-banner-container">
                     <img src="banner_kemisan.png" alt="Banner Utama Pengajian Kemisan">
@@ -472,14 +455,14 @@
 
                     <div class="news-banner-container">
                         <img src="mustami.jpg" alt="Foto Jamaah Pengajian">
-                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
+                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias and khidmat.</span>
                     </div>
 
                     <h3>Penutup</h3>
                     <p>Pengajian rutin Kemisan ini diakhiri dengan sesi tanya jawab interaktif dan ditutup dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
                 </div>
 
-                <a href="info_islam.html" class="back-to-news-btn"><i class="fas fa-arrow-left"></i> Galeri & Liputan Berita</a>
+                <a href="info_islam.html" class="back-to-news-btn"><i class="fas fa-arrow-left"></i> Kembali ke Info Islam</a>
             </section>          
         </div>
     </main> 
