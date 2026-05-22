@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daarul Khoirot | Liputan Kegiatan</title>
+    <title>Daarul Khoirot | Detail Liputan Berita</title>
 
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan" />
-    <meta property="og:description" content="Liputan kegiatan pengajian rutinan ibi-ibu Majlis Ta'lim Roudhotul Baniin Dusun Sukamaju II Desa Jatisari Karawang." />
+    <meta property="og:description" content="Liputan kegiatan pengajian rutinan ibu-ibu Majlis Ta'lim Roudhotul Baniin Dusun Sukamaju II Desa Jatisari Karawang." />
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/berita-pengajian-kemisan.html" />
     <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
     <meta property="og:image:alt" content="Pengajian Kemisan Majlis Ta'lim Roudhotul Baniin" />
@@ -25,16 +25,17 @@
 
     <style>
         /* ==========================================================================
-           1. GLOBAL VARIABLES & RESET STYLE
+           1. DESIGN VARIABLES, FONTS & RESET (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
+            --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
             --light-bg: #f4f7f6;
-            --dark-footer: #0d2e0d;
-            --border-color: #d4e4d4;
-            --text-dark: #333;
             --white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #d4e4d4;
+            --card-bg: #fafdfa;
         }
 
         * { 
@@ -49,23 +50,20 @@
         }
 
         body { 
-            background-color: var(--light-bg); 
-            overflow-x: hidden; 
+            line-height: 1.8; 
             color: var(--text-dark); 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
+            background-color: var(--light-bg); 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* ==========================================================================
-           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI)
+           2. HEADER & NAVIGASI DESKTOP (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
         header {
-            background: var(--primary-color); 
+            background-color: var(--primary-color); 
             color: white; 
             padding: 10px 4%; 
             display: flex; 
@@ -74,28 +72,21 @@
             position: sticky; 
             top: 0; 
             z-index: 1000;
-            min-height: 65px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 65px;
         }
 
         .logo { 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
-            flex-shrink: 0;
             text-decoration: none;
-        }
-
-        .logo img { height: 40px; width: auto; }
-
-        .logo h1 { 
-            font-size: 1.3rem; 
-            font-weight: 700; 
-            white-space: nowrap; 
-            letter-spacing: 0.5px;
             color: white;
+            gap: 12px;
+            flex-shrink: 0;
         }
 
+        .logo img { height: 40px; width: auto; display: block; }
+        .logo h1 { font-size: 1.3rem; letter-spacing: 0.5px; white-space: nowrap; }
         #menu-toggle { display: none; } 
 
         nav ul { 
@@ -112,77 +103,72 @@
             display: flex; 
             align-items: center; 
             gap: 6px; 
+            transition: 0.3s;
             position: relative;
             padding-bottom: 5px;
-            transition: 0.3s;
         }
 
         nav ul li a:hover {
             color: var(--secondary-color) !important;
         }
 
-        nav ul li a.active {
-            border-bottom: 3px solid var(--secondary-color);
+        nav ul li a.active-link {
+            border-bottom: 3px solid var(--secondary-color) !important;
             color: var(--secondary-color) !important;
         }
 
         /* ==========================================================================
-           3. KONTEN LIPUTAN BERITA & BANNER/FOTO
+           3. MAIN CONTAINER & TWO COLUMN LAYOUT SYSTEM
            ========================================================================== */
         .container { 
-            padding: 3rem 15%; 
+            padding: 3rem 10%; 
             flex: 1; 
         }
 
-        .section-title { 
-            text-align: center; 
-            margin-bottom: 2.5rem; 
+        .news-main-layout {
+            display: grid;
+            grid-template-columns: 2.3fr 1fr;
+            gap: 30px;
+            align-items: start;
         }
 
-        .section-title-box {
-            display: inline-flex;
-            align-items: center; 
-            padding: 12px 25px;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
-        }
-        
-        .section-title-box h2 { 
-            font-size: 1.4rem; 
-            margin: 0; 
-            padding-left: 15px; 
-            color: white;
-        }
-
-        /* Struktur Artikel Elemen */
-        .news-wrapper {
+        /* ==========================================================================
+           4. LEFT COLUMN AREA: ARTIKEL KONTEN & BANNER DOCUMENTATION
+           ========================================================================== */
+        .news-left-column {
             background: var(--white);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             border-top: 4px solid var(--primary-color);
         }
 
-        .news-meta {
+        .article-main-title {
+            color: var(--primary-color);
+            font-size: 1.7rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .news-meta-strip {
             display: flex;
+            flex-wrap: wrap;
             gap: 20px;
             font-size: 0.85rem;
             color: #666;
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 1px dashed var(--border-color);
-            flex-wrap: wrap;
         }
 
-        .news-meta span {
+        .news-meta-strip span {
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        /* TAMBAHAN STYLE KOTAK BANNER DOKUMENTASI */
+        /* Container Media Foto Kegiatan */
         .news-banner-container {
             width: 100%;
             margin: 20px 0 30px 0;
@@ -211,27 +197,28 @@
             display: block;
         }
 
-        .news-content {
-            line-height: 1.8;
-            font-size: 1rem;
-            color: #333;
+        /* Tipografi Teks Berita */
+        .news-body-content {
+            font-size: 1.05rem;
+            color: #333333;
             text-align: justify;
         }
 
-        .news-content p {
+        .news-body-content p {
             margin-bottom: 20px;
         }
 
-        .news-content h3 {
+        .news-body-content h3 {
             color: var(--primary-color);
             margin: 35px 0 15px 0;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             border-left: 4px solid var(--secondary-color);
-            padding-left: 10px;
+            padding-left: 12px;
+            font-weight: 700;
         }
 
-        /* Blockquote bergaya Islami/Klasik */
-        .news-quote {
+        /* Blok Kutipan Khusus / Nasihat */
+        .news-quote-box {
             background: #f1f8f1;
             border-left: 5px solid var(--primary-color);
             padding: 20px;
@@ -240,26 +227,26 @@
             font-style: italic;
         }
 
-        .news-quote p {
+        .news-quote-box p {
             margin-bottom: 0;
             color: #1a5d1a;
             font-weight: 500;
         }
 
-        /* List Poin Pengamalan */
-        .news-list {
+        /* List Poin Elemen Islami */
+        .news-bullet-list {
             list-style: none;
             margin-bottom: 25px;
             padding-left: 5px;
         }
 
-        .news-list li {
+        .news-bullet-list li {
             position: relative;
             padding-left: 25px;
             margin-bottom: 12px;
         }
 
-        .news-list li::before {
+        .news-bullet-list li::before {
             content: "\f14a"; 
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
@@ -269,8 +256,9 @@
             color: var(--primary-color);
         }
 
-        .btn-kembali {
-            margin-top: 30px;
+        /* Navigasi Aksi Kembali */
+        .btn-navigation-back {
+            margin-top: 15px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -285,17 +273,116 @@
             transition: 0.3s;
         }
 
-        .btn-kembali:hover {
+        .btn-navigation-back:hover {
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
         }
 
         /* ==========================================================================
-           4. FOOTER STYLE
+           5. RIGHT COLUMN AREA: SIDEBAR INFORMASI & PROFIL MAJELIS
+           ========================================================================== */
+        .news-right-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .sidebar-widget-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .widget-title-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--light-bg);
+            padding-bottom: 10px;
+        }
+
+        .widget-title-box h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* Elemen Widget Pemateri */
+        .profile-speaker-box {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .profile-speaker-box .speaker-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            color: var(--primary-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+        }
+
+        .profile-speaker-box h5 {
+            font-size: 1.05rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .profile-speaker-box .speaker-title {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Elemen Widget Detail Informasi Teknis */
+        .info-detail-list {
+            list-style: none;
+        }
+
+        .info-detail-list li {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f5f0;
+            font-size: 0.9rem;
+        }
+
+        .info-detail-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-detail-list li i {
+            color: var(--primary-color);
+            margin-top: 5px;
+            width: 15px;
+            text-align: center;
+        }
+
+        .info-detail-list li strong {
+            color: #333;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .info-detail-list li span {
+            color: #666;
+        }
+
+        /* ==========================================================================
+           6. FOOTER AREA (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
         footer { 
-            background: var(--dark-footer); 
+            background: var(--primary-dark); 
             color: white; 
             padding: 40px 5% 20px; 
             text-align: center; 
@@ -303,11 +390,11 @@
             margin-top: auto;
         }
 
-        footer .f-title { 
+        .f-title { 
             font-size: 1.2rem; 
             font-weight: bold; 
             margin-bottom: 10px; 
-            color: var(--secondary-color) !important; 
+            color: var(--secondary-color); 
             display: block; 
         }
         
@@ -315,25 +402,29 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           5. BLOK STYLE MOBILE (RESPONSIVE LAYOUT HP)
+           7. BLOK RESPONSIVE / LAYOUT SELEKSI HP (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
+        @media (max-width: 992px) {
+            .news-main-layout {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
-            .logo img { height: 35px; margin-right: 0 !important; }
-            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 0.95rem !important; }
 
             #menu-toggle {
-                display: flex !important;  
-                flex-direction: row;      
-                align-items: center;       
-                gap: 4px;           
-                background: var(--secondary-color);
-                color: var(--primary-color);
-                padding: 6px 12px;
+                display: block !important;  
+                background: var(--secondary-color) !important;
+                color: var(--primary-color) !important;
                 border: none;
+                padding: 6px 14px;
                 border-radius: 4px;
                 font-weight: bold;
+                font-size: 0.85rem;
                 cursor: pointer;
             }
             
@@ -348,25 +439,25 @@
                 padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
                 gap: 15px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
                 z-index: 999;
             }
             
-            nav.show ul { display: flex; }
-            nav ul li a { color: white !important; padding: 0 !important; }
+            nav.show ul { display: flex !important; }
+            nav ul li a { color: white !important; padding: 0 !important; width: auto; padding-bottom: 0 !important; }
 
-            nav ul li a.active {
-                border-bottom: none;
+            nav ul li a.active-link {
+                border-bottom: none !important;
                 border-left: 4px solid var(--secondary-color) !important;
-                padding-left: 15px !important;
+                padding-left: 10px !important;
                 color: var(--secondary-color) !important;
             }
 
             .container { padding: 2rem 5%; }
-            .section-title-box h2 { font-size: 1.1rem; }
-            .news-wrapper { padding: 20px; }
-            .news-meta { gap: 10px; font-size: 0.75rem; }
-            .news-content { font-size: 0.95rem; }
+            .news-left-column { padding: 20px; }
+            .article-main-title { font-size: 1.35rem; }
+            .news-meta-strip { gap: 10px; font-size: 0.75rem; }
+            .news-body-content { font-size: 0.95rem; }
             .news-banner-container { margin: 15px 0 20px 0; padding: 5px; }
         }
     </style>
@@ -378,7 +469,9 @@
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
         </a>
-
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
@@ -386,91 +479,129 @@
                 <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
                 <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
-                <li><a href="info_islam.html" class="active"><i class="fas fa-mosque"></i> Info Islam</a></li>
+                <li><a href="info_islam.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li>
                 <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
-
-        <button id="menu-toggle">
-            <i class="fas fa-bars"></i> Menu
-        </button>
     </header>
 
     <main class="container">
-        
-        <div class="section-title">
-            <div class="section-title-box">
-                <i class="fas fa-newspaper fa-2x"></i>
-                <h2>Liputan Kegiatan Majlis Ta'lim</h2>
-            </div>
+        <div class="news-main-layout">
+            
+            <section class="news-left-column">
+                <h1 class="article-main-title">
+                    Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan
+                </h1>
+
+                <div class="news-meta-strip">
+                    <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
+                    <span><i class="fas fa-folder-open"></i> Liputan Kegiatan</span>
+                    <span><i class="fas fa-user"></i> Admin</span>
+                </div>
+
+                <div class="news-banner-container">
+                    <img src="banner_kemisan.png" alt="Banner Utama Pengajian Kemisan">
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Pengajian Rutinan Kemisan di Majlis Ta'lim Roudhotul Baniin, Jatisari.</span>
+                </div>
+
+                <div class="news-body-content">
+                    <p><strong>KARAWANG</strong> – Majlis Ta’lim Roudhotul Baniin kembali menggelar kegiatan pengajian rutin mingguan khusus ibu-ibu yang akrab dikenal dengan sebutan "Pengajian Kemisan". Kegiatan yang penuh keberkahan ini dilaksanakan bertempat di gedung Majlis Ta’lim Roudhotul Baniin, Dusun Sukamaju II RT 02/RW 04, Desa Jatisari, Kecamatan Jatisari, Kabupaten Karawang.</p>
+                    
+                    <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
+
+                    <h3>Jalannya Acara</h3>
+                    <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
+
+                    <div class="news-banner-container">
+                        <img src="mc.jpg" alt="Suasana Pembukaan Acara">
+                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Pembacaan selawat dan zikir bersama dipandu oleh Ummi Hani.</span>
+                    </div>
+                    
+                    <p>Memasuki acara inti, tausiyah sekaligus pemaparan materi ilmiah keislaman disampaikan langsung oleh <strong>Al-Ustadz H. Wismo</strong>, selaku pimpinan dari Majlis Ta'lim Roudhotul Baniin.</p>
+
+                    <h3>Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h3>
+                    <p>Pada kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
+                    
+                    <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
+
+                    <div class="news-banner-container">
+                        <img src="muallim.jpg" alt="Penyampaian Materi Al-Ustadz H. Wismo">
+                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Al-Ustadz H. Wismo saat memberikan pemaparan materi Aqidah Ahlus Sunnah Wal Jama'ah.</span>
+                    </div>
+
+                    <div class="news-quote-box">
+                        <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
+                    </div>
+
+                    <p>Lebih lanjut, beliau juga memaparkan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
+                    
+                    <ul class="news-bullet-list">
+                        <li><strong>Menjaga Lisan dan Hati:</strong> Tidak mudah menghakimi, menyalahkan, apalagi mengkafirkan sesama Muslim hanya karena adanya perbedaan pandangan dalam masalah cabang <em>(furu'iyah)</em>.</li>
+                        <li><strong>Meningkatkan Ketauhidan:</strong> Menanamkan keyakinan yang kuat di dalam dada bahwa segala sesuatu terjadi murni atas ketentuan dan kehendak Allah SWT, sehingga melahirkan sifat tawakal dan rida.</li>
+                        <li><strong>Membangun Harmoni Sosial:</strong> Mengedepankan akhlakul karimah dalam bertetangga, menjaga kerukunan di tengah masyarakat, serta senantiasa menghormati para ulama.</li>
+                    </ul>
+
+                    <div class="news-banner-container">
+                        <img src="mustami.jpg" alt="Foto Jamaah Pengajian">
+                        <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
+                    </div>
+
+                    <h3>Penutup</h3>
+                    <p>Pengajian rutin Kemisan ini diakhiri dengan sesi tanya jawab interaktif dan ditutup dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
+                </div>
+
+                <a href="info_islam.html" class="btn-navigation-back"><i class="fas fa-arrow-left"></i> Kembali ke Info Islam</a>
+            </section>
+
+            <aside class="news-right-sidebar">
+                
+                <div class="sidebar-widget-card">
+                    <div class="widget-title-box">
+                        <i class="fas fa-user-tie"></i>
+                        <h4>Profil Pemateri</h4>
+                    </div>
+                    <div class="profile-speaker-box">
+                        <div class="speaker-avatar">
+                            <i class="fas fa-user-graduate fa-2x"></i>
+                        </div>
+                        <h5>Al-Ustadz H. Wismo</h5>
+                        <p class="speaker-title">Pimpinan Majlis Ta'lim Roudhotul Baniin</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget-card">
+                    <div class="widget-title-box">
+                        <i class="fas fa-info-circle"></i>
+                        <h4>Detail Kegiatan</h4>
+                    </div>
+                    <ul class="info-detail-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Lokasi Majelis</strong>
+                                <span>Gedung Majlis Ta’lim Roudhotul Baniin, Dusun Sukamaju II RT 02/RW 04, Desa Jatisari.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Waktu Pelaksanaan</strong>
+                                <span>Kamis Sore, 15.45 - 17.30 WIB</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong>Jumlah Partisipan</strong>
+                                <span>± 30 Jamaah Wanita</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </aside>
+
         </div>
-
-        <article class="news-wrapper">
-            <h1 style="color: var(--primary-color); font-size: 1.6rem; line-height: 1.4; margin-bottom: 15px;">
-                Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan
-            </h1>
-
-            <div class="news-meta">
-                <span><i class="fas fa-map-marker-alt" style="color: #c0392b;"></i> Jatisari, Karawang</span>
-                <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
-                <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
-                <span><i class="fas fa-users"></i> ± 30 Jamaah</span>
-            </div>
-
-            <div class="news-banner-container">
-                <img src="banner_kemisan.png" alt="Banner Utama Pengajian Kemisan">
-                <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Pengajian Rutinan Kemisan di Majlis Ta'lim Roudhotul Baniin, Jatisari.</span>
-            </div>
-
-            <div class="news-content">
-                <p><strong>KARAWANG</strong> – Majlis Ta’lim Roudhotul Baniin kembali menggelar kegiatan pengajian rutin mingguan khusus ibu-ibu yang akrab dikenal dengan sebutan "Pengajian Kemisan". Kegiatan yang penuh keberkahan ini dilaksanakan bertempat di gedung Majlis Ta’lim Roudhotul Baniin, Dusun Sukamaju II RT 02/RW 04, Desa Jatisari, Kecamatan Jatisari, Kabupaten Karawang.</p>
-                
-                <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
-
-                <h3>Jalannya Acara</h3>
-                <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
-
-                <div class="news-banner-container">
-                    <img src="mc.jpg" alt="Suasana Pembukaan Acara">
-                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Pembacaan selawat dan zikir bersama dipandu oleh Ummi Hani.</span>
-                </div>
-                
-                <p>Memasuki acara inti, tausiyah sekaligus pemaparan materi ilmiah keislaman disampaikan langsung oleh <strong>Al-Ustadz H. Wismo</strong>, selaku pimpinan dari Majlis Ta'lim Roudhotul Baniin.</p>
-
-                <h3>Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h3>
-                <p>On kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
-                
-                <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
-
-                <div class="news-banner-container">
-                    <img src="muallim.jpg" alt="Penyampaian Materi Al-Ustadz H. Wismo">
-                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Al-Ustadz H. Wismo saat memberikan pemaparan materi Aqidah Ahlus Sunnah Wal Jama'ah.</span>
-                </div>
-
-                <div class="news-quote">
-                    <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
-                </div>
-
-                <p>Lebih lanjut, beliau juga memaparkan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
-                
-                <ul class="news-list">
-                    <li><strong>Menjaga Lisan dan Hati:</strong> Tidak mudah menghakimi, menyalahkan, apalagi mengkafirkan sesama Muslim hanya karena adanya perbedaan pandangan dalam masalah cabang <em>(furu'iyah)</em>.</li>
-                    <li><strong>Meningkatkan Ketauhidan:</strong> Menanamkan keyakinan yang kuat di dalam dada bahwa segala sesuatu terjadi murni atas ketentuan dan kehendak Allah SWT, sehingga melahirkan sifat tawakal dan rida.</li>
-                    <li><strong>Membangun Harmoni Sosial:</strong> Mengedepankan akhlakul karimah dalam bertetangga, menjaga kerukunan di tengah masyarakat, serta senantiasa menghormati para ulama.</li>
-                </ul>
-
-                <div class="news-banner-container">
-                    <img src="mustami.jpg" alt="Foto Jamaah Pengajian">
-                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
-                </div>
-
-                <h3>Penutup</h3>
-                <p>Pengajian rutin Kemisan ini diakhiri dengan sesi tanya jawab interaktif dan ditutup dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
-            </div>
-
-            <a href="info_islam.html" class="btn-kembali"><i class="fas fa-arrow-left"></i> Kembali ke Info Islam</a>
-        </article>
-
     </main> 
 
     <footer> 
@@ -487,7 +618,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const murottal = document.getElementById('murottal');
             const clickSound = document.getElementById('clickSound');
-            const linkActionItems = document.querySelectorAll('nav ul li a, .logo, .btn-kembali');
+            const menuItems = document.querySelectorAll('nav ul li a, .logo, .btn-navigation-back');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
             
@@ -506,7 +637,7 @@
             document.addEventListener('click', playMurottal);
             document.addEventListener('touchstart', playMurottal); 
 
-            // Menu Toggle Layar HP
+            // Toggle Buka/Tutup Menu HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -514,8 +645,8 @@
                 });
             }
 
-            // Audio Click Delay Navigasi Link Halaman
-            linkActionItems.forEach(item => {
+            // Audio click delay system saat pindah page
+            menuItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0; 
@@ -535,7 +666,7 @@
                 });
             });
 
-            // Tutup menu otomatis jika klik di luar area navigasi
+            // Tutup menu jika klik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
