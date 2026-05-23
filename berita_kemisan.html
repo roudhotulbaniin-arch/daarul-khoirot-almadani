@@ -128,7 +128,7 @@
         }
 
         /* ==========================================================================
-           4. SEKTOR GAMBAR: OTOMATIS FULL WIDTH 100% MENGIKUTI KARTU
+           4. SEKTOR GAMBAR (DIPERBAIKI AGAR WAJAH TIDAK TERPOTONG DI DESKTOP)
            ========================================================================== */
         .hero-banner {
             width: 100%;
@@ -139,8 +139,7 @@
 
         .hero-banner img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* Mengikuti proporsi asli gambar */
             display: block;
         }
 
@@ -152,11 +151,12 @@
             border-bottom: 1px solid var(--border-color);
         }
 
+        /* Perbaikan utama: Mengubah max-height menjadi none dan height menjadi auto */
         .news-banner-container img {
             width: 100%;
-            height: auto;
-            max-height: 600px;
-            object-fit: cover;
+            height: auto;        /* Tinggi gambar otomatis sesuai proporsi asli */
+            max-height: none;     /* Menghapus pembatasan tinggi yang memotong wajah */
+            object-fit: contain;  /* Memastikan seluruh area gambar terlihat utuh */
             display: block;
         }
 
@@ -384,7 +384,6 @@
 
             .container { padding: 1.2rem 3%; }
             
-            /* Kurangi ukuran padding teks di HP agar area baca lebih luas */
             .news-header,
             .news-body-content > p,
             .content-block-title,
