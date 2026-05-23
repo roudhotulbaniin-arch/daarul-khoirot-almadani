@@ -169,11 +169,10 @@
         }
 
         /* ==========================================================================
-           5. SEKTOR TEKS DALAM ARTIKEL (DESKTOP DEFAULT)
+           5. SEKTOR TEKS ARTIKEL DESKTOP (PADDING KIRI KANAN 35PX)
            ========================================================================== */
         .news-header,
         .news-body-content > p,
-        .content-block-title,
         .news-quote-box,
         .news-bullet-list,
         .news-footer {
@@ -229,14 +228,14 @@
             color: #333;
         }
 
+        /* PERBAIKAN SEKTOR SUB-JUDUL (DESKTOP) */
         .content-block-title {
             color: var(--primary-color);
             font-size: 1.2rem;
-            margin: 35px 0 15px;
-            display: flex;
-            align-items: center;
+            margin: 35px 35px 15px 35px; /* Mengunci jarak luar agar lurus simetris */
             border-left: 5px solid var(--secondary-color);
-            padding-left: 12px;
+            padding-left: 12px; /* Jarak aman teks dari garis vertikal kuning */
+            display: block;
         }
 
         /* Box Kutipan (Quote) */
@@ -344,7 +343,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           7. RESPONSIVE LAYER (OPTIMASI KHUSUS HP / MOBILE)
+           7. RESPONSIVE LAYER (OPTIMASI TOTAL UNTUK LAYAR HP)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -380,21 +379,20 @@
             nav.show ul { display: flex !important; }
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            /* PERBAIKAN 1: Padding kiri-kanan luar kartu ditambah (dari 3% menjadi 5%) agar kartu tidak terlalu melar memenuhi layar */
+            /* Jarak luar kartu di sisi HP (5% kiri-kanan agar mewah & tidak melar) */
             .container { padding: 1.2rem 5%; }
             
             .full-news-card { margin-bottom: 20px; }
 
-            /* Gambar dokumentasi menyesuaikan dengan padding baru dalam kartu */
+            /* Jarak gambar dokumentasi di dalam kartu */
             .news-banner-container { 
                 padding: 0 24px; 
                 margin: 20px 0; 
             }
             
-            /* PERBAIKAN 2: Padding dalam kartu dipertebal (dari 18px ke 24px) agar teks berjarak aman & mewah */
+            /* Jarak aman bagian dalam teks di HP (Diatur 24px) */
             .news-header,
             .news-body-content > p,
-            .content-block-title,
             .news-quote-box,
             .news-bullet-list,
             .news-footer {
@@ -402,14 +400,13 @@
                 padding-right: 24px;
             }
 
-            /* PERBAIKAN 3: Padding sub-judul diselaraskan agar garis kuning masuk dan tidak mepet dinding luar */
+            /* SOLUSI FIX UTAMA: Sub-judul dipisah agar border-left masuk 24px penuh di HP & teks bergeser aman 12px */
             .content-block-title {
+                margin: 35px 24px 15px 24px; /* Sejajar mulus dengan padding paragraf */
                 border-left: 5px solid var(--secondary-color);
-                padding-left: 12px;
-                margin-left: 0; 
+                padding-left: 12px; /* Jarak aman tulisan dari garis */
             }
 
-            /* Penyesuaian area tombol agar lurus presisi dengan pinggir luar kartu */
             .bottom-actions { 
                 padding: 0; 
                 margin-bottom: 25px; 
@@ -474,7 +471,7 @@
                 <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
 
                 <h4 class="content-block-title">Jalannya Acara</h4>
-                <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
+                <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, and menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
 
                 <div class="news-banner-container">
                     <img src="mc.jpg" alt="Suasana Pembukaan Acara">
