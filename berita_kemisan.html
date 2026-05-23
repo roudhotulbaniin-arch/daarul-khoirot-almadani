@@ -186,17 +186,27 @@
         }
 
         .news-meta {
-            font-size: 0.85rem;
-            color: #666;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+    font-size: 0.85rem;
+    color: #666;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    row-gap: 8px; /* Menjaga jarak antar baris jika teks turun di layar HP yang sangat kecil */
+}
 
-        .news-meta span i {
-            color: var(--primary-color);
-            margin-right: 6px;
-        }
+/* Mengatur pembungkus ikon dan teks agar rata tengah secara vertikal */
+.news-meta span {
+    display: inline-flex;
+    align-items: center; 
+}
+
+.news-meta span i {
+    color: var(--primary-color);
+    margin-right: 6px;
+    font-size: 0.95rem; /* Menyesuaikan sedikit ukuran ikon agar seimbang dengan teks */
+    display: inline-block;
+    line-height: 1; /* Menghilangkan sisa ruang kosong bawaan font ikon */
+}
 
         .news-body-content p {
             margin-bottom: 20px;
