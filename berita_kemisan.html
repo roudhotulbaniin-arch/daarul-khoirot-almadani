@@ -172,7 +172,7 @@
         }
 
         /* ==========================================================================
-           5. SEKTOR TEKS ARTIKEL DESKTOP (PADDING KIRI KANAN 35PX)
+           5. SEKTOR TEKS ARTIKEL DESKTOP & MOBILE
            ========================================================================== */
         .news-header,
         .news-body-content > p,
@@ -208,28 +208,29 @@
             display: inline-block;
         }
 
-        /* PERBAIKAN TOTAL DI BAGIAN META DATA DESKTOP */
+        /* KUNCI DESKTOP: Dipaksa lurus mendatar 1 baris menggunakan Flexbox tanpa bungkus */
         .news-meta {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #666;
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px; 
+            flex-direction: row;  /* Berjejer ke samping */
+            flex-wrap: nowrap;    /* Kunci 1 baris penuh, tidak boleh turun kebawah */
+            gap: 25px;            /* Jarak renggang antar meta tag */
             margin-bottom: 25px;
             border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
+            padding-bottom: 18px;
         }
 
         .news-meta span {
             display: inline-flex;
             align-items: center;
-            white-space: nowrap;
+            white-space: nowrap; /* Teks tidak boleh patah baris */
         }
 
         .news-meta span i {
             color: var(--primary-color);
-            margin-right: 6px; /* Jarak proporsional ikon ke teks */
-            width: 14px;       /* Mengunci lebar ikon agar lurus sejajar */
+            margin-right: 8px; 
+            width: 16px;       
             text-align: center;
         }
 
@@ -408,25 +409,14 @@
                 padding-right: 24px;
             }
 
-            /* PERBAIKAN STABILITAS LAYOUT META TAG DI HP */
+            /* ATURAN MOBILE: Diubah otomatis menjadi sistem Grid 2 baris x 2 kolom */
             .news-meta { 
-                display: grid; 
-                grid-template-columns: repeat(2, 1fr); /* Membagi 2 kolom simetris */
-                gap: 12px 10px; 
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 10px 12px; 
                 margin-bottom: 20px; 
                 padding-bottom: 15px;
-            }
-
-            .news-meta span {
-                display: inline-flex;
-                align-items: center;
-                font-size: 0.8rem;
-            }
-
-            /* Membuat baris alamat mengalir aman tanpa memotong paksa grid */
-            .news-meta span:last-child {
-                grid-column: span 2; /* Alamat memanjang penuh di bawahnya agar muat 1 baris */
-                white-space: nowrap;
+                font-size: 0.78rem;
             }
 
             .content-block-title {
@@ -477,10 +467,10 @@
                 <h2>Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan</h2>
                 
                 <div class="news-meta">
-                    <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
-                    <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
-                    <span><i class="fas fa-user-friends"></i> Admin</span>
                     <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
+                    <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
+                    <span><i class="fas fa-user-friends"></i> Admin</span>
+                    <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
                 </div>
             </div> 
 
@@ -515,7 +505,7 @@
                     </div>
                 </div>
 
-                <p>Lebih lanjut, beliau juga memaparkan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
+                <p>Lebih lanjut, beliau juga memaparan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
                 
                 <ul class="news-bullet-list">
                     <li><strong>Menjaga Lisan dan Hati:</strong> Tidak mudah menghakimi, menyalahkan, apalagi mengkafirkan sesama Muslim hanya karena adanya perbedaan pandangan dalam masalah cabang <em>(furu'iyah)</em>.</li>
@@ -536,7 +526,7 @@
 
             <div class="news-footer">
                 <span><strong>Kategori:</strong> Liputan Kegiatan</span>
-                <span><strong>Kontributor:</strong> "Uwa"</span>
+                <span><strong>Kontributor:</strong> Dokumentasi Internal</span>
             </div>
         </article>   
 
