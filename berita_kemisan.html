@@ -142,12 +142,12 @@
            ========================================================================== */
         .hero-banner {
             width: 100%;
-            max-height: 450px;
+            max-height: 520px; /* Ditambah sedikit agar proporsi desktop ideal */
             overflow: hidden;
             border-radius: 8px;
             margin-bottom: 30px;
             border: 1px solid #ddd;
-            background-color: #e5e5e5;
+            background-color: #f7f7f7;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -156,7 +156,7 @@
         .hero-banner img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            object-fit: contain; /* Ganti ke contain agar gambar pamflet tidak terpotong di desktop */
             object-position: center; 
         }
 
@@ -185,34 +185,32 @@
             margin-bottom: 15px;
         }
 
-.news-meta {
-    font-size: 0.85rem;
-    color: #666;
-    display: grid;
-    /* Membuat sistem 2 kolom yang membagi ruang sama rata di HP */
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 12px 16px; /* Jarak atas-bawah 12px, jarak kiri-kanan 16px */
-    margin-bottom: 25px;
-}
+        .news-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px 16px; 
+            margin-bottom: 25px;
+        }
 
-.news-meta span {
-    display: flex;
-    align-items: center; 
-    /* Menghapus nowrap agar jika ada teks yang sangat panjang di HP, dia patah di dalam kolomnya sendiri */
-    white-space: normal; 
-    line-height: 1.3;
-}
+        .news-meta span {
+            display: flex;
+            align-items: center; 
+            white-space: normal; 
+            line-height: 1.3;
+        }
 
-.news-meta span i {
-    color: var(--primary-color);
-    margin-right: 8px;
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px; /* Mengunci lebar dasar ikon agar teks di sebelahnya lurus vertikal */
-    flex-shrink: 0; /* Mencegah ikon gepeng atau mengecil jika teks di sebelahnya panjang */
-}
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 8px;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px; 
+            flex-shrink: 0; 
+        }
  
         .news-body-content p {
             margin-bottom: 20px;
@@ -318,48 +316,45 @@
 
         /* --- LAYOUT BUTTON BAWAH --- */
         .bottom-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px; 
-    margin-bottom: 10px; 
-    width: 100%;
-    padding: 0 16px;
-    box-sizing: border-box; /* Mengunci padding agar tidak merusak lebar 100% */
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px; 
+            margin-bottom: 10px; 
+            width: 100%;
+            padding: 0 16px;
+            box-sizing: border-box; 
+        }
 
-.btn-kembali {
-    color: white;
-    background: var(--primary-color);
-    padding: 14px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    
-    /* Kombinasi 3 baris ini akan memaksa elemen <a> melebar penuh di HP */
-    width: 100%;
-    flex: 1; 
-    max-width: 400px; /* Batas maksimal di desktop agar tidak terlalu melar */
-    
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-}
+        .btn-kembali {
+            color: white;
+            background: var(--primary-color);
+            padding: 14px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            flex: 1; 
+            max-width: 420px; /* Sesuai standar desktop agar proporsional */
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
 
-.btn-kembali:hover { 
-    background: #144614;
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
+        .btn-kembali:hover { 
+            background: #144614;
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
 
-.btn-kembali i {
-    margin-right: 10px;
-}
+        .btn-kembali i {
+            margin-right: 10px;
+        }
   
         /* ==========================================================================
            5. FOOTER AREA (SERAGAM STRUKTUR MASTER)
@@ -385,8 +380,25 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           6. BLOK RESPONSIVE / LAYOUT SELEKSI HP (SERAGAM STRUKTUR MASTER)
+           6. BLOK RESPONSIVE / LAYOUT SELEKSI LAPTOP DAN HP
            ========================================================================== */
+        
+        /* TAMPILAN DESKTOP & LAPTOP (Lebar Layar Besar) */
+        @media (min-width: 769px) {
+            .news-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+            .news-meta span {
+                white-space: nowrap;
+            }
+            .hero-banner img {
+                object-fit: contain; /* Mengunci agar pamflet tidak pecah/terpotong di PC */
+            }
+        }
+
+        /* TAMPILAN MOBILE / HP (Maksimal Layar 768px) */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
@@ -429,32 +441,30 @@
                 color: var(--secondary-color) !important;
             }
 
-            .container { padding: 2rem 5%; }
+            .container { padding: 2rem 4%; }
             .full-news-card { padding: 20px; }
-            .hero-banner { max-height: 250px; margin-bottom: 20px; }
-            .news-header h2 { font-size: 1.4rem; }
-            .news-meta { gap: 10px; font-size: 0.75rem; }
-            .news-body-content { font-size: 0.95rem; }
+            
+            /* Gambar banner di HP dikembalikan ke cover agar estetis mengikuti container kecil */
+            .hero-banner { max-height: 260px; margin-bottom: 20px; }
+            .hero-banner img { object-fit: cover; }
+
+            .news-header h2 { font-size: 1.35rem; }
+            .news-meta { grid-template-columns: repeat(2, 1fr); gap: 10px 14px; font-size: 0.8rem; }
+            .news-body-content { font-size: 0.98rem; }
             .news-banner-container { margin: 15px 0 20px 0; padding: 5px; }
 
+            /* Perbaikan mutlak layout full width tombol kembali pada HP */
             .bottom-actions {
-                padding: 0;
+                padding: 0 4px;
             }
-
             .btn-kembali { 
-                width: 300px;                    
-                padding: 12px 25px;      
-                font-size: 1rem;         
+                width: 100%;                    
+                max-width: 100%;
+                flex: 1;
+                padding: 14px 20px;      
+                font-size: 1.05rem;         
             }
         }
- .news-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-    .news-meta span {
-        white-space: nowrap;
-    }
     </style>
 </head>
 <body>
@@ -516,7 +526,7 @@
                 <h4 class="content-block-title"><i class="fas fa-book-open"></i> Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h4>
                 <p>Pada kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
                 
-                <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
+                <p>Dalam penyampaiannya, beliau menekankan bahwa memahami and memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
 
                 <div class="news-banner-container">
                     <img src="muallim.jpg" alt="Penyampaian Materi Al-Ustadz H. Wismo">
@@ -631,3 +641,4 @@
     </script>
 </body>
 </html>
+ 
