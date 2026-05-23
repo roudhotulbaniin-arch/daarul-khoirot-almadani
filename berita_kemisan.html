@@ -238,15 +238,12 @@
        /* Cari kode ini di sekitar baris 208, lalu GANTI dengan kode di bawah: */
 .news-banner-container img {
     width: 100%;
-    height: auto;          /* Mengikuti tinggi alami gambar secara proporsional */
-    max-height: 550px;     /* Batas aman tinggi gambar di desktop */
-    object-fit: contain;   /* KUNCI UTAMA: Menjamin gambar pas & UTUH tanpa terpotong */
-    background: #f9f9f9;   /* Background netral jika rasio gambar berbeda */
+    height: auto;          /* Mengikuti tinggi asli gambar secara proporsional */
+    object-fit: cover;     /* Tetap penuh semisal rasio meleset sedikit */
+    object-position: center; /* Fokus di tengah gambar */
     border-radius: 6px;
     display: block;
-    margin: 0 auto;        /* Memastikan gambar tetap berada di tengah kontainer */
 }
-
         .news-banner-caption {
             font-size: 0.8rem;
             color: #666;
