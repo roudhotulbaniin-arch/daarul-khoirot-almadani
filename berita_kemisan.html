@@ -361,26 +361,21 @@
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-         logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
-            .logo img { height: 35px; margin-right: 0 !important; }
-            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
+            .logo img { height: 35px; }
+            .logo h1 { font-size: 0.95rem; }
 
-            /* Tombol Menu Hamburger Mobile */
             #menu-toggle {
-                display: flex !important;  
-                flex-direction: row;      
-                align-items: center;       
-                gap: 4px;           
+                display: block;  
                 background: var(--secondary-color);
                 color: var(--primary-color);
-                padding: 6px 12px;
                 border: none;
+                padding: 6px 14px;
                 border-radius: 4px;
                 font-weight: bold;
+                font-size: 0.85rem;
                 cursor: pointer;
             }
             
-            /* Navigasi Dropdown Vertikal Mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -392,19 +387,11 @@
                 padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
                 gap: 15px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                z-index: 999;
             }
             
-            nav.show ul { display: flex; }
-            nav ul li a { color: white !important; }
-
-            /* Indikator Menu Aktif di Mobile (Garis Samping Kiri) */
-            nav ul li a.active {
-                border-bottom: none;
-                border-left: 4px solid var(--secondary-color);
-                padding-left: 10px;
-                color: var(--secondary-color) !important;
-            }
+            nav.show ul { display: flex !important; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
             .container { padding: 1.2rem 5%; }
             
@@ -480,10 +467,10 @@
                 <h2>Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan</h2>
                 
                 <div class="news-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
                     <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span> 
+                    <span><i class="fas fa-user-friends"></i> Admin</span>
                     <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
-                    <span><i class="fas fa-user-friends"></i> Admin</span>                  
                 </div>
             </div> 
 
@@ -538,8 +525,8 @@
             </div>
 
             <div class="news-footer">
-                <span><strong>Kategori :</strong> Liputan Kegiatan</span>
-                <span><strong>Kontributor :</strong> "Uwa"</span>
+                <span><strong>Kategori:</strong> Liputan Kegiatan</span>
+                <span><strong>Kontributor:</strong> Dokumentasi Internal</span>
             </div>
         </article>   
 
