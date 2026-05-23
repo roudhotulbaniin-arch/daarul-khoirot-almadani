@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan" />
     <meta name="twitter:description" content="Liputan pengajian rutin bersama Al-Ustadz H. Wismo di Jatisari, Karawang." />
     <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
-   
+     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
 
     <style>
         /* ==========================================================================
-           1. DESIGN VARIABLES, FONTS & RESET (SERAGAM STRUKTUR MASTER)
+           1. RESET & VARIABLE DASAR
            ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
@@ -34,7 +34,7 @@
             --light-bg: #f4f7f6;
             --white: #ffffff;
             --text-dark: #333333;
-            --border-color: #d4e4d4;
+            --border-color: #eef4ee;
         }
 
         * { 
@@ -42,10 +42,6 @@
             padding: 0; 
             box-sizing: border-box; 
             font-family: 'Quicksand', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body { 
@@ -58,13 +54,8 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-        }
-
         /* ==========================================================================
-           2. HEADER & NAVIGASI DESKTOP (SERAGAM STRUKTUR MASTER)
+           2. HEADER & NAVIGASI
            ========================================================================== */
         header {
             background-color: var(--primary-color); 
@@ -86,7 +77,6 @@
             text-decoration: none;
             color: white;
             gap: 12px;
-            flex-shrink: 0;
         }
 
         .logo img { height: 40px; width: auto; display: block; }
@@ -108,66 +98,102 @@
             align-items: center; 
             gap: 6px; 
             transition: 0.3s;
-            position: relative;
             padding-bottom: 5px;
         }
 
-        nav ul li a:hover {
-            color: var(--secondary-color) !important;
-        }
-
-        nav ul li a.active-link {
-            border-bottom: 3px solid var(--secondary-color) !important;
-            color: var(--secondary-color) !important;
-        }
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+        nav ul li a.active-link { border-bottom: 3px solid var(--secondary-color) !important; color: var(--secondary-color) !important; }
 
         /* ==========================================================================
-           3. MAIN CONTAINER & TWO COLUMN LAYOUT SYSTEM
+           3. CONTAINER & STRUKTUR UTAMA KARTU
            ========================================================================== */
         .container { 
-            padding: 3rem 24px; /* PERBAIKAN: Mengganti 15% menjadi 24px agar tidak menjepit konten di desktop */
+            padding: 2.5rem 4%; 
             flex: 1; 
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .full-news-card {
             background: var(--white);
-            padding: 40px;
+            padding: 0 !important; 
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             overflow: hidden;
-            max-width: 1100px; /* Lebar maksimal artikel di layar desktop agar nyaman dibaca */
-            margin: 0 auto;    /* Membuat kartu otomatis berada di tengah-tengah layar */
-            width: 100%;
+            width: 100%; 
+            max-width: 1100px; 
+            margin-bottom: 20px;
         }
 
         /* ==========================================================================
-           4. ARTIKEL KONTEN & BANNER DOCUMENTATION
+           4. SEKTOR GAMBAR (JARAK AMAN DI DESKTOP & MOBILE)
            ========================================================================== */
         .hero-banner {
             width: 100%;
-            max-height: 520px; 
+            max-height: 550px;
             overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border: 1px solid #ddd;
-            background-color: #1e1e1e; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #f9f9f9;
         }
 
         .hero-banner img {
             width: 100%;
-            height: 100%;
-            object-fit: contain; 
-            object-position: center; 
+            height: auto; 
+            display: block;
+        }
+
+        .news-banner-container {
+            width: 100%;
+            margin: 35px 0;
+            padding: 0 35px; 
+            background-color: transparent; 
+        }
+
+        .news-banner-container img {
+            width: 100%;
+            height: auto;        
+            max-height: none;     
+            display: block;
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
+        }
+
+        .news-banner-caption {
+            font-size: 0.88rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            display: block;
+            padding: 12px 0; 
+        }
+
+        /* ==========================================================================
+           5. SEKTOR TEKS & ACTIONS (DIPERBAIKI UNTUK TOMBOL FULL WIDTH)
+           ========================================================================== */
+        .news-header,
+        .news-body-content > p,
+        .content-block-title,
+        .news-quote-box,
+        .news-bullet-list,
+        .news-footer,
+        .bottom-actions {
+            padding-left: 35px;  
+            padding-right: 35px; 
+            width: 100%;
+            max-width: 100%;
         }
 
         .news-header {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+            margin-top: 30px;
+        }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            margin-top: 5px;
         }
 
         .news-tag {
@@ -179,125 +205,73 @@
             font-weight: bold;
             text-transform: uppercase;
             display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .news-header h2 {
-            font-size: 1.8rem;
-            color: #111;
-            line-height: 1.4;
-            margin-bottom: 15px;
         }
 
         .news-meta {
             font-size: 0.85rem;
             color: #666;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px 16px; 
-            margin-bottom: 25px;
-        }
-
-        .news-meta span {
             display: flex;
-            align-items: center; 
-            white-space: normal; 
-            line-height: 1.3;
+            flex-wrap: wrap;
+            gap: 20px; 
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
 
         .news-meta span i {
             color: var(--primary-color);
-            margin-right: 8px;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 16px; 
-            flex-shrink: 0; 
+            margin-right: 6px;
         }
- 
+
         .news-body-content p {
-            margin-bottom: 20px;
+            text-align: justify; 
+            margin-bottom: 18px;
             font-size: 1.05rem;
             color: #333;
-            text-align: justify;
         }
 
-        .news-body-content strong.location {
-            color: var(--primary-color);
-            letter-spacing: 0.5px;
-        }
-
-        /* Container Media Foto Kegiatan Di Dalam Artikel */
-        .news-banner-container {
-            width: 100%;
-            margin: 20px 0 30px 0;
-            background: #1e1e1e; 
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-        .news-banner-container img {
-            width: 100%;
-            height: auto;
-            max-height: 550px; /* Sedikit dinaikkan agar foto landscape terlihat megah di desktop */
-            object-fit: contain; 
-            border-radius: 6px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .news-banner-caption {
-            font-size: 0.8rem;
-            color: #ccc; 
-            text-align: center;
-            font-style: italic;
-            margin-top: 8px;
-            display: block;
-        }
-
-        /* Tipografi Teks Berita */
         .content-block-title {
             color: var(--primary-color);
             font-size: 1.2rem;
-            margin: 35px 0 15px 0; 
+            margin: 35px 0 15px;
             display: flex;
             align-items: center;
             gap: 10px;
             border-left: 4px solid var(--secondary-color);
-            padding-left: 12px;     
-            margin-left: 2px; 
         }
 
-        /* Blok Kutipan Khusus / Nasihat */
+        /* Box Kutipan (Quote) */
         .news-quote-box {
-            background: #f1f8f1;
+            margin: 30px 0;
+        }
+
+        .news-quote-wrapper {
+            background: #f2f8f2;
             border-left: 5px solid var(--primary-color);
-            padding: 20px;
-            margin: 25px 0;
+            padding: 20px 25px;
             border-radius: 0 8px 8px 0;
             font-style: italic;
         }
 
-        .news-quote-box p {
-            margin-bottom: 0;
-            color: #1a5d1a;
+        .news-quote-wrapper p {
+            margin-bottom: 0 !important;
+            color: var(--primary-color);
             font-weight: 500;
         }
 
-        /* List Poin Elemen Islami */
+        /* List Bullet */
         .news-bullet-list {
             list-style: none;
             margin-bottom: 25px;
-            padding-left: 5px;
+            padding-top: 5px;
         }
 
         .news-bullet-list li {
             position: relative;
             padding-left: 25px;
             margin-bottom: 12px;
+            font-size: 1.02rem;
+            text-align: justify;
         }
 
         .news-bullet-list li::before {
@@ -306,13 +280,14 @@
             font-weight: 900;
             position: absolute;
             left: 0;
-            top: 0;
+            top: 2px;
             color: var(--primary-color);
         }
 
         .news-footer {
             margin-top: 40px;
-            padding-top: 15px;
+            padding-top: 20px;
+            padding-bottom: 30px;
             border-top: 1px solid #eee;
             display: flex;
             justify-content: space-between;
@@ -320,50 +295,40 @@
             color: #777;
         }
 
-        /* --- LAYOUT BUTTON BAWAH --- */
+        /* Pembungkus Tombol Kembali */
         .bottom-actions {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 30px; 
-            margin-bottom: 10px; 
-            width: 100%;
-            padding: 0 16px;
-            box-sizing: border-box; 
+            margin-top: 10px; 
+            margin-bottom: 35px;
+            display: block; /* Menghilangkan flex agar tombol melebar alami */
         }
 
+        /* Perbaikan Utama: Dibuat full width (100%) tanpa batas max-width di desktop & mobile */
         .btn-kembali {
             color: white;
             background: var(--primary-color);
-            padding: 14px 20px;
+            padding: 14px 24px;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            width: 100%;
-            flex: 1; 
-            max-width: 420px; 
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            box-sizing: border-box;
+            width: 100%; /* Menempati seluruh lebar konten yang tersedia */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
         }
 
         .btn-kembali:hover { 
             background: #144614;
             transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
         }
 
-        .btn-kembali i {
-            margin-right: 10px;
-        }
+        .btn-kembali i { margin-right: 10px; }
   
         /* ==========================================================================
-           5. FOOTER AREA (SERAGAM STRUKTUR MASTER)
+           6. FOOTER AREA
            ========================================================================== */
         footer { 
             background: var(--primary-dark); 
@@ -374,46 +339,22 @@
             margin-top: auto;
         }
 
-        .f-title { 
-            font-size: 1.2rem; 
-            font-weight: bold; 
-            margin-bottom: 10px; 
-            color: var(--secondary-color); 
-            display: block; 
-        }
-        
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); display: block; }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           6. BLOK RESPONSIVE / LAYOUT SELEKSI LAPTOP DAN HP
+           7. RESPONSIVE LAYER (MOBILE / HP)
            ========================================================================== */
-        
-        /* TAMPILAN DESKTOP & LAPTOP (Lebar Layar Besar) */
-        @media (min-width: 769px) {
-            .news-meta {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 24px;
-            }
-            .news-meta span {
-                white-space: nowrap;
-            }
-            .hero-banner img {
-                object-fit: contain; 
-            }
-        }
-
-        /* TAMPILAN MOBILE / HP (Maksimal Layar 768px) */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
-            .logo h1 { font-size: 0.95rem !important; }
+            .logo h1 { font-size: 0.95rem; }
 
             #menu-toggle {
-                display: block !important;  
-                background: var(--secondary-color) !important;
-                color: var(--primary-color) !important;
+                display: block;  
+                background: var(--secondary-color);
+                color: var(--primary-color);
                 border: none;
                 padding: 6px 14px;
                 border-radius: 4px;
@@ -433,44 +374,35 @@
                 padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
                 gap: 15px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
                 z-index: 999;
             }
             
             nav.show ul { display: flex !important; }
-            nav ul li a { color: white !important; padding: 0 !important; width: auto; padding-bottom: 0 !important; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            nav ul li a.active-link {
-                border-bottom: none !important;
-                border-left: 4px solid var(--secondary-color) !important;
-                padding-left: 10px !important;
-                color: var(--secondary-color) !important;
-            }
-
-            /* Mengatur ruang sisi luar artikel agar seimbang di HP */
-            .container { padding: 1.5rem 12px; }
-            .full-news-card { padding: 20px 16px; }
+            .container { padding: 1.2rem 3%; }
             
-            .hero-banner { max-height: 260px; margin-bottom: 20px; }
-            .hero-banner img { object-fit: contain; } 
-
-            .news-header h2 { font-size: 1.35rem; }
-            .news-meta { grid-template-columns: repeat(2, 1fr); gap: 10px 14px; font-size: 0.8rem; }
-            .news-body-content { font-size: 0.98rem; }
-            .news-banner-container { margin: 15px 0 20px 0; padding: 5px; }
-            .news-banner-container img { max-height: 340px; }
-
-            /* Perbaikan mutlak layout full width tombol kembali pada HP */
+            .news-banner-container { 
+                padding: 0 18px; 
+                margin: 20px 0; 
+            }
+            
+            /* Menyesuaikan padding jarak aman di layar HP */
+            .news-header,
+            .news-body-content > p,
+            .content-block-title,
+            .news-quote-box,
+            .news-bullet-list,
+            .news-footer,
             .bottom-actions {
-                padding: 0 4px;
+                padding-left: 18px;
+                padding-right: 18px;
             }
-            .btn-kembali { 
-                width: 100%;                    
-                max-width: 100%;
-                flex: 1;
-                padding: 14px 20px;      
-                font-size: 1.05rem;         
-            }
+
+            .bottom-actions { margin-bottom: 25px; }
+            .news-header h2 { font-size: 1.4rem; }
+            .news-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+            .news-body-content p { font-size: 1rem; }
         }
     </style>
 </head>
@@ -487,11 +419,11 @@
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
                 <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
                 <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
-                <li><a href="galeri.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li>
+                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li>
                 <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
@@ -520,7 +452,7 @@
                 
                 <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
 
-                <h4 class="content-block-title"><i class="fas fa-star"></i> Jalannya Acara</h4>
+                <h4 class="content-block-title">Jalannya Acara</h4>
                 <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
 
                 <div class="news-banner-container">
@@ -530,7 +462,7 @@
                 
                 <p>Memasuki acara inti, tausiyah sekaligus pemaparan materi ilmiah keislaman disampaikan langsung oleh <strong>Al-Ustadz H. Wismo</strong>, selaku pimpinan dari Majlis Ta'lim Roudhotul Baniin.</p>
 
-                <h4 class="content-block-title"><i class="fas fa-book-open"></i> Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h4>
+                <h4 class="content-block-title">Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h4>
                 <p>Pada kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
                 
                 <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
@@ -541,10 +473,12 @@
                 </div>
 
                 <div class="news-quote-box">
-                    <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
+                    <div class="news-quote-wrapper">
+                        <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
+                    </div>
                 </div>
 
-                <p>Lebih lanjut, beliau juga memaparan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
+                <p>Lebih lanjut, beliau juga memaparkan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
                 
                 <ul class="news-bullet-list">
                     <li><strong>Menjaga Lisan dan Hati:</strong> Tidak mudah menghakimi, menyalahkan, apalagi mengkafirkan sesama Muslim hanya karena adanya perbedaan pandangan dalam masalah cabang <em>(furu'iyah)</em>.</li>
@@ -557,7 +491,7 @@
                     <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
                 </div>
 
-                <h4 class="content-block-title"><i class="fas fa-check-circle"></i> Penutup</h4>
+                <h4 class="content-block-title">Penutup</h4>
                 <p>Pengajian rutin Kemisan ini diakhiri dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
                 
                 <p style="text-align: right; margin-top: 30px; font-style: italic;">Khidmatul Ma'had – Admin.</p>
@@ -565,15 +499,15 @@
 
             <div class="news-footer">
                 <span>Kategori: Liputan Kegiatan</span>
-                <span class="reporter-tag">Kontributor: Dokumentasi Internal</span>
+                <span>Kontributor: Dokumentasi Internal</span>
+            </div>
+
+            <div class="bottom-actions">
+                <a href="galeri.html" class="btn-kembali">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita
+                </a>        
             </div>
         </article>   
-
-        <div class="bottom-actions">
-            <a href="galeri.html" class="btn-kembali">
-                <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita
-            </a>       
-        </div>
     </main> 
 
     <footer> 
@@ -596,7 +530,6 @@
             
             let hasInteracted = false;
 
-            // Auto-play Murottal saat interaksi pertama layar
             function playMurottal() {
                 if (!hasInteracted && murottal) {
                     murottal.volume = 0.3; 
@@ -609,7 +542,6 @@
             document.addEventListener('click', playMurottal);
             document.addEventListener('touchstart', playMurottal); 
 
-            // Toggle Buka/Tutup Menu HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -617,7 +549,6 @@
                 });
             }
 
-            // Audio click delay system saat pindah page
             menuItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
@@ -638,7 +569,6 @@
                 });
             });
 
-            // Tutup menu jika klik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
