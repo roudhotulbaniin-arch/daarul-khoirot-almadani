@@ -304,11 +304,12 @@
         .bottom-actions {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 30px; 
     margin-bottom: 10px; 
     width: 100%;
     padding: 0 16px;
-    box-sizing: border-box; /* Memastikan padding dihitung di dalam lebar kontainer */
+    box-sizing: border-box; /* Mengunci padding agar tidak merusak lebar 100% */
 }
 
 .btn-kembali {
@@ -323,11 +324,15 @@
     justify-content: center;
     font-size: 1.1rem;
     transition: all 0.3s ease;
+    
+    /* Kombinasi 3 baris ini akan memaksa elemen <a> melebar penuh di HP */
     width: 100%;
-    max-width: 400px; /* Batas maksimal lebar di layar besar/desktop agar tidak melar */
+    flex: 1; 
+    max-width: 400px; /* Batas maksimal di desktop agar tidak terlalu melar */
+    
     text-align: center;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    box-sizing: border-box; /* Mengamankan ukuran tombol pada mobile */
+    box-sizing: border-box;
 }
 
 .btn-kembali:hover { 
@@ -339,7 +344,7 @@
 .btn-kembali i {
     margin-right: 10px;
 }
- 
+  
         /* ==========================================================================
            5. FOOTER AREA (SERAGAM STRUKTUR MASTER)
            ========================================================================== */
@@ -525,7 +530,7 @@
 
         <div class="bottom-actions">
             <a href="galeri.html" class="btn-kembali">
-                <i class="fas fa-arrow-left"></i> Galeri & Liputan Berita
+                <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita
             </a>       
         </div>
     </main> 
