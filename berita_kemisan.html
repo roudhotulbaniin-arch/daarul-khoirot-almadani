@@ -128,19 +128,23 @@
         }
 
         /* ==========================================================================
-           4. SEKTOR GAMBAR
+           4. SEKTOR GAMBAR (OPTIMASI BANNER UTAMA & BANNER DOKUMENTASI)
            ========================================================================== */
+        /* PERBAIKAN UTAMA: Banner Atas diberikan ruang masuk aman dari batas kartu */
         .hero-banner {
             width: 100%;
             max-height: 550px;
             overflow: hidden;
-            background-color: #f9f9f9;
+            background-color: transparent;
+            padding: 35px 35px 0 35px; /* Memberikan padding atas, kanan, dan kiri */
         }
 
         .hero-banner img {
             width: 100%;
             height: auto; 
             display: block;
+            border-radius: 8px; /* Sudut melengkung agar serasi dengan kartu */
+            border: 1px solid var(--border-color);
         }
 
         .news-banner-container {
@@ -228,13 +232,12 @@
             color: #333;
         }
 
-        /* PERBAIKAN SEKTOR SUB-JUDUL (DESKTOP) */
         .content-block-title {
             color: var(--primary-color);
             font-size: 1.2rem;
-            margin: 35px 35px 15px 35px; /* Mengunci jarak luar agar lurus simetris */
+            margin: 35px 35px 15px 35px; 
             border-left: 5px solid var(--secondary-color);
-            padding-left: 12px; /* Jarak aman teks dari garis vertikal kuning */
+            padding-left: 12px; 
             display: block;
         }
 
@@ -379,12 +382,15 @@
             nav.show ul { display: flex !important; }
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            /* Jarak luar kartu di sisi HP (5% kiri-kanan agar mewah & tidak melar) */
             .container { padding: 1.2rem 5%; }
             
             .full-news-card { margin-bottom: 20px; }
 
-            /* Jarak gambar dokumentasi di dalam kartu */
+            /* PERBAIKAN HP: Menyelaraskan padding banner atas di handphone agar masuk 24px */
+            .hero-banner {
+                padding: 24px 24px 0 24px;
+            }
+
             .news-banner-container { 
                 padding: 0 24px; 
                 margin: 20px 0; 
@@ -400,11 +406,11 @@
                 padding-right: 24px;
             }
 
-            /* SOLUSI FIX UTAMA: Sub-judul dipisah agar border-left masuk 24px penuh di HP & teks bergeser aman 12px */
+            /* Sub-judul presisi di HP */
             .content-block-title {
-                margin: 35px 24px 15px 24px; /* Sejajar mulus dengan padding paragraf */
+                margin: 35px 24px 15px 24px; 
                 border-left: 5px solid var(--secondary-color);
-                padding-left: 12px; /* Jarak aman tulisan dari garis */
+                padding-left: 12px; 
             }
 
             .bottom-actions { 
@@ -471,7 +477,7 @@
                 <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
 
                 <h4 class="content-block-title">Jalannya Acara</h4>
-                <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, and menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
+                <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
 
                 <div class="news-banner-container">
                     <img src="mc.jpg" alt="Suasana Pembukaan Acara">
