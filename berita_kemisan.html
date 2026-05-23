@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan" />
     <meta name="twitter:description" content="Liputan pengajian rutin bersama Al-Ustadz H. Wismo di Jatisari, Karawang." />
     <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
-   
+     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,35 +122,36 @@
         }
 
         /* ==========================================================================
-           3. MAIN CONTAINER & TWO COLUMN LAYOUT SYSTEM
+           3. MAIN CONTAINER & FULL WIDTH LAYOUT SYSTEM
            ========================================================================== */
-       .container { 
-    padding: 3rem 4%; /* Diubah dari 15% ke 4% agar kartu melebar penuh ke kanan-kiri */
-    flex: 1; 
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Menjaga konten tetap presisi di tengah layar */
-}
+        .container { 
+            padding: 3rem 4%; 
+            flex: 1; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.full-news-card {
-    background: var(--white);
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    overflow: hidden;
-    width: 100%; /* Memaksa kartu menggunakan seluruh ruang container */
-    max-width: 1200px; /* Batas aman opsional agar teks berita tidak terlalu melar di monitor ultra-lebar */
-}
+        .full-news-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            width: 100%; 
+            max-width: 1200px; /* Melebar penuh dengan gagah di desktop */
+        }
 
         /* ==========================================================================
-           4. ARTIKEL KONTEN & BANNER DOCUMENTATION
+           4. ARTIKEL KONTEN & MEDIA BANNER
            ========================================================================== */
         .hero-banner {
             width: 100%;
-            max-height: 520px; /* Ditambah sedikit agar proporsi desktop ideal */
+            max-height: 520px; 
             overflow: hidden;
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             border: 1px solid #ddd;
             background-color: #f7f7f7;
             display: flex;
@@ -161,10 +162,60 @@
         .hero-banner img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ganti ke contain agar gambar pamflet tidak terpotong di desktop */
+            object-fit: contain; 
             object-position: center; 
         }
 
+        .news-banner-container {
+            width: 100%;
+            margin: 30px 0;
+            background: #fdfdfd;
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .news-banner-container img {
+            width: 100%;
+            height: auto;          
+            object-fit: cover;     
+            object-position: center; 
+            border-radius: 6px;
+            display: block;
+        }
+
+        .news-banner-caption {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            margin-top: 8px;
+            display: block;
+        }
+
+        /* ==========================================================================
+           TRIK INTI: Batasi Lebar Teks di Desktop Supaya Nyaman Dibaca (750px)
+           ========================================================================== */
+        @media (min-width: 769px) {
+            .news-header h2,
+            .news-meta,
+            .news-body-content p,
+            .content-block-title,
+            .news-quote-box,
+            .news-bullet-list,
+            .news-footer {
+                max-width: 750px;       
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            .news-quote-box {
+                margin-top: 30px !important;
+                margin-bottom: 30px !important;
+            }
+        }
+
+        /* Gaya Tipografi & Desain Artikel */
         .news-header {
             border-bottom: 2px solid #eee;
             padding-bottom: 20px;
@@ -184,7 +235,7 @@
         }
 
         .news-header h2 {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             color: #111;
             line-height: 1.4;
             margin-bottom: 15px;
@@ -196,7 +247,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
             gap: 12px 16px; 
-            margin-bottom: 25px;
+            margin-bottom: 10px;
         }
 
         .news-meta span {
@@ -224,45 +275,10 @@
             text-align: justify;
         }
 
-        .news-body-content strong.location {
-            color: var(--primary-color);
-            letter-spacing: 0.5px;
-        }
-
-        /* Container Media Foto Kegiatan */
-        .news-banner-container {
-            width: 100%;
-            margin: 20px 0 30px 0;
-            background: #fdfdfd;
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-       /* Cari kode ini di sekitar baris 208, lalu GANTI dengan kode di bawah: */
-.news-banner-container img {
-    width: 100%;
-    height: auto;          /* Mengikuti tinggi asli gambar secara proporsional */
-    object-fit: cover;     /* Tetap penuh semisal rasio meleset sedikit */
-    object-position: center; /* Fokus di tengah gambar */
-    border-radius: 6px;
-    display: block;
-}
-        .news-banner-caption {
-            font-size: 0.8rem;
-            color: #666;
-            text-align: center;
-            font-style: italic;
-            margin-top: 8px;
-            display: block;
-        }
-
-        /* Tipografi Teks Berita */
         .content-block-title {
             color: var(--primary-color);
             font-size: 1.2rem;
-            margin: 30px 0 15px;
+            margin: 35px 0 15px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -270,7 +286,6 @@
             padding-left: 10px;
         }
 
-        /* Blok Kutipan Khusus / Nasihat */
         .news-quote-box {
             background: #f1f8f1;
             border-left: 5px solid var(--primary-color);
@@ -286,7 +301,6 @@
             font-weight: 500;
         }
 
-        /* List Poin Elemen Islami */
         .news-bullet-list {
             list-style: none;
             margin-bottom: 25px;
@@ -297,6 +311,7 @@
             position: relative;
             padding-left: 25px;
             margin-bottom: 12px;
+            font-size: 1.02rem;
         }
 
         .news-bullet-list li::before {
@@ -305,7 +320,7 @@
             font-weight: 900;
             position: absolute;
             left: 0;
-            top: 0;
+            top: 2px;
             color: var(--primary-color);
         }
 
@@ -328,7 +343,6 @@
             margin-bottom: 10px; 
             width: 100%;
             padding: 0 16px;
-            box-sizing: border-box; 
         }
 
         .btn-kembali {
@@ -344,11 +358,9 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
             width: 100%;
-            flex: 1; 
-            max-width: 420px; /* Sesuai standar desktop agar proporsional */
+            max-width: 420px; 
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            box-sizing: border-box;
         }
 
         .btn-kembali:hover { 
@@ -357,9 +369,7 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
-        .btn-kembali i {
-            margin-right: 10px;
-        }
+        .btn-kembali i { margin-right: 10px; }
   
         /* ==========================================================================
            5. FOOTER AREA (SERAGAM STRUKTUR MASTER)
@@ -385,10 +395,8 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           6. BLOK RESPONSIVE / LAYOUT SELEKSI LAPTOP DAN HP
+           6. BLOK RESPONSIVE / SELEKSI LAPTOP DAN HP
            ========================================================================== */
-        
-        /* TAMPILAN DESKTOP & LAPTOP (Lebar Layar Besar) */
         @media (min-width: 769px) {
             .news-meta {
                 display: flex;
@@ -398,12 +406,8 @@
             .news-meta span {
                 white-space: nowrap;
             }
-            .hero-banner img {
-                object-fit: contain; /* Mengunci agar pamflet tidak pecah/terpotong di PC */
-            }
         }
 
-        /* TAMPILAN MOBILE / HP (Maksimal Layar 768px) */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
@@ -449,19 +453,15 @@
             .container { padding: 2rem 4%; }
             .full-news-card { padding: 20px; }
             
-            /* Gambar banner di HP dikembalikan ke cover agar estetis mengikuti container kecil */
             .hero-banner { max-height: 260px; margin-bottom: 20px; }
             .hero-banner img { object-fit: cover; }
 
             .news-header h2 { font-size: 1.35rem; }
             .news-meta { grid-template-columns: repeat(2, 1fr); gap: 10px 14px; font-size: 0.8rem; }
-            .news-body-content { font-size: 0.98rem; }
+            .news-body-content p { font-size: 0.98rem; }
             .news-banner-container { margin: 15px 0 20px 0; padding: 5px; }
 
-            /* Perbaikan mutlak layout full width tombol kembali pada HP */
-            .bottom-actions {
-                padding: 0 4px;
-            }
+            .bottom-actions { padding: 0 4px; }
             .btn-kembali { 
                 width: 100%;                    
                 max-width: 100%;
@@ -516,7 +516,7 @@
             <div class="news-body-content">
                 <p><strong>KARAWANG</strong> – Majlis Ta’lim Roudhotul Baniin kembali menggelar kegiatan pengajian rutin mingguan khusus ibu-ibu yang akrab dikenal dengan sebutan "Pengajian Kemisan". Kegiatan yang penuh keberkahan ini dilaksanakan bertempat di gedung Majlis Ta’lim Roudhotul Baniin, Dusun Sukamaju II RT 02/RW 04, Desa Jatisari, Kecamatan Jatisari, Kabupaten Karawang.</p>
                 
-                <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
+                <p>Acara berlangsung dengan sangat khidmat and dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
 
                 <h4 class="content-block-title"><i class="fas fa-star"></i> Jalannya Acara</h4>
                 <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
@@ -531,7 +531,7 @@
                 <h4 class="content-block-title"><i class="fas fa-book-open"></i> Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h4>
                 <p>Pada kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
                 
-                <p>Dalam penyampaiannya, beliau menekankan bahwa memahami and memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
+                <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
 
                 <div class="news-banner-container">
                     <img src="muallim.jpg" alt="Penyampaian Materi Al-Ustadz H. Wismo">
@@ -570,7 +570,7 @@
         <div class="bottom-actions">
             <a href="galeri.html" class="btn-kembali">
                 <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita
-            </a>       
+            </a>        
         </div>
     </main> 
 
@@ -646,4 +646,3 @@
     </script>
 </body>
 </html>
- 
