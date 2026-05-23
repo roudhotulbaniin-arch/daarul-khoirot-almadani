@@ -124,7 +124,7 @@
             overflow: hidden;
             width: 100%; 
             max-width: 1100px; 
-            margin-bottom: 25px; /* Jarak aman antara bawah kartu dengan tombol */
+            margin-bottom: 25px; 
         }
 
         /* ==========================================================================
@@ -169,7 +169,7 @@
         }
 
         /* ==========================================================================
-           5. SEKTOR TEKS DALAM ARTIKEL (PADDING 35PX DI DESKTOP)
+           5. SEKTOR TEKS DALAM ARTIKEL (DESKTOP DEFAULT)
            ========================================================================== */
         .news-header,
         .news-body-content > p,
@@ -235,8 +235,8 @@
             margin: 35px 0 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border-left: 4px solid var(--secondary-color);
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 12px;
         }
 
         /* Box Kutipan (Quote) */
@@ -294,14 +294,12 @@
             color: #777;
         }
 
-        /* ==========================================================================
-           5B. AREA ACTIONS (DI LUAR KARTU - LEBAR SEJAJAR DENGAN KARTU UTAMA)
-           ========================================================================== */
+        /* AREA ACTIONS (DI LUAR KARTU) */
         .bottom-actions {
             width: 100%;
-            max-width: 1100px; /* Dikunci agar sejajar sempurna dengan lebar luar kartu berita */
+            max-width: 1100px; 
             margin-bottom: 15px;
-            padding: 0; /* Tidak butuh padding di desktop karena sudah pas dengan lebar batas kartu */
+            padding: 0; 
         }
 
         .btn-kembali {
@@ -346,7 +344,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           7. RESPONSIVE LAYER (MOBILE / HP)
+           7. RESPONSIVE LAYER (OPTIMASI KHUSUS HP / MOBILE)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -382,27 +380,36 @@
             nav.show ul { display: flex !important; }
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            .container { padding: 1.2rem 3%; }
+            /* PERBAIKAN 1: Padding kiri-kanan luar kartu ditambah (dari 3% menjadi 5%) agar kartu tidak terlalu melar memenuhi layar */
+            .container { padding: 1.2rem 5%; }
             
             .full-news-card { margin-bottom: 20px; }
 
+            /* Gambar dokumentasi menyesuaikan dengan padding baru dalam kartu */
             .news-banner-container { 
-                padding: 0 18px; 
+                padding: 0 24px; 
                 margin: 20px 0; 
             }
             
-            /* Jarak teks bagian dalam artikel di HP */
+            /* PERBAIKAN 2: Padding dalam kartu dipertebal (dari 18px ke 24px) agar teks berjarak aman & mewah */
             .news-header,
             .news-body-content > p,
             .content-block-title,
             .news-quote-box,
             .news-bullet-list,
             .news-footer {
-                padding-left: 18px;
-                padding-right: 18px;
+                padding-left: 24px;
+                padding-right: 24px;
             }
 
-            /* Penyesuaian tombol di HP saat di luar kartu agar sejajar dengan dinding luar kartu */
+            /* PERBAIKAN 3: Padding sub-judul diselaraskan agar garis kuning masuk dan tidak mepet dinding luar */
+            .content-block-title {
+                border-left: 5px solid var(--secondary-color);
+                padding-left: 12px;
+                margin-left: 0; 
+            }
+
+            /* Penyesuaian area tombol agar lurus presisi dengan pinggir luar kartu */
             .bottom-actions { 
                 padding: 0; 
                 margin-bottom: 25px; 
@@ -502,7 +509,7 @@
 
                 <div class="news-banner-container">
                     <img src="mustami.jpg" alt="Foto Jamaah Pengajian">
-                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias and khidmat.</span>
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
                 </div>
 
                 <h4 class="content-block-title">Penutup</h4>
