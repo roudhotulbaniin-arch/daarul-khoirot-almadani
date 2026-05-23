@@ -25,7 +25,7 @@
 
     <style>
         /* ==========================================================================
-           1. DESIGN VARIABLES, FONTS & RESET (SERAGAM STRUKTUR MASTER)
+           1. DESIGN VARIABLES, FONTS & RESET
            ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
@@ -59,12 +59,11 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif;
             font-weight: 700;
         }
 
         /* ==========================================================================
-           2. HEADER & NAVIGASI DESKTOP (SERAGAM STRUKTUR MASTER)
+           2. HEADER & NAVIGASI DESKTOP
            ========================================================================== */
         header {
             background-color: var(--primary-color); 
@@ -122,7 +121,7 @@
         }
 
         /* ==========================================================================
-           3. MAIN CONTAINER & FULL WIDTH LAYOUT SYSTEM
+           3. MAIN CONTAINER & KARTU UTAMA (PADDING 40PX)
            ========================================================================== */
         .container { 
             padding: 3rem 4%; 
@@ -135,93 +134,100 @@
 
         .full-news-card {
             background: var(--white);
-            padding: 40px;
+            padding: 40px; /* Jarak aman konten teks ke dinding kartu di desktop */
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             overflow: hidden;
             width: 100%; 
-            max-width: 1200px; /* Melebar penuh dengan gagah di desktop */
+            max-width: 1200px; /* Lebar maksimal kontainer halaman */
         }
 
         /* ==========================================================================
-           4. ARTIKEL KONTEN & MEDIA BANNER
+           4. SEKTOR TEKS: MAKSIMAL FULL WIDTH MENGIKUTI LEBAR KARTU (100%)
            ========================================================================== */
+        .news-header,
+        .news-body-content,
+        .news-body-content p,
+        .content-block-title,
+        .news-quote-box,
+        .news-bullet-list,
+        .news-footer {
+            width: 100% !important;
+            max-width: 100% !important; /* Teks melar penuh tanpa dibatasi lagi */
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .news-body-content p {
+            text-align: justify; /* Membuat teks rata kanan-kiri yang rapi */
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #333;
+        }
+
+        .news-header h2 {
+            font-size: 1.9rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        /* ==========================================================================
+           5. SEKTOR MEDIA: TERBANG KELUAR MENEMBUS PADDING KARTU (BREAKOUT)
+           ========================================================================== */
+        
+        /* Banner Utama Top Mentok */
         .hero-banner {
-            width: 100%;
+            width: calc(100% + 80px); /* 80px didapat dari padding kiri 40px + kanan 40px */
+            margin-left: -40px;       /* Geser paksa menembus padding kiri */
+            margin-right: -40px;      /* Geser paksa menembus padding kanan */
+            margin-top: -40px;        /* Mentok menembus padding atas kartu */
+            margin-bottom: 35px;
             max-height: 520px; 
             overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 35px;
-            border: 1px solid #ddd;
             background-color: #f7f7f7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .hero-banner img {
             width: 100%;
             height: 100%;
-            object-fit: contain; 
+            object-fit: cover; 
             object-position: center; 
         }
 
+        /* Wadah Gambar Dokumentasi di Dalam Berita */
         .news-banner-container {
-            width: 100%;
-            margin: 30px 0;
+            width: calc(100% + 80px); /* Melebar menembus padding */
+            margin-left: -40px;       /* Geser menembus kiri */
+            margin-right: -40px;      /* Geser menembus kanan */
+            margin-top: 35px;
+            margin-bottom: 35px;
             background: #fdfdfd;
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .news-banner-container img {
             width: 100%;
             height: auto;          
+            max-height: 580px;
             object-fit: cover;     
             object-position: center; 
-            border-radius: 6px;
             display: block;
         }
 
         .news-banner-caption {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #666;
             text-align: center;
             font-style: italic;
-            margin-top: 8px;
+            margin: 12px 0;
             display: block;
         }
 
         /* ==========================================================================
-           TRIK INTI: Batasi Lebar Teks di Desktop Supaya Nyaman Dibaca (750px)
+           6. KOMPONEN DETAIL & AKSESORIS ARTIKEL
            ========================================================================== */
-        @media (min-width: 769px) {
-            .news-header h2,
-            .news-meta,
-            .news-body-content p,
-            .content-block-title,
-            .news-quote-box,
-            .news-bullet-list,
-            .news-footer {
-                max-width: 750px;       
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-            .news-quote-box {
-                margin-top: 30px !important;
-                margin-bottom: 30px !important;
-            }
-        }
-
-        /* Gaya Tipografi & Desain Artikel */
-        .news-header {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-        }
-
         .news-tag {
             background: #e6f0e6;
             color: var(--primary-color);
@@ -234,45 +240,27 @@
             margin-bottom: 10px;
         }
 
-        .news-header h2 {
-            font-size: 1.9rem;
-            color: #111;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
         .news-meta {
             font-size: 0.85rem;
             color: #666;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px 16px; 
-            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px; 
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
         }
 
         .news-meta span {
             display: flex;
             align-items: center; 
-            white-space: normal; 
-            line-height: 1.3;
+            white-space: nowrap; 
         }
 
         .news-meta span i {
             color: var(--primary-color);
             margin-right: 8px;
             font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 16px; 
-            flex-shrink: 0; 
-        }
- 
-        .news-body-content p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            color: #333;
-            text-align: justify;
         }
 
         .content-block-title {
@@ -290,13 +278,13 @@
             background: #f1f8f1;
             border-left: 5px solid var(--primary-color);
             padding: 20px;
-            margin: 25px 0;
+            margin: 30px 0;
             border-radius: 0 8px 8px 0;
             font-style: italic;
         }
 
         .news-quote-box p {
-            margin-bottom: 0;
+            margin-bottom: 0 !important;
             color: #1a5d1a;
             font-weight: 500;
         }
@@ -312,6 +300,7 @@
             padding-left: 25px;
             margin-bottom: 12px;
             font-size: 1.02rem;
+            text-align: justify;
         }
 
         .news-bullet-list li::before {
@@ -334,7 +323,7 @@
             color: #777;
         }
 
-        /* --- LAYOUT BUTTON BAWAH --- */
+        /* Tombol Aksi Kembali */
         .bottom-actions {
             display: flex;
             justify-content: center;
@@ -372,7 +361,7 @@
         .btn-kembali i { margin-right: 10px; }
   
         /* ==========================================================================
-           5. FOOTER AREA (SERAGAM STRUKTUR MASTER)
+           7. FOOTER AREA
            ========================================================================== */
         footer { 
             background: var(--primary-dark); 
@@ -395,28 +384,17 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           6. BLOK RESPONSIVE / SELEKSI LAPTOP DAN HP
+           8. RESPONSIVE LAYER UNTUK HP / MOBILE (BREAKOUT DI HP)
            ========================================================================== */
-        @media (min-width: 769px) {
-            .news-meta {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 24px;
-            }
-            .news-meta span {
-                white-space: nowrap;
-            }
-        }
-
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo img { height: 35px; }
-            .logo h1 { font-size: 0.95rem !important; }
+            .logo h1 { font-size: 0.95rem; }
 
             #menu-toggle {
-                display: block !important;  
-                background: var(--secondary-color) !important;
-                color: var(--primary-color) !important;
+                display: block;  
+                background: var(--secondary-color);
+                color: var(--primary-color);
                 border: none;
                 padding: 6px 14px;
                 border-radius: 4px;
@@ -441,7 +419,7 @@
             }
             
             nav.show ul { display: flex !important; }
-            nav ul li a { color: white !important; padding: 0 !important; width: auto; padding-bottom: 0 !important; }
+            nav ul li a { color: white !important; padding: 0; width: auto; }
 
             nav ul li a.active-link {
                 border-bottom: none !important;
@@ -450,25 +428,29 @@
                 color: var(--secondary-color) !important;
             }
 
-            .container { padding: 2rem 4%; }
+            .container { padding: 1.5rem 4%; }
+            
+            /* Penyesuaian Padding kartu & Negative Margin khusus HP */
             .full-news-card { padding: 20px; }
             
-            .hero-banner { max-height: 260px; margin-bottom: 20px; }
-            .hero-banner img { object-fit: cover; }
+            .hero-banner {
+                width: calc(100% + 40px); /* 20px kiri + 20px kanan */
+                margin-left: -20px;
+                margin-right: -20px;
+                margin-top: -20px;
+                max-height: 260px;
+            }
+
+            .news-banner-container {
+                width: calc(100% + 40px);
+                margin-left: -20px;
+                margin-right: -20px;
+            }
 
             .news-header h2 { font-size: 1.35rem; }
-            .news-meta { grid-template-columns: repeat(2, 1fr); gap: 10px 14px; font-size: 0.8rem; }
-            .news-body-content p { font-size: 0.98rem; }
-            .news-banner-container { margin: 15px 0 20px 0; padding: 5px; }
-
-            .bottom-actions { padding: 0 4px; }
-            .btn-kembali { 
-                width: 100%;                    
-                max-width: 100%;
-                flex: 1;
-                padding: 14px 20px;      
-                font-size: 1.05rem;         
-            }
+            .news-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .news-body-content p { font-size: 1.02rem; }
+            .btn-kembali { max-width: 100%; }
         }
     </style>
 </head>
@@ -594,7 +576,6 @@
             
             let hasInteracted = false;
 
-            // Auto-play Murottal saat interaksi pertama layar
             function playMurottal() {
                 if (!hasInteracted && murottal) {
                     murottal.volume = 0.3; 
@@ -607,7 +588,6 @@
             document.addEventListener('click', playMurottal);
             document.addEventListener('touchstart', playMurottal); 
 
-            // Toggle Buka/Tutup Menu HP
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -615,7 +595,6 @@
                 });
             }
 
-            // Audio click delay system saat pindah page
             menuItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
@@ -636,7 +615,6 @@
                 });
             });
 
-            // Tutup menu jika klik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
