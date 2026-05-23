@@ -128,7 +128,7 @@
         }
 
         /* ==========================================================================
-           4. SEKTOR GAMBAR (JARAK AMAN DI DESKTOP & MOBILE)
+           4. SEKTOR GAMBAR
            ========================================================================== */
         .hero-banner {
             width: 100%;
@@ -169,7 +169,7 @@
         }
 
         /* ==========================================================================
-           5. SEKTOR TEKS & ACTIONS (DIPERBAIKI UNTUK TOMBOL FULL WIDTH)
+           5. SEKTOR TEKS & ACTIONS (Sempurna Full-Width)
            ========================================================================== */
         .news-header,
         .news-body-content > p,
@@ -287,7 +287,7 @@
         .news-footer {
             margin-top: 40px;
             padding-top: 20px;
-            padding-bottom: 30px;
+            padding-bottom: 25px;
             border-top: 1px solid #eee;
             display: flex;
             justify-content: space-between;
@@ -295,28 +295,28 @@
             color: #777;
         }
 
-        /* Pembungkus Tombol Kembali */
+        /* Pembungkus Tombol */
         .bottom-actions {
-            margin-top: 10px; 
-            margin-bottom: 35px;
-            display: block; /* Menghilangkan flex agar tombol melebar alami */
+            margin-top: 5px; 
+            margin-bottom: 40px;
         }
 
-        /* Perbaikan Utama: Dibuat full width (100%) tanpa batas max-width di desktop & mobile */
+        /* Perbaikan Intensif: display diubah ke flex penuh agar mekar horizontal 100% secara solid */
         .btn-kembali {
             color: white;
             background: var(--primary-color);
-            padding: 14px 24px;
+            padding: 15px 24px;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
-            display: inline-flex;
+            display: flex;            /* Menggantikan inline-flex agar merata total */
             align-items: center;
             justify-content: center;
             font-size: 1rem;
             transition: all 0.3s ease;
-            width: 100%; /* Menempati seluruh lebar konten yang tersedia */
+            width: 100%;             /* Mengunci lebar tombol 100% mengikuti kontainer teks */
             box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            text-align: center;
         }
 
         .btn-kembali:hover { 
@@ -387,7 +387,7 @@
                 margin: 20px 0; 
             }
             
-            /* Menyesuaikan padding jarak aman di layar HP */
+            /* Jarak aman sisi kanan-kiri di HP */
             .news-header,
             .news-body-content > p,
             .content-block-title,
@@ -399,7 +399,15 @@
                 padding-right: 18px;
             }
 
-            .bottom-actions { margin-bottom: 25px; }
+            .bottom-actions { margin-bottom: 30px; }
+            
+            /* Optimasi Teks Tombol di HP agar pas satu baris & ukuran proporsional */
+            .btn-kembali {
+                font-size: 0.9rem;
+                padding: 13px 16px;
+                white-space: nowrap; /* Mencegah teks terpotong canggung ke bawah jika layar cukup */
+            }
+
             .news-header h2 { font-size: 1.4rem; }
             .news-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
             .news-body-content p { font-size: 1rem; }
