@@ -128,22 +128,21 @@
         }
 
         /* ==========================================================================
-           4. SEKTOR GAMBAR (OPTIMASI BANNER UTAMA & BANNER DOKUMENTASI)
+           4. SEKTOR GAMBAR
            ========================================================================== */
-        /* PERBAIKAN UTAMA: Banner Atas diberikan ruang masuk aman dari batas kartu */
         .hero-banner {
             width: 100%;
             max-height: 550px;
             overflow: hidden;
             background-color: transparent;
-            padding: 35px 35px 0 35px; /* Memberikan padding atas, kanan, dan kiri */
+            padding: 35px 35px 0 35px; 
         }
 
         .hero-banner img {
             width: 100%;
             height: auto; 
             display: block;
-            border-radius: 8px; /* Sudut melengkung agar serasi dengan kartu */
+            border-radius: 8px; 
             border: 1px solid var(--border-color);
         }
 
@@ -209,6 +208,7 @@
             display: inline-block;
         }
 
+        /* PERBAIKAN: Menggunakan kode baru Anda dengan flex & penyesuaian alamat */
         .news-meta {
             font-size: 0.8rem;
             color: #666;
@@ -223,6 +223,12 @@
         .news-meta span i {
             color: var(--primary-color);
             margin-right: 3px;
+        }
+
+        /* Kelas khusus agar teks alamat aman dipaksa selalu 1 baris */
+        .meta-alamat {
+            flex-basis: 100%; /* Membuat baris alamat berdiri sendiri jika di layar sempit */
+            white-space: nowrap;
         }
 
         .news-body-content p {
@@ -285,13 +291,15 @@
             color: var(--primary-color);
         }
 
+        /* PERBAIKAN: Diubah penuh menjadi susun ke bawah (vertikal) */
         .news-footer {
             margin-top: 40px;
             padding-top: 20px;
             padding-bottom: 35px;
             border-top: 1px solid #eee;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* Mengubah susunan ke bawah */
+            gap: 8px;               /* Memberikan jarak renggang antar baris */
             font-size: 0.9rem;
             color: #777;
         }
@@ -346,7 +354,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           7. RESPONSIVE LAYER (OPTIMASI TOTAL UNTUK LAYAR HP)
+           7. RESPONSIVE LAYER (OPTIMASI HP / MOBILE)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -386,7 +394,6 @@
             
             .full-news-card { margin-bottom: 20px; }
 
-            /* PERBAIKAN HP: Menyelaraskan padding banner atas di handphone agar masuk 24px */
             .hero-banner {
                 padding: 24px 24px 0 24px;
             }
@@ -396,7 +403,6 @@
                 margin: 20px 0; 
             }
             
-            /* Jarak aman bagian dalam teks di HP (Diatur 24px) */
             .news-header,
             .news-body-content > p,
             .news-quote-box,
@@ -406,7 +412,14 @@
                 padding-right: 24px;
             }
 
-            /* Sub-judul presisi di HP */
+            /* Di HP, alamat tetap dipaksa 1 baris mendatar tanpa merusak layout grid asal */
+            .meta-alamat {
+                grid-column: span 2; 
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis; /* Otomatis memotong manis dengan titik-titik (...) jika layar HP terlalu super kecil */
+            }
+
             .content-block-title {
                 margin: 35px 24px 15px 24px; 
                 border-left: 5px solid var(--secondary-color);
@@ -425,7 +438,15 @@
             }
 
             .news-header h2 { font-size: 1.4rem; }
-            .news-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+            
+            /* Grid tetap rapi untuk meta data lainnya di HP */
+            .news-meta { 
+                display: flex; 
+                flex-wrap: wrap;
+                gap: 10px 15px; 
+                margin-bottom: 15px; 
+            }
+            
             .news-body-content p { font-size: 1rem; }
         }
     </style>
@@ -465,9 +486,9 @@
                 <h2>Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan</h2>
                 <div class="news-meta">
                     <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
                     <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
                     <span><i class="fas fa-user-friends"></i> Admin</span>
+                    <span class="meta-alamat"><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
                 </div>
             </div> 
 
@@ -522,8 +543,8 @@
             </div>
 
             <div class="news-footer">
-                <span>Kategori: Liputan Kegiatan</span>
-                <span>Kontributor: Dokumentasi Internal</span>
+                <span><strong>Kategori:</strong> Liputan Kegiatan</span>
+                <span><strong>Kontributor:</strong> Dokumentasi Internal</span>
             </div>
         </article>   
 
