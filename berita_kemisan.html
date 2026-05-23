@@ -25,7 +25,7 @@
 
     <style>
         /* ==========================================================================
-           1. DESIGN VARIABLES, FONTS & RESET
+           1. RESET & VARIABLE DASAR
            ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
@@ -34,7 +34,7 @@
             --light-bg: #f4f7f6;
             --white: #ffffff;
             --text-dark: #333333;
-            --border-color: #d4e4d4;
+            --border-color: #eef4ee;
         }
 
         * { 
@@ -42,10 +42,6 @@
             padding: 0; 
             box-sizing: border-box; 
             font-family: 'Quicksand', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body { 
@@ -58,12 +54,8 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-        }
-
         /* ==========================================================================
-           2. HEADER & NAVIGASI DESKTOP
+           2. HEADER & NAVIGASI
            ========================================================================== */
         header {
             background-color: var(--primary-color); 
@@ -85,7 +77,6 @@
             text-decoration: none;
             color: white;
             gap: 12px;
-            flex-shrink: 0;
         }
 
         .logo img { height: 40px; width: auto; display: block; }
@@ -107,24 +98,17 @@
             align-items: center; 
             gap: 6px; 
             transition: 0.3s;
-            position: relative;
             padding-bottom: 5px;
         }
 
-        nav ul li a:hover {
-            color: var(--secondary-color) !important;
-        }
-
-        nav ul li a.active-link {
-            border-bottom: 3px solid var(--secondary-color) !important;
-            color: var(--secondary-color) !important;
-        }
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+        nav ul li a.active-link { border-bottom: 3px solid var(--secondary-color) !important; color: var(--secondary-color) !important; }
 
         /* ==========================================================================
-           3. MAIN CONTAINER & KARTU UTAMA (PADDING 40PX)
+           3. CONTAINER & STRUKTUR UTAMA KARTU (PADDING O)
            ========================================================================== */
         .container { 
-            padding: 3rem 4%; 
+            padding: 2.5rem 4%; 
             flex: 1; 
             width: 100%;
             display: flex;
@@ -134,100 +118,85 @@
 
         .full-news-card {
             background: var(--white);
-            padding: 40px; /* Jarak aman konten teks ke dinding kartu di desktop */
+            padding: 0 !important; /* WAJIB 0: Agar gambar menempel sempurna ke dinding kartu */
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             overflow: hidden;
             width: 100%; 
-            max-width: 1200px; /* Lebar maksimal kontainer halaman */
-        }
-
-        /* ==========================================================================
-           4. SEKTOR TEKS: MAKSIMAL FULL WIDTH MENGIKUTI LEBAR KARTU (100%)
-           ========================================================================== */
-        .news-header,
-        .news-body-content,
-        .news-body-content p,
-        .content-block-title,
-        .news-quote-box,
-        .news-bullet-list,
-        .news-footer {
-            width: 100% !important;
-            max-width: 100% !important; /* Teks melar penuh tanpa dibatasi lagi */
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-
-        .news-body-content p {
-            text-align: justify; /* Membuat teks rata kanan-kiri yang rapi */
+            max-width: 1100px; 
             margin-bottom: 20px;
-            font-size: 1.05rem;
-            color: #333;
-        }
-
-        .news-header h2 {
-            font-size: 1.9rem;
-            color: #111;
-            line-height: 1.4;
-            margin-bottom: 15px;
         }
 
         /* ==========================================================================
-           5. SEKTOR MEDIA: TERBANG KELUAR MENEMBUS PADDING KARTU (BREAKOUT)
+           4. SEKTOR GAMBAR: OTOMATIS FULL WIDTH 100% MENGIKUTI KARTU
            ========================================================================== */
-        
-        /* Banner Utama Top Mentok */
         .hero-banner {
-            width: calc(100% + 80px); /* 80px didapat dari padding kiri 40px + kanan 40px */
-            margin-left: -40px;       /* Geser paksa menembus padding kiri */
-            margin-right: -40px;      /* Geser paksa menembus padding kanan */
-            margin-top: -40px;        /* Mentok menembus padding atas kartu */
-            margin-bottom: 35px;
-            max-height: 520px; 
+            width: 100%;
+            max-height: 550px;
             overflow: hidden;
-            background-color: #f7f7f7;
+            background-color: #f9f9f9;
         }
 
         .hero-banner img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
-            object-position: center; 
+            object-fit: cover;
+            display: block;
         }
 
-        /* Wadah Gambar Dokumentasi di Dalam Berita */
         .news-banner-container {
-            width: calc(100% + 80px); /* Melebar menembus padding */
-            margin-left: -40px;       /* Geser menembus kiri */
-            margin-right: -40px;      /* Geser menembus kanan */
-            margin-top: 35px;
-            margin-bottom: 35px;
-            background: #fdfdfd;
+            width: 100%;
+            margin: 35px 0;
+            background-color: #fdfdfd;
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
         }
 
         .news-banner-container img {
             width: 100%;
-            height: auto;          
-            max-height: 580px;
-            object-fit: cover;     
-            object-position: center; 
+            height: auto;
+            max-height: 600px;
+            object-fit: cover;
             display: block;
         }
 
         .news-banner-caption {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: #666;
             text-align: center;
             font-style: italic;
-            margin: 12px 0;
             display: block;
+            padding: 12px 35px; /* Sinkron dengan jarak teks */
+            background-color: #fafafa;
         }
 
         /* ==========================================================================
-           6. KOMPONEN DETAIL & AKSESORIS ARTIKEL
+           5. SEKTOR TEKS: FULL WIDTH TAPI BERJARAK AMAN (PADDING 35PX)
            ========================================================================== */
+        .news-header,
+        .news-body-content > p,
+        .content-block-title,
+        .news-quote-box,
+        .news-bullet-list,
+        .news-footer {
+            padding-left: 35px;  /* Jarak teks dari dinding kiri kartu */
+            padding-right: 35px; /* Jarak teks dari dinding kanan kartu */
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .news-header {
+            margin-top: 30px;
+        }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+
         .news-tag {
             background: #e6f0e6;
             color: var(--primary-color);
@@ -237,7 +206,6 @@
             font-weight: bold;
             text-transform: uppercase;
             display: inline-block;
-            margin-bottom: 10px;
         }
 
         .news-meta {
@@ -245,22 +213,22 @@
             color: #666;
             display: flex;
             flex-wrap: wrap;
-            gap: 24px; 
-            margin-bottom: 20px;
-            border-bottom: 2px solid #eee;
+            gap: 20px; 
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
             padding-bottom: 15px;
-        }
-
-        .news-meta span {
-            display: flex;
-            align-items: center; 
-            white-space: nowrap; 
         }
 
         .news-meta span i {
             color: var(--primary-color);
-            margin-right: 8px;
-            font-size: 0.95rem;
+            margin-right: 6px;
+        }
+
+        .news-body-content p {
+            text-align: justify; /* Teks rata kanan-kiri penuh */
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+            color: #333;
         }
 
         .content-block-title {
@@ -271,28 +239,32 @@
             align-items: center;
             gap: 10px;
             border-left: 4px solid var(--secondary-color);
-            padding-left: 10px;
         }
 
+        /* Box Kutipan (Quote) */
         .news-quote-box {
-            background: #f1f8f1;
-            border-left: 5px solid var(--primary-color);
-            padding: 20px;
             margin: 30px 0;
+        }
+
+        .news-quote-wrapper {
+            background: #f2f8f2;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px 25px;
             border-radius: 0 8px 8px 0;
             font-style: italic;
         }
 
-        .news-quote-box p {
+        .news-quote-wrapper p {
             margin-bottom: 0 !important;
-            color: #1a5d1a;
+            color: var(--primary-color);
             font-weight: 500;
         }
 
+        /* List Bullet */
         .news-bullet-list {
             list-style: none;
             margin-bottom: 25px;
-            padding-left: 5px;
+            padding-top: 5px;
         }
 
         .news-bullet-list li {
@@ -315,7 +287,8 @@
 
         .news-footer {
             margin-top: 40px;
-            padding-top: 15px;
+            padding-top: 20px;
+            padding-bottom: 30px;
             border-top: 1px solid #eee;
             display: flex;
             justify-content: space-between;
@@ -323,45 +296,41 @@
             color: #777;
         }
 
-        /* Tombol Aksi Kembali */
+        /* Tombol Kembali */
         .bottom-actions {
             display: flex;
             justify-content: center;
-            align-items: center;
-            margin-top: 30px; 
-            margin-bottom: 10px; 
+            margin-top: 25px; 
             width: 100%;
-            padding: 0 16px;
         }
 
         .btn-kembali {
             color: white;
             background: var(--primary-color);
-            padding: 14px 20px;
+            padding: 14px 24px;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             width: 100%;
-            max-width: 420px; 
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 380px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
         }
 
         .btn-kembali:hover { 
             background: #144614;
             transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
         }
 
         .btn-kembali i { margin-right: 10px; }
   
         /* ==========================================================================
-           7. FOOTER AREA
+           6. FOOTER AREA
            ========================================================================== */
         footer { 
             background: var(--primary-dark); 
@@ -372,19 +341,12 @@
             margin-top: auto;
         }
 
-        .f-title { 
-            font-size: 1.2rem; 
-            font-weight: bold; 
-            margin-bottom: 10px; 
-            color: var(--secondary-color); 
-            display: block; 
-        }
-        
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); display: block; }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           8. RESPONSIVE LAYER UNTUK HP / MOBILE (BREAKOUT DI HP)
+           7. RESPONSIVE LAYER (MOBILE / HP)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -414,43 +376,29 @@
                 padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
                 gap: 15px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
                 z-index: 999;
             }
             
             nav.show ul { display: flex !important; }
-            nav ul li a { color: white !important; padding: 0; width: auto; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            nav ul li a.active-link {
-                border-bottom: none !important;
-                border-left: 4px solid var(--secondary-color) !important;
-                padding-left: 10px !important;
-                color: var(--secondary-color) !important;
-            }
-
-            .container { padding: 1.5rem 4%; }
+            .container { padding: 1.2rem 3%; }
             
-            /* Penyesuaian Padding kartu & Negative Margin khusus HP */
-            .full-news-card { padding: 20px; }
-            
-            .hero-banner {
-                width: calc(100% + 40px); /* 20px kiri + 20px kanan */
-                margin-left: -20px;
-                margin-right: -20px;
-                margin-top: -20px;
-                max-height: 260px;
+            /* Kurangi ukuran padding teks di HP agar area baca lebih luas */
+            .news-header,
+            .news-body-content > p,
+            .content-block-title,
+            .news-quote-box,
+            .news-bullet-list,
+            .news-footer {
+                padding-left: 18px;
+                padding-right: 18px;
             }
 
-            .news-banner-container {
-                width: calc(100% + 40px);
-                margin-left: -20px;
-                margin-right: -20px;
-            }
-
-            .news-header h2 { font-size: 1.35rem; }
-            .news-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .news-body-content p { font-size: 1.02rem; }
-            .btn-kembali { max-width: 100%; }
+            .news-banner-caption { padding: 10px 18px; }
+            .news-header h2 { font-size: 1.4rem; }
+            .news-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+            .news-body-content p { font-size: 1rem; }
         }
     </style>
 </head>
@@ -498,9 +446,9 @@
             <div class="news-body-content">
                 <p><strong>KARAWANG</strong> – Majlis Ta’lim Roudhotul Baniin kembali menggelar kegiatan pengajian rutin mingguan khusus ibu-ibu yang akrab dikenal dengan sebutan "Pengajian Kemisan". Kegiatan yang penuh keberkahan ini dilaksanakan bertempat di gedung Majlis Ta’lim Roudhotul Baniin, Dusun Sukamaju II RT 02/RW 04, Desa Jatisari, Kecamatan Jatisari, Kabupaten Karawang.</p>
                 
-                <p>Acara berlangsung dengan sangat khidmat and dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
+                <p>Acara berlangsung dengan sangat khidmat dan dihadiri oleh kurang lebih 30 jamaah wanita yang berasal dari lingkungan sekitar pesantren serta desa setempat, yang antusias menuntut ilmu syar'i di sore hari.</p>
 
-                <h4 class="content-block-title"><i class="fas fa-star"></i> Jalannya Acara</h4>
+                <h4 class="content-block-title">Jalannya Acara</h4>
                 <p>Acara dibuka dan dipandu dengan sangat apik oleh <strong>Ummi Hani</strong> selaku Pembawa Acara (MC). Lantunan selawat dan zikir bersama menggema mengawali jalannya majelis, menciptakan suasana yang teduh, tenang, dan menenteramkan hati seluruh jamaah yang hadir sebelum memasuki sesi materi utama.</p>
 
                 <div class="news-banner-container">
@@ -510,7 +458,7 @@
                 
                 <p>Memasuki acara inti, tausiyah sekaligus pemaparan materi ilmiah keislaman disampaikan langsung oleh <strong>Al-Ustadz H. Wismo</strong>, selaku pimpinan dari Majlis Ta'lim Roudhotul Baniin.</p>
 
-                <h4 class="content-block-title"><i class="fas fa-book-open"></i> Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h4>
+                <h4 class="content-block-title">Urgensi Aqidah Al-Asy'ariyah dalam Keseharian</h4>
                 <p>Pada kesempatan kali ini, Al-Ustadz H. Wismo mengupas tuntas tema yang sangat fundamental, yaitu mengenai <strong>Aqidah Ahlus Sunnah Wal Jama'ah atau Aqidah Al-Asy'ariyah</strong>, beserta urgensi dan bentuk pengamalannya dalam kehidupan kita sehari-hari.</p>
                 
                 <p>Dalam penyampaiannya, beliau menekankan bahwa memahami dan memegang teguh madzhab aqidah ini merupakan benteng utama bagi umat Muslim di era modern saat ini agar tidak mudah terombang-ambing oleh berbagai paham radikal maupun liberal yang kian marak.</p>
@@ -521,10 +469,12 @@
                 </div>
 
                 <div class="news-quote-box">
-                    <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
+                    <div class="news-quote-wrapper">
+                        <p>"Aqidah Al-Asy'ariyah mengajarkan kita jalan tengah (tawassuth) yang moderat, santun, dan seimbang, sesuai dengan apa yang diteladankan oleh Rasulullah ﷺ serta para sahabat," ujar Al-Ustadz H. Wismo di hadapan puluhan jamaah.</p>
+                    </div>
                 </div>
 
-                <p>Lebih lanjut, beliau juga memaparan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
+                <p>Lebih lanjut, beliau juga memaparkan bentuk pengamalan konkret dari pondasi Aqidah Al-Asy'ariyah dalam aktivitas keseharian, di antaranya:</p>
                 
                 <ul class="news-bullet-list">
                     <li><strong>Menjaga Lisan dan Hati:</strong> Tidak mudah menghakimi, menyalahkan, apalagi mengkafirkan sesama Muslim hanya karena adanya perbedaan pandangan dalam masalah cabang <em>(furu'iyah)</em>.</li>
@@ -537,7 +487,7 @@
                     <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
                 </div>
 
-                <h4 class="content-block-title"><i class="fas fa-check-circle"></i> Penutup</h4>
+                <h4 class="content-block-title">Penutup</h4>
                 <p>Pengajian rutin Kemisan ini diakhiri dengan doa bersama yang dipimpin langsung oleh Al-Ustadz H. Wismo. Melalui kegiatan rutin ini, Majlis Ta'lim Roudhotul Baniin berharap dapat terus istiqamah menjadi wadah syiar Islam yang sejuk, mencerahkan, sekaligus mempererat tali silaturahmi antarwarga di wilayah Jatisari, Karawang.</p>
                 
                 <p style="text-align: right; margin-top: 30px; font-style: italic;">Khidmatul Ma'had – Admin.</p>
@@ -545,7 +495,7 @@
 
             <div class="news-footer">
                 <span>Kategori: Liputan Kegiatan</span>
-                <span class="reporter-tag">Kontributor: Dokumentasi Internal</span>
+                <span>Kontributor: Dokumentasi Internal</span>
             </div>
         </article>   
 
