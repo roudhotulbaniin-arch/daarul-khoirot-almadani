@@ -322,40 +322,45 @@
         }
 
         /* --- LAYOUT BUTTON BAWAH --- */
-        .bottom-actions {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px; 
-            margin-bottom: 10px; 
-            width: 100%;
-        }
+       .bottom-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px; 
+    margin-bottom: 10px; 
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box; /* Memastikan padding dihitung di dalam lebar kontainer */
+}
 
-        .btn-kembali {
-            color: white;
-            background: var(--primary-color);
-            padding: 14px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            min-width: 250px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+.btn-kembali {
+    color: white;
+    background: var(--primary-color);
+    padding: 14px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px; /* Batas maksimal lebar di layar besar/desktop agar tidak melar */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-sizing: border-box; /* Mengamankan ukuran tombol pada mobile */
+}
 
-        .btn-kembali:hover {
-            background: #144614;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
+.btn-kembali:hover { 
+    background: #144614;
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
 
-        .btn-kembali i {
-            margin-right: 10px;
-        }
+.btn-kembali i {
+    margin-right: 10px;
+}
+
 
         /* --- 4. FOOTER --- */
         footer { 
