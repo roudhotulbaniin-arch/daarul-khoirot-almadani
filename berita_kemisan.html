@@ -124,18 +124,23 @@
         /* ==========================================================================
            3. MAIN CONTAINER & TWO COLUMN LAYOUT SYSTEM
            ========================================================================== */
-        .container { 
-            padding: 3rem 15%; 
-            flex: 1; 
-        }
+       .container { 
+    padding: 3rem 4%; /* Diubah dari 15% ke 4% agar kartu melebar penuh ke kanan-kiri */
+    flex: 1; 
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Menjaga konten tetap presisi di tengah layar */
+}
 
-        .full-news-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
+.full-news-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    width: 100%; /* Memaksa kartu menggunakan seluruh ruang container */
+    max-width: 1200px; /* Batas aman opsional agar teks berita tidak terlalu melar di monitor ultra-lebar */
+}
 
         /* ==========================================================================
            4. ARTIKEL KONTEN & BANNER DOCUMENTATION
