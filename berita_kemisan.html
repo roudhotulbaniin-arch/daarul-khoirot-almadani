@@ -124,7 +124,7 @@
             overflow: hidden;
             width: 100%; 
             max-width: 1100px; 
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Jarak aman antara bawah kartu dengan tombol */
         }
 
         /* ==========================================================================
@@ -169,15 +169,14 @@
         }
 
         /* ==========================================================================
-           5. SEKTOR TEKS & ACTIONS (Sempurna Full-Width)
+           5. SEKTOR TEKS DALAM ARTIKEL (PADDING 35PX DI DESKTOP)
            ========================================================================== */
         .news-header,
         .news-body-content > p,
         .content-block-title,
         .news-quote-box,
         .news-bullet-list,
-        .news-footer,
-        .bottom-actions {
+        .news-footer {
             padding-left: 35px;  
             padding-right: 35px; 
             width: 100%;
@@ -287,7 +286,7 @@
         .news-footer {
             margin-top: 40px;
             padding-top: 20px;
-            padding-bottom: 25px;
+            padding-bottom: 35px;
             border-top: 1px solid #eee;
             display: flex;
             justify-content: space-between;
@@ -295,13 +294,16 @@
             color: #777;
         }
 
-        /* Pembungkus Tombol */
+        /* ==========================================================================
+           5B. AREA ACTIONS (DI LUAR KARTU - LEBAR SEJAJAR DENGAN KARTU UTAMA)
+           ========================================================================== */
         .bottom-actions {
-            margin-top: 5px; 
-            margin-bottom: 40px;
+            width: 100%;
+            max-width: 1100px; /* Dikunci agar sejajar sempurna dengan lebar luar kartu berita */
+            margin-bottom: 15px;
+            padding: 0; /* Tidak butuh padding di desktop karena sudah pas dengan lebar batas kartu */
         }
 
-        /* Perbaikan Intensif: display diubah ke flex penuh agar mekar horizontal 100% secara solid */
         .btn-kembali {
             color: white;
             background: var(--primary-color);
@@ -309,20 +311,20 @@
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
-            display: flex;            /* Menggantikan inline-flex agar merata total */
+            display: flex;            
             align-items: center;
             justify-content: center;
             font-size: 1rem;
             transition: all 0.3s ease;
-            width: 100%;             /* Mengunci lebar tombol 100% mengikuti kontainer teks */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            width: 100%;             
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             text-align: center;
         }
 
         .btn-kembali:hover { 
             background: #144614;
             transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
         .btn-kembali i { margin-right: 10px; }
@@ -382,30 +384,34 @@
 
             .container { padding: 1.2rem 3%; }
             
+            .full-news-card { margin-bottom: 20px; }
+
             .news-banner-container { 
                 padding: 0 18px; 
                 margin: 20px 0; 
             }
             
-            /* Jarak aman sisi kanan-kiri di HP */
+            /* Jarak teks bagian dalam artikel di HP */
             .news-header,
             .news-body-content > p,
             .content-block-title,
             .news-quote-box,
             .news-bullet-list,
-            .news-footer,
-            .bottom-actions {
+            .news-footer {
                 padding-left: 18px;
                 padding-right: 18px;
             }
 
-            .bottom-actions { margin-bottom: 30px; }
+            /* Penyesuaian tombol di HP saat di luar kartu agar sejajar dengan dinding luar kartu */
+            .bottom-actions { 
+                padding: 0; 
+                margin-bottom: 25px; 
+            }
             
-            /* Optimasi Teks Tombol di HP agar pas satu baris & ukuran proporsional */
             .btn-kembali {
                 font-size: 0.9rem;
                 padding: 13px 16px;
-                white-space: nowrap; /* Mencegah teks terpotong canggung ke bawah jika layar cukup */
+                white-space: nowrap; 
             }
 
             .news-header h2 { font-size: 1.4rem; }
@@ -496,7 +502,7 @@
 
                 <div class="news-banner-container">
                     <img src="mustami.jpg" alt="Foto Jamaah Pengajian">
-                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias dan khidmat.</span>
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Puluhan jamaah ibu-ibu menyimak materi dengan penuh antusias and khidmat.</span>
                 </div>
 
                 <h4 class="content-block-title">Penutup</h4>
@@ -509,13 +515,13 @@
                 <span>Kategori: Liputan Kegiatan</span>
                 <span>Kontributor: Dokumentasi Internal</span>
             </div>
-
-            <div class="bottom-actions">
-                <a href="galeri.html" class="btn-kembali">
-                    <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita
-                </a>        
-            </div>
         </article>   
+
+        <div class="bottom-actions">
+            <a href="galeri.html" class="btn-kembali">
+                <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita
+            </a>        
+        </div>
     </main> 
 
     <footer> 
