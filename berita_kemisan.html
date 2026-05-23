@@ -125,8 +125,9 @@
            3. MAIN CONTAINER & TWO COLUMN LAYOUT SYSTEM
            ========================================================================== */
         .container { 
-            padding: 3rem 15%; 
+            padding: 3rem 24px; /* PERBAIKAN: Mengganti 15% menjadi 24px agar tidak menjepit konten di desktop */
             flex: 1; 
+            width: 100%;
         }
 
         .full-news-card {
@@ -135,6 +136,9 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             overflow: hidden;
+            max-width: 1100px; /* Lebar maksimal artikel di layar desktop agar nyaman dibaca */
+            margin: 0 auto;    /* Membuat kartu otomatis berada di tengah-tengah layar */
+            width: 100%;
         }
 
         /* ==========================================================================
@@ -147,7 +151,7 @@
             border-radius: 8px;
             margin-bottom: 30px;
             border: 1px solid #ddd;
-            background-color: #1e1e1e; /* Mengubah background menjadi gelap agar seimbang */
+            background-color: #1e1e1e; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -228,7 +232,7 @@
         .news-banner-container {
             width: 100%;
             margin: 20px 0 30px 0;
-            background: #1e1e1e; /* Background gelap agar foto dengan orientasi potret/lanskap terlihat rapi */
+            background: #1e1e1e; 
             border: 1px solid var(--border-color);
             padding: 8px;
             border-radius: 10px;
@@ -238,8 +242,8 @@
         .news-banner-container img {
             width: 100%;
             height: auto;
-            max-height: 500px;
-            object-fit: contain; /* PERBAIKAN UTAMA: Gambar utuh total tanpa terpotong wajahnya */
+            max-height: 550px; /* Sedikit dinaikkan agar foto landscape terlihat megah di desktop */
+            object-fit: contain; 
             border-radius: 6px;
             display: block;
             margin: 0 auto;
@@ -247,7 +251,7 @@
 
         .news-banner-caption {
             font-size: 0.8rem;
-            color: #ccc; /* Disesuaikan agar terbaca di atas background gelap container */
+            color: #ccc; 
             text-align: center;
             font-style: italic;
             margin-top: 8px;
@@ -264,7 +268,7 @@
             gap: 10px;
             border-left: 4px solid var(--secondary-color);
             padding-left: 12px;     
-            margin-left: 2px; /* Mencegah garis kuning menempel ke dinding luar container */
+            margin-left: 2px; 
         }
 
         /* Blok Kutipan Khusus / Nasihat */
@@ -448,7 +452,7 @@
             .full-news-card { padding: 20px 16px; }
             
             .hero-banner { max-height: 260px; margin-bottom: 20px; }
-            .hero-banner img { object-fit: contain; } /* Menjaga konsistensi gambar banner di HP */
+            .hero-banner img { object-fit: contain; } 
 
             .news-header h2 { font-size: 1.35rem; }
             .news-meta { grid-template-columns: repeat(2, 1fr); gap: 10px 14px; font-size: 0.8rem; }
