@@ -208,7 +208,7 @@
             display: inline-block;
         }
 
-        /* PERBAIKAN: Menggunakan kode baru Anda dengan flex & penyesuaian alamat */
+        /* PERBAIKAN TOTAL DI BAGIAN META DATA DESKTOP */
         .news-meta {
             font-size: 0.8rem;
             color: #666;
@@ -220,15 +220,17 @@
             padding-bottom: 15px;
         }
 
-        .news-meta span i {
-            color: var(--primary-color);
-            margin-right: 3px;
+        .news-meta span {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
         }
 
-        /* Kelas khusus agar teks alamat aman dipaksa selalu 1 baris */
-        .meta-alamat {
-            flex-basis: 100%; /* Membuat baris alamat berdiri sendiri jika di layar sempit */
-            white-space: nowrap;
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 6px; /* Jarak proporsional ikon ke teks */
+            width: 14px;       /* Mengunci lebar ikon agar lurus sejajar */
+            text-align: center;
         }
 
         .news-body-content p {
@@ -291,15 +293,15 @@
             color: var(--primary-color);
         }
 
-        /* PERBAIKAN: Diubah penuh menjadi susun ke bawah (vertikal) */
+        /* Susun ke bawah (vertikal) rapi */
         .news-footer {
             margin-top: 40px;
             padding-top: 20px;
             padding-bottom: 35px;
             border-top: 1px solid #eee;
             display: flex;
-            flex-direction: column; /* Mengubah susunan ke bawah */
-            gap: 8px;               /* Memberikan jarak renggang antar baris */
+            flex-direction: column; 
+            gap: 8px;               
             font-size: 0.9rem;
             color: #777;
         }
@@ -394,14 +396,8 @@
             
             .full-news-card { margin-bottom: 20px; }
 
-            .hero-banner {
-                padding: 24px 24px 0 24px;
-            }
-
-            .news-banner-container { 
-                padding: 0 24px; 
-                margin: 20px 0; 
-            }
+            .hero-banner { padding: 24px 24px 0 24px; }
+            .news-banner-container { padding: 0 24px; margin: 20px 0; }
             
             .news-header,
             .news-body-content > p,
@@ -412,12 +408,25 @@
                 padding-right: 24px;
             }
 
-            /* Di HP, alamat tetap dipaksa 1 baris mendatar tanpa merusak layout grid asal */
-            .meta-alamat {
-                grid-column: span 2; 
+            /* PERBAIKAN STABILITAS LAYOUT META TAG DI HP */
+            .news-meta { 
+                display: grid; 
+                grid-template-columns: repeat(2, 1fr); /* Membagi 2 kolom simetris */
+                gap: 12px 10px; 
+                margin-bottom: 20px; 
+                padding-bottom: 15px;
+            }
+
+            .news-meta span {
+                display: inline-flex;
+                align-items: center;
+                font-size: 0.8rem;
+            }
+
+            /* Membuat baris alamat mengalir aman tanpa memotong paksa grid */
+            .news-meta span:last-child {
+                grid-column: span 2; /* Alamat memanjang penuh di bawahnya agar muat 1 baris */
                 white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis; /* Otomatis memotong manis dengan titik-titik (...) jika layar HP terlalu super kecil */
             }
 
             .content-block-title {
@@ -426,27 +435,9 @@
                 padding-left: 12px; 
             }
 
-            .bottom-actions { 
-                padding: 0; 
-                margin-bottom: 25px; 
-            }
-            
-            .btn-kembali {
-                font-size: 0.9rem;
-                padding: 13px 16px;
-                white-space: nowrap; 
-            }
-
+            .bottom-actions { padding: 0; margin-bottom: 25px; }
+            .btn-kembali { font-size: 0.9rem; padding: 13px 16px; white-space: nowrap; }
             .news-header h2 { font-size: 1.4rem; }
-            
-            /* Grid tetap rapi untuk meta data lainnya di HP */
-            .news-meta { 
-                display: flex; 
-                flex-wrap: wrap;
-                gap: 10px 15px; 
-                margin-bottom: 15px; 
-            }
-            
             .news-body-content p { font-size: 1rem; }
         }
     </style>
@@ -484,11 +475,12 @@
             <div class="news-header">
                 <span class="news-tag">Liputan Berita</span>
                 <h2>Perkokoh Aqidah Ahlus Sunnah Wal Jama'ah, Majlis Ta’lim Roudhotul Baniin Gelar Pengajian Rutin Kemisan</h2>
+                
                 <div class="news-meta">
                     <span><i class="fas fa-calendar-alt"></i> Kamis, 21 Mei 2026</span>
                     <span><i class="fas fa-clock"></i> 15.45 - 17.30 WIB</span>
                     <span><i class="fas fa-user-friends"></i> Admin</span>
-                    <span class="meta-alamat"><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
                 </div>
             </div> 
 
@@ -544,7 +536,7 @@
 
             <div class="news-footer">
                 <span><strong>Kategori:</strong> Liputan Kegiatan</span>
-                <span><strong>Kontributor:</strong> Dokumentasi Internal</span>
+                <span><strong>Kontributor:</strong> "Uwa"</span>
             </div>
         </article>   
 
