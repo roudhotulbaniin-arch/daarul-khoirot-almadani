@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="main_logo.png">
 
     <style>
@@ -57,7 +57,6 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif;
             font-weight: 700;
         }
 
@@ -129,12 +128,14 @@
             display: none; 
         }
 
-        /* --- 3. KONTEN UTAMA ARTIKEL (FULL WIDTH FIX) --- */
+        /* --- 3. KONTEN UTAMA ARTIKEL --- */
         .container { 
             padding: 3rem 10%; 
             flex: 1; 
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
         }
 
         .full-news-card {
@@ -142,9 +143,8 @@
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow: hidden;
             width: 100%;
-            max-width: 1200px; /* Lebar maksimal penuh standar desktop */
+            max-width: 1200px; 
             box-sizing: border-box;
         }
 
@@ -240,7 +240,7 @@
         }
 
         .arabic-text {
-            font-family: 'Traditional Arabic', Georgia, serif;
+            font-family: 'Amiri', 'Traditional Arabic', Georgia, serif;
             font-size: 2.2rem;
             font-weight: normal;
             line-height: 2.2;
@@ -279,17 +279,18 @@
             font-weight: 600;
         }
 
-        /* --- 4. SISTEM 2 TOMBOL KEMBALI SEJAJAR (1 BARIS 50:50) --- */
+        /* --- 4. SISTEM 2 TOMBOL KEMBALI SEJAJAR (DI LUAR KARTU) --- */
         .bottom-actions-group {
             display: flex;
             gap: 20px;
             width: 100%;
-            margin-top: 35px;
+            max-width: 1200px;
+            margin-top: 10px;
             box-sizing: border-box;
         }
 
         .bottom-actions-group .btn-kembali-double {
-            flex: 1; /* Otomatis membagi baris menjadi lebar yang seimbang */
+            flex: 1; 
             color: white;
             padding: 14px 20px;
             text-decoration: none;
@@ -355,17 +356,16 @@
             .logo img { height: 35px; margin-right: 0 !important; }
             .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
             
-            .container { padding: 2rem 5%; }
+            .container { padding: 2rem 5%; gap: 1.5rem; }
             .full-news-card { padding: 20px; }
             .hero-banner { max-height: 250px; margin-bottom: 20px; }
             .news-header h2 { font-size: 1.4rem; }
             .arabic-text { font-size: 1.8rem; line-height: 2; }
             
-            /* Susunan tombol otomatis vertikal pada perangkat seluler */
             .bottom-actions-group {
                 flex-direction: column;
                 gap: 12px;
-                margin-top: 25px;
+                margin-top: 10px;
             }
             .bottom-actions-group .btn-kembali-double {
                 width: 100%;
@@ -507,17 +507,16 @@
                 <span>Kategori: Tafsir Qur'an</span>
                 <span class="reporter-tag">Penyusun: Redaksi Dakwah</span>
             </div>
-
-            <div class="bottom-actions-group">
-                <a href="info_islam.html" class="btn-kembali-double btn-main-color">
-                    <i class="fas fa-arrow-left"></i> Kembali ke Info Islam
-                </a>
-                <a href="index.html" class="btn-kembali-double btn-alt-color">
-                    <i class="fas fa-home"></i> Kembali ke Beranda
-                </a>
-            </div>
-
         </article>
+
+        <div class="bottom-actions-group">
+            <a href="info_islam.html" class="btn-kembali-double btn-main-color">
+                <i class="fas fa-arrow-left"></i> Kembali ke Info Islam
+            </a>
+            <a href="index.html" class="btn-kembali-double btn-alt-color">
+                <i class="fas fa-home"></i> Kembali ke Beranda
+            </a>
+        </div>
     </main>
 
     <footer> 
@@ -547,6 +546,7 @@
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
                         clickSound.currentTime = 0;
+                        clickSound.volume = 0.8;
                         clickSound.play().catch(() => {});
                     }
                     if (nav) nav.classList.remove('show');
