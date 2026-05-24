@@ -1743,15 +1743,36 @@ function prosesSimpanFinal() {
    INTEGRASI WHATSAPP REPORT NOTIFICATION (FIXED)
 ========================================================= */
 function kirimWA(data) {
-    // 1. Ambil nilai teks input (Utamakan data objek, jika kosong baru ke elemen HTML)
+    // 1. Ambil nilai teks input (Mencari alternatif nama field agar tidak kecolongan)
     const gV = (name) => {
-        if (data && data[name] !== undefined) {
-            return data[name] ? String(data[name]).trim() : "-";
+        if (data) {
+            // Pencarian fleksibel jika ada perbedaan nama field antara HTML & Objek
+            if (name === 'nama' || name === 'nama_santri') {
+                return (data['nama_santri'] || data['nama'] || "-").trim();
+            }
+            if (name === 'no_kk' || name === 'kk_santri') {
+                return (data['no_kk'] || data['kk_santri'] || "-").trim();
+            }
+            if (name === 'jenis_kelamin' || name === 'jk_santri') {
+                return (data['jenis_kelamin'] || data['jk_santri'] || "-").trim();
+            }
+            if (name === 'cita' || name === 'cita_cita') {
+                return (data['cita'] || data['cita_cita'] || "-").trim();
+            }
+            if (name === 'hobi' || name === 'hobi_santri') {
+                return (data['hobi'] || data['hobi_santri'] || "-").trim();
+            }
+            if (name === 'pjk_ibu' || name === 'pekerjaan_ibu' || name === 'pkerjaan_ibu') {
+                return (data['pjk_ibu'] || data['pekerjaan_ibu'] || data['pkerjaan_ibu'] || "-").trim();
+            }
+            return data[name] !== undefined ? String(data[name]).trim() : "-";
         }
-        // Fallback jika dipanggil tanpa parameter objek data
-        const el = document.getElementsByName(name)[0];
+        
+        // Fallback cadangan langsung ke DOM Elemen HTML jika objek data kosong
+        const el = document.getElementsByName(name)[0] || document.getElementsByName('nama_santri')[0];
         return el ? (el.value.trim() || "-") : "-";
     };
+ 
 
     // 2. Ambil nilai teks Dropdown/Select
     const gT = (idOrName) => {
