@@ -6,15 +6,15 @@
     <title>Daarul Khoirot | Detail Liputan Berita</title>
 
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Kupasan Kitab Kifayatul Atqiya Bait 108-111: Ciri Pencari Ilmu yang Salah Arah - Ponpes Daarul Khoirot Almadani" />
-    <meta property="og:description" content="Simak liputan kajian rutin malam Ahad Ponpes Daarul Khoirot Almadani Karawang bersama H. Wismo, membedah tanda-tanda penuntut ilmu yang terjebak nafsu duniawi." />
-    <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/kajian_jihad_2.html" />
+    <meta property="og:title" content="Kupasan Kitab Kifayatul Atqiya Bait 107: Tanggung Jawab Pengajar Ilmu - Ponpes Daarul Khoirot Almadani" />
+    <meta property="og:description" content="Simak liputan kajian rutin malam Ahad Ponpes Daarul Khoirot Almadani Karawang bersama H. Wismo, membedah amanah dan tanggung jawab besar seorang guru dalam mengajarkan ilmu." />
+    <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/kajian_jihad.html" />
     <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/banner_kitab.png" />
     <meta property="og:image:alt" content="Kajian Kitab Kifayatul Atqiya Ponpes Daarul Khoirot Almadani" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Kupasan Kitab Kifayatul Atqiya Bait 108-111: Ciri Pencari Ilmu yang Salah Arah - Ponpes Daarul Khoirot Almadani" />
-    <meta name="twitter:description" content="Liputan kajian rutin malam Ahad mengenai tanda-tanda rusaknya niat penuntut ilmu menurut tuntunan syariat Islam." />
+    <meta name="twitter:title" content="Kupasan Kitab Kifayatul Atqiya Bait 107: Tanggung Jawab Pengajar Ilmu - Ponpes Daarul Khoirot Almadani" />
+    <meta name="twitter:description" content="Liputan kajian rutin malam Ahad mengenai amanah seorang pengajar ilmu menurut tuntunan syariat Islam." />
     <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/banner_kitab.png" />
      
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -26,7 +26,7 @@
     <style>
         /* ==========================================================================
            1. RESET & VARIABLE DASAR
-           ========================================================================== */
+           ========================================================================= */
         :root {
             --primary-color: #1a5d1a;
             --primary-dark: #0d2e0d;
@@ -56,7 +56,7 @@
 
         /* ==========================================================================
            2. HEADER & NAVIGASI
-           ========================================================================== */
+           ========================================================================= */
         header {
             background-color: var(--primary-color); 
             color: white; 
@@ -106,7 +106,7 @@
 
         /* ==========================================================================
            3. CONTAINER & STRUKTUR UTAMA KARTU
-           ========================================================================== */
+           ========================================================================= */
         .container { 
             padding: 2.5rem 4%; 
             flex: 1; 
@@ -129,7 +129,7 @@
 
         /* ==========================================================================
            4. SEKTOR GAMBAR
-           ========================================================================== */
+           ========================================================================= */
         .hero-banner {
             width: 100%;
             max-height: 550px;
@@ -146,6 +146,31 @@
             border: 1px solid var(--border-color);
         }
 
+        .news-banner-container {
+            width: 100%;
+            margin: 35px 0;
+            padding: 0 35px; 
+            background-color: transparent; 
+        }
+
+        .news-banner-container img {
+            width: 100%;
+            height: auto;        
+            max-height: none;     
+            display: block;
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
+        }
+
+        .news-banner-caption {
+            font-size: 0.88rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            display: block;
+            padding: 12px 0; 
+        }
+
         /* Kustomisasi Khusus Bait Kitab Arab Islami */
         .arabic-container {
             background: #fdfbf7;
@@ -158,7 +183,7 @@
 
         .arabic-text {
             font-family: 'Amiri', 'Traditional Arabic', 'Scheherazade New', Georgia, serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 500;
             line-height: 2.4;
             color: #111;
@@ -183,7 +208,7 @@
 
         /* ==========================================================================
            5. SEKTOR TEKS ARTIKEL DESKTOP & MOBILE
-           ========================================================================== */
+           ========================================================================= */
         .news-header,
         .news-body-content > p,
         .news-quote-box,
@@ -218,6 +243,7 @@
             display: inline-block;
         }
 
+        /* Tampilan Desktop Meta: berjajar horizontal */
         .news-meta {
             font-size: 0.85rem;
             color: #666;
@@ -259,6 +285,26 @@
             display: block;
         }
 
+        /* Box Kutipan (Quote) */
+        .news-quote-box {
+            margin: 30px 0;
+        }
+
+        .news-quote-wrapper {
+            background: #f2f8f2;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        .news-quote-wrapper p {
+            margin-bottom: 0 !important;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* List Bullet */
         .news-bullet-list {
             list-style: none;
             margin-bottom: 25px;
@@ -283,6 +329,7 @@
             color: var(--primary-color);
         }
 
+        /* Susun ke bawah vertikal rapi */
         .news-footer {
             margin-top: 40px;
             padding-top: 20px;
@@ -295,6 +342,7 @@
             color: #777;
         }
 
+        /* AREA ACTIONS (DI LUAR KARTU) */
         .bottom-actions {
             width: 100%;
             max-width: 1100px; 
@@ -329,7 +377,7 @@
   
         /* ==========================================================================
            6. FOOTER AREA
-           ========================================================================== */
+           ========================================================================= */
         footer { 
             background: var(--primary-dark); 
             color: white; 
@@ -345,9 +393,10 @@
         
         /* ==========================================================================
            7. RESPONSIVE LAYER (OPTIMASI HP / MOBILE)
-           ========================================================================== */
+           ========================================================================= */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
+            /* Memperbaiki selektor .logo */
             .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
             .logo img { height: 35px; margin-right: 0 !important; }
             .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
@@ -382,19 +431,24 @@
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
             .container { padding: 1.2rem 5%; }
+            
             .full-news-card { margin-bottom: 20px; }
+
             .hero-banner { padding: 24px 24px 0 24px; }
+            .news-banner-container { padding: 0 24px; margin: 20px 0; }
             .arabic-container { margin: 20px 24px; padding: 18px; }
-            .arabic-text { font-size: 1.4rem; line-height: 2.2; }
+            .arabic-text { font-size: 1.6rem; line-height: 2.2; }
             
             .news-header,
             .news-body-content > p,
+            .news-quote-box,
             .news-bullet-list,
             .news-footer {
                 padding-left: 24px;
                 padding-right: 24px;
             }
 
+            /* Sistem Grid otomatis saat di HP */
             .news-meta { 
                 display: grid;
                 grid-template-columns: repeat(2, 1fr); 
@@ -449,10 +503,10 @@
 
             <div class="news-header">
                 <span class="news-tag">Liputan Berita</span>
-                <h2>Kajian Rutin Ponpes Daarul Khoirot Al-Madani Karawang: Mengupas Ciri Pencari Ilmu yang Salah Arah</h2>
+                <h2>Kajian Rutin Ponpes Daarul Khoirot Al-Madani Karawang: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h2>
                 
                 <div class="news-meta">
-                    <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
+                    <span><i class="fas fa-calendar-alt"></i> Malam Ahad, 23-05-2026</span>
                     <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
                     <span><i class="fas fa-user-friends"></i> 35 Jamaah</span>
                     <span><i class="fas fa-user"></i> Admin</span>
@@ -470,51 +524,53 @@
                     <li>Tawasul</li>
                     <li>Pembacaan Ayat Suci Al-Qur’an</li>
                     <li>Pembacaan Sholawat Nabi yang diiringi oleh Tim Hadroh Santri</li>
-                    <li>Kajian Utama Kitab Kifayatul Atqiya (Membedah Bait 108–111)</li>
+                    <li>Kajian Utama Kitab Kifayatul Atqiya (Membedah Bait 107)</li>
                     <li>Doa Tutup</li>
                 </ul>
+
+                <div class="news-banner-container">
+                    <img src="mc-jihad.jpg" alt="Suasana Pembukaan Acara">
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Suasana khidmat pembukaan acara dan lantunan sholawat dipandu oleh pembawa acara.</span>
+                </div>
 
                 <h4 class="content-block-title">Pengantar Mengenai Kitab</h4>
                 <p>Kitab <em>Kifayatul Atqiya wa Minhajul Ashfiya</em> merupakan sebuah karya monumental di bidang tasawuf amali yang ditulis oleh ulama besar Syekh Abu Bakar bin Muhammad Syatha Ad-Dimyathi. Kitab ini merupakan bentuk syarah (penjelasan luas) dari bait-bait nadham <em>Hidayatul Azkiya</em> karya Syekh Zainuddin bin Ali Al-Malibari. Secara keseluruhan, kitab mulia ini berfokus menuntun umat dalam hal akhlak, manajemen waktu, sifat zuhud, serta bagaimana menyelaraskan keseimbangan kehidupan dunia dan akhirat.</p>
 
-                <h4 class="content-block-title">Inti Kajian Bait 108–111 (Ciri Penuntut Ilmu yang Salah Arah)</h4>
-                <p>Kajian mendalam ini dipimpin langsung oleh <strong>H. Wismo</strong> selaku Pimpinan Pondok Pesantren & Majlis Ta'lim, yang secara khusus membedah intisari hukum dari teks Bait ke-108 hingga Bait ke-111 mengenai tanda batin ketika seorang murid menuntut ilmu bukan karena Allah SWT:</p>
+                <h4 class="content-block-title">Inti Kajian Bait 107 (Tanggung Jawab Pengajar Ilmu)</h4>
+                <p>Kajian mendalam ini dipimpin langsung oleh <strong>H. Wismo</strong> selaku Pimpinan Pondok Pesantren & Majlis Ta'lim, yang secara khusus membedah intisari hukum dari teks Bait ke-107:</p>
 
                 <div class="arabic-container">
-                    <p class="arabic-text">
-                        ١٠٨. فَإِذَا رَأَى مُتَعَلِّمًا يَكْبُو عَلَى الـشَّـهَوَاتِ مُتَّبِعًا هَوَاهُ مُعَامِلَا<br>
-                        ١٠٩. مُتَكَالِبًا أَيْضًا عَلَى رَوْمِ الدُّنْـيَا مِـنْ غَيْرِ مِـنْهَاجٍ مُبَاحٍ قَائِلَا<br>
-                        ١١٠. أَوْ قَدْ تَعَاطَى عِلْمَ فَرْضِ كِفَايَةٍ مِـنْ قَبْلِ فَرْضِ الْعَيْنِ عِلْمًا وَابْتَلَى<br>
-                        ١١١. فَلَقَدْ تَبَيَّنَ مِـنْ قَرَائِنِ حَالِهِ قَصْدٌ لِغَيْرِ اللهِ فِيهِ تَغَلْغَلَا
-                    </p>
+                    <p class="arabic-text">وَكَذَاكَ يَعْصِي مَنْ يُعَلِّمُ ذٰلِكَا إِلَّا لِعِلْمٍ نَافِعٍ لَا جَاهِلَا</p>
                     <div class="translation-box">
-                        <strong>Artinya:</strong> "Maka apabila (seorang guru) melihat seorang murid jatuh tersungkur di atas syahwat, mengikuti hawa nafsunya dalam berinteraksi (108), serta sangat serakah pula dalam memburu dunia tanpa melalui jalan/manhaj yang dibenarkan syariat (109). Atau ia justru menyibukkan diri mempelajari ilmu fardu kifayah sebelum menuntaskan ilmu fardu ain, dan menjadikannya bahan debat/ujian (110). Maka sungguh telah jelas dari indikasi keadaannya, bahwa ada maksud (niat) selain karena Allah yang telah menyusup dan menguasai dirinya (111)."
+                        <strong>Artinya:</strong> "Dan demikian pula berdosa orang yang mengajarkan ilmu tersebut, kecuali jika ia mengajarkan ilmu yang bermanfaat, dan bukan mengajarkan kepada orang bodoh (yang berpotensi menyalahgunakannya)."
                     </div>
                 </div>
 
-                <p>Dalam jabaran intinya, H. Wismo menegaskan beberapa indikasi kuat (<em>qara'in al-hal</em>) yang menandakan bahwa seorang pencari ilmu telah terjangkit penyakit batin dan salah arah dalam belajar:</p>
-                
-                <p><strong>1. Menjadi Budak Syahwat & Hawa Nafsu:</strong> Perilaku dan interaksi kesehariannya selalu condong menuruti keinginan hawa nafsu hewaniahnya, bukan dituntun oleh rambu-rambu ilmu syariat yang dipelajarinya.</p>
-                
-                <p><strong>2. Tamak Mengejar Dunia (Mutakaliban):</strong> Diibaratkan seperti ambisi serakah yang tidak pernah puas dalam memburu materi atau kedudukan duniawi, bahkan sampai menempuh jalan yang keluar dari manhaj atau garis hukum yang dibolehkan agama.</p>
-                
-                <p><strong>3. Terbalik dalam Prioritas Menuntut Ilmu:</strong> Salah satu fenomena yang dikritik keras adalah ketika seorang penuntut ilmu sibuk menghabiskan waktu mendalami cabang ilmu fardu kifayah (atau ilmu perdebatan duniawi) sementara ilmu fardu ain-nya sendiri (seperti ilmu kelurusan akidah, rukun syarat sahnya thaharah & salat, serta pembersihan hati) justru terlantar dan diabaikan.</p>
+                <div class="news-banner-container">
+                    <img src="muallim-jihad.jpg" alt="Penyampaian Materi H. Wismo">
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. H. Wismo saat mengupas tuntas bait kitab tasawuf mengenai amanah besar seorang pengajar ilmu.</span>
+                </div>
 
-                <p><strong>4. Ilmu Hanya Dijadikan Bahan Debat & Ujian (Wabtala):</strong> Ilmu yang dicari tidak ditujukan untuk diamalkan, melainkan sekadar untuk pamer kepintaran, berdebat mencari ketenaran, atau formalitas belaka.</p>
+                <p>Dalam jabaran intinya, H. Wismo menegaskan bahwa seorang guru atau pengajar bisa ikut menanggung dosa (maksiat) apabila ia memberikan atau mentransfer suatu cabang ilmu kepada murid yang diketahuinya berniat menggunakan pengetahuan tersebut untuk jalan kemaksiatan ataupun merusak tatanan agama. Kondisi buruk ini diibaratkan secara logis seperti seseorang yang menjual senjata tajam atau pedang kepada seorang perampok.</p>
                 
-                <p>H. Wismo menambahkan penjelasan dari riwayat kitab, di mana pondasi utama ilmu itu sejatinya adalah mengenal Allah SWT (<em>Ma'rifaturrab</em>) dan menyiapkan bekal amal guna menghadapi kematian.</p>
+                <p>Sebaliknya, hukum menjadi wajib mutlak bagi siapa saja untuk mengajarkan ilmu-ilmu yang bermanfaat (<em>ilman nafi'an</em>) dengan niat murni untuk mengikis kebodohan serta membenahi kualitas ibadah para penuntut ilmu.</p>
+
+                <div class="news-banner-container">
+                    <img src="mustami-jihad.jpg" alt="Foto Jamaah Pengajian">
+                    <span class="news-banner-caption"><i class="fas fa-camera"></i> Dok. Seluruh jamaah mustami' menyimak pemaparan materi ilmiah keislaman dengan penuh antusias.</span>
+                </div>
 
                 <h4 class="content-block-title">Doa dan Harapan Penutup</h4>
                 <p>Seluruh rangkaian acara berjalan dengan sangat khidmat, terlihat dari antusiasme tinggi seluruh jamaah mustami' yang menyimak materi sejak awal hingga selesai. Pengajian rutin ini kemudian ditutup dengan doa bersama yang dipimpin langsung oleh H. Wismo.</p> 
                 
-                <p>Besar harapan dari pelaksanaan ini agar seluruh jamaah dan para santri senantiasa diberikan kelurusan niat di dalam menuntut ilmu, dijauhkan dari fitnah dunia, serta dibimbing untuk mendahulukan ilmu fardu ain agar ilmu yang diperoleh memancarkan keberkahan yang nyata bagi kehidupan sehari-hari di masyarakat.</p>
+                <p>Besar harapan dari pelaksanaan ini agar seluruh jamaah yang hadir diberikan pemahaman batin yang mendalam, kelapangan hati, serta kekuatan rohani untuk dapat mengamalkan intisari ilmu tasawuf praktis ini di dalam kehidupan sehari-hari sehingga mampu memancarkan keberkahan yang nyata bagi lingkungan masyarakat Jatisari.</p>
                 
                 <p style="text-align: right; margin-top: 30px; font-style: italic;">Khidmatul Ma'had – Koresponden: "Uwa".</p>
             </div>
 
             <div class="news-footer">
-                <span><strong>Kategori:</strong> Kegiatan Pesantren</span>
-                <span><strong>Kontributor:</strong> Dokumentasi Internal</span>
+                <span><strong>Kategori :</strong> Kegiatan Pesantren</span>
+                <span><strong>Kontributor :</strong> "Uwa"</span>
             </div>
         </article>   
 
