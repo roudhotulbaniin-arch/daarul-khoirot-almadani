@@ -4,25 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Database | Daarul Khoirot Almadani</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 98%; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        
-        h2 { color: #1a5d1a; text-align: left; border-bottom: 2px solid #1a5d1a; padding-bottom: 10px; display: flex; align-items: center; justify-content: left; gap: 15px; }
-        h2 img { height: 50px; }
+    
+    <meta property="og:title" content="Dashboard Database Daarul Khoirot Almadani">
+    <meta property="og:description" content="Sistem Informasi Pendaftaran Santri Baru Lembaga Pendidikan Daarul Khoirot Al-Madani">
+    <meta property="og:image" content="profil_lembaga.jpg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1a5d1a">
 
-        .table-wrapper { width: 100%; overflow-x: auto; margin-top: 20px; border: 1px solid #ddd; }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link rel="icon" type="image/png" href="main_logo.png">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: #f4f7f6; 
+            margin: 0; 
+            padding: 15px; 
+        }
+        .container { 
+            max-width: 98%; 
+            margin: auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        
+        h2 { 
+            color: #1a5d1a; 
+            text-align: left; 
+            border-bottom: 2px solid #1a5d1a; 
+            padding-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start; 
+            gap: 15px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        h2 img { height: 60px; object-fit: contain; }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Kustomisasi scrollbar untuk kenyamanan geser tabel */
+        .table-wrapper { 
+            width: 100%; 
+            overflow-x: auto; 
+            margin-top: 20px; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+        
         table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: 13px; }
         
-        th { background-color: #1a5d1a; color: white; padding: 12px 15px; text-align: center; border: 1px solid #ddd; position: sticky; top: 0; }
-        td { padding: 10px 15px; border: 1px solid #ddd; text-align: center; }
+        th { 
+            background-color: #1a5d1a; 
+            color: white; 
+            padding: 14px 15px; 
+            text-align: center; 
+            border: 1px solid #ddd; 
+            position: sticky; 
+            top: 0; 
+            font-weight: 600;
+        }
+        td { padding: 12px 15px; border: 1px solid #ddd; text-align: center; color: #333; }
         tr:nth-child(even) { background-color: #f9f9f9; }
         tr:hover { background-color: #f1f1f1; }
 
-        .btn-refresh { background: #1a5d1a; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-bottom: 10px; }
-        .btn-detail { background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+        .btn-refresh { 
+            background: #1a5d1a; 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.3s ease;
+            box-shadow: 0 2px 5px rgba(26, 93, 26, 0.2);
+        }
+        .btn-refresh:hover { background: #144714; }
+        
+        .btn-lihat { 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 6px 12px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .btn-lihat:hover { background: #0056b3; }
+
+        /* --- RESPONSIVITAS LAYAR HP --- */
+        @media (max-width: 768px) {
+            body { padding: 8px; }
+            .container { padding: 12px; max-width: 100%; }
+            h2 { font-size: 16px; gap: 10px; padding-bottom: 10px; }
+            h2 img { height: 40px; }
+            .btn-refresh { width: 100%; text-align: center; padding: 12px; }
+            
+            /* Penanda visual bahwa tabel dapat di-swipe/geser */
+            .table-wrapper {
+                position: relative;
+            }
+            .table-wrapper::after {
+                content: '➔ Geser untuk lihat data';
+                display: block;
+                text-align: right;
+                font-size: 11px;
+                color: #888;
+                padding: 5px;
+                background: #f4f7f6;
+            }
+        }
     </style>
 </head>
 <body>
@@ -118,6 +225,9 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // Wadah global penampung data untuk keperluan modal detail
+    window.dataPendaftarCache = {};
+
     async function muatData() {
         const tbody = document.getElementById('tabel-pendaftar');
         if(!tbody) return;
@@ -128,6 +238,7 @@
             const q = query(collection(db, "pendaftaran_santri"), orderBy("waktu_simpan", "desc"));
             const querySnapshot = await getDocs(q);
             tbody.innerHTML = '';
+            window.dataPendaftarCache = {}; // Reset cache
 
             if (querySnapshot.empty) {
                 tbody.innerHTML = '<tr><td colspan="60" style="text-align:center;">Belum ada data pendaftar.</td></tr>';
@@ -136,20 +247,13 @@
 
             querySnapshot.forEach((doc) => {
                 const d = doc.data();
+                // Simpan data ke cache global menggunakan doc.id sebagai key
+                window.dataPendaftarCache[doc.id] = d;
 
-// --- LOGIKA TAMPILAN DASHBOARD ---
-
-// 1. Bersihkan teks instruksi "Pilih..." agar jadi rapi
-const cleanAlamat = (txt) => {
-    if (!txt || txt.includes("Pilih") || txt === "") return "-";
-    return txt;
-};
-
-// 2. Tampilkan Status Setuju (Hijau jika SETUJU)
-// Gunakan field 'status_setuju' sesuai yang ada di Firebase Anda tadi
-const teksPernyataan = (d.status_setuju === "SETUJU") 
-    ? '<span style="color: #1a5d1a; font-weight: bold;">✅ Setuju</span>' 
-    : '<span style="color: #d93025; font-weight: bold;">❌ Belum</span>';
+                // Tampilkan Status Setuju (Hijau jika SETUJU)
+                const teksPernyataan = (d.status_setuju === "SETUJU") 
+                    ? '<span style="color: #1a5d1a; font-weight: bold;">✅ Setuju</span>' 
+                    : '<span style="color: #d93025; font-weight: bold;">❌ Belum</span>';
 
                 const row = `
                     <tr>
@@ -169,7 +273,7 @@ const teksPernyataan = (d.status_setuju === "SETUJU")
                         <td>${d.disabilitas || '-'}</td>
                         <td>${d.biaya || '-'}</td>
                         <td>${d.st_ayah || '-'}</td>
-                       <td>${d.nama_ayah || d.nm_ayah || d.namaayah || '-'}</td>
+                        <td>${d.nama_ayah || d.nm_ayah || d.namaayah || '-'}</td>
                         <td>${d.wn_ayah || '-'}</td>
                         <td>${d.nik_ayah || '-'}</td>
                         <td>${d.kk_ayah || '-'}</td>
@@ -207,10 +311,10 @@ const teksPernyataan = (d.status_setuju === "SETUJU")
                         <td>${d.w_sehat || '-'}</td>
                         <td>${d.w_tazir || '-'}</td> 
                         <td>${d.w_harapan || '-'}</td>
-                       <td>${teksPernyataan}</td>
-        <td><button onclick="lihatDetail('${doc.id}')" class="btn-lihat">Lihat Semua</button></td>
-    </tr>
-`;
+                        <td>${teksPernyataan}</td>
+                        <td><button onclick="lihatDetail('${doc.id}')" class="btn-lihat">Lihat Semua</button></td>
+                    </tr>
+                `;
                 tbody.innerHTML += row;
             });
         } catch (e) {
@@ -220,11 +324,19 @@ const teksPernyataan = (d.status_setuju === "SETUJU")
     }
 
     window.muatData = muatData;
-    window.lihatDetail = (data) => {
+    
+    window.lihatDetail = (id) => {
+        const dataObj = window.dataPendaftarCache[id];
+        if(!dataObj) {
+            Swal.fire('Error', 'Data tidak ditemukan', 'error');
+            return;
+        }
+        
         Swal.fire({
             title: 'Detail Lengkap Santri',
-            html: `<div style="text-align:left; font-size:12px; max-height:400px; overflow-y:auto;"><pre>${JSON.stringify(data, null, 2)}</pre></div>`,
-            confirmButtonColor: '#1a5d1a'
+            html: `<div style="text-align:left; font-size:13px; max-height:400px; overflow-y:auto; font-family:'Quicksand',sans-serif;"><pre style="background:#f4f4f4; padding:10px; border-radius:6px; overflow-x:auto;">${JSON.stringify(dataObj, null, 2)}</pre></div>`,
+            confirmButtonColor: '#1a5d1a',
+            width: '600px'
         });
     };
 
