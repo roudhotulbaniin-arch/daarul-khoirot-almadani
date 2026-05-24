@@ -335,21 +335,24 @@
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-            .logo img { height: 35px; }
-            .logo h1 { font-size: 0.95rem; }
+              .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; margin-right: 0 !important; }
+            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
-            #menu-toggle {
-                display: block;  
+    #menu-toggle {
+                display: flex !important;  
+                flex-direction: row;      
+                align-items: center;       
+                gap: 4px;           
                 background: var(--secondary-color);
                 color: var(--primary-color);
+                padding: 6px 12px;
                 border: none;
-                padding: 6px 14px;
                 border-radius: 4px;
                 font-weight: bold;
-                font-size: 0.85rem;
                 cursor: pointer;
             }
-            
+                        
             nav ul { 
                 display: none; 
                 flex-direction: column; 
