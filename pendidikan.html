@@ -357,8 +357,10 @@
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-            .logo img { height: 35px; }
-            .logo h1 { font-size: 0.95rem !important; }
+              .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; margin-right: 0 !important; }
+            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
+
             .page-banner { padding: 40px 20px; }
             .page-banner h2 { font-size: 1.7rem; }
             .container { padding: 2rem 5%; gap: 2rem; }
@@ -372,18 +374,20 @@
                 font-size: 0.75rem;
             }
 
-            #menu-toggle {
-                display: block !important; 
-                background: var(--secondary-color) !important;
-                color: var(--primary-color) !important; 
-                border: none; 
-                padding: 6px 14px;
-                border-radius: 4px; 
-                font-weight: bold; 
-                font-size: 0.85rem; 
+                #menu-toggle {
+                display: flex !important;  
+                flex-direction: row;      
+                align-items: center;       
+                gap: 4px;           
+                background: var(--secondary-color);
+                color: var(--primary-color);
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                font-weight: bold;
                 cursor: pointer;
             }
-
+            
             nav { 
                 display: block !important; 
             }
