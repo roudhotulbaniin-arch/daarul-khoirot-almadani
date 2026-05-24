@@ -1185,11 +1185,18 @@
                 return el.value || "-";
             };
 
+            // 1. Ambil seluruh data input berbasis atribut 'name'
             formData.forEach((value, key) => {
                 if (!(value instanceof File)) {
                     dataFinal[key] = value;
                 }
             });
+
+            // 2. PENGAMAN EKSTRA: Ambil paksa nama_santri secara manual jika FormData melewatkannya
+            const inputNamaSantri = document.getElementsByName('nama_santri')[0] || document.getElementById('nama_santri');
+            if (inputNamaSantri && inputNamaSantri.value) {
+                dataFinal['nama_santri'] = inputNamaSantri.value;
+            }
 
             const listWilayah = [
                 'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
@@ -1250,6 +1257,7 @@
 
     window.handleFormSubmit = handleFormSubmit;
 </script>
+ 
 
 <script>
 /* =========================
