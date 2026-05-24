@@ -283,27 +283,34 @@
         </ul>
     </nav>
 </header>
-
 <div class="container">
    <form id="formPendaftaran" onsubmit="event.preventDefault();" novalidate>
         <div class="tab-container">
             <div class="tab-menu">
-                <button type="button" class="tab-link active" onclick="openTab(event, 'santri')"><i class="fas fa-user-graduate"></i> SANTRI</button>
-                <button type="button" class="tab-link" onclick="openTab(event, 'ortu')"><i class="fas fa-users"></i> ORTU</button>
-                <button type="button" class="tab-link" onclick="openTab(event, 'alamat')"><i class="fas fa-city"></i> ALAMAT</button>
-                <button type="button" class="tab-link" onclick="openTab(event, 'pernyataan')"><i class="fas fa-file-signature"></i> PERNYATAAN</button>
+                <button type="button" class="tab-link active" onclick="openTab(event, 'santri')">
+                    <i class="fas fa-user-graduate"></i> SANTRI
+                </button>
+                <button type="button" class="tab-link" onclick="openTab(event, 'ortu')">
+                    <i class="fas fa-users"></i> ORTU
+                </button>
+                <button type="button" class="tab-link" onclick="openTab(event, 'alamat')">
+                    <i class="fas fa-city"></i> ALAMAT
+                </button>
+                <button type="button" class="tab-link" onclick="openTab(event, 'pernyataan')">
+                    <i class="fas fa-file-signature"></i> PERNYATAAN
+                </button>
             </div>
 
             <div id="santri" class="tab-content active">
-                <div class="form-section-title"><i class="fas fa-id-card"></i> Identitas Santri</div>
+                <div class="form-section-title"><i class="fas fa-id-card"></i> identitas Santri</div>
                 <div class="form-grid-santri">
                     <div class="form-group">
                         <label>Tanggal Pendaftaran<span style="color: red;">*</span></label>
                         <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar"></div>
                     </div>
                     <div class="form-group">
-                        <label>Nama Lengkap Santri<span style="color: red;">*</span></label>
-                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_santri" placeholder="Sesuai KK/Akte"></div>
+                        <label>Nama Lengkap<span style="color: red;">*</span></label>
+                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama" placeholder="Sesuai KK/Akte"></div>
                     </div>
                     <div class="form-group">
                         <label>Pilihan Unit & Kelas<span style="color: red;">*</span></label>
@@ -333,7 +340,7 @@
 
                 <div class="form-grid-santri">
                     <div class="form-group">
-                        <label>NIK Santri<span style="color: red;">*</span></label>
+                        <label>NIK<span style="color: red;">*</span></label>
                         <div class="input-ikon">
                             <i class="fas fa-id-card"></i>
                             <input type="number" name="nik" id="nikSantri" placeholder="16 Digit NIK" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);">
@@ -341,12 +348,12 @@
                         <div id="errorNikSantri" class="error-message"></div>
                     </div>
                     <div class="form-group">
-                        <label>Nomor KK Utama<span style="color: red;">*</span></label>
+                        <label>Nomor KK<span style="color: red;">*</span></label>
                         <div class="input-ikon">
                             <i class="fas fa-address-card"></i>
-                            <input type="number" name="no_kk" id="kkSantri" placeholder="16 Digit KK" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);">
+                            <input type="number" name="no_kk" id="kkAyah" placeholder="16 Digit KK" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);">
                         </div>
-                        <div id="errorKkSantri" class="error-message"></div>
+                        <div id="errorKkAyah" class="error-message"></div>
                     </div>
                     <div class="form-group">
                         <label>NISN</label>
@@ -387,19 +394,25 @@
                         <div class="input-ikon"><i class="fas fa-star"></i><select name="cita"><option value="">-- Pilih --</option><option>Ulama/Da`i</option><option>Hafizh/Hafizhah</option><option>Guru/Dosen</option><option>Dokter</option><option>Tentara/Polisi</option><option>Pengusaha</option><option>Lainnya</option></select></div>
                     </div>
                 </div>
-                
                 <div class="form-group">
                     <label>Hobi Santri</label>
                     <div class="input-ikon">
-                        <i class="fas fa-star"></i>
-                        <select name="hobi"><option value="">-- Pilih --</option><option>Membaca Kitab/Buku</option><option>Olahraga</option><option>Seni Kaligrafi</option><option>Menghafal Al-Qur'an</option><option>Teknologi</option><option>Hadhroh</option><option>Lainnya</option></select>
-                    </div>
+                       <i class="fas fa-star"></i>
+                       <select name="hobi"><option value="">-- Pilih --</option>
+                           <option>Membaca Kitab/Buku</option>
+                           <option>Olahraga</option>
+                           <option>Seni Kaligrafi</option>
+                           <option>Menghafal Al-Qur'an</option>
+                           <option>Teknologi</option>
+                           <option>Hadhroh</option>
+                           <option>Lainnya</option>
+                       </select>
+                   </div>
                 </div>
-
                 <div class="form-grid-santri">
                     <div class="form-group">
                         <label>Kebutuhan Khusus</label>
-                        <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"><option value="">-- Pilih --</option><option>Tidak Ada</option><option>Lamban Belajar</option><option>Kesulitan Belajar Spesifik</option><option>Gangguan Komunikasi</option><option>Berbakat Memiliki Kemampuan Luar Biasa</option><option>Lainnya</option></select></div>
+                        <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"><option value="">-- Pilih --</option><option>Tidak Ada</option><option>Lamban Belajar</option><option>Kesulitan Belajar Spesifik</option><option>Gangguan Komunikasi</option><option>Berbakat Memilili Kemampuan/Kecerdasan Luar Biasa</option><option>Lainnya</option></select></div>
                     </div>
                     <div class="form-group">
                         <label>Kebutuhan Disabilitas</label>
@@ -422,10 +435,6 @@
                         <div class="input-ikon"><i class="fas fa-file-contract"></i><input type="file" name="up_ijazah"></div>
                     </div>
                 </div>
-
-                <div class="button-group" style="padding: 30px 0;">
-                    <button type="button" class="btn-nav btn-next btn-full" onclick="nextTab('ortu')">Lanjut ke Data Orang Tua <i class="fas fa-chevron-circle-right fa-lg"></i></button>
-                </div>
             </div> 
 
             <div id="ortu" class="tab-content">
@@ -433,7 +442,7 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Nama Lengkap Ayah<span style="color: red;">*</span></label>
-                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" name="nama_ayah" id="n_ayah" placeholder="Nama lengkap sesuai KK"></div>
+                        <div class="input-ikon"><i class="fas fa-user"></i><input type="text" id="n_ayah" name="nama_ayah" placeholder="Nama lengkap sesuai KK"></div>
                     </div>
                     <div class="form-group">
                         <label>Status Ayah<span style="color: red;">*</span></label>
@@ -461,7 +470,7 @@
                     </div>
                     <div class="form-group">
                         <label>Nomor Kartu Keluarga (KK)<span style="color: red;">*</span></label>
-                        <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="kk_ayah" id="kkAyah" maxlength="16" placeholder="16 digit No KK"></div>
+                        <div class="input-ikon"><i class="fas fa-users"></i><input type="text" name="kk_ayah" maxlength="16" placeholder="16 digit No KK"></div>
                     </div>
                     <div class="form-group">
                         <label>Tempat Lahir</label>
@@ -505,7 +514,7 @@
                                 <option>Wira Swasta</option>
                                 <option>Petani/Peternak</option>
                                 <option>Nelayan</option>
-                                <option>Buruh</option>
+                                <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
                                 <option>Sopir</option>
                                 <option>Lainnya</option>
                             </select>
@@ -522,12 +531,13 @@
                                 <option>1.500.001 - 2.500.000</option>
                                 <option>2.500.001 - 5.000.000</option>
                                 <option>5.000.001 - 10.000.000</option>
+                                <option>10.000.001 - 20.000.000</option>
                                 <option>Diatas 20.000.000</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>No HP Ayah (WhatsApp)<span style="color: red;">*</span></label>
+                        <label>No Handphone Ayah (WhatsApp) <span style="color: red;">*</span></label>
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <div class="input-ikon">
                                 <i class="fab fa-whatsapp"></i>
@@ -535,12 +545,12 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 8px;">
                                 <input type="checkbox" name="cek_hp_ayah" onchange="toggleHP(this, 'hp_ayah')">
-                                <label for="cek_hp_ayah" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya HP</label>
+                                <label for="cek_hp_ayah" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya No Handphone</label>
                             </div>
                         </div>
                     </div>
                 </div> 
-
+                
                 <div class="form-section-title"><i class="fas fa-user-nurse"></i> Data Ibu Kandung</div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -572,7 +582,7 @@
                         <div class="input-ikon"><i class="fas fa-map-marker-alt"></i><input type="text" name="tmpt_ibu"></div>
                     </div>
                     <div class="form-group">
-                        <label>Tanggal Lahir Ibu<span style="color: red;">*</span></label>
+                        <label>Tanggal Lahir<span style="color: red;">*</span></label>
                         <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu"></div>
                     </div>
                     <div class="form-group">
@@ -584,7 +594,13 @@
                                 <option>SD/Sederajat</option>
                                 <option>SMP/Sederajat</option>
                                 <option>SMA/Sederajat</option>
+                                <option>D1</option>
+                                <option>D2</option>
+                                <option>D3</option>
                                 <option>D4/S1</option>
+                                <option>S2</option>
+                                <option>S3</option>
+                                <option>Tidak Bersekolah</option>
                                 <option>Lainnya</option>
                             </select>
                         </div>
@@ -596,25 +612,37 @@
                             <select name="pjk_ibu" id="pjk_ibu">
                                 <option value="">-- Pilih --</option>
                                 <option>Ibu Rumah Tangga</option>
+                                <option>Pensiunan</option>
+                                <option>PNS/TNI/Polri</option>
+                                <option>Guru/Dosen</option>
                                 <option>Pegawai Swasta</option>
                                 <option>Wira Swasta</option>
+                                <option>Petani/Peternak</option>
+                                <option>Nelayan</option>
+                                <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
+                                <option>Sopir</option>
                                 <option>Lainnya</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Penghasilan / Bulan</label>
+                        <label>Penghasilan Rata-rata / Bulan</label>
                         <div class="input-ikon">
                             <i class="fas fa-money-bill-wave"></i>
                             <select name="hasil_ibu"> 
                                 <option value="">-- Pilih --</option>
                                 <option>Dibawah 800.000</option>
-                                <option>Tidak Berpenghasilan</option>
+                                <option>800.001 - 1.500.000</option>
+                                <option>1.500.001 - 2.500.000</option>
+                                <option>2.500.001 - 5.000.000</option>
+                                <option>5.000.001 - 10.000.000</option>
+                                <option>10.000.001 - 20.000.000</option>
+                                <option>Diatas 20.000.000</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>No HP Ibu<span style="color: red;">*</span></label>
+                        <label>No Handphone Ibu<span style="color: red;">*</span></label>
                         <div style="display: flex; flex-direction: column; gap: 5px;">
                             <div class="input-ikon">
                                 <i class="fab fa-whatsapp"></i>
@@ -622,12 +650,12 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 8px;">
                                 <input type="checkbox" name="cek_hp_ibu" onchange="toggleHP(this, 'hp_ibu')">
-                                <label for="cek_hp_ibu" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya HP</label>
+                                <label for="cek_hp_ibu" style="font-size: 11px; color: #d63031; font-weight: bold; cursor: pointer;">Tidak punya No Handphone</label>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                </div> 
+                
                 <div class="form-group" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #ddd;">
                     <label><b>Tentukan Status Wali Santri<span style="color: red;">*</span></b></label>
                     <div class="input-ikon" style="margin-top: 10px;">
@@ -640,15 +668,10 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="button-group">
-                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('santri')"><i class="fas fa-chevron-circle-left fa-lg"></i> Kembali</button>
-                    <button type="button" class="btn-nav btn-next" onclick="nextTab('alamat')">Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i></button>
-                </div>
             </div>
 
             <div id="alamat" class="tab-content">
-                <div class="form-section-title"><i class="fas fa-male"></i> Data Wilayah Utama (Ayah)</div>
+                <div class="form-section-title"><i class="fas fa-male"></i> Data Ayah</div>
                 <div class="form-grid" name="block_ayah">
                      <div class="form-group">
                             <label>Status Kepemilikan Rumah<span style="color: red;">*</span></label>
@@ -656,11 +679,13 @@
                                 <select name="milik_ayah">
                                     <option value="">-- Pilih --</option>
                                     <option>Milik Sendiri</option>
+                                    <option>Rumah Orangtua</option>
+                                    <option>Rumah Saudara</option>
                                     <option>Sewa/Kontrak</option>
                                     <option>Lainnya</option>
                                 </select>
                             </div>
-                     </div>
+                        </div>
                     <div class="form-group">
                         <label>Provinsi<span style="color: red;">*</span></label>
                         <div class="input-ikon"><i class="fas fa-map"></i>     
@@ -693,16 +718,19 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group"><label>Alamat Jalan/Kp<span style="color: red;">*</span></label> <div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_ayah" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
+                    <div class="form-group"><label>Alamat</label> <div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_ayah" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
                     <div class="form-group"><label>RT</label><div class="input-ikon"><i class="fas fa-thumbtack"></i><input type="text" name="rt_ayah" placeholder="RT"></div></div>
                     <div class="form-group"><label>RW</label><div class="input-ikon"><i class="fas fa-thumbtack"></i><input type="text" name="rw_ayah" placeholder="RW"></div></div>
-                    <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_ayah"></div></div>
+                    <div class="form-group">
+                        <label>Kode Pos</label>
+                        <div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_ayah"></div>
+                    </div>
                 </div>
 
                 <div class="form-section-title"><i class="fas fa-female"></i> Domisili Ibu Kandung</div>
                 <div class="form-group" style="margin-bottom:20px; max-width: 400px;">
-                    <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Ibu<span style="color: red;">*</span></label>
-                    <div class="input-ikon">
+                    <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Ibu</label>
+                    <div class="input-ikon" style="border:2px solid var(--gold-color);">
                         <i class="fas fa-question-circle"></i>
                         <select name="pilih_dom_ibu" onchange="toggleDomisiliIbu(this.value)"> 
                             <option value="">-- Pilih Lokasi --</option>
@@ -722,11 +750,11 @@
                      <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" name="rw_ibu" placeholder="RW"></div></div>
                      <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_ibu"></div></div>
                 </div>
-
+                    
                 <div class="form-section-title"><i class="fas fa-user-graduate"></i> Domisili Santri</div>
                 <div class="form-group" style="margin-bottom:20px; max-width: 400px;">
-                    <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Santri<span style="color: red;">*</span></label>
-                    <div class="input-ikon">
+                    <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili</label>
+                    <div class="input-ikon" style="border:2px solid var(--primary-color);">
                         <i class="fas fa-bed"></i>
                         <select name="pilih_dom_santri" onchange="toggleDomisiliSantri(this.value)"> 
                             <option value="">-- Pilih --</option>
@@ -743,7 +771,7 @@
                      <div class="form-group"><label>Kabupaten</label><div class="input-ikon"><i class="fas fa-city"></i><select name="kab_santri" onchange="loadKecSantri(this.value)"><option value="">Pilih Kabupaten</option></select></div></div>
                      <div class="form-group"><label>Kecamatan</label><div class="input-ikon"><i class="fas fa-location-arrow"></i><select name="kec_santri" onchange="loadDesaDanPosSantri(this.value)"><option value="">Pilih Kecamatan</option></select></div></div>
                      <div class="form-group"><label>Desa</label><div class="input-ikon"><i class="fas fa-map-signs"></i><select name="desa_santri"><option value="">Pilih Desa</option></select></div></div>
-                     <div class="form-group"><label>Alamat Lengkap Santri</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_santri" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
+                     <div class="form-group"><label>Alamat Lengkap Ibu</label><div class="input-ikon"><i class="fas fa-road"></i><input type="text" name="al_santri" placeholder="Nama Jalan, Gg, atau Kampung"></div></div>
                      <div class="form-group"><label>RT</label><div class="input-ikon"><input type="text" name="rt_santri" placeholder="RT"></div></div>
                      <div class="form-group"><label>RW</label><div class="input-ikon"><input type="text" name="rw_santri" placeholder="RW"></div></div>
                      <div class="form-group"><label>Kode Pos</label><div class="input-ikon"><i class="fas fa-mail-bulk"></i><input type="text" name="pos_santri"></div></div>
@@ -768,7 +796,9 @@
                             <select name="trans">
                                 <option value="">-- Pilih --</option>
                                 <option>Jalan Kaki</option>
+                                <option>Naik Sepeda</option>
                                 <option>Naik Sepeda Motor</option>
+                                <option>Naik Angkutan Umum</option>
                                 <option>Antar Jemput</option>
                             </select>
                         </div>
@@ -779,47 +809,49 @@
                             <select name="waktu">
                                 <option value="">-- Pilih --</option>
                                 <option>1 - 10 menit</option>
+                                <option>10 - 20 menit</option>
+                                <option>20 - 30 menit</option>
                                 <option>Lebih dari 30 menit</option>
                             </select>
                         </div>
                     </div>
                 </div>
-
-                <div class="button-group">
-                    <button type="button" class="btn-nav btn-prev" onclick="prevTab('ortu')"><i class="fas fa-chevron-circle-left fa-lg"></i> Kembali</button>
-                    <button type="button" class="btn-nav btn-next" onclick="nextTab('pernyataan')">Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i></button>
-                </div>
             </div>
 
             <div id="pernyataan" class="tab-content">
-                <div class="form-section-title"><i class="fas fa-microphone-alt"></i> Wawancara Mandiri</div>
+                <div class="form-section-title"><i class="fas fa-microphone-alt"></i> Wawancara Mandiri Orangtua & Santri </div>
                 <div class="info-bar" style="margin-bottom: 25px; background: #e7f3ff; padding: 10px; border-radius: 5px;">
-                    <i class="fas fa-info-circle"></i> Mohon dijawab dengan jujur demi ketepatan pembinaan ananda.
+                    <i class="fas fa-info-circle"></i> Mohon dijawab dengan jujur agar Lembaga dapat memberikan pembinaan yang tepat bagi ananda.
                 </div>
 
-                <div class="form-grid">
+                <div class="form-grid" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
                     <div class="form-group">
                         <label>Visi Orang Tua</label>
                         <div class="input-ikon">
                             <i class="fas fa-eye"></i>
                             <select name="w_visi">
                                 <option value="">-- Pilih Pandangan --</option>
-                                <option value="Keseimbangan Ibadah, Akhlak, & Adab">Keseimbangan Ibadah, Akhlak, & Adab</option>
+                                <option value="Urgensi Dunia/Akhirat">Dahulukan Akhirat Jangan Lupakan Dunia</option>
+                                <option value="Ibadah & Akhlak">Keseimbangan Ibadah, Akhlak, & Adab</option>
+                                <option value="Fokus Ibadah">Fokus Ibadah Ritual (Shalat, Ngaji)</option>
                                 <option value="Dunia Akhirat">Keseimbangan Ilmu Agama & Umum</option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label>Pola Disiplin Rumah</label>
                         <div class="input-ikon">
                             <i class="fas fa-gavel"></i>
                             <select name="w_pola">
                                 <option value="">-- Pilih Pola --</option>
+                                <option value="Sangat Ketat">Sangat Ketat (Banyak Sanksi)</option>
                                 <option value="Demokratis">Demokratis (Diskusi Bersama)</option>
-                                <option value="Sangat Ketat">Sangat Ketat</option>
+                                <option value="Longgar">Longgar (Ikuti Mau Anak)</option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label>Perilaku Dominan</label>
                         <div class="input-ikon">
@@ -828,34 +860,94 @@
                                 <option value="">-- Pilih Perilaku --</option>
                                 <option value="Mandiri & Rajin">Mandiri, Rajin, & Penurut</option>
                                 <option value="Cukup Baik">Cukup Baik, Perlu Diingatkan</option>
+                                <option value="Kurang Mandiri">Kurang Mandiri / Harus selalu disuruh</option>
+                                <option value="Kepekaan">Kurang Peka / Harus selalu diingatkan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kondisi Kesehatan</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-heartbeat"></i>
+                            <select name="w_sehat" onchange="toggleDetail(this.value, 'box_sehat')">
+                                <option value="">-- Pilih Kondisi --</option>
+                                <option value="Sehat">Alhamdulillah Sehat</option>
+                                <option value="Pernah Sakit">Ada Riwayat Penyakit</option>
+                                <option value="Dalam Pengobatan">Butuh Penanganan Khusus</option>
+                            </select>
+                        </div>
+                        <input type="text" name="box_sehat" placeholder="Sebutkan penyakit & cara penanganannya..." style="display:none; margin-top:10px; width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sikap Terhadap Sanksi</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-user-shield"></i>
+                            <select name="w_tazir">
+                                <option value="">-- Pilih Sikap --</option>
+                                <option value="Mendukung">Mendukung Sanksi Edukatif</option>
+                                <option value="Diskusi">Diskusi (Keberatan Jika Berat)</option>
+                                <option value="Pasrah">Pasrah Kepada Keputusan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Harapan Terbesar</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-star"></i>
+                            <select name="w_harapan">
+                                <option value="">-- Pilih Harapan --</option>
+                                <option value="Hafal Al-Quran">Menjadi Penghafal Al-Quran</option>
+                                <option value="Akhlakul Karimah">Memiliki Akhlak & Adab Baik</option>
+                                <option value="Mandiri & Berilmu">Pribadi Mandiri & Faqih</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-section-title"><i class="fas fa-user-check"></i> Surat Pernyataan Resmi</div>
+                <div class="form-section-title"><i class="fas fa-user-check"></i> Surat Pernyataan</div>
                 <div style="background: #fff; border: 2px solid #ddd; padding: 25px; border-radius: 10px; line-height: 1.8; color: #333; font-size: 0.95rem;">
                     <p style="font-weight: bold; text-align: center; text-decoration: underline; margin-bottom: 20px;">DENGAN INI MENYATAKAN BAHWA :</p>
+                    <p>Bahwa selama saya menjadi santri di Lembaga Pendidikan DAARUL KHOIROT ALMADANI :</p>
                     <ol style="margin-left: 20px; margin-bottom: 15px;">
-                        <li>Akan mematuhi segala kewajiban, peraturan, dan tata tertib Lembaga Pendidikan DAARUL KHOIROT ALMADANI.</li>
-                        <li>Akan menjaga nama baik sendiri, keluarga, pengajar, dan Lembaga.</li>
-                        <li>Sanggup menerima sanksi (Ta'zir) edukatif apabila melanggar ketentuan.</li>
+                        <li>Akan mematuhi segala kewajiban, peraturan, dan tata tertib Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+                        <li>Akan menjaga nama baik sendiri, keluarga, pengajar, dan Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+                        <li>Apabila saya tidak menta'ati semua peraturan dan ketentuan yang telah ditetapkan, saya sanggup menerima sanksi (Ta'zir) apapun</li>
+                        <li>Saya selaku Orangtua santri menyerahkan sepenuhnya kepada Pengurus Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
+                        <li>Saya selaku Orangtua Santri bersedia memberikan sumbangsih apapun yang saya mampu baik diri maupun harta kepada Lembaga Pendidikan DAARUL KHOIROT ALMADANI</li>
                     </ol>
+                    <p style="font-style: italic;">Demikian surat pernyataan ini saya buat dengan sebenar-benarnya dan tanpa paksaan dari pihak manapun.</p>
                 </div>
 
                 <div style="background: #e8f5e9; border: 1px dashed #1a5d1a; padding: 20px; border-radius: 10px; margin-top: 20px; display: flex; align-items: center; gap: 15px;">
                     <input type="checkbox" name="cek_pernyataan" style="width: 25px; height: 25px; cursor: pointer; accent-color: #1a5d1a;" value="Setuju">
-                    <label for="cek_pernyataan" style="font-weight: bold; color: #1a5d1a; cursor: pointer; font-size: 1rem;">Saya Menyetujui Seluruh Pernyataan di Atas</label>
+                    <label for="cek_pernyataan" style="font-weight: bold; color: #1a5d1a; cursor: pointer; font-size: 1rem;">
+                        Saya Menyetujui Seluruh Pernyataan di Atas
+                    </label>
                 </div>
 
                 <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <button type="button" onclick="prosesSimpanFinal()" style="background: #1a5d1a; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;"><i class="fas fa-save fa-lg"></i> Simpan Data</button>
-                    <button type="button" onclick="kirimWA()" style="background: #25d366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;"><i class="fab fa-whatsapp fa-lg"></i> Kirim WhatsApp</button>
+                   <button type="button" onclick="prosesSimpanFinal()" style="background: #1a5d1a; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
+                        <i class="fas fa-save fa-lg"></i> Simpan
+                    </button>
+                    <button type="button" onclick="kirimWA()" style="background: #25d366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">
+                        <i class="fab fa-whatsapp fa-lg"></i> Konfirmasi
+                    </button>
                 </div>
             </div> 
+        </div> <div class="button-group" style="padding: 20px 0; margin-top: 10px;">
+            <button type="button" id="btn-global-prev" class="btn-nav btn-prev" onclick="navigasiMundur()" style="display: none;">
+                <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
+            </button>
+            <button type="button" id="btn-global-next" class="btn-nav btn-next" onclick="navigasiMaju()">
+                Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
+            </button>
         </div>
    </form>
-</div>     
+</div>
+  
 
 <footer> 
     <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
@@ -1102,13 +1194,6 @@ function validateInput(tabId) {
     return true; 
 }
 
-function nextTab(targetId) {
-    const currentTab = document.querySelector('.tab-content.active');
-    if (validateInput(currentTab ? currentTab.id : 'santri')) { openTab(null, targetId); }
-}
-
-function prevTab(targetId) { openTab(null, targetId); }
-
 function handleNoNISN(checked) {
     const input = document.getElementsByName('nisn')[0];
     if(input) { input.value = checked ? '0000000000' : ''; input.readOnly = checked; }
@@ -1133,13 +1218,98 @@ function kirimWA() {
     window.open("https://wa.me/6281401643188?text=" + encodeURIComponent(m), '_blank');
 }
 
-function openTab(evt, targetId) {
-    const contents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < contents.length; i++) { contents[i].style.display = "none"; contents[i].classList.remove("active"); }
-    const links = document.getElementsByClassName("tab-link");
-    for (let i = 0; i < links.length; i++) { links[i].classList.remove("active"); }
+/* =========================================================
+   SISTEM NAVIGASI DINAMIS DI LUAR KARTU FORM
+========================================================= */
+const urutanTab = ['santri', 'ortu', 'alamat', 'pernyataan'];
+
+function dapatkanTabAktif() {
+    const currentTab = document.querySelector('.tab-content.active');
+    return currentTab ? currentTab.id : 'santri';
+}
+
+function perbaruiTombolNavigasi(currentId) {
+    const btnPrev = document.getElementById('btn-global-prev');
+    const btnNext = document.getElementById('btn-global-next');
     
-    document.getElementById(targetId).style.display = "flex";
+    if (!btnPrev || !btnNext) return;
+
+    // Jika di tab pertama (santri), sembunyikan tombol 'Kembali'
+    if (currentId === 'santri') {
+        btnPrev.style.display = 'none';
+    } else {
+        btnPrev.style.display = 'flex';
+    }
+
+    // Jika di tab terakhir (pernyataan), sembunyikan tombol 'Lanjut' karena form handling ada di dalam tombol simpan bawaan tab tersebut
+    if (currentId === 'pernyataan') {
+        btnNext.style.display = 'none';
+    } else {
+        btnNext.style.display = 'flex';
+    }
+}
+
+function navigasiMaju() {
+    const currentId = dapatkanTabAktif();
+    const currentIndex = urutanTab.indexOf(currentId);
+    
+    // Jalankan validasi input real-time sebelum lanjut ke tab berikutnya
+    if (validateInput(currentId)) {
+        if (currentIndex < urutanTab.length - 1) {
+            const nextId = urutanTab[currentIndex + 1];
+            openTab(null, nextId);
+        }
+    }
+}
+
+function navigasiMundur() {
+    const currentId = dapatkanTabAktif();
+    const currentIndex = urutanTab.indexOf(currentId);
+    
+    if (currentIndex > 0) {
+        const prevId = urutanTab[currentIndex - 1];
+        openTab(null, prevId);
+    }
+}
+
+function openTab(evt, targetId) {
+    const tabcontents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+        tabcontents[i].classList.remove("active");
+    }
+
+    const tablinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    const targetTab = document.getElementById(targetId);
+    if (targetTab) {
+        targetTab.style.display = "block";
+        targetTab.classList.add("active");
+    } else {
+        console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
+    }
+
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active');
+    } else {
+        const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
+        if (autoBtn) autoBtn.classList.add('active');
+    }
+    
+    // Perbarui status visibility tombol navigasi di luar kartu
+    perbaruiTombolNavigasi(targetId);
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Pastikan fungsi baru ini terekspos ke window scope di bagian paling bawah skrip Anda
+window.navigasiMaju = navigasiMaju;
+window.navigasiMundur = navigasiMundur;
+window.openTab = openTab;
+        document.getElementById(targetId).style.display = "flex";
     document.getElementById(targetId).classList.add("active");
     
     const btn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
