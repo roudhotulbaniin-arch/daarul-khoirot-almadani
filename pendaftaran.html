@@ -1626,18 +1626,17 @@ function validateInput(tabId) {
         });
     };
 
- const check = (name, label) => {
-    const el = document.getElementsByName(name)[0] || document.getElementById(name);
-    if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
-        // Ditambah koma dan tanda kutip jika berupa string parameter
-        showWarningAlert('encapsulation', `Field <b>${label}</b> wajib diisi!`);
-        return false;
-    }
-    return true;
-};
+    const check = (name, label) => {
+        const el = document.getElementsByName(name)[0] || document.getElementById(name);
+        if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
+            // FIX: Dihapus argumen string pengganggu 'encapsulation'
+            showWarningAlert(`Field <b>${label}</b> wajib diisi!`);
+            return false;
+        }
+        return true;
+    };
 
     if (tabId === 'santri') {
-        // Sinkronisasi pemanggilan validasi dari 'nama_santri' menjadi 'nama' sesuai atribut HTML
         if (!check('nama', 'Nama Lengkap')) return false;
         if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
         if (!check('nik', 'NIK')) return false;
@@ -1684,6 +1683,7 @@ function validateInput(tabId) {
         }
     }
     return true; 
+} // FIX: Ditambahkan kurung kurawal penutup untuk fungsi validateInput() yang hilang
 
 function handleNoNISN(checked) {
     const nisnInput = document.getElementsByName('nisn')[0]; 
@@ -1768,7 +1768,7 @@ function kirimWA() {
     m += "------------------------------------------\n\n";
 
     m += `*${ICON_SANTRI} DATA SANTRI*\n`;
-    m += "• Nama: " + gV('nama') + "\n"; // Diperbarui dari nama_santri menjadi nama
+    m += "• Nama: " + gV('nama') + "\n";
     m += "• Unit: " + gV('tingkat_unit') + "\n";
     m += "• NIK: " + gV('nik') + "\n";
     m += "• No. KK: " + gV('no_kk') + "\n";
@@ -2008,8 +2008,6 @@ window.loadDesaDanPosSantri = loadDesaDanPosSantri;
 window.lockFields = lockFields;
 window.resetFields = resetFields;
 window.openTab = openTab;
-window.nextTab = nextTab;
-window.prevTab = prevTab;
 window.toggleAyahFields = toggleAyahFields;
 window.handleNoNISN = handleNoNISN;
 window.toggleHP = toggleHP;
