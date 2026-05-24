@@ -81,8 +81,21 @@
 
         .logo img { height: 40px; width: auto; display: block; }
         .logo h1 { font-size: 1.3rem; letter-spacing: 0.5px; white-space: nowrap; }
-        #menu-toggle { display: none; } 
-
+        
+    #menu-toggle {
+                display: flex !important;  
+                flex-direction: row;      
+                align-items: center;       
+                gap: 4px;           
+                background: var(--secondary-color);
+                color: var(--primary-color);
+                padding: 6px 12px;
+                border: none;
+                border-radius: 4px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+             
         nav ul { 
             list-style: none; 
             display: flex; 
