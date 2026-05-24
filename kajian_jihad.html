@@ -6,17 +6,17 @@
     <title>Daarul Khoirot | Detail Liputan Berita</title>
 
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Kajian Fiqih & Esensi Jihad dalam Islam - Daarul Khoirot Almadani" />
-    <meta property="og:description" content="Simak pembahasan ilmiah dan komprehensif seputar makna, hukum, serta esensi jihad yang benar menurut tuntunan syariat Islam di Pondok Pesantren Daarul Khoirot Almadani." />
+    <meta property="og:title" content="Kupasan Kitab Kifayatul Atqiya Bait 107: Tanggung Jawab Pengajar Ilmu - Ponpes Daarul Khoirot Almadani" />
+    <meta property="og:description" content="Simak liputan kajian rutin malam Ahad Ponpes Daarul Khoirot Almadani Karawang bersama H. Wismo, membedah amanah dan tanggung jawab besar seorang guru dalam mengajarkan ilmu." />
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/kajian_jihad.html" />
-    <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
-    <meta property="og:image:alt" content="Kajian Keislaman Daarul Khoirot Almadani" />
+    <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/banner_kitab.png" />
+    <meta property="og:image:alt" content="Kajian Kitab Kifayatul Atqiya Ponpes Daarul Khoirot Almadani" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Kajian Fiqih & Esensi Jihad dalam Islam - Daarul Khoirot Almadani" />
-    <meta name="twitter:description" content="Pembahasan ilmiah seputar makna dan esensi jihad menurut tuntunan syariat Islam." />
-    <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
-    
+    <meta name="twitter:title" content="Kupasan Kitab Kifayatul Atqiya Bait 107: Tanggung Jawab Pengajar Ilmu - Ponpes Daarul Khoirot Almadani" />
+    <meta name="twitter:description" content="Liputan kajian rutin malam Ahad mengenai amanah seorang pengajar ilmu menurut tuntunan syariat Islam." />
+    <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/banner_kitab.png" />
+     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,9 @@
     <link rel="icon" type="image/png" href="main_logo.png">
 
     <style>
-        /* --- 1. DESIGN VARIABLES & RESET --- */
+        /* ==========================================================================
+           1. RESET & VARIABLE DASAR
+           ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
             --primary-dark: #0d2e0d;
@@ -32,18 +34,14 @@
             --light-bg: #f4f7f6;
             --white: #ffffff;
             --text-dark: #333333;
-            --border-color: #d4e4d4;
+            --border-color: #eef4ee;
         }
 
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            font-family: 'Quicksand', sans-serif; 
-        }
-
-        html {
-            scroll-behavior: smooth;
+            font-family: 'Quicksand', sans-serif;
         }
 
         body { 
@@ -56,13 +54,10 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-        }
-
-        /* --- 2. HEADER & NAVIGASI DESKTOP --- */
-        header { 
+        /* ==========================================================================
+           2. HEADER & NAVIGASI
+           ========================================================================== */
+        header {
             background-color: var(--primary-color); 
             color: white; 
             padding: 10px 4%; 
@@ -71,192 +66,118 @@
             align-items: center; 
             position: sticky; 
             top: 0; 
-            z-index: 1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            min-height: 60px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 65px;
         }
 
         .logo { 
             display: flex; 
             align-items: center; 
-            text-decoration: none; 
-            color: white; 
-            flex-shrink: 0; 
+            text-decoration: none;
+            color: white;
             gap: 12px;
         }
 
-        .logo img { 
-            height: 40px; 
-            width: auto; 
-            display: block; 
-        }
-
-        .logo h1 { 
-            font-size: 1.3rem; 
-            letter-spacing: 0.5px; 
-            white-space: nowrap; 
-        }
+        .logo img { height: 40px; width: auto; display: block; }
+        .logo h1 { font-size: 1.3rem; letter-spacing: 0.5px; white-space: nowrap; }
+        #menu-toggle { display: none; } 
 
         nav ul { 
-            display: flex; 
             list-style: none; 
+            display: flex; 
             gap: 20px; 
         }
 
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
-            font-weight: 600; 
             font-size: 0.95rem; 
-            padding-bottom: 5px; 
-            transition: 0.3s; 
-            white-space: nowrap; 
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            transition: 0.3s;
+            padding-bottom: 5px;
         }
 
-        nav ul li a:hover { 
-            color: var(--secondary-color) !important; 
-        }
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+        nav ul li a.active-link { border-bottom: 3px solid var(--secondary-color) !important; color: var(--secondary-color) !important; }
 
-        nav ul li a.active-link { 
-            border-bottom: 3px solid var(--secondary-color) !important; 
-            color: var(--secondary-color) !important; 
-        }
-
-        #menu-toggle { 
-            display: none; 
-        }
-
-        /* --- 3. KONTEN UTAMA BERITA --- */
+        /* ==========================================================================
+           3. CONTAINER & STRUKTUR UTAMA KARTU
+           ========================================================================== */
         .container { 
-            padding: 3rem 15%; 
+            padding: 2.5rem 4%; 
             flex: 1; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .full-news-card {
             background: var(--white);
-            padding: 40px;
+            padding: 0 !important; 
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             overflow: hidden;
+            width: 100%; 
+            max-width: 1100px; 
+            margin-bottom: 25px; 
         }
 
-        /* --- HERO BANNER --- */
+        /* ==========================================================================
+           4. SEKTOR GAMBAR
+           ========================================================================== */
         .hero-banner {
             width: 100%;
-            max-height: 450px;
+            max-height: 550px;
             overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border: 1px solid #ddd;
-            background-color: #e5e5e5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: transparent;
+            padding: 35px 35px 0 35px; 
         }
 
         .hero-banner img {
             width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            object-position: center; 
+            height: auto; 
+            display: block;
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
         }
 
-        .news-header {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+        .news-banner-container {
+            width: 100%;
+            margin: 35px 0;
+            padding: 0 35px; 
+            background-color: transparent; 
         }
 
-        .news-tag {
-            background: #e6f0e6;
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 10px;
+        .news-banner-container img {
+            width: 100%;
+            height: auto;        
+            max-height: none;     
+            display: block;
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
         }
 
-        .news-header h2 {
-            font-size: 1.8rem;
-            color: #111;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        .news-meta {
-            font-size: 0.85rem;
+        .news-banner-caption {
+            font-size: 0.88rem;
             color: #666;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            text-align: center;
+            font-style: italic;
+            display: block;
+            padding: 12px 0; 
         }
 
-        .news-meta span i {
-            color: var(--primary-color);
-            margin-right: 6px;
-        }
-
-        .news-body p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            color: #333;
-            text-align: justify;
-        }
-
-        .news-body strong.location {
-            color: var(--primary-color);
-            letter-spacing: 0.5px;
-        }
-
-        /* Blok Susunan Acara */
-        .content-block-title {
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            margin: 30px 0 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 10px;
-        }
-
-        .news-body ul {
-            list-style: none;
-            margin-bottom: 25px;
-            background: #fafafa;
-            padding: 20px 20px 20px 40px;
-            border-radius: 8px;
-            border: 1px solid #eee;
-        }
-
-        .news-body ul li {
-            position: relative;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .news-body ul li::before {
-            content: "\f058";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            position: absolute;
-            left: -25px;
-            color: var(--primary-color);
-        }
-
-        /* Desain Khusus Bait Kitab Arab */
+        /* Kustomisasi Khusus Bait Kitab Arab Islami */
         .arabic-container {
             background: #fdfbf7;
             border: 1px solid #e3dec3;
             padding: 25px;
             border-radius: 8px;
-            margin: 25px 0;
+            margin: 25px 35px; /* Menyesuaikan batas padding artikel kemisan */
             box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
         }
 
@@ -285,68 +206,178 @@
             color: var(--primary-dark);
         }
 
+        /* ==========================================================================
+           5. SEKTOR TEKS ARTIKEL DESKTOP & MOBILE
+           ========================================================================== */
+        .news-header,
+        .news-body-content > p,
+        .news-quote-box,
+        .news-bullet-list,
+        .news-footer {
+            padding-left: 35px;  
+            padding-right: 35px; 
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .news-header {
+            margin-top: 30px;
+        }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+
+        .news-tag {
+            background: #e6f0e6;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        /* Tampilan Desktop Meta: berjajar horizontal */
+        .news-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            flex-direction: row;  
+            flex-wrap: nowrap;    
+            gap: 35px;            
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 18px;
+        }
+
+        .news-meta span {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap; 
+        }
+
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 8px; 
+            width: 16px;       
+            text-align: center;
+        }
+
+        .news-body-content p {
+            text-align: justify; 
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+            color: #333;
+        }
+
+        .content-block-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 35px 35px 15px 35px; 
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 12px; 
+            display: block;
+        }
+
+        /* Box Kutipan (Quote) */
+        .news-quote-box {
+            margin: 30px 0;
+        }
+
+        .news-quote-wrapper {
+            background: #f2f8f2;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        .news-quote-wrapper p {
+            margin-bottom: 0 !important;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* List Bullet */
+        .news-bullet-list {
+            list-style: none;
+            margin-bottom: 25px;
+            padding-top: 5px;
+        }
+
+        .news-bullet-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 1.02rem;
+            text-align: justify;
+        }
+
+        .news-bullet-list li::before {
+            content: "\f14a"; 
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary-color);
+        }
+
+        /* Susun ke bawah vertikal rapi */
         .news-footer {
             margin-top: 40px;
-            padding-top: 15px;
+            padding-top: 20px;
+            padding-bottom: 35px;
             border-top: 1px solid #eee;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; 
+            gap: 8px;               
             font-size: 0.9rem;
             color: #777;
         }
 
-        .reporter-tag {
-            font-style: italic;
-            font-weight: 600;
+        /* AREA ACTIONS (DI LUAR KARTU) */
+        .bottom-actions {
+            width: 100%;
+            max-width: 1100px; 
+            margin-bottom: 15px;
+            padding: 0; 
         }
 
-        /* --- TOMBOL KEMBALI --- */
-        .bottom-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px; 
-    margin-bottom: 10px; 
-    width: 100%;
-    padding: 0 16px;
-    box-sizing: border-box; /* Mengunci padding agar tidak merusak lebar 100% */
-}
+        .btn-kembali {
+            color: white;
+            background: var(--primary-color);
+            padding: 15px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;            
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;             
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
 
-.btn-kembali {
-    color: white;
-    background: var(--primary-color);
-    padding: 14px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    
-    /* Kombinasi 3 baris ini akan memaksa elemen <a> melebar penuh di HP */
-    width: 100%;
-    flex: 1; 
-    max-width: 400px; /* Batas maksimal di desktop agar tidak terlalu melar */
-    
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-}
+        .btn-kembali:hover { 
+            background: #144614;
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
 
-.btn-kembali:hover { 
-    background: #144614;
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.btn-kembali i {
-    margin-right: 10px;
-}
-
-
-        /* --- 4. FOOTER --- */
+        .btn-kembali i { margin-right: 10px; }
+  
+        /* ==========================================================================
+           6. FOOTER AREA
+           ========================================================================== */
         footer { 
             background: var(--primary-dark); 
             color: white; 
@@ -355,50 +386,32 @@
             width: 100%;
             margin-top: auto;
         }
-        
-        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); display: block; }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
-        /* --- 5. RESPONSIVE HP & TABLET --- */
+        
+        /* ==========================================================================
+           7. RESPONSIVE LAYER (OPTIMASI HP / MOBILE)
+           ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
-            .logo img { height: 35px; }
-            .logo h1 { font-size: 0.95rem !important; }
-            
-            .container { padding: 2rem 5%; }
-            .full-news-card { padding: 20px; }
-            .hero-banner { max-height: 250px; margin-bottom: 20px; }
-            .news-header h2 { font-size: 1.4rem; }
-            .arabic-text { font-size: 1.6rem; line-height: 2.2; }
-            
-            .bottom-actions {
-                padding: 0;
-            }
-
-            .btn-kembali { 
-                width: 300px;                    
-                padding: 12px 25px;      
-                font-size: 1rem;         
-            }
+            .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
+            .logo img { height: 35px; margin-right: 0 !important; }
+            .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
             #menu-toggle {
-                display: block !important; 
-                background: var(--secondary-color) !important;
-                color: var(--primary-color) !important; 
-                border: none; 
+                display: block;  
+                background: var(--secondary-color);
+                color: var(--primary-color);
+                border: none;
                 padding: 6px 14px;
-                border-radius: 4px; 
-                font-weight: bold; 
-                font-size: 0.85rem; 
+                border-radius: 4px;
+                font-weight: bold;
+                font-size: 0.85rem;
                 cursor: pointer;
             }
-
-            nav { 
-                display: block; 
-            }
-
-            /* SINKRONISASI LAYOUT MOBILE DENGAN INDEX.HTML */
+            
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -409,14 +422,51 @@
                 background: var(--primary-color); 
                 padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
-                gap: 15px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                gap: 10px;
                 z-index: 999;
             }
+            
+            nav.show ul { display: flex !important; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            nav.show ul { display: flex; }
-            nav ul li a { color: white !important; padding: 0 !important; width: auto; padding-bottom: 0 !important; }
-            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; color: var(--secondary-color) !important; }
+            .container { padding: 1.2rem 5%; }
+            
+            .full-news-card { margin-bottom: 20px; }
+
+            .hero-banner { padding: 24px 24px 0 24px; }
+            .news-banner-container { padding: 0 24px; margin: 20px 0; }
+            .arabic-container { margin: 20px 24px; padding: 18px; }
+            .arabic-text { font-size: 1.6rem; line-height: 2.2; }
+            
+            .news-header,
+            .news-body-content > p,
+            .news-quote-box,
+            .news-bullet-list,
+            .news-footer {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            /* Sistem Grid 2 baris x 2 kolom otomatis saat di HP */
+            .news-meta { 
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 10px 12px; 
+                margin-bottom: 20px; 
+                padding-bottom: 15px;
+                font-size: 0.78rem;
+            }
+
+            .content-block-title {
+                margin: 35px 24px 15px 24px; 
+                border-left: 5px solid var(--secondary-color);
+                padding-left: 12px; 
+            }
+
+            .bottom-actions { padding: 0; margin-bottom: 25px; }
+            .btn-kembali { font-size: 0.9rem; padding: 13px 16px; white-space: nowrap; }
+            .news-header h2 { font-size: 1.4rem; }
+            .news-body-content p { font-size: 1rem; }
         }
     </style>
 </head>
@@ -427,27 +477,25 @@
             <img src="main_logo.png" alt="Logo">
             <h1>DAARUL KHOIROT ALMADANI</h1>
         </a>
-        
         <button id="menu-toggle">
             <i class="fas fa-bars"></i> Menu
         </button>
-           
         <nav>
             <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
                 <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
-                 <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
-                 <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li> 
-                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li> 
+                <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
+                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li>
                 <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container">
-        <article class="full-news-card">
-            
+        <article class="full-news-card"> 
+
             <div class="hero-banner">
                 <img src="banner_kitab.png" alt="Banner Kitab Kifayatul Atqiya">
             </div>
@@ -455,23 +503,22 @@
             <div class="news-header">
                 <span class="news-tag">Liputan Berita</span>
                 <h2>Kajian Rutin Ponpes Daarul Khoirot Al-Madani Karawang: Kupas Tuntas Tanggung Jawab Pengajar Ilmu</h2>
+                
                 <div class="news-meta">
                     <span><i class="fas fa-calendar-alt"></i> Malam Ahad</span>
                     <span><i class="fas fa-map-marker-alt"></i> Jatisari, Kab. Karawang</span>
                     <span><i class="fas fa-user-friends"></i> 35 Jamaah</span>
+                    <span><i class="fas fa-user"></i> Admin</span>
                 </div>
-            </div>
+            </div> 
 
-            <div class="news-body">
-                <p>
-                    <strong class="location">KARAWANG</strong> – Pondok Pesantren Daarul Khoirot Al-Madani bersama Majlis Ta'lim Roudhotul Baniin kembali menggelar pengajian rutin malam Ahad yang bertempat di Dusun Sukamaju II, RT 02/RW 04, Desa Jatisari, Kec. Jatisari, Kab. Karawang.
-                </p>
-                <p>
-                    Acara ini dihadiri oleh sekitar 35 jamaah yang terdiri atas jajaran pengurus, santri, serta warga sekitar baik bapak-bapak maupun ibu-ibu. Agenda berkala ini bertujuan utamanya untuk menghidupkan syiar Islam di sekitar lingkungan pesantren, menyebarkan ilmu yang bermanfaat bagi masyarakat luas, serta senantiasa mengharap rida dari Allah SWT.
-                </p>
+            <div class="news-body-content">
+                <p><strong>KARAWANG</strong> – Pondok Pesantren Daarul Khoirot Al-Madani bersama Majlis Ta'lim Roudhotul Baniin kembali menggelar pengajian rutin malam Ahad yang bertempat di Dusun Sukamaju II, RT 02/RW 04, Desa Jatisari, Kec. Jatisari, Kab. Karawang.</p>
+                
+                <p>Acara ini dihadiri oleh sekitar 35 jamaah yang terdiri atas jajaran pengurus, santri, serta warga sekitar baik bapak-bapak maupun ibu-ibu. Agenda berkala ini bertujuan utamanya untuk menghidupkan syiar Islam di sekitar lingkungan pesantren, menyebarkan ilmu yang bermanfaat bagi masyarakat luas, serta senantiasa mengharap rida dari Allah SWT.</p>
 
-                <h4 class="content-block-title"><i class="fas fa-list-ol"></i> Rangkaian Susunan Acara</h4>
-                <ul>
+                <h4 class="content-block-title">Rangkaian Susunan Acara</h4>
+                <ul class="news-bullet-list">
                     <li>Pembukaan (Pembacaan Basmalah, Kalimat Thayyibah, dan Surah Al-Fatihah)</li>
                     <li>Tawasul</li>
                     <li>Pembacaan Ayat Suci Al-Qur’an</li>
@@ -480,15 +527,11 @@
                     <li>Doa Tutup</li>
                 </ul>
 
-                <h4 class="content-block-title"><i class="fas fa-book-open"></i> Pengantar Mengenai Kitab</h4>
-                <p>
-                    Kitab <em>Kifayatul Atqiya wa Minhajul Ashfiya</em> merupakan sebuah karya monumental di bidang tasawuf amali yang ditulis oleh ulama besar Syekh Abu Bakar bin Muhammad Syatha Ad-Dimyathi. Kitab ini merupakan bentuk syarah (penjelasan luas) dari bait-bait nadham <em>Hidayatul Azkiya</em> karya Syekh Zainuddin bin Ali Al-Malibari. Secara keseluruhan, kitab mulia ini berfokus menuntun umat dalam hal akhlak, manajemen waktu, sifat zuhud, serta bagaimana menyelaraskan keseimbangan kehidupan dunia dan akhirat.
-                </p>
+                <h4 class="content-block-title">Pengantar Mengenai Kitab</h4>
+                <p>Kitab <em>Kifayatul Atqiya wa Minhajul Ashfiya</em> merupakan sebuah karya monumental di bidang tasawuf amali yang ditulis oleh ulama besar Syekh Abu Bakar bin Muhammad Syatha Ad-Dimyathi. Kitab ini merupakan bentuk syarah (penjelasan luas) dari bait-bait nadham <em>Hidayatul Azkiya</em> karya Syekh Zainuddin bin Ali Al-Malibari. Secara keseluruhan, kitab mulia ini berfokus menuntun umat dalam hal akhlak, manajemen waktu, sifat zuhud, serta bagaimana menyelaraskan keseimbangan kehidupan dunia dan akhirat.</p>
 
-                <h4 class="content-block-title"><i class="fas fa-graduation-cap"></i> Inti Kajian Bait 107 (Tanggung Jawab Pengajar Ilmu)</h4>
-                <p>
-                    Kajian mendalam ini dipimpin langsung oleh <strong>H. Wismo</strong> selaku Pimpinan Pondok Pesantren & Majlis Ta'lim, yang secara khusus membedah intisari hukum dari teks Bait ke-107:
-                </p>
+                <h4 class="content-block-title">Inti Kajian Bait 107 (Tanggung Jawab Pengajar Ilmu)</h4>
+                <p>Kajian mendalam ini dipimpin langsung oleh <strong>H. Wismo</strong> selaku Pimpinan Pondok Pesantren & Majlis Ta'lim, yang secara khusus membedah intisari hukum dari teks Bait ke-107:</p>
 
                 <div class="arabic-container">
                     <p class="arabic-text">وَكَذَاكَ يَعْصِي مَنْ يُعَلِّمُ ذٰلِكَا إِلَّا لِعِلْمٍ نَافِعٍ لَا جَاهِلَا</p>
@@ -497,34 +540,30 @@
                     </div>
                 </div>
 
-                <p>
-                    Dalam jabaran intinya, H. Wismo menegaskan bahwa seorang guru atau pengajar bisa ikut menanggung dosa (maksiat) apabila ia memberikan atau mentransfer suatu cabang ilmu kepada murid yang diketahuinya berniat menggunakan pengetahuan tersebut untuk jalan kemaksiatan ataupun merusak tatanan agama. Kondisi buruk ini diibaratkan secara logis seperti seseorang yang menjual senjata tajam atau pedang kepada seorang perampok.
-                </p>
-                <p>
-                    Sebaliknya, hukum menjadi wajib mutlak bagi siapa saja untuk mengajarkan ilmu-ilmu yang bermanfaat (<em>ilman nafi'an</em>) dengan niat murni untuk mengikis kebodohan serta membenahi kualitas ibadah para penuntut ilmu.
-                </p>
+                <p>Dalam jabaran intinya, H. Wismo menegaskan bahwa seorang guru atau pengajar bisa ikut menanggung dosa (maksiat) apabila ia memberikan atau mentransfer suatu cabang ilmu kepada murid yang diketahuinya berniat menggunakan pengetahuan tersebut untuk jalan kemaksiatan ataupun merusak tatanan agama. Kondisi buruk ini diibaratkan secara logis seperti seseorang yang menjual senjata tajam atau pedang kepada seorang perampok.</p>
+                
+                <p>Sebaliknya, hukum menjadi wajib mutlak bagi siapa saja untuk mengajarkan ilmu-ilmu yang bermanfaat (<em>ilman nafi'an</em>) dengan niat murni untuk mengikis kebodohan serta membenahi kualitas ibadah para penuntut ilmu.</p>
 
-                <h4 class="content-block-title"><i class="fas fa-pray"></i> Doa dan Harapan Penutup</h4>
-                <p>
-                    Seluruh rangkaian acara berjalan dengan sangat khidmat, terlihat dari antusiasme tinggi seluruh jamaah mustami' yang menyimak materi sejak awal hingga selesai. Pengajian rutin ini kemudian ditutup dengan doa bersama yang dipimpin langsung oleh H. Wismo. 
-                </p>
-                <p>
-                    Besar harapan dari pelaksanaan ini agar seluruh jamaah yang hadir diberikan pemahaman batin yang mendalam, kelapangan hati, serta kekuatan rohani untuk dapat mengamalkan intisari ilmu tasawuf praktis ini di dalam kehidupan sehari-hari sehingga mampu memancarkan keberkahan yang nyata bagi lingkungan masyarakat Jatisari.
-                </p>
+                <h4 class="content-block-title">Doa dan Harapan Penutup</h4>
+                <p>Seluruh rangkaian acara berjalan dengan sangat khidmat, terlihat dari antusiasme tinggi seluruh jamaah mustami' yang menyimak materi sejak awal hingga selesai. Pengajian rutin ini kemudian ditutup dengan doa bersama yang dipimpin langsung oleh H. Wismo.</p> 
+                
+                <p>Besar harapan dari pelaksanaan ini agar seluruh jamaah yang hadir diberikan pemahaman batin yang mendalam, kelapangan hati, serta kekuatan rohani untuk dapat mengamalkan intisari ilmu tasawuf praktis ini di dalam kehidupan sehari-hari sehingga mampu memancarkan keberkahan yang nyata bagi lingkungan masyarakat Jatisari.</p>
+                
+                <p style="text-align: right; margin-top: 30px; font-style: italic;">Khidmatul Ma'had – Koresponden: "Uwa".</p>
             </div>
 
             <div class="news-footer">
-                <span>Kategori: Kegiatan Pesantren</span>
-                <span class="reporter-tag">Koresponden: "Uwa"</span>
+                <span><strong>Kategori:</strong> Kegiatan Pesantren</span>
+                <span><strong>Kontributor:</strong> Dokumentasi Internal</span>
             </div>
-        </article>
-        
+        </article>   
+
         <div class="bottom-actions">
             <a href="galeri.html" class="btn-kembali">
-                <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita 
-            </a>
+                <i class="fas fa-arrow-left"></i> Kembali ke Galeri & Liputan Berita
+            </a>        
         </div>
-    </main>
+    </main> 
 
     <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
@@ -533,44 +572,58 @@
         <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
+    <audio id="murottal" src="murottal_start.mp3" loop></audio>
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const murottal = document.getElementById('murottal');
+            const clickSound = document.getElementById('clickSound');
+            const menuItems = document.querySelectorAll('nav ul li a, .logo, .btn-kembali');
             const menuToggle = document.getElementById('menu-toggle');
             const nav = document.querySelector('nav');
-            const clickSound = document.getElementById('clickSound');
-            const menuItems = document.querySelectorAll("nav ul li a, .btn-kembali");
+            
+            let hasInteracted = false;
 
-            // Toggle Buka/Tutup Menu HP
+            function playMurottal() {
+                if (!hasInteracted && murottal) {
+                    murottal.volume = 0.3; 
+                    murottal.play().catch(() => {});
+                    hasInteracted = true;
+                    document.removeEventListener('click', playMurottal);
+                    document.removeEventListener('touchstart', playMurottal);
+                }
+            }
+            document.addEventListener('click', playMurottal);
+            document.addEventListener('touchstart', playMurottal); 
+
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    nav.classList.toggle('show');
+                    nav.classList.toggle('show'); 
                 });
             }
 
-            // Audio click delay system saat pindah page
             menuItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
-                        clickSound.currentTime = 0;
+                        clickSound.currentTime = 0; 
                         clickSound.volume = 0.8;
                         clickSound.play().catch(() => {});
                     }
+                    
                     if (nav) nav.classList.remove('show');
 
                     const targetUrl = this.getAttribute("href");
                     if (targetUrl && !targetUrl.includes('#') && !this.target) {
-                        e.preventDefault();
+                        e.preventDefault(); 
                         setTimeout(() => { 
                             window.location.href = targetUrl; 
-                        }, 200);
+                        }, 200); 
                     }
                 });
             });
 
-            // Tutup menu jika klik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
