@@ -1683,19 +1683,6 @@ function validateInput(tabId) {
         }
     }
     return true; 
-}
-
-function nextTab(targetId) {
-    const currentTab = document.querySelector('.tab-content.active');
-    const currentTabId = currentTab ? currentTab.id : 'santri';
-    if (validateInput(currentTabId)) {
-        openTab(null, targetId);
-    }
-}
-
-function prevTab(targetId) {
-    openTab(null, targetId);
-}
 
 function handleNoNISN(checked) {
     const nisnInput = document.getElementsByName('nisn')[0]; 
