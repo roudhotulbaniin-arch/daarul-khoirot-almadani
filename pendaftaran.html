@@ -1626,14 +1626,15 @@ function validateInput(tabId) {
         });
     };
 
-    const check = (name, label) => {
-        const el = document.getElementsByName(name)[0] || document.getElementById(name);
-        if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
-            showWarningAlert encapsulation(`Field <b>${label}</b> wajib diisi!`);
-            return false;
-        }
-        return true;
-    };
+ const check = (name, label) => {
+    const el = document.getElementsByName(name)[0] || document.getElementById(name);
+    if (!el || !el.value.trim() || el.value.includes("-- Pilih")) {
+        // Ditambah koma dan tanda kutip jika berupa string parameter
+        showWarningAlert('encapsulation', `Field <b>${label}</b> wajib diisi!`);
+        return false;
+    }
+    return true;
+};
 
     if (tabId === 'santri') {
         // Sinkronisasi pemanggilan validasi dari 'nama_santri' menjadi 'nama' sesuai atribut HTML
