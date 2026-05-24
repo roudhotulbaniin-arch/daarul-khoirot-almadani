@@ -1740,15 +1740,24 @@ function prosesSimpanFinal() {
 }
 
 /* =========================================================
-   INTEGRASI WHATSAPP REPORT NOTIFICATION
+   INTEGRASI WHATSAPP REPORT NOTIFICATION (FIXED)
 ========================================================= */
-function kirimWA() {
+function kirimWA(data) {
+    // 1. Ambil nilai teks input (Utamakan data objek, jika kosong baru ke elemen HTML)
     const gV = (name) => {
+        if (data && data[name] !== undefined) {
+            return data[name] ? String(data[name]).trim() : "-";
+        }
+        // Fallback jika dipanggil tanpa parameter objek data
         const el = document.getElementsByName(name)[0];
         return el ? (el.value.trim() || "-") : "-";
     };
 
+    // 2. Ambil nilai teks Dropdown/Select
     const gT = (idOrName) => {
+        if (data && data[idOrName] !== undefined) {
+            return data[idOrName] ? String(data[idOrName]).trim() : "-";
+        }
         const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
         if (el && el.tagName === 'SELECT' && el.selectedIndex !== -1) {
             const teks = el.options[el.selectedIndex].text;
@@ -1757,8 +1766,14 @@ function kirimWA() {
         return el ? (el.value.trim() || "-") : "-";
     };
 
-    const elCek = document.getElementsByName('cek_pernyataan')[0];
-    const status_setuju = (elCek && elCek.checked) ? "✅ SUDAH MENYETUJUI" : "❌ BELUM MENYETUJUI";
+    // 3. Status persetujuan ceklis pernyataan
+    let status_setuju = "❌ BELUM MENYETUJUI";
+    if (data && data['status_setuju'] === "SETUJU") {
+        status_setuju = "✅ SUDAH MENYETUJUI";
+    } else {
+        const elCek = document.getElementsByName('cek_pernyataan')[0];
+        if (elCek && elCek.checked) status_setuju = "✅ SUDAH MENYETUJUI";
+    }
 
     const ICON_SANTRI   = "🧒";
     const ICON_AYAH     = "👲";
@@ -1774,16 +1789,17 @@ function kirimWA() {
     m += "------------------------------------------\n\n";
 
     m += `*${ICON_SANTRI} DATA SANTRI*\n`;
-    m += "• Nama: " + gV('nama') + "\n";
-    m += "• Unit: " + gV('tingkat_unit') + "\n";
+    // Diselaraskan dengan penamaan data input formulir Anda ('nama_santri' & 'tingkat_unit')
+    m += "• Nama: " + (data ? gV('nama_santri') : gV('nama')) + "\n";
+    m += "• Unit: " + gT('tingkat_unit') + "\n";
     m += "• NIK: " + gV('nik') + "\n";
-    m += "• No. KK: " + gV('no_kk') + "\n";
+    m += "• No. KK: " + (data ? gV('no_kk') : gV('kk_santri')) + "\n";
     m += "• NISN: " + gV('nisn') + "\n";
-    m += "• Gender: " + gV('jenis_kelamin') + "\n";
+    m += "• Gender: " + (data ? gV('jenis_kelamin') : gV('jk_santri')) + "\n";
     m += "• TTL: " + gV('tmpt_lahir') + ", " + gV('tgl_lahir') + "\n";
     m += "• Anak Ke: " + gV('anak_ke') + " dari " + gV('jml_saudara') + " bersaudara\n";
-    m += "• Cita-cita: " + gV('cita') + "\n";
-    m += "• Hobi: " + gV('hobi') + "\n";
+    m += "• Cita-cita: " + (data ? gV('cita') : gV('cita_cita')) + "\n";
+    m += "• Hobi: " + (data ? gV('hobi') : gV('hobi_santri')) + "\n";
     m += "• Keb. Khusus: " + gV('keb_khusus') + "\n";
     m += "• Disabilitas: " + gV('disabilitas') + "\n";
     m += "• Biaya Oleh: " + gV('biaya') + "\n\n";
@@ -1807,7 +1823,7 @@ function kirimWA() {
     m += "• NIK Ibu: " + gV('nik_ibu') + "\n";
     m += "• TTL: " + gV('tmpt_ibu') + ", " + gV('tgl_ibu') + "\n";
     m += "• Pendidikan: " + gV('pdk_ibu') + "\n";
-    m += "• Pekerjaan: " + gV('pjk_ibu') + "\n";
+    m += "• Pekerjaan: " + (data ? gV('pjk_ibu') : gV('pekerjaan_ibu')) + "\n";
     m += "• Penghasilan: " + gV('hasil_ibu') + "\n";
     m += "• No. HP: " + gV('hp_ibu') + "\n\n";
 
@@ -1846,6 +1862,10 @@ function kirimWA() {
     const waUrl = "https://wa.me/" + adminNumber + "?text=" + encodeURIComponent(m);
     window.open(waUrl, '_blank');
 }
+
+// Daftarkan fungsi ke jendela global browser agar modul Firebase bisa memanggilnya
+window.kirimWA = kirimWA;
+
 
 /* =========================================================
    SISTEM NAVIGASI DINAMIS DI LUAR KARTU FORM
