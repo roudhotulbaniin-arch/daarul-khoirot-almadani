@@ -4,27 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Meta Tags Utama -->
 <title>Daarul Khoirot Almadani</title>
 <meta name="title" content="Daarul Khoirot Almadani">
 <meta name="description" content="Website resmi Daarul Khoirot Almadani. Wadah pendidikan, dakwah, dan sosial keagamaan.">
 <meta name="keywords" content="Daarul Khoirot Almadani, Roudhotul Baniin, yayasan, pesantren, islam, dakwah">
 <meta name="robots" content="index, follow">
 
-<!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
 <meta property="og:title" content="Daarul Khoirot Almadani">
 <meta property="og:description" content="Website resmi Daarul Khoirot Almadani. Wadah pendidikan, dakwah, dan sosial keagamaan.">
 <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
 
-<!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
 <meta property="twitter:title" content="Daarul Khoirot Almadani">
 <meta property="twitter:description" content="Website resmi Daarul Khoirot Almadani. Wadah pendidikan, dakwah, dan sosial keagamaan.">
 <meta property="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg" />
-
+
     <link rel="icon" type="image/png" href="main_logo.png">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,7 +135,7 @@
         .hero-content h1 { font-size: 4rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
         .hero-content p { font-size: 2rem; white-space: nowrap; margin-top: 10px; }
 
-        /* Base Card Baru yang Dipakai Semua Section */
+        /* Base Card Utama Semua Section */
         .kartu-modern-clean {
             background: #ffffff;
             padding: 35px 30px;
@@ -151,7 +148,7 @@
             margin: 30px auto;
         }
 
-        /* Judul Section Modern Beraksen Garis Samping Kuning */
+        /* Judul Section Beraksen Garis Samping Kuning */
         .judul-seragam {
             font-size: 1.5rem;
             color: var(--primary-color);
@@ -164,7 +161,7 @@
             gap: 10px;
         }
 
-        /* Pembungkus Banner Pamflet di Tentang Kami */
+        /* Pembungkus Banner Pamflet */
         .pamflet-wrapper {
             width: 100%;
             margin-bottom: 25px;
@@ -185,7 +182,7 @@
             text-align: justify;
         }
 
-        /* Container Split (Visi Misi Berdampingan dengan Legalitas) */
+        /* Container Split (Visi Misi & Legalitas) */
         .beranda-split-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr; 
@@ -195,7 +192,6 @@
             margin: 0 auto;     
         }
 
-        /* Reset Khusus untuk Kartu yang Berada di Dalam Grid Split */
         .beranda-split-grid .kartu-modern-clean {
             width: 100%;
             margin: 0;
@@ -207,7 +203,6 @@
 
         .motto-clean-box {
             background: #f4f7f6;
-            border-left: 4px solid var(--primary-color);
             padding: 15px 20px;
             font-style: italic;
             font-size: 1.05rem;
@@ -217,6 +212,8 @@
             border-radius: 0 8px 8px 0;
             color: var(--dark-green);
         }
+        
+        
 
         /* Tabel Legalitas Ringkas */
         .table-clean-legalitas {
@@ -234,7 +231,7 @@
             border-bottom: none;
         }
 
-        /* Grid Unit Pendidikan (Fixing Broken CSS Bracket Error Here) */
+        /* Grid Unit Pendidikan */
         .unit-grid-clean {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -279,7 +276,77 @@
             line-height: 1.5;
         }
 
-        /* Container Utama Grid Donasi */
+        /* --- KOREKSI STYLE: KARTU BANNER PENERIMAAN BERWARNA PUTIH (INLINE) --- */
+        .penerimaan-inline-card {
+            background: #ffffff; /* Mengubah background menjadi putih bersih */
+            padding: 35px 30px;
+            border-top: 4px solid var(--primary-color); /* Menambahkan border top warna primary */
+            border-left: 1px solid #eaeaea;
+            border-right: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            color: var(--text-dark);
+            width: 94%;
+            max-width: 1200px;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .penerimaan-inline-card .judul-penerimaan {
+            font-size: 1.5rem;
+            color: var(--primary-color); /* Judul menggunakan warna primary */
+            font-weight: 700;
+            border-left: 4px solid var(--secondary-color); /* Menyelaraskan aksen garis kuning di samping */
+            padding-left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .penerimaan-banner-box {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .penerimaan-banner-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .btn-daftar-penerimaan {
+            background-color: var(--primary-color); /* Latar belakang tombol warna primary */
+            color: #ffffff !important; /* Teks & Ikon berwarna putih */
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(26, 93, 26, 0.15);
+            max-width: 300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .btn-daftar-penerimaan:hover {
+            transform: translateY(-2px);
+            background-color: var(--dark-green);
+        }
+
+        /* Container Grid Donasi */
         .donasi-grid-clean {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -287,7 +354,6 @@
             margin-top: 25px;
         }
 
-        /* Kartu Donasi Modern (Clean Style) */
         .donasi-card {
             background: #ffffff;
             border-radius: 16px;
@@ -333,7 +399,6 @@
             text-align: center;
         }
 
-        /* Struktur Detail Poin di Dalam Kartu */
         .donasi-detail-list {
             list-style: none;
             padding: 0;
@@ -357,7 +422,7 @@
             margin-bottom: 2px;
         }
 
-        /* Card Preview Artikel di Beranda */
+        /* Card Preview Artikel */
         .artikel-preview-card {
             background: #ffffff;
             border-radius: 16px;
@@ -388,7 +453,6 @@
             margin: 0 auto 25px auto;
         }
 
-        /* Tombol Cantik Menuju Halaman Artikel Lengkap */
         .btn-baca-artikel {
             display: inline-flex;
             align-items: center;
@@ -402,6 +466,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             width: 100%;
+            max-width: 250px;
             text-align: center;
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(26, 93, 26, 0.15);
@@ -413,7 +478,6 @@
             transform: translateY(-2px);
         }
 
-        /* Tombol Hubungi Admin via WA */
         .btn-donasi {
             background-color: var(--primary-color);
             color: #ffffff !important;
@@ -433,7 +497,7 @@
             background-color: var(--dark-green);
         }
 
-        /* Default Style Desktop untuk WA Float */
+        /* Default Style Desktop WA Float */
         @media (min-width: 769px) {
             .whatsapp-float {
                 position: fixed; 
@@ -499,7 +563,6 @@
             .logo img { height: 35px; margin-right: 0 !important; }
             .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
 
-            /* Tombol Menu Hamburger Mobile */
             #menu-toggle {
                 display: flex !important;  
                 flex-direction: row;      
@@ -514,13 +577,12 @@
                 cursor: pointer;
             }
             
-            /* Navigasi Dropdown Vertikal Mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
                 width: 100%; 
                 position: absolute; 
-               top: 65px; 
+                top: 65px; 
                 left: 0; 
                 background: var(--primary-color); 
                 padding: 20px; 
@@ -542,7 +604,9 @@
             .hero-content h1 { font-size: 1.5rem; white-space: normal; }
             .hero-content p { font-size: 0.8rem; white-space: normal; }
 
-            /* --- STYLE WA FLOAT HP (HANYA IKON TANPA BACKGROUND BULATAN) --- */
+            .btn-daftar-penerimaan { max-width: 100%; }
+
+            /* STYLE WA FLOAT MOBILE */
             .whatsapp-float {
                 position: fixed;
                 bottom: 20px;
@@ -569,7 +633,6 @@
             }
         }
 
-        /* Animasi Pulse khusus Ikon Mobile */
         @keyframes wa-pulse-only-icon {
             0% { transform: scale(1); }
             70% { transform: scale(1.12); }
@@ -593,7 +656,7 @@
         <ul>
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="galeri.html"><i class="fas fa-images"></i> Galeri</a></li>
-            <li><a href="pendidikan.html" class="active-link"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
+            <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
             <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
             <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
             <li><a href="info_islam.html"><i class="fas fa-info-circle"></i> Info Islam</a></li>
@@ -651,7 +714,7 @@
             <ul style="list-style: none; padding: 0; margin: 0; color: #555; font-size: 0.95rem; line-height: 1.6;">
                 <li style="margin-bottom: 10px; display: flex; gap: 10px; align-items: flex-start;">
                     <i class="fas fa-check-circle" style="color: var(--primary-color); margin-top: 3px; font-size: 0.9rem;"></i>
-                    <span>Program akselerasi Tahfizhul Qur'an hingga 30 Juz secara intensif dan mutqin.</span>
+                    <span>Program akselerasi Tahfizhul Qur'an hingga 30 Juz secara intensif and mutqin.</span>
                 </li>
                 <li style="margin-bottom: 10px; display: flex; gap: 10px; align-items: flex-start;">
                     <i class="fas fa-check-circle" style="color: var(--primary-color); margin-top: 3px; font-size: 0.9rem;"></i>
@@ -745,6 +808,20 @@
     </div>
 </section>
 
+<section class="penerimaan-inline-card">
+    <h2 class="judul-penerimaan">
+        <i class="fas fa-bullhorn"></i> Informasi PSB
+    </h2>
+    
+    <div class="penerimaan-banner-box">
+        <img src="pamflet_profil.png" alt="Pamflet Pendaftaran Resmi">
+    </div>
+    
+    <a href="pendaftaran.html" class="btn-daftar-penerimaan">
+        <i class="fas fa-user-plus"></i> Daftar Sekarang
+    </a>
+</section>
+
 <section class="artikel-preview-card" style="text-align: left;">
     <div class="artikel-preview-content">
         <h2 class="judul-seragam" style="margin-bottom: 25px;">
@@ -818,7 +895,7 @@
                     </li>
                     <li>
                         <strong>Tujuan Program:</strong>
-                        Menyediakan sarana prasarana infrastruktur pondok yang aman, nyaman, dan memadai untuk proses belajar mengajar.
+                        Menyediakan sarana prasarana infrastruktur pondok yang aman, nyaman, and memadai untuk proses belajar mengajar.
                     </li>
                     <li>
                         <strong>Sasaran Program:</strong>
