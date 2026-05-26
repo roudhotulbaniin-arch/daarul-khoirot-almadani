@@ -1297,25 +1297,39 @@
                     <div class="form-section-title" style="margin-top: 20px;">
     <i class="fas fa-notes-medical"></i> Riwayat Kesehatan
 </div>
-
 <div class="form-group">
-    <label>Pilih Riwayat Penyakit (Jika ada):</label>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; background: #fdfdfd; padding: 15px; border: 1px solid #eee; border-radius: 8px;">
-        <label style="font-weight: normal; cursor: pointer;">
-            <input type="checkbox" name="riwayat_sakit[]" value="asma"> Asma
-        </label>
-        <label style="font-weight: normal; cursor: pointer;">
-            <input type="checkbox" name="riwayat_sakit[]" value="alergi"> Alergi
-        </label>
-        <label style="font-weight: normal; cursor: pointer;">
-            <input type="checkbox" name="riwayat_sakit[]" value="jantung"> Jantung
-        </label>
-        <label style="font-weight: normal; cursor: pointer;">
-            <input type="checkbox" name="riwayat_sakit[]" value="lambung"> Lambung
-        </label>
-        <label style="font-weight: normal; cursor: pointer;">
-            <input type="checkbox" name="riwayat_sakit[]" value="tidak_ada" checked> Tidak ada riwayat
-        </label>
+    <label>Kondisi Kesehatan</label>
+    <div class="input-ikon">
+        <i class="fas fa-heartbeat"></i>
+        <select name="w_sehat" id="selectKesehatan" onchange="toggleRiwayat()">
+            <option value="">-- Pilih Kondisi --</option>
+            <option value="Sehat">Alhamdulillah Sehat</option>
+            <option value="Pernah Sakit">Ada Riwayat Penyakit</option>
+            <option value="Dalam Pengobatan">Butuh Penanganan Khusus</option>
+        </select>
+    </div>
+</div>
+
+<div id="divRiwayatSakit" style="display: none;">
+    <div class="form-section-title" style="margin-top: 20px;">
+        <i class="fas fa-notes-medical"></i> Detail Riwayat Kesehatan
+    </div>
+    <div class="form-group">
+        <label>Pilih Riwayat Penyakit:</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; background: #fdfdfd; padding: 15px; border: 1px solid #eee; border-radius: 8px;">
+            <label style="font-weight: normal; cursor: pointer;">
+                <input type="checkbox" name="riwayat_sakit[]" value="asma"> Asma
+            </label>
+            <label style="font-weight: normal; cursor: pointer;">
+                <input type="checkbox" name="riwayat_sakit[]" value="alergi"> Alergi
+            </label>
+            <label style="font-weight: normal; cursor: pointer;">
+                <input type="checkbox" name="riwayat_sakit[]" value="jantung"> Jantung
+            </label>
+            <label style="font-weight: normal; cursor: pointer;">
+                <input type="checkbox" name="riwayat_sakit[]" value="lambung"> Lambung
+            </label>
+        </div>
     </div>
 </div>
                     <div class="form-group">
@@ -2299,6 +2313,17 @@ document.addEventListener("DOMContentLoaded", function() {
     pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
     pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
 });
+
+    function toggleRiwayat() {
+        var select = document.getElementById("selectKesehatan");
+        var divRiwayat = document.getElementById("divRiwayatSakit");
+        
+        if (select.value === "Pernah Sakit") {
+            divRiwayat.style.display = "block";
+        } else {
+            divRiwayat.style.display = "none";
+        }
+   } 
 
 window.loadWilayah = loadWilayah;
 window.loadKabAyah = loadKabAyah;
