@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/sitemap.xml
