@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
 
-    <!-- GOOGLE VERIFICATION -->
     <meta name="google-site-verification" content="WEfVoF8Y2RWQDfmqAYqQS8ez0524yvZpl0j05L7C1Ro" />
 
-    <!-- RESPONSIVE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO -->
     <title>Daarul Khoirot Almadani | Pendidikan Islam & Dakwah</title>
 
     <meta name="title" content="Daarul Khoirot Almadani">
@@ -21,13 +18,10 @@
 
     <meta name="robots" content="index, follow">
 
-    <!-- CANONICAL -->
     <link rel="canonical" href="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
 
-    <!-- THEME COLOR -->
     <meta name="theme-color" content="#0f172a">
 
-    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
 
@@ -41,7 +35,6 @@
 
     <meta property="og:locale" content="id_ID">
 
-    <!-- TWITTER / X -->
     <meta name="twitter:card" content="summary_large_image">
 
     <meta name="twitter:title" content="Daarul Khoirot Almadani">
@@ -50,21 +43,16 @@
 
     <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg">
 
-    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="main_logo.png">
 
-    <!-- PRECONNECT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- STRUCTURED DATA SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -178,20 +166,20 @@
             color: var(--secondary-color) !important;
         }
 
-        /* Hero Banner & Animasi Transisi Dinamis */
+        /* Hero Banner */
         .hero-container { 
             position: relative; 
             width: 100%; 
             height: 500px; 
             overflow: hidden; 
-            background: #000; 
+            background: linear-gradient(135deg, #0d2e0d 0%, #1a5d1a 100%); 
         }
         .hero-container img { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            opacity: 0.6; 
-            transition: all 0.5s ease-in-out;
+            opacity: 0.5; 
+            transition: opacity 0.5s ease-in-out;
         }
         .hero-content { 
             position: absolute; 
@@ -200,11 +188,22 @@
             transform: translate(-50%, -50%); 
             text-align: center; 
             color: white; 
-            width: 95%; 
-            transition: all 0.5s ease-in-out;
+            width: 90%; 
+            max-width: 1000px;
+            z-index: 2;
         }
-        .hero-content h1 { font-size: 4rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
-        .hero-content p { font-size: 2rem; white-space: nowrap; margin-top: 10px; }
+        .hero-content h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.8); 
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+        .hero-content p { 
+            font-size: 1.8rem; 
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+            line-height: 1.4;
+        }
 
         /* Base Card Utama Semua Section */
         .kartu-modern-clean {
@@ -345,7 +344,7 @@
             line-height: 1.5;
         }
 
-        /* Kartu PSB */
+        /* Card Pendaftaran */
         .penerimaan-inline-card {
             background: #ffffff;
             padding: 35px 30px;
@@ -669,9 +668,11 @@
                 color: var(--secondary-color) !important;
             }
 
-            .hero-container { height: 250px; }
-            .hero-content h1 { font-size: 1.5rem; white-space: normal; }
-            .hero-content p { font-size: 0.8rem; white-space: normal; }
+            /* Penyesuaian Ruang Hero Mobile */
+            .hero-container { height: 280px; }
+            .hero-content { width: 92%; }
+            .hero-content h1 { font-size: 1.6rem !important; margin-bottom: 8px; white-space: normal; }
+            .hero-content p { font-size: 0.95rem !important; white-space: normal; }
 
             .btn-daftar-penerimaan { max-width: 100%; }
 
@@ -734,10 +735,9 @@
     </nav>
 </header>
 
-<!-- HERO CONTAINER DENGAN ID UNTUK KONTROL OTOMATISASI -->
 <div class="hero-container">
-    <img id="hero-banner-img" src="new_background.jpg" alt="Banner Utama">
-    <div class="hero-content" id="hero-text-box">
+    <img id="hero-banner-img" src="new_background.jpg" alt="Banner Utama" onerror="this.style.display='none';">
+    <div class="hero-content">
         <h1 id="hero-title">DAARUL KHOIROT ALMADANI</h1>
         <p id="hero-subtitle">Membentuk Generasi Qur'ani dan Berakhlak Mulia</p>
     </div>
@@ -961,7 +961,7 @@
                 <ul class="donasi-detail-list">
                     <li>
                         <strong>Latar Belakang:</strong>
-                        Seiring bertambahnya jumlah santri, kebutuhan ruang belajar, kamar asrama (kobong panggung), and fasilitas sanitasi yang layak semakin mendesak.
+                        Seiring bertambahnya jumlah santri, kebutuhan ruang belajar, kamar asrama (kobong panggung), dan fasilitas sanitasi yang layak semakin mendesak.
                     </li>
                     <li>
                         <strong>Tujuan Program:</strong>
@@ -1047,26 +1047,23 @@
     });
 
     // ==========================================================================
-    // SISTEM OTOMATISASI BANNER DAN UCAPAN PHBI & PHBN (TAHUN 2026)
+    // SISTEM OTOMATISASI KONTEN HARI BESAR (PHBI & PHBN)
     // ==========================================================================
     document.addEventListener("DOMContentLoaded", function() {
-        // Ambil waktu lokal saat ini
         const sekarang = new Date();
-        const bulan = sekarang.getMonth() + 1; // Januari = 1, Desember = 12
+        const bulan = sekarang.getMonth() + 1; 
         const tanggal = sekarang.getDate();
 
-        // Elemen-elemen DOM yang akan diubah kontennya
         const bannerImg = document.getElementById("hero-banner-img");
         const titleText = document.getElementById("hero-title");
         const subtitleText = document.getElementById("hero-subtitle");
 
-        // --- DATABASE JADWAL EVENT PHBI & PHBN ---
-        // Anda tinggal menambahkan event baru di sini tanpa merombak struktur HTML
+        // Jadwal event penanggalan masehi berjalan
         const eventCalendar = [
             {
                 nama: "Idul Adha 1447 H",
-                mulaiBulan: 5, mulaiTanggal: 25, // Mulai pasang 25 Mei 2026
-                selesaiBulan: 5, selesaiTanggal: 30, // Dilepas setelah 30 Mei 2026
+                mulaiBulan: 5, mulaiTanggal: 25, 
+                selesaiBulan: 5, selesaiTanggal: 31, 
                 gambar: "banner_idul_adha.jpg",
                 judul: "SELAMAT HARI RAYA IDUL ADHA 1447 H",
                 subtitle: "Keluarga Besar Daarul Khoirot Almadani Mengucapkan Selamat Berkurban"
@@ -1105,27 +1102,19 @@
             }
         ];
 
-        // Cari apakah hari ini masuk ke dalam salah satu range tanggal event diatas
         let aktifEvent = null;
-
         for (let event of eventCalendar) {
-            // Logika pengecekan rentang tanggal dalam bulan yang sama
             if (bulan === event.mulaiBulan && tanggal >= event.mulaiTanggal && tanggal <= event.selesaiTanggal) {
                 aktifEvent = event;
                 break;
             }
         }
 
-        // Jika ada event yang cocok dan aktif hari ini, ubah tampilan hero banner
         if (aktifEvent) {
+            // Pasang gambar latar belakang perayaan
             bannerImg.src = aktifEvent.gambar;
             titleText.innerHTML = aktifEvent.judul;
             subtitleText.innerHTML = aktifEvent.subtitle;
-            
-            // Berikan penyesuaian font size agar responsif dan pas saat teks panjang hari raya muncul
-            titleText.style.fontSize = "calc(1.8rem + 1.5vw)";
-            subtitleText.style.fontSize = "calc(0.9rem + 0.8vw)";
-            subtitleText.style.whiteSpace = "normal";
         }
     });
 </script>
