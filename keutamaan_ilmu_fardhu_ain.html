@@ -148,27 +148,147 @@
         nav ul li a:hover { color: var(--secondary-color) !important; }
         nav ul li a.active-link { border-bottom: 3px solid var(--secondary-color) !important; color: var(--secondary-color) !important; }
 
-        /* ==========================================================================
-           3. CONTAINER & STRUKTUR UTAMA KARTU
-           ========================================================================== */
+        
+        /* --- 3. KONTEN UTAMA ARTIKEL --- */
         .container { 
-            padding: 2.5rem 4%; 
+            padding: 3rem 10%; 
             flex: 1; 
-            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 2rem;
         }
 
         .full-news-card {
             background: var(--white);
-            padding: 0 !important; 
+            padding: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 1200px; 
+            box-sizing: border-box;
+        }
+
+        .hero-banner {
+            width: 100%;
+            max-height: 450px;
             overflow: hidden;
-            width: 100%; 
-            max-width: 1100px; 
-            margin-bottom: 25px; 
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            background-color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center; 
+        }
+
+        .news-header {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .news-tag {
+            background: #e6f0e6;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .news-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 6px;
+        }
+
+        .news-body p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #333;
+            text-align: justify;
+        }
+
+        .news-body strong.location {
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+        }
+
+        .content-block-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 30px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 10px;
+        }
+
+        /* Desain Khusus Kotak Doa / Ayat Arab */
+        .arabic-container {
+            background: #fdfbf7;
+            border: 1px solid #e3dec3;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            font-size: 2.2rem;
+            font-weight: normal;
+            line-height: 2.2;
+            color: #111;
+            text-align: center;
+            direction: rtl;
+            margin-bottom: 15px;
+        }
+
+        .translation-box {
+            border-top: 1px dashed #dcd6bc;
+            padding-top: 15px;
+            font-style: italic;
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .translation-box.centered {
+            text-align: center;
+        }
+
+        .translation-box strong {
+            font-style: normal;
+            color: var(--primary-dark);
         }
 
         /* ==========================================================================
@@ -639,7 +759,7 @@
             </div>
             
             <div class="news-footer">
-                <span><i class="fas fa-tags"></i> Kategori: Tarbiyah Islamiyah</span>
+                <span><i class="fas fa-tags"></i> Kategori : Tarbiyah Islamiyah</span>
                 <span><i class="fas fa-pen-nib"></i> Admin</span>
             </div>
         </article>
@@ -654,10 +774,13 @@
         </div>
     </main>
 
+    
     <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
         <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-    </footer>
+    </footer> 
 
     <audio id="clickSound" src="click_sound.mp3"></audio>
 
