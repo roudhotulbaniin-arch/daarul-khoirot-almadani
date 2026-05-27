@@ -1,41 +1,70 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
+
+    <!-- GOOGLE VERIFICATION -->
     <meta name="google-site-verification" content="WEfVoF8Y2RWQDfmqAYqQS8ez0524yvZpl0j05L7C1Ro" />
+
+    <!-- RESPONSIVE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- SEO -->
     <title>Daarul Khoirot Almadani | Pendidikan Islam & Dakwah</title>
 
     <meta name="title" content="Daarul Khoirot Almadani">
     <meta name="description" content="Website resmi Daarul Khoirot Almadani. Wadah pendidikan, dakwah, sosial keagamaan dan pembinaan generasi Qurani.">
+
     <meta name="keywords" content="Daarul Khoirot Almadani, pesantren, dakwah islam, pendidikan islam, tahfidz quran, yayasan islam">
+
     <meta name="author" content="Daarul Khoirot Almadani">
+
     <meta name="robots" content="index, follow">
 
+    <!-- CANONICAL -->
     <link rel="canonical" href="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
+
+    <!-- THEME COLOR -->
     <meta name="theme-color" content="#0f172a">
 
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
+
     <meta property="og:title" content="Daarul Khoirot Almadani">
+
     <meta property="og:description" content="Website resmi Daarul Khoirot Almadani. Wadah pendidikan, dakwah dan sosial keagamaan.">
+
     <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg">
+
     <meta property="og:site_name" content="Daarul Khoirot Almadani">
+
     <meta property="og:locale" content="id_ID">
 
+    <!-- TWITTER / X -->
     <meta name="twitter:card" content="summary_large_image">
+
     <meta name="twitter:title" content="Daarul Khoirot Almadani">
+
     <meta name="twitter:description" content="Website resmi Daarul Khoirot Almadani. Pendidikan Islam dan dakwah.">
+
     <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg">
 
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="main_logo.png">
+
+    <!-- PRECONNECT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- STRUCTURED DATA SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -48,6 +77,7 @@
     }
     </script>
 
+</head>
     <style>
         /* ==========================================================================
            1. RESET & VARIABLE DASAR
@@ -131,70 +161,49 @@
         nav ul li a:hover { color: var(--secondary-color) !important; }
         nav ul li a.active-link { border-bottom: 3px solid var(--secondary-color) !important; color: var(--secondary-color) !important; }
 
-        
         /* ==========================================================================
-           3. KONTEN UTAMA ARTIKEL (FULL WIDTH FIX)
-           ========================================================================= */
+           3. KONTEN UTAMA ARTIKEL (DESKTOP WIDE)
+           ========================================================================== */
         .container { 
-            padding: 3rem 10%; 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            gap: 2rem; 
-        }
-
-        .article-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 40px 4%; 
             width: 100%;
-            max-width: 1200px;
-            box-sizing: border-box;
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
         }
 
+        .full-news-card {
+            background: var(--white);
+            padding: 0 0 40px 0; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            width: 100%; 
+            max-width: 1400px; 
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Hero Banner */
         .hero-banner {
             width: 100%;
-            max-height: 450px;
+            max-height: 550px;
             overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            border: 1px solid #ddd;
-            background-color: #e5e5e5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: transparent;
+            padding: 0; 
+            margin-bottom: 30px;
         }
-        
+
         .hero-banner img {
             width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            object-position: center; 
+            height: auto; 
+            display: block;
+            border-radius: 0; 
+            border: none;
         }
 
-        .article-header { margin-bottom: 25px; }
-        .article-header .news-tag {
-            display: inline-block;
-            background: #e6f0e6;
-            color: var(--primary-color);
-            font-size: 0.8rem;
-            font-weight: bold;
-            padding: 4px 12px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        
-        .article-header h2 { color: #111; font-size: 1.8rem; margin-bottom: 15px; line-height: 1.4; }
-        .article-meta { font-size: 0.85rem; color: #666; display: flex; gap: 20px; flex-wrap: wrap; border-bottom: 1px dashed #e0e0e0; padding-bottom: 15px; }
-        .article-meta span i { color: var(--primary-color); margin-right: 6px; }
-
-        .article-body p { font-size: 1.05rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; text-indent: 30px; }
-
-
-        /* Padding untuk pembungkus teks agar serasi di monitor lebar */
+        /* Padding pembungkus konten teks */
         .news-header,
         .news-body-content,
         .news-bullet-list,
@@ -379,7 +388,7 @@
             display: flex;
             gap: 20px;
             width: 100%;
-            max-width: 1400px; /* Menyesuaikan lebar kartu di atas */
+            max-width: 1400px; 
             margin-top: 5px;
             box-sizing: border-box;
         }
@@ -438,7 +447,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           5. RESPONSIVE LAYER (OPTIMASI HP / HANDPHONE)
+           5. RESPONSIVE LAYER (OPTIMASI HP agar TIDAK MENEMPEL SISI LAYAR)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -475,21 +484,29 @@
             nav.show ul { display: flex !important; }
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            /* Mengurangi padding luar di HP agar efisien memanfaatkan ruang layar kecil */
-            .container { padding: 15px 12px; gap: 15px; }
-            .full-news-card { border-radius: 8px; }
+            /* Memberikan gap pengaman yang pasti sebesar 16px di kiri dan kanan layar HP */
+            .container { 
+                padding: 20px 16px; 
+                gap: 16px; 
+            }
+            
+            /* Tetap melengkung rapi di HP karena ada gap pembatas luar */
+            .full-news-card { 
+                border-radius: 12px; 
+            }
 
+            /* Padding konten tulisan bagian dalam di HP */
             .news-header,
             .news-body-content,
             .news-bullet-list,
             .news-numbered-list,
             .news-footer {
-                padding-left: 15px;
-                padding-right: 15px;
+                padding-left: 16px;
+                padding-right: 16px;
             }
 
             .arabic-container {
-                padding: 20px 15px;
+                padding: 20px 16px;
                 margin: 20px 0;
             }
             .arabic-text { font-size: 1.5rem; line-height: 2.2; }
@@ -501,15 +518,17 @@
                 font-size: 0.8rem;
             }
 
-            /* Tombol Navigasi Menjadi Tumpuk Vertikal di HP */
+            /* Tombol Navigasi Bawah di HP mengikuti lebar batas container luar */
             .bottom-actions-group {
                 flex-direction: column;
                 gap: 12px;
+                width: 100%;
             }
             .bottom-actions-group .btn-kembali-double {
                 width: 100%;
                 font-size: 0.95rem;
                 padding: 14px;
+                border-radius: 8px; /* Sudut tumpul yang konsisten */
             }
 
             .news-header h2 { font-size: 1.5rem; }
@@ -562,7 +581,7 @@
 
                 <div class="arabic-container">
                     <div class="arabic-block">
-                        <p class="arabic-text">يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ</p>
+                        <p class="arabic-text">يَرْفَعِ اللَّلهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ dَرَجَاتٍ</p>
                         <div class="translation-box">
                             <strong>Al-Qur'an:</strong> <em>"Allah akan meninggikan orang-orang yang beriman di antaramu dan orang-orang yang diberi ilmu pengetahuan beberapa derajat."</em> (QS. Al-Mujadilah: 11)
                         </div>
