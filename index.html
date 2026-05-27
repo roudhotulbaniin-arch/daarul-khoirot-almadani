@@ -178,10 +178,31 @@
             color: var(--secondary-color) !important;
         }
 
-        /* Hero Banner */
-        .hero-container { position: relative; width: 100%; height: 500px; overflow: hidden; background: #000; }
-        .hero-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-        .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 95%; }
+        /* Hero Banner & Animasi Transisi Dinamis */
+        .hero-container { 
+            position: relative; 
+            width: 100%; 
+            height: 500px; 
+            overflow: hidden; 
+            background: #000; 
+        }
+        .hero-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0.6; 
+            transition: all 0.5s ease-in-out;
+        }
+        .hero-content { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            text-align: center; 
+            color: white; 
+            width: 95%; 
+            transition: all 0.5s ease-in-out;
+        }
         .hero-content h1 { font-size: 4rem; font-weight: 800; white-space: nowrap; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
         .hero-content p { font-size: 2rem; white-space: nowrap; margin-top: 10px; }
 
@@ -262,8 +283,6 @@
             border-radius: 0 8px 8px 0;
             color: var(--dark-green);
         }
-        
-        
 
         /* Tabel Legalitas Ringkas */
         .table-clean-legalitas {
@@ -326,11 +345,11 @@
             line-height: 1.5;
         }
 
-        /* --- KOREKSI STYLE: KARTU BANNER PENERIMAAN BERWARNA PUTIH (INLINE) --- */
+        /* Kartu PSB */
         .penerimaan-inline-card {
-            background: #ffffff; /* Mengubah background menjadi putih bersih */
+            background: #ffffff;
             padding: 35px 30px;
-            border-top: 4px solid var(--primary-color); /* Menambahkan border top warna primary */
+            border-top: 4px solid var(--primary-color);
             border-left: 1px solid #eaeaea;
             border-right: 1px solid #eaeaea;
             border-bottom: 1px solid #eaeaea;
@@ -347,9 +366,9 @@
 
         .penerimaan-inline-card .judul-penerimaan {
             font-size: 1.5rem;
-            color: var(--primary-color); /* Judul menggunakan warna primary */
+            color: var(--primary-color);
             font-weight: 700;
-            border-left: 4px solid var(--secondary-color); /* Menyelaraskan aksen garis kuning di samping */
+            border-left: 4px solid var(--secondary-color);
             padding-left: 12px;
             display: flex;
             align-items: center;
@@ -372,8 +391,8 @@
         }
 
         .btn-daftar-penerimaan {
-            background-color: var(--primary-color); /* Latar belakang tombol warna primary */
-            color: #ffffff !important; /* Teks & Ikon berwarna putih */
+            background-color: var(--primary-color);
+            color: #ffffff !important;
             text-decoration: none;
             padding: 14px 30px;
             border-radius: 8px;
@@ -715,11 +734,12 @@
     </nav>
 </header>
 
+<!-- HERO CONTAINER DENGAN ID UNTUK KONTROL OTOMATISASI -->
 <div class="hero-container">
-    <img src="new_background.jpg" alt="Banner Utama">
-    <div class="hero-content">
-        <h1>DAARUL KHOIROT ALMADANI</h1>
-        <p>Membentuk Generasi Qur'ani dan Berakhlak Mulia</p>
+    <img id="hero-banner-img" src="new_background.jpg" alt="Banner Utama">
+    <div class="hero-content" id="hero-text-box">
+        <h1 id="hero-title">DAARUL KHOIROT ALMADANI</h1>
+        <p id="hero-subtitle">Membentuk Generasi Qur'ani dan Berakhlak Mulia</p>
     </div>
 </div>
 
@@ -941,11 +961,11 @@
                 <ul class="donasi-detail-list">
                     <li>
                         <strong>Latar Belakang:</strong>
-                        Seiring bertambahnya jumlah santri, kebutuhan ruang belajar, kamar asrama (kobong panggung), dan fasilitas sanitasi yang layak semakin mendesak.
+                        Seiring bertambahnya jumlah santri, kebutuhan ruang belajar, kamar asrama (kobong panggung), and fasilitas sanitasi yang layak semakin mendesak.
                     </li>
                     <li>
                         <strong>Tujuan Program:</strong>
-                        Menyediakan sarana prasarana infrastruktur pondok yang aman, nyaman, and memadai untuk proses belajar mengajar.
+                        Menyediakan sarana prasarana infrastruktur pondok yang aman, nyaman, dan memadai untuk proses belajar mengajar.
                     </li>
                     <li>
                         <strong>Sasaran Program:</strong>
@@ -1024,6 +1044,89 @@
                 clickSound.play().catch(e => console.log("Audio play blocked until interaction."));
             }
         });
+    });
+
+    // ==========================================================================
+    // SISTEM OTOMATISASI BANNER DAN UCAPAN PHBI & PHBN (TAHUN 2026)
+    // ==========================================================================
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ambil waktu lokal saat ini
+        const sekarang = new Date();
+        const bulan = sekarang.getMonth() + 1; // Januari = 1, Desember = 12
+        const tanggal = sekarang.getDate();
+
+        // Elemen-elemen DOM yang akan diubah kontennya
+        const bannerImg = document.getElementById("hero-banner-img");
+        const titleText = document.getElementById("hero-title");
+        const subtitleText = document.getElementById("hero-subtitle");
+
+        // --- DATABASE JADWAL EVENT PHBI & PHBN ---
+        // Anda tinggal menambahkan event baru di sini tanpa merombak struktur HTML
+        const eventCalendar = [
+            {
+                nama: "Idul Adha 1447 H",
+                mulaiBulan: 5, mulaiTanggal: 25, // Mulai pasang 25 Mei 2026
+                selesaiBulan: 5, selesaiTanggal: 30, // Dilepas setelah 30 Mei 2026
+                gambar: "banner_idul_adha.jpg",
+                judul: "SELAMAT HARI RAYA IDUL ADHA 1447 H",
+                subtitle: "Keluarga Besar Daarul Khoirot Almadani Mengucapkan Selamat Berkurban"
+            },
+            {
+                nama: "Tahun Baru Islam 1 Muharram 1448 H",
+                mulaiBulan: 6, mulaiTanggal: 15, 
+                selesaiBulan: 6, selesaiTanggal: 18, 
+                gambar: "banner_tahun_baru_islam.jpg",
+                judul: "SELAMAT TAHUN BARU ISLAM 1 MUHARRAM 1448 H",
+                subtitle: "Mari Berhijrah Menuju Generasi Rabbani yang Lebih Baik"
+            },
+            {
+                nama: "Hari Kemerdekaan RI ke-81",
+                mulaiBulan: 8, mulaiTanggal: 15,
+                selesaiBulan: 8, selesaiTanggal: 18,
+                gambar: "banner_kemerdekaan_ri.jpg",
+                judul: "DIRGAHAYU REPUBLIK INDONESIA KE-81",
+                subtitle: "Nusantara Baru, Indonesia Maju — Merdeka!"
+            },
+            {
+                nama: "Maulid Nabi Muhammad SAW",
+                mulaiBulan: 8, mulaiTanggal: 22,
+                selesaiBulan: 8, selesaiTanggal: 26,
+                gambar: "banner_maulid_nabi.jpg",
+                judul: "SELAMAT MENYAMBUT MAULID NABI MUHAMMAD SAW",
+                subtitle: "Meneladani Akhlak Rasulullah SAW untuk Kedamaian Hakiki"
+            },
+            {
+                nama: "Hari Santri Nasional 2026",
+                mulaiBulan: 10, mulaiTanggal: 20,
+                selesaiBulan: 10, selesaiTanggal: 24,
+                gambar: "banner_hari_santri.jpg",
+                judul: "SELAMAT HARI SANTRI NASIONAL 2026",
+                subtitle: "Santri Berdaya, Menjaga Martabat Kemanusiaan"
+            }
+        ];
+
+        // Cari apakah hari ini masuk ke dalam salah satu range tanggal event diatas
+        let aktifEvent = null;
+
+        for (let event of eventCalendar) {
+            // Logika pengecekan rentang tanggal dalam bulan yang sama
+            if (bulan === event.mulaiBulan && tanggal >= event.mulaiTanggal && tanggal <= event.selesaiTanggal) {
+                aktifEvent = event;
+                break;
+            }
+        }
+
+        // Jika ada event yang cocok dan aktif hari ini, ubah tampilan hero banner
+        if (aktifEvent) {
+            bannerImg.src = aktifEvent.gambar;
+            titleText.innerHTML = aktifEvent.judul;
+            subtitleText.innerHTML = aktifEvent.subtitle;
+            
+            // Berikan penyesuaian font size agar responsif dan pas saat teks panjang hari raya muncul
+            titleText.style.fontSize = "calc(1.8rem + 1.5vw)";
+            subtitleText.style.fontSize = "calc(0.9rem + 0.8vw)";
+            subtitleText.style.whiteSpace = "normal";
+        }
     });
 </script>
 </body>
