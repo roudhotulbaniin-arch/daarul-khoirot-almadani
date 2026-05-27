@@ -231,30 +231,6 @@
 
         .article-body p { font-size: 1.05rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; text-indent: 30px; }
 
-        /* Section Program Donasi */
-        .donasi-title { text-align: center; margin: 45px 0 25px 0; padding-top: 30px; border-top: 1px dashed #e0e0e0; color: var(--primary-color); }
-        .donasi-title h3 { font-size: 1.4rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        
-        .donasi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 25px; }
-        
-        .donasi-card {
-            background: var(--white); border-radius: 12px; padding: 25px; border: 1px solid #eaeaea; border-top: 4px solid var(--primary-color);
-            display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: 0.3s;
-        }
-        .donasi-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-color: var(--primary-color); }
-        .donasi-card h4 { color: var(--primary-color); font-size: 1.15rem; margin-bottom: 15px; text-align: center; border-bottom: 1px solid #f4f7f6; padding-bottom: 10px; }
-        
-        .donasi-list { list-style: none; padding: 0; margin-bottom: 20px; font-size: 0.9rem; color: #444; }
-        .donasi-list li { margin-bottom: 12px; line-height: 1.6; text-align: left; }
-        .donasi-list strong { color: var(--primary-color); display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 0.5px; }
-
-        .btn-donasi-wa {
-            background-color: var(--primary-color); color: white !important; text-decoration: none; padding: 12px;
-            border-radius: 8px; font-weight: bold; text-align: center; display: block; transition: 0.2s; box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
-        }
-        .btn-donasi-wa:hover { background-color: #144514; }
-        .btn-donasi-wa i { margin-right: 6px; }
-
         /* ==========================================================================
            4. SISTEM 2 TOMBOL KEMBALI SEJAJAR (1 BARIS 50:50)
            ========================================================================== */
@@ -317,47 +293,28 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
+        
         /* ==========================================================================
-           5. RESPONSIVE MODES (HP)
+           7. RESPONSIVE LAYER (OPTIMASI HP / MOBILE)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
             .logo { display: flex; align-items: center; gap: 5px !important; max-width: 75%; overflow: hidden; }
             .logo img { height: 35px; margin-right: 0 !important; }
             .logo h1 { font-size: 1rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: -0.5px; }
-            
-            .container { padding: 2rem 5%; gap: 1.5rem; }
-            .article-card { padding: 20px; }
-            .article-header h2 { font-size: 1.4rem; }
-            .article-body p { font-size: 0.95rem; text-indent: 20px; }
-
-            .bottom-actions-group {
-                flex-direction: column;
-                gap: 12px;
-                margin-top: 10px;
-            }
-            .bottom-actions-group .btn-kembali-double {
-                width: 100%;
-                font-size: 0.95rem;
-                padding: 12px 15px;
-            }
 
             #menu-toggle {
-                display: flex !important; 
-                flex-direction: row;      
-                align-items: center;       
-                gap: 4px; 
-                background: var(--secondary-color) !important;
-                color: var(--primary-color) !important; 
-                border: none; 
-                padding: 6px 12px;
-                border-radius: 4px; 
-                font-weight: bold; 
-                font-size: 0.85rem; 
+                display: block;  
+                background: var(--secondary-color);
+                color: var(--primary-color);
+                border: none;
+                padding: 6px 14px;
+                border-radius: 4px;
+                font-weight: bold;
+                font-size: 0.85rem;
                 cursor: pointer;
             }
-
-            nav { display: block; }
+            
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -368,23 +325,32 @@
                 background: var(--primary-color); 
                 padding: 20px; 
                 border-bottom: 3px solid var(--secondary-color); 
-                gap: 15px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+                gap: 10px;
                 z-index: 999;
             }
             
             nav.show ul { display: flex !important; }
-            nav ul li a { color: white !important; padding: 0 !important; }
+            nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
-            nav ul li a.active-link { 
-                border-bottom: none !important; 
-                border-left: 4px solid var(--secondary-color) !important; 
-                padding-left: 10px !important; 
-                color: var(--secondary-color) !important;
+            .container { padding: 1.2rem 5%; }
+            
+            .full-news-card { margin-bottom: 20px; }
+
+            .hero-banner { padding: 24px 24px 0 24px; }
+            .news-banner-container { padding: 0 24px; margin: 20px 0; }
+            .arabic-container { margin: 20px 24px; padding: 18px; }
+            .arabic-text { font-size: 1.4rem; line-height: 2.2; }
+            
+            .news-header,
+            .news-body-content > p,
+            .news-bullet-list,
+            .news-numbered-list,
+            .news-footer {
+                padding-left: 24px;
+                padding-right: 24px;
             }
-        }
 
-      .news-meta { 
+            .news-meta { 
                 display: grid;
                 grid-template-columns: repeat(2, 1fr); 
                 gap: 10px 12px; 
@@ -392,6 +358,18 @@
                 padding-bottom: 15px;
                 font-size: 0.78rem;
             }
+
+            .content-block-title {
+                margin: 35px 24px 15px 24px; 
+                border-left: 5px solid var(--secondary-color);
+                padding-left: 12px; 
+            }
+
+            .bottom-actions { padding: 0; margin-bottom: 25px; }
+            .btn-kembali { font-size: 0.9rem; padding: 13px 16px; white-space: nowrap; }
+            .news-header h2 { font-size: 1.4rem; }
+            .news-body-content p { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -477,8 +455,64 @@
         <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
+    
+    <audio id="clickSound" src="click_sound.mp3"></audio>
+
     <script>
-        // (Sertakan script yang sama dengan referensi untuk interaksi menu dan suara)
+        document.addEventListener("DOMContentLoaded", function() {
+            const murottal = document.getElementById('murottal');
+            const clickSound = document.getElementById('clickSound');
+            const menuItems = document.querySelectorAll('nav ul li a, .logo, .btn-kembali');
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.querySelector('nav');
+            
+            let hasInteracted = false;
+
+            function playMurottal() {
+                if (!hasInteracted && murottal) {
+                    murottal.volume = 0.3; 
+                    murottal.play().catch(() => {});
+                    hasInteracted = true;
+                    document.removeEventListener('click', playMurottal);
+                    document.removeEventListener('touchstart', playMurottal);
+                }
+            }
+            document.addEventListener('click', playMurottal);
+            document.addEventListener('touchstart', playMurottal); 
+
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('show'); 
+                });
+            }
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (clickSound) {
+                        clickSound.currentTime = 0; 
+                        clickSound.volume = 0.8;
+                        clickSound.play().catch(() => {});
+                    }
+                    
+                    if (nav) nav.classList.remove('show');
+
+                    const targetUrl = this.getAttribute("href");
+                    if (targetUrl && !targetUrl.includes('#') && !this.target) {
+                        e.preventDefault(); 
+                        setTimeout(() => { 
+                            window.location.href = targetUrl; 
+                        }, 200); 
+                    }
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                    nav.classList.remove('show');
+                }
+            });
+        });
     </script>
 </body>
 </html>
