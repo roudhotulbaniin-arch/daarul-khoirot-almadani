@@ -79,19 +79,18 @@
     </script>
 
 </head>
-    <style>
+   <style>
         /* ==========================================================================
-           1. GLOBAL VARIABLES & RESET STYLE
+           1. RESET & VARIABLE DASAR
            ========================================================================== */
         :root {
             --primary-color: #1a5d1a;
             --primary-dark: #0d2e0d;
             --secondary-color: #f4ce14;
-            --secondary-dark: #d9b50b; 
             --light-bg: #f4f7f6;
-            --dark-footer: #0d2e0d;
-            --text-dark: #333;
             --white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #eef4ee;
         }
 
         * { 
@@ -101,26 +100,21 @@
             font-family: 'Quicksand', sans-serif;
         }
 
-        html { scroll-behavior: smooth; }
-
         body { 
-            background-color: var(--light-bg); 
-            overflow-x: hidden; 
+            line-height: 1.8; 
             color: var(--text-dark); 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
+            background-color: var(--light-bg); 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* ==========================================================================
-           2. NAVIGATION STYLE (SERAGAM MASTER INDEX)
+           2. HEADER & NAVIGASI
            ========================================================================== */
         header {
-            background: var(--primary-color); 
+            background-color: var(--primary-color); 
             color: white; 
             padding: 10px 4%; 
             display: flex; 
@@ -129,29 +123,28 @@
             position: sticky; 
             top: 0; 
             z-index: 1000;
-            min-height: 65px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 65px;
         }
 
         .logo { 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
-            flex-shrink: 0;
             text-decoration: none;
             color: white;
-        }
-        .logo img { height: 40px; width: auto; display: block; }
-        .logo h1 { 
-            font-size: 1.3rem; 
-            white-space: nowrap; 
-            letter-spacing: 0.5px;
-            color: white;
+            gap: 12px;
         }
 
+        .logo img { height: 40px; width: auto; display: block; }
+        .logo h1 { font-size: 1.3rem; letter-spacing: 0.5px; white-space: nowrap; }
         #menu-toggle { display: none; } 
 
-        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        }
+
         nav ul li a { 
             color: white !important; 
             text-decoration: none; 
@@ -160,139 +153,309 @@
             display: flex; 
             align-items: center; 
             gap: 6px; 
-            position: relative;
-            padding-bottom: 5px;
             transition: 0.3s;
+            padding-bottom: 5px;
         }
+
         nav ul li a:hover { color: var(--secondary-color) !important; }
-        nav ul li a.active-link {
-            border-bottom: 3px solid var(--secondary-color) !important;
-            color: var(--secondary-color) !important;
-        }
+        nav ul li a.active-link { border-bottom: 3px solid var(--secondary-color) !important; color: var(--secondary-color) !important; }
 
         /* ==========================================================================
-           3. KONTEN UTAMA ARTIKEL (FULL WIDTH FIX)
-           ========================================================================= */
+           3. CONTAINER & STRUKTUR UTAMA KARTU
+           ========================================================================== */
         .container { 
-            padding: 3rem 10%; 
+            padding: 2.5rem 4%; 
             flex: 1; 
-            display: flex; 
-            flex-direction: column; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 2rem; 
         }
 
-        .article-card {
+        .full-news-card {
             background: var(--white);
-            padding: 40px;
+            padding: 0 !important; 
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            width: 100%;
-            max-width: 1200px;
-            box-sizing: border-box;
-        }
-
-        .hero-banner {
-            width: 100%;
-            max-height: 450px;
             overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            border: 1px solid #ddd;
-            background-color: #e5e5e5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100%; 
+            max-width: 1100px; 
+            margin-bottom: 25px; 
         }
-        
-        .hero-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            object-position: center; 
-        }
-
-        .article-header { margin-bottom: 25px; }
-        .article-header .news-tag {
-            display: inline-block;
-            background: #e6f0e6;
-            color: var(--primary-color);
-            font-size: 0.8rem;
-            font-weight: bold;
-            padding: 4px 12px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        
-        .article-header h2 { color: #111; font-size: 1.8rem; margin-bottom: 15px; line-height: 1.4; }
-        .article-meta { font-size: 0.85rem; color: #666; display: flex; gap: 20px; flex-wrap: wrap; border-bottom: 1px dashed #e0e0e0; padding-bottom: 15px; }
-        .article-meta span i { color: var(--primary-color); margin-right: 6px; }
-
-        .article-body p { font-size: 1.05rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; text-indent: 30px; }
 
         /* ==========================================================================
-           4. SISTEM 2 TOMBOL KEMBALI SEJAJAR (1 BARIS 50:50)
+           4. SEKTOR GAMBAR
            ========================================================================== */
-        .bottom-actions-group {
-            display: flex;
-            gap: 20px;
+        .hero-banner {
             width: 100%;
-            max-width: 1200px;
-            margin-top: 15px;
-            box-sizing: border-box;
+            max-height: 550px;
+            overflow: hidden;
+            background-color: transparent;
+            padding: 35px 35px 0 35px; 
         }
 
-        .bottom-actions-group .btn-kembali-double {
-            flex: 1;
-            color: white;
-            padding: 14px 20px;
-            text-decoration: none;
+        .hero-banner img {
+            width: 100%;
+            height: auto; 
+            display: block;
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
+        }
+
+        /* Pembungkus Dokumentasi Foto Liputan Internal */
+        .news-banner-container {
+            width: 100%;
+            margin: 25px 0;
+            padding: 0 35px; 
+            background-color: transparent; 
+        }
+
+        .news-banner-container img {
+            width: 100%;
+            height: auto;        
+            max-height: none;     
+            display: block;
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
+        }
+
+        .news-banner-caption {
+            font-size: 0.88rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            display: block;
+            padding: 12px 0 4px 0; 
+        }
+
+        /* Kustomisasi Khusus Bait Kitab Arab Islami */
+        .arabic-container {
+            background: #fdfbf7;
+            border: 1px solid #e3dec3;
+            padding: 25px;
             border-radius: 8px;
-            font-weight: 600; 
+            margin: 25px 35px; 
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+        }
+
+        .arabic-block {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e3dec3;
+        }
+        .arabic-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', 'Traditional Arabic', 'Scheherazade New', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            line-height: 2.4;
+            color: #111;
+            text-align: right;
+            direction: rtl;
+            margin-bottom: 10px;
+        }
+
+        .translation-box {
+            border-top: 1px dashed #dcd6bc;
+            padding-top: 15px;
+            font-style: italic;
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .translation-box strong {
+            font-style: normal;
+            color: var(--primary-dark);
+        }
+
+        /* ==========================================================================
+           5. SEKTOR TEKS ARTIKEL DESKTOP & MOBILE
+           ========================================================================== */
+        .news-header,
+        .news-body-content > p,
+        .news-bullet-list,
+        .news-numbered-list,
+        .news-footer {
+            padding-left: 35px;  
+            padding-right: 35px; 
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .news-header {
+            margin-top: 30px;
+        }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+
+        .news-tag {
+            background: #e6f0e6;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .news-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            flex-direction: row;  
+            flex-wrap: nowrap;    
+            gap: 35px;            
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 18px;
+        }
+
+        .news-meta span {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.05rem;
-            transition: all 0.3s ease;
+            white-space: nowrap; 
+        }
+
+        .news-meta span i {
+            color: var(--primary-color);
+            margin-right: 8px; 
+            width: 16px;       
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+        }
+
+        .news-body-content p {
+            text-align: justify; 
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+            color: #333;
+        }
+
+        .content-block-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 35px 35px 15px 35px; 
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 12px; 
+            display: block;
+        }
+
+        /* List Bullet */
+        .news-bullet-list, .news-numbered-list {
+            list-style: none;
+            margin-bottom: 25px;
+            padding-top: 5px;
+        }
+
+        .news-bullet-list li, .news-numbered-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 1.02rem;
+            text-align: justify;
+        }
+
+        .news-bullet-list li::before {
+            content: "\f14a"; 
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary-color);
+        }
+
+        /* List Numbered */
+        .news-numbered-list {
+            counter-reset: item;
+        }
+        
+        .news-numbered-list li::before {
+            counter-increment: item;
+            content: counter(item) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Susun ke bawah vertikal rapi */
+        .news-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            padding-bottom: 35px;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-direction: column; 
+            gap: 8px;               
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* AREA ACTIONS (DI LUAR KARTU) */
+       .bottom-actions {
+            width: 100%;
+            max-width: 1100px; /* Menyelaraskan lebar maksimal dengan kartu artikel */
+            margin-bottom: 15px;
+            padding: 0; 
             box-sizing: border-box;
         }
 
-        /* Tombol Utama (Hijau - Kembali ke Info Islam) */
-        .btn-kembali-double.btn-main-color {
+        .btn-kembali {
+            color: white;
             background: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            color: white !important;
-        }
-        .btn-kembali-double.btn-main-color:hover {
-            background: var(--primary-dark);
-            border-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Tombol Kedua (Putih Border Hijau - Kembali ke Beranda) */
-        .btn-kembali-double.btn-alt-color {
-            background: #ffffff;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color) !important;
-        }
-        .btn-kembali-double.btn-alt-color:hover {
-            background: #e6f0e6;
-            transform: translateY(-2px);
+            padding: 15px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;            
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%; /* Mengisi penuh pembungkus di desktop */            
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            box-sizing: border-box;
         }
 
-        .btn-kembali-double i {
-            margin-right: 8px;
+        .btn-kembali:hover { 
+            background: #144614;
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
-        /* Footer */
-        footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; text-align: center; width: 100%; margin-top: auto; }
-        footer .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color) !important; display: block; }
+        .btn-kembali i { margin-right: 10px; }
+  
+
+        /* ==========================================================================
+           6. FOOTER AREA
+           ========================================================================== */
+        footer { 
+            background: var(--primary-dark); 
+            color: white; 
+            padding: 40px 5% 20px; 
+            text-align: center; 
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); display: block; }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
         
         /* ==========================================================================
            7. RESPONSIVE LAYER (OPTIMASI HP / MOBILE)
@@ -370,7 +533,7 @@
             .news-header h2 { font-size: 1.4rem; }
             .news-body-content p { font-size: 1rem; }
         }
-    </style>
+    </style> 
 </head>
 <body>
 
@@ -381,9 +544,14 @@
         </a>
         <button id="menu-toggle"><i class="fas fa-bars"></i> Menu</button>
         <nav>
-            <ul>
+           <ul>
                 <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><a href="info_islam.html" class="active-link"><i class="fas fa-mosque"></i> Info Islam</a></li>
+                <li><a href="galeri.html" class="active-link"><i class="fas fa-images"></i> Galeri</a></li>
+                <li><a href="pendidikan.html"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
+                <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+                <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i> Tadzkiroh</a></li>
+                <li><a href="info_islam.html"><i class="fas fa-mosque"></i> Info Islam</a></li>
+                <li><a href="kontak.html"><i class="fas fa-phone-alt"></i> Kontak</a></li>
             </ul>
         </nav>
     </header>
