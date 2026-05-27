@@ -72,7 +72,7 @@
         body { 
             line-height: 1.8; 
             color: var(--text-dark); 
-            background-color: var(--white); /* Mengubah bg body agar menyatu penuh dengan kartu berita */
+            background-color: var(--light-bg); 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -132,28 +132,30 @@
         nav ul li a.active-link { border-bottom: 3px solid var(--secondary-color) !important; color: var(--secondary-color) !important; }
 
         /* ==========================================================================
-           3. KONTEN UTAMA ARTIKEL (FULL WIDTH)
+           3. KONTEN UTAMA ARTIKEL (WIDE WITH GAP STYLE)
            ========================================================================== */
         .container { 
-            padding: 0; 
+            padding: 40px 4%; /* Jarak / Gap konstan di kiri dan kanan layar */
             width: 100%;
             flex: 1; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0;
+            gap: 25px;
         }
 
         .full-news-card {
             background: var(--white);
             padding: 0 0 40px 0; 
-            border-radius: 0; 
-            box-shadow: none;
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             width: 100%; 
+            max-width: 1400px; /* Batasan meluas maksimal agar layout tetap proporsional */
             box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* Hero Banner Edge-to-Edge */
+        /* Hero Banner */
         .hero-banner {
             width: 100%;
             max-height: 550px;
@@ -171,14 +173,14 @@
             border: none;
         }
 
-        /* Padding pembungkus konten tulisan */
+        /* Padding untuk pembungkus teks agar serasi di monitor lebar */
         .news-header,
         .news-body-content,
         .news-bullet-list,
         .news-numbered-list,
         .news-footer {
-            padding-left: 6%;  
-            padding-right: 6%; 
+            padding-left: 5%;  
+            padding-right: 5%; 
             width: 100%;
         }
 
@@ -288,7 +290,7 @@
         }
 
         /* ==========================================================================
-           4. SEKTOR BLOK ARAB (FULL WIDTH ROW)
+           4. SEKTOR BLOK ARAB
            ========================================================================== */
         .arabic-container {
             background: #fdfbf7;
@@ -296,7 +298,7 @@
             border-bottom: 1px solid #e3dec3;
             border-left: none;
             border-right: none;
-            padding: 30px 6%; 
+            padding: 30px 5%; 
             margin: 30px 0; 
             box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
             width: 100%;
@@ -351,19 +353,19 @@
             color: #777;
         }
 
-        /* AREA NAVIGATION ACTIONS */
+        /* AREA TOMBOL NAVIGASI BAWAH */
         .bottom-actions-group {
             display: flex;
-            gap: 0;
+            gap: 20px;
             width: 100%;
-            margin-top: 0;
+            max-width: 1400px; /* Menyesuaikan lebar kartu di atas */
+            margin-top: 5px;
             box-sizing: border-box;
-            border-top: 1px solid #eee;
         }
 
         .bottom-actions-group .btn-kembali-double {
             flex: 1;
-            padding: 18px 20px;
+            padding: 16px 20px;
             text-decoration: none;
             font-weight: 600; 
             display: inline-flex;
@@ -373,25 +375,27 @@
             transition: all 0.3s ease;
             text-align: center;
             box-sizing: border-box;
-            border-radius: 0; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
         .btn-kembali-double.btn-main-color {
             background: var(--primary-color);
-            border: none;
+            border: 2px solid var(--primary-color);
             color: white !important;
         }
         .btn-kembali-double.btn-main-color:hover {
             background: var(--primary-dark);
+            border-color: var(--primary-dark);
         }
 
         .btn-kembali-double.btn-alt-color {
             background: #ffffff;
-            border-left: 1px solid #eee;
+            border: 2px solid var(--primary-color);
             color: var(--primary-color) !important;
         }
         .btn-kembali-double.btn-alt-color:hover {
-            background: #f4f7f6;
+            background: #e6f0e6;
         }
 
         .btn-kembali-double i {
@@ -413,7 +417,7 @@
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         
         /* ==========================================================================
-           5. RESPONSIVE LAYER (OPTIMASI HP FULL WIDTH)
+           5. RESPONSIVE LAYER (OPTIMASI HP / HANDPHONE)
            ========================================================================== */
         @media (max-width: 768px) {
             header { height: 65px; padding: 0 15px; }
@@ -450,17 +454,21 @@
             nav.show ul { display: flex !important; }
             nav ul li a.active-link { border-bottom: none !important; border-left: 4px solid var(--secondary-color) !important; padding-left: 10px !important; }
 
+            /* Mengurangi padding luar di HP agar efisien memanfaatkan ruang layar kecil */
+            .container { padding: 15px 12px; gap: 15px; }
+            .full-news-card { border-radius: 8px; }
+
             .news-header,
             .news-body-content,
             .news-bullet-list,
             .news-numbered-list,
             .news-footer {
-                padding-left: 18px;
-                padding-right: 18px;
+                padding-left: 15px;
+                padding-right: 15px;
             }
 
             .arabic-container {
-                padding: 20px 18px;
+                padding: 20px 15px;
                 margin: 20px 0;
             }
             .arabic-text { font-size: 1.5rem; line-height: 2.2; }
@@ -472,17 +480,15 @@
                 font-size: 0.8rem;
             }
 
+            /* Tombol Navigasi Menjadi Tumpuk Vertikal di HP */
             .bottom-actions-group {
                 flex-direction: column;
+                gap: 12px;
             }
             .bottom-actions-group .btn-kembali-double {
                 width: 100%;
                 font-size: 0.95rem;
-                padding: 15px;
-                border-left: none;
-            }
-            .btn-kembali-double.btn-alt-color {
-                border-top: 1px solid #eee;
+                padding: 14px;
             }
 
             .news-header h2 { font-size: 1.5rem; }
