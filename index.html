@@ -137,12 +137,21 @@
         }
 
         #menu-toggle { display: none; } 
+        .mobile-sidebar-header,
+.sidebar-version,
+#menu-overlay{
+    display:none;
+}
 
-        nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 20px; 
-        }
+        nav{
+    display:block;
+}
+
+nav ul{
+    align-items:center;
+    margin:0;
+    padding:0;
+}
 
         nav ul li a { 
             color: white !important; 
@@ -735,7 +744,7 @@ header{
    SIDEBAR
 =================================== */
 
-nav{
+#main-nav{
     position:fixed;
 
     top:0;
@@ -758,11 +767,11 @@ nav{
     8px 0 30px rgba(0,0,0,.35);
 }
 
-nav.show{
+#main-nav.show{ 
     transform:translateX(0);
 }
 
-nav.show + #menu-overlay{
+#main-nav.show + #menu-overlay{ 
     opacity:1;
     visibility:visible;
 }
@@ -820,8 +829,7 @@ nav.show + #menu-overlay{
 /* ===================================
    MENU LIST
 =================================== */
-
-nav ul{
+#main-nav ul{ 
     list-style:none;
 
     display:flex;
@@ -833,11 +841,11 @@ nav ul{
     margin:0;
 }
 
-nav ul li{
+#main-nav ul li{
     width:100%;
 }
 
-nav ul li a{
+#main-nav ul li a{
     position:relative;
 
     display:flex;
@@ -858,11 +866,11 @@ nav ul li a{
     transition:.3s;
 }
 
-nav ul li a:hover{
+#main-nav ul li a:hover{
     transform:translateX(4px);
 }
 
-nav ul li a i{
+#main-nav ul li a i{
     width:22px;
 
     text-align:center;
@@ -874,24 +882,18 @@ nav ul li a i{
    MENU AKTIF
 =================================== */
 
-nav ul li a.active{
-
+#main-nav ul li a.active{
     border-bottom:none !important;
-
     background:linear-gradient(
         90deg,
         rgba(255,215,0,.18),
         rgba(255,215,0,.04)
     );
-
     color:#ffd700 !important;
-
     box-shadow:none;
 }
-    color:#ffd700 !important;
-}
 
-nav ul li a.active::before{
+#main-nav ul li a.active::before{
 
     content:"";
 
@@ -913,7 +915,7 @@ nav ul li a.active::before{
     0 0 18px #ffd700;
 }
 
-nav ul li a.active i{
+#main-nav ul li a.active i{
     margin-left:12px;
 }
 
@@ -1400,7 +1402,7 @@ if (overlay) {
     document.addEventListener("DOMContentLoaded", function() {
         const sekarang = new Date();
         const bulan = sekarang.getMonth() + 1; 
-        const tanggal = senate = sekarang.getDate();
+        const tanggal = sekarang.getDate(); 
 
         const bannerImg = document.getElementById("hero-banner-img");
         const titleText = document.getElementById("hero-title");
