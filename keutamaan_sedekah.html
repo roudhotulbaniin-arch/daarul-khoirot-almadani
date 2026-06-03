@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- GOOGLE VERIFICATION -->
+    <meta name="google-site-verification" content="WEfVoF8Y2RWQDfmqAYqQS8ez0524yvZpl0j05L7C1Ro" />
+
+    <!-- RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Daarul Khoirot Almadani | Pendidikan Islam & Dakwah</title>
+
+    <meta name="title" content="Daarul Khoirot Almadani">
+    <meta name="description" content="Website resmi Daarul Khoirot Almadani. Wadah pendidikan, dakwah, sosial keagamaan dan pembinaan generasi Qurani.">
+
+    <meta name="keywords" content="Daarul Khoirot Almadani, pesantren, dakwah islam, pendidikan islam, tahfidz quran, yayasan islam">
+
+    <meta name="author" content="Daarul Khoirot Almadani">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
+
+    <!-- THEME COLOR -->
+    <meta name="theme-color" content="#0f172a">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/">
+
+    <meta property="og:title" content="Daarul Khoirot Almadani">
+
+    <meta property="og:description" content="Website resmi Daarul Khoirot Almadani. Wadah pendidikan, dakwah dan sosial keagamaan.">
+
+    <meta property="og:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg">
+
+    <meta property="og:site_name" content="Daarul Khoirot Almadani">
+
+    <meta property="og:locale" content="id_ID">
+
+    <!-- TWITTER / X -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="twitter:title" content="Daarul Khoirot Almadani">
+
+    <meta name="twitter:description" content="Website resmi Daarul Khoirot Almadani. Pendidikan Islam dan dakwah.">
+
+    <meta name="twitter:image" content="https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/profil_lembaga.jpg">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="main_logo.png">
+
+    <!-- PRECONNECT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- STRUCTURED DATA SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Daarul Khoirot Almadani",
+      "url": "https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/",
+      "logo": "https://roudhotulbaniin-arch.github.io/daarul-khoirot-almadani/main_logo.png",
+      "description": "Lembaga pendidikan Islam dan dakwah.",
+      "sameAs": []
+    }
+    </script>
+
+</head>
+    <style>
+        /* ==========================================================================
+           1. GLOBAL VARIABLES & RESET STYLE
+           ========================================================================== */
+        :root {
+            --primary-color: #1a5d1a;
+            --primary-dark: #0d2e0d;
+            --secondary-color: #f4ce14;
+            --secondary-dark: #d9b50b; 
+            --light-bg: #f4f7f6;
+            --dark-footer: #0d2e0d;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body { 
+            background-color: var(--light-bg); 
+            overflow-x: hidden; 
+            color: var(--text-dark); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           2. NAVIGATION STYLE (SERAGAM MASTER INDEX)
+           ========================================================================== */
+        header {
+            background: var(--primary-color); 
+            color: white; 
+            padding: 10px 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            min-height: 65px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            flex-shrink: 0;
+            text-decoration: none;
+            color: white;
+        }
+        .logo img { height: 40px; width: auto; display: block; }
+        .logo h1 { 
+            font-size: 1.3rem; 
+            white-space: nowrap; 
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        #menu-toggle { display: none; } 
+
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            position: relative;
+            padding-bottom: 5px;
+            transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--secondary-color) !important; }
+        nav ul li a.active-link {
+            border-bottom: 3px solid var(--secondary-color) !important;
+            color: var(--secondary-color) !important;
+        }
+
+        /* ==========================================================================
+           3. KONTEN UTAMA ARTIKEL (FULL WIDTH FIX)
+           ========================================================================= */
+        .container { 
+            padding: 3rem 10%; 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            gap: 2rem; 
+        }
+
+        .article-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 1200px;
+            box-sizing: border-box;
+        }
+
+        .hero-banner {
+            width: 100%;
+            max-height: 450px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+            background-color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center; 
+        }
+
+        .article-header { margin-bottom: 25px; }
+        .article-header .news-tag {
+            display: inline-block;
+            background: #e6f0e6;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .article-header h2 { color: #111; font-size: 1.8rem; margin-bottom: 15px; line-height: 1.4; }
+        .article-meta { font-size: 0.85rem; color: #666; display: flex; gap: 20px; flex-wrap: wrap; border-bottom: 1px dashed #e0e0e0; padding-bottom: 15px; }
+        .article-meta span i { color: var(--primary-color); margin-right: 6px; }
+
+        .article-body p { font-size: 1.05rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; text-indent: 30px; }
+
+        /* Section Program Donasi */
+        .donasi-title { text-align: center; margin: 45px 0 25px 0; padding-top: 30px; border-top: 1px dashed #e0e0e0; color: var(--primary-color); }
+        .donasi-title h3 { font-size: 1.4rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        
+        .donasi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 25px; }
+        
+        .donasi-card {
+            background: var(--white); border-radius: 12px; padding: 25px; border: 1px solid #eaeaea; border-top: 4px solid var(--primary-color);
+            display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: 0.3s;
+        }
+        .donasi-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); border-color: var(--primary-color); }
+        .donasi-card h4 { color: var(--primary-color); font-size: 1.15rem; margin-bottom: 15px; text-align: center; border-bottom: 1px solid #f4f7f6; padding-bottom: 10px; }
+        
+        .donasi-list { list-style: none; padding: 0; margin-bottom: 20px; font-size: 0.9rem; color: #444; }
+        .donasi-list li { margin-bottom: 12px; line-height: 1.6; text-align: left; }
+        .donasi-list strong { color: var(--primary-color); display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 0.5px; }
+
+        .btn-donasi-wa {
+            background-color: var(--primary-color); color: white !important; text-decoration: none; padding: 12px;
+            border-radius: 8px; font-weight: bold; text-align: center; display: block; transition: 0.2s; box-shadow: 0 4px 10px rgba(26, 93, 26, 0.15);
+        }
+        .btn-donasi-wa:hover { background-color: #144514; }
+        .btn-donasi-wa i { margin-right: 6px; }
+
+        /* ==========================================================================
+           4. SISTEM 2 TOMBOL KEMBALI SEJAJAR (1 BARIS 50:50)
+           ========================================================================== */
+        .bottom-actions-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 15px;
+            box-sizing: border-box;
+        }
+
+        .bottom-actions-group .btn-kembali-double {
+            flex: 1;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+            box-sizing: border-box;
+        }
+
+        /* Tombol Utama (Hijau - Kembali ke Info Islam) */
+        .btn-kembali-double.btn-main-color {
+            background: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            color: white !important;
+        }
+        .btn-kembali-double.btn-main-color:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Tombol Kedua (Putih Border Hijau - Kembali ke Beranda) */
+        .btn-kembali-double.btn-alt-color {
+            background: #ffffff;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important;
+        }
+        .btn-kembali-double.btn-alt-color:hover {
+            background: #e6f0e6;
+            transform: translateY(-2px);
+        }
+
+        .btn-kembali-double i {
+            margin-right: 8px;
+        }
+
+        /* Footer */
+        footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; text-align: center; width: 100%; margin-top: auto; }
+        footer .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color) !important; display: block; }
+        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* ==========================================================================
+           5. RESPONSIVE MODES (HP)
+           ========================================================================== */
+      @media (max-width:768px){
+
+/* ===================================
+   ANIMASI
+=================================== */
+
+@keyframes goldPulse{
+    0%{
+        box-shadow:
+        0 0 0 rgba(255,215,0,.3);
+    }
+    50%{
+        box-shadow:
+        0 0 15px rgba(255,215,0,.8),
+        0 0 30px rgba(255,215,0,.4);
+    }
+    100%{
+        box-shadow:
+        0 0 0 rgba(255,215,0,.3);
+    }
+}
+
+/* ===================================
+   HEADER MOBILE
+=================================== */
+
+header{
+    height:65px;
+    padding:0 15px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    max-width:75%;
+    overflow:hidden;
+}
+
+.logo img{
+    width:42px !important;
+    height:42px !important;
+    min-width:42px;
+    min-height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+    aspect-ratio:1/1;
+
+    
+}
+
+.logo h1{
+    font-size:.95rem;
+    margin:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* ===================================
+   BUTTON MENU
+=================================== */
+
+#menu-toggle{
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+
+    padding:8px 14px;
+
+    border:none;
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #ffd700,
+        #f4ce14
+    );
+
+    color:#0d2e0d;
+    font-weight:700;
+}
+
+/* ===================================
+   OVERLAY
+=================================== */
+
+#menu-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:998;
+}
+
+/* ===================================
+   SIDEBAR
+=================================== */
+
+nav{
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:300px;
+    max-width:80%;
+
+    height:100vh;
+
+    background:#0d2e0d;
+
+    transform:translateX(-100%);
+    transition:.35s ease;
+
+    z-index:999;
+
+    overflow-y:auto;
+
+    box-shadow:
+    8px 0 30px rgba(0,0,0,.35);
+}
+
+nav.show{
+    transform:translateX(0);
+}
+
+nav.show + #menu-overlay{
+    opacity:1;
+    visibility:visible;
+}
+
+/* ===================================
+   HEADER SIDEBAR
+=================================== */
+
+.mobile-sidebar-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:16px 14px;
+}
+
+.mobile-sidebar-header img{
+    width:56px;
+    height:56px;
+
+    min-width:56px;
+    min-height:56px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+    aspect-ratio:1/1;
+
+    animation:goldPulse 2.5s infinite;
+}
+
+.sidebar-brand{
+    overflow:hidden;
+}
+
+.sidebar-brand h3{
+    margin:0;
+
+    font-size:17px;
+    line-height:1.2;
+
+    color:#ffd700;
+}
+
+.sidebar-brand span{
+    display:block;
+
+    margin-top:2px;
+
+    font-size:12px;
+
+    color:rgba(255,255,255,.7);
+}
+
+/* ===================================
+   MENU LIST
+=================================== */
+
+nav ul{
+    list-style:none;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+
+    padding:10px 15px 20px;
+    margin:0;
+}
+
+nav ul li{
+    width:100%;
+}
+
+nav ul li a{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    padding:10px 12px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff !important;
+
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    transform:translateX(4px);
+}
+
+nav ul li a i{
+    width:22px;
+
+    text-align:center;
+
+    color:#ffd700;
+}
+
+/* ===================================
+   MENU AKTIF
+=================================== */
+
+nav ul li a.active{
+
+    border-bottom:none !important;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,.18),
+        rgba(255,215,0,.04)
+    );
+
+    color:#ffd700 !important;
+
+    box-shadow:none;
+}
+    color:#ffd700 !important;
+}
+
+nav ul li a.active::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:10px;
+
+    top:10px;
+    bottom:10px;
+
+    width:5px;
+
+    border-radius:10px;
+
+    background:#ffd700;
+
+    box-shadow:
+    0 0 8px #ffd700,
+    0 0 18px #ffd700;
+}
+
+nav ul li a.active i{
+    margin-left:12px;
+}
+
+/* ===================================
+   VERSION
+=================================== */
+
+.sidebar-version{
+    position:absolute;
+
+    bottom:20px;
+    left:20px;
+
+    font-size:12px;
+
+    color:rgba(255,255,255,.45);
+}
+
+            .container { padding: 2rem 5%; gap: 1.5rem; }
+            .article-card { padding: 20px; }
+            .article-header h2 { font-size: 1.4rem; }
+            .article-body p { font-size: 0.95rem; text-indent: 20px; }
+
+            .bottom-actions-group {
+                flex-direction: column;
+                gap: 12px;
+                margin-top: 10px;
+            }
+            .bottom-actions-group .btn-kembali-double {
+                width: 100%;
+                font-size: 0.95rem;
+                padding: 12px 15px;
+            }
+
+        
+    </style>
+</head>
+<body>
+
+   <header>
+    <div class="logo">
+        <img src="main_logo.png" alt="Logo">
+        <h1>DAARUL KHOIROT ALMADANI</h1>
+    </div>
+
+    <button id="menu-toggle">
+        <i class="fas fa-bars"></i>Menu
+    </button>
+
+    <nav id="main-nav">
+
+        <div class="mobile-sidebar-header">
+            <img src="main_logo.png" alt="Logo">
+
+            <div class="sidebar-brand">
+                <h3>DAARUL KHOIROT ALMADANI</h3>
+                <span>PONDOK PESANTREN</span>
+            </div>
+        </div>
+
+        <ul>
+            <li>
+                <a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="galeri.html">
+                    <i class="fas fa-images"></i>
+                    <span>Galeri</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="pendidikan.html">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Pendidikan</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="pendaftaran.html">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Pendaftaran</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="tadzkiroh.html">
+                    <i class="fas fa-microphone"></i>
+                    <span>Tadzkiroh</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="info_islam.html"class="active">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Info Islam</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="kontak.html">
+                    <i class="fas fa-phone"></i>
+                    <span>Kontak</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-version">
+            v1.0
+        </div>
+
+    </nav>
+
+    <div id="menu-overlay"></div>
+</header>
+    <main class="container">
+        <article class="article-card">
+            
+            <div class="hero-banner">
+                <img src="sedekah_pendidikan.png" alt="Banner Keutamaan Sedekah ke Pesantren">
+            </div>
+
+            <div class="article-header">
+                <span class="news-tag">Artikel Pilihan</span>
+                <h2>Menyemai Benih Investasi Akhirat Lewat Sedekah Jariyah</h2>
+                <div class="article-meta">
+                    <span><i class="fas fa-calendar-alt"></i> Mei 2026</span>
+                    <span><i class="fas fa-user"></i> Admin</span>
+                    <span><i class="fas fa-book-open"></i> Pilihan Ummat</span>
+                </div>
+            </div>
+ 
+            <div class="article-body">
+                <p>Sedekah merupakan salah satu bukti nyata keimanan seorang hamba kepada Rabb-nya. Di antara berbagai macam jenis sedekah, ada satu pintu amalan khusus yang dampaknya tidak akan pernah terputus meskipun raga telah berkalang tanah dan ruh telah berpindah ke alam barzakh, yaitu Sedekah Jariyah. Menyalurkan sedekah ke pondok pesantren pencetak penghafal Al-Qur'an dan penuntut ilmu agama merupakan bentuk investasi akhirat yang paling strategis dan penuh berkah.</p>
+
+                <div class="dalil-section" style="margin: 30px 0; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h4 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px;">
+                        <i class="fas fa-book-open"></i> Dalil Al-Qur'an & Hadits Tentang Sedekah
+                    </h4>
+
+                    <div class="dalil-item" style="margin-bottom: 25px;">
+                        <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">1. Al-Qur'an Surah At-Taghabun Ayat 16</p>
+                        <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
+                            فَاتَّقُوا اللَّهَ مَا اسْتَطَعْتُمْ وَاسْمَعُوا وَأَطِيعُوا وَأَنفِقُوا خَيْرًا لِّأَنفُسِكُمْ ۗ وَمَن يُوقَ شُحَّ نَفْسِهِ فَأُولَٰئِكَ هُمُ MCMُفْلِحُونَ
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
+                            "Maka bertakwalah kamu kepada Allah menurut kesanggupanmu dan dengarlah serta ta`atlah; nafkahkanlah nafkah yang baik untuk dirimu. Dan barangsiapa yang dipelihara dari kekikiran dirinya maka mereka itulah orang-orang yang beruntung."
+                        </p>
+                    </div>
+
+                    <div class="dalil-item" style="margin-bottom: 15px;">
+                        <p style="font-size: 0.9rem; color: #666; font-weight: bold; margin-bottom: 10px;">2. Hadits Riwayat Bukhari dan Muslim</p>
+                        <p dir="rtl" style="font-family: 'Amiri', serif; font-size: 1.5rem; text-align: right; color: #111; line-height: 2; margin-bottom: 10px;">
+                            مَا مِنْكُمْ أَحَدٌ إِلَّا سَيُكَلِّمُهُ رَبُّهُ لَيْسَ بَيْنَهُ وَبَيْنَهُ تُرْجُمَانٌ فَيَنْظُرُ أَيْمَنَ مِنْهُ فَلَا يَرَى إِلَّا مَا قَدَّمَ مِنْ عَمَلِهِ وَيَنْظُرُ أَشْأَمَ مِنْهُ فَلَا يَرَى إِلَّا مَا قَدَّمَ وَيَنْظُرُ بَيْنَ يَدَيْهِ فَلَا يَرَى إِلَّا النَّارَ تِلْقَاءَ وَجْهِهِ فَاتَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; font-style: italic; line-height: 1.6;">
+                            "Tiada seorang (pun) dari kalian, melainkan (kelak) Allah akan berbicara kepadanya tanpa seorang penerjemah. Maka ia melihat ke kanan, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke kiri, tidaklah dilihatnya melainkan amal perbuatannya yang pernah dilakukan. Dan ia (pun) melihat ke depan, tidaklah dilihatnya melainkan neraka di hadapan wajahnya. Maka peliharalah (diri) kalian dari api neraka, sekalipun dengan sebiji buah kurma (yang disedekahkan).”
+                        </p>
+                    </div>
+                </div>
+
+                <div class="kisah-section" style="margin: 30px 0; background: #ffffff; padding: 25px; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h4 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid #f4f7f6; padding-bottom: 10px;">
+                        <i class="fas fa-history"></i> Kisah Inspiratif Kedermawanan Sahabat Nabi
+                    </h4>
+
+                    <div class="kisah-item" style="margin-bottom: 25px;">
+                        <h5 style="color: #1a5d1a; font-size: 1.1rem; margin-bottom: 8px;">Utsman bin Affan dan Sumur Raumah</h5>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6;">
+                            Ketika kaum Muslimin berhijrah ke Madinah, mereka mengalami krisis air bersih. Satu-satunya sumber air yang segar adalah <strong>Sumur Raumah</strong> milik seorang Yahudi yang menjual airnya dengan harga sangat mahal. 
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6; margin-top: 8px;">
+                            Mendengar sabda Rasulullah ﷺ yang menjanjikan surga bagi siapa saja yang membeli sumur itu, <strong>Utsman bin Affan R.A.</strong> segera menemui sang pemilik. Melalui negosiasi yang cerdas, Utsman membeli setengah kepemilikan sumur (bergantian hari), dan kemudian menebus seluruhnya. Utsman lalu mewakafkan sumur tersebut secara mutlak untuk kepentingan umat Islam dan penduduk Madinah secara gratis. Sumur wakaf ini terus mengalirkan keberkahan bahkan hingga hari ini.
+                        </p>
+                    </div>
+
+                    <div class="kisah-item">
+                        <h5 style="color: #1a5d1a; font-size: 1.1rem; margin-bottom: 8px;">Abu Dahdah dan Kebun Kurma Terbaik</h5>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6;">
+                            Suatu ketika, seorang anak yatim mengadu kepada Rasulullah ﷺ karena sebatang pohon kurma milik tetangganya menghalangi pembangunan pagar kebunnya. Rasulullah ﷺ membujuk pemilik pohon agar memberikan pohon itu kepada si anak yatim dengan imbalan <i>"sebatang pohon kurma di surga"</i>, namun pemiliknya menolak.
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6; margin-top: 8px;">
+                            Mendengar tawaran Rasulullah ﷺ tersebut, sahabat bernama <strong>Abu Dahdah R.A.</strong> langsung mengambil peluang emas itu. Beliau menemui pemilik pohon kurma tersebut dan menukarnya dengan <strong>seluruh kebun kurmanya yang berisi 600 pohon kurma subur</strong> beserta rumah dan sumur di dalamnya. 
+                        </p>
+                        <p style="font-size: 0.95rem; color: #444; text-align: justify; line-height: 1.6; margin-top: 8px;">
+                            Abu Dahdah kemudian memberikan satu pohon itu kepada si anak yatim demi membahagiakannya. Ketika mengetahui hal ini, Rasulullah ﷺ bersabda dengan gembira, <i>"Betapa banyak tandan kurma yang besar dan rindang di surga milik Abu Dahdah!"</i>
+                        </p>
+                    </div>
+                </div>
+ 
+                <p>Mengapa sedekah ke pondok pesantren memiliki kedudukan yang sangat istimewa di sisi Allah SWT? Jawabannya terletak pada konvergensi atau menyatunya ketiga komponen utama pahala jariyah di dalam ekosistem pesantren. Ketika seorang muhsinin menginfakkan hartanya ke pondok pesantren, ia secara tidak langsung sedang meraih ketiga gerbang pahala tersebut sekaligus.</p>
+
+                <p>Pertama, harta yang diinfakkan mengalir langsung menjadi penopang aktivitas para santri penghafal Quran. Setiap butir beras yang dimakan menjadi energi bagi mereka untuk melafalkan ayat-ayat suci. Setiap huruf Al-Qur'an dan ilmu syariat yang dipelajari serta diamalkan oleh santri, pahala kebaikannya akan mengalir utuh kepada donatur tanpa mengurangi pahala santri tersebut sedikit pun. Inilah esensi ilmu yang bermanfaat yang terus memproduksi pahala tanpa henti.</p>
+
+                <p>Kedua, kontribusi dalam pembangunan fisik sarana prasarana pesantren—seperti pembangunan asrama panggung (kobong) yang kokoh maupun ruang kelas tempat mengaji—akan terus mencatatkan pahala wakaf yang abadi. Selama bangunan tersebut berdiri tegak menaungi para santri sujud, berdzikir, dan menghafalkan kalamullah, selama itu pula pahala jariyah terus dikirimkan ke timbangan amal kebaikan donatur, siang dan malam tanpa terputus.</p>
+                
+                <p>Ketiga, melalui didikan yang bersendikan akidah Ahlus Sunnah wal Jama'ah dan akhlakul karimah (mengacu pada kitab Akhlaq Lil Baniin), pesantren terus melahirkan generasi anak-anak shalih. Doa-doa tulus yang senantiasa dipanjatkan oleh para santri penghafal Al-Qur'an dalam setiap halaqah dan shalat malam mereka, akan menjadi perisai dan cahaya kubur yang luar biasa bagi para orang tua asuh dan segenap kaum muslimin yang telah tulus ikhlas mendukung perjuangan belajar mereka.</p>
+            </div>
+
+            <div class="donasi-title">
+                <h3><i class="fas fa-heart"></i> Pintu Amal Jariyah Anda</h3>
+                <p style="font-size:0.95rem; color:#666; margin-top:5px;">Wujudkan aksi nyata mendukung para pejuang Quran melalui 3 program pilihan:</p>
+            </div>
+
+            <div class="donasi-grid">
+                <div class="donasi-card">
+                    <h4>1. Donatur / Orang Tua Asuh</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Membantu keterbatasan ekonomi sebagian santri dalam memenuhi kebutuhan bulanan dan kitab.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Menjamin kelancaran hafalan Quran bagi santri Yatim, Piatu, dan Dhuafa.</li>
+                        <li><strong>Benefit:</strong> Aliran pahala dari setiap ayat yang dihafal santri serta doa berkala dari mereka.</li>
+                    </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20bertanya%20mengenai%20program%20Donatur%20Tetap%20/%20Orang%20Tua%20Asuh." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Jadi Orang Tua Asuh</a>
+                </div>
+
+                <div class="donasi-card">
+                    <h4>2. Wakaf Pembangunan</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Kebutuhan ruang asrama (kobong panggung) dan ruang kelas seiring bertambahnya santri.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Pembelian material infrastruktur utama (semen, cor beton, papan GRC, blockboard).</li>
+                        <li><strong>Benefit:</strong> Investasi fisik akhirat yang pahalanya terus mengalir abadi selama bangunan tegak digunakan ibadah.</li>
+                    </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20berkontribusi%20untuk%20Donasi%20Pembangunan%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Wakaf Pembangunan</a>
+                </div>
+
+                <div class="donasi-card">
+                    <h4>3. Operasional Umum</h4>
+                    <ul class="donasi-list">
+                        <li><strong>Latar Belakang:</strong> Pengeluaran rutin operasional dapur umum santri, tagihan listrik, air, dan kebersihan pondok.</li>
+                        <li><strong>Tujuan & Sasaran:</strong> Mengatur stabilitas kelancaran aktivitas pengajian dan roda harian pesantren.</li>
+                        <li><strong>Benefit:</strong> Mendapatkan kebaikan mutlak dari setiap kenyamanan beribadah para santri di pondok.</li>
+                    </ul>
+                    <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot,%20saya%20ingin%20menyalurkan%20Donasi%20Operasional%20Pesantren." target="_blank" class="btn-donasi-wa"><i class="fab fa-whatsapp"></i> Donasi Operasional</a>
+                </div>
+            </div>
+        </article>
+
+
+        <div class="bottom-actions-group">
+            <a href="info_islam.html" class="btn-kembali-double btn-main-color">
+                <i class="fas fa-arrow-left"></i> Kembali ke Info Dunia Islam
+            </a>
+            <a href="index.html" class="btn-kembali-double btn-alt-color">
+                <i class="fas fa-home"></i> Kembali ke Beranda
+            </a>
+        </div>
+</main>
+    
+    <footer> 
+        <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
+
+    <audio id="clickSound" src="click_sound.mp3"></audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.querySelector('nav');
+            const clickSound = document.getElementById('clickSound');
+            const actionItems = document.querySelectorAll('nav ul li a, .donasi-grid a, .bottom-actions-group a, .logo');
+
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    nav.classList.toggle('show'); 
+                });
+            }
+
+            document.addEventListener('click', function(e) {
+                if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+                    nav.classList.remove('show');
+                }
+            });
+     
+            actionItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (clickSound) { 
+                        clickSound.currentTime = 0; 
+                        clickSound.volume = 0.8; 
+                        clickSound.play().catch(() => {}); 
+                    }
+                    if (nav) nav.classList.remove('show');
+
+                    const targetUrl = this.getAttribute("href");
+                    if (targetUrl && !targetUrl.includes('#') && !this.target) {
+                        e.preventDefault(); 
+                        setTimeout(() => { window.location.href = targetUrl; }, 200); 
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
