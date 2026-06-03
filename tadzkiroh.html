@@ -358,7 +358,7 @@
         .close-btn:hover { color: #000; }
 
         .arabic-text { 
-            font-size: 1.8rem; 
+            font-size: 1.5rem; 
             text-align: right; 
             color: var(--primary-color); 
             margin: 25px 0; 
@@ -802,6 +802,28 @@ nav ul li a.active i{
     <input type="text" id="searchInput" class="search-box" placeholder="Cari nasehat..." onkeyup="searchCeramah()">
 </div>
 
+<div class="ceramah-card">
+    <div class="card-image" style="background:#ede7f6;">
+        <i class="fas fa-feather-alt" style="color:#5e35b1;"></i>
+    </div>
+    <div class="card-body">
+        <span style="font-size:0.9rem; font-weight:800; color:#5e35b1; margin-bottom:10px; display:block; letter-spacing:0.5px;">
+            HIKMAH ULAMA
+        </span>
+
+        <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size:1.2rem;">
+            Nasehat Imam Syafi'i tentang Ilmu
+        </h4>
+
+        <p style="margin-bottom: 20px; color:#555;">
+            Ilmu tidak bisa diraih dengan santai. Imam Syafi’i menjelaskan 6 kunci utama meraih ilmu yang penuh keberkahan.
+        </p>
+
+        <button class="btn-selengkapnya" onclick="openPopUp(4)">
+            Baca Selengkapnya
+        </button>
+    </div>
+</div>
 <div class="container">
     <div class="ceramah-grid" id="ceramahGrid">
         <div class="ceramah-card">
@@ -872,8 +894,14 @@ nav ul li a.active i{
             isi: "Adab adalah pembuka pintu keberkahan. Tanpa adab, ilmu hanya akan menjadi wawasan tanpa membawa manfaat bagi jiwa. Menghormati guru adalah kunci utama mendapatkan ilmu yang manfaat.",
             arab: "لَيْسَ مِنَّا مَنْ لَمْ يُجِلَّ كَبِيرَنَا وَيَعْرِفْ لِعَالِمِنَا حَقَّهُ",
             arti: "“Tidak termasuk golongan kami orang yang tidak memuliakan yang lebih tua dan tidak mengerti hak guru kami.” (HR. Ahmad)"
-        }
-    };
+        }, 
+    4: {
+        judul: "6 Kunci Mendapatkan Ilmu Menurut Imam Syafi’i",
+        isi: "Imam Syafi’i menjelaskan bahwa ilmu tidak bisa diperoleh tanpa perjuangan dan kesungguhan.",
+        arab: "أَخي لَن تَنالَ العِلمَ إِلّا بِسِتَّةٍ <br> سَأُنبيكَ عَن تَفصيلِها بِبَيانِ <br> ذَكاءٌ وَحِرصٌ وَاِجتِهادٌ وَبُلغَةٌ <br> وَصُحبَةُ أُستاذٍ وَطولُ زَمانِ",
+        arti: "<b>Makna:</b><br> Saudaraku, tidak akan memperoleh ilmu kecuali dengan enam perkara:<br><br> 1. Kecerdasan<br> 2. Semangat<br> 3. Kesungguhan<br> 4. Bekal<br> 5. Guru<br> 6. Waktu lama"
+    }
+};
 
     // 2. LOGIKA KONTROL MODAL POPUP
     function openPopUp(id) {
