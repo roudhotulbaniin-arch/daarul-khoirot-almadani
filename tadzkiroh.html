@@ -279,6 +279,11 @@
             display: flex; 
             flex-direction: column; 
         }
+        
+        .ceramah-card {
+    width: 100% !important;
+    max-width: 100% !important;
+}
 
         .ceramah-card:hover { 
             transform: translateY(-8px); 
@@ -802,32 +807,34 @@ nav ul li a.active i{
     <input type="text" id="searchInput" class="search-box" placeholder="Cari nasehat..." onkeyup="searchCeramah()">
 </div>
 
-<div class="ceramah-card">
-    <div class="card-image" style="background:#ede7f6;">
-        <i class="fas fa-feather-alt" style="color:#5e35b1;"></i>
-    </div>
-    <div class="card-body">
-        <span style="font-size:0.9rem; font-weight:800; color:#5e35b1; margin-bottom:10px; display:block; letter-spacing:0.5px;">
-            HIKMAH ULAMA
-        </span>
-
-        <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size:1.2rem;">
-            Nasehat Imam Syafi'i tentang Ilmu
-        </h4>
-
-        <p style="margin-bottom: 20px; color:#555;">
-            Ilmu tidak bisa diraih dengan santai. Imam Syafi’i menjelaskan 6 kunci utama meraih ilmu yang penuh keberkahan.
-        </p>
-
-        <button class="btn-selengkapnya" onclick="openPopUp(4)">
-            Baca Selengkapnya
-        </button>
-    </div>
-</div>
-
 <div class="container">
     <div class="ceramah-grid" id="ceramahGrid">
+
+        <!-- CARD 4 (Imam Syafi'i) -->
         <div class="ceramah-card">
+            <div class="card-image" style="background:#ede7f6;">
+                <i class="fas fa-feather-alt" style="color:#5e35b1;"></i>
+            </div>
+            <div class="card-body">
+                <span style="font-size:0.9rem; font-weight:800; color:#5e35b1; margin-bottom:10px; display:block; letter-spacing:0.5px;">
+                    HIKMAH ULAMA
+                </span>
+
+                <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size:1.2rem;">
+                    Nasehat Imam Syafi'i tentang Ilmu
+                </h4>
+
+                <p style="margin-bottom: 20px; color:#555;">
+                    Ilmu tidak bisa diraih dengan santai. Imam Syafi’i menjelaskan 6 kunci utama meraih ilmu yang penuh keberkahan.
+                </p>
+
+                <button class="btn-selengkapnya" onclick="openPopUp(4)">
+                    Baca Selengkapnya
+                </button>
+            </div>
+        </div>
+
+   <div class="ceramah-card">
             <div class="card-image"><i class="fas fa-book-reader"></i></div>
             <div class="card-body">
                 <span style="font-size:0.9rem; font-weight:800; color:var(--primary-color); margin-bottom:10px; display:block; letter-spacing:0.5px;">ADAB & AKHLAK</span>
