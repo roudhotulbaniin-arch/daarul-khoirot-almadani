@@ -1101,117 +1101,146 @@ nav ul li a.active i{
     </footer>
     <audio id="murottal" src="murottal_start.mp3" loop></audio>
     <audio id="clickSound" src="click_sound.mp3"></audio>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const murottal = document.getElementById('murottal');
-            const clickSound = document.getElementById('clickSound');
-            const menuToggle = document.getElementById('menu-toggle');
-            const nav = document.getElementById('main-nav');
-            const overlay = document.getElementById('menu-overlay');
-            const linkActionItems = document.querySelectorAll('nav ul li a, .logo, .news-card');
-            
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const filterableItems = document.querySelectorAll('.filterable-item');
-            
-            let hasInteracted = false;
-            function playMurottal() {
-                if (!hasInteracted && murottal) {
-                    murottal.volume = 0.3; 
-                    murottal.play().catch(() => {});
-                    hasInteracted = true;
-                    document.removeEventListener('click', playMurottal);
-                    document.removeEventListener('touchstart', playMurottal);
-                }
+    
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    // =============================
+    // ELEMENT SELECTOR
+    // =============================
+    const murottal = document.getElementById('murottal');
+    const clickSound = document.getElementById('clickSound');
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('main-nav');
+    const overlay = document.getElementById('menu-overlay');
+
+    const linkActionItems = document.querySelectorAll('nav ul li a, .logo, .news-card');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const filterableItems = document.querySelectorAll('.filterable-item');
+
+    // =============================
+    // AUTO PLAY MUROTTAL (ON FIRST CLICK)
+    // =============================
+    let hasInteracted = false;
+
+    function playMurottal() {
+        if (!hasInteracted && murottal) {
+            murottal.volume = 0.3;
+            murottal.play().catch(() => {});
+            hasInteracted = true;
+
+            document.removeEventListener('click', playMurottal);
+            document.removeEventListener('touchstart', playMurottal);
+        }
+    }
+
+    document.addEventListener('click', playMurottal);
+    document.addEventListener('touchstart', playMurottal);
+
+    // =============================
+    // TOGGLE SIDEBAR
+    // =============================
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', function () {
+            nav.classList.toggle('show');
+
+            if (overlay) {
+                overlay.style.opacity = nav.classList.contains('show') ? '1' : '0';
+                overlay.style.visibility = nav.classList.contains('show') ? 'visible' : 'hidden';
             }
-            document.addEventListener('click', playMurottal);
-            document.addEventListener('touchstart', playMurottal); 
+        });
+    }
 
-        // Toggle sidebar
-if (menuToggle && nav) {
-    menuToggle.addEventListener('click', function () {
-        nav.classList.toggle('show');
-
-        if (overlay) {
-            overlay.style.opacity = nav.classList.contains('show') ? '1' : '0';
-            overlay.style.visibility = nav.classList.contains('show') ? 'visible' : 'hidden';
-        }
-    });
-}
-
-
-// Klik overlay = tutup menu
-if (overlay) {
-    overlay.addEventListener('click', function () {
-        nav.classList.remove('show');
-        overlay.style.opacity = '0';
-        overlay.style.visibility = 'hidden';
-    });
-}
-
-navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-
-        if (clickSound) {
-            clickSound.currentTime = 0;
-            clickSound.play().catch(() => {});
-        }
-
-        // Tutup sidebar setelah menu dipilih
-        nav.classList.remove('show');
-
-        if (overlay) {
+    // =============================
+    // CLICK OVERLAY = CLOSE MENU
+    // =============================
+    if (overlay) {
+        overlay.addEventListener('click', function () {
+            nav.classList.remove('show');
             overlay.style.opacity = '0';
             overlay.style.visibility = 'hidden';
-        }
-    });
-});
+        });
+    }
 
+    // =============================
+    // FILTER SYSTEM
+    // =============================
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (clickSound) {
-                        clickSound.currentTime = 0;
-                        clickSound.volume = 0.8;
-                        clickSound.play().catch(() => {});
-                    }
-                    filterButtons.forEach(btn => btn.classList.remove('active-tab'));
-                    this.classList.add('active-tab');
-                    const targetKategori = this.getAttribute('data-target');
-                    filterableItems.forEach(item => {
-                        const itemKategori = item.getAttribute('data-category');
-                        if (targetKategori === 'all' || itemKategori === targetKategori) {
-                            item.classList.remove('hidden');
-                        } else {
-                            item.classList.add('hidden');
-                        }
-                    });
-                });
-            });
+            // sound
+            if (clickSound) {
+                clickSound.currentTime = 0;
+                clickSound.volume = 0.8;
+                clickSound.play().catch(() => {});
+            }
 
-            linkActionItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    if (clickSound) {
-                        clickSound.currentTime = 0; 
-                        clickSound.volume = 0.8;
-                        clickSound.play().catch(() => {});
-                    }
-                    if (nav) nav.classList.remove('show');
-                    const destination = this.getAttribute("href");
-                    if (destination && !destination.includes('#') && !this.target) {
-                        e.preventDefault(); 
-                        setTimeout(() => { 
-                            window.location.href = destination; 
-                        }, 200); 
-                    }
-                });
-            });
+            // active tab
+            filterButtons.forEach(btn => btn.classList.remove('active-tab'));
+            this.classList.add('active-tab');
 
-            document.addEventListener('click', function(e) {
-                if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
-                    nav.classList.remove('show');
+            const targetKategori = this.getAttribute('data-target');
+
+            filterableItems.forEach(item => {
+                const itemKategori = item.getAttribute('data-category');
+
+                if (targetKategori === 'all' || itemKategori === targetKategori) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
                 }
             });
         });
-    </script>
+    });
+
+    // =============================
+    // GLOBAL CLICK (LINK + CARD)
+    // =============================
+    linkActionItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+
+            // sound
+            if (clickSound) {
+                clickSound.currentTime = 0;
+                clickSound.volume = 0.8;
+                clickSound.play().catch(() => {});
+            }
+
+            // close sidebar
+            if (nav) nav.classList.remove('show');
+
+            if (overlay) {
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+            }
+
+            // delay navigation
+            const destination = this.getAttribute("href");
+
+            if (destination && !destination.includes('#') && !this.target) {
+                e.preventDefault();
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, 200);
+            }
+        });
+    });
+
+    // =============================
+    // CLICK OUTSIDE NAV = CLOSE
+    // =============================
+    document.addEventListener('click', function(e) {
+        if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
+            nav.classList.remove('show');
+
+            if (overlay) {
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+            }
+        }
+    });
+
+});
+</script>
 </body>
 </html>
