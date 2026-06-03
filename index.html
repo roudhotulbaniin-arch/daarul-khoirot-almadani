@@ -98,7 +98,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; }
 }
 .hero-content { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1000px; z-index: 2; }
 .hero-content h1 { font-size: 4rem; font-weight: 800; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); line-height: 1.2; margin-bottom: 15px; }
-.hero-content p { font-size: 1.8rem; text-shadow: 1px 1px 10px rgba(0,0,0,0.8); line-height: 1.4; }
+.hero-content p { font-size: 1.9rem; text-shadow: 1px 1px 10px rgba(0,0,0,0.8); line-height: 1.4; }
 
 .kartu-modern-clean { background: #ffffff; padding: 35px 30px; border-top: 4px solid var(--primary-color); border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); color: var(--text-dark); width: 94%; max-width: 1200px; margin: 30px auto; }
 .judul-seragam { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 25px; font-weight: 700; border-left: 4px solid var(--secondary-color); padding-left: 12px; display: flex; align-items: center; gap: 10px; }
@@ -192,12 +192,32 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     .unit-card-clean { flex-direction: row; text-align: left; padding: 20px; }
     .unit-card-clean img { width: 55px; height: 55px; }
     .btn-daftar-penerimaan { max-width: 100%; }
+ .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: transparent !important; /* Memastikan background hilang */
+        background-color: transparent !important;
+        border: none !important;            /* Menghilangkan border jika ada */
+        box-shadow: none !important;        /* Menghilangkan shadow agar tidak ada kotak samar */
+        padding: 0 !important;              /* Menghilangkan sisa ruang (kotak putih) */
+        color: #25d366 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        animation: wa-pulse-only-icon 2s infinite ease-in-out;
+        z-index: 9999;
+    }
 
-    .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: transparent !important; color: #25d366 !important; animation: wa-pulse-only-icon 2s infinite ease-in-out; }
     .whatsapp-float span { display: none; }
-    .whatsapp-float i { font-size: 55px; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
+    .whatsapp-float i {
+        font-size: 55px; 
+        margin: 0;
+        background: transparent !important; /* Memastikan ikon tidak memiliki background sendiri */
+        filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); 
+    }
 }
-@keyframes wa-pulse-only-icon { 0% { transform: scale(1); } 70% { transform: scale(1.12); } 100% { transform: scale(1); } }
             
     </style>
 </head>
