@@ -172,15 +172,24 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
    2. DESKTOP BLOCK (Default Grid)
    ========================================================================== */
 @media (min-width: 769px) {
-  .header-text-container { 
-        display: flex !important; 
-        flex-direction: column !important; 
-        justify-content: center;
+    .hero-content {
+        display: none !important;
     }
-    
-    .motto-text { 
-        display: block !important; /* Memaksa tampil */
+
+    /* 2. Pastikan container header tampil */
+    .header-text-container {
+        display: flex !important;
+        flex-direction: column !important;
     }
+
+    /* 3. Paksa tampilkan motto di header desktop */
+    .motto-text {
+        display: block !important;
+        color: #ffd700 !important; /* Warna emas */
+        font-size: 0.8rem !important;
+        visibility: visible !important;
+    }
+
 .beranda-split-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; width: 95%; max-width: 1200px; margin: 0 auto; }
 .unit-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .donasi-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 25px; }
