@@ -205,6 +205,30 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
         color: #ffd700;
         display: block !important; /* Memastikan moto muncul */
     }
+    .navbar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Memberi jarak maksimal antara kiri dan kanan */
+        padding: 10px 5%;
+    }
+
+    .nav-tengah {
+        display: flex;
+        gap: 25px; /* Memberi ruang antar menu */
+    }
+
+    .nav-tengah a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+    }
+
+    .nav-tengah a:hover {
+        color: #ffd700; /* Warna emas saat diarahkan kursor */
+    }
+}
 .beranda-split-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; width: 95%; max-width: 1200px; margin: 0 auto; }
 .unit-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .donasi-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 25px; }
@@ -224,6 +248,9 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     .hero-container { height: 280px; }
     .hero-content h1 { font-size: 1.3rem !important; }
     .hero-content p { font-size: 0.9rem !important; }
+    .nav-tengah {
+        display: none;
+    }
 
     .beranda-split-grid, .unit-grid-clean, .donasi-grid-clean { grid-template-columns: 1fr; gap: 20px; }
     .unit-card-clean { flex-direction: row; text-align: left; padding: 20px; }
@@ -268,6 +295,15 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
             <p class="motto-text">Menuju Generasi Cerdas Berilmu Mulia Berperilaku</p>
         </div>
     </div>
+
+    <!-- Tambahkan Navigasi di sini -->
+    <nav class="nav-tengah">
+        <a href="#home">Beranda</a>
+        <a href="#profil">Profil</a>
+        <a href="#unit">Unit Pendidikan</a>
+        <a href="#kontak">Kontak</a>
+    </nav>
+    
     <button id="menu-toggle">
         <i class="fas fa-bars"></i>Menu
     </button>
@@ -279,7 +315,7 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 
             <div class="sidebar-brand">
                 <h3>DAARUL KHOIROT ALMADANI</h3>
-                <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku </span>
+                <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku</span>
             </div>
         </div>
 
