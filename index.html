@@ -171,20 +171,33 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 /* ==========================================================================
    2. DESKTOP BLOCK (Default Grid)
    ========================================================================== */
-  /* Di Header: Tampilkan Logo, Nama, dan Motto */
-    .header-text-container { display: block; margin-left: 15px; }
-    .header-text-container h1 { color: #fff; font-size: 1.1rem; }
-    .header-text-container .motto-text { color: #ffd700; font-size: 0.8rem; display: block; }
+  /* --- Khusus Desktop: Tampilkan Teks di Header, Sembunyikan di Hero --- */
+@media (min-width: 769px) {
+    .header-text-container { 
+        display: block !important; 
+        margin-left: 15px; 
+    }
+    .header-text-container h1 { 
+        color: #fff; 
+        font-size: 1.1rem; 
+    }
+    .header-text-container .motto-text { 
+        color: #ffd700; 
+        font-size: 0.8rem; 
+        display: block; 
+    }
     
-    /* Di Hero: Hilangkan teks */
-    .hero-content { display: none; }
-}
-
+    /* Hilangkan teks hero di desktop */
+    .hero-content { 
+        display: none !important; 
+    }
 
 .beranda-split-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; width: 95%; max-width: 1200px; margin: 0 auto; }
 .unit-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .donasi-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 25px; }
 .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important; padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+} 
 
 /* ==========================================================================
    3. MOBILE BLOCK (Responsive Overrides)
