@@ -143,6 +143,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; }
 
 /* Header & Nav */
 header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #0d2e0d; z-index: 9997; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
+.header-text-container { display: none; } 
 .logo { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
 .logo h1 { color: #fff; font-size: 1.2rem; margin: 0; line-height: 1.2; }
@@ -172,9 +173,12 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
    2. DESKTOP BLOCK (Default Grid)
    ========================================================================== */
 @media (min-width: 769px) {
-    .header-text-container { display: flex; flex-direction: column; }
-    .motto-text { display: block; } /* Moto tampil di desktop */
-
+       /* Header: Tampilkan nama di header */
+    .header-text-container { display: block !important; }
+    
+    /* Hero: Sembunyikan teks di banner */
+    .hero-content { display: none !important; }
+ 
 .beranda-split-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; width: 95%; max-width: 1200px; margin: 0 auto; }
 .unit-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .donasi-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 25px; }
@@ -192,9 +196,14 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     .hero-container { height: 280px; }
     .hero-content h1 { font-size: 1.3rem !important; }
     .hero-content p { font-size: 0.9rem !important; }
-  /* Menampilkan Nama, tapi menyembunyikan Moto di Mobile */
-    .header-text-container h1 { display: block; font-size: 0.95rem; }
-    .motto-text { display: none !important; } /* Moto disembunyikan di mobile */
+   /* Header: Sembunyikan teks nama di header, logo saja */
+    .header-text-container { display: none !important; }
+    
+    /* Hero: Tampilkan teks di banner (PASTIKAN INI ADA) */
+    .hero-content { display: block !important; }
+    
+    /* Memastikan banner tetap tampil */
+    .hero-container img { display: block !important; }
 
     .beranda-split-grid, .unit-grid-clean, .donasi-grid-clean { grid-template-columns: 1fr; gap: 20px; }
     .unit-card-clean { flex-direction: row; text-align: left; padding: 20px; }
