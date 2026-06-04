@@ -171,10 +171,15 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 /* ==========================================================================
    2. DESKTOP BLOCK (Default Grid)
    ========================================================================== */
+@media (min-width: 769px) {
+    .header-text-container { display: flex; flex-direction: column; }
+    .motto-text { display: block; } /* Moto tampil di desktop */
+
 .beranda-split-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; width: 95%; max-width: 1200px; margin: 0 auto; }
 .unit-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .donasi-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 25px; }
 .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important; padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+} 
 
 /* ==========================================================================
    3. MOBILE BLOCK (Responsive Overrides)
@@ -187,6 +192,9 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     .hero-container { height: 280px; }
     .hero-content h1 { font-size: 1.3rem !important; }
     .hero-content p { font-size: 0.9rem !important; }
+  /* Menampilkan Nama, tapi menyembunyikan Moto di Mobile */
+    .header-text-container h1 { display: block; font-size: 0.95rem; }
+    .motto-text { display: none !important; } /* Moto disembunyikan di mobile */
 
     .beranda-split-grid, .unit-grid-clean, .donasi-grid-clean { grid-template-columns: 1fr; gap: 20px; }
     .unit-card-clean { flex-direction: row; text-align: left; padding: 20px; }
@@ -224,11 +232,14 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 <body>
 
 <header>
-    <div class="logo">
+     <div class="logo">
         <img src="main_logo.png" alt="Logo">
-        <h1>DAARUL KHOIROT ALMADANI</h1>
+        <div class="header-text-container">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+            <!-- Moto ini yang akan kita sembunyikan di mobile -->
+            <p class="motto-text">Membentuk Generasi Qur'ani dan Berakhlak Mulia</p>
+        </div>
     </div>
-
     <button id="menu-toggle">
         <i class="fas fa-bars"></i>Menu
     </button>
@@ -240,7 +251,7 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 
             <div class="sidebar-brand">
                 <h3>DAARUL KHOIROT ALMADANI</h3>
-                <span>PONDOK PESANTREN</span>
+                <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku </span>
             </div>
         </div>
 
