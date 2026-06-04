@@ -171,25 +171,37 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 /* ==========================================================================
    2. DESKTOP BLOCK (Default Grid)
    ========================================================================== */
+/* Aturan khusus untuk layar desktop (lebar layar > 768px) */
 @media (min-width: 769px) {
-    .hero-content {
-        display: none !important;
+    /* 1. Membuat logo dan teks bersebelahan */
+    .logo {
+        display: flex;
+        align-items: center; /* Menjajarkan logo dan teks secara vertikal */
+        gap: 15px;           /* Jarak antara logo dan teks */
     }
 
-    /* 2. Pastikan container header tampil */
+    /* 2. Mengatur container teks agar bertumpuk */
     .header-text-container {
-        display: flex !important;
-        flex-direction: column !important;
+        display: flex;
+        flex-direction: column; /* Mengatur teks agar atas-bawah */
+        justify-content: center;
+        line-height: 1.1;       /* Mengatur kerapatan baris */
     }
 
-    /* 3. Paksa tampilkan motto di header desktop */
-    .motto-text {
-        display: block !important;
-        color: #ffd700 !important; /* Warna emas */
-        font-size: 0.8rem !important;
-        visibility: visible !important;
+    /* 3. Gaya Nama Pesantren */
+    .header-text-container h1 {
+        font-size: 1.1rem;
+        margin: 0;
+        color: #fff;
     }
 
+    /* 4. Gaya Motto */
+    .header-text-container .motto-text {
+        font-size: 0.8rem;
+        margin: 0;
+        color: #ffd700;
+        display: block !important; /* Memastikan moto muncul */
+    }
 .beranda-split-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; width: 95%; max-width: 1200px; margin: 0 auto; }
 .unit-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .donasi-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 25px; }
