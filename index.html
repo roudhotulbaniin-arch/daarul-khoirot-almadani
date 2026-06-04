@@ -88,6 +88,14 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; }
 
 /* Komponen Dasar */
 .hero-container { position: relative; width: 100%; height: 500px; overflow: hidden; background: linear-gradient(135deg, #0d2e0d 0%, #1a5d1a 100%); }
+hero-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%; /* Angka 20% menggeser fokus gambar ke bawah */
+    opacity: 0.5;
+    transition: opacity 0.5s ease-in-out;
+}
 .hero-content { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1000px; z-index: 2; }
 .hero-content h1 { font-size: 4rem; font-weight: 800; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); line-height: 1.2; margin-bottom: 15px; }
 .hero-content p { font-size: 2rem; text-shadow: 1px 1px 10px rgba(0,0,0,0.8); line-height: 1.4; }
@@ -173,14 +181,14 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     /* 2. Nama Pesantren */
     .header-text-container h1 { 
         color: #fff; 
-        font-size: 1.1rem; 
+        font-size: 1.2rem; 
         display: block; 
     }
     
     /* 3. Motto Pesantren */
     .header-text-container .motto-text { 
         color: #ffd700; 
-        font-size: 0.8rem; 
+        font-size: 0.9rem; 
         display: block !important; /* Memastikan moto muncul */
     }
     
@@ -348,7 +356,7 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     <img id="hero-banner-img" src="new_background.jpg" alt="Banner Utama" onerror="this.style.display='none';">
     <div class="hero-content">
         <h1 id="hero-title">DAARUL KHOIROT ALMADANI</h1>
-        <p id="hero-subtitle">Membentuk Generasi Qur'ani dan Berakhlak Mulia</p>
+        <p id="hero-subtitle">Menuju Generasi Cerdas Berilmu Mulia Berperilaku</p>
     </div>
 </div>
 
