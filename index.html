@@ -171,6 +171,16 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 /* ==========================================================================
    2. DESKTOP BLOCK (Default Grid)
    ========================================================================== */
+  /* Di Header: Tampilkan Logo, Nama, dan Motto */
+    .header-text-container { display: block; margin-left: 15px; }
+    .header-text-container h1 { color: #fff; font-size: 1.1rem; }
+    .header-text-container .motto-text { color: #ffd700; font-size: 0.8rem; display: block; }
+    
+    /* Di Hero: Hilangkan teks */
+    .hero-content { display: none; }
+}
+
+
 .beranda-split-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; width: 95%; max-width: 1200px; margin: 0 auto; }
 .unit-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .donasi-grid-clean { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 25px; }
@@ -180,13 +190,28 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
    3. MOBILE BLOCK (Responsive Overrides)
    ========================================================================== */
 @media (max-width: 768px) {
+ .header-desktop-text { display: none; }
+}
+ /* Di Header: Hanya Logo dan Nama (Motto dihilangkan) */
+    .header-text-container h1 { color: #fff; font-size: 0.95rem; }
+    .header-text-container .motto-text { display: none; } /* Motto hilang */
+    
+    /* Di Hero: Nama dan Motto tetap ada */
+    .hero-content { display: block; }
+}
     header { padding: 10px 15px; }
+    .logo {
+    display: flex;
+    align-items: center;
+    gap: 0px; /* Atur angka ini untuk jarak antara logo dan teks */
+}
+
     .logo img { width: 42px; height: 42px; }
-    .logo h1 { font-size: .95rem; }
+    .logo h1 { font-size: .90rem;}
     nav { width: 80%; }
     .hero-container { height: 280px; }
     .hero-content h1 { font-size: 1.3rem !important; }
-    .hero-content p { font-size: 0.9rem !important; }
+    .hero-content p { font-size: 0.85rem !important; }
 
     .beranda-split-grid, .unit-grid-clean, .donasi-grid-clean { grid-template-columns: 1fr; gap: 20px; }
     .unit-card-clean { flex-direction: row; text-align: left; padding: 20px; }
@@ -224,10 +249,14 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 <body>
 
 <header>
-    <div class="logo">
-        <img src="main_logo.png" alt="Logo">
+ <div class="logo">
+    <img src="main_logo.png" alt="Logo">
+    <div class="header-text-container">
         <h1>DAARUL KHOIROT ALMADANI</h1>
+        <p class="motto-text">Membentuk Generasi Qur'ani dan Berakhlak Mulia</p>
     </div>
+</div>
+</div>
 
     <button id="menu-toggle">
         <i class="fas fa-bars"></i>Menu
