@@ -120,29 +120,69 @@
         /* ==========================================================================
            2. BLOK STYLE DESKTOP (HEADER, NAVIGASI)
            ========================================================================== */
-        /* Header & Nav */
-header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #0d2e0d; z-index: 9997; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
-.logo { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
-.logo h1 { color: #fff; font-size: 1.1rem; margin: 0; line-height: 1.2; }
-#menu-toggle { display: flex !important; align-items: center; justify-content: center; gap: 6px; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; background: linear-gradient(135deg, #ffd700, #f4ce14); color: #0d2e0d; font-weight: 700; }
-#menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: .3s ease; z-index: 9998; }
-#menu-overlay.show { opacity: 1; visibility: visible; }
-nav { position: fixed; top: 0; left: 0; width: 320px; max-width: 85%; height: 100vh; background: #0d2e0d; transform: translateX(-100%); transition: .35s ease; z-index: 9999; overflow-y: auto; box-shadow: 8px 0 30px rgba(0,0,0,.35); }
-nav.show { transform: translateX(0); }
-.mobile-sidebar-header { display: flex; align-items: center; gap: 12px; padding: 10px; }
-.mobile-sidebar-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; animation: logoPulse 3s infinite; }
-.sidebar-brand h3 { color: #ffd700; font-size: 18px; margin: 0; }
-.sidebar-brand span { color: rgba(255,255,255,.7); font-size: 13px; }
-@keyframes logoPulse { 0% { box-shadow: 0 0 0 rgba(255,215,0,0); } 50% { box-shadow: 0 0 12px rgba(255,215,0,.7), 0 0 24px rgba(255,215,0,.4); } 100% { box-shadow: 0 0 0 rgba(255,215,0,0); } }
-nav ul { list-style: none; padding: 15px; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-nav ul li a { position: relative; display: flex; align-items: center; font-weight: 500; gap: 16px; padding: 8px 10px; padding-left: 28px; border-radius: 10px; text-decoration: none; background: rgba(255,255,255,.04); color: #fff !important; transition: .3s; }
-nav ul li a.active::before { content: ""; position: absolute; left: 12px; top: 20%; bottom: 15%; width: 5px; background: #ffd700; border-radius: 4px; box-shadow: 0 0 8px #ffd700, 0 0 16px rgba(255,215,0,.7); }
-nav ul li a:hover { background: rgba(255,215,0,.12); border-left: 4px solid rgba(255,215,0,.7); }
-nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
-.sidebar-version { padding: 20px; text-align: center; color: rgba(255,255,255,.45); font-size: .8rem; }
-        
-               /* ==========================================================================
+        header {
+            background: var(--primary-color); 
+            color: white; 
+            padding: 10px 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            min-height: 65px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .logo img { height: 40px; width: auto; }
+
+        .logo h1 { 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            white-space: nowrap; 
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        #menu-toggle { display: none; } 
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 20px; 
+        }
+
+        nav ul li a { 
+            color: white !important; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            position: relative;
+            padding-bottom: 5px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        nav ul li a.active {
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--secondary-color) !important;
+        }
+
+        /* ==========================================================================
            3. KONTEN INFO ISLAM & WIDGET GRID
            ========================================================================== */
         .container { 
@@ -404,73 +444,318 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
         
-/* ==========================================================================
-   2. DESKTOP BLOCK (Default Grid)
-   ========================================================================== */
-   @media (min-width: 769px) {
-    .social-header-tengah {
-    display: flex !important; /* Memaksa tampil di desktop */
-    gap: 20px;
-    margin: 0 20px;
-}
-
-.social-header-tengah a {
-    color: #ffd700; /* Warna emas agar senada dengan motto */
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-.social-header-tengah a:hover {
-    color: #ffffff;
-    transform: scale(1.2); /* Efek membesar saat disentuh */
-}
-    .hero-content {
-        display: none !important;
-    }
-
-    /* 2. Pastikan container header tampil */
-      .header-text-container {
-        display: flex;
-        flex-direction: column; /* Ini membuat teks bertumpuk atas-bawah */
-        justify-content: center;
-        gap: 0px; /* Atur jarak antar baris */
-    }
-
-    .header-text-container h1 {
-        font-size: 1.2rem;
-        margin: 0;
-        line-height: 1.2;
-    }
-
-.header-text-container h1 {
-        font-size: 1.1rem;
-        margin: 0;
-        color: #fff;
-    }
-
-    /* 4. Gaya Motto */
-    .header-text-container .motto-text {
-        font-size: 0.8rem;
-        margin: 0;
-        color: #ffd700;
-        display: block !important; /* Memastikan moto muncul */
-    }
-/* Pastikan di mobile, menu ini disembunyikan agar tidak menumpuk */    
-
         /* ==========================================================================
            6. BLOK STYLE MOBILE (RESPONSIVE LAYOUT HP)
            ========================================================================== */
-       @media (max-width: 768px) {
-    header { padding: 10px 15px; }
-     .header-text-container h1 { display: block; font-size: 0.95rem; }
-    .motto-text { display: none !important; } /* Moto disembunyikan di mobile */    
-    .logo img { width: 42px; height: 42px; }
-    .logo h1 { font-size: .95rem; }
-    nav { width: 80%; }
-    .social-header-tengah {display: none;}
-    )
+        @media (max-width:768px){
+
+/* ===================================
+   ANIMASI
+=================================== */
+
+@keyframes goldPulse{
+    0%{
+        box-shadow:
+        0 0 0 rgba(255,215,0,.3);
+    }
+    50%{
+        box-shadow:
+        0 0 15px rgba(255,215,0,.8),
+        0 0 30px rgba(255,215,0,.4);
+    }
+    100%{
+        box-shadow:
+        0 0 0 rgba(255,215,0,.3);
+    }
+}
+
+/* ===================================
+   HEADER MOBILE
+=================================== */
+
+header{
+    height:65px;
+    padding:0 15px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    max-width:75%;
+    overflow:hidden;
+}
+
+.logo img{
+    width:42px !important;
+    height:42px !important;
+    min-width:42px;
+    min-height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+    aspect-ratio:1/1;
+
+    
+}
+
+.logo h1{
+    font-size:.95rem;
+    margin:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* ===================================
+   BUTTON MENU
+=================================== */
+
+#menu-toggle{
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+
+    padding:8px 14px;
+
+    border:none;
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #ffd700,
+        #f4ce14
+    );
+
+    color:#0d2e0d;
+    font-weight:700;
+}
+
+/* ===================================
+   OVERLAY
+=================================== */
+
+#menu-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:998;
+}
+
+/* ===================================
+   SIDEBAR
+=================================== */
+
+nav{
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:300px;
+    max-width:80%;
+
+    height:100vh;
+
+    background:#0d2e0d;
+
+    transform:translateX(-100%);
+    transition:.35s ease;
+
+    z-index:999;
+
+    overflow-y:auto;
+
+    box-shadow:
+    8px 0 30px rgba(0,0,0,.35);
+}
+
+nav.show{
+    transform:translateX(0);
+}
+
+nav.show + #menu-overlay{
+    opacity:1;
+    visibility:visible;
+}
+
+/* ===================================
+   HEADER SIDEBAR
+=================================== */
+
+.mobile-sidebar-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:16px 14px;
+}
+
+.mobile-sidebar-header img{
+    width:56px;
+    height:56px;
+
+    min-width:56px;
+    min-height:56px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+    aspect-ratio:1/1;
+
+    animation:goldPulse 2.5s infinite;
+}
+
+.sidebar-brand{
+    overflow:hidden;
+}
+
+.sidebar-brand h3{
+    margin:0;
+
+    font-size:17px;
+    line-height:1.2;
+
+    color:#ffd700;
+}
+
+.sidebar-brand span{
+    display:block;
+
+    margin-top:2px;
+
+    font-size:12px;
+
+    color:rgba(255,255,255,.7);
+}
+
+/* ===================================
+   MENU LIST
+=================================== */
+
+nav ul{
+    list-style:none;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+
+    padding:10px 15px 20px;
+    margin:0;
+}
+
+nav ul li{
+    width:100%;
+}
+
+nav ul li a{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    padding:14px 16px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff !important;
+
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    transform:translateX(4px);
+}
+
+nav ul li a i{
+    width:22px;
+
+    text-align:center;
+
+    color:#ffd700;
+}
+
+/* ===================================
+   MENU AKTIF
+=================================== */
+
+nav ul li a.active{
+
+    border-bottom:none !important;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,215,0,.18),
+        rgba(255,215,0,.04)
+    );
+
+    color:#ffd700 !important;
+
+    box-shadow:none;
+}
+    color:#ffd700 !important;
+}
+
+nav ul li a.active::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:10px;
+
+    top:10px;
+    bottom:10px;
+
+    width:5px;
+
+    border-radius:10px;
+
+    background:#ffd700;
+
+    box-shadow:
+    0 0 8px #ffd700,
+    0 0 18px #ffd700;
+}
+
+nav ul li a.active i{
+    margin-left:12px;
+}
+
+/* ===================================
+   VERSION
+=================================== */
+
+.sidebar-version{
+    position:absolute;
+
+    bottom:20px;
+    left:20px;
+
+    font-size:12px;
+
+    color:rgba(255,255,255,.45);
+}
+
             .container { padding: 2rem 5%; }
             .section-title-box h2 { font-size: 1.3rem; }
             .info-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -510,19 +795,11 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 <body>
 
    <header>
-  <div class="logo">
+    <div class="logo">
         <img src="main_logo.png" alt="Logo">
-        <div class="header-text-container">
-            <h1>DAARUL KHOIROT ALMADANI</h1>
-            <p class="motto-text">Menuju Generasi Cerdas Berilmu Mulia Berperilaku</p>
-        </div>
+        <h1>DAARUL KHOIROT ALMADANI</h1>
     </div>
-    <div class="social-header-tengah">
-   <a href="https://wa.me/6281401643188" target="_blank"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://www.tiktok.com/@daarul.khoirot.al?_r=1&_t=ZS-960l8CvKDKC" target="_blank"><i class="fab fa-tiktok"></i></a>
-    <a href="https://www.facebook.com/share/18PdnmPmym/" target="_blank"><i class="fab fa-facebook"></i></a>
-    <a href="https://instagram.com/daarulkhoirot?igsh=ODVqNmI4b3FxNm9h" target="_blank"><i class="fab fa-instagram"></i></a>
-</div>
+
     <button id="menu-toggle">
         <i class="fas fa-bars"></i>Menu
     </button>
@@ -534,7 +811,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 
             <div class="sidebar-brand">
                 <h3>DAARUL KHOIROT ALMADANI</h3>
-                <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku </span>
+                <span>PONDOK PESANTREN</span>
             </div>
         </div>
 
