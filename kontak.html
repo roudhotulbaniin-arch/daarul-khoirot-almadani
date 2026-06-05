@@ -318,57 +318,51 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
    ========================================================================== */
 @media (max-width: 768px) {
     header { padding: 10px 15px; }
-     .header-text-container h1 { display: block; font-size: 0.95rem; }
-    .motto-text { display: none !important; } /* Moto disembunyikan di mobile */    
+    .header-text-container h1 { display: block; font-size: 0.95rem; }
+    .motto-text { display: none !important; }
     .logo img { width: 42px; height: 42px; }
     .logo h1 { font-size: .95rem; }
     nav { width: 80%; }
-    .hero-container { height: 280px; }
-    .hero-content h1 { font-size: 1.3rem !important; }
-    .hero-content p { font-size: 0.9rem !important; }
-    .social-header-tengah {display: none;}
-            .container { padding: 2rem 5% 2rem; }
+    
+    .social-header-tengah { display: none !important; }
+    
+    .container { padding: 1rem 3% 2rem; } /* Mengurangi padding agar konten lebih lebar */
 
-            /* Melebur Kisi Kontak Menjadi 1 Kolom Vertikal Kebawah */
-            .contact-info-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-            }
-            
-            .map-section {
-                height: 320px;
-                width: 100%;
-            }
+    /* PERBAIKAN GRID KONTAK */
+    .contact-info-grid {
+        grid-template-columns: 1fr !important; /* Memaksa 1 kolom */
+        gap: 15px !important;
+        padding: 0 10px; /* Memberi ruang di samping agar tidak mepet */
+    }
 
-            /* WA FLOAT DI HP: HANYA IKON TANPA BACKGROUND BULATAN */
-            .whatsapp-float {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: transparent !important; 
-                color: var(--whatsapp-green) !important; 
-                width: auto;
-                height: auto;
-                border-radius: 0;
-                box-shadow: none !important; 
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                animation: wa-pulse-only-icon 2s infinite ease-in-out;
-            }
+    .contact-item {
+        padding: 20px; /* Mengurangi padding agar tidak terlalu lebar */
+        margin-bottom: 0;
+    }
+    
+    .contact-item .icon i {
+        font-size: 3.5rem; /* Mengecilkan ikon agar proporsional di layar HP */
+    }
 
-            .whatsapp-float span { display: none; }
-            .whatsapp-float i { font-size: 55px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
-        }
+    .map-section {
+        height: 250px; /* Menyesuaikan tinggi peta */
+        margin-top: 20px;
+    }
 
+    /* WA FLOAT DI HP */
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        animation: wa-pulse-only-icon 2s infinite ease-in-out;
+    }
+    .whatsapp-float i { font-size: 50px; }
+}
         @keyframes wa-pulse-only-icon {
             0% { transform: scale(1); }
             70% { transform: scale(1.12); }
             100% { transform: scale(1); }
         }
-       }
+       
     </style>
 </head>
 <body>
