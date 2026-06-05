@@ -100,14 +100,23 @@
         }
 
         body { 
-            line-height: 1.8; 
-            color: var(--text-dark); 
-            background-color: var(--light-bg); 
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+    line-height: 1.8; 
+    color: var(--text-dark); 
+    background-color: var(--light-bg); 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container { 
+    padding: 2rem 5%; 
+    flex: 1 0 auto; /* Ini penting agar footer terdorong ke bawah jika konten sedikit */
+    width: 100%;
+    max-width: 1000px; /* Batasi lebar agar tidak terlalu lebar di layar besar */
+    margin: 0 auto;    /* Posisikan di tengah */
+}
+
 
         /* ==========================================================================
            2. HEADER & NAVIGASI
@@ -291,11 +300,12 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 
         /* AREA ACTIONS (DI LUAR KARTU) */
         .bottom-actions {
-            width: 100%;
-            max-width: 1100px; 
-            margin-bottom: 15px;
-            padding: 0; 
-        }
+    width: 100%;
+    margin-top: 40px;  /* Tambahkan jarak atas agar tidak menempel ke artikel */
+    margin-bottom: 20px;
+    padding: 0;
+}
+
 
         .btn-kembali {
             color: white;
