@@ -436,16 +436,12 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     }
 
     .header-text-container h1 {
-        font-size: 1.2rem;
-        margin: 0;
-        line-height: 1.2;
-    }
+    font-size: 1.1rem; /* Gunakan nilai akhir yang diinginkan */
+    margin: 0;
+    line-height: 1.2;
+    color: #fff;
+}
 
-.header-text-container h1 {
-        font-size: 1.1rem;
-        margin: 0;
-        color: #fff;
-    }
 
     /* 4. Gaya Motto */
     .header-text-container .motto-text {
@@ -461,48 +457,47 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
            ========================================================================== */
 @media (max-width: 768px) {
     header { padding: 10px 15px; }
-     .header-text-container h1 { display: block; font-size: 0.95rem; }
-    .motto-text { display: none !important; } /* Moto disembunyikan di mobile */    
+    .header-text-container h1 { display: block; font-size: 0.95rem; }
+    .motto-text { display: none !important; } 
     .logo img { width: 42px; height: 42px; }
     .logo h1 { font-size: .95rem; }
     nav { width: 80%; }
-    .social-header-tengah {display: none;}
-   } 
+    .social-header-tengah { display: none; }
     
-            .container { padding: 2rem 5%; }
-            .section-title-box h2 { font-size: 1.3rem; }
-            .info-grid { grid-template-columns: 1fr; gap: 20px; }
+    .container { padding: 2rem 5%; }
+    .section-title-box h2 { font-size: 1.3rem; }
+    .info-grid { grid-template-columns: 1fr; gap: 20px; }
             
-            /* Penyesuaian Responsif Tombol Filter di Layar HP */
-            .tab-filter-container { 
-                grid-template-columns: repeat(2, 1fr); /* Berubah jadi 2 kolom rata di HP */
-                gap: 10px; 
-                margin-bottom: 1.5rem; 
-                padding-bottom: 15px;
-            }
+    /* Penyesuaian Responsif Tombol Filter di Layar HP */
+    .tab-filter-container { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+        margin-bottom: 1.5rem; 
+        padding-bottom: 15px;
+    }
 
-            .filter-btn { 
-                padding: 10px 8px; 
-                font-size: 0.8rem; 
-                border-radius: 6px; /* Tetap kotak melengkung di HP */
-                transform: none !important; /* Menghapus trik pergeseran desktop di HP */
-            }
+    .filter-btn { 
+        padding: 10px 8px; 
+        font-size: 0.8rem; 
+        border-radius: 6px; 
+        transform: none !important; 
+    }
 
-            /* Tombol pertama dibuat melintang penuh di atas agar baris ganjil tetap simetris */
-            .tab-filter-container .filter-btn:first-child {
-                grid-column: span 2;
-            }
+    .tab-filter-container .filter-btn:first-child {
+        grid-column: span 2;
+    }
 
-            /* Desktop 3 Kolom runtuh otomatis menjadi 1 kolom vertikal di HP */
-            .article-grid {
-                grid-template-columns: 1fr; 
-                gap: 20px;
-            }
-            .article-item h3, .article-item p {
-                height: auto; 
-                -webkit-line-clamp: unset;
-            }
-           } 
+    /* Desktop 3 Kolom runtuh otomatis menjadi 1 kolom vertikal di HP */
+    .article-grid {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+    .article-item h3, .article-item p {
+        height: auto; 
+        -webkit-line-clamp: unset;
+    }
+} /* <--- Kurung kurawal penutup ini sangat penting! */
+
         
     </style>
 </head>
