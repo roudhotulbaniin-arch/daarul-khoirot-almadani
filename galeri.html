@@ -236,16 +236,15 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             position: relative;
             display: block;
         }
-        
-.gallery-card-item img {
+
+        .gallery-card-item img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Gambar akan tampil utuh dengan rasio asli */
-    background-color: #f4f7f6; /* Warna latar jika ada ruang kosong */
-    object-position: center;
-    transition: transform 0.5s ease;
-    display: block;
+    object-fit: cover;
+    /* Geser fokus ke atas, bawah, kiri, atau kanan */
+    object-position: top center; 
 }
+
 
 
         .gallery-card-item:hover img {
