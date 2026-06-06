@@ -225,25 +225,25 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         /* ==========================================================================
            5. ADAPTIVE GALLERY IMAGE STYLE (SINKRON, PENUH & SERAGAM)
            ========================================================================== */
-.gallery-card-item {
-    display: block;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    background: var(--white);
-    aspect-ratio: 4 / 3; /* Konsistensi tinggi dan lebar */
-    width: 100%;
-    position: relative;
-    border: 4px solid white;
-}
-
-.gallery-card-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 30%; /* Menarik sedikit titik fokus ke atas */
-    transition: transform 0.5s ease;
-}
+   .gallery-card-item {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            background: var(--white); 
+            height: 320px; /* Dipertinggi agar proporsi foto di monitor komputer terlihat pas & sejajar */
+            border: 4px solid white;
+            position: relative;
+            display: block;
+        }
+        
+        .gallery-card-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Mengisi penuh kotak secara profesional tanpa ada ruang kosong */
+            object-position: center center; /* Pemotongan seimbang di tengah sehingga objek utama aman */
+            transition: transform 0.5s ease;
+            display: block;
+        }
 
         .gallery-card-item:hover img {
             transform: scale(1.04); 
