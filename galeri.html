@@ -227,11 +227,8 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
            ========================================================================== */
 
         .gallery-card-item {
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            background: var(--white); 
-            height: 320px; /* Dipertinggi agar proporsi foto di monitor komputer terlihat pas & sejajar */
+    aspect-ratio: 4/3; /* Semua kartu akan seragam rasionya */
+    height: auto; 
             border: 4px solid white;
             position: relative;
             display: block;
@@ -241,12 +238,9 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Geser fokus ke atas, bawah, kiri, atau kanan */
-    object-position: top center; 
+    /* Gunakan nilai ini untuk fokus ke tengah */
+    object-position: 50% 50%; 
 }
-
-
-
         .gallery-card-item:hover img {
             transform: scale(1.04); 
         }
