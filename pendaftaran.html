@@ -495,8 +495,244 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             0% { transform: scale(1); }
             70% { transform: scale(1.12); }
             100% { transform: scale(1); }
+           
         }
-       
+     
+     /* =========================
+   CUSTOM SELECT PREMIUM
+========================= */
+
+.custom-auto{
+    display:none !important;
+}
+
+.custom-select{
+    position:relative;
+    width:100%;
+}
+
+.custom-select-btn{
+    width:100%;
+    min-height:46px;
+    border:none;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    font-size:.95rem;
+    color:#333;
+}
+
+.custom-select-btn span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.custom-select-btn i{
+    color:var(--primary-color);
+    transition:.3s;
+}
+
+.custom-select.open .custom-select-btn i{
+    transform:rotate(180deg);
+}
+
+.custom-select-menu{
+    position:absolute;
+    left:0;
+    right:0;
+    top:calc(100% + 8px);
+
+    background:
+    linear-gradient(
+        180deg,
+        #0b4014,
+        #14551c,
+        #1a5d1a
+    );
+
+    border:2px solid #1a5d1a;
+    border-radius:14px;
+
+    box-shadow:
+        0 10px 25px rgba(26,93,26,.15),
+        0 0 0 1px rgba(26,93,26,.08);
+
+    max-height:320px;
+    overflow-y:auto;
+
+    display:none;
+    z-index:99999;
+}
+
+.custom-select-menu{
+
+    position:fixed;
+    left:12px;
+    right:12px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    max-height:none;
+
+    background:rgba(255,255,255,.90);
+
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,.45);
+
+    border-radius:24px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.18),
+        0 0 0 1px rgba(255,255,255,.2);
+
+    overflow:hidden;
+
+    z-index:100000;
+}
+
+.custom-select-menu::before{
+
+    display:flex;
+    align-items:center;
+
+    height:58px;
+
+    padding:0 20px;
+
+    font-size:1rem;
+    font-weight:700;
+
+    color:#fff;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0d4f18,
+        #1a5d1a,
+        #2d7c2d
+    );
+
+    border-bottom:
+    1px solid rgba(255,255,255,.15);
+}
+
+.custom-select.open .custom-select-menu{
+    display:block;
+}
+
+.custom-select-option{
+
+    padding:12px 14px;
+
+    color:#184d18;
+
+    font-size:1rem;
+
+    transition:.25s;
+
+    border-bottom:
+    1px solid rgba(26,93,26,.08);
+}
+
+.custom-select-option:hover{
+
+    background:
+    rgba(26,93,26,.08);
+}
+
+.custom-select-option.selected{
+
+    background:
+    linear-gradient(
+        135deg,
+        #1a5d1a,
+        #2f7f2f
+    );
+
+    color:#fff;
+}
+
+.custom-select-option:last-child{
+    border-bottom:none;
+}
+
+.custom-select-option:hover{
+    background:#edf8ed;
+    color:#1a5d1a;
+}
+
+.custom-select-option.selected{
+    background:linear-gradient(
+        135deg,
+        #1a5d1a,
+        #2b7a2b
+    );
+
+    color:#fff;
+}
+.custom-select-backdrop{
+    display:none;
+}
+
+@media(max-width:768px){
+
+.custom-select-menu{
+    position:fixed;
+    left:10px;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    max-height:100vh;
+    border-radius:18px;
+    z-index:100000;
+}
+
+.custom-select-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:99999;
+}
+
+.custom-select-backdrop.show{
+    display:block;
+}
+
+}
+
+.custom-optgroup{
+
+    padding:14px 18px;
+
+    font-size:.75rem;
+
+    font-weight:800;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
+    color:#ffd54f;
+
+    background:
+    rgba(255,255,255,.08);
+
+    backdrop-filter:blur(6px);
+
+    border-top:
+    1px solid rgba(255,255,255,.05);
+
+    border-bottom:
+    1px solid rgba(255,255,255,.05);
+}
+
+
     </style>
 </head>
 <body>
@@ -803,7 +1039,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Pilihan Unit & Kelas<span style="color: red;">*</span></label>
                         <div class="input-ikon">
                             <i class="fas fa-graduation-cap"></i>
-                            <select name="tingkat_unit">
+                            <select name="tingk-select"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <optgroup label="UNIT TPQ">
                                    <option>TPQ - Tingkat 1</option>
@@ -855,7 +1091,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                 <div class="form-grid-santri">
                     <div class="form-group">
                         <label>Jenis Kelamin<span style="color: red;">*</span></label>
-                        <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin"><option value="">-- Pilih --</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+                        <div class="input-ikon"><i class="fas fa-venus-mars"></i><select name="jenis_kelamin"class="custom-auto"><option value="">-- Pilih --</option><option>Laki-laki</option><option>Perempuan</option></select></div>
                     </div>
                     <div class="form-group">
                         <label>Tempat Lahir</label>
@@ -878,14 +1114,14 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     </div>
                     <div class="form-group">
                         <label>Cita-cita</label>
-                        <div class="input-ikon"><i class="fas fa-star"></i><select name="cita"><option value="">-- Pilih --</option><option>Ulama/Da`i</option><option>Hafizh/Hafizhah</option><option>Guru/Dosen</option><option>Dokter</option><option>Tentara/Polisi</option><option>Pengusaha</option><option>Lainnya</option></select></div>
+                        <div class="input-ikon"><i class="fas fa-star"></i><select name="cita"class="custom-auto"><option value="">-- Pilih --</option><option>Ulama/Da`i</option><option>Hafizh/Hafizhah</option><option>Guru/Dosen</option><option>Dokter</option><option>Tentara/Polisi</option><option>Pengusaha</option><option>Lainnya</option></select></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Hobi Santri</label>
                     <div class="input-ikon">
                        <i class="fas fa-star"></i>
-                       <select name="hobi"><option value="">-- Pilih --</option>
+                       <select name="hobi"class="custom-auto"><option value="">-- Pilih --</option>
                            <option>Membaca Kitab/Buku</option>
                            <option>Olahraga</option>
                            <option>Seni Kaligrafi</option>
@@ -899,15 +1135,15 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                 <div class="form-grid-santri">
                     <div class="form-group">
                         <label>Kebutuhan Khusus</label>
-                        <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"><option value="">-- Pilih --</option><option>Tidak Ada</option><option>Lamban Belajar</option><option>Kesulitan Belajar Spesifik</option><option>Gangguan Komunikasi</option><option>Berbakat Memilili Kemampuan/Kecerdasan Luar Biasa</option><option>Lainnya</option></select></div>
+                        <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"class="custom-auto"><option value="">-- Pilih --</option><option>Tidak Ada</option><option>Lamban Belajar</option><option>Kesulitan Belajar Spesifik</option><option>Gangguan Komunikasi</option><option>Berbakat Memilili Kemampuan/Kecerdasan Luar Biasa</option><option>Lainnya</option></select></div>
                     </div>
                     <div class="form-group">
                         <label>Kebutuhan Disabilitas</label>
-                        <div class="input-ikon"><i class="fas fa-universal-access"></i><select name="disabilitas"><option value="">-- Pilih --</option><option>Tidak ada</option><option>Tuna Netra</option><option>Tuna Rungu</option><option>Tuna Wicara</option><option>Tuna Daksa</option><option>Tuna Grahita</option><option>Tuna Laras</option><option>Lainnya</option></select></div>
+                        <div class="input-ikon"><i class="fas fa-universal-access"></i><select name="disabilitas"class="custom-auto"><option value="">-- Pilih --</option><option>Tidak ada</option><option>Tuna Netra</option><option>Tuna Rungu</option><option>Tuna Wicara</option><option>Tuna Daksa</option><option>Tuna Grahita</option><option>Tuna Laras</option><option>Lainnya</option></select></div>
                     </div>
                     <div class="form-group">
                         <label>Biaya Sekolah Oleh</label>
-                        <div class="input-ikon"><i class="fas fa-wallet"></i><select name="biaya"><option value="">-- Pilih --</option><option>Orangtua</option><option>Wali/Orangtua Asuh</option><option>Tanggungan Sendiri</option><option>Lainnya</option></select></div>
+                        <div class="input-ikon"><i class="fas fa-wallet"></i><select name="biaya"class="custom-auto"><option value="">-- Pilih --</option><option>Orangtua</option><option>Wali/Orangtua Asuh</option><option>Tanggungan Sendiri</option><option>Lainnya</option></select></div>
                     </div>
                 </div>
 
@@ -935,7 +1171,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Status Ayah<span style="color: red;">*</span></label>
                         <div class="input-ikon">
                             <i class="fas fa-heartbeat"></i>
-                            <select name="st_ayah" onchange="toggleAyahFields(this.value)"> 
+                            <select name="st_ayah" class="custom-auto"onchange="toggleAyahFields(this.value)"> 
                                 <option value="">-- Pilih --</option>                
                                 <option value="Masih Hidup">Masih Hidup</option>
                                 <option value="Meninggal">Meninggal</option>
@@ -971,7 +1207,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Pendidikan Terakhir</label>
                         <div class="input-ikon">
                             <i class="fas fa-graduation-cap"></i>
-                            <select name="pdk_ayah">
+                            <select name="pdk_ayah"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>SD/Sederajat</option>
                                 <option>SMP/Sederajat</option>
@@ -991,7 +1227,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Pekerjaan Utama<span style="color: red;">*</span></label>
                         <div class="input-ikon">
                             <i class="fas fa-briefcase"></i>
-                            <select name="pjk_ayah">
+                            <select name="pjk_ayah"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>Tidak Bekerja</option>
                                 <option>Pensiunan</option>
@@ -1011,7 +1247,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Penghasilan Rata-rata / Bulan<span style="color: red;">*</span></label>
                         <div class="input-ikon">
                             <i class="fas fa-money-bill-wave"></i>
-                            <select name="hasil_ayah">
+                            <select name="hasil_ayah"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>Dibawah 800.000</option>
                                 <option>800.001 - 1.500.000</option>
@@ -1048,7 +1284,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Status Ibu</label>
                         <div class="input-ikon">
                             <i class="fas fa-heartbeat"></i>
-                            <select name="st_ibu">
+                            <select name="st_ibu"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>Masih Hidup</option>
                                 <option>Meninggal</option>
@@ -1076,7 +1312,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Pendidikan Terakhir</label>
                         <div class="input-ikon">
                             <i class="fas fa-graduation-cap"></i>
-                            <select name="pdk_ibu">
+                            <select name="pdk_ibu"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>SD/Sederajat</option>
                                 <option>SMP/Sederajat</option>
@@ -1096,7 +1332,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Pekerjaan Utama</label>
                         <div class="input-ikon">
                             <i class="fas fa-briefcase"></i>
-                            <select name="pjk_ibu" id="pjk_ibu">
+                            <select name="pjk_ibu"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>Ibu Rumah Tangga</option>
                                 <option>Pensiunan</option>
@@ -1116,7 +1352,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Penghasilan Rata-rata / Bulan</label>
                         <div class="input-ikon">
                             <i class="fas fa-money-bill-wave"></i>
-                            <select name="hasil_ibu"> 
+                            <select name="hasil_ibu"class="custom-auto"> 
                                 <option value="">-- Pilih --</option>
                                 <option>Dibawah 800.000</option>
                                 <option>800.001 - 1.500.000</option>
@@ -1147,7 +1383,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     <label><b>Tentukan Status Wali Santri<span style="color: red;">*</span></b></label>
                     <div class="input-ikon" style="margin-top: 10px;">
                         <i class="fas fa-users-cog"></i>
-                        <select name="st_wali">
+                        <select name="st_wali"class="custom-auto">
                             <option value="">-- Pilih --</option>
                             <option value="ayah">Sama Dengan Ayah Kandung</option>
                             <option value="ibu">Sama Dengan Ibu Kandung</option>
@@ -1163,7 +1399,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                      <div class="form-group">
                             <label>Status Kepemilikan Rumah<span style="color: red;">*</span></label>
                             <div class="input-ikon"><i class="fas fa-house-user"></i>
-                                <select name="milik_ayah">
+                                <select name="milik_ayah"class="custom-auto">
                                     <option value="">-- Pilih --</option>
                                     <option>Milik Sendiri</option>
                                     <option>Rumah Orangtua</option>
@@ -1217,9 +1453,9 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                 <div class="form-section-title"><i class="fas fa-female"></i> Domisili Ibu Kandung</div>
                 <div class="form-group" style="margin-bottom:20px; max-width: 400px;">
                     <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili Ibu</label>
-                    <div class="input-ikon" style="border:2px solid var(--gold-color);">
+                    <div class="input-ikon" style="border:2px solid var(--primary-color);">
                         <i class="fas fa-question-circle"></i>
-                        <select name="pilih_dom_ibu" onchange="toggleDomisiliIbu(this.value)"> 
+                        <select name="pilih_dom_ibu" class="custom-auto"onchange="toggleDomisiliIbu(this.value)"> 
                             <option value="">-- Pilih Lokasi --</option>
                             <option value="sama">Sama Dengan Ayah Kandung</option>
                             <option value="beda">Beda Dengan Ayah Kandung</option>
@@ -1243,7 +1479,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     <label style="color:var(--primary-color); font-weight:bold;">Pilihan Domisili</label>
                     <div class="input-ikon" style="border:2px solid var(--primary-color);">
                         <i class="fas fa-bed"></i>
-                        <select name="pilih_dom_santri" onchange="toggleDomisiliSantri(this.value)"> 
+                        <select name="pilih_dom_santri" class="custom-auto"onchange="toggleDomisiliSantri(this.value)"> 
                             <option value="">-- Pilih --</option>
                             <option value="mukim">Mukim (Alamat Pesantren)</option>
                             <option value="sama">Tidak Mukim (Sama dengan Ayah)</option>
@@ -1269,7 +1505,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     <div class="form-group">
                         <label>Jarak ke Lembaga</label>
                         <div class="input-ikon"><i class="fas fa-ruler-horizontal"></i>
-                            <select name="jarak">
+                            <select name="jarak"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>Kurang dari 5 Km</option>
                                 <option>5 - 10 Km</option>
@@ -1280,7 +1516,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     <div class="form-group">
                         <label>Transportasi</label>
                         <div class="input-ikon"><i class="fas fa-motorcycle"></i>
-                            <select name="trans">
+                            <select name="trans"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>Jalan Kaki</option>
                                 <option>Naik Sepeda</option>
@@ -1293,7 +1529,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     <div class="form-group">
                         <label>Waktu Tempuh</label>
                         <div class="input-ikon"><i class="fas fa-clock"></i>
-                            <select name="waktu">
+                            <select name="waktu"class="custom-auto">
                                 <option value="">-- Pilih --</option>
                                 <option>1 - 10 menit</option>
                                 <option>10 - 20 menit</option>
@@ -1316,7 +1552,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Visi Orang Tua</label>
                         <div class="input-ikon">
                             <i class="fas fa-eye"></i>
-                            <select name="w_visi">
+                            <select name="w_visi"class="custom-auto">
                                 <option value="">-- Pilih Pandangan --</option>
                                 <option value="Urgensi Dunia/Akhirat">Dahulukan Akhirat Jangan Lupakan Dunia</option>
                                 <option value="Ibadah & Akhlak">Keseimbangan Ibadah, Akhlak, & Adab</option>
@@ -1330,7 +1566,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Pola Disiplin Rumah</label>
                         <div class="input-ikon">
                             <i class="fas fa-gavel"></i>
-                            <select name="w_pola">
+                            <select name="w_pola"class="custom-auto">
                                 <option value="">-- Pilih Pola --</option>
                                 <option value="Sangat Ketat">Sangat Ketat (Banyak Sanksi)</option>
                                 <option value="Demokratis">Demokratis (Diskusi Bersama)</option>
@@ -1343,7 +1579,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Perilaku Dominan</label>
                         <div class="input-ikon">
                             <i class="fas fa-child"></i>
-                            <select name="w_perilaku">
+                            <select name="w_perilaku"class="custom-auto">
                                 <option value="">-- Pilih Perilaku --</option>
                                 <option value="Mandiri & Rajin">Mandiri, Rajin, & Penurut</option>
                                 <option value="Cukup Baik">Cukup Baik, Perlu Diingatkan</option>
@@ -1357,7 +1593,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     <label>Kondisi Kesehatan</label>
     <div class="input-ikon">
         <i class="fas fa-heartbeat"></i>
-        <select name="w_sehat" id="selectKesehatan" onchange="toggleRiwayat()">
+        <select name="w_sehat"class="custom-auto" id="selectKesehatan" onchange="toggleRiwayat()">
             <option value="">-- Pilih Kondisi --</option>
             <option value="Sehat">Alhamdulillah Sehat</option>
             <option value="Pernah Sakit">Ada Riwayat Penyakit</option>
@@ -1395,7 +1631,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Sikap Terhadap Sanksi</label>
                         <div class="input-ikon">
                             <i class="fas fa-user-shield"></i>
-                            <select name="w_tazir">
+                            <select name="w_tazir"class="custom-auto">
                                 <option value="">-- Pilih Sikap --</option>
                                 <option value="Mendukung">Mendukung Sanksi Edukatif</option>
                                 <option value="Diskusi">Diskusi (Keberatan Jika Berat)</option>
@@ -1408,7 +1644,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         <label>Harapan Terbesar</label>
                         <div class="input-ikon">
                             <i class="fas fa-star"></i>
-                            <select name="w_harapan">
+                            <select name="w_harapan"class="custom-auto">
                                 <option value="">-- Pilih Harapan --</option>
                                 <option value="Hafal Al-Quran">Menjadi Penghafal Al-Quran</option>
                                 <option value="Akhlakul Karimah">Memiliki Akhlak & Adab Baik</option>
@@ -2434,11 +2670,248 @@ window.toggleDomisiliIbu = toggleDomisiliIbu;
 window.toggleDomisiliSantri = toggleDomisiliSantri;
 window.prosesSimpanFinal = prosesSimpanFinal;
 
+
+
+(function(){
+
+function closeAllCustomSelect(){
+
+document
+.querySelectorAll('.custom-select.open')
+.forEach(el=>el.classList.remove('open'));
+
+document
+.querySelector('.custom-select-backdrop')
+?.classList.remove('show');
+
+}
+
+function buildCustomSelect(select){
+
+if(select.dataset.customReady) return;
+
+select.dataset.customReady="1";
+
+const custom=document.createElement('div');
+custom.className='custom-select';
+
+const btn=document.createElement('button');
+btn.type='button';
+btn.className='custom-select-btn';
+
+const text=document.createElement('span');
+
+text.textContent=
+select.options[select.selectedIndex]?.text ||
+'-- Pilih --';
+
+btn.innerHTML='';
+btn.appendChild(text);
+btn.insertAdjacentHTML(
+'beforeend',
+'<i class="fas fa-chevron-down"></i>'
+);
+
+function createOption(option){
+
+    const item=document.createElement('div');
+
+    item.className='custom-select-option';
+
+    item.textContent=option.text;
+
+    if(option.selected){
+        item.classList.add('selected');
+    }
+
+    item.addEventListener('click',()=>{
+
+        select.value=option.value;
+
+        text.textContent=option.text;
+
+        menu
+        .querySelectorAll('.custom-select-option')
+        .forEach(x=>x.classList.remove('selected'));
+
+        item.classList.add('selected');
+
+        closeAllCustomSelect();
+
+        select.dispatchEvent(
+            new Event('change',{bubbles:true})
+        );
+
+    });
+
+    menu.appendChild(item);
+
+}
+
+const menu=document.createElement('div');
+menu.className='custom-select-menu';
+
+[...select.children].forEach(item=>{
+
+    // OPTION BIASA
+    if(item.tagName === 'OPTION'){
+
+        createOption(item);
+
+    }
+
+    // OPTGROUP
+    if(item.tagName === 'OPTGROUP'){
+
+        const group=document.createElement('div');
+
+        group.className='custom-optgroup';
+
+        group.textContent=item.label;
+
+        menu.appendChild(group);
+
+        [...item.children].forEach(opt=>{
+
+            createOption(opt);
+
+        });
+
+    }
+
+});
+
+custom.appendChild(btn);
+custom.appendChild(menu);
+
+select.parentNode.insertBefore(
+custom,
+select.nextSibling
+);
+
+btn.addEventListener('click',(e)=>{
+
+e.stopPropagation();
+
+const opened=
+custom.classList.contains('open');
+
+closeAllCustomSelect();
+
+if(!opened){
+
+custom.classList.add('open');
+
+if(window.innerWidth<=768){
+
+document
+.querySelector('.custom-select-backdrop')
+?.classList.add('show');
+
+}
+
+}
+
+});
+
+}
+
+function rebuildCustomSelect(select){
+
+const old=
+select.parentNode.querySelector('.custom-select');
+
+if(old){
+old.remove();
+}
+
+delete select.dataset.customReady;
+
+buildCustomSelect(select);
+
+}
+
+function initCustomSelects(){
+
+document
+.querySelectorAll('select.custom-auto')
+.forEach(buildCustomSelect);
+
+}
+
+document.addEventListener(
+'DOMContentLoaded',
+initCustomSelects
+);
+
+document.addEventListener(
+'click',
+closeAllCustomSelect
+);
+
+document
+.querySelector('.custom-select-backdrop')
+?.addEventListener(
+'click',
+closeAllCustomSelect
+);
+
+/* ==========================
+   AUTO REFRESH OPTION
+========================== */
+
+const observer=new MutationObserver(()=>{
+
+document
+.querySelectorAll('select.custom-auto')
+.forEach(select=>{
+
+if(!select.dataset.customReady){
+
+buildCustomSelect(select);
+return;
+
+}
+
+const optionCount=
+select.options.length;
+
+if(
+select.dataset.optionCount
+!==String(optionCount)
+){
+
+select.dataset.optionCount=
+optionCount;
+
+rebuildCustomSelect(select);
+
+}
+
+});
+
+});
+
+observer.observe(
+document.body,
+{
+childList:true,
+subtree:true
+}
+);
+
+})();
+
+
+
+
 </script>
 
 <a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Admin%20Daarul%20Khoirot..." class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i> <span>Tanya Admin</span>
 </a>
+
+<div class="custom-select-backdrop"></div>
 
 </body>
 </html>
