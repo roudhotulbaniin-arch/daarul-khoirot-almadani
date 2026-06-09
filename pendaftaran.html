@@ -186,6 +186,31 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         }
         .input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 1.1rem; }
         .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.95rem; color: #333; }
+
+.input-ikon{
+    position:relative;
+}
+
+.input-ikon select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+
+    width:100%;
+    padding-right:40px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.input-ikon::after{
+    content:"▼";
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    pointer-events:none;
+    color:#1a5d1a;
+}
         
         input[readonly], select:disabled { background-color: #f8f9fa !important; cursor: not-allowed; opacity: 0.7; }
 
@@ -1466,7 +1491,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
     <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
     <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-    <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    <div class="f-copy">© 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
 </footer> 
 
 <audio id="clickSound" src="click_sound.mp3"></audio>
