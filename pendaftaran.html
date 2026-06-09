@@ -498,59 +498,118 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
            
         }
      
-   
+
+/* ===== CUSTOM DROPDOWN BASE ===== */
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-trigger {
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.custom-select-menu {
+    position: absolute;
+    top: 105%;
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 0px;
+    border: 1px solid #ddd;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 999;
+    display: none;
+}
+
+/* ===== DROPDOWN MENU ===== */
+.custom-select-menu {
+    background: #ffffff; /* putih */
+    border: 1px solid #1a5d1a;
+}
+
+/* OPTION ITEM */
+.custom-option {
+    padding: 12px 15px;
+    cursor: pointer;
+    color: #1a5d1a; /* teks hijau tua */
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* HOVER */
+.custom-option:hover {
+    background: #1a5d1a !important ; /* hijau tua */
+    color: #ffffff; /* teks jadi putih */
+}
+
+/* OPTION AKTIF (yang dipilih) */
+.custom-option.selected {
+    background: #1a5d1a;
+    color: #ffffff;
+}
+
+.custom-select-menu.show {
+    display: block;
+}
+
+.custom-option {
+    padding: 14px 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.custom-option:hover {
+    background: #f0fdf4;
+}
+
+.custom-select-backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.custom-select-menu::before {
+    content: "Pilih Data";
+    display: block;
+    padding: 14px;
+    background: #1a5d1a;
+    color: white;
+    font-weight: bold;
+    border-radius: 0px 0px 0 0;
+    text-align: center;
+}
+
+/* ===== MOBILE MODE ===== */
 @media(max-width:768px){
 
 .custom-select-menu{
-    position:fixed;
-    left:30px;
-    right:30px;
-    top:50%;
-    transform:translateY(-50%);
-    max-height:100vh;
-    border-radius:18px;
-    z-index:100000;
+    position: fixed;
+    left: 20px;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: 60vh;
+    border-radius: 16px;
+    z-index: 100000;
 }
 
 .custom-select-backdrop{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:99999;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 99999;
+    display: none;
 }
 
 .custom-select-backdrop.show{
-    display:block;
+    display: block;
 }
 
 }
-
-.custom-optgroup{
-
-    padding:14px 18px;
-
-    font-size:.75rem;
-
-    font-weight:800;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
-    color:#ffd54f;
-
-    background:
-    rgba(255,255,255,.08);
-
-    backdrop-filter:blur(6px);
-
-    border-top:
-    1px solid rgba(255,255,255,.05);
-
-    border-bottom:
-    1px solid rgba(255,255,255,.05);
-}
-
 
     </style>
 </head>
@@ -955,7 +1014,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     <div class="form-group">
                         <label>Kebutuhan Khusus</label>
                         <div class="input-ikon"><i class="fas fa-first-aid"></i><select name="keb_khusus"><option value="">-- Pilih --</option><option>Tidak Ada</option><option>Lamban Belajar</option><option>Kesulitan Belajar Spesifik</option><option>Gangguan Komunikasi</option><option>Berbakat Memilili Kemampuan/Kecerdasan Luar Biasa</option><option>Lainnya</option></select></div>
-                    </div
+                    </div>
                     <div class="form-group">
                         <label>Kebutuhan Disabilitas</label>
                         <div class="input-ikon"><i class="fas fa-universal-access"></i><select name="disabilitas"><option value="">-- Pilih --</option><option>Tidak ada</option><option>Tuna Netra</option><option>Tuna Rungu</option><option>Tuna Wicara</option><option>Tuna Daksa</option><option>Tuna Grahita</option><option>Tuna Laras</option><option>Lainnya</option></select></div>
@@ -2488,6 +2547,83 @@ window.toggleHP = toggleHP;
 window.toggleDomisiliIbu = toggleDomisiliIbu;
 window.toggleDomisiliSantri = toggleDomisiliSantri;
 window.prosesSimpanFinal = prosesSimpanFinal;
+
+document.querySelectorAll("select").forEach(select => {
+
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("custom-select-wrapper");
+
+    const trigger = document.createElement("div");
+    trigger.classList.add("custom-select-trigger");
+    trigger.innerText = select.options[select.selectedIndex]?.text || "-- Pilih --";
+
+    const menu = document.createElement("div");
+    menu.classList.add("custom-select-menu");
+
+    // backdrop (mobile)
+    const backdrop = document.createElement("div");
+    backdrop.classList.add("custom-select-backdrop");
+    document.body.appendChild(backdrop);
+
+    // buat option
+    Array.from(select.options).forEach(option => {
+        const item = document.createElement("div");
+        item.classList.add("custom-option");
+        item.innerText = option.text;
+
+        item.addEventListener("click", () => {
+            trigger.innerText = option.text;
+            select.value = option.value;
+            menu.classList.remove("show");
+            backdrop.classList.remove("show");
+        });
+
+        menu.appendChild(item);
+    });
+
+    // klik buka dropdown
+    trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        document.querySelectorAll(".custom-select-menu").forEach(m => m.classList.remove("show"));
+        menu.classList.add("show");
+
+        if(window.innerWidth <= 768){
+            backdrop.classList.add("show");
+        }
+    });
+
+    // klik luar
+    backdrop.addEventListener("click", () => {
+        menu.classList.remove("show");
+        backdrop.classList.remove("show");
+    });
+
+    document.addEventListener("click", () => {
+        menu.classList.remove("show");
+        backdrop.classList.remove("show");
+    });
+
+    select.style.display = "none";
+
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(menu);
+
+    select.parentNode.appendChild(wrapper);
+});
+
+item.addEventListener("click", () => {
+    trigger.innerText = option.text;
+    select.value = option.value;
+
+    // hapus selected lama
+    menu.querySelectorAll(".custom-option")
+        .forEach(opt => opt.classList.remove("selected"));
+
+    menu.classList.remove("show");
+    backdrop.classList.remove("show");
+});
+
 
 </script>
 
