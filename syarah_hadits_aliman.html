@@ -415,6 +415,17 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 /* Pastikan di mobile, menu ini disembunyikan agar tidak menumpuk */    
 }
 
+/* Untuk Desktop (dalam media query agar rapi) */
+@media (min-width: 769px) {
+    .meta-container {
+        display: flex;         /* Membuat anak elemen jadi 1 baris */
+        flex-direction: row;   /* Mengatur arah ke samping */
+        gap: 20px;             /* Memberi jarak antar elemen */
+        align-items: center;   /* Rata tengah secara vertikal */
+    }
+}
+
+
         /* --- 6. RESPONSIVE MODES (HP) --- */
         @media (max-width: 768px) {
  header { padding: 10px 15px; }
