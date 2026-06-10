@@ -116,7 +116,8 @@
             font-weight: 700;
         }
 
-        /* Header & Nav */
+        /* --- 2. HEADER & NAVIGASI DESKTOP --- */
+     /* Header & Nav */
 header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #0d2e0d; z-index: 9997; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
 .logo { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
@@ -124,7 +125,7 @@ header { position: sticky; top: 0; display: flex; align-items: center; justify-c
 #menu-toggle { display: flex !important; align-items: center; justify-content: center; gap: 6px; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; background: linear-gradient(135deg, #ffd700, #f4ce14); color: #0d2e0d; font-weight: 700; }
 #menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: .3s ease; z-index: 9998; }
 #menu-overlay.show { opacity: 1; visibility: visible; }
-nav { position: fixed; top: 0; left: 0; width: 320px; max-width: 100%; height: 100vh; background: #0d2e0d; transform: translateX(-100%); transition: .35s ease; z-index: 9999; overflow-y: auto; box-shadow: 8px 0 30px rgba(0,0,0,.35); }
+nav { position: fixed; top: 0; left: 0; width: 320px; max-width: 85%; height: 100vh; background: #0d2e0d; transform: translateX(-100%); transition: .35s ease; z-index: 9999; overflow-y: auto; box-shadow: 8px 0 30px rgba(0,0,0,.35); }
 nav.show { transform: translateX(0); }
 .mobile-sidebar-header { display: flex; align-items: center; gap: 12px; padding: 10px; }
 .mobile-sidebar-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; animation: logoPulse 3s infinite; }
@@ -132,7 +133,7 @@ nav.show { transform: translateX(0); }
 .sidebar-brand span { color: rgba(255,255,255,.7); font-size: 13px; }
 @keyframes logoPulse { 0% { box-shadow: 0 0 0 rgba(255,215,0,0); } 50% { box-shadow: 0 0 12px rgba(255,215,0,.7), 0 0 24px rgba(255,215,0,.4); } 100% { box-shadow: 0 0 0 rgba(255,215,0,0); } }
 nav ul { list-style: none; padding: 15px; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-nav ul li a { position: relative; display: flex; align-items: center; font-weight: 500; gap: 16px; padding: 8px 10px; padding-left: 28px; border-radius: 10px; text-decoration: none; background: rgba(255,255,255,.04); color: #fff !important; transition: .3s; }
+nav ul li a { position: relative; display: flex; align-items: center; font-weight: 500; gap: 16px; padding: 10px 12px; padding-left: 28px; border-radius: 10px; text-decoration: none; background: rgba(255,255,255,.04); color: #fff !important; transition: .3s; }
 nav ul li a.active::before { content: ""; position: absolute; left: 12px; top: 20%; bottom: 15%; width: 5px; background: #ffd700; border-radius: 4px; box-shadow: 0 0 8px #ffd700, 0 0 16px rgba(255,215,0,.7); }
 nav ul li a:hover { background: rgba(255,215,0,.12); border-left: 4px solid rgba(255,215,0,.7); }
 nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
@@ -145,7 +146,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
+            gap: 2rem; 
         }
 
         .full-news-card {
@@ -158,7 +159,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             box-sizing: border-box;
         }
 
-.hero-banner {
+       .hero-banner {
     width: 100%;
     /* Gunakan auto agar tinggi menyesuaikan proporsi gambar */
     height: auto; 
@@ -181,7 +182,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     display: block;
 }
 
-          .news-header {
+        .news-header {
             border-bottom: 2px solid #eee;
             padding-bottom: 20px;
             margin-bottom: 25px;
@@ -199,17 +200,12 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             margin-bottom: 10px;
         }
 
-        .news-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Membagi jadi 2 kolom di HP */
-    gap: 8px; 
-    margin-bottom: 20px; 
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    font-size: 0.8rem;
-    color: #666;
-}
-
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
 
         .news-meta {
             font-size: 0.85rem;
@@ -223,6 +219,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             color: var(--primary-color);
             margin-right: 6px;
         }
+
         .news-body p {
             margin-bottom: 20px;
             font-size: 1.05rem;
@@ -246,7 +243,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             padding-left: 10px;
         }
 
-        /* Desain Khusus Bait Kitab/Ayat Arab */
+        /* Desain Khusus Blok Kutipan / Hadits / Ayat Arab */
         .arabic-container {
             background: #fdfbf7;
             border: 1px solid #e3dec3;
@@ -257,7 +254,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         }
 
         .arabic-text {
-            font-family: 'Amiri', 'Traditional Arabic', Georgia, serif;
+            font-family: 'Amiri', 'Traditional Arabic', serif;
             font-size: 2.2rem;
             font-weight: normal;
             line-height: 2.2;
@@ -281,6 +278,14 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             color: var(--primary-dark);
         }
 
+        .highlight-box {
+            background: #f0f7f0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            margin: 25px 0;
+        }
+
         .news-footer {
             margin-top: 40px;
             padding-top: 15px;
@@ -297,14 +302,16 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         }
 
         /* --- 4. SISTEM 2 TOMBOL KEMBALI SEJAJAR (DI LUAR KARTU) --- */
-        .bottom-actions-group {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 10px;
-            box-sizing: border-box;
-        }
+       .bottom-actions-group {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    /* Pastikan di layar besar tetap row */
+    flex-direction: row; 
+}
 
         .bottom-actions-group .btn-kembali-double {
             flex: 1; 
@@ -323,7 +330,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             box-sizing: border-box;
         }
 
-        /* Tombol Utama (Kembali ke Info Islam) */
+        /* Tombol Utama (Hijau - Kembali ke Info Islam) */
         .btn-kembali-double.btn-main-color {
             background: var(--primary-color);
             border: 2px solid var(--primary-color);
@@ -336,7 +343,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             transform: translateY(-2px);
         }
 
-        /* Tombol Kedua (Kembali ke Beranda) */
+        /* Tombol Kedua (Putih Border Hijau - Kembali ke Beranda) */
         .btn-kembali-double.btn-alt-color {
             background: #ffffff;
             border: 2px solid var(--primary-color);
@@ -366,7 +373,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-/* ==========================================================================
+        /* ==========================================================================
    2. DESKTOP BLOCK (Default Grid)
    ========================================================================== */
 @media (min-width: 769px) {
@@ -420,29 +427,14 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 /* Pastikan di mobile, menu ini disembunyikan agar tidak menumpuk */    
 }
 
-/* Untuk Desktop (dalam media query agar rapi) */
-.news-meta {
-        display: flex;             /* Mengubah grid menjadi flex */
-        flex-direction: row;       /* Memaksa berbaris ke samping */
-        justify-content: flex-start; /* Rata kiri */
-        gap: 25px;                 /* Jarak antar item lebih lega */
-        font-size: 0.9rem;         /* Font sedikit lebih besar */
-        border-bottom: none;       /* Hapus garis bawah di desktop jika perlu */
-    }
-    
-    /* Memastikan ikon tetap rapi di desktop */
-    .news-meta span {
-        white-space: nowrap; /* Mencegah teks terpotong/pindah baris */
-    }
-}
-        /* --- 6. RESPONSIVE MODES (HP) --- */
-        @media (max-width: 768px) {
- header { padding: 10px 15px; }
+        /* --- 6. RESPONSIVE MODES --- */
+      @media (max-width: 768px) {
+    header { padding: 10px 15px; }
      .header-text-container h1 { display: block; font-size: 0.95rem; }
     .motto-text { display: none !important; } /* Moto disembunyikan di mobile */    
     .logo img { width: 42px; height: 42px; }
     .logo h1 { font-size: .95rem; }
-    nav { width: 75%; }
+    nav { width: 80%; }
     .social-header-tengah {display: none;}
             .container { padding: 2rem 5%; gap: 1.5rem; }
             .full-news-card { padding: 20px; }
@@ -450,33 +442,32 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             .news-header h2 { font-size: 1.4rem; }
             .arabic-text { font-size: 1.8rem; line-height: 2; }
             
-            .bottom-actions-group {
-                flex-direction: column;
-                gap: 12px;
-                margin-top: 10px;
-            }
-            .bottom-actions-group .btn-kembali-double {
-                width: 100%;
-                font-size: 0.95rem;
-                padding: 12px 15px;
-            }
-} 
-
-      .news-meta { 
+                .news-meta { 
                 display: grid;
                 grid-template-columns: repeat(2, 1fr); 
-                gap: 2px 4px; 
+                gap: 4px 6px; 
                 margin-bottom: 20px; 
                 padding-bottom: 15px;
                 font-size: 0.78rem;
             }
+         .bottom-actions-group {
+        flex-direction: column; 
+        gap: 12px;
+    }
 
+    .bottom-actions-group .btn-kembali-double {
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 12px 15px;
+    }
+} 
+        
     </style>
 </head>
 <body>
 
-    <header>
-   <div class="logo">
+ <header>
+<div class="logo">
         <img src="main_logo.png" alt="Logo">
         <div class="header-text-container">
             <h1>DAARUL KHOIROT ALMADANI</h1>
@@ -562,39 +553,32 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 
     <div id="menu-overlay"></div>
 </header>
-
-
 <main class="container">
     <article class="full-news-card">
         <div class="hero-banner">
-            <img src="syarah_hadits_aliman.png" alt="Hadits Kun Aliman">
+            <img src="syarah_hadits_aliman.png" alt="Syarah Hadits Kun 'Aliman">
         </div> 
-        
-        <article class="full-news-card">
-            <div class="news-header">
-                <span class="news-tag">Fiqih & Hadits</span>
-                <h2>Syarah Hadits: "Jadilah Engkau Orang Berilmu"</h2>
-                <div class="news-meta">
+
+        <div class="news-header">
+            <span class="news-tag">Fiqih dan Hadits</span>
+              <h2>Syarah Hadits: "Jadilah Engkau Orang yang Berilmu"</h2>
+
+            <div class="news-meta">
                 <span><i class="fas fa-calendar-alt"></i> 10 Juni 2026</span>
                 <span><i class="fas fa-map-marker-alt"></i> Jatisari, Karawang</span>
                 <span><i class="fas fa-user"></i> Admin</span>
-                <span><i class="fas fa-book-open"></i>Hadits</span>
-          </div>
+                <span><i class="fas fa-book-open"></i> Syarah Hadits</span>
             </div>
+        </div>
 
-            <div class="news-body">
-                <p><strong class="location">KARAWANG</strong> – Rasulullah ﷺ memberikan panduan strategis bagi seorang muslim dalam menuntut ilmu. Salah satu yang masyhur adalah tuntunan untuk senantiasa berada dalam posisi belajar.</p>
-                
-          <div class="news-body">
+   <div class="news-body">
                 <p>Rasulullah ﷺ memberikan panduan strategis bagi seorang muslim dalam meniti kehidupan agar tidak tersesat. Salah satu petuah yang sangat mendalam adalah perintah untuk menjaga posisi diri agar selalu dekat dengan ilmu.</p>
 
                 <div class="arabic-container">
-                    <p class="arabic-text">حَدِيثُ عَبْدِ الرَّحْمَنِ بْنِ أَبِي بَكْرَةَ، عَنْ أَبِيهِ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَآلِهِ وَسَلَّمَ يَقُولُ: «اغْدُ عَالِمًا، أَوْ مُتَعَلِّمًا، أَوْ مُسْتَمِعًا، أَوْ مُحِبًّا، وَلَا تَكُنِ الْخَامِسَةَ فَتَهْلِكَ»
-</p>
+                    <p class="arabic-text">اغْدُ عَالِمًا , أَوْ مُتَعَلِّمًا , أَوْ مُسْتَمِعًا , أَوْ مُحِبًّا , وَلَا تَكُنِ الْخَامِسَةَ فَتَهْلِكَ</p>
                     <div class="translation-box">
-                        <strong>Artinya:</strong> "Hadits dari Abdurrahman bin Abi Bakrah, dari ayahnya (Abu Bakrah RA) ia berkata: Aku mendengar Rasulullah shallallahu ‘alaihi wa aalihi wa sallam bersabda:
-​"Jadilah engkau orang yang berilmu, atau orang yang menuntut ilmu, atau orang yang mendengarkan ilmu, atau orang yang mencintai ilmu. Dan janganlah engkau menjadi golongan yang kelima, maka engkau akan celaka."
-(H. R Al-Baihaqi & AT-Thabrani)</div>
+                        <strong>Artinya:</strong> "Berangkatlah (di pagi hari) sebagai orang yang berilmu, atau orang yang menuntut ilmu, atau orang yang mau mendengarkan ilmu, atau orang yang mencintai ilmu. Dan janganlah engkau menjadi golongan yang kelima, maka engkau akan celaka."
+                    </div>
                 </div>
 
                 <h4 class="content-block-title"><i class="fas fa-star"></i> Makna "Ughdu" (Berangkatlah)</h4>
@@ -618,18 +602,14 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                 
                 <p><em>Wallahu a'lam bish-shawab.</em></p>
             </div>
+    </article>
 
-        </article>
+    <div class="bottom-actions-group">
+        <a href="info_islam.html" class="btn-kembali-double btn-main-color"><i class="fas fa-arrow-left"></i> Kembali ke Info Dunia Islam</a>
+        <a href="index.html" class="btn-kembali-double btn-alt-color"><i class="fas fa-home"></i> Kembali ke Beranda</a>
+    </div>
+</main>
 
-        <div class="bottom-actions-group">
-            <a href="info_islam.html" class="btn-kembali-double btn-main-color">
-                <i class="fas fa-arrow-left"></i> Kembali ke Info Dunia Islam
-            </a>
-            <a href="index.html" class="btn-kembali-double btn-alt-color">
-                <i class="fas fa-home"></i> Kembali ke Beranda
-            </a>
-        </div>
-    </main>
 
     <footer> 
         <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
@@ -647,6 +627,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             const clickSound = document.getElementById('clickSound');
             const actionItems = document.querySelectorAll("nav ul li a, .btn-kembali-double, .logo");
 
+            // Menu Toggle untuk Mode Mobile
             if (menuToggle && nav) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -654,6 +635,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                 });
             }
 
+            // Handler Efek Suara Click & Navigasi Halaman
             actionItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     if (clickSound) {
@@ -673,6 +655,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                 });
             });
 
+            // Tutup menu jika klik di luar area navigasi
             document.addEventListener('click', function(e) {
                 if (nav && nav.classList.contains('show') && !nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
