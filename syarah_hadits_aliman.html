@@ -199,12 +199,17 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             margin-bottom: 10px;
         }
 
-        .news-header h2 {
-            font-size: 1.8rem;
-            color: #111;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
+        .news-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Membagi jadi 2 kolom di HP */
+    gap: 8px; 
+    margin-bottom: 20px; 
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.8rem;
+    color: #666;
+}
+
 
         .news-meta {
             font-size: 0.85rem;
@@ -416,16 +421,20 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 }
 
 /* Untuk Desktop (dalam media query agar rapi) */
-@media (min-width: 769px) {
-    .meta-container {
-        display: flex;         /* Membuat anak elemen jadi 1 baris */
-        flex-direction: row;   /* Mengatur arah ke samping */
-        gap: 20px;             /* Memberi jarak antar elemen */
-        align-items: center;   /* Rata tengah secara vertikal */
+.news-meta {
+        display: flex;             /* Mengubah grid menjadi flex */
+        flex-direction: row;       /* Memaksa berbaris ke samping */
+        justify-content: flex-start; /* Rata kiri */
+        gap: 25px;                 /* Jarak antar item lebih lega */
+        font-size: 0.9rem;         /* Font sedikit lebih besar */
+        border-bottom: none;       /* Hapus garis bawah di desktop jika perlu */
+    }
+    
+    /* Memastikan ikon tetap rapi di desktop */
+    .news-meta span {
+        white-space: nowrap; /* Mencegah teks terpotong/pindah baris */
     }
 }
-
-
         /* --- 6. RESPONSIVE MODES (HP) --- */
         @media (max-width: 768px) {
  header { padding: 10px 15px; }
