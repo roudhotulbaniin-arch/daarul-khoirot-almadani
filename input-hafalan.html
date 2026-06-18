@@ -74,7 +74,7 @@
         }
 
 /* ==========================================================================
-   3. STRUKTUR TAB-CONTAINER (Perbaikan Total Responsif HP)
+   3. STRUKTUR TAB-CONTAINER (Perbaikan Total Responsif HP & Desktop)
    ========================================================================== */
 .tab-container { 
     background: white; 
@@ -194,14 +194,13 @@
 .dropdown-item-custom { padding: 10px 15px; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid #eee; transition: 0.2s; color: #333; text-align: left; }
 .dropdown-item-custom:hover, .dropdown-item-custom.selected { background-color: #f0f7f0; color: var(--primary-color); font-weight: 600; }
 
-/* Layout Grid */
-.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
-.form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 100%; }
+/* Layout Grid (Tampilan Samping di Desktop) */
+.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; box-sizing: border-box; }
+.form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 100%; box-sizing: border-box; }
 
 /* ==========================================================================
-   PERBAIKAN TOTAL TOMBOL SIMPAN DATA (PRESTASI FIX)
+   PERBAIKAN TOTAL TOMBOL UTAMA & KAMPUS (PRESTASI FIX)
    ========================================================================== */
-/* Jarak Tombol Navigasi Umum */
 .btn-prev, .btn-next, .btn-wa-konfirmasi {
     border: none; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer;
     display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease-in-out;
@@ -209,8 +208,48 @@
 .btn-next { padding: 15px; width: 100%; background-color: var(--primary-color); color: white; }
 .button-group { width: 100%; display: flex; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
 
+/* Container khusus tombol di dalam tab */
+.box-tombol-container {
+    width: 100% !important;
+    display: block !important;
+    clear: both !important;
+    margin-top: 35px !important;    /* Memberikan jarak renggang murni dari input catatan */
+    margin-bottom: 15px !important; /* Jarak ke bawah */
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Gabungkan selector agar kedua tombol otomatis berwarna hijau dan berukuran sama */
+#btnSimpan, #btnProsesRekap, button[type="submit"].btn-simpan-final {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100% !important;
+    min-height: 54px;               /* Ketebalan tombol */
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none !important;
+    border-radius: 8px !important;
+    background-color: #1a5d1a !important; /* Hijau Daarul Khoirot */
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+}
+
+/* Efek sedikit animasi hover pada ikon refresh saat disentuh */
+#btnProsesRekap:hover i {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
 /* Rekap Card */
-.rekap-card-info { background: #fff; border: 1.5px solid #eee; border-radius: 12px; padding: 25px; margin-top: 25px; width: 100%; }
+.rekap-card-info { background: #fff; border: 1.5px solid #eee; border-radius: 12px; padding: 25px; margin-top: 25px; width: 100%; box-sizing: border-box; }
 .rekap-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
 .rekap-table th, .rekap-table td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
 .rekap-table th { background-color: #f8f9fa; color: var(--dark-green); font-weight: 700; }
@@ -222,13 +261,13 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
 /* ==========================================================================
-   DESAIN TOMBOL KEMBALI CUSTOM (DISETARAKAN DENGAN TOMBOL SIMPAN)
+   DESAIN TOMBOL KEMBALI CUSTOM (SEJAJAR DAN SIMETRIS)
    ========================================================================== */
 .bottom-actions {
     margin: 15px auto 30px;
     width: 100% !important;        /* Memaksa lebar container sama dengan tombol simpan */
-    max-width: 100% !important;    /* Menghapus batasan 600px yang membuatnya menciut */
-    padding: 20 !important;         /* Menghilangkan padding samping agar sejajar lurus */
+    max-width: 100% !important;    /* Menghapus batasan yang membuatnya menciut */
+    padding: 0 !important;         /* Perbaikan typo dari 20 menjadi 0 murni agar sejajar lurus */
     text-align: center;
     box-sizing: border-box;
 }
@@ -239,7 +278,7 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     justify-content: center;
     gap: 10px;
     width: 100% !important;        /* Mengisi ruang penuh secara mutlak */
-    min-height: 54px;              /* Menyamakan ketebalan tinggi dengan tombol simpan */
+    min-height: 54px;              /* Menyamakan tinggi dengan tombol simpan */
     padding: 14px;
     background-color: #f1f5f9;
     color: #475569;
@@ -252,7 +291,6 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     box-sizing: border-box;
     border: 1px solid #cbd5e1;
 }
-
 
 /* ==========================================================================
    RESPONSIVE OVERRIDES (DIOPTIMALKAN UNTUK HP LAYAR KECIL)
@@ -286,56 +324,25 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
         font-size: 1rem !important;
     }
     
+    /* Paksa kolom berjejer vertikal ke bawah saat dibuka di HP */
     .form-grid, .form-grid-2 { 
         grid-template-columns: 1fr !important; 
         gap: 16px; 
     }
     
+    /* Memaksa teks tombol proses rekap agar tetap 1 baris murni di HP */
+    #btnProsesRekap {
+        font-size: 13px !important;
+        white-space: nowrap !important;
+        letter-spacing: 0px !important;
+        padding: 15px 10px !important;
+    }
 } 
 
 @media print { 
     header, .tab-menu, .button-group, .no-print, #btnProsesRekap { display: none !important; } 
     .tab-container { box-shadow: none; } 
     .tab-content { padding: 0; } 
-}
-/* Container khusus tombol di dalam tab */
-.box-tombol-container {
-    width: 100% !important;
-    display: block !important;
-    clear: both !important;
-    margin-top: 35px !important;    /* Memberikan jarak renggang murni dari input catatan */
-    margin-bottom: 10px !important; /* Jarak ke bawah */
-    padding: 0 !important;
-    box-sizing: border-box;
-}
-
-/* Gabungkan selector agar kedua tombol otomatis berwarna hijau dan berukuran sama */
-#btnSimpan, #btnProsesRekap, button[type="submit"].btn-simpan-final {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100% !important;
-    min-height: 54px;               /* Ketebalan tombol */
-    padding: 15px 20px !important;
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border: none !important;
-    border-radius: 8px !important;
-    background-color: #1a5d1a !important; /* Hijau Daarul Khoirot */
-    color: white !important;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-sizing: border-box;
-}
-
-/* Efek sedikit animasi hover pada ikon refresh saat disentuh (opsional) */
-#btnProsesRekap:hover i {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
 }
 
     </style>
