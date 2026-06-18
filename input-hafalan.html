@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Hafalan Santri | Daarul Khoirot Almadani</title>
+    
+    <link rel="icon" type="image/png" href="main_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+
+    <style>
+        /* ==========================================================================
+           1. GLOBAL VARIABLES & RESET STYLE
+           ========================================================================== */
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --dark-green: #144514;
+            --dark-footer: #0d2e0d;
+            --light-bg: #f4f7f6;
+            --text-dark: #333;
+            --whatsapp-green: #25d366;
+            --border-color: #1a5d1a;
+            --btn-secondary-bg: #e2e8f0;
+            --btn-secondary-text: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--light-bg); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+        
+        .container { padding: 3rem 4%; flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+        /* Header & Nav */
+        header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #0d2e0d; z-index: 9997; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
+        .logo { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        .logo h1 { color: #fff; font-size: 1.2rem; margin: 0; line-height: 1.2; }
+        #menu-toggle { display: flex !important; align-items: center; justify-content: center; gap: 6px; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; background: linear-gradient(135deg, #ffd700, #f4ce14); color: #0d2e0d; font-weight: 700; }
+        #menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: .3s ease; z-index: 9998; }
+        #menu-overlay.show { opacity: 1; visibility: visible; }
+        nav { position: fixed; top: 0; left: 0; width: 400px; max-width: 85%; height: 85vh; background: #0d2e0d; transform: translateX(-100%); transition: .35s ease; z-index: 9999; overflow-y: auto; box-shadow: 8px 0 30px rgba(0,0,0,.35); }
+        nav.show { transform: translateX(0); }
+        .mobile-sidebar-header { display: flex; align-items: center; gap: 12px; padding: 10px; }
+        .mobile-sidebar-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; animation: logoPulse 3s infinite; }
+        .sidebar-brand h3 { color: #ffd700; font-size: 18px; margin: 0; }
+        .sidebar-brand span { color: rgba(255,255,255,.7); font-size: 13px; }
+        @keyframes logoPulse { 0% { box-shadow: 0 0 0 rgba(255,215,0,0); } 50% { box-shadow: 0 0 12px rgba(255,215,0,.7), 0 0 24px rgba(255,215,0,.4); } 100% { box-shadow: 0 0 0 rgba(255,215,0,0); } }
+        nav ul { list-style: none; padding: 15px; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+        nav ul li a { position: relative; display: flex; align-items: center; font-weight: 500; gap: 16px; padding: 8px 10px; padding-left: 28px; border-radius: 10px; text-decoration: none; background: rgba(255,255,255,.04); color: #fff !important; transition: .3s; }
+        nav ul li a.active::before { content: ""; position: absolute; left: 12px; top: 20%; bottom: 15%; width: 5px; background: #ffd700; border-radius: 4px; box-shadow: 0 0 8px #ffd700, 0 0 16px rgba(255,215,0,.7); }
+        nav ul li a:hover { background: rgba(255,215,0,.12); border-left: 4px solid rgba(255,215,0,.7); }
+        nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
+        .sidebar-version { padding: 20px; text-align: center; color: rgba(255,255,255,.45); font-size: .8rem; }
+
+        /* ==========================================================================
+           2. DESKTOP BLOCK
+           ========================================================================== */
+        @media (min-width: 769px) {
+            .social-header-tengah { display: flex !important; gap: 20px; margin: 0 20px; }
+            .social-header-tengah a { color: #ffd700; font-size: 1.2rem; transition: transform 0.3s ease; }
+            .social-header-tengah a:hover { color: #ffffff; transform: scale(1.2); }
+            .hero-content { display: none !important; }
+            .header-text-container { display: flex; flex-direction: column; justify-content: center; gap: 0px; }
+            .header-text-container h1 { font-size: 1.1rem; margin: 0; color: #fff; }
+            .header-text-container .motto-text { font-size: 0.8rem; margin: 0; color: #ffd700; display: block !important; }
+        }
+
+/* ==========================================================================
+   3. STRUKTUR TAB-CONTAINER (Perbaikan Total Responsif HP)
+   ========================================================================== */
+.tab-container { 
+    background: white; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.tab-menu { 
+    display: flex; 
+    flex-direction: row;
+    background: #f8f9fa; 
+    border-bottom: 3px solid #eee; 
+    width: 100%;
+}
+
+.tab-link { 
+    flex: 1; 
+    padding: 15px 5px;
+    border: none; 
+    cursor: pointer; 
+    font-weight: 700; 
+    color: var(--primary-color); 
+    background: #f1f1f1; 
+    transition: 0.3s;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    gap: 5px; 
+    font-size: 0.85rem;
+    white-space: normal;
+    text-align: center;
+    outline: none;
+    min-width: 0;
+}
+.tab-link.active { background-color: var(--primary-color) !important; color: white !important; }
+
+.tab-content { 
+    display: none; 
+    padding: 30px 40px; 
+    flex-direction: column; 
+    gap: 20px; 
+    width: 100%;
+    box-sizing: border-box;
+}
+.tab-content.active { display: flex; }
+
+.form-section-title { 
+    width: 100%; margin: 15px 0 5px; padding-bottom: 8px; 
+    border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700;
+    text-transform: uppercase; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
+}
+.form-group { width: 100%; margin-bottom: 5px; position: relative; box-sizing: border-box; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--primary-color); }
+
+/* ==========================================================================
+   MODIFIKASI INPUT & DROPDOWN SELECT CUSTOM (TERBARU)
+   ========================================================================== */
+.input-ikon {
+    display: flex; 
+    align-items: center; 
+    background: white; 
+    border: 1.5px solid var(--border-color); 
+    border-radius: 8px; 
+    padding: 0 12px; 
+    min-height: 48px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-sizing: border-box;
+}
+.input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 1.1rem; }
+
+.input-ikon input, .input-ikon textarea { 
+    flex: 1; 
+    border: none; 
+    outline: none; 
+    background: transparent; 
+    height: 100%; 
+    width: 100%; 
+    font-size: 0.95rem; 
+    color: #333; 
+}
+.input-ikon textarea { padding: 10px 0; resize: vertical; min-height: 60px; }
+
+/* Desain Trigger Dropdown Kustom */
+.select-custom-trigger {
+    cursor: pointer;
+}
+.select-custom-trigger input {
+    cursor: pointer !important;
+    padding-right: 20px;
+}
+.select-custom-trigger::after {
+    content: '\f107';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+/* Auto-complete & Custom Dropdown Menu Style */
+.dropdown-wrapper-custom { position: relative; width: 100%; }
+.dropdown-menu-custom {
+    position: absolute; top: 100%; left: 0; right: 0; background: white;
+    border: 1.5px solid var(--border-color); border-top: none; border-radius: 0 0 8px 8px;
+    max-height: 200px; overflow-y: auto; z-index: 100; display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.dropdown-item-custom { padding: 10px 15px; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid #eee; transition: 0.2s; color: #333; text-align: left; }
+.dropdown-item-custom:hover, .dropdown-item-custom.selected { background-color: #f0f7f0; color: var(--primary-color); font-weight: 600; }
+
+/* Layout Grid */
+.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+.form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 100%; }
+
+/* ==========================================================================
+   PERBAIKAN TOTAL TOMBOL SIMPAN DATA (PRESTASI FIX)
+   ========================================================================== */
+/* Jarak Tombol Navigasi Umum */
+.btn-prev, .btn-next, .btn-wa-konfirmasi {
+    border: none; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease-in-out;
+}
+.btn-next { padding: 15px; width: 100%; background-color: var(--primary-color); color: white; }
+.button-group { width: 100%; display: flex; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+
+/* Rekap Card */
+.rekap-card-info { background: #fff; border: 1.5px solid #eee; border-radius: 12px; padding: 25px; margin-top: 25px; width: 100%; }
+.rekap-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+.rekap-table th, .rekap-table td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
+.rekap-table th { background-color: #f8f9fa; color: var(--dark-green); font-weight: 700; }
+.sub-judul-rekap { font-size: 1rem; font-weight: 700; color: var(--primary-color); margin-top: 25px; border-bottom: 2px solid #eee; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; text-align: center; width: 100%; margin-top: auto; box-sizing: border-box; }
+.f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+.f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+.f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+/* ==========================================================================
+   DESAIN TOMBOL KEMBALI CUSTOM (DISETARAKAN DENGAN TOMBOL SIMPAN)
+   ========================================================================== */
+.bottom-actions {
+    margin: 15px auto 30px;
+    width: 100% !important;        /* Memaksa lebar container sama dengan tombol simpan */
+    max-width: 100% !important;    /* Menghapus batasan 600px yang membuatnya menciut */
+    padding: 20 !important;         /* Menghilangkan padding samping agar sejajar lurus */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.bottom-actions .btn-kembali {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100% !important;        /* Mengisi ruang penuh secara mutlak */
+    min-height: 54px;              /* Menyamakan ketebalan tinggi dengan tombol simpan */
+    padding: 14px;
+    background-color: #f1f5f9;
+    color: #475569;
+    text-decoration: none !important;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    border: 1px solid #cbd5e1;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE OVERRIDES (DIOPTIMALKAN UNTUK HP LAYAR KECIL)
+   ========================================================================== */
+@media (max-width: 768px) {
+    header { padding: 10px 15px; }
+    .header-text-container h1 { font-size: 0.95rem; }
+    .motto-text { display: none !important; }
+    .logo img { width: 42px; height: 42px; }
+    nav { width: 75%; }
+    .social-header-tengah { display: none; }
+    
+    .container { padding: 1rem 3%; }
+    
+    /* Mencegah tab-content pecah sebelah/terpotong di HP */
+    .tab-content { 
+        padding: 20px 15px; 
+        display: none;
+        width: 100% !important;
+        float: none !important;
+    }
+    .tab-content.active { 
+        display: flex !important; 
+    }
+    
+    .tab-link { 
+        padding: 10px 2px; 
+        font-size: 0.7rem; 
+    }
+    .tab-link i {
+        font-size: 1rem !important;
+    }
+    
+    .form-grid, .form-grid-2 { 
+        grid-template-columns: 1fr !important; 
+        gap: 16px; 
+    }
+    
+} 
+
+@media print { 
+    header, .tab-menu, .button-group, .no-print, #btnProsesRekap { display: none !important; } 
+    .tab-container { box-shadow: none; } 
+    .tab-content { padding: 0; } 
+}
+/* Container khusus tombol di dalam tab */
+.box-tombol-container {
+    width: 100% !important;
+    display: block !important;
+    clear: both !important;
+    margin-top: 35px !important;    /* Memberikan jarak renggang murni dari input catatan */
+    margin-bottom: 10px !important; /* Jarak ke bawah */
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Gabungkan selector agar kedua tombol otomatis berwarna hijau dan berukuran sama */
+#btnSimpan, #btnProsesRekap, button[type="submit"].btn-simpan-final {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100% !important;
+    min-height: 54px;               /* Ketebalan tombol */
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none !important;
+    border-radius: 8px !important;
+    background-color: #1a5d1a !important; /* Hijau Daarul Khoirot */
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+}
+
+/* Efek sedikit animasi hover pada ikon refresh saat disentuh (opsional) */
+#btnProsesRekap:hover i {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+    </style>
+</head>
+<body>
+
+<header>
+   <div class="logo">
+        <img src="main_logo.png" alt="Logo">
+        <div class="header-text-container">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+            <p class="motto-text">Menuju Generasi Cerdas Berilmu Mulia Berperilaku</p>
+        </div>
+    </div>
+    <div class="social-header-tengah">
+        <a href="https://wa.me/6281401643188" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@daarul.khoirot.al" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/share/18PdnmPmym/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com/daarulkhoirot" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+    <button id="menu-toggle"><i class="fas fa-bars"></i>Menu</button>
+
+    <nav id="main-nav">
+        <div class="mobile-sidebar-header">
+            <img src="main_logo.png" alt="Logo">
+            <div class="sidebar-brand">
+                <h3>DAARUL KHOIROT ALMADANI</h3>
+                <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku </span>
+            </div>
+        </div>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i><span>Beranda</span></a></li>
+            <li><a href="galeri.html"><i class="fas fa-images"></i><span>Galeri</span></a></li>
+            <li><a href="pendidikan.html" class="active"><i class="fas fa-graduation-cap"></i><span>Pendidikan</span></a></li>
+            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i><span>Pendaftaran</span></a></li>
+            <li><a href="tadzkiroh.html"><i class="fas fa-microphone"></i><span>Tadzkiroh</span></a></li>
+            <li><a href="info_islam.html"><i class="fas fa-info-circle"></i><span>Info Islam</span></a></li>
+            <li><a href="kontak.html"><i class="fas fa-phone"></i><span>Kontak</span></a></li>
+        </ul>
+        <div class="sidebar-version">v1.0</div>
+    </nav>
+    <div id="menu-overlay"></div>
+</header>
+
+<div class="container">
+    <div class="tab-container">
+        
+        <div class="tab-menu no-print">
+            <button class="tab-link active" onclick="openTab(event, 'input-panel')">
+                <i class="fas fa-edit" style="font-size: 1.2rem;"></i><span>INPUT DATA SETORAN</span>
+            </button>
+            <button class="tab-link" onclick="openTab(event, 'rekap-panel')">
+                <i class="fas fa-file-invoice" style="font-size: 1.2rem;"></i><span>REKAPITULASI BULANAN</span>
+            </button>
+            <button class="tab-link" onclick="openTab(event, 'dashboard-panel')" id="tab-admin-dashboard">
+                <i class="fas fa-chart-line" style="font-size: 1.2rem;"></i><span>DASHBOARD ADMIN</span>
+            </button>
+        </div>
+
+        <div id="input-panel" class="tab-content active">
+            <div class="form-section-title"><i class="fas fa-book-quran"></i> Form Pencatatan Setoran Hafalan Santri</div>
+            <form id="form-hafalan" novalidate>
+                <input type="hidden" id="santri" required>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label>CARI / PILIH NAMA SANTRI (AUTO-COMPLETE)</label>
+                        <div class="dropdown-wrapper-custom">
+                            <div class="input-ikon" id="boxNamaSantri">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchSantriInput" placeholder="Ketik nama untuk mencari..." autocomplete="off" required>
+                            </div>
+                            <div id="menuSantriDropdown" class="dropdown-menu-custom">
+                                <div class="dropdown-item-custom">Memuat data firebase...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>TANGGAL SETORAN</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="date" id="tanggal" required>
+                        </div>
+                    </div>
+                </div>
+
+        <div class="form-grid">
+    <div class="form-group">
+        <label>NAMA SURAH / KITAB</label>
+        <div class="dropdown-wrapper-custom">
+            <div class="input-ikon select-custom-trigger" id="boxSurah" onclick="toggleCustomSelect(this)">
+                <i class="fas fa-book-open"></i>
+                <input type="text" id="surah" placeholder="Pilih Surah..." readonly required>
+            </div>
+            <div id="menuSurahDropdown" class="dropdown-menu-custom">
+                </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>MULAI AYAT / HALAMAN</label>
+        <div class="dropdown-wrapper-custom">
+            <div class="input-ikon select-custom-trigger" id="boxDariAyat" onclick="toggleCustomSelect(this)">
+                <i class="fas fa-list-ol"></i>
+                <input type="text" id="ayat_mulai" placeholder="Pilih Ayat Mulai" readonly required>
+            </div>
+            <div id="menuAyatMulaiDropdown" class="dropdown-menu-custom">
+                <div class="dropdown-item-custom" style="color:#777;">Pilih surah dahulu...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>SAMPAI AYAT / HALAMAN</label>
+        <div class="dropdown-wrapper-custom">
+            <div class="input-ikon select-custom-trigger" id="boxSampaiAyat" onclick="toggleCustomSelect(this)">
+                <i class="fas fa-list-ol"></i>
+                <input type="text" id="ayat_selesai" placeholder="Pilih Ayat Sampai" readonly required>
+            </div>
+            <div id="menuAyatSelesaiDropdown" class="dropdown-menu-custom">
+                <div class="dropdown-item-custom" style="color:#777;">Pilih surah dahulu...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                <div class="form-group" style="background:#f8f9fa; padding:15px; border-radius:8px; border:1px solid #ddd; margin: 10px 0;">
+                    <label style="margin:0; cursor:pointer; display:flex; align-items:center; gap:10px;">
+                        <input type="checkbox" id="is_tasmi" style="transform: scale(1.3); cursor: pointer;"> 
+                        <span style="font-size: 0.95rem; font-weight: 700; color: var(--primary-color);">Setoran ini Sesi Ujian Tasmi' (Sekali Duduk)</span>
+                    </label>
+                </div>
+
+            <div class="form-section-title"><i class="fas fa-star"></i> Penilaian Kelayakan Indikator</div>
+<div class="form-grid">
+    <div class="form-group">
+        <label>1. KELANCARAN HAFALAN</label>
+        <div class="dropdown-wrapper-custom">
+            <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                <i class="fas fa-check-circle"></i>
+                <input type="text" id="nilai_kelancaran" value="" placeholder="-- Pilih Nilai --" readonly required>
+            </div>
+            <div class="dropdown-menu-custom">
+                <div class="dropdown-item-custom" style="color: #94a3b8;" onclick="selectCustomOption(this, 'nilai_kelancaran')">-- Pilih Nilai --</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_kelancaran')">A (Sangat Lancar)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_kelancaran')">B (Lancar)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_kelancaran')">C (Cukup Lancar)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_kelancaran')">D (Kurang Lancar)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>2. KUALITAS TAHSIN / MAKHRAJ</label>
+        <div class="dropdown-wrapper-custom">
+            <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                <i class="fas fa-comment-medical"></i>
+                <input type="text" id="nilai_tahsin" value="" placeholder="-- Pilih Nilai --" readonly required>
+            </div>
+            <div class="dropdown-menu-custom">
+                <div class="dropdown-item-custom" style="color: #94a3b8;" onclick="selectCustomOption(this, 'nilai_tahsin')">-- Pilih Nilai --</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tahsin')">A (Sangat Baik)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tahsin')">B (Baik)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tahsin')">C (Cukup)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tahsin')">D (Perlu Perbaikan)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>3. ATURAN HUKUM TAJWID</label>
+        <div class="dropdown-wrapper-custom">
+            <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                <i class="fas fa-spell-check"></i>
+                <input type="text" id="nilai_tajwid" value="" placeholder="-- Pilih Nilai --" readonly required>
+            </div>
+            <div class="dropdown-menu-custom">
+                <div class="dropdown-item-custom" style="color: #94a3b8;" onclick="selectCustomOption(this, 'nilai_tajwid')">-- Pilih Nilai --</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tajwid')">A (Sangat Memahami)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tajwid')">B (Memahami)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tajwid')">C (Cukup Memahami)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-grid-2" style="margin-top: 15px;">
+    <div class="form-group">
+        <label>PREDIKAT UTAMA (RAPORT)</label>
+        <div class="dropdown-wrapper-custom">
+            <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                <i class="fas fa-award"></i>
+                <input type="text" id="nilai" value="" placeholder="-- Pilih Nilai --" readonly required>
+            </div>
+            <div class="dropdown-menu-custom">
+                <div class="dropdown-item-custom" style="color: #94a3b8;" onclick="selectCustomOption(this, 'nilai')">-- Pilih Nilai --</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai')">A (Mumtaz)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai')">B (Jayyid Jiddan)</div>
+                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai')">C (Jayyid)</div>
+            </div>
+        </div>
+    </div>
+</div>
+                    
+                    <div class="form-group">
+                        <label>CATATAN & MOTIVASI USTADZ</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-sticky-note"></i>
+                            <textarea id="catatan" placeholder="Tulis catatan perkembangan santri..."></textarea>
+                        </div>
+                    </div>
+                
+<div class="box-tombol-container">
+    <button type="submit" id="btnSimpan" class="btn-simpan-final">
+        <i class="fas fa-save"></i> SIMPAN DATA SETORAN HAFALAN
+    </button>
+</div>
+            </form>
+        </div>
+
+        <div id="rekap-panel" class="tab-content">
+            <div class="form-section-title"><i class="fas fa-print"></i> Pemrosesan Rekap & Raport Bulanan</div>
+            <div class="form-grid-2 no-print">
+                <div class="form-group">
+                    <label>PILIH BULAN LAPORAN</label>
+                    <div class="dropdown-wrapper-custom">
+                        <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="text" id="filter-bulan" data-value="01" value="Januari" readonly>
+                        </div>
+                        <div class="dropdown-menu-custom">
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '01')">Januari</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '02')">Februari</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '03')">Maret</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '04')">April</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '05')">Mei</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '06')">Juni</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '07')">Juli</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '08')">Agustus</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '09')">September</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '10')">Oktober</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '11')">November</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-bulan', '12')">Desember</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>TAHUN</label>
+                    <div class="dropdown-wrapper-custom">
+                        <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                            <i class="fas fa-clock"></i>
+                            <input type="text" id="filter-tahun" data-value="2026" value="2026" readonly>
+                        </div>
+                        <div class="dropdown-menu-custom">
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-tahun', '2026')">2026</div>
+                            <div class="dropdown-item-custom" onclick="selectFilterOption(this, 'filter-tahun', '2027')">2027</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+       <div class="box-tombol-container">
+    <button type="button" id="btnProsesRekap" class="btn-simpan-final">
+        <i class="fas fa-sync-alt fa-spin-hover"></i> GENERATE LAPORAN BULANAN
+    </button>
+</div>
+
+
+            <div class="rekap-card-info" id="boxLaporanRekap" style="display: none;">
+                <div style="text-align: center; margin-bottom: 20px; border-bottom: 3px double var(--primary-color); padding-bottom: 15px;">
+                    <h3 style="color:var(--dark-green); letter-spacing: 0.5px;">LAPORAN BULANAN PERKEMBANGAN HAFALAN</h3>
+                    <p id="txtPeriodeLaporan" style="font-weight:700; margin-top: 5px; color: #555;">Periode: -</p>
+                </div>
+                <div class="form-grid-2" style="font-size:0.95rem; line-height:1.8; margin-bottom: 20px;">
+                    <div><strong>Nama Lengkap Santri :</strong> <span id="lblNama" style="color:var(--primary-color); font-weight:700; border-bottom: 1px dashed #ccc;">-</span></div>
+                    <div><strong>Kelas / Unit Pendidikan :</strong> <span id="lblKelasUnit" style="font-weight: 600;">-</span></div>
+                </div>
+
+                <div class="sub-judul-rekap"><i class="fas fa-book-open"></i> Rincian Capaian Materi Hafalan</div>
+                <table class="rekap-table">
+                    <thead><tr><th style="width: 30%;">KATEGORI LAPORAN</th><th>MATERI SURAH & RINCIAN AYAT</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Hafalan Lampau</strong></td><td id="cellHafalanLama">-</td></tr>
+                        <tr><td><strong>Hafalan Baru (Bulan Ini)</strong></td><td id="cellHafalanBaru">-</td></tr>
+                        <tr><td><strong>Akumulasi Materi Akhir</strong></td><td id="cellHafalanTerakhir" style="font-weight:700; background-color:#fffdeb;">-</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="sub-judul-rekap"><i class="fas fa-star"></i> Kualitas Indikator Capaian Nilai (Modus)</div>
+                <table class="rekap-table" style="text-align:center;">
+                    <thead>
+                        <tr><th>KELANCARAN</th><th>TAHSIN MAKHRAJ</th><th>HUKUM TAJWID</th><th style="background:#e2f0d9;">PREDIKAT UTAMA</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr style="font-weight:700;"><td id="avgKelancaran">-</td><td id="avgTahsin">-</td><td id="avgTajwid">-</td><td id="avgTotal" style="background:#e2f0d9; color:var(--primary-color);">-</td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="sub-judul-rekap"><i class="fas fa-chart-line"></i> Kuantitas Intensitas Keaktifan</div>
+                <div class="form-grid-2" style="margin-top:15px; text-align:center;">
+                    <div style="background:#f8f9fa; padding:15px; border:1px solid #cbd5e1; border-radius:8px;">Total Setoran Bulanan:<br><strong id="txtTotalSetoran" style="color:var(--primary-color);">0 Kali</strong></div>
+                    <div style="background:#f8f9fa; padding:15px; border:1px solid #cbd5e1; border-radius:8px;">Kelulusan Sesi Tasmi':<br><strong id="txtTotalTasmi" style="color:#b45309;">0 Sesi</strong></div>
+                </div>
+                <div class="button-group no-print">
+                    <button type="button" onclick="window.print()" class="btn-wa-konfirmasi"><i class="fas fa-print"></i> CETAK / SIMPAN RAPORT PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboard-panel" class="tab-content">
+            <div class="form-section-title"><i class="fas fa-chart-bar"></i> Dashboard Monitoring Setoran Cloud</div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                <div style="background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; border-left: 5px solid var(--primary-color); box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <span style="font-size: 0.8rem; font-weight: bold; color: #64748b; text-transform: uppercase;">Setoran Terdata</span>
+                    <div id="dash-total-setoran" style="font-size: 1.6rem; font-weight: bold; color: #1e293b; margin-top: 5px;">0</div>
+                </div>
+                <div style="background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; border-left: 5px solid #0288d1; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <span style="font-size: 0.8rem; font-weight: bold; color: #64748b; text-transform: uppercase;">Total Ujian Tasmi'</span>
+                    <div id="dash-total-tasmi" style="font-size: 1.6rem; font-weight: bold; color: #1e293b; margin-top: 5px;">0 Sesi</div>
+                </div>
+                <div style="background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; border-left: 5px solid #f59e0b; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <span style="font-size: 0.8rem; font-weight: bold; color: #64748b; text-transform: uppercase;">Predikat Terbanyak</span>
+                    <div id="dash-modus-nilai" style="font-size: 1.3rem; font-weight: bold; color: #1e293b; margin-top: 8px;">-</div>
+                </div>
+                <div style="background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; border-left: 5px solid #ef4444; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                    <span style="font-size: 0.8rem; font-weight: bold; color: #64748b; text-transform: uppercase;">Santri Teraktif</span>
+                    <div id="dash-santri-aktif" style="font-size: 0.95rem; font-weight: bold; color: #1e293b; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Memuat...</div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label style="font-weight: 700; font-size: 0.85rem;">Saring Data Live Master (Cari Nama Santri)</label>
+                <div class="input-ikon">
+                    <i class="fas fa-filter"></i>
+                    <input type="text" id="dash-search-nama" placeholder="Ketik nama santri untuk filter tabel..." style="padding: 12px 12px 12px 40px;">
+                </div>
+            </div>
+
+            <div style="overflow-x: auto; background: #fff; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
+                    <thead>
+                        <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                            <th style="padding: 12px; font-weight: bold;">Tanggal</th>
+                            <th style="padding: 12px; font-weight: bold;">Nama Santri</th>
+                            <th style="padding: 12px; font-weight: bold;">Surah & Ayat</th>
+                            <th style="padding: 12px; font-weight: bold;">Sesi</th>
+                            <th style="padding: 12px; font-weight: bold;">Predikat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dash-tabel-body">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 30px; color: #64748b;">
+                                <i class="fas fa-spinner fa-spin"></i> Menghubungkan basis data rekap cloud...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div> 
+</div> 
+
+<div class="bottom-actions no-print">
+    <a href="pendidikan.html" class="btn-kembali">
+        <i class="fas fa-arrow-left"></i> Kembali ke Halaman Pendidikan
+    </a>        
+</div>
+
+<footer>
+    <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+</footer>
+
+<script>
+    function toggleCustomSelect(element) {
+        // Ambil elemen menu terkait
+        var menu = element.nextElementSibling;
+        
+        // Sembunyikan semua menu dropdown kustom lain yang sedang aktif di layar
+        document.querySelectorAll('.dropdown-menu-custom').forEach(m => {
+            if (m !== menu) m.style.display = 'none';
+        });
+        
+        // Toggle status display menu saat ini
+        if (menu.style.display === 'block') {
+            menu.style.display = 'none';
+        } else {
+            menu.style.display = 'block';
+        }
+    }
+
+    function selectCustomOption(optionElement, targetInputId) {
+        var text = optionElement.textContent;
+        var inputField = document.getElementById(targetInputId);
+        inputField.value = text;
+        
+        // Sembunyikan kembali panel popup setelah dipilih
+        optionElement.parentElement.style.display = 'none';
+    }
+
+    function selectFilterOption(optionElement, targetInputId, dataValue) {
+        var text = optionElement.textContent;
+        var inputField = document.getElementById(targetInputId);
+        inputField.value = text;
+        inputField.setAttribute('data-value', dataValue); // Simpan kode asli bulan/tahun untuk firebase
+        
+        optionElement.parentElement.style.display = 'none';
+        
+        // Jalankan sinkronisasi ulang live dashboard secara otomatis jika sedang berada di tab admin
+        if(typeof window.fungsiSinkronisasiDashboard === 'function') {
+            window.fungsiSinkronisasiDashboard();
+        }
+    }
+
+    // Event listener global untuk mendeteksi klik di luar area agar dropdown tertutup otomatis
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown-wrapper-custom') && !e.target.closest('.select-custom-trigger')) {
+            document.querySelectorAll('.dropdown-menu-custom').forEach(menu => {
+                menu.style.display = 'none';
+            });
+        }
+    });
+
+    function openTab(evt, tabId) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) { 
+            tabcontent[i].classList.remove("active"); 
+        }
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) { 
+            tablinks[i].classList.remove("active"); 
+        }
+        
+        document.getElementById(tabId).classList.add("active");
+        if (evt) { evt.currentTarget.classList.add("active"); }
+
+        if (tabId === 'dashboard-panel' && typeof window.fungsiSinkronisasiDashboard === 'function') {
+            window.fungsiSinkronisasiDashboard();
+        }
+    }
+
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('main-nav').classList.toggle('show');
+        document.getElementById('menu-overlay').classList.toggle('show');
+    });
+    document.getElementById('menu-overlay').addEventListener('click', function() {
+        document.getElementById('main-nav').classList.remove('show');
+        this.classList.remove('show');
+    });
+
+    window.toggleCustomSelect = toggleCustomSelect;
+    window.selectCustomOption = selectCustomOption;
+    window.selectFilterOption = selectFilterOption;
+    window.openTab = openTab;
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
+        authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
+        projectId: "daarul-khoirot-pendaftaran",
+        storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
+        messagingSenderId: "963910462284",
+        appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // DOM Elements - Santri
+    const inputSantriReal = document.getElementById('santri'); 
+    const searchSantriInput = document.getElementById('searchSantriInput');
+    const menuSantriDropdown = document.getElementById('menuSantriDropdown');
+    
+    const boxNamaSantri = document.getElementById('boxNamaSantri');
+    const boxSurah = document.getElementById('boxSurah');
+    const boxDariAyat = document.getElementById('boxDariAyat');
+    const boxSampaiAyat = document.getElementById('boxSampaiAyat');
+
+    // DOM Elements - Quran Dropdown
+    const inputSurah = document.getElementById('surah');
+    const menuSurahDropdown = document.getElementById('menuSurahDropdown');
+    const inputAyatMulai = document.getElementById('ayat_mulai');
+    const menuAyatMulaiDropdown = document.getElementById('menuAyatMulaiDropdown');
+    const inputAyatSelesai = document.getElementById('ayat_selesai');
+    const menuAyatSelesaiDropdown = document.getElementById('menuAyatSelesaiDropdown');
+
+    let listSemuaSantri = [];
+
+    // ==========================================================================
+    // DATA MASTER 114 SURAH AL-QUR'AN (Nama & Jumlah Ayat)
+    // ==========================================================================
+    const dataSurahQuran = [
+        { no: 1, nama: "Al-Fatihah", ayat: 7 }, { no: 2, nama: "Al-Baqarah", ayat: 286 }, { no: 3, nama: "Ali 'Imran", ayat: 200 },
+        { no: 4, nama: "An-Nisa'", ayat: 176 }, { no: 5, nama: "Al-Ma'idah", ayat: 120 }, { no: 6, nama: "Al-An'am", ayat: 165 },
+        { no: 7, nama: "Al-A'raf", ayat: 206 }, { no: 8, nama: "Al-Anfal", ayat: 75 }, { no: 9, nama: "At-Taubah", ayat: 129 },
+        { no: 10, nama: "Yunus", ayat: 109 }, { no: 11, nama: "Hud", ayat: 123 }, { no: 12, nama: "Yusuf", ayat: 111 },
+        { no: 13, nama: "Ar-Ra'd", ayat: 43 }, { no: 14, nama: "Ibrahim", ayat: 52 }, { no: 15, nama: "Al-Hijr", ayat: 99 },
+        { no: 16, nama: "An-Nahl", ayat: 128 }, { no: 17, nama: "Al-Isra'", ayat: 111 }, { no: 18, nama: "Al-Kahf", ayat: 110 },
+        { no: 19, nama: "Maryam", ayat: 98 }, { no: 20, nama: "Taha", ayat: 135 }, { no: 21, nama: "Al-Anbiya'", ayat: 112 },
+        { no: 22, nama: "Al-Hajj", ayat: 78 }, { no: 23, nama: "Al-Mu'minun", ayat: 118 }, { no: 24, nama: "An-Nur", ayat: 64 },
+        { no: 25, nama: "Al-Furqan", ayat: 77 }, { no: 26, nama: "Asy-Syu'ara'", ayat: 227 }, { no: 27, nama: "An-Naml", ayat: 93 },
+        { no: 28, nama: "Al-Qasas", ayat: 88 }, { no: 29, nama: "Al-'Ankabut", ayat: 69 }, { no: 30, nama: "Ar-Rum", ayat: 60 },
+        { no: 31, nama: "Luqman", ayat: 34 }, { no: 32, nama: "As-Sajdah", ayat: 30 }, { no: 33, nama: "Al-Ahzab", ayat: 73 },
+        { no: 34, nama: "Saba'", ayat: 54 }, { no: 35, nama: "Fatir", ayat: 45 }, { no: 36, nama: "Yasin", ayat: 83 },
+        { no: 37, nama: "As-Saffat", ayat: 182 }, { no: 38, nama: "Sad", ayat: 88 }, { no: 39, nama: "Az-Zumar", ayat: 75 },
+        { no: 40, nama: "Ghafir", ayat: 85 }, { no: 41, nama: "Fussilat", ayat: 54 }, { no: 42, nama: "Asy-Syura", ayat: 53 },
+        { no: 43, nama: "Az-Zukhruf", ayat: 89 }, { no: 44, nama: "Ad-Dukhan", ayat: 59 }, { no: 45, nama: "Al-Jasiyah", ayat: 37 },
+        { no: 46, nama: "Al-Ahqaf", ayat: 35 }, { no: 47, nama: "Muhammad", ayat: 38 }, { no: 48, nama: "Al-Fath", ayat: 29 },
+        { no: 49, nama: "Al-Hujurat", ayat: 18 }, { no: 50, nama: "Qaf", ayat: 45 }, { no: 51, nama: "Az-Zariyat", ayat: 60 },
+        { no: 52, nama: "At-Tur", ayat: 49 }, { no: 53, nama: "An-Najm", ayat: 62 }, { no: 54, nama: "Al-Qamar", ayat: 55 },
+        { no: 55, nama: "Ar-Rahman", ayat: 78 }, { no: 56, nama: "Al-Waqi'ah", ayat: 96 }, { no: 57, nama: "Al-Hadid", ayat: 29 },
+        { no: 58, nama: "Al-Mujadilah", ayat: 22 }, { no: 59, nama: "Al-Hasyr", ayat: 24 }, { no: 60, nama: "Al-Mumtahanah", ayat: 13 },
+        { no: 61, nama: "As-Saff", ayat: 14 }, { no: 62, nama: "Al-Jumu'ah", ayat: 11 }, { no: 63, nama: "Al-Munafiqun", ayat: 11 },
+        { no: 64, nama: "At-Taghabun", ayat: 18 }, { no: 65, nama: "At-Talaq", ayat: 12 }, { no: 66, nama: "At-Tahrim", ayat: 12 },
+        { no: 67, nama: "Al-Mulk", ayat: 30 }, { no: 68, nama: "Al-Qalam", ayat: 52 }, { no: 69, nama: "Al-Haqqah", ayat: 52 },
+        { no: 70, nama: "Al-Ma'arij", ayat: 44 }, { no: 71, nama: "Nuh", ayat: 28 }, { no: 72, nama: "Al-Jinn", ayat: 28 },
+        { no: 73, nama: "Al-Muzzammil", ayat: 20 }, { no: 74, nama: "Al-Muddassir", ayat: 56 }, { no: 75, nama: "Al-Qiyamah", ayat: 40 },
+        { no: 76, nama: "Al-Insan", ayat: 31 }, { no: 77, nama: "Al-Mursalat", ayat: 50 }, { no: 78, nama: "An-Naba'", ayat: 40 },
+        { no: 79, nama: "An-Nazi'at", ayat: 46 }, { no: 80, nama: "'Abasa", ayat: 42 }, { no: 81, nama: "At-Takwir", ayat: 29 },
+        { no: 82, nama: "Al-Infitar", ayat: 19 }, { no: 83, nama: "Al-Mutaffifin", ayat: 36 }, { no: 84, nama: "Al-Insyiqaq", ayat: 25 },
+        { no: 85, nama: "Al-Buruj", ayat: 22 }, { no: 86, nama: "At-Tariq", ayat: 17 }, { no: 87, nama: "Al-A'la", ayat: 19 },
+        { no: 88, nama: "Al-Ghasyiyah", ayat: 26 }, { no: 89, nama: "Al-Fajr", ayat: 30 }, { no: 90, nama: "Al-Balad", ayat: 20 },
+        { no: 91, nama: "Asy-Syams", ayat: 15 }, { no: 92, nama: "Al-Lail", ayat: 21 }, { no: 93, nama: "Ad-Duha", ayat: 11 },
+        { no: 94, nama: "Al-Insyirah", ayat: 8 }, { no: 95, nama: "At-Tin", ayat: 8 }, { no: 96, nama: "Al-'Alaq", ayat: 19 },
+        { no: 97, nama: "Al-Qadr", ayat: 5 }, { no: 98, nama: "Al-Bayyinah", ayat: 8 }, { no: 99, nama: "Az-Zalzalah", ayat: 8 },
+        { no: 100, nama: "Al-'Adiyat", ayat: 11 }, { no: 101, nama: "Al-Qari'ah", ayat: 11 }, { no: 102, nama: "At-Takasur", ayat: 8 },
+        { no: 103, nama: "Al-'Asr", ayat: 3 }, { no: 104, nama: "Al-Humazah", ayat: 9 }, { no: 105, nama: "Al-Fil", ayat: 5 },
+        { no: 106, nama: "Quraisy", ayat: 4 }, { no: 107, nama: "Al-Ma'un", ayat: 7 }, { no: 108, nama: "Al-Kausar", ayat: 3 },
+        { no: 109, nama: "Al-Kafirun", ayat: 6 }, { no: 110, nama: "An-Nasr", ayat: 3 }, { no: 111, nama: "Al-Lahab", ayat: 5 },
+        { no: 112, nama: "Al-Ikhlas", ayat: 4 }, { no: 113, nama: "Al-Falaq", ayat: 5 }, { no: 114, nama: "An-Nas", ayat: 6 }
+    ];
+
+    // Set default value form berbasis objek tanggal sistem
+    const infoHariIni = new Date();
+    document.getElementById('tanggal').valueAsDate = infoHariIni;
+    
+    // Set teks bulan kustom default
+    const namaBulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    const inputBulan = document.getElementById('filter-bulan');
+    const inputTahun = document.getElementById('filter-tahun');
+    
+    inputBulan.value = namaBulanIndo[infoHariIni.getMonth()];
+    inputBulan.setAttribute('data-value', String(infoHariIni.getMonth() + 1).padStart(2, '0'));
+    inputTahun.value = String(infoHariIni.getFullYear());
+    inputTahun.setAttribute('data-value', String(infoHariIni.getFullYear()));
+
+    // ==========================================================================
+    // LOGIKA DROPDOWN INTEGRASI AL-QUR'AN
+    // ==========================================================================
+    function initDropdownSurah() {
+        if (!menuSurahDropdown) return;
+        menuSurahDropdown.innerHTML = '';
+        dataSurahQuran.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'dropdown-item-custom';
+            div.textContent = `${item.no}. ${item.nama} (${item.ayat} Ayat)`;
+            
+            div.addEventListener('click', () => {
+                inputSurah.value = item.nama;
+                menuSurahDropdown.style.display = 'none';
+                
+                // Reset input ayat sebelumnya saat ganti surah
+                inputAyatMulai.value = '';
+                inputAyatSelesai.value = '';
+                
+                // Render list ayat dinamis sesuai jumlah ayat surah terpilih
+                updateDropdownAyat(item.ayat);
+            });
+            menuSurahDropdown.appendChild(div);
+        });
+    }
+
+    function updateDropdownAyat(totalAyat) {
+        if (!menuAyatMulaiDropdown || !menuAyatSelesaiDropdown) return;
+        menuAyatMulaiDropdown.innerHTML = '';
+        menuAyatSelesaiDropdown.innerHTML = '';
+
+        for (let i = 1; i <= totalAyat; i++) {
+            // Dropdown Item Ayat Mulai
+            const divMulai = document.createElement('div');
+            divMulai.className = 'dropdown-item-custom';
+            divMulai.textContent = `Ayat ${i}`;
+            divMulai.addEventListener('click', () => {
+                inputAyatMulai.value = i;
+                menuAyatMulaiDropdown.style.display = 'none';
+                
+                // Reset ayat selesai jika batas minimum ayat mulai melampauinya
+                if (parseInt(inputAyatSelesai.value) < i) {
+                    inputAyatSelesai.value = '';
+                }
+            });
+            menuAyatMulaiDropdown.appendChild(divMulai);
+
+            // Dropdown Item Ayat Selesai
+            const divSelesai = document.createElement('div');
+            divSelesai.className = 'dropdown-item-custom';
+            divSelesai.textContent = `Ayat ${i}`;
+            divSelesai.addEventListener('click', () => {
+                const valMulai = parseInt(inputAyatMulai.value) || 1;
+                if (i < valMulai) {
+                    window.Swal.fire({
+                        icon: 'warning',
+                        title: 'Validasi Ayat',
+                        text: `Maaf ustadz, ayat selesai tidak boleh lebih kecil dari Ayat Mulai (${valMulai})`,
+                        confirmButtonColor: '#1a5d1a'
+                    });
+                    return;
+                }
+                inputAyatSelesai.value = i;
+                menuAyatSelesaiDropdown.style.display = 'none';
+            });
+            menuAyatSelesaiDropdown.appendChild(divSelesai);
+        }
+    }
+
+    // Inisialisasi daftar surah saat modul dimuat
+    initDropdownSurah();
+
+    // ==========================================================================
+    // LOGIKA AUTO-COMPLETE DATA SANTRI FROM FIREBASE
+    // ==========================================================================
+    async function initOtomatisDataSantri() {
+        try {
+            const snap = await getDocs(collection(db, "pendaftaran_santri"));
+            listSemuaSantri = [];
+            snap.forEach(doc => {
+                const data = doc.data();
+                if(data.nama_santri) {
+                    listSemuaSantri.push({
+                        nama: data.nama_santri,
+                        kelas: data.kelas || '-',
+                        unit: data.unit || '-'
+                    });
+                }
+            });
+            renderDropdownList(listSemuaSantri);
+        } catch(e) {
+            console.error(e);
+            menuSantriDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:red;">Gagal memuat database santri!</div>';
+        }
+    }
+
+    function renderDropdownList(arr) {
+        menuSantriDropdown.innerHTML = '';
+        if(arr.length === 0) {
+            menuSantriDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:#777;">Nama tidak ditemukan...</div>';
+            return;
+        }
+        arr.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'dropdown-item-custom';
+            div.setAttribute('data-kelas', item.kelas);
+            div.setAttribute('data-unit', item.unit);
+            div.textContent = item.nama.toUpperCase() + ` (${item.kelas} / ${item.unit})`;
+            
+            div.addEventListener('click', () => {
+                searchSantriInput.value = item.nama.toUpperCase();
+                inputSantriReal.value = item.nama; 
+                
+                document.querySelectorAll('#menuSantriDropdown .dropdown-item-custom').forEach(i => i.classList.remove('selected'));
+                div.classList.add('selected');
+                menuSantriDropdown.style.display = 'none';
+            });
+            menuSantriDropdown.appendChild(div);
+        });
+    }
+
+    searchSantriInput.addEventListener('focus', () => { 
+        menuSantriDropdown.style.display = 'block'; 
+        renderDropdownList(listSemuaSantri);
+    });
+    
+    searchSantriInput.addEventListener('input', (e) => {
+        const keyword = e.target.value.toLowerCase();
+        const hasilFilter = listSemuaSantri.filter(s => s.nama.toLowerCase().includes(keyword));
+        renderDropdownList(hasilFilter);
+    });
+
+    initOtomatisDataSantri();
+
+    // ==========================================================================
+    // HANDLER SIMPAN DATA HAFALAN
+    // ==========================================================================
+    document.getElementById('form-hafalan').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const MySwal = window.Swal || Swal;
+
+        [boxNamaSantri, boxSurah, boxDariAyat, boxSampaiAyat].forEach(box => {
+            if(box) box.classList.remove('input-error', 'input-success');
+        });
+
+        if(!inputSantriReal.value || searchSantriInput.value === '' || !inputSurah.value || !inputAyatMulai.value || !inputAyatSelesai.value) {
+            if((!inputSantriReal.value || searchSantriInput.value === '') && boxNamaSantri) boxNamaSantri.classList.add('input-error');
+            if(!inputSurah.value && boxSurah) boxSurah.classList.add('input-error');
+            if(!inputAyatMulai.value && boxDariAyat) boxDariAyat.classList.add('input-error');
+            if(!inputAyatSelesai.value && boxSampaiAyat) boxSampaiAyat.classList.add('input-error');
+
+            MySwal.fire({
+                icon: 'error',
+                title: 'Peringatan!',
+                text: 'Mohon maaf ustadz, harap isi semua bidang data setoran yang masih kosong.',
+                confirmButtonText: 'Siap, Perbaiki',
+                confirmButtonColor: '#d33'
+            });
+            return;
+        }
+
+        [boxNamaSantri, boxSurah, boxDariAyat, boxSampaiAyat].forEach(box => {
+            if(box) box.classList.add('input-success');
+        });
+
+        const btn = document.getElementById('btnSimpan');
+        btn.disabled = true;
+
+        const itemSelected = menuSantriDropdown.querySelector('.dropdown-item-custom.selected');
+
+        const bundleData = {
+            nama_santri: inputSantriReal.value,
+            kelas: itemSelected ? itemSelected.getAttribute('data-kelas') : '-',
+            unit: itemSelected ? itemSelected.getAttribute('data-unit') : '-',
+            tanggal_input: document.getElementById('tanggal').value,
+            nama_surah: inputSurah.value,
+            ayat_mulai: parseInt(inputAyatMulai.value),
+            ayat_selesai: parseInt(inputAyatSelesai.value),
+            is_tasmi: document.getElementById('is_tasmi').checked,
+            nilai_kelancaran: document.getElementById('nilai_kelancaran').value,
+            nilai_tahsin: document.getElementById('nilai_tahsin').value,
+            nilai_tajwid: document.getElementById('nilai_tajwid').value,
+            keterangan_nilai: document.getElementById('nilai').value,
+            catatan_ustadz: document.getElementById('catatan').value,
+            dibuat_pada: serverTimestamp()
+        };
+
+        try {
+            await addDoc(collection(db, "setoran_hafalan"), bundleData);
+            MySwal.fire({
+                icon: 'success',
+                title: 'Alhamdulillah',
+                text: 'Data setoran hafalan santri berhasil disimpan ke database.',
+                confirmButtonText: 'Selesai',
+                confirmButtonColor: '#1a5d1a'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('form-hafalan').reset();
+                    searchSantriInput.value = '';
+                    inputSantriReal.value = '';
+                    document.getElementById('tanggal').valueAsDate = new Date();
+                    
+                    // Reset value select tiruan ke opsi default index awal
+                    document.getElementById('nilai_kelancaran').value = "A (Sangat Lancar)";
+                    document.getElementById('nilai_tahsin').value = "A (Sangat Baik)";
+                    document.getElementById('nilai_tajwid').value = "A (Sangat Memahami)";
+                    document.getElementById('nilai').value = "A (Mumtaz)";
+
+                    // Reset teks status awal dropdown ayat
+                    menuAyatMulaiDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:#777;">Pilih surah dahulu...</div>';
+                    menuAyatSelesaiDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:#777;">Pilih surah dahulu...</div>';
+
+                    [boxNamaSantri, boxSurah, boxDariAyat, boxSampaiAyat].forEach(box => {
+                        if(box) box.classList.remove('input-success');
+                    });
+                }
+            });
+        } catch(err) {
+            console.error(err);
+            MySwal.fire({ icon: 'error', title: 'Gagal Menyimpan', text: 'Terjadi gangguan jaringan database cloud.', confirmButtonColor: '#d33' });
+        } finally { 
+            btn.disabled = false; 
+        }
+    });
+
+    // ==========================================================================
+    // HANDLER REKAP INDIVIDU SANTRI (RAPORT BULANAN)
+    // ==========================================================================
+    document.getElementById('btnProsesRekap').addEventListener('click', async () => {
+        const targetNama = inputSantriReal.value;
+        const MySwal = window.Swal || Swal;
+
+        if (!targetNama || searchSantriInput.value === '') {
+            MySwal.fire({ icon: 'warning', title: 'Santri Belum Dipilih', text: 'Silakan pilih nama santri di form input terlebih dahulu.', confirmButtonColor: '#1a5d1a' });
+            return;
+        }
+
+        const bPilihan = document.getElementById('filter-bulan').getAttribute('data-value');
+        const tPilihan = document.getElementById('filter-tahun').getAttribute('data-value');
+        const btn = document.getElementById('btnProsesRekap');
+        
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang Memproses Data...';
+
+        try {
+            const q = query(collection(db, "setoran_hafalan"), where("nama_santri", "==", targetNama));
+            const snap = await getDocs(q);
+
+            let ini = [], lalu = [];
+            snap.forEach(doc => {
+                const data = doc.data();
+                if(data.tanggal_input) {
+                    const pecah = data.tanggal_input.split('-');
+                    if(pecah[0] === tPilihan && pecah[1] === bPilihan) ini.push(data);
+                    else if(data.tanggal_input < `${tPilihan}-${bPilihan}-01`) lalu.push(data);
+                }
+            });
+
+            ini.sort((a,b) => a.tanggal_input.localeCompare(b.tanggal_input));
+
+            const itemSelected = menuSantriDropdown.querySelector('.dropdown-item-custom.selected');
+            document.getElementById('lblNama').textContent = targetNama.toUpperCase();
+            document.getElementById('lblKelasUnit').textContent = itemSelected ? `${itemSelected.getAttribute('data-kelas')} / ${itemSelected.getAttribute('data-unit')}` : '-';
+            
+            const teksBulan = document.getElementById('filter-bulan').value;
+            document.getElementById('txtPeriodeLaporan').textContent = `Periode Evaluasi: ${teksBulan} ${tPilihan}`;
+
+            if(lalu.length > 0) {
+                let txtLama = lalu.map(s => `${s.nama_surah} (Ayat ${s.ayat_mulai}-${s.ayat_selesai})`);
+                document.getElementById('cellHafalanLama').textContent = [...new Set(txtLama)].join(', ');
+            } else {
+                document.getElementById('cellHafalanLama').textContent = 'Belum memiliki rekam jejak hafalan lampau.';
+            }
+
+            if(ini.length > 0) {
+                let txtBaru = ini.map(s => `${s.nama_surah} [Ayat ${s.ayat_mulai}-${s.ayat_selesai}]`);
+                document.getElementById('cellHafalanBaru').textContent = txtBaru.join(', ');
+                document.getElementById('txtTotalSetoran').textContent = `${ini.length} Kali Aktivitas`;
+                document.getElementById('txtTotalTasmi').textContent = `${ini.filter(s => s.is_tasmi).length} Sesi`;
+
+                const hitungModus = arr => {
+                    const clean = arr.filter(v => v != null && v !== '');
+                    if(clean.length === 0) return '-';
+                    return clean.sort((a,b) => clean.filter(v => v===a).length - clean.filter(v => v===b).length).pop();
+                };
+
+                document.getElementById('avgKelancaran').textContent = hitungModus(ini.map(s => s.nilai_kelancaran));
+                document.getElementById('avgTahsin').textContent = hitungModus(ini.map(s => s.nilai_tahsin));
+                document.getElementById('avgTajwid').textContent = hitungModus(ini.map(s => s.nilai_tajwid));
+                document.getElementById('avgTotal').textContent = hitungModus(ini.map(s => s.keterangan_nilai));
+            } else {
+                document.getElementById('cellHafalanBaru').textContent = 'Tidak tercatat menyetor hafalan baru pada bulan ini.';
+                document.getElementById('txtTotalSetoran').textContent = '0 Kali';
+                document.getElementById('txtTotalTasmi').textContent = '0 Sesi';
+                document.getElementById('avgKelancaran').textContent = '-';
+                document.getElementById('avgTahsin').textContent = '-';
+                document.getElementById('avgTajwid').textContent = '-';
+                document.getElementById('avgTotal').textContent = '-';
+            }
+
+            let gabungSemua = [...lalu, ...ini].map(s => s.nama_surah);
+            document.getElementById('cellHafalanTerakhir').textContent = gabungSemua.length > 0 ? [...new Set(gabungSemua)].join(', ') : '-';
+
+            document.getElementById('boxLaporanRekap').style.display = 'block';
+
+        } catch(err) {
+            console.error(err);
+            MySwal.fire({ icon: 'error', title: 'Gagal Memuat', text: 'Terjadi kesalahan penarikan data.', confirmButtonColor: '#d33' });
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> PROSES & GENERATE LAPORAN BULANAN';
+        }
+    });
+
+    // ==========================================================================
+    // LOGIKA DASHBOARD MONITORING MASTER (LIVE CLOUD)
+    // ==========================================================================
+    async function fungsiSinkronisasiDashboard() {
+        const tbody = document.getElementById('dash-tabel-body');
+        const keyword = document.getElementById('dash-search-nama').value.toLowerCase();
+        const targetBulan = document.getElementById('filter-bulan').getAttribute('data-value');
+        const targetTahun = document.getElementById('filter-tahun').getAttribute('data-value');
+
+        try {
+            const snap = await getDocs(collection(db, "setoran_hafalan"));
+            let kumpulanData = [];
+            snap.forEach(doc => kumpulanData.push(doc.data()));
+            
+            kumpulanData.sort((a,b) => (b.tanggal_input || '').localeCompare(a.tanggal_input || ''));
+            
+            tbody.innerHTML = '';
+            let totalSetoran = 0, totalTasmi = 0, arrayPredikat = [], hitungSantri = {};
+
+            kumpulanData.forEach(data => {
+                const tgl = data.tanggal_input || '';
+                const pecah = tgl.split('-');
+                
+                if(pecah[0] === targetTahun && pecah[1] === targetBulan) {
+                    const nama = data.nama_santri || '';
+                    if(keyword !== '' && !nama.toLowerCase().includes(keyword)) return;
+
+                    totalSetoran++;
+                    if(data.is_tasmi) totalTasmi++;
+                    if(data.keterangan_nilai) arrayPredikat.push(data.keterangan_nilai);
+                    if(nama) hitungSantri[nama] = (hitungSantri[nama] || 0) + 1;
+
+                    const tr = document.createElement('tr');
+                    tr.style.borderBottom = '1px solid #f1f5f9';
+                    const tglIndo = pecah.length === 3 ? `${pecah[2]}/${pecah[1]}/${pecah[0]}` : tgl;
+
+                    tr.innerHTML = `
+                        <td style="padding:10px;">${tglIndo}</td>
+                        <td style="padding:10px; font-weight:bold; color:var(--primary-color);">${nama.toUpperCase()}</td>
+                        <td style="padding:10px;">${data.nama_surah} [Ayat ${data.ayat_mulai}-${data.ayat_selesai}]</td>
+                        <td style="padding:10px;"><span style="font-size:11px; padding:3px 6px; border-radius:4px; color:white; background:${data.is_tasmi ? '#0288d1':'#64748b'};">${data.is_tasmi ? 'TASMI':'REGULER'}</span></td>
+                        <td style="padding:10px; font-weight:bold; color:#e64a19;">${data.keterangan_nilai || '-'}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+
+            document.getElementById('dash-total-setoran').textContent = `${totalSetoran} Kali`;
+            document.getElementById('dash-total-tasmi').textContent = `${totalTasmi} Sesi`;
+            
+            if(arrayPredikat.length > 0) {
+                document.getElementById('dash-modus-nilai').textContent = arrayPredikat.sort((a,b) => arrayPredikat.filter(v => v===a).length - arrayPredikat.filter(v => v===b).length).pop();
+            } else { 
+                document.getElementById('dash-modus-nilai').textContent = '-'; 
+            }
+
+            let teraktif = '-', skor = 0;
+            for (const [n, j] of Object.entries(hitungSantri)) {
+                if (j > skor) { skor = j; teraktif = n.toUpperCase(); }
+            }
+            document.getElementById('dash-santri-aktif').textContent = teraktif !== '-' ? `${teraktif} (${skor}x)` : '-';
+            if(tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">Tidak ada rekapan setoran pada filter bulan ini.</td></tr>';
+
+        } catch(e) {
+            console.error(e);
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red; padding:20px;">Gagal sinkronisasi data cloud.</td></tr>';
+        }
+    }
+
+    window.fungsiSinkronisasiDashboard = fungsiSinkronisasiDashboard;
+    document.getElementById('dash-search-nama').addEventListener('input', fungsiSinkronisasiDashboard);
+</script>
+
+</body>
+</html>
