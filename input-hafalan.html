@@ -283,34 +283,53 @@
         .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
         .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* Tombol Kembali Lebar Penuh */
-        .bottom-actions {
-            margin: 15px auto 30px;
-            width: 100% !important;        
-            max-width: 100% !important;    
-            padding: 0 !important;         
-            text-align: center;
-            box-sizing: border-box;
-        }
-        .bottom-actions .btn-kembali {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100% !important;        
-            min-height: 54px;              
-            padding: 14px;
-            background-color: #f1f5f9;
-            color: #475569;
-            text-decoration: none !important;
-            font-weight: bold;
-            font-size: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-            box-sizing: border-box;
-            border: 1px solid #cbd5e1;
-        }
+    /* ==========================================================================
+   DESAIN ACTION BUTTONS (TOMBOL KEMBALI & SIMPAN SEJAJAR 2 KOLOM)
+   ========================================================================== */
+.bottom-actions {
+    margin: 25px auto 30px;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+    
+    /* Mengubah container menjadi Grid 2 Kolom Sejajar Semuanya */
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important; /* Jarak antar tombol */
+    align-items: center !important;
+}
+
+/* Pengaturan Tombol Kembali agar Mengikuti Tinggi Tombol Simpan */
+.bottom-actions .btn-kembali {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    width: 100% !important;        
+    min-height: 54px !important;   /* Menyamakan tinggi persis dengan tombol simpan */
+    padding: 15px 20px !important;
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+    text-decoration: none !important;
+    font-weight: 800 !important;   /* Menebalkan font agar serasi */
+    font-size: 16px !important;    /* Menyamakan ukuran font */
+    text-transform: uppercase;     /* Mengubah teks menjadi HURUF BESAR */
+    letter-spacing: 0.5px;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+    border: 1px solid #cbd5e1 !important;
+}
+
+/* Mengatur ulang margin box-tombol-container agar tidak merusak posisi grid */
+.box-tombol-container {
+    width: 100% !important;
+    margin: 0 !important; /* Menghapus margin bawaan agar sinkron dengan grid */
+    padding: 0 !important;
+    box-sizing: border-box;
+}
 
         /* ==========================================================================
            4. RESPONSIVE OVERRIDES (Hanya Aktif Saat Ukuran Layar HP)
@@ -578,6 +597,11 @@
         <i class="fas fa-save"></i> SIMPAN DATA SETORAN HAFALAN
     </button>
 </div>
+<div class="bottom-actions no-print">
+    <a href="pendidikan.html" class="btn-kembali">
+        <i class="fas fa-arrow-left"></i> Kembali ke Halaman Pendidikan
+    </a>        
+</div>
             </form>
         </div>
 
@@ -724,12 +748,6 @@
 
     </div> 
 </div> 
-
-<div class="bottom-actions no-print">
-    <a href="pendidikan.html" class="btn-kembali">
-        <i class="fas fa-arrow-left"></i> Kembali ke Halaman Pendidikan
-    </a>        
-</div>
 
 <footer>
     <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
