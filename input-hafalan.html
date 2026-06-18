@@ -190,9 +190,42 @@
         .dropdown-item-custom:hover, .dropdown-item-custom.selected { background-color: #f0f7f0; color: var(--primary-color); font-weight: 600; }
 
         /* Layout Grid (Desktop Tampil Berdampingan Samping) */
-        .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; box-sizing: border-box; }
-        .form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 100%; box-sizing: border-box; }
+.form-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 24px !important; 
+    width: 100% !important; 
+    box-sizing: border-box; 
+}
 
+.form-grid-2 { 
+    display: grid !important; 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 24px !important; 
+    width: 100% !important; 
+    box-sizing: border-box; 
+}
+
+/* KUNCI UTAMA: Memaksa setiap kotak isian mengambil ruang penuh di dalam kolom grid */
+.form-grid .form-group, .form-grid-2 .form-group {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+}
+
+.input-ikon {
+    display: flex !important; 
+    align-items: center; 
+    background: white; 
+    border: 1.5px solid var(--border-color); 
+    border-radius: 8px; 
+    padding: 0 12px; 
+    min-height: 48px;
+    width: 100% !important; /* Paksa input-ikon selebar wadahnya */
+    transition: all 0.3s ease;
+    position: relative;
+    box-sizing: border-box;
+}
         /* ==========================================================================
            PERBAIKAN TOTAL TOMBOL UTAMA & KAMPUS
            ========================================================================== */
@@ -309,10 +342,12 @@
             .tab-link i { font-size: 1rem !important; }
             
             /* Paksa Grid Menjadi 1 Kolom ke Bawah khusus HP */
-            .form-grid, .form-grid-2 { 
-                grid-template-columns: 1fr !important; 
-                gap: 16px; 
-            }
+           /* Paksa kolom berjejer vertikal ke bawah saat dibuka di HP */
+    .form-grid, .form-grid-2 { 
+        grid-template-columns: 1fr !important; 
+        gap: 16px !important; 
+        width: 100% !important;
+    }
             
             #btnProsesRekap {
                 font-size: 13px !important;
