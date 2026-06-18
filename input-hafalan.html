@@ -592,9 +592,12 @@
                         </div>
                     </div>
                 
-<div class="bottom-actions">
+
+            </form>
+        </div>
+        <div class="bottom-actions">
     <a href="pendidikan.html" class="btn-kembali">
-        <i class="fa-solid fa-arrow-left"></i> Kembali
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman Pendidikan
     </a>
     
     <div class="box-tombol-container">
@@ -603,8 +606,6 @@
         </button>
     </div>
 </div>
-            </form>
-        </div>
 
         <div id="rekap-panel" class="tab-content">
             <div class="form-section-title"><i class="fas fa-print"></i> Pemrosesan Rekap & Raport Bulanan</div>
@@ -647,8 +648,13 @@
                 </div>
             </div>
 
-       <div class="box-tombol-container">
-    <button type="button" id="btnProsesRekap" class="btn-simpan-final">
+      <div class="box-tombol-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%;">
+    
+    <button type="button" class="btn-prev" onclick="prevTab()" style="background-color: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 800; font-size: 16px; text-transform: uppercase; min-height: 54px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
+        <i class="fas fa-arrow-left"></i> SEBELUMNYA
+    </button>
+
+    <button type="button" id="btnProsesRekap" class="btn-simpan-final" style="margin: 0 !important; width: 100% !important;">
         <i class="fas fa-sync-alt fa-spin-hover"></i> GENERATE LAPORAN BULANAN
     </button>
 </div>
@@ -839,6 +845,16 @@
     window.selectCustomOption = selectCustomOption;
     window.selectFilterOption = selectFilterOption;
     window.openTab = openTab;
+
+    // Fungsi untuk mundur ke Tab Sebelumnya
+function prevTab() {
+    const activeLink = document.querySelector('.tab-link.active');
+    const prevLink = activeLink.previousElementSibling;
+    if (prevLink && prevLink.classList.contains('tab-link')) {
+        prevLink.click();
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Otomatis scroll ke atas tab baru
+    }
+}
 </script>
 
 <script type="module">
@@ -1320,6 +1336,16 @@
 
     window.fungsiSinkronisasiDashboard = fungsiSinkronisasiDashboard;
     document.getElementById('dash-search-nama').addEventListener('input', fungsiSinkronisasiDashboard);
+
+    // Fungsi untuk maju ke Tab Selanjutnya
+function nextTab() {
+    const activeLink = document.querySelector('.tab-link.active');
+    const nextLink = activeLink.nextElementSibling;
+    if (nextLink && nextLink.classList.contains('tab-link')) {
+        nextLink.click();
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Otomatis scroll ke atas tab baru
+    }
+}
 </script>
 
 </body>
