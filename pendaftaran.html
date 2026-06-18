@@ -1439,23 +1439,18 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                         Saya Menyetujui Seluruh Pernyataan di Atas
                     </label>
                 </div>
-
-             <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-    
-    <button type="button" id="btn-global-prev" class="btn-prev" onclick="navigasiMundur()">
+                </div>
+            </div>
+               <div class="button-group" style="display: flex; flex-direction: column; gap: 10px; margin-top: 0px;">
+    <button type="button" id="btn-global-prev" class="btn-prev" onclick="navigasiMundur()" style="display: none;">
         <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
     </button>
-
-    <button type="button" onclick="prosesSimpanFinal()" class="btn-simpan-final">
-        <i class="fas fa-save fa-lg"></i> Simpan
+    
+    <button type="button" id="btn-global-main" class="btn-next" onclick="handleMainAction()">
+        Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
     </button>
-
 </div>
-                
-                </div>
-            </div> 
-        </div> 
-       
+        </div>
    </form>
 </div> 
 
@@ -2272,24 +2267,37 @@ function dapatkanTabAktif() {
     return currentTab ? currentTab.id : 'info';
 }
 
+// Mengatur tampilan tombol
 function perbaruiTombolNavigasi(currentId) {
     const btnPrev = document.getElementById('btn-global-prev');
-    const btnNext = document.getElementById('btn-global-next');
-    
-    if (!btnPrev || !btnNext) return;
+    const btnMain = document.getElementById('btn-global-main');
 
-    if (currentId === 'info') {
-        btnPrev.style.display = 'none';
-    } else {
-        btnPrev.style.display = 'flex';
-    }
+    // Tombol Kembali: Sembunyikan di tab awal, muncul di tab selanjutnya
+    btnPrev.style.display = (currentId === 'info' || currentId === 'santri') ? 'none' : 'flex';
 
+    // Tombol Utama: Ubah label saat di tab terakhir
     if (currentId === 'pernyataan') {
-        btnNext.style.display = 'none';
+        btnMain.innerHTML = '<i class="fas fa-save fa-lg"></i> Simpan';
+        btnMain.className = 'btn-simpan-final'; // CSS khusus simpan (misal warna hijau)
     } else {
-        btnNext.style.display = 'flex';
+        btnMain.innerHTML = 'Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>';
+        btnMain.className = 'btn-next'; // CSS standar
     }
 }
+
+// Menentukan aksi tombol utama
+function handleMainAction() {
+    const currentId = dapatkanTabAktif();
+    
+    if (currentId === 'pernyataan') {
+        // Jalankan proses simpan dan kirim WA di sini
+        prosesSimpanFinal(); 
+    } else {
+        // Jalankan navigasi seperti biasa
+        navigasiMaju();
+    }
+}
+
 
 function navigasiMaju() {
     const currentId = dapatkanTabAktif();
