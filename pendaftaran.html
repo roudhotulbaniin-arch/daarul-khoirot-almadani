@@ -186,7 +186,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         }
         .input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 1.1rem; }
         .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.95rem; color: #333; }
-
+      
         input[readonly], select:disabled { background-color: #f8f9fa !important; cursor: not-allowed; opacity: 0.7; }
 
         .form-grid, 
@@ -1160,18 +1160,18 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 
             <div id="alamat" class="tab-content">
                 <div class="form-section-title"><i class="fas fa-male"></i> Data Ayah</div>
-                <div class="form-grid" name="milik_ayah">
+                <div class="form-grid">
                      <div class="form-group">
                             <label>Status Kepemilikan Rumah<span style="color: red;">*</span></label>
                             <div class="input-ikon"><i class="fas fa-house-user"></i>
-                                <select name="milik_ayah>
-                                    <option value="">-- Pilih --</option>
-                                    <option>Milik Sendiri</option>
-                                    <option>Rumah Orangtua</option>
-                                    <option>Rumah Saudara</option>
-                                    <option>Sewa/Kontrak</option>
-                                    <option>Lainnya</option>
-                                </select>
+                            <select name="milik_ayah" id="milik_ayah">
+    <option value="">-- Pilih --</option>
+    <option value="Milik Sendiri">Milik Sendiri</option>
+    <option value="Rumah Orangtua">Rumah Orangtua</option>
+    <option value="Rumah Saudara">Rumah Saudara</option>
+    <option value="Sewa/Kontrak">Sewa/Kontrak</option>
+    <option value="Lainnya">Lainnya</option>
+</select>
                             </div>
                         </div>
                     <div class="form-group">
@@ -1440,25 +1440,22 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     </label>
                 </div>
 
-                <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <button type="button" onclick="prosesSimpanFinal()" class="btn-simpan-final">
-                        <i class="fas fa-save fa-lg"></i> Simpan
-                    </button>
-                    <button type="button" onclick="kirimWA()" class="btn-wa-konfirmasi">
-                        <i class="fab fa-whatsapp fa-lg"></i> Konfirmasi
-                    </button>
+             <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+    
+    <button type="button" id="btn-global-prev" class="btn-prev" onclick="navigasiMundur()">
+        <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
+    </button>
+
+    <button type="button" onclick="prosesSimpanFinal()" class="btn-simpan-final">
+        <i class="fas fa-save fa-lg"></i> Simpan
+    </button>
+
+</div>
+                
                 </div>
             </div> 
         </div> 
        
-        <div class="button-group">
-            <button type="button" id="btn-global-prev" class="btn-prev" onclick="navigasiMundur()" style="display: none;">
-                <i class="fas fa-chevron-circle-left fa-lg"></i> Kembali
-            </button>
-            <button type="button" id="btn-global-next" class="btn-next" onclick="navigasiMaju()">
-                Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>
-            </button>
-        </div>
    </form>
 </div> 
 
@@ -1466,7 +1463,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     <div class="f-title">Lembaga Pendidikan DAARUL KHOIROT ALMADANI</div>
     <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
     <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-    <div class="f-copy">© 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    <div class="f-copy">© 2025 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
 </footer> 
 
 <audio id="clickSound" src="click_sound.mp3"></audio>
@@ -1598,7 +1595,8 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
                     location.reload();
                 });
             }
-        } catch (error) {
+        } 
+catch (error) {
             console.error("Firebase Error:", error);
             Swal.fire('Gagal Simpan ke Firebase!', error.message, 'error');
         }
@@ -1984,13 +1982,27 @@ function validateInput(tabId) {
     };
 
     const check = (name, label) => {
-        const el = document.getElementsByName(name)[0] || document.getElementById(name);
-        if (!el || !el.value.trim() || el.value.includes("-- Pilih") || el.value === "provinces_init_val") {
-            showWarningAlert(`Field <b>${label}</b> wajib diisi!`);
-            return false;
-        }
-        return true;
-    };
+    const el = document.getElementsByName(name)[0] || document.getElementById(name);
+    
+    if (!el) {
+        console.error(`Elemen '${name}' tidak ditemukan!`);
+        return false;
+    }
+
+    // Ambil nilai
+    const val = el.value ? el.value.trim() : "";
+
+    // Logika yang lebih aman:
+    // 1. Cek apakah kosong
+    // 2. Cek apakah masih nilai default "-- Pilih"
+    if (val === "" || val.includes("-- Pilih")) {
+        showWarningAlert(`Field <b>${label}</b> wajib diisi dengan benar!`);
+        return false;
+    }
+    
+    return true;
+};
+
 
     if (tabId === 'info') {
         return true; // Tab Info tidak memiliki validasi form inputan khusus
@@ -2434,7 +2446,6 @@ window.toggleHP = toggleHP;
 window.toggleDomisiliIbu = toggleDomisiliIbu;
 window.toggleDomisiliSantri = toggleDomisiliSantri;
 window.prosesSimpanFinal = prosesSimpanFinal;
-
 
 
 </script>
