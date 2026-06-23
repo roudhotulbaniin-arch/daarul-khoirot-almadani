@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
     <style>
         /* ==========================================================================
@@ -210,11 +216,35 @@
 .button-group { width: 100%; display: flex; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
 
 /* Rekap Card */
-.rekap-card-info { background: #fff; border: 1.5px solid #eee; border-radius: 12px; padding: 25px; margin-top: 25px; width: 100%; }
-.rekap-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
-.rekap-table th, .rekap-table td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
-.rekap-table th { background-color: #f8f9fa; color: var(--dark-green); font-weight: 700; }
-.sub-judul-rekap { font-size: 1rem; font-weight: 700; color: var(--primary-color); margin-top: 25px; border-bottom: 2px solid #eee; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.rekap-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    overflow: hidden;
+}
+
+.rekap-table th,
+.rekap-table td {
+    border: 1px solid #d6d6d6;
+    padding: 12px 8px;
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 14px;
+}
+
+.rekap-table th {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.rekap-table td {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.sub-judul-rekap { font-size: 0.85rem; font-weight: 700; color: var(--primary-color); margin-top: 25px; border-bottom: 2px solid #eee; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 
 footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; text-align: center; width: 100%; margin-top: auto; box-sizing: border-box; }
 .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
@@ -294,7 +324,43 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
             min-height: 50px !important;
             font-size: 16px !important;
         }
-    }
+        
+/* Container pembungkus - Hanya untuk tabel */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Scroll hanya muncul jika isi tabel lebih lebar dari layar */
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Tabel */
+.rekap-table {
+    width: 100%; /* Atau gunakan 'min-width: 500px' jika ingin selalu scroll */
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: auto; /* Menyesuaikan lebar konten */
+}
+
+.rekap-table th, .rekap-table td {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    white-space: nowrap; /* Teks tidak akan turun baris, memaksa lebar kolom */
+    text-align: center;
+}
+
+.rekap-table th {
+    background-color: #1a5d1a;
+    color: white;
+}
+
+/* Pengaturan lebar kolom agar tidak berantakan */
+.rekap-table th:nth-child(1) { width: 15%; } /* Tanggal */
+.rekap-table th:nth-child(2) { width: 30%; } /* Nama */
+.rekap-table th:nth-child(3) { width: 25%; } /* Surah & Ayat */
+.rekap-table th:nth-child(4) { width: 10%; } /* Sesi */
+.rekap-table th:nth-child(5) { width: 20%; } /* Predikat */
 
     /* CSS Umum Tombol (Desktop & HP) */
     .bottom-actions, .box-tombol-container-grid {
@@ -334,6 +400,140 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
         font-weight: 800;
         min-height: 54px;
     }
+    
+    @media print {
+    .no-print { display: none !important; }
+    .area-laporan { display: block !important; }
+    body { margin: 0; padding: 20px; }
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-cetak-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 16px 20px;
+
+    background: linear-gradient(135deg, #0f7a2d, #14532d);
+    color: white;
+
+    border: none;
+    border-radius: 14px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+    transition: all 0.3s ease;
+}
+
+.btn-cetak-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+.btn-cetak-box:active {
+    transform: scale(0.98);
+}
+
+.btn-cetak-box i {
+    font-size: 18px;
+}
+
+.catatan-card,
+.motivasi-card {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.catatan-card {
+    background: #fffef7;
+    border-left: 5px solid #d97706;
+}
+
+.motivasi-card {
+    background: #f0fff4;
+    border-left: 5px solid #16a34a;
+}
+
+.catatan-header {
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-color);
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.catatan-content {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+    min-height: 60px;
+    white-space: pre-line;
+}
+
+.wa-float {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: transparent !important; 
+                color: var(--whatsapp-green) !important; 
+                width: auto;
+                height: auto;
+                border-radius: 0;
+                box-shadow: none !important; 
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                animation: wa-pulse-only-icon 2s infinite ease-in-out;
+            }
+
+            .wa-float span { display: none; }
+            .wa-float i { font-size: 55px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
+        }
+
+        @keyframes wa-pulse-only-icon {
+            0% { transform: scale(1); }
+            70% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+           
+        }
+
+@media print {
+    /* Sembunyikan elemen yang tidak perlu saat cetak */
+    .btn-cetak, .btn-generate, .sidebar, .header-dashboard {
+        display: none !important;
+    }
+    
+    /* Pastikan box laporan muncul penuh saat dicetak */
+    #boxLaporanRekap {
+        display: block !important;
+        width: 100% !important;
+    }
+}
+
 </style>
 
 </head>
@@ -412,6 +612,14 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
                     </div>
                     
                     <div class="form-group">
+    <label>TINGKAT / UNIT</label>
+    <div class="input-ikon">
+        <i class="fas fa-layer-group"></i>
+        <input type="text" id="tingkat_unit" placeholder="Otomatis terisi..." readonly>
+    </div>
+</div>
+                        
+                    <div class="form-group">
                         <label>TANGGAL SETORAN</label>
                         <div class="input-ikon">
                             <i class="fas fa-calendar-alt"></i>
@@ -419,13 +627,15 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
                         </div>
                     </div>
                 </div>
+                
         <div class="form-grid">
     <div class="form-group">
         <label>NAMA SURAH / KITAB</label>
         <div class="dropdown-wrapper-custom">
             <div class="input-ikon select-custom-trigger" id="boxSurah" onclick="toggleCustomSelect(this)">
                 <i class="fas fa-book-open"></i>
-                <input type="text" id="surah" placeholder="Pilih Surah..." readonly required>
+        <input type="text" id="searchSurahInput" placeholder="Cari / pilih surah..." autocomplete="off">
+<input type="hidden" id="surah">
             </div>
             <div id="menuSurahDropdown" class="dropdown-menu-custom">
                 </div>
@@ -459,6 +669,24 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
     </div>
 </div>
 
+<div class="form-section-title"><i class="fas fa-history"></i> Detail Capaian Hafalan</div>
+<div class="form-grid-2">
+    <div class="form-group">
+        <label>AKUMULASI HAFALAN</label>
+        <div class="input-ikon">
+            <i class="fas fa-calculator"></i>
+            <input type="text" id="inAkumulasi" placeholder="Otomatis terisi..." readonly>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>SETORAN BULAN INI (Lembar, Halaman, Baris)</label>
+        <div class="input-ikon">
+            <i class="fas fa-book-reader"></i>
+              <input type="text" id="inSetoran" placeholder="Otomatis terisi..." readonly>
+        </div>
+    </div>
+</div>
 
                 <div class="form-group" style="background:#f8f9fa; padding:15px; border-radius:8px; border:1px solid #ddd; margin: 10px 0;">
                     <label style="margin:0; cursor:pointer; display:flex; align-items:center; gap:10px;">
@@ -515,45 +743,38 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
                 <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tajwid')">A (Sangat Memahami)</div>
                 <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tajwid')">B (Memahami)</div>
                 <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tajwid')">C (Cukup Memahami)</div>
+                 <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai_tajwid')">D (Belum Memahami)</div>
             </div>
         </div>
+    </div>
+</div>              
+           
+<div class="form-group">
+    <label>CATATAN USTADZ</label>
+    <div class="input-ikon">
+        <i class="fas fa-sticky-note"></i>
+        <textarea id="catatan" placeholder="Tulis catatan perkembangan santri..."></textarea>
     </div>
 </div>
 
-<div class="form-grid-2" style="margin-top: 15px;">
-    <div class="form-group">
-        <label>PREDIKAT UTAMA (RAPORT)</label>
-        <div class="dropdown-wrapper-custom">
-            <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
-                <i class="fas fa-award"></i>
-                <input type="text" id="nilai" value="" placeholder="-- Pilih Nilai --" readonly required>
-            </div>
-            <div class="dropdown-menu-custom">
-                <div class="dropdown-item-custom" style="color: #94a3b8;" onclick="selectCustomOption(this, 'nilai')">-- Pilih Nilai --</div>
-                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai')">A (Mumtaz)</div>
-                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai')">B (Jayyid Jiddan)</div>
-                <div class="dropdown-item-custom" onclick="selectCustomOption(this, 'nilai')">C (Jayyid)</div>
-            </div>
-        </div>
+<div class="form-group">
+    <label>MOTIVASI USTADZ</label>
+    <div class="input-ikon">
+        <i class="fas fa-heart"></i>
+        <textarea id="motivasi" placeholder="Tulis motivasi ustadz..."></textarea>
     </div>
 </div>
                     
-                    <div class="form-group">
-                        <label>CATATAN & MOTIVASI USTADZ</label>
-                        <div class="input-ikon">
-                            <i class="fas fa-sticky-note"></i>
-                            <textarea id="catatan" placeholder="Tulis catatan perkembangan santri..."></textarea>
-                        </div>
-                    </div>
                          <div class="bottom-actions">
                         <a href="pendidikan.html" class="btn-kembali">
                             <i class="fas fa-chevron-circle-left fa-lg"></i> KEMBALI 
                         </a>
                 
 <div class="bottom-action">
-    <button type="submit" id="btnSimpan" class="btn-simpan-final">
+      <button type="button" id="btnSimpan" class="btn-simpan-final" onclick="document.getElementById('form-hafalan').requestSubmit()">
         <i class="fas fa-save"></i> SIMPAN DATA
     </button>
+
 </div>
     
             </form>
@@ -607,49 +828,115 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
         <i class="fas fa-chevron-circle-left fa-lg "></i> SEBELUMNYA
     </button>
 
-    <button type="button" id="btnProsesRekap" class="btn-simpan-final">
-        <i class="fas fa-sync-alt fa-spin-hover"></i> GENERATE LAPORAN BULANAN
-    </button>
+ <button type="button" id="btnProsesRekap" class="btn-simpan-final"
+    onclick="generateLaporan()">
+    <i class="fas fa-sync-alt fa-spin-hover"></i> GENERATE LAPORAN BULANAN
+</button>
 </div>
 
-            <div class="rekap-card-info" id="boxLaporanRekap" style="display: none;">
+   <div class="rekap-card-info" id="boxLaporanRekap" data-id="area-laporan" style="display: none;">
                 <div style="text-align: center; margin-bottom: 20px; border-bottom: 3px double var(--primary-color); padding-bottom: 15px;">
+                    <h3 style="color:var(--dark-green); letter-spacing: 0.5px;">LEMBAGA PENDIDIKAN ISLAM DAARUL KHOIROT ALMADANI</h3>
                     <h3 style="color:var(--dark-green); letter-spacing: 0.5px;">LAPORAN BULANAN PERKEMBANGAN HAFALAN</h3>
                     <p id="txtPeriodeLaporan" style="font-weight:700; margin-top: 5px; color: #555;">Periode: -</p>
                 </div>
                 <div class="form-grid-2" style="font-size:0.95rem; line-height:1.8; margin-bottom: 20px;">
                     <div><strong>Nama Lengkap Santri :</strong> <span id="lblNama" style="color:var(--primary-color); font-weight:700; border-bottom: 1px dashed #ccc;">-</span></div>
-                    <div><strong>Kelas / Unit Pendidikan :</strong> <span id="lblKelasUnit" style="font-weight: 600;">-</span></div>
+                    <div><strong>Unit Pendidikan/Kelas :</strong> <span id="lblKelasUnit" style="font-weight: 600;">-</span></div>
                 </div>
 
                 <div class="sub-judul-rekap"><i class="fas fa-book-open"></i> Rincian Capaian Materi Hafalan</div>
+                 <div class="table-wrapper">
                 <table class="rekap-table">
                     <thead><tr><th style="width: 30%;">KATEGORI LAPORAN</th><th>MATERI SURAH & RINCIAN AYAT</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>Hafalan Lampau</strong></td><td id="cellHafalanLama">-</td></tr>
-                        <tr><td><strong>Hafalan Baru (Bulan Ini)</strong></td><td id="cellHafalanBaru">-</td></tr>
-                        <tr><td><strong>Akumulasi Materi Akhir</strong></td><td id="cellHafalanTerakhir" style="font-weight:700; background-color:#fffdeb;">-</td></tr>
-                    </tbody>
+                  <tbody>
+    <tr>
+        <td><strong>Hafalan Lampau</strong></td>
+        <td id="cellHafalanLama" style="font-weight:700; background-color:#fffdeb;">-</td>
+    </tr>
+    <tr>
+        <td><strong>Hafalan Baru (Bulan Ini)</strong></td>
+        <td id="cellHafalanBaru" style="font-weight:700; background-color:#fffdeb;">-</td>
+    </tr>
+    <tr>
+        <td><strong>Akumulasi Materi Akhir</strong></td>
+        <td id="cellHafalanTerakhir" style="font-weight:700; background-color:#fffdeb;">-</td>
+    </tr>
+</tbody>
                 </table>
-
+                </div>
                 <div class="sub-judul-rekap"><i class="fas fa-star"></i> Kualitas Indikator Capaian Nilai (Modus)</div>
-                <table class="rekap-table" style="text-align:center;">
-                    <thead>
-                        <tr><th>KELANCARAN</th><th>TAHSIN MAKHRAJ</th><th>HUKUM TAJWID</th><th style="background:#e2f0d9;">PREDIKAT UTAMA</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr style="font-weight:700;"><td id="avgKelancaran">-</td><td id="avgTahsin">-</td><td id="avgTajwid">-</td><td id="avgTotal" style="background:#e2f0d9; color:var(--primary-color);">-</td></tr>
-                    </tbody>
-                </table>
-                
+                                    <div class="table-wrapper">
+               <table class="rekap-table" style="text-align:center;">
+    <thead>
+        <tr>
+            <th>KELANCARAN</th>
+            <th>TAHSIN MAKHRAJ</th>
+            <th>HUKUM TAJWID</th>
+            <th>PREDIKAT UTAMA</th>
+        </tr>
+    </thead>
+    <tbody>
+    </div>
+    
+       <tr style="font-weight:700;">
+    <td id="avgKelancaranGabungan">-</td>
+    <td id="avgTahsinGabungan">-</td>
+    <td id="avgTajwidGabungan">-</td>
+    <td id="avgTotalGabungan">-</td>
+</tr>
+    </tbody>
+</table>
+</div>
+<div style="
+    margin-top:10px;
+    background:#e2f0d9;
+    padding:12px;
+    border-radius:8px;
+    text-align:center;
+    font-size:0.95rem;
+">
+    <div>
+        Nilai Angka:
+        <strong id="avgTotalAngka" style="color:var(--primary-color);">-</strong>
+    </div>
+    <div>
+        Predikat:
+        <strong id="avgTotalHuruf" style="color:var(--primary-color);">-</strong>
+    </div>
+</div>
+</div>
+
+  <div class="sub-judul-rekap">
+    <i class="fas fa-comment-dots"></i> Catatan & Motivasi Ustadz
+</div>
+
+<div class="catatan-card">
+    <div class="catatan-header">
+        <i class="fas fa-sticky-note"></i> CATATAN USTADZ
+    </div>
+    <div id="cellCatatanUstadz" class="catatan-content">-</div>
+</div>
+
+<div class="motivasi-card">
+    <div class="catatan-header">
+        <i class="fas fa-heart"></i> MOTIVASI USTADZ
+    </div>
+    <div id="cellMotivasiUstadz" class="catatan-content">-</div>
+</div>
+
                 <div class="sub-judul-rekap"><i class="fas fa-chart-line"></i> Kuantitas Intensitas Keaktifan</div>
                 <div class="form-grid-2" style="margin-top:15px; text-align:center;">
                     <div style="background:#f8f9fa; padding:15px; border:1px solid #cbd5e1; border-radius:8px;">Total Setoran Bulanan:<br><strong id="txtTotalSetoran" style="color:var(--primary-color);">0 Kali</strong></div>
                     <div style="background:#f8f9fa; padding:15px; border:1px solid #cbd5e1; border-radius:8px;">Kelulusan Sesi Tasmi':<br><strong id="txtTotalTasmi" style="color:#b45309;">0 Sesi</strong></div>
                 </div>
-                <div class="button-group no-print">
-                    <button type="button" onclick="window.print()" class="btn-wa-konfirmasi"><i class="fas fa-print"></i> CETAK / SIMPAN RAPORT PDF</button>
-                </div>
+  <div class="button-group no-print">
+    <button type="button" onclick="printLaporan()" class="btn-cetak-box">
+        <i class="fas fa-print"></i>
+        SIMPAN/CETAK RAPORT
+    </button>
+</div>
+</div>
             </div>
         </div>
 
@@ -683,28 +970,53 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
                 </div>
             </div>
 
-            <div style="overflow-x: auto; background: #fff; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
-                    <thead>
+ <div class="table-wrapper">
+    <table class="rekap-table">
+         <thead>
                         <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
-                            <th style="padding: 12px; font-weight: bold;">Tanggal</th>
-                            <th style="padding: 12px; font-weight: bold;">Nama Santri</th>
-                            <th style="padding: 12px; font-weight: bold;">Surah & Ayat</th>
-                            <th style="padding: 12px; font-weight: bold;">Sesi</th>
-                            <th style="padding: 12px; font-weight: bold;">Predikat</th>
-                        </tr>
+    <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Tanggal</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Nama Santri</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Unit/Kelas</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Hafalan Lama</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Hafalan Baru</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Akumulasi</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Kualitas</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Setoran</th>
+                <th style="padding: 12px; border: 1px solid #e2e8f0; text-align: center; white-space: nowrap;">Tasmi</th>
+                                     
+    </tr>
                     </thead>
                     <tbody id="dash-tabel-body">
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 30px; color: #64748b;">
+                            <td colspan="9" style="text-align: center; padding: 30px; color: #64748b;">
                                 <i class="fas fa-spinner fa-spin"></i> Menghubungkan basis data rekap cloud...
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
+ <div class="action-bar" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px; display:flex; flex-direction:column; gap:10px;">
 
+    <button type="button" id="btnResetData" class="btn-simpan-final" 
+        style="width:100%; background: #ef4444 !important; padding:12px; border-radius:6px; font-weight:bold;">
+        <i class="fas fa-trash-alt"></i> RESET SEMUA DATA SETORAN
+    </button>
+    
+<div style="display: flex; gap: 10px; margin-top: 10px;">
+    <button type="button" onclick="exportToWord()" 
+        style="flex: 1; background:#0288d1; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold;">
+        <i class="fas fa-file-word"></i> WORD
+    </button>
+
+   <button type="button" onclick="exportToPdf()" 
+        style="flex: 1; background:#d32f2f; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold;">
+        <i class="fas fa-file-pdf"></i> PDF
+    </button>
+</div>
+
+</div>
+
+        </div>
     </div> 
 </div> 
 
@@ -716,587 +1028,1187 @@ footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; te
 </footer>
 
 <script>
-    function toggleCustomSelect(element) {
-        // Ambil elemen menu terkait
-        var menu = element.nextElementSibling;
-        
-        // Sembunyikan semua menu dropdown kustom lain yang sedang aktif di layar
-        document.querySelectorAll('.dropdown-menu-custom').forEach(m => {
-            if (m !== menu) m.style.display = 'none';
-        });
-        
-        // Toggle status display menu saat ini
-        if (menu.style.display === 'block') {
-            menu.style.display = 'none';
-        } else {
-            menu.style.display = 'block';
-        }
+/* ==========================================================================
+   1. FUNGSI LOGIKA REKAPITULASI & UI CONTROLS
+   ========================================================================== */
+
+let totalAyatTerpilih = 0;
+
+/**
+ * Menghitung akumulasi ayat berdasarkan input mulai dan selesai
+ */
+function hitungAkumulasi() {
+    const mulai = parseInt(document.getElementById('ayat_mulai')?.value) || 0;
+    const selesai = parseInt(document.getElementById('ayat_selesai')?.value) || 0;
+
+    totalAyatTerpilih = (mulai > 0 && selesai >= mulai) ? (selesai - mulai + 1) : 0;
+
+    const elAkumulasi = document.getElementById('inAkumulasi');
+    const elSetoran = document.getElementById('inSetoran');
+
+    if (elAkumulasi) elAkumulasi.value = `${totalAyatTerpilih} Ayat`;
+    if (elSetoran) elSetoran.value = `${totalAyatTerpilih} Ayat`;
+}
+
+/**
+ * Menyiapkan data sebelum dikirim ke Firestore
+ */
+async function prosesDataSetoran() {
+    const nama = getVal('searchSantriInput');
+    let totalSetoran = 0;
+
+    try {
+        totalSetoran = await hitungSetoranBulanIni(nama);
+    } catch (err) {
+        console.error("Error hitung setoran:", err);
     }
 
-    function selectCustomOption(optionElement, targetInputId) {
-        var text = optionElement.textContent;
-        var inputField = document.getElementById(targetInputId);
-        inputField.value = text;
-        
-        // Sembunyikan kembali panel popup setelah dipilih
-        optionElement.parentElement.style.display = 'none';
-    }
+    // Update UI
+    const elSetoran = document.getElementById('inSetoran');
+    if (elSetoran) elSetoran.value = totalSetoran > 0 ? `${totalSetoran}x` : "0x";
 
-    function selectFilterOption(optionElement, targetInputId, dataValue) {
-        var text = optionElement.textContent;
-        var inputField = document.getElementById(targetInputId);
-        inputField.value = text;
-        inputField.setAttribute('data-value', dataValue); // Simpan kode asli bulan/tahun untuk firebase
-        
-        optionElement.parentElement.style.display = 'none';
-        
-        // Jalankan sinkronisasi ulang live dashboard secara otomatis jika sedang berada di tab admin
-        if(typeof window.fungsiSinkronisasiDashboard === 'function') {
-            window.fungsiSinkronisasiDashboard();
-        }
-    }
+    const ayatMulai = Number(getVal('ayat_mulai')) || 0;
+    const ayatSelesai = Number(getVal('ayat_selesai')) || 0;
+    const totalAyat = (ayatSelesai >= ayatMulai) ? (ayatSelesai - ayatMulai + 1) : 0;
 
-    // Event listener global untuk mendeteksi klik di luar area agar dropdown tertutup otomatis
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown-wrapper-custom') && !e.target.closest('.select-custom-trigger')) {
-            document.querySelectorAll('.dropdown-menu-custom').forEach(menu => {
-                menu.style.display = 'none';
-            });
+    const elAkumulasi = document.getElementById('inAkumulasi');
+    if (elAkumulasi) elAkumulasi.value = `${totalAyat} Ayat`;
+
+    return {
+        nama_santri: nama,
+        total_setoran: totalSetoran,
+        akumulasi_hafalan: `${totalAyat} Ayat`,
+        nilai_total: hitungRataNilai(getVal('nilai_kelancaran'), getVal('nilai_tahsin'), getVal('nilai_tajwid'))
+    };
+}
+
+async function hitungSetoranBulanIni(namaSantri) {
+    if (!namaSantri) return 0;
+    const namaClean = namaSantri.trim().toUpperCase();
+    const snapshot = await getDocs(
+        query(collection(window.db, "setoran_hafalan"), where("nama_santri", "==", namaClean))
+    );
+    console.log("MATCH DOC:", snapshot.size);
+    return snapshot.size;
+}
+
+/**
+ * Generate rekap data santri untuk laporan
+ */
+function generateRekapSantri(data, targetBulan, targetTahun, keyword = '') {
+    const grup = {};
+    data.forEach(d => {
+        const [thn, bln] = (d.tanggal_input || '').split('-');
+        if (thn !== targetTahun || bln !== targetBulan) return;
+
+        const nama = d.nama_santri || '';
+        if (keyword && !nama.toLowerCase().includes(keyword.toLowerCase())) return;
+
+        if (!grup[nama]) {
+            grup[nama] = {
+                nama, unit: d.unit || '-', kelas: d.kelas || '-',
+                juz: new Set(), surah: new Set(),
+                totalAyat: 0, totalSetoran: 0, nilai: [], tasmi: false
+            };
         }
+        grup[nama].juz.add(d.juz);
+        grup[nama].surah.add(d.nama_surah);
+        grup[nama].totalAyat += ((Number(d.ayat_selesai) || 0) - (Number(d.ayat_mulai) || 0) + 1);
+        grup[nama].totalSetoran++;
+        if (d.keterangan_nilai) grup[nama].nilai.push(d.keterangan_nilai);
+        if (d.is_tasmi === true) grup[nama].tasmi = true;
     });
 
-    function openTab(evt, tabId) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) { 
-            tabcontent[i].classList.remove("active"); 
-        }
-        tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) { 
-            tablinks[i].classList.remove("active"); 
-        }
-        
-        document.getElementById(tabId).classList.add("active");
-        if (evt) { evt.currentTarget.classList.add("active"); }
+    return Object.values(grup).map(s => ({
+        nama: s.nama,
+        unitKelas: `${s.unit} / ${s.kelas}`,
+        hafalanLama: `${s.juz.size} juz, ${s.surah.size} surat`,
+        hafalanBaru: [...s.surah].join(', '),
+        nilai: s.nilai[0] || '-',
+        setoran: `${s.totalSetoran}x, ${s.totalAyat} ayat`,
+        tasmi: s.tasmi ? 'Sudah' : 'Belum'
+    }));
+}
 
-        if (tabId === 'dashboard-panel' && typeof window.fungsiSinkronisasiDashboard === 'function') {
-            window.fungsiSinkronisasiDashboard();
-        }
+/* ==========================================================================
+   2. DOM MANIPULATION & UI HELPERS
+   ========================================================================== */
+
+function toggleCustomSelect(element) {
+    const menu = element.nextElementSibling;
+    document.querySelectorAll('.dropdown-menu-custom').forEach(m => {
+        if (m !== menu) m.style.display = 'none';
+    });
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+
+function selectCustomOption(optionElement, targetInputId) {
+    document.getElementById(targetInputId).value = optionElement.textContent;
+    optionElement.parentElement.style.display = 'none';
+}
+
+function selectFilterOption(optionElement, targetInputId, dataValue) {
+    const inputField = document.getElementById(targetInputId);
+    inputField.value = optionElement.textContent;
+    inputField.setAttribute('data-value', dataValue);
+    optionElement.parentElement.style.display = 'none';
+    if (typeof window.fungsiSinkronisasiDashboard === 'function') window.fungsiSinkronisasiDashboard();
+}
+
+// Global click listener untuk menutup dropdown
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-wrapper-custom') && !e.target.closest('.select-custom-trigger')) {
+        document.querySelectorAll('.dropdown-menu-custom').forEach(m => m.style.display = 'none');
     }
+});
 
-    document.getElementById('menu-toggle').addEventListener('click', function() {
-        document.getElementById('main-nav').classList.toggle('show');
-        document.getElementById('menu-overlay').classList.toggle('show');
-    });
-    document.getElementById('menu-overlay').addEventListener('click', function() {
-        document.getElementById('main-nav').classList.remove('show');
-        this.classList.remove('show');
-    });
-
-    window.toggleCustomSelect = toggleCustomSelect;
-    window.selectCustomOption = selectCustomOption;
-    window.selectFilterOption = selectFilterOption;
-    window.openTab = openTab;
+function openTab(evt, tabId) {
+    document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".tab-link").forEach(el => el.classList.remove("active"));
     
-     // Fungsi untuk mundur ke Tab Sebelumnya
+    document.getElementById(tabId).classList.add("active");
+    if (evt) evt.currentTarget.classList.add("active");
+
+    if (tabId === 'dashboard-panel' && typeof window.fungsiSinkronisasiDashboard === 'function') {
+        window.fungsiSinkronisasiDashboard();
+    }
+}
 
 function prevTab() {
-
     const activeLink = document.querySelector('.tab-link.active');
-
-    const prevLink = activeLink.previousElementSibling;
-
-    if (prevLink && prevLink.classList.contains('tab-link')) {
-
+    const prevLink = activeLink?.previousElementSibling;
+    if (prevLink?.classList.contains('tab-link')) {
         prevLink.click();
-
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Otomatis scroll ke atas tab baru
-
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
 }
+
+// Event Listeners Navigasi
+document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.getElementById('main-nav').classList.toggle('show');
+    document.getElementById('menu-overlay').classList.toggle('show');
+});
+
+document.getElementById('menu-overlay')?.addEventListener('click', function() {
+    document.getElementById('main-nav').classList.remove('show');
+    this.classList.remove('show');
+});
+
+// Ekspos ke window
+window.toggleCustomSelect = toggleCustomSelect;
+window.selectCustomOption = selectCustomOption;
+window.selectFilterOption = selectFilterOption;
+window.openTab = openTab;
+window.prevTab = prevTab;
+
 </script>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+/* ==========================================================================
+   2. INISIALISASI FIREBASE & CONFIGURATION
+   ========================================================================== */
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
-        authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
-        projectId: "daarul-khoirot-pendaftaran",
-        storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
-        messagingSenderId: "963910462284",
-        appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
-    };
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+import { 
+    getFirestore, collection, getDocs, addDoc, doc, 
+    query, where, serverTimestamp, deleteDoc 
+} from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+const firebaseConfig = {
+    apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
+    authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
+    projectId: "daarul-khoirot-pendaftaran",
+    storageBucket: "daarul-khoirot-pendaftaran.appspot.com",
+    messagingSenderId: "963910462284",
+    appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
+};
 
-    // DOM Elements - Santri
-    const inputSantriReal = document.getElementById('santri'); 
-    const searchSantriInput = document.getElementById('searchSantriInput');
-    const menuSantriDropdown = document.getElementById('menuSantriDropdown');
+// Inisialisasi Firebase App & Firestore
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Ekspos ke global window untuk memudahkan akses di fungsi lain
+window.db = db;
+window.query = query;
+window.where = where;
+window.collection = collection;
+window.getDocs = getDocs;
+
+/**
+ * Memuat history terakhir santri berdasarkan nama
+ */
+window.muatHistorySantri = async function(namaSantri) {
+    try {
+        const q = query(collection(db, "setoran_hafalan"), where("nama_santri", "==", namaSantri));
+        const snap = await getDocs(q);
+
+        if (typeof window.hitungTotalHafalan === "function" && typeof window.formatCapRinci === "function") {
+            window.dataHistoryTerakhir = window.formatCapRinci(window.hitungTotalHafalan(snap));
+        } else {
+            window.dataHistoryTerakhir = "-";
+        }
+    } catch (error) {
+        console.error("Gagal memuat history santri:", error);
+        window.dataHistoryTerakhir = "-";
+    }
+};
+
+/**
+ * Menghitung total setoran bulan ini untuk santri tertentu
+ */
+async function hitungJumlahSetoran(namaSantri) {
+    if (!namaSantri) return 0;
     
-    const boxNamaSantri = document.getElementById('boxNamaSantri');
-    const boxSurah = document.getElementById('boxSurah');
-    const boxDariAyat = document.getElementById('boxDariAyat');
-    const boxSampaiAyat = document.getElementById('boxSampaiAyat');
+    const now = new Date();
+    const bulanSekarang = now.getMonth() + 1;
+    const tahunSekarang = now.getFullYear();
 
-    // DOM Elements - Quran Dropdown
-    const inputSurah = document.getElementById('surah');
-    const menuSurahDropdown = document.getElementById('menuSurahDropdown');
-    const inputAyatMulai = document.getElementById('ayat_mulai');
-    const menuAyatMulaiDropdown = document.getElementById('menuAyatMulaiDropdown');
-    const inputAyatSelesai = document.getElementById('ayat_selesai');
-    const menuAyatSelesaiDropdown = document.getElementById('menuAyatSelesaiDropdown');
+    const q = query(collection(db, "setoran_hafalan"), where("nama_santri", "==", namaSantri));
+    const snapshot = await getDocs(q);
 
-    let listSemuaSantri = [];
+    let totalSetoran = 0;
+    snapshot.forEach(doc => {
+        const data = doc.data();
+        // Pastikan field bulan/tahun tersimpan sebagai angka atau string yang bisa dibandingkan
+        if (Number(data.bulan) === bulanSekarang && Number(data.tahun) === tahunSekarang) {
+            totalSetoran++;
+        }
+    });
 
-    // ==========================================================================
-    // DATA MASTER 114 SURAH AL-QUR'AN (Nama & Jumlah Ayat)
-    // ==========================================================================
-    const dataSurahQuran = [
-        { no: 1, nama: "Al-Fatihah", ayat: 7 }, { no: 2, nama: "Al-Baqarah", ayat: 286 }, { no: 3, nama: "Ali 'Imran", ayat: 200 },
-        { no: 4, nama: "An-Nisa'", ayat: 176 }, { no: 5, nama: "Al-Ma'idah", ayat: 120 }, { no: 6, nama: "Al-An'am", ayat: 165 },
-        { no: 7, nama: "Al-A'raf", ayat: 206 }, { no: 8, nama: "Al-Anfal", ayat: 75 }, { no: 9, nama: "At-Taubah", ayat: 129 },
-        { no: 10, nama: "Yunus", ayat: 109 }, { no: 11, nama: "Hud", ayat: 123 }, { no: 12, nama: "Yusuf", ayat: 111 },
-        { no: 13, nama: "Ar-Ra'd", ayat: 43 }, { no: 14, nama: "Ibrahim", ayat: 52 }, { no: 15, nama: "Al-Hijr", ayat: 99 },
-        { no: 16, nama: "An-Nahl", ayat: 128 }, { no: 17, nama: "Al-Isra'", ayat: 111 }, { no: 18, nama: "Al-Kahf", ayat: 110 },
-        { no: 19, nama: "Maryam", ayat: 98 }, { no: 20, nama: "Taha", ayat: 135 }, { no: 21, nama: "Al-Anbiya'", ayat: 112 },
-        { no: 22, nama: "Al-Hajj", ayat: 78 }, { no: 23, nama: "Al-Mu'minun", ayat: 118 }, { no: 24, nama: "An-Nur", ayat: 64 },
-        { no: 25, nama: "Al-Furqan", ayat: 77 }, { no: 26, nama: "Asy-Syu'ara'", ayat: 227 }, { no: 27, nama: "An-Naml", ayat: 93 },
-        { no: 28, nama: "Al-Qasas", ayat: 88 }, { no: 29, nama: "Al-'Ankabut", ayat: 69 }, { no: 30, nama: "Ar-Rum", ayat: 60 },
-        { no: 31, nama: "Luqman", ayat: 34 }, { no: 32, nama: "As-Sajdah", ayat: 30 }, { no: 33, nama: "Al-Ahzab", ayat: 73 },
-        { no: 34, nama: "Saba'", ayat: 54 }, { no: 35, nama: "Fatir", ayat: 45 }, { no: 36, nama: "Yasin", ayat: 83 },
-        { no: 37, nama: "As-Saffat", ayat: 182 }, { no: 38, nama: "Sad", ayat: 88 }, { no: 39, nama: "Az-Zumar", ayat: 75 },
-        { no: 40, nama: "Ghafir", ayat: 85 }, { no: 41, nama: "Fussilat", ayat: 54 }, { no: 42, nama: "Asy-Syura", ayat: 53 },
-        { no: 43, nama: "Az-Zukhruf", ayat: 89 }, { no: 44, nama: "Ad-Dukhan", ayat: 59 }, { no: 45, nama: "Al-Jasiyah", ayat: 37 },
-        { no: 46, nama: "Al-Ahqaf", ayat: 35 }, { no: 47, nama: "Muhammad", ayat: 38 }, { no: 48, nama: "Al-Fath", ayat: 29 },
-        { no: 49, nama: "Al-Hujurat", ayat: 18 }, { no: 50, nama: "Qaf", ayat: 45 }, { no: 51, nama: "Az-Zariyat", ayat: 60 },
-        { no: 52, nama: "At-Tur", ayat: 49 }, { no: 53, nama: "An-Najm", ayat: 62 }, { no: 54, nama: "Al-Qamar", ayat: 55 },
-        { no: 55, nama: "Ar-Rahman", ayat: 78 }, { no: 56, nama: "Al-Waqi'ah", ayat: 96 }, { no: 57, nama: "Al-Hadid", ayat: 29 },
-        { no: 58, nama: "Al-Mujadilah", ayat: 22 }, { no: 59, nama: "Al-Hasyr", ayat: 24 }, { no: 60, nama: "Al-Mumtahanah", ayat: 13 },
-        { no: 61, nama: "As-Saff", ayat: 14 }, { no: 62, nama: "Al-Jumu'ah", ayat: 11 }, { no: 63, nama: "Al-Munafiqun", ayat: 11 },
-        { no: 64, nama: "At-Taghabun", ayat: 18 }, { no: 65, nama: "At-Talaq", ayat: 12 }, { no: 66, nama: "At-Tahrim", ayat: 12 },
-        { no: 67, nama: "Al-Mulk", ayat: 30 }, { no: 68, nama: "Al-Qalam", ayat: 52 }, { no: 69, nama: "Al-Haqqah", ayat: 52 },
-        { no: 70, nama: "Al-Ma'arij", ayat: 44 }, { no: 71, nama: "Nuh", ayat: 28 }, { no: 72, nama: "Al-Jinn", ayat: 28 },
-        { no: 73, nama: "Al-Muzzammil", ayat: 20 }, { no: 74, nama: "Al-Muddassir", ayat: 56 }, { no: 75, nama: "Al-Qiyamah", ayat: 40 },
-        { no: 76, nama: "Al-Insan", ayat: 31 }, { no: 77, nama: "Al-Mursalat", ayat: 50 }, { no: 78, nama: "An-Naba'", ayat: 40 },
-        { no: 79, nama: "An-Nazi'at", ayat: 46 }, { no: 80, nama: "'Abasa", ayat: 42 }, { no: 81, nama: "At-Takwir", ayat: 29 },
-        { no: 82, nama: "Al-Infitar", ayat: 19 }, { no: 83, nama: "Al-Mutaffifin", ayat: 36 }, { no: 84, nama: "Al-Insyiqaq", ayat: 25 },
-        { no: 85, nama: "Al-Buruj", ayat: 22 }, { no: 86, nama: "At-Tariq", ayat: 17 }, { no: 87, nama: "Al-A'la", ayat: 19 },
-        { no: 88, nama: "Al-Ghasyiyah", ayat: 26 }, { no: 89, nama: "Al-Fajr", ayat: 30 }, { no: 90, nama: "Al-Balad", ayat: 20 },
-        { no: 91, nama: "Asy-Syams", ayat: 15 }, { no: 92, nama: "Al-Lail", ayat: 21 }, { no: 93, nama: "Ad-Duha", ayat: 11 },
-        { no: 94, nama: "Al-Insyirah", ayat: 8 }, { no: 95, nama: "At-Tin", ayat: 8 }, { no: 96, nama: "Al-'Alaq", ayat: 19 },
-        { no: 97, nama: "Al-Qadr", ayat: 5 }, { no: 98, nama: "Al-Bayyinah", ayat: 8 }, { no: 99, nama: "Az-Zalzalah", ayat: 8 },
-        { no: 100, nama: "Al-'Adiyat", ayat: 11 }, { no: 101, nama: "Al-Qari'ah", ayat: 11 }, { no: 102, nama: "At-Takasur", ayat: 8 },
-        { no: 103, nama: "Al-'Asr", ayat: 3 }, { no: 104, nama: "Al-Humazah", ayat: 9 }, { no: 105, nama: "Al-Fil", ayat: 5 },
-        { no: 106, nama: "Quraisy", ayat: 4 }, { no: 107, nama: "Al-Ma'un", ayat: 7 }, { no: 108, nama: "Al-Kausar", ayat: 3 },
-        { no: 109, nama: "Al-Kafirun", ayat: 6 }, { no: 110, nama: "An-Nasr", ayat: 3 }, { no: 111, nama: "Al-Lahab", ayat: 5 },
-        { no: 112, nama: "Al-Ikhlas", ayat: 4 }, { no: 113, nama: "Al-Falaq", ayat: 5 }, { no: 114, nama: "An-Nas", ayat: 6 }
-    ];
+    return totalSetoran;
+}
 
-    // Set default value form berbasis objek tanggal sistem
-    const infoHariIni = new Date();
-    document.getElementById('tanggal').valueAsDate = infoHariIni;
-    
-    // Set teks bulan kustom default
-    const namaBulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-    const inputBulan = document.getElementById('filter-bulan');
-    const inputTahun = document.getElementById('filter-tahun');
-    
+/* ==========================================================================
+   3. INISIALISASI VARIABEL DAN ELEMEN DOM
+   ========================================================================== */
+
+// --- Global State ---
+
+let listSantri = [];
+window.kumpulanDataDashboard = [];
+window.filteredDataLaporan = [];
+
+// --- Form Elements (Cache DOM) ---
+const form = document.getElementById("form-hafalan");
+
+// Santri
+const inputSantriReal = document.getElementById('santri');
+const searchSantriInput = document.getElementById('searchSantriInput');
+const menuSantriDropdown = document.getElementById('menuSantriDropdown');
+
+// Surah
+const inputSurah = document.getElementById('surah');
+const searchSurahInput = document.getElementById('searchSurahInput');
+const menuSurahDropdown = document.getElementById('menuSurahDropdown');
+
+// Ayat
+const inputAyatMulai = document.getElementById('ayat_mulai');
+const menuAyatMulaiDropdown = document.getElementById('menuAyatMulaiDropdown');
+const inputAyatSelesai = document.getElementById('ayat_selesai');
+const menuAyatSelesaiDropdown = document.getElementById('menuAyatSelesaiDropdown');
+
+/**
+ * Catatan:
+ * Jika Anda sering menambah/mengurangi elemen di HTML, pastikan ID di atas 
+ * sesuai dengan ID di file .html Anda agar tidak menghasilkan error 
+ * 'null' saat akses properti.
+ */
+
+/* ==========================================================================
+   4. LOGIKA DATA SANTRI
+   ========================================================================== */
+/* ==========================================================================
+   GLOBAL STATE (WAJIB DI ATAS)
+   ========================================================================== */
+let listSemuaSantri = [];
+let selectedSantri = null;
+
+/* ==========================================================================
+   INIT DATA SANTRI
+   ========================================================================== */
+async function initOtomatisDataSantri() {
+    try {
+        const snap = await getDocs(collection(db, "pendaftaran_santri"));
+
+        listSemuaSantri = [];
+
+        snap.forEach(doc => {
+            const data = doc.data();
+
+            if (data.nama_santri) {
+                listSemuaSantri.push({
+                    nama: data.nama_santri.trim(),
+                    tingkat_unit: data.tingkat_unit || '-'
+                });
+            }
+        });
+
+        renderDropdownList(listSemuaSantri);
+
+    } catch (e) {
+        console.error(e);
+        menuSantriDropdown.innerHTML =
+            '<div class="dropdown-item-custom" style="color:red;">Gagal memuat database santri!</div>';
+    }
+}
+
+/* ==========================================================================
+   DROPDOWN SANTRI (VERSI STABIL)
+   ========================================================================== */
+function renderDropdownList(arr) {
+    menuSantriDropdown.innerHTML = '';
+
+    if (arr.length === 0) {
+        menuSantriDropdown.innerHTML =
+            '<div class="dropdown-item-custom" style="color:#777;">Nama tidak ditemukan...</div>';
+        return;
+    }
+
+    arr.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'dropdown-item-custom';
+
+        div.textContent = `${item.nama.toUpperCase()} (${item.tingkat_unit})`;
+
+        div.addEventListener('click', () => {
+
+            selectedSantri = {
+                nama: item.nama.toUpperCase(),
+                kelas: item.tingkat_unit
+            };
+
+            searchSantriInput.value = item.nama.toUpperCase();
+            inputSantriReal.value = item.nama.toUpperCase();
+
+            document.getElementById('tingkat_unit').value = item.tingkat_unit;
+
+            menuSantriDropdown.style.display = 'none';
+
+            console.log("SELECTED:", selectedSantri);
+        });
+
+        menuSantriDropdown.appendChild(div);
+    });
+}
+
+/* ==========================================================================
+   EVENT INPUT (FIX TOTAL)
+   ========================================================================== */
+
+// Fokus → buka dropdown
+searchSantriInput.addEventListener('focus', () => {
+    menuSantriDropdown.style.display = 'block';
+    renderDropdownList(listSemuaSantri);
+});
+
+// Ketik → reset state + filter
+searchSantriInput.addEventListener('input', (e) => {
+
+    selectedSantri = null; // WAJIB RESET
+
+    const keyword = e.target.value.toLowerCase();
+
+    const hasilFilter = listSemuaSantri.filter(s =>
+        s.nama.toLowerCase().includes(keyword)
+    );
+
+    renderDropdownList(hasilFilter);
+});
+
+// Klik luar → tutup dropdown
+document.addEventListener('click', (e) => {
+    if (!menuSantriDropdown.contains(e.target) && e.target !== searchSantriInput) {
+        menuSantriDropdown.style.display = 'none';
+    }
+});
+
+/* ==========================================================================
+   VALIDASI HELPER (PAKAI DI SEMUA TEMPAT)
+   ========================================================================== */
+function getSantriTerpilih() {
+    if (!selectedSantri || !selectedSantri.nama) {
+        const MySwal = window.Swal || Swal;
+
+        MySwal.fire({
+            icon: 'warning',
+            title: 'Pilih Santri Dulu',
+            text: 'Wajib pilih dari dropdown, tidak boleh ketik manual.',
+            confirmButtonColor: '#1a5d1a'
+        });
+
+        return null;
+    }
+
+    return selectedSantri;
+}
+
+/* ==========================================================================
+   INIT
+   ========================================================================== */
+initOtomatisDataSantri();
+
+/* ==========================================================================
+   5. DATA MASTER DAN LOGIKA AL-QUR'AN
+   ========================================================================== */
+
+const dataSurahQuran = [
+    { no: 1, nama: "Al-Fatihah", ayat: 7 }, { no: 2, nama: "Al-Baqarah", ayat: 286 }, { no: 3, nama: "Ali 'Imran", ayat: 200 },
+    { no: 4, nama: "An-Nisa'", ayat: 176 }, { no: 5, nama: "Al-Ma'idah", ayat: 120 }, { no: 6, nama: "Al-An'am", ayat: 165 },
+    { no: 7, nama: "Al-A'raf", ayat: 206 }, { no: 8, nama: "Al-Anfal", ayat: 75 }, { no: 9, nama: "At-Taubah", ayat: 129 },
+    { no: 10, nama: "Yunus", ayat: 109 }, { no: 11, nama: "Hud", ayat: 123 }, { no: 12, nama: "Yusuf", ayat: 111 },
+    { no: 13, nama: "Ar-Ra'd", ayat: 43 }, { no: 14, nama: "Ibrahim", ayat: 52 }, { no: 15, nama: "Al-Hijr", ayat: 99 },
+    { no: 16, nama: "An-Nahl", ayat: 128 }, { no: 17, nama: "Al-Isra'", ayat: 111 }, { no: 18, nama: "Al-Kahf", ayat: 110 },
+    { no: 19, nama: "Maryam", ayat: 98 }, { no: 20, nama: "Taha", ayat: 135 }, { no: 21, nama: "Al-Anbiya'", ayat: 112 },
+    { no: 22, nama: "Al-Hajj", ayat: 78 }, { no: 23, nama: "Al-Mu'minun", ayat: 118 }, { no: 24, nama: "An-Nur", ayat: 64 },
+    { no: 25, nama: "Al-Furqan", ayat: 77 }, { no: 26, nama: "Asy-Syu'ara'", ayat: 227 }, { no: 27, nama: "An-Naml", ayat: 93 },
+    { no: 28, nama: "Al-Qasas", ayat: 88 }, { no: 29, nama: "Al-'Ankabut", ayat: 69 }, { no: 30, nama: "Ar-Rum", ayat: 60 },
+    { no: 31, nama: "Luqman", ayat: 34 }, { no: 32, nama: "As-Sajdah", ayat: 30 }, { no: 33, nama: "Al-Ahzab", ayat: 73 },
+    { no: 34, nama: "Saba'", ayat: 54 }, { no: 35, nama: "Fatir", ayat: 45 }, { no: 36, nama: "Yasin", ayat: 83 },
+    { no: 37, nama: "As-Saffat", ayat: 182 }, { no: 38, nama: "Sad", ayat: 88 }, { no: 39, nama: "Az-Zumar", ayat: 75 },
+    { no: 40, nama: "Ghafir", ayat: 85 }, { no: 41, nama: "Fussilat", ayat: 54 }, { no: 42, nama: "Asy-Syura", ayat: 53 },
+    { no: 43, nama: "Az-Zukhruf", ayat: 89 }, { no: 44, nama: "Ad-Dukhan", ayat: 59 }, { no: 45, nama: "Al-Jasiyah", ayat: 37 },
+    { no: 46, nama: "Al-Ahqaf", ayat: 35 }, { no: 47, nama: "Muhammad", ayat: 38 }, { no: 48, nama: "Al-Fath", ayat: 29 },
+    { no: 49, nama: "Al-Hujurat", ayat: 18 }, { no: 50, nama: "Qaf", ayat: 45 }, { no: 51, nama: "Az-Zariyat", ayat: 60 },
+    { no: 52, nama: "At-Tur", ayat: 49 }, { no: 53, nama: "An-Najm", ayat: 62 }, { no: 54, nama: "Al-Qamar", ayat: 55 },
+    { no: 55, nama: "Ar-Rahman", ayat: 78 }, { no: 56, nama: "Al-Waqi'ah", ayat: 96 }, { no: 57, nama: "Al-Hadid", ayat: 29 },
+    { no: 58, nama: "Al-Mujadilah", ayat: 22 }, { no: 59, nama: "Al-Hasyr", ayat: 24 }, { no: 60, nama: "Al-Mumtahanah", ayat: 13 },
+    { no: 61, nama: "As-Saff", ayat: 14 }, { no: 62, nama: "Al-Jumu'ah", ayat: 11 }, { no: 63, nama: "Al-Munafiqun", ayat: 11 },
+    { no: 64, nama: "At-Taghabun", ayat: 18 }, { no: 65, nama: "At-Talaq", ayat: 12 }, { no: 66, nama: "At-Tahrim", ayat: 12 },
+    { no: 67, nama: "Al-Mulk", ayat: 30 }, { no: 68, nama: "Al-Qalam", ayat: 52 }, { no: 69, nama: "Al-Haqqah", ayat: 52 },
+    { no: 70, nama: "Al-Ma'arij", ayat: 44 }, { no: 71, nama: "Nuh", ayat: 28 }, { no: 72, nama: "Al-Jinn", ayat: 28 },
+    { no: 73, nama: "Al-Muzzammil", ayat: 20 }, { no: 74, nama: "Al-Muddassir", ayat: 56 }, { no: 75, nama: "Al-Qiyamah", ayat: 40 },
+    { no: 76, nama: "Al-Insan", ayat: 31 }, { no: 77, nama: "Al-Mursalat", ayat: 50 }, { no: 78, nama: "An-Naba'", ayat: 40 },
+    { no: 79, nama: "An-Nazi'at", ayat: 46 }, { no: 80, nama: "'Abasa", ayat: 42 }, { no: 81, nama: "At-Takwir", ayat: 29 },
+    { no: 82, nama: "Al-Infitar", ayat: 19 }, { no: 83, nama: "Al-Mutaffifin", ayat: 36 }, { no: 84, nama: "Al-Insyiqaq", ayat: 25 },
+    { no: 85, nama: "Al-Buruj", ayat: 22 }, { no: 86, nama: "At-Tariq", ayat: 17 }, { no: 87, nama: "Al-A'la", ayat: 19 },
+    { no: 88, nama: "Al-Ghasyiyah", ayat: 26 }, { no: 89, nama: "Al-Fajr", ayat: 30 }, { no: 90, nama: "Al-Balad", ayat: 20 },
+    { no: 91, nama: "Asy-Syams", ayat: 15 }, { no: 92, nama: "Al-Lail", ayat: 21 }, { no: 93, nama: "Ad-Duha", ayat: 11 },
+    { no: 94, nama: "Al-Insyirah", ayat: 8 }, { no: 95, nama: "At-Tin", ayat: 8 }, { no: 96, nama: "Al-'Alaq", ayat: 19 },
+    { no: 97, nama: "Al-Qadr", ayat: 5 }, { no: 98, nama: "Al-Bayyinah", ayat: 8 }, { no: 99, nama: "Az-Zalzalah", ayat: 8 },
+    { no: 100, nama: "Al-'Adiyat", ayat: 11 }, { no: 101, nama: "Al-Qari'ah", ayat: 11 }, { no: 102, nama: "At-Takasur", ayat: 8 },
+    { no: 103, nama: "Al-'Asr", ayat: 3 }, { no: 104, nama: "Al-Humazah", ayat: 9 }, { no: 105, nama: "Al-Fil", ayat: 5 },
+    { no: 106, nama: "Quraisy", ayat: 4 }, { no: 107, nama: "Al-Ma'un", ayat: 7 }, { no: 108, nama: "Al-Kausar", ayat: 3 },
+    { no: 109, nama: "Al-Kafirun", ayat: 6 }, { no: 110, nama: "An-Nasr", ayat: 3 }, { no: 111, nama: "Al-Lahab", ayat: 5 },
+    { no: 112, nama: "Al-Ikhlas", ayat: 4 }, { no: 113, nama: "Al-Falaq", ayat: 5 }, { no: 114, nama: "An-Nas", ayat: 6 }
+];
+
+let selectedSurah = null;
+
+// --- Setup Default ---
+const infoHariIni = new Date();
+const elTanggal = document.getElementById('tanggal');
+
+// FIX: Pastikan kita mengecek apakah elTanggal ada sebelum mengakses properti
+if (elTanggal) {
+    elTanggal.valueAsDate = infoHariIni;
+}
+
+const namaBulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+const inputBulan = document.getElementById('filter-bulan');
+const inputTahun = document.getElementById('filter-tahun');
+
+if (inputBulan && inputTahun) {
     inputBulan.value = namaBulanIndo[infoHariIni.getMonth()];
     inputBulan.setAttribute('data-value', String(infoHariIni.getMonth() + 1).padStart(2, '0'));
     inputTahun.value = String(infoHariIni.getFullYear());
     inputTahun.setAttribute('data-value', String(infoHariIni.getFullYear()));
+}
 
-    // ==========================================================================
-    // LOGIKA DROPDOWN INTEGRASI AL-QUR'AN
-    // ==========================================================================
-    function initDropdownSurah() {
-        if (!menuSurahDropdown) return;
-        menuSurahDropdown.innerHTML = '';
-        dataSurahQuran.forEach(item => {
+// --- Fungsi Logic ---
+
+function initDropdownSurah(keyword = '') {
+    // FIX: Pastikan menuSurahDropdown ada
+    const menuSurahDropdown = document.getElementById('menuSurahDropdown');
+    if (!menuSurahDropdown) return;
+    
+    menuSurahDropdown.innerHTML = '';
+
+    dataSurahQuran
+        .filter(item => item.nama.toLowerCase().includes(keyword.toLowerCase()))
+        .forEach(item => {
             const div = document.createElement('div');
             div.className = 'dropdown-item-custom';
             div.textContent = `${item.no}. ${item.nama} (${item.ayat} Ayat)`;
             
             div.addEventListener('click', () => {
-                inputSurah.value = item.nama;
+                selectedSurah = item;
+                
+                // Pastikan elemen input ada sebelum diisi
+                if (searchSurahInput) searchSurahInput.value = item.nama;
+                if (inputSurah) inputSurah.value = item.nama;
                 menuSurahDropdown.style.display = 'none';
                 
-                // Reset input ayat sebelumnya saat ganti surah
-                inputAyatMulai.value = '';
-                inputAyatSelesai.value = '';
+                const elAkum = document.getElementById('inAkumulasi');
+                if (elAkum) elAkum.value = '0 Ayat';
                 
-                // Render list ayat dinamis sesuai jumlah ayat surah terpilih
                 updateDropdownAyat(item.ayat);
             });
             menuSurahDropdown.appendChild(div);
         });
-    }
+}
 
-    function updateDropdownAyat(totalAyat) {
-        if (!menuAyatMulaiDropdown || !menuAyatSelesaiDropdown) return;
-        menuAyatMulaiDropdown.innerHTML = '';
-        menuAyatSelesaiDropdown.innerHTML = '';
-
-        for (let i = 1; i <= totalAyat; i++) {
-            // Dropdown Item Ayat Mulai
-            const divMulai = document.createElement('div');
-            divMulai.className = 'dropdown-item-custom';
-            divMulai.textContent = `Ayat ${i}`;
-            divMulai.addEventListener('click', () => {
-                inputAyatMulai.value = i;
-                menuAyatMulaiDropdown.style.display = 'none';
-                
-                // Reset ayat selesai jika batas minimum ayat mulai melampauinya
-                if (parseInt(inputAyatSelesai.value) < i) {
-                    inputAyatSelesai.value = '';
-                }
-            });
-            menuAyatMulaiDropdown.appendChild(divMulai);
-
-            // Dropdown Item Ayat Selesai
-            const divSelesai = document.createElement('div');
-            divSelesai.className = 'dropdown-item-custom';
-            divSelesai.textContent = `Ayat ${i}`;
-            divSelesai.addEventListener('click', () => {
-                const valMulai = parseInt(inputAyatMulai.value) || 1;
-                if (i < valMulai) {
-                    window.Swal.fire({
-                        icon: 'warning',
-                        title: 'Validasi Ayat',
-                        text: `Maaf ustadz, ayat selesai tidak boleh lebih kecil dari Ayat Mulai (${valMulai})`,
-                        confirmButtonColor: '#1a5d1a'
-                    });
-                    return;
-                }
-                inputAyatSelesai.value = i;
-                menuAyatSelesaiDropdown.style.display = 'none';
-            });
-            menuAyatSelesaiDropdown.appendChild(divSelesai);
-        }
-    }
-
-    // Inisialisasi daftar surah saat modul dimuat
-    initDropdownSurah();
-
-    // ==========================================================================
-    // LOGIKA AUTO-COMPLETE DATA SANTRI FROM FIREBASE
-    // ==========================================================================
-    async function initOtomatisDataSantri() {
-        try {
-            const snap = await getDocs(collection(db, "pendaftaran_santri"));
-            listSemuaSantri = [];
-            snap.forEach(doc => {
-                const data = doc.data();
-                if(data.nama_santri) {
-                    listSemuaSantri.push({
-                        nama: data.nama_santri,
-                        kelas: data.kelas || '-',
-                        unit: data.unit || '-'
-                    });
-                }
-            });
-            renderDropdownList(listSemuaSantri);
-        } catch(e) {
-            console.error(e);
-            menuSantriDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:red;">Gagal memuat database santri!</div>';
-        }
-    }
-
-    function renderDropdownList(arr) {
-        menuSantriDropdown.innerHTML = '';
-        if(arr.length === 0) {
-            menuSantriDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:#777;">Nama tidak ditemukan...</div>';
-            return;
-        }
-        arr.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'dropdown-item-custom';
-            div.setAttribute('data-kelas', item.kelas);
-            div.setAttribute('data-unit', item.unit);
-            div.textContent = item.nama.toUpperCase() + ` (${item.kelas} / ${item.unit})`;
-            
-            div.addEventListener('click', () => {
-                searchSantriInput.value = item.nama.toUpperCase();
-                inputSantriReal.value = item.nama; 
-                
-                document.querySelectorAll('#menuSantriDropdown .dropdown-item-custom').forEach(i => i.classList.remove('selected'));
-                div.classList.add('selected');
-                menuSantriDropdown.style.display = 'none';
-            });
-            menuSantriDropdown.appendChild(div);
-        });
-    }
-
-    searchSantriInput.addEventListener('focus', () => { 
-        menuSantriDropdown.style.display = 'block'; 
-        renderDropdownList(listSemuaSantri);
-    });
+function updateDropdownAyat(totalAyat) {
+    const menuAyatMulaiDropdown = document.getElementById('menuAyatMulaiDropdown');
+    const menuAyatSelesaiDropdown = document.getElementById('menuAyatSelesaiDropdown');
     
-    searchSantriInput.addEventListener('input', (e) => {
-        const keyword = e.target.value.toLowerCase();
-        const hasilFilter = listSemuaSantri.filter(s => s.nama.toLowerCase().includes(keyword));
-        renderDropdownList(hasilFilter);
-    });
+    if (!menuAyatMulaiDropdown || !menuAyatSelesaiDropdown) return;
+    
+    menuAyatMulaiDropdown.innerHTML = '';
+    menuAyatSelesaiDropdown.innerHTML = '';
 
-    initOtomatisDataSantri();
+    for (let i = 1; i <= totalAyat; i++) {
+        // Ayat Mulai
+        const divMulai = document.createElement('div');
+        divMulai.className = 'dropdown-item-custom';
+        divMulai.textContent = `Ayat ${i}`;
+        divMulai.addEventListener('click', () => {
+            if (inputAyatMulai) inputAyatMulai.value = i;
+            menuAyatMulaiDropdown.style.display = 'none';
+            if (typeof hitungAkumulasi === 'function') hitungAkumulasi();
+        });
+        menuAyatMulaiDropdown.appendChild(divMulai);
 
-    // ==========================================================================
-    // HANDLER SIMPAN DATA HAFALAN
-    // ==========================================================================
-    document.getElementById('form-hafalan').addEventListener('submit', async (e) => {
+        // Ayat Selesai
+        const divSelesai = document.createElement('div');
+        divSelesai.className = 'dropdown-item-custom';
+        divSelesai.textContent = `Ayat ${i}`;
+        divSelesai.addEventListener('click', () => {
+            const valMulai = parseInt(inputAyatMulai?.value) || 1;
+            if (i >= valMulai) {
+                if (inputAyatSelesai) inputAyatSelesai.value = i;
+                menuAyatSelesaiDropdown.style.display = 'none';
+                if (typeof hitungAkumulasi === 'function') hitungAkumulasi();
+            }
+        });
+        menuAyatSelesaiDropdown.appendChild(divSelesai);
+    }
+}
+
+// Event Listeners dengan pengecekan null
+searchSurahInput?.addEventListener('input', function() {
+    initDropdownSurah(this.value);
+    const menu = document.getElementById('menuSurahDropdown');
+    if (menu) menu.style.display = 'block';
+});
+
+initDropdownSurah();
+
+/* ==========================================================================
+   6. LOGIKA FORM DAN SIMPAN DATA
+   ========================================================================== */
+
+// --- HELPER FUNCTIONS ---    
+window.getVal = (id) => document.getElementById(id)?.value || "";
+window.getChecked = (id) => document.getElementById(id)?.checked || false;
+
+window.hitungModus = (array) => {
+    if (!array || array.length === 0) return '-';
+    const frekuensi = {};
+    let maxFrek = 0;
+    let modus = array[0];
+    for (const val of array) {
+        frekuensi[val] = (frekuensi[val] || 0) + 1;
+        if (frekuensi[val] > maxFrek) { maxFrek = frekuensi[val]; modus = val; }
+    }
+    return modus;
+};
+
+window.konversiHurufKeAngka = (nilai) => {
+    if (!nilai) return 0;
+    const map = { 'A': 95, 'B': 85, 'C': 75, 'D': 65 };
+    return map[nilai.charAt(0)] || 0;
+};
+
+window.konversiAngkaKePredikat = (nilai) => {
+    const n = Number(nilai);
+    if (isNaN(n)) return '-';
+    if (n >= 95) return 'A (Mumtaz)';
+    if (n >= 80) return 'B (Jayyid Jiddan)';
+    if (n >= 70) return 'C (Jayyid)';
+    if (n >= 50) return 'D (Maqbul)';
+    return '-';
+};
+
+window.hitungRataNilai = (...nilai) => {
+    const angka = nilai.map(n => window.konversiHurufKeAngka(n)).filter(n => n > 0);
+    if (angka.length === 0) return 0;
+    return (angka.reduce((a, b) => a + b, 0) / angka.length).toFixed(1);
+};
+
+// --- MAIN SUBMIT LOGIC ---
+const formHafalan = document.getElementById('form-hafalan');
+if (formHafalan) {
+    formHafalan.addEventListener('submit', async (e) => {
         e.preventDefault();
         const MySwal = window.Swal || Swal;
 
-        [boxNamaSantri, boxSurah, boxDariAyat, boxSampaiAyat].forEach(box => {
-            if(box) box.classList.remove('input-error', 'input-success');
-        });
+      /* =========================
+   1. VALIDASI (LOGIKA DIPERBAIKI)
+========================= */
 
-        if(!inputSantriReal.value || searchSantriInput.value === '' || !inputSurah.value || !inputAyatMulai.value || !inputAyatSelesai.value) {
-            if((!inputSantriReal.value || searchSantriInput.value === '') && boxNamaSantri) boxNamaSantri.classList.add('input-error');
-            if(!inputSurah.value && boxSurah) boxSurah.classList.add('input-error');
-            if(!inputAyatMulai.value && boxDariAyat) boxDariAyat.classList.add('input-error');
-            if(!inputAyatSelesai.value && boxSampaiAyat) boxSampaiAyat.classList.add('input-error');
+// Kita ambil nilai langsung dari input untuk memastikan data ada
+const namaDariInput = searchSantriInput?.value || '';
+const unitDariInput = document.getElementById('tingkat_unit')?.value || '';
+// Jika selectedSantri null, kita coba sinkronkan dengan apa yang diketik user
+if (!selectedSantri && namaDariInput) {
+    selectedSantri = {
+        nama: namaDariInput,
+        kelas: unitDariInput
+    };
+}
 
-            MySwal.fire({
-                icon: 'error',
-                title: 'Peringatan!',
-                text: 'Mohon maaf ustadz, harap isi semua bidang data setoran yang masih kosong.',
-                confirmButtonText: 'Siap, Perbaiki',
-                confirmButtonColor: '#d33'
-            });
-            return;
-        }
+// Cek ulang setelah sinkronisasi
+if (!selectedSantri) {
+    MySwal.fire({
+        icon: 'warning',
+        title: 'Santri Belum Dipilih',
+        text: 'WAJIB pilih dari dropdown, tidak boleh ketik manual.',
+        confirmButtonColor: '#1a5d1a'
+    });
+    return;
+}
 
-        [boxNamaSantri, boxSurah, boxDariAyat, boxSampaiAyat].forEach(box => {
-            if(box) box.classList.add('input-success');
-        });
+        /* 2. PERSIAPAN DATA */
+        const nama = getVal('searchSantriInput');
+        const totalSetoran = await hitungSetoranBulanIni(nama);
 
-        const btn = document.getElementById('btnSimpan');
-        btn.disabled = true;
+        // Update UI untuk setoran
+        const elSetoran = document.getElementById('inSetoran');
+        if (elSetoran) elSetoran.value = `${Number(totalSetoran) || 0}x`;
 
-        const itemSelected = menuSantriDropdown.querySelector('.dropdown-item-custom.selected');
+        const ayatMulai = Number(getVal('ayat_mulai')) || 0;
+        const ayatSelesai = Number(getVal('ayat_selesai')) || 0;
+        const totalAyat = (ayatSelesai >= ayatMulai) ? (ayatSelesai - ayatMulai + 1) : 0;
 
+        const rataNilai = hitungRataNilai(
+            getVal('nilai_kelancaran'),
+            getVal('nilai_tahsin'),
+            getVal('nilai_tajwid')
+        );
+
+        /* 3. BUNDLE DATA */
         const bundleData = {
-            nama_santri: inputSantriReal.value,
-            kelas: itemSelected ? itemSelected.getAttribute('data-kelas') : '-',
-            unit: itemSelected ? itemSelected.getAttribute('data-unit') : '-',
-            tanggal_input: document.getElementById('tanggal').value,
-            nama_surah: inputSurah.value,
-            ayat_mulai: parseInt(inputAyatMulai.value),
-            ayat_selesai: parseInt(inputAyatSelesai.value),
-            is_tasmi: document.getElementById('is_tasmi').checked,
-            nilai_kelancaran: document.getElementById('nilai_kelancaran').value,
-            nilai_tahsin: document.getElementById('nilai_tahsin').value,
-            nilai_tajwid: document.getElementById('nilai_tajwid').value,
-            keterangan_nilai: document.getElementById('nilai').value,
-            catatan_ustadz: document.getElementById('catatan').value,
-            dibuat_pada: serverTimestamp()
+            nama_santri: nama.trim().toUpperCase(),
+            unit_kelas: getVal('tingkat_unit'),
+            tanggal_input: getVal('tanggal'),
+            hafalan_lama: window.dataHistoryTerakhir || "-",
+            hafalan_baru: `${getVal('searchSurahInput')} [${getVal('ayat_mulai')}-${getVal('ayat_selesai')}]`,
+            akumulasi_hafalan: `${totalAyat} Ayat`,
+            total_setoran: totalSetoran,
+            is_tasmi: getChecked('is_tasmi'),
+            surah: getVal('surah'),
+            surah_label: getVal('searchSurahInput'),
+            ayat_mulai: getVal('ayat_mulai'),
+            ayat_selesai: getVal('ayat_selesai'),
+            nilai: {
+                kelancaran: getVal('nilai_kelancaran'),
+                tahsin: getVal('nilai_tahsin'),
+                tajwid: getVal('nilai_tajwid')
+            },
+            nilai_total: konversiAngkaKePredikat(rataNilai),
+            catatan: getVal('catatan') || "-",
+            motivasi: getVal('motivasi') || "-",
+            created_at: new Date().toISOString(),
+            bulan: new Date().getMonth() + 1,
+            tahun: new Date().getFullYear()
         };
+
+        /* 4. SIMPAN FIRESTORE */
+        const btn = document.getElementById('btnSimpan');
+        if (btn) btn.disabled = true;
 
         try {
             await addDoc(collection(db, "setoran_hafalan"), bundleData);
+            if (typeof window.fungsiSinkronisasiDashboard === 'function') {
+                await window.fungsiSinkronisasiDashboard();
+            }
             MySwal.fire({
-                icon: 'success',
-                title: 'Alhamdulillah',
-                text: 'Data setoran hafalan santri berhasil disimpan ke database.',
-                confirmButtonText: 'Selesai',
-                confirmButtonColor: '#1a5d1a'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('form-hafalan').reset();
-                    searchSantriInput.value = '';
-                    inputSantriReal.value = '';
-                    document.getElementById('tanggal').valueAsDate = new Date();
-                    
-                    // Reset value select tiruan ke opsi default index awal
-                    document.getElementById('nilai_kelancaran').value = "A (Sangat Lancar)";
-                    document.getElementById('nilai_tahsin').value = "A (Sangat Baik)";
-                    document.getElementById('nilai_tajwid').value = "A (Sangat Memahami)";
-                    document.getElementById('nilai').value = "A (Mumtaz)";
-
-                    // Reset teks status awal dropdown ayat
-                    menuAyatMulaiDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:#777;">Pilih surah dahulu...</div>';
-                    menuAyatSelesaiDropdown.innerHTML = '<div class="dropdown-item-custom" style="color:#777;">Pilih surah dahulu...</div>';
-
-                    [boxNamaSantri, boxSurah, boxDariAyat, boxSampaiAyat].forEach(box => {
-                        if(box) box.classList.remove('input-success');
-                    });
-                }
-            });
-        } catch(err) {
-            console.error(err);
-            MySwal.fire({ icon: 'error', title: 'Gagal Menyimpan', text: 'Terjadi gangguan jaringan database cloud.', confirmButtonColor: '#d33' });
-        } finally { 
-            btn.disabled = false; 
-        }
-    });
-
-    // ==========================================================================
-    // HANDLER REKAP INDIVIDU SANTRI (RAPORT BULANAN)
-    // ==========================================================================
-    document.getElementById('btnProsesRekap').addEventListener('click', async () => {
-        const targetNama = inputSantriReal.value;
-        const MySwal = window.Swal || Swal;
-
-        if (!targetNama || searchSantriInput.value === '') {
-            MySwal.fire({ icon: 'warning', title: 'Santri Belum Dipilih', text: 'Silakan pilih nama santri di form input terlebih dahulu.', confirmButtonColor: '#1a5d1a' });
-            return;
-        }
-
-        const bPilihan = document.getElementById('filter-bulan').getAttribute('data-value');
-        const tPilihan = document.getElementById('filter-tahun').getAttribute('data-value');
-        const btn = document.getElementById('btnProsesRekap');
+    icon: 'success',
+    title: 'Alhamdulillah',
+    text: 'Data berhasil disimpan.',
+    showDenyButton: true,
+    confirmButtonText: 'Selesai',
+    denyButtonText: 'Generate Laporan', // Ini tombolnya
+    confirmButtonColor: '#1a5d1a',
+    denyButtonColor: '#2563eb'
+}).then((result) => {
+    if (result.isDenied) {
+        // Logika saat tombol Generate Laporan diklik
+        openTab(null, 'rekap-panel'); // Pindah ke tab rekap
         
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang Memproses Data...';
+        // Panggil fungsi generate laporan Anda
+        if (typeof window.generateLaporan === 'function') {
+            window.generateLaporan();
+            setTimeout(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, 100); 
+    document.getElementById('form-hafalan').reset();
+    selectedSantri = null;
 
-        try {
-            const q = query(collection(db, "setoran_hafalan"), where("nama_santri", "==", targetNama));
-            const snap = await getDocs(q);
-
-            let ini = [], lalu = [];
-            snap.forEach(doc => {
-                const data = doc.data();
-                if(data.tanggal_input) {
-                    const pecah = data.tanggal_input.split('-');
-                    if(pecah[0] === tPilihan && pecah[1] === bPilihan) ini.push(data);
-                    else if(data.tanggal_input < `${tPilihan}-${bPilihan}-01`) lalu.push(data);
-                }
-            });
-
-            ini.sort((a,b) => a.tanggal_input.localeCompare(b.tanggal_input));
-
-            const itemSelected = menuSantriDropdown.querySelector('.dropdown-item-custom.selected');
-            document.getElementById('lblNama').textContent = targetNama.toUpperCase();
-            document.getElementById('lblKelasUnit').textContent = itemSelected ? `${itemSelected.getAttribute('data-kelas')} / ${itemSelected.getAttribute('data-unit')}` : '-';
-            
-            const teksBulan = document.getElementById('filter-bulan').value;
-            document.getElementById('txtPeriodeLaporan').textContent = `Periode Evaluasi: ${teksBulan} ${tPilihan}`;
-
-            if(lalu.length > 0) {
-                let txtLama = lalu.map(s => `${s.nama_surah} (Ayat ${s.ayat_mulai}-${s.ayat_selesai})`);
-                document.getElementById('cellHafalanLama').textContent = [...new Set(txtLama)].join(', ');
-            } else {
-                document.getElementById('cellHafalanLama').textContent = 'Belum memiliki rekam jejak hafalan lampau.';
-            }
-
-            if(ini.length > 0) {
-                let txtBaru = ini.map(s => `${s.nama_surah} [Ayat ${s.ayat_mulai}-${s.ayat_selesai}]`);
-                document.getElementById('cellHafalanBaru').textContent = txtBaru.join(', ');
-                document.getElementById('txtTotalSetoran').textContent = `${ini.length} Kali Aktivitas`;
-                document.getElementById('txtTotalTasmi').textContent = `${ini.filter(s => s.is_tasmi).length} Sesi`;
-
-                const hitungModus = arr => {
-                    const clean = arr.filter(v => v != null && v !== '');
-                    if(clean.length === 0) return '-';
-                    return clean.sort((a,b) => clean.filter(v => v===a).length - clean.filter(v => v===b).length).pop();
-                };
-
-                document.getElementById('avgKelancaran').textContent = hitungModus(ini.map(s => s.nilai_kelancaran));
-                document.getElementById('avgTahsin').textContent = hitungModus(ini.map(s => s.nilai_tahsin));
-                document.getElementById('avgTajwid').textContent = hitungModus(ini.map(s => s.nilai_tajwid));
-                document.getElementById('avgTotal').textContent = hitungModus(ini.map(s => s.keterangan_nilai));
-            } else {
-                document.getElementById('cellHafalanBaru').textContent = 'Tidak tercatat menyetor hafalan baru pada bulan ini.';
-                document.getElementById('txtTotalSetoran').textContent = '0 Kali';
-                document.getElementById('txtTotalTasmi').textContent = '0 Sesi';
-                document.getElementById('avgKelancaran').textContent = '-';
-                document.getElementById('avgTahsin').textContent = '-';
-                document.getElementById('avgTajwid').textContent = '-';
-                document.getElementById('avgTotal').textContent = '-';
-            }
-
-            let gabungSemua = [...lalu, ...ini].map(s => s.nama_surah);
-            document.getElementById('cellHafalanTerakhir').textContent = gabungSemua.length > 0 ? [...new Set(gabungSemua)].join(', ') : '-';
-
-            document.getElementById('boxLaporanRekap').style.display = 'block';
-
-        } catch(err) {
-            console.error(err);
-            MySwal.fire({ icon: 'error', title: 'Gagal Memuat', text: 'Terjadi kesalahan penarikan data.', confirmButtonColor: '#d33' });
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-sync-alt"></i> PROSES & GENERATE LAPORAN BULANAN';
-        }
-    });
-
-    // ==========================================================================
-    // LOGIKA DASHBOARD MONITORING MASTER (LIVE CLOUD)
-    // ==========================================================================
-    async function fungsiSinkronisasiDashboard() {
-        const tbody = document.getElementById('dash-tabel-body');
-        const keyword = document.getElementById('dash-search-nama').value.toLowerCase();
-        const targetBulan = document.getElementById('filter-bulan').getAttribute('data-value');
-        const targetTahun = document.getElementById('filter-tahun').getAttribute('data-value');
-
-        try {
-            const snap = await getDocs(collection(db, "setoran_hafalan"));
-            let kumpulanData = [];
-            snap.forEach(doc => kumpulanData.push(doc.data()));
-            
-            kumpulanData.sort((a,b) => (b.tanggal_input || '').localeCompare(a.tanggal_input || ''));
-            
-            tbody.innerHTML = '';
-            let totalSetoran = 0, totalTasmi = 0, arrayPredikat = [], hitungSantri = {};
-
-            kumpulanData.forEach(data => {
-                const tgl = data.tanggal_input || '';
-                const pecah = tgl.split('-');
-                
-                if(pecah[0] === targetTahun && pecah[1] === targetBulan) {
-                    const nama = data.nama_santri || '';
-                    if(keyword !== '' && !nama.toLowerCase().includes(keyword)) return;
-
-                    totalSetoran++;
-                    if(data.is_tasmi) totalTasmi++;
-                    if(data.keterangan_nilai) arrayPredikat.push(data.keterangan_nilai);
-                    if(nama) hitungSantri[nama] = (hitungSantri[nama] || 0) + 1;
-
-                    const tr = document.createElement('tr');
-                    tr.style.borderBottom = '1px solid #f1f5f9';
-                    const tglIndo = pecah.length === 3 ? `${pecah[2]}/${pecah[1]}/${pecah[0]}` : tgl;
-
-                    tr.innerHTML = `
-                        <td style="padding:10px;">${tglIndo}</td>
-                        <td style="padding:10px; font-weight:bold; color:var(--primary-color);">${nama.toUpperCase()}</td>
-                        <td style="padding:10px;">${data.nama_surah} [Ayat ${data.ayat_mulai}-${data.ayat_selesai}]</td>
-                        <td style="padding:10px;"><span style="font-size:11px; padding:3px 6px; border-radius:4px; color:white; background:${data.is_tasmi ? '#0288d1':'#64748b'};">${data.is_tasmi ? 'TASMI':'REGULER'}</span></td>
-                        <td style="padding:10px; font-weight:bold; color:#e64a19;">${data.keterangan_nilai || '-'}</td>
-                    `;
-                    tbody.appendChild(tr);
-                }
-            });
-
-            document.getElementById('dash-total-setoran').textContent = `${totalSetoran} Kali`;
-            document.getElementById('dash-total-tasmi').textContent = `${totalTasmi} Sesi`;
-            
-            if(arrayPredikat.length > 0) {
-                document.getElementById('dash-modus-nilai').textContent = arrayPredikat.sort((a,b) => arrayPredikat.filter(v => v===a).length - arrayPredikat.filter(v => v===b).length).pop();
-            } else { 
-                document.getElementById('dash-modus-nilai').textContent = '-'; 
-            }
-
-            let teraktif = '-', skor = 0;
-            for (const [n, j] of Object.entries(hitungSantri)) {
-                if (j > skor) { skor = j; teraktif = n.toUpperCase(); }
-            }
-            document.getElementById('dash-santri-aktif').textContent = teraktif !== '-' ? `${teraktif} (${skor}x)` : '-';
-            if(tbody.innerHTML === '') tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">Tidak ada rekapan setoran pada filter bulan ini.</td></tr>';
-
-        } catch(e) {
-            console.error(e);
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red; padding:20px;">Gagal sinkronisasi data cloud.</td></tr>';
+        } else {
+            console.error("Fungsi generateLaporan tidak ditemukan!");
         }
     }
+});
 
-    window.fungsiSinkronisasiDashboard = fungsiSinkronisasiDashboard;
-    document.getElementById('dash-search-nama').addEventListener('input', fungsiSinkronisasiDashboard);
+        } catch (err) {
+            console.error(err);
+            MySwal.fire({ icon: 'error', title: 'Gagal', text: 'Terjadi kesalahan saat menyimpan data.' });
+        } finally {
+            if (btn) btn.disabled = false;
+        }
+    });
+}
+
+
+/* 7. FUNGSI LAPORAN DAN DASHBOARD */
+/**
+ * FUNGSI PEMBANTU (Letakkan di luar generateLaporan)
+ */
+function getTotalAyat(namaSurah, ayat) {
+    let total = 0;
+    // Pastikan dataSurahQuran tersedia secara global
+    if (typeof dataSurahQuran === 'undefined') return ayat; 
+    for (let s of dataSurahQuran) {
+        if (s.nama === namaSurah) { total += Number(ayat); break; }
+        else { total += s.ayat; }
+    }
+    return total;
+}
+
+function formatCapRinci(total) {
+    const ayatPerJuz = 140;
+    const totalJuz = Math.floor(total / ayatPerJuz);
+    const sisaAyat = total % ayatPerJuz;
+    if (total === 0) return "0 Ayat";
+    if (totalJuz === 0) return `${total} Ayat`;
+    let daftarJuz = [];
+    for (let i = 0; i < totalJuz; i++) { daftarJuz.push(30 - i); }
+    return `${totalJuz} Juz: ${daftarJuz.join(', ')}${sisaAyat > 0 ? ` + ${sisaAyat} Ayat` : ''}`;
+}
+
+function nilaiToAngka(label) {
+    if (typeof label !== 'string') return 0;
+    if (label.includes('A')) return 95;
+    if (label.includes('B')) return 80;
+    if (label.includes('C')) return 70;
+    if (label.includes('D')) return 50;
+    return 0;
+}
+
+ /**
+ * FUNGSI UTAMA GENERATE LAPORAN
+ */
+window.generateLaporan = async function () {
+    const tbody = document.getElementById('dash-tabel-body');
+    const container = document.getElementById('boxLaporanRekap');
+    const santri = getSantriTerpilih();
+if (!santri) return;
+
+const targetNama = santri.nama;
+    const MySwal = window.Swal || Swal;
+
+    if (!tbody || !container) {
+        console.error("Elemen container atau tbody tidak ditemukan di DOM.");
+        return;
+    }
+
+    if (!targetNama) {
+        MySwal.fire({ icon: 'warning', title: 'Santri Belum Dipilih', text: 'Silakan pilih nama santri terlebih dahulu.', confirmButtonColor: '#1a5d1a' });
+        return;
+    }
+
+    try {
+        const bPilihan = Number(document.getElementById('filter-bulan')?.getAttribute('data-value') || 0);
+        const tPilihan = Number(document.getElementById('filter-tahun')?.getAttribute('data-value') || 0);
+
+        // Ambil data dari Firestore
+        const q = query(collection(db, "setoran_hafalan"), where("nama_santri", "==", targetNama));
+        const snap = await getDocs(q);
+
+        let sebelum = [];
+        let bulanIni = [];
+
+        snap.forEach(doc => {
+    const data = doc.data();
+    if (!data.tanggal_input) return;
+
+    // Bersihkan string dan ambil komponen tanggal
+    // Kita asumsikan formatnya berisi angka-angka
+    const parts = data.tanggal_input.split(/[-/]/); 
+    
+    // Coba deteksi apakah formatnya YYYY-MM-DD atau DD-MM-YYYY
+    // Jika bagian pertama > 1000, kemungkinan itu TAHUN (YYYY-MM-DD)
+    // Jika bagian terakhir > 1000, kemungkinan itu TAHUN (DD-MM-YYYY)
+    let tahunDB, bulanDB;
+    
+    if (parseInt(parts[0]) > 2000) {
+        tahunDB = parseInt(parts[0]);
+        bulanDB = parseInt(parts[1]);
+    } else {
+        tahunDB = parseInt(parts[2]);
+        bulanDB = parseInt(parts[1]);
+    }
+
+    console.log(`Membandingkan: DB(${tahunDB}-${bulanDB}) vs Filter(${tPilihan}-${bPilihan})`);
+
+    // Lakukan perbandingan
+    if (tahunDB === tPilihan && bulanDB === bPilihan) {
+        bulanIni.push(data);
+    }
+});
+
+        // Urutkan berdasarkan tanggal
+        const sortFn = (a, b) => a.tanggal_input.localeCompare(b.tanggal_input);
+        sebelum.sort(sortFn);
+        bulanIni.sort(sortFn);
+
+   // --- RENDER TABEL ---
+tbody.innerHTML = "";
+bulanIni.forEach(item => {
+    // Pastikan variabel item.surah_label dan lainnya diakses dari objek 'item'
+    const totalAyatSaatIni = typeof getTotalAyat === 'function' ? getTotalAyat(item.surah_label, item.ayat_selesai) : 0;
+    const ayatDisetor = (Number(item.ayat_selesai || 0) - Number(item.ayat_mulai || 0) + 1);
+    
+    tbody.innerHTML += `<tr>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${item.tanggal_input}</td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${item.nama_santri}</td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${item.unit_kelas || '-'}</td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${typeof formatCapRinci === 'function' ? formatCapRinci(totalAyatSaatIni - ayatDisetor) : '-'}</td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${item.surah_label} [${item.ayat_mulai}-${item.ayat_selesai}]</td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;"><strong>${typeof formatCapRinci === 'function' ? formatCapRinci(totalAyatSaatIni) : totalAyatSaatIni}</strong></td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${item.nilai?.kelancaran || '-'}</td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${item.total_setoran || '-'}</td>
+        <td style="padding:12px; border: 1px solid #e2e8f0;">${item.is_tasmi ? 'Sudah' : 'Belum'}</td>
+    </tr>`;
+});
+
+// --- LOGIKA PERHITUNGAN BARU ---
+const totalSetoranBulanIni = bulanIni.length;
+const totalTasmiBulanIni = bulanIni.filter(item => item.is_tasmi === true).length;
+
+// Asumsi ID elemen Anda di HTML adalah 'dash-total-setoran' dan 'dash-total-tasmi'
+// Silakan sesuaikan ID elemen jika berbeda dengan yang ada di file HTML Anda
+const elTotalSetoran = document.getElementById('txtTotalSetoran');
+const elTotalTasmi = document.getElementById('txtTotalTasmi');
+
+if (elTotalSetoran) elTotalSetoran.textContent = `${totalSetoranBulanIni} Kali`;
+if (elTotalTasmi) elTotalTasmi.textContent = `${totalTasmiBulanIni} Sesi`;
+
+// --- LANJUT KE UPDATE RINGKASAN ---
+
+        // --- UPDATE RINGKASAN ---
+        document.getElementById('cellHafalanBaru').textContent = bulanIni.length > 0 ? bulanIni.map(s => `${s.surah_label} [${s.ayat_mulai}-${s.ayat_selesai}]`).join(', ') : '-';
+        document.getElementById('cellHafalanLama').textContent = sebelum.length > 0 ? sebelum.map(s => `${s.surah_label} [${s.ayat_mulai}-${s.ayat_selesai}]`).join(', ') : '-';
+
+ console.log("Isi bulanIni:", bulanIni); // Tambahkan ini
+
+if (bulanIni.length > 0) {
+    const last = bulanIni[bulanIni.length - 1];
+    document.getElementById('cellHafalanTerakhir').textContent = 
+        `${last.surah_label || ''} [${last.ayat_mulai || ''}-${last.ayat_selesai || ''}]`;
+     
+            // Kalkulasi nilai
+            const kel = typeof nilaiToAngka === 'function' ? nilaiToAngka(last.nilai?.kelancaran) : 0;
+            const tah = typeof nilaiToAngka === 'function' ? nilaiToAngka(last.nilai?.tahsin) : 0;
+            const taj = typeof nilaiToAngka === 'function' ? nilaiToAngka(last.nilai?.tajwid) : 0;
+            const rata = (kel + tah + taj) / 3;
+
+            document.getElementById('avgKelancaranGabungan').textContent = last.nilai?.kelancaran || '-';
+            document.getElementById('avgTahsinGabungan').textContent = last.nilai?.tahsin || '-';
+            document.getElementById('avgTajwidGabungan').textContent = last.nilai?.tajwid || '-';
+            document.getElementById('avgTotalGabungan').textContent = `${typeof konversiAngkaKePredikat === 'function' ? konversiAngkaKePredikat(rata) : ''} (${rata.toFixed(1)})`;
+            document.getElementById('avgTotalAngka').textContent = rata.toFixed(1);
+            document.getElementById('avgTotalHuruf').textContent = typeof konversiAngkaKePredikat === 'function' ? konversiAngkaKePredikat(rata) : '-';
+            
+            document.getElementById('cellCatatanUstadz').textContent = last.catatan || '-';
+            document.getElementById('cellMotivasiUstadz').textContent = last.motivasi || '-';
+            document.getElementById('lblKelasUnit').textContent = last.unit_kelas || '-';
+        }
+
+        document.getElementById('lblNama').textContent = targetNama;
+        document.getElementById('txtPeriodeLaporan').textContent = `Periode: ${document.getElementById('filter-bulan').value} ${document.getElementById('filter-tahun').value}`;
+        container.style.display = 'block';
+
+    } catch (err) {
+        console.error("Error pada generateLaporan:", err);
+        console.log("Nama di DB:", `"${doc.data().nama_santri}"`);
+        MySwal.fire({ icon: 'error', title: 'Gagal', text: 'Terjadi kesalahan saat memproses laporan.' });
+    }
+};
+
+/**
+ * 1. FUNGSI SINKRONISASI DASHBOARD (MONITORING SEMUA SANTRI)
+ * Dipanggil saat buka dashboard atau ubah filter periode.
+ */
+ 
+window.fungsiSinkronisasiDashboard = async function () {
+    const tbody = document.getElementById('dash-tabel-body');
+    if (!tbody) return;
+
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">Memuat data...</td></tr>';
+
+    const keyword = (document.getElementById('dash-search-nama')?.value || '').toLowerCase();
+    const targetBulan = document.getElementById('filter-bulan')?.getAttribute('data-value') || '';
+    const targetTahun = document.getElementById('filter-tahun')?.getAttribute('data-value') || '';
+
+    try {
+        const snap = await getDocs(collection(db, "setoran_hafalan"));
+        let kumpulanData = [];
+        snap.forEach(doc => kumpulanData.push(doc.data()));
+
+        kumpulanData.sort((a, b) => (b.tanggal_input || '').localeCompare(a.tanggal_input || ''));
+        window.kumpulanDataDashboard = kumpulanData;
+
+        tbody.innerHTML = ''; 
+        
+        let totalSetoran = 0;
+        let totalTasmi = 0;
+        let arrayPredikat = [];
+        let hitungSantri = {};
+
+        kumpulanData.forEach(data => {
+            if (!data.tanggal_input) return;
+            
+            const [thn, bln] = data.tanggal_input.split('-');
+            
+            // Perbandingan ketat (string vs string)
+            if (thn !== targetTahun || bln !== targetBulan) return;
+            if (keyword && !(data.nama_santri || '').toLowerCase().includes(keyword)) return;
+
+            totalSetoran++;
+            if (data.is_tasmi === true) totalTasmi++;
+            
+            // Mengambil predikat jika ada
+            if (data.nilai_total && data.nilai_total !== "" && data.nilai_total !== "-") {
+                arrayPredikat.push(data.nilai_total);
+            }
+            
+            hitungSantri[data.nama_santri] = (hitungSantri[data.nama_santri] || 0) + 1;
+
+            // Render Tabel
+            tbody.innerHTML += `
+            <tr>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.tanggal_input || '-'}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.nama_santri || '-'}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.unit_kelas || '-'}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.hafalan_lama || '-'}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.hafalan_baru || '-'}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.akumulasi_hafalan || '-'}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.nilai_total || '-'}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${totalSetoran}</td>
+                <td style="padding:12px; border: 1px solid #e2e8f0;">${data.is_tasmi ? 'Sudah' : 'Belum'}</td>
+            </tr>`;
+        });
+           
+        // Update Ringkasan Dashboard
+        document.getElementById('dash-total-setoran').textContent = `${totalSetoran} Kali`;
+        document.getElementById('dash-total-tasmi').textContent = `${totalTasmi} Sesi`;
+        
+        // Modus Nilai
+        const mode = arrayPredikat.length > 0 
+            ? arrayPredikat.sort((a,b) => arrayPredikat.filter(v => v===a).length - arrayPredikat.filter(v => v===b).length).pop() 
+            : '-';
+        document.getElementById('dash-modus-nilai').textContent = mode;
+
+        // Santri Teraktif
+        let teraktif = Object.entries(hitungSantri).sort((a,b) => b[1] - a[1])[0];
+        document.getElementById('dash-santri-aktif').textContent = teraktif ? `${teraktif[0]} (${teraktif[1]}x)` : '-';
+
+        if (tbody.innerHTML === '') {
+            tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:20px;">Data tidak ditemukan untuk periode ini</td></tr>';
+        }
+    } catch (e) {
+        console.error("Error Dashboard:", e);
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:red;">Gagal memuat data</td></tr>';
+    }
+};
+
+
+// EKSPOS KE WINDOW (PENTING: Agar bisa dipanggil dari HTML)
+window.fungsiSinkronisasiDashboard = fungsiSinkronisasiDashboard;
+
+/* 8. FUNGSI HAPUS DAN EKSPOR */
+document.getElementById('btnResetData').addEventListener('click', async () => {
+    const MySwal = window.Swal || Swal;
+    const result = await MySwal.fire({ title: 'Yakin hapus semua?', icon: 'warning', showCancelButton: true, confirmButtonText: 'Ya, hapus!' });
+    if (!result.isConfirmed) return;
+    try {
+        const snap = await getDocs(collection(db, "setoran_hafalan"));
+        const deletePromises = snap.docs.map(docItem => deleteDoc(doc(db, "setoran_hafalan", docItem.id)));
+        await Promise.all(deletePromises);
+        MySwal.fire('Terhapus!', 'Data dibersihkan.', 'success');
+        fungsiSinkronisasiDashboard();
+    } catch (error) { console.error(error); }
+});
+
+/**
+ * Fungsi untuk mencetak laporan
+ * Pastikan tombol di HTML memanggil: onclick="PrintLaporan()"
+ */
+window.printLaporan = function () {
+    const areaLaporan = document.getElementById("boxLaporanRekap");
+
+    // Validasi apakah laporan sudah ada
+    if (!areaLaporan || areaLaporan.style.display === "none") {
+        Swal.fire({
+            icon: "warning",
+            title: "Laporan belum dibuat",
+            text: "Silakan generate laporan terlebih dahulu sebelum mencetak."
+        });
+        return;
+    }
+
+    // Sembunyikan elemen grup tombol sebelum print agar tidak ikut tercetak
+    const tombol = document.querySelector(".button-group");
+    if (tombol) tombol.style.display = "none";
+
+    // Jalankan perintah print browser
+    window.print();
+
+    // Munculkan kembali tombol setelah print selesai
+    setTimeout(() => {
+        if (tombol) tombol.style.display = "flex";
+    }, 1000);
+};
+
+
+window.generatePDF = async function () {
+
+    const { jsPDF } = window.jspdf;
+    const area = document.getElementById('boxLaporanRekap');
+
+    if (!area) {
+        alert("Area laporan tidak ditemukan");
+        return;
+    }
+
+    try {
+        const canvas = await html2canvas(area, { scale: 2 });
+
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const width = pdf.internal.pageSize.getWidth();
+        const height = (canvas.height * width) / canvas.width;
+
+        pdf.addImage(imgData, "PNG", 10, 10, width - 20, height);
+
+        pdf.save("Laporan-Hafalan.pdf");
+
+    } catch (err) {
+        console.error(err);
+        alert("Gagal export PDF");
+    }
+
+}
+
+window.exportToWord = async function () {
+    const data = window.kumpulanDataDashboard || [];
+    if (!data.length) { alert("Data belum tersedia"); return; }
+
+    const { Document, Packer, Paragraph, Table, TableRow, TableCell, WidthType, TextRun } = docx;
+
+    const targetBulan = document.getElementById('filter-bulan')?.value || 'Bulan';
+    const targetTahun = document.getElementById('filter-tahun')?.value || 'Tahun';
+
+    // 1. Header Tabel (9 Kolom)
+    const headerTexts = ["Tanggal", "Nama Santri", "Unit/Kelas", "Hafalan Lama", "Hafalan Baru", "Akumulasi", "Kualitas", "Setoran", "Tasmi"];
+    const tableHeader = new TableRow({
+        children: headerTexts.map(text => 
+            new TableCell({ 
+                children: [new Paragraph({ children: [new TextRun({ text, bold: true })] })] 
+            })
+        )
+    });
+
+    // 2. Baris Data (9 Kolom)
+    const tableRows = data.map(d => new TableRow({
+        children: [
+            new TableCell({ children: [new Paragraph(d.tanggal_input || "-")] }),
+            new TableCell({ children: [new Paragraph(d.nama_santri || "-")] }),
+            new TableCell({ children: [new Paragraph(d.unit_kelas || "-")] }),
+            new TableCell({ children: [new Paragraph(d.hafalan_lama || "-")] }),
+            new TableCell({ children: [new Paragraph(d.hafalan_baru || "-")] }),
+            new TableCell({ children: [new Paragraph(d.akumulasi_hafalan || "-")] }),
+            new TableCell({ children: [new Paragraph(d.kualitas_hafalan || "-")] }),
+            new TableCell({ children: [new Paragraph(d.total_setoran || "-")] }),
+            new TableCell({ children: [new Paragraph(d.is_tasmi ? "Sudah" : "Belum")] })
+        ]
+    }));
+
+    // 3. Dokumen
+    const doc = new Document({
+        sections: [{
+            children: [
+                new Paragraph({ children: [new TextRun({ text: "PONDOK PESANTREN DAARUL KHOIROT AL-MADANI", bold: true, size: 28 })] }),
+                new Paragraph({ text: "Laporan Setoran Hafalan Bulanan" }),
+                new Paragraph({ text: `Periode: ${targetBulan} ${targetTahun}` }),
+                new Paragraph({ text: "" }),
+                new Table({
+                    width: { size: 100, type: WidthType.PERCENTAGE },
+                    rows: [tableHeader, ...tableRows]
+                })
+            ]
+        }]
+    });
+
+    // 4. Export (Menggunakan native cara agar tidak butuh FileSaver.js)
+    const blob = await Packer.toBlob(doc);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `Laporan_${targetBulan}_${targetTahun}.docx`;
+    link.click();
+    URL.revokeObjectURL(url);
+};
+
+
+window.exportToPdf = async function () {
+    const data = window.kumpulanDataDashboard || [];
+    if (!data.length) { alert("Data belum tersedia"); return; }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('l', 'mm', 'a4'); // 'l' untuk Landscape
+    
+    const targetBulan = document.getElementById('filter-bulan')?.value || '';
+    const targetTahun = document.getElementById('filter-tahun')?.value || '';
+
+    doc.setFontSize(16);
+    doc.text("PONDOK PESANTREN DAARUL KHOIROT AL-MADANI", 148.5, 15, { align: "center" });
+    doc.setFontSize(12);
+    doc.text("Laporan Setoran Hafalan Bulanan", 148.5, 22, { align: "center" });
+    doc.text(`Periode: ${targetBulan} ${targetTahun}`, 148.5, 29, { align: "center" });
+
+    const tableBody = data.map(d => [
+        d.tanggal_input || "-",
+        d.nama_santri || "-",
+        d.unit_kelas || "-",
+        d.hafalan_lama || "-",
+        d.hafalan_baru || "-",
+        d.akumulasi_hafalan || "-",
+        d.kualitas_hafalan || "-",
+        d.total_setoran || "-",
+        d.is_tasmi ? "Sudah" : "Belum"
+    ]);
+
+    doc.autoTable({
+        startY: 35,
+        head: [['Tgl', 'Nama', 'Kelas', 'Hafalan Lama', 'Hafalan Baru', 'Akumulasi', 'Kualitas', 'Setoran', 'Tasmi']],
+        body: tableBody,
+        theme: 'grid',
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [26, 93, 26] }
+    });
+
+    doc.save(`Laporan_${targetBulan}_${targetTahun}.pdf`);
+};
+
 </script>
-
 </body>
+
 </html>
