@@ -13,7 +13,7 @@ document.getElementById("btnLogin").addEventListener("click", async (e) => {
 try {
     await signInWithEmailAndPassword(auth, email, password);
 
-    window.location.href = "../dashboard.html";
+    window.location.href = "dashboard.html";
 
 } catch (e) {
     alert(e.code + "\n\n" + e.message);
