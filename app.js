@@ -159,6 +159,6 @@ if (btnLogout) {
     btnLogout.addEventListener("click", async (e) => {
         e.preventDefault();
         await signOut(auth);
-        location.href = "admin/login.html";
+        location.href = "login.html";
     });
 }
