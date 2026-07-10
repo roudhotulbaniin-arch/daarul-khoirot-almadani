@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Admin | Daarul Khoirot Al-Madani</title>
+
+    <link rel="stylesheet" href="login.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <!-- HEADER -->
+
+            <div class="login-header">
+
+                <img src="../main_logo.png" alt="Logo Pesantren">
+
+                <h2>LOGIN ADMIN</h2>
+
+                <p>Sistem Informasi Santri</p>
+
+            </div>
+
+            <!-- BODY -->
+
+            <div class="login-body">
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+
+                        <label>
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Masukkan email admin"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Masukkan password"
+                            required>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="btnLogin"
+                        class="btn-login">
+
+                        <i class="fas fa-user-shield"></i>
+
+                        MASUK KE DASHBOARD
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- FOOTER -->
+
+            <div class="login-footer">
+
+                <a href="../index.html">
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    Kembali ke Website
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="login.js"></script>
+
+</body>
+
+</html>
