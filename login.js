@@ -12,11 +12,7 @@ document.getElementById("btnLogin").addEventListener("click", async (e) => {
 
     try {
 
-        alert("Login berhasil");
-
         await signInWithEmailAndPassword(auth, email, password);
-
-        alert("Akan pindah ke dashboard");
 
         window.location.href = "dashboard.html";
 
