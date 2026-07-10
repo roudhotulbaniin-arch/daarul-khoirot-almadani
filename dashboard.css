@@ -1,0 +1,1817 @@
+
+    /* ==========================================================================
+           1. GLOBAL VARIABLES & RESET STYLE
+           ========================================================================== */
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #f4ce14;
+            --dark-green: #144514;
+            --dark-footer: #0d2e0d;
+            --light-bg: #f4f7f6;
+            --text-dark: #333;
+            --whatsapp-green: #25d366;
+            --border-color: #1a5d1a;
+            --btn-secondary-bg: #e2e8f0;
+            --btn-secondary-text: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--light-bg); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+        
+        .container { padding: 3rem 4%; flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+        /* Header & Nav */
+        header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #0d2e0d; z-index: 9997; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
+        .logo { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        .logo h1 { color: #fff; font-size: 1.2rem; margin: 0; line-height: 1.2; }
+        #menu-toggle { display: flex !important; align-items: center; justify-content: center; gap: 6px; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; background: linear-gradient(135deg, #ffd700, #f4ce14); color: #0d2e0d; font-weight: 700; }
+        #menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: .3s ease; z-index: 9998; }
+        #menu-overlay.show { opacity: 1; visibility: visible; }
+        nav { position: fixed; top: 0; left: 0; width: 400px; max-width: 85%; height: 85vh; background: #0d2e0d; transform: translateX(-100%); transition: .35s ease; z-index: 9999; overflow-y: auto; box-shadow: 8px 0 30px rgba(0,0,0,.35); }
+        nav.show { transform: translateX(0); }
+        .mobile-sidebar-header { display: flex; align-items: center; gap: 12px; padding: 10px; }
+        .mobile-sidebar-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; animation: logoPulse 3s infinite; }
+        .sidebar-brand h3 { color: #ffd700; font-size: 18px; margin: 0; }
+        .sidebar-brand span { color: rgba(255,255,255,.7); font-size: 13px; }
+        @keyframes logoPulse { 0% { box-shadow: 0 0 0 rgba(255,215,0,0); } 50% { box-shadow: 0 0 12px rgba(255,215,0,.7), 0 0 24px rgba(255,215,0,.4); } 100% { box-shadow: 0 0 0 rgba(255,215,0,0); } }
+        nav ul { list-style: none; padding: 15px; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+        nav ul li a { position: relative; display: flex; align-items: center; font-weight: 500; gap: 16px; padding: 8px 10px; padding-left: 28px; border-radius: 10px; text-decoration: none; background: rgba(255,255,255,.04); color: #fff !important; transition: .3s; }
+        nav ul li a.active::before { content: ""; position: absolute; left: 12px; top: 20%; bottom: 15%; width: 5px; background: #ffd700; border-radius: 4px; box-shadow: 0 0 8px #ffd700, 0 0 16px rgba(255,215,0,.7); }
+        nav ul li a:hover { background: rgba(255,215,0,.12); border-left: 4px solid rgba(255,215,0,.7); }
+        nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
+        .sidebar-version { padding: 20px; text-align: center; color: rgba(255,255,255,.45); font-size: .8rem; }
+
+        /* ==========================================================================
+           2. DESKTOP BLOCK
+           ========================================================================== */
+        @media (min-width: 769px) {
+            .social-header-tengah { display: flex !important; gap: 20px; margin: 0 20px; }
+            .social-header-tengah a { color: #ffd700; font-size: 1.2rem; transition: transform 0.3s ease; }
+            .social-header-tengah a:hover { color: #ffffff; transform: scale(1.2); }
+            .hero-content { display: none !important; }
+            .header-text-container { display: flex; flex-direction: column; justify-content: center; gap: 0px; }
+            .header-text-container h1 { font-size: 1.1rem; margin: 0; color: #fff; }
+            .header-text-container .motto-text { font-size: 0.8rem; margin: 0; color: #ffd700; display: block !important; }
+        }
+
+/* ==========================================================================
+   3. STRUKTUR TAB-CONTAINER
+   ========================================================================== */
+
+.tab-container{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    width:100%;
+    box-sizing:border-box;
+}
+
+.tab-menu{
+    display:flex;
+    flex-wrap:wrap; /* penting */
+    background:#f8f9fa;
+    border-bottom:3px solid #eee;
+    width:100%;
+    
+}
+
+.tab-link{
+    flex:1 1 33.33%; /* 3 kolom per baris */
+    padding:15px 8px;
+    border:none;
+    cursor:pointer;
+    font-weight:700;
+    color:var(--primary-color);
+    background:#f1f1f1;
+    transition:.3s;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    font-size:.75rem;
+    text-align:center;
+    outline:none;
+    min-height:70px;
+}
+
+.tab-link i{
+    font-size:1.1rem;
+}
+
+.tab-link.active{
+    background-color:var(--primary-color)!important;
+    color:white!important;
+}
+
+.tab-content{
+    display:none;
+    padding:50px 40px 30px;
+    flex-direction:column;
+    gap:20px;
+    width:100%;
+    box-sizing:border-box;
+}
+
+.tab-content.active{
+    display:flex;
+}
+.form-section-title { 
+    width: 100%; margin: 15px 0 5px; padding-bottom: 12px; 
+    border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700;
+    text-transform: uppercase; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;
+}
+.form-group { width: 100%; margin-bottom: 8px; position: relative; box-sizing: border-box; }
+.form-group label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 0.9rem; color: var(--primary-color); }
+
+/* =======================================================
+   KARTU IDENTITAS SANTRI
+   ======================================================= */
+
+.kartu-santri{
+    display:none;
+
+    margin-top:15px;
+
+    background:#FFFFFF;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    border:1px solid #e2e8f0;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.06);
+}
+.kartu-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+    padding-bottom:15px;
+    border-bottom:2px dashed #dbeafe;
+}
+
+.kartu-header i{
+    font-size:2rem;
+    color:#1a5d1a;
+}
+
+.kartu-header h3{
+    margin:0;
+    color:#1a5d1a;
+    font-size:1.2rem;
+}
+
+.kartu-header p{
+    margin:2px 0 0;
+    color:#64748b;
+    font-size:.80rem;
+}
+
+.form-grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.info-box:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.info-label{
+    font-size:.75rem;
+    font-weight:700;
+    color:#64748b;
+    margin-bottom:5px;
+    text-transform:uppercase;
+}
+
+.info-value{
+    font-size:1rem;
+    font-weight:700;
+    color:#1e293b;
+    word-break:break-word;
+}
+
+.status-aktif{
+    color:#16a34a;
+    font-weight:700;
+}
+
+.info-box{
+    background: #F5FFFA;
+    border: 1px solid #d1fae5;
+    border-radius: 12px;
+    padding: 15px;
+    transition: .3s;
+}
+
+@media(max-width:768px){
+
+    .form-grid-2{
+        grid-template-columns:1fr;
+    }
+
+    .kartu-santri{
+        padding:15px;
+    }
+
+    .info-value{
+        font-size:.95rem;
+    }
+}
+
+/* =====================================================
+   PANEL KEHADIRAN
+   ===================================================== */
+
+#kehadiran-panel .form-section-title{
+    margin-bottom:25px;
+}
+
+#kehadiran-panel .form-grid-2{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-bottom:25px;
+}
+
+#kehadiran-panel .form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+#kehadiran-panel label{
+    font-weight:700;
+    color:#1a5d1a;
+    margin-bottom:8px;
+    font-size:.9rem;
+}
+
+#kehadiran-panel input,
+#kehadiran-panel select{
+    width:100%;
+    padding:12px 15px;
+    border:1px solid #dbeafe;
+    border-radius:10px;
+    font-size:.95rem;
+    background:#fff;
+    box-sizing:border-box;
+}
+
+/* Input custom dropdown */
+#boxStatusKehadiran input{
+    border:none !important;
+    background:transparent !important;
+    padding:0 !important;
+    box-shadow:none !important;
+    outline:none !important;
+}
+
+/* Hilangkan efek focus bawaan */
+#boxStatusKehadiran input:focus{
+    border:none !important;
+    box-shadow:none !important;
+}
+
+#kehadiran-panel input:focus,
+#kehadiran-panel select:focus{
+    outline:none;
+    border-color:#1a5d1a;
+    box-shadow:0 0 0 3px rgba(26,93,26,.15);
+}
+
+.btn-simpan{
+    background:linear-gradient(
+        135deg,
+        #1a5d1a,
+        #0d2e0d
+    );
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:14px 20px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:1.1rem;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition:.3s;
+}
+
+.btn-simpan:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(26,93,26,.25);
+}
+
+
+
+/* ==========================================================================
+   MODIFIKASI INPUT & DROPDOWN SELECT CUSTOM (TERBARU)
+   ========================================================================== */
+.input-ikon {
+    display: flex; 
+    align-items: center; 
+    background: white; 
+    border: 1.5px solid var(--border-color); 
+    border-radius: 8px; 
+    padding: 0 12px; 
+    min-height: 48px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-sizing: border-box;
+}
+.input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 1.1rem; }
+
+.input-ikon input, .input-ikon textarea { 
+    flex: 1; 
+    border: none; 
+    outline: none; 
+    background: transparent; 
+    height: 100%; 
+    width: 100%; 
+    font-size: 0.9rem; 
+    color: #333; 
+}
+.input-ikon textarea { padding: 10px 0; resize: vertical; min-height: 60px; }
+
+/* Desain Trigger Dropdown Kustom */
+.select-custom-trigger {
+    cursor: pointer;
+}
+.select-custom-trigger input {
+    cursor: pointer !important;
+    padding-right: 20px;
+}
+.select-custom-trigger::after {
+    content: '\f107';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+/* Auto-complete & Custom Dropdown Menu Style */
+.dropdown-wrapper-custom { position: relative; width: 100%; }
+.dropdown-menu-custom {
+    position: absolute; top: 100%; left: 0; right: 0; background: white;
+    border: 1.5px solid var(--border-color); border-top: none; border-radius: 0 0 8px 8px;
+    max-height: 200px; overflow-y: auto; z-index: 100; display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.dropdown-item-custom { padding: 10px 15px; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid #eee; transition: 0.2s; color: #333; text-align: left; }
+.dropdown-item-custom:hover, .dropdown-item-custom.selected { background-color: #f0f7f0; color: var(--primary-color); font-weight: 600; }
+.dropdown-wrapper-custom.open .dropdown-menu-custom {
+    display: block;
+}
+/* Layout Grid */
+.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+.form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 100%; }
+
+/* ==========================================================================
+   PERBAIKAN TOTAL TOMBOL SIMPAN DATA (PRESTASI FIX)
+   ========================================================================== */
+/* Jarak Tombol Navigasi Umum */
+.btn-prev, .btn-next, .btn-wa-konfirmasi {
+    border: none; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease-in-out;
+}
+.btn-next { padding: 15px; width: 100%; background-color: var(--primary-color); color: white; }
+.button-group { width: 100%; display: flex; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+
+/* Rekap Card */
+.rekap-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    overflow: hidden;
+}
+
+.rekap-table th,
+.rekap-table td {
+    border: 1px solid #d6d6d6;
+    padding: 12px 8px;
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 14px;
+}
+
+.rekap-table th {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.rekap-table td {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.sub-judul-rekap { font-size: 0.85rem; font-weight: 700; color: var(--primary-color); margin-top: 25px; border-bottom: 2px solid #eee; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+footer { background: var(--dark-footer); color: white; padding: 40px 5% 20px; text-align: center; width: 100%; margin-top: auto; box-sizing: border-box; }
+.f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
+.f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+.f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+/* ==========================================================================
+   DESAIN TOMBOL KEMBALI CUSTOM (DISETARAKAN DENGAN TOMBOL SIMPAN)
+   ========================================================================== */
+/* Layout Tombol di Tab ke-1 (Kembali & Simpan) */
+.bottom-actions {
+    margin: 35px auto 10px;
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* Membelah 2 kolom sama rata */
+    gap: 15px !important;
+    box-sizing: border-box;
+}
+
+/* Layout Tombol di Tab ke-2 (Sebelumnya & Generate) */
+.box-tombol-container-grid {
+    margin: 35px auto 10px;
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* Membelah 2 kolom sama rata */
+    gap: 15px !important;
+    box-sizing: border-box;
+}
+
+/* Penyesuaian khusus di layar HP */
+@media (max-width: 768px) {
+    .bottom-actions, .box-tombol-container-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* Tetap pertahankan 2 kolom berdampingan di HP */
+        gap: 10px !important;
+    }
+    
+    .bottom-actions .btn-kembali, 
+    .box-tombol-container-grid .btn-prev-tab,
+    #btnSimpan, #btnProsesRekap {
+        font-size: 16px !important; /* Mengecilkan teks sedikit agar muat di layar HP kecil */
+        padding: 10px 5px !important;
+        min-height: 48px !important;
+    }
+}
+
+@media (max-width:768px){
+
+    .tab-link{
+        flex:1 1 50%; /* 2 kolom */
+        font-size:.70rem;
+        min-height:65px;
+        padding:12px 5px;
+    }
+
+    .tab-content{
+        padding:20px 15px;
+    }
+
+}
+/* ==========================================================================
+   RESPONSIVE OVERRIDES (DIOPTIMALKAN UNTUK HP LAYAR KECIL)
+   ========================================================================== */
+    /* Perbaikan Khusus Media Query HP agar 1 Kolom (Bertumpuk) */
+    @media (max-width: 768px) {
+        header { padding: 10px 15px; }
+        .header-text-container h1 { font-size: 0.95rem; }
+        .motto-text { display: none !important; }
+        .logo img { width: 42px; height: 42px; }
+        nav { width: 75%; }
+        .social-header-tengah { display: none; }
+        .container { padding: 1rem 3%; }
+        
+        .tab-content { padding: 20px 15px; display: none; width: 100% !important; }
+        .tab-content.active { display: flex !important; }
+        
+        .form-grid, .form-grid-2 { grid-template-columns: 1fr !important; gap: 16px; }
+
+        /* KUNCI PERBAIKAN: Memaksa semua container tombol menjadi 1 kolom di HP */
+        .bottom-actions, .box-tombol-container, .box-tombol-container-grid {
+            display: flex !important;
+            flex-direction: column !important; /* Paksa menumpuk */
+            width: 100% !important;
+            gap: 10px !important;
+            margin-top: 20px !important;
+        }
+
+        .btn-kembali, .btn-prev-tab, #btnSimpan, #btnProsesRekap {
+            width: 100% !important;
+            margin-top: 0 !important;
+            min-height: 50px !important;
+            font-size: 16px !important;
+        }
+        
+/* Container pembungkus - Hanya untuk tabel */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Scroll hanya muncul jika isi tabel lebih lebar dari layar */
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Tabel */
+.rekap-table {
+    width: 100%; /* Atau gunakan 'min-width: 500px' jika ingin selalu scroll */
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: auto; /* Menyesuaikan lebar konten */
+}
+
+.rekap-table th, .rekap-table td {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    white-space: nowrap; /* Teks tidak akan turun baris, memaksa lebar kolom */
+    text-align: center;
+}
+
+.rekap-table th {
+    background-color: #1a5d1a;
+    color: white;
+}
+
+/* Pengaturan lebar kolom agar tidak berantakan */
+.rekap-table th:nth-child(1) { width: 15%; } /* Tanggal */
+.rekap-table th:nth-child(2) { width: 30%; } /* Nama */
+.rekap-table th:nth-child(3) { width: 25%; } /* Surah & Ayat */
+.rekap-table th:nth-child(4) { width: 10%; } /* Sesi */
+.rekap-table th:nth-child(5) { width: 20%; } /* Predikat */
+
+    /* CSS Umum Tombol (Desktop & HP) */
+    .bottom-actions, .box-tombol-container-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 35px;
+    }
+
+    #btnSimpan, #btnProsesRekap, .btn-simpan-final {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 54px;
+        padding: 15px 20px;
+        font-size: 16px;
+        font-weight: 800;
+        text-transform: uppercase;
+        border: none !important;
+        border-radius: 8px !important;
+        background-color: #1a5d1a !important;
+        color: white !important;
+        cursor: pointer;
+    }
+
+    .btn-kembali, .btn-prev-tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #e2e8f0;
+        color: #334155;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 800;
+        min-height: 54px;
+    }
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-cetak-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 16px 20px;
+
+    background: linear-gradient(135deg, #0f7a2d, #14532d);
+    color: white;
+
+    border: none;
+    border-radius: 14px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+    transition: all 0.3s ease;
+}
+
+.btn-cetak-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+.btn-cetak-box:active {
+    transform: scale(0.98);
+}
+
+.btn-cetak-box i {
+    font-size: 18px;
+}
+
+.catatan-card,
+.motivasi-card {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.catatan-card {
+    background: #fffef7;
+    border-left: 5px solid #d97706;
+}
+
+.motivasi-card {
+    background: #f0fff4;
+    border-left: 5px solid #16a34a;
+}
+
+.catatan-header {
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-color);
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.catatan-content {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.catatan-item {
+    margin: 0;
+}
+
+.catatan-item strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #222;
+}
+
+.catatan-item div {
+    margin: 0;
+}
+
+.wa-float {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: transparent !important; 
+                color: var(--whatsapp-green) !important; 
+                width: auto;
+                height: auto;
+                border-radius: 0;
+                box-shadow: none !important; 
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                animation: wa-pulse-only-icon 2s infinite ease-in-out;
+            }
+
+            .wa-float span { display: none; }
+            .wa-float i { font-size: 55px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
+        }
+
+        @keyframes wa-pulse-only-icon {
+            0% { transform: scale(1); }
+            70% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+           
+        }
+
+@media print {
+    /* Sembunyikan elemen yang tidak perlu saat cetak */
+    .btn-cetak, .btn-generate, .sidebar, .header-dashboard {
+        display: none !important;
+    }
+    
+    /* Pastikan box laporan muncul penuh saat dicetak */
+    #boxLaporanRekap {
+        display: block !important;
+        width: 100% !important;
+    }
+}
+
+
+/* =====================================================
+   PANEL IBADAH & AKHLAQ
+   ===================================================== */
+
+#ibadah-panel{
+    gap:25px;
+}
+
+/* Section Title */
+
+#ibadah-panel .form-section-title{
+    background:linear-gradient(135deg,#1a5d1a,#0d3f0d);
+    color:white;
+    padding:12px 18px;
+    border-radius:10px;
+    font-size:1rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+/* Grid */
+
+#ibadah-panel .form-grid-2{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:18px;
+}
+
+/* Form Group */
+
+#ibadah-panel .form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+#ibadah-panel label{
+    font-weight:700;
+    color:#1a5d1a;
+    margin-bottom:8px;
+    font-size:.9rem;
+}
+
+/* Input Select */
+
+#ibadah-panel input,
+#ibadah-panel select,
+#ibadah-panel textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid #dbeafe;
+    border-radius:10px;
+    background:#fff;
+    font-size:.95rem;
+    box-sizing:border-box;
+    transition:.3s;
+}
+
+#ibadah-panel .input-ikon input{
+    border:none;
+    background:transparent;
+    box-shadow:none;
+    padding:0;
+}
+   .penilaian-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+}
+
+.penilaian-card{
+    background:linear-gradient(
+        135deg,
+        #ffffff,
+        #f8fafc
+    );
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:25px;
+    border:2px solid #e2e8f0;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.penilaian-card-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding-bottom:12px;
+    margin-bottom:18px;
+
+    border-bottom:2px dashed #dbeafe;
+
+    color:#1a5d1a;
+    font-size:1rem;
+    font-weight:700;
+}
+
+.penilaian-card-title i{
+    font-size:1.2rem;
+}
+
+/* Ikon Penilaian Ibadah & Akhlaq */
+.penilaian-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 12px;
+    background:linear-gradient(135deg,#1a5d1a,#0d3f0d);
+    color:#fff;
+    font-size:1.5rem;
+    box-shadow:0 4px 12px rgba(26,93,26,.25);
+}
+
+.penilaian-title{
+    text-align:center;
+    font-size:.85rem;
+    font-weight:700;
+    color:#1a5d1a;
+    margin-bottom:12px;
+    text-transform:uppercase;
+}
+
+.penilaian-card select.custom-hidden{
+    display:none;
+}
+
+.penilaian-card select:focus{
+    outline:none;
+    border-color:var(--primary-color);
+    box-shadow:0 0 0 3px rgba(34,139,34,.12);
+}
+
+@media(max-width:768px){
+    .penilaian-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+.item-penilaian{
+    background:linear-gradient(
+        135deg,
+        #f0fdf4,
+        #ffffff
+    );
+
+    border:1px solid #d1fae5;
+    border-radius:14px;
+
+    padding:14px;
+
+    transition:.3s;
+}
+
+.item-penilaian label{
+    display:none;
+    margin-bottom:8px;
+    font-size:.85rem;
+    font-weight:700;
+    color:#475569;
+}
+
+.item-penilaian select{
+    width:100%;
+    padding:12px;
+
+    border-radius:10px;
+    border:1px solid #dbeafe;
+
+    background:white;
+
+    font-weight:600;
+    color:#1e293b;
+}
+
+.item-penilaian:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+/* =========================================
+   KARTU AKHLAQ SANTRI
+   ========================================= */
+
+.penilaian-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+}
+
+.penilaian-card{
+    background:linear-gradient(
+        135deg,
+        #ffffff,
+        #f8fafc
+    );
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+    transition:.3s;
+}
+
+.penilaian-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,.10);
+}
+
+.penilaian-icon{
+    width:60px;
+    height:60px;
+    margin:0 auto 12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#ecfdf5;
+    color:#0b6b28;
+
+    border-radius:50%;
+    font-size:1.5rem;
+}
+
+.penilaian-title{
+    font-size:.85rem;
+    font-weight:700;
+    color:#334155;
+    margin-bottom:15px;
+    text-transform:uppercase;
+    line-height:1.4;
+}
+
+.penilaian-card select{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #dbeafe;
+    background:white;
+    font-size:.95rem;
+    font-weight:600;
+    text-align:center;
+    outline:none;
+}
+
+.penilaian-card select:focus{
+    border-color:#0b6b28;
+    box-shadow:0 0 0 3px rgba(11,107,40,.15);
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+    .penilaian-grid{
+        grid-template-columns:1fr;
+    }
+
+    .penilaian-card{
+        padding:18px;
+    }
+
+    .penilaian-icon{
+        font-size:1.8rem;
+    }
+}
+
+@media(max-width:768px){
+    .tab-navigation{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =================================
+   NAVIGASI PANEL
+================================= */
+
+.tab-navigation{
+    margin-top:30px;
+    margin-bottom:20px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+
+    width:100%;
+}
+
+@media(max-width:768px){
+
+    .tab-navigation{
+        grid-template-columns:1fr;
+    }
+
+}
+
+.btn-prev-tab{
+    background:#fff;
+    color:#1a5d1a;
+
+    border:2px solid #1a5d1a;
+
+    border-radius:12px;
+
+    min-height:60px;
+    padding:14px 20px;
+
+    width:100%;
+
+    font-size:1.05rem;
+    font-weight:700;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-prev-tab:hover{
+    background:#1a5d1a;
+    color:#fff;
+}
+
+.btn-next-tab{
+    background:linear-gradient(
+        135deg,
+        #1a5d1a,
+        #0d3f0d
+    );
+
+    color:#fff;
+    border:none;
+
+    border-radius:12px;
+
+    min-height:60px;
+    padding:14px 20px;
+
+    width:100%;
+
+    font-size:1.05rem;
+    font-weight:700;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-next-tab:hover{
+    transform:translateY(-2px);
+}
+
+.btn-prev-tab i,
+.btn-next-tab i{
+    font-size:1.4rem;
+}
+
+#ibadah-panel .tab-navigation{
+    margin-bottom:20px;
+}
+
+#input-panel .tab-navigation{
+    margin-bottom:20px;
+}
+
+#kehadiran-panel .tab-navigation{
+    margin-bottom:20px;
+}
+
+
+/* =========================================
+   UNIVERSAL PANEL CARD
+   ========================================= */
+
+.panel-card{
+
+    background:linear-gradient(
+        135deg,
+        #ffffff,
+        #f8fafc
+    );
+
+    border:1px solid #e2e8f0;
+    border-radius:20px;
+
+    padding:24px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.06);
+
+    width:100%;
+    box-sizing:border-box;
+
+    transition:.3s;
+}
+
+.panel-card:hover{
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .panel-card{
+
+        padding:18px;
+
+        border-radius:16px;
+
+    }
+
+}
+
+/* =========================
+   PANEL CARD
+========================= */
+.panel-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   JUDUL SECTION
+========================= */
+.panel-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: #14532d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================
+   SUMMARY CARDS GRID
+========================= */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+/* CARD ITEM */
+.summary-cards div {
+    background: #F5FFFA;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 13px;
+    color: #334155;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* VALUE */
+.summary-cards b {
+    color: #166534;
+    font-size: 14px;
+}
+
+/* =========================
+   RESPONSIVE HP
+========================= */
+@media (max-width: 600px) {
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   LABEL HEADER SECTION
+========================= */
+.form-section-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+/* =========================
+   BUTTON STYLE (GENERATE)
+========================= */
+.btn-simpan-final {
+    background: #1a5d1a ;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.btn-simpan-final:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(21,128,61,0.25);
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+.btn-prev-tab {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* =========================
+   SMALL TEXT SUPPORT
+========================= */
+.panel-card small {
+    color: #64748b;
+}
+
+/* =========================
+   VALUE HIGHLIGHT (OPTIONAL)
+========================= */
+.highlight-good {
+    color: #16a34a;
+    font-weight: 700;
+}
+
+.highlight-warning {
+    color: #f59e0b;
+    font-weight: 700;
+}
+
+.highlight-bad {
+    color: #ef4444;
+    font-weight: 700;
+}
+
+/* ==========================================
+   RAPORT BULANAN
+========================================== */
+
+.rekap-card-info{
+    background:#fff;
+    border-radius:18px;
+    padding:28px;
+    margin-top:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    border:1px solid #e5e7eb;
+}
+
+/* HEADER */
+
+.raport-header{
+    text-align:center;
+    border-bottom:3px solid #1a5d1a;
+    padding-bottom:18px;
+    margin-bottom:25px;
+}
+
+.raport-header h3{
+    margin:4px 0;
+    color:#1a5d1a;
+    font-weight:700;
+}
+
+.raport-header p{
+    color:#666;
+    margin-top:8px;
+}
+
+/* SUB JUDUL */
+
+.sub-judul-rekap{
+
+    margin-top:30px;
+    margin-bottom:12px;
+
+    padding:10px 15px;
+
+    background:#1a5d1a;
+    color:white;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+}
+
+
+/* NILAI */
+
+.nilai-box{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+    margin:20px 0;
+
+}
+
+.nilai-box div{
+
+    background:#f3fdf4;
+
+    border:1px solid #b7e4c7;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    text-align:center;
+
+    font-size:16px;
+
+}
+
+/* CATATAN */
+
+.catatan-card,
+.motivasi-card{
+
+    background:#f8fafc;
+
+    border-left:5px solid #1a5d1a;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+}
+
+.catatan-header{
+
+    font-weight:bold;
+
+    color:#1a5d1a;
+
+    margin-bottom:8px;
+
+}
+
+/* IDENTITAS */
+
+.form-grid-2{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.form-grid-2 div{
+
+    background:#f8fafc;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+    border:1px solid #e5e7eb;
+
+}
+
+/* BUTTON */
+
+.button-group{
+
+    text-align:center;
+
+    margin-top:30px;
+
+}
+
+.btn-cetak-box{
+
+    background:#1a5d1a;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:14px 30px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-cetak-box:hover{
+
+    background:#134813;
+
+    transform:translateY(-2px);
+
+}
+
+/* ===========================
+   TABLE RESPONSIVE
+=========================== */
+
+.table-responsive{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    -webkit-overflow-scrolling:touch;
+
+    margin:15px 0;
+
+    border-radius:12px;
+
+}
+
+/* Scrollbar */
+
+.table-responsive::-webkit-scrollbar{
+
+    height:8px;
+
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+
+    background:#1a5d1a;
+
+    border-radius:10px;
+
+}
+
+.rekap-card-info{
+
+    width:100%;
+
+    max-width:100%;
+
+    overflow:hidden;
+}
+
+/* =====================================================
+   DASHBOARD ADMIN V2
+===================================================== */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:18px;
+    margin:20px 0 30px;
+}
+
+.dashboard-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    border:1px solid #e2e8f0;
+
+    border-left:6px solid #1a5d1a;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+
+    transition:.25s;
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 24px rgba(0,0,0,.10);
+
+}
+
+.card-title{
+
+    font-size:.90rem;
+
+    font-weight:700;
+
+    color:#64748b;
+
+    text-transform:uppercase;
+
+    margin-bottom:12px;
+
+}
+
+.card-value{
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    color:#1a5d1a;
+
+    margin-bottom:8px;
+
+}
+
+.card-sub{
+
+    font-size:.95rem;
+    
+        font-weight:700;
+
+    color:#1a5d1a;
+
+    line-height:1.6;
+
+}
+
+/* ==========================================
+   SPACING KHUSUS DASHBOARD ADMIN
+========================================== */
+
+#dashboard-panel > .dashboard-chart-card{
+    margin-top:25px;
+    margin-bottom:20px;
+}
+
+#dashboard-panel > .dashboard-table-card{
+    margin-top:20px;
+    margin-bottom:15px;
+}
+
+@media (max-width:768px){
+
+    #dashboard-panel > .dashboard-chart-card{
+        margin-top:20px;
+        margin-bottom:18px;
+    }
+
+    #dashboard-panel > .dashboard-table-card{
+        margin-top:18px;
+        margin-bottom:20px;
+    }
+
+}
+
+.dashboard-card.terbaik{
+    border-left:6px solid #f59e0b;
+}
+
+.dashboard-card.hafalan{
+    border-left:6px solid #2563eb;
+}
+
+.dashboard-card.hadir{
+    border-left:6px solid #16a34a;
+}
+
+.dashboard-card.ibadah{
+    border-left:6px solid #7c3aed;
+}
+
+.dashboard-card.rata:nth-of-type(5){
+    border-left:6px solid #0f766e;
+}
+
+.dashboard-card.rata:nth-of-type(6){
+    border-left:6px solid #0891b2;
+}
+
+.dashboard-card.rata:nth-of-type(7){
+    border-left:6px solid #059669;
+}
+
+.dashboard-card.rata:nth-of-type(8){
+    border-left:6px solid #dc2626;
+}
+
+#dashboardRekap .panel-card {
+    margin-bottom: 20px;
+}
+
+#dashboardRekap .panel-card:last-child {
+    margin-bottom: 0;
+}
+
+/* ======================================
+   STATISTIK
+====================================== */
+
+.dashboard-card.statistik:nth-of-type(9){
+    border-left:6px solid #ea580c;
+}
+
+.dashboard-card.statistik:nth-of-type(10){
+    border-left:6px solid #0284c7;
+}
+
+.dashboard-card.statistik:nth-of-type(11){
+    border-left:6px solid #15803d;
+}
+
+.dashboard-card.statistik:nth-of-type(12){
+    border-left:6px solid #9333ea;
+}
+
+/* =========================================================
+   PANEL RANKING
+========================================================= */
+
+.panel-card.ranking{
+    border-left:6px solid #f59e0b;
+    overflow:visible;
+}
+
+/* =========================================================
+   WRAPPER
+========================================================= */
+
+.ranking-wrapper{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+}
+
+.ranking-table{
+    min-width:700px;     /* sesuaikan jumlah kolom */
+    border-collapse:collapse;
+    font-size: 13px;
+    table-layout:auto;
+}
+
+.ranking-table th,
+.ranking-table td{
+    padding:10px 12px;
+    border:1px solid #ddd;
+    white-space:nowrap;
+    text-align:center;
+}
+
+.ranking-table th{
+    background:#1a5d1a;
+    color:#fff;
+}
+
+/* Lebar kolom */
+.ranking-table th:nth-child(1),
+.ranking-table td:nth-child(1){ width:55px; }
+
+.ranking-table th:nth-child(2),
+.ranking-table td:nth-child(2){ width:220px; }
+
+.ranking-table th:nth-child(3),
+.ranking-table td:nth-child(3){ width:100px; }
+
+.ranking-table th:nth-child(4),
+.ranking-table td:nth-child(4){ width:90px; }
+
+.ranking-table th:nth-child(5),
+.ranking-table td:nth-child(5){ width:90px; }
+
+.ranking-table th:nth-child(6),
+.ranking-table td:nth-child(6){ width:90px; }
+
+.ranking-table th:nth-child(7),
+.ranking-table td:nth-child(7){ width:100px; }
+
+.ranking-table th:nth-child(8),
+.ranking-table td:nth-child(8){ width:150px; }
+/* =========================================================
+   RANK BADGE
+========================================================= */
+
+.rank-badge{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#f59e0b;
+    color:#fff;
+    font-weight:700;
+}
+
+.grafik-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+#grafikRingkasan {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.dashboard-card {
+    margin-bottom: 20px;
+}
+
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+#grafikMode{
+
+    padding:6px 10px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+
+    cursor:pointer;
+
+}
+
+.grafik-wrapper{
+
+    height:300px;
+
+}
+
+.panel-card.ranking{
+    margin-bottom:24px;
+}
+
+.dashboard-tables{
+    display:flex;
+    flex-direction:column;
+    gap:24px;      /* Jarak antar tabel */
+    margin-top:20px;
+}
+
