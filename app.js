@@ -53,7 +53,7 @@ onAuthStateChanged(auth, async (user) => {
 
         console.log("USER BELUM LOGIN");
 
-        window.location.href = "admin/login.html";
+        window.location.href = "login.html";
 
     }
 
