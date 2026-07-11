@@ -95,6 +95,15 @@
 
 }
 
+.ranking-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Scroll hanya muncul jika isi tabel lebih lebar dari layar */
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
 .ranking-table{
     min-width:700px;     /* sesuaikan jumlah kolom */
     border-collapse:collapse;
