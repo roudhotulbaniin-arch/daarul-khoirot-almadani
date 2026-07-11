@@ -1,0 +1,206 @@
+.btn-simpan{
+    background:linear-gradient(
+        135deg,
+        #1a5d1a,
+        #0d2e0d
+    );
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:14px 20px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:1.1rem;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition:.3s;
+}
+
+.btn-simpan:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(26,93,26,.25);
+}
+
+/* ==========================================================================
+   PERBAIKAN TOTAL TOMBOL SIMPAN DATA (PRESTASI FIX)
+   ========================================================================== */
+/* Jarak Tombol Navigasi Umum */
+.btn-prev, .btn-next, .btn-wa-konfirmasi {
+    border: none; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease-in-out;
+}
+.btn-next { padding: 15px; width: 100%; background-color: var(--primary-color); color: white; }
+.button-group{
+    width:100%;
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+    padding-top:20px;
+    border-top:1px solid #eee;
+    flex-wrap:wrap;
+}
+
+@media (max-width:768px){
+
+    .bottom-actions,
+    .box-tombol-container,
+    .box-tombol-container-grid{
+        display:flex !important;
+        flex-direction:column !important;
+        width:100% !important;
+        gap:10px !important;
+        margin-top:20px !important;
+    }
+
+    .bottom-actions, .box-tombol-container-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 35px;
+    }
+
+    #btnSimpan, #btnProsesRekap, .btn-simpan-final {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 54px;
+        padding: 15px 20px;
+        font-size: 16px;
+        font-weight: 800;
+        text-transform: uppercase;
+        border: none !important;
+        border-radius: 8px !important;
+        background-color: #1a5d1a !important;
+        color: white !important;
+        cursor: pointer;
+    }
+
+    .btn-kembali, .btn-prev-tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #e2e8f0;
+        color: #334155;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 800;
+        min-height: 54px;
+    }
+
+.btn-cetak-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 16px 20px;
+
+    background: linear-gradient(135deg, #0f7a2d, #14532d);
+    color: white;
+
+    border: none;
+    border-radius: 14px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+    transition: all 0.3s ease;
+}
+
+.btn-cetak-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+.btn-cetak-box:active {
+    transform: scale(0.98);
+}
+
+.btn-cetak-box i {
+    font-size: 18px;
+}
+
+.btn-prev-tab{
+    background:#fff;
+    color:#1a5d1a;
+
+    border:2px solid #1a5d1a;
+
+    border-radius:12px;
+
+    min-height:60px;
+    padding:14px 20px;
+
+    width:100%;
+
+    font-size:1.05rem;
+    font-weight:700;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-prev-tab:hover{
+    background:#1a5d1a;
+    color:#fff;
+}
+
+.btn-next-tab{
+    background:linear-gradient(
+        135deg,
+        #1a5d1a,
+        #0d3f0d
+    );
+
+    color:#fff;
+    border:none;
+
+    border-radius:12px;
+
+    min-height:60px;
+    padding:14px 20px;
+
+    width:100%;
+
+    font-size:1.05rem;
+    font-weight:700;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-next-tab:hover{
+    transform:translateY(-2px);
+}
+
+.btn-prev-tab i,
+.btn-next-tab i{
+    font-size:1.4rem;
+}
+
+.btn-simpan-final:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(21,128,61,0.25);
+}
+
+

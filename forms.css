@@ -1,0 +1,86 @@
+.form-section-title { 
+    width: 100%; margin: 15px 0 5px; padding-bottom: 12px; 
+    border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700;
+    text-transform: uppercase; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;
+}
+.form-group { width: 100%; margin-bottom: 8px; position: relative; box-sizing: border-box; }
+.form-group label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 0.9rem; color: var(--primary-color); }
+
+
+
+/* ==========================================================================
+   MODIFIKASI INPUT & DROPDOWN SELECT CUSTOM (TERBARU)
+   ========================================================================== */
+.input-ikon {
+    display: flex; 
+    align-items: center; 
+    background: white; 
+    border: 1.5px solid var(--border-color); 
+    border-radius: 8px; 
+    padding: 0 12px; 
+    min-height: 48px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-sizing: border-box;
+}
+.input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 1.1rem; }
+
+.input-ikon input, .input-ikon textarea { 
+    flex: 1; 
+    border: none; 
+    outline: none; 
+    background: transparent; 
+    height: 100%; 
+    width: 100%; 
+    font-size: 0.9rem; 
+    color: #333; 
+}
+.input-ikon textarea { padding: 10px 0; resize: vertical; min-height: 60px; }
+
+/* Desain Trigger Dropdown Kustom */
+.select-custom-trigger {
+    cursor: pointer;
+}
+.select-custom-trigger input {
+    cursor: pointer !important;
+    padding-right: 20px;
+}
+.select-custom-trigger::after {
+    content: '\f107';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+/* Auto-complete & Custom Dropdown Menu Style */
+.dropdown-wrapper-custom { position: relative; width: 100%; }
+.dropdown-menu-custom {
+    position: absolute; top: 100%; left: 0; right: 0; background: white;
+    border: 1.5px solid var(--border-color); border-top: none; border-radius: 0 0 8px 8px;
+    max-height: 200px; overflow-y: auto; z-index: 100; display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.dropdown-item-custom { padding: 10px 15px; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid #eee; transition: 0.2s; color: #333; text-align: left; }
+.dropdown-item-custom:hover, .dropdown-item-custom.selected { background-color: #f0f7f0; color: var(--primary-color); font-weight: 600; }
+.dropdown-wrapper-custom.open .dropdown-menu-custom {
+    display: block;
+}
+/* Layout Grid */
+.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+.form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 100%; }
+
+@media (max-width:768px){
+
+    .form-grid,
+    .form-grid-2{
+        grid-template-columns:1fr !important;
+        gap:16px;
+    }
+
+}

@@ -1,0 +1,49 @@
+:root {
+    --primary-color: #1a5d1a;
+    --secondary-color: #f4ce14;
+    --dark-green: #144514;
+    --dark-footer: #0d2e0d;
+    --light-bg: #f4f7f6;
+    --text-dark: #333;
+    --whatsapp-green: #25d366;
+    --border-color: #1a5d1a;
+    --btn-secondary-bg: #e2e8f0;
+    --btn-secondary-text: #334155;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+.container {
+    padding: 3rem 4%;
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+@media (max-width:768px){
+    .container{
+        padding:1rem 3%;
+    }
+}

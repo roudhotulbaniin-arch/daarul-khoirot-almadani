@@ -1,0 +1,110 @@
+
+/* ==========================================================================
+   3. STRUKTUR TAB-CONTAINER
+   ========================================================================== */
+
+.tab-container{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    width:100%;
+    box-sizing:border-box;
+}
+
+.tab-menu{
+    display:flex;
+    flex-wrap:wrap; /* penting */
+    background:#f8f9fa;
+    border-bottom:3px solid #eee;
+    width:100%;
+    
+}
+
+.tab-link{
+    flex:1 1 33.33%; /* 3 kolom per baris */
+    padding:15px 8px;
+    border:none;
+    cursor:pointer;
+    font-weight:700;
+    color:var(--primary-color);
+    background:#f1f1f1;
+    transition:.3s;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    font-size:.75rem;
+    text-align:center;
+    outline:none;
+    min-height:70px;
+}
+
+.tab-link i{
+    font-size:1.1rem;
+}
+
+.tab-link.active{
+    background-color:var(--primary-color)!important;
+    color:white!important;
+}
+
+.tab-content{
+    display:none;
+    padding:50px 40px 30px;
+    flex-direction:column;
+    gap:20px;
+    width:100%;
+    box-sizing:border-box;
+}
+
+.tab-content.active{
+    display:flex;
+}
+
+.tab-navigation{
+    margin-top:30px;
+    margin-bottom:20px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+
+    width:100%;
+}
+
+@media (max-width:768px){
+
+    .tab-link{
+        flex:1 1 50%; /* 2 kolom */
+        font-size:.70rem;
+        min-height:65px;
+        padding:12px 5px;
+    }
+
+    .tab-content{
+        padding:20px 15px;
+    }
+
+    .tab-content{
+        padding:20px 15px;
+        display:none;
+        width:100% !important;
+    }
+
+    .tab-content.active{
+        display:flex !important;
+    }
+    
+
+    .tab-navigation{
+        grid-template-columns:1fr;
+    }
+}
+
+#ibadah-panel .tab-navigation,
+#input-panel .tab-navigation,
+#kehadiran-panel .tab-navigation{
+    margin-bottom:20px;
+}

@@ -1,0 +1,141 @@
+/* Rekap Card */
+.rekap-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    overflow: hidden;
+}
+
+.rekap-table th,
+.rekap-table td {
+    border: 1px solid #d6d6d6;
+    padding: 12px 8px;
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 14px;
+}
+
+.rekap-table th {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.rekap-table td {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Scroll hanya muncul jika isi tabel lebih lebar dari layar */
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Tabel */
+.rekap-table {
+    width: 100%; /* Atau gunakan 'min-width: 500px' jika ingin selalu scroll */
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: auto; /* Menyesuaikan lebar konten */
+}
+
+.rekap-table th, .rekap-table td {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    white-space: nowrap; /* Teks tidak akan turun baris, memaksa lebar kolom */
+    text-align: center;
+}
+
+.rekap-table th {
+    background-color: #1a5d1a;
+    color: white;
+}
+
+/* Pengaturan lebar kolom agar tidak berantakan */
+.rekap-table th:nth-child(1) { width: 15%; } /* Tanggal */
+.rekap-table th:nth-child(2) { width: 30%; } /* Nama */
+.rekap-table th:nth-child(3) { width: 25%; } /* Surah & Ayat */
+.rekap-table th:nth-child(4) { width: 10%; } /* Sesi */
+.rekap-table th:nth-child(5) { width: 20%; } /* Predikat */
+
+.table-responsive{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    -webkit-overflow-scrolling:touch;
+
+    margin:15px 0;
+
+    border-radius:12px;
+
+}
+
+/* Scrollbar */
+
+.table-responsive::-webkit-scrollbar{
+
+    height:8px;
+
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+
+    background:#1a5d1a;
+
+    border-radius:10px;
+
+}
+
+.ranking-table{
+    min-width:700px;     /* sesuaikan jumlah kolom */
+    border-collapse:collapse;
+    font-size: 13px;
+    table-layout:auto;
+}
+
+.ranking-table th,
+.ranking-table td{
+    padding:10px 12px;
+    border:1px solid #ddd;
+    white-space:nowrap;
+    text-align:center;
+}
+
+.ranking-table th{
+    background:#1a5d1a;
+    color:#fff;
+}
+
+/* Lebar kolom */
+.ranking-table th:nth-child(1),
+.ranking-table td:nth-child(1){ width:55px; }
+
+.ranking-table th:nth-child(2),
+.ranking-table td:nth-child(2){ width:220px; }
+
+.ranking-table th:nth-child(3),
+.ranking-table td:nth-child(3){ width:100px; }
+
+.ranking-table th:nth-child(4),
+.ranking-table td:nth-child(4){ width:90px; }
+
+.ranking-table th:nth-child(5),
+.ranking-table td:nth-child(5){ width:90px; }
+
+.ranking-table th:nth-child(6),
+.ranking-table td:nth-child(6){ width:90px; }
+
+.ranking-table th:nth-child(7),
+.ranking-table td:nth-child(7){ width:100px; }
+
+.ranking-table th:nth-child(8),
+.ranking-table td:nth-child(8){ width:150px; }

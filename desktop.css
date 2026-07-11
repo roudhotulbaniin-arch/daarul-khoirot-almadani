@@ -1,0 +1,42 @@
+/* =====================================================
+   DESKTOP GLOBAL
+===================================================== */
+
+@media (min-width:769px){
+
+    .container{
+        max-width:1300px;
+        margin:auto;
+    }
+
+    .tab-content{
+        padding:40px;
+    }
+
+    .form-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .form-grid-2{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .button-group{
+        justify-content:flex-end;
+    }
+    
+            .social-header-tengah { display: flex !important; gap: 20px; margin: 0 20px; }
+            .social-header-tengah a { color: #ffd700; font-size: 1.2rem; transition: transform 0.3s ease; }
+            .social-header-tengah a:hover { color: #ffffff; transform: scale(1.2); }
+            .hero-content { display: none !important; }
+            .header-text-container { display: flex; flex-direction: column; justify-content: center; gap: 0px; }
+            .header-text-container h1 { font-size: 1.1rem; margin: 0; color: #fff; }
+            .header-text-container .motto-text { font-size: 0.8rem; margin: 0; color: #ffd700; display: block !important; }
+       
+        header { padding: 10px 15px; }
+        .header-text-container h1 { font-size: 0.95rem; }
+        .motto-text { display: none !important; }
+        .logo img { width: 42px; height: 42px; }
+        nav { width: 75%; }
+        .social-header -tengah { display: none; }
+  

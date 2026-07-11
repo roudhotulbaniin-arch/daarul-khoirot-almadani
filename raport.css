@@ -1,0 +1,174 @@
+.sub-judul-rekap{
+
+    margin-top:30px;
+    margin-bottom:12px;
+
+    padding:10px 15px;
+
+    background:#1a5d1a;
+    color:white;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+}
+
+.rekap-card-info .form-grid-2{{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.catatan-card,
+.motivasi-card {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.catatan-card {
+    background: #fffef7;
+    border-left: 5px solid #d97706;
+}
+
+.motivasi-card {
+    background: #f0fff4;
+    border-left: 5px solid #16a34a;
+}
+
+.catatan-header {
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-color);
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.catatan-content {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.catatan-item {
+    margin: 0;
+}
+
+.catatan-item strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #222;
+}
+
+.catatan-item div {
+    margin: 0;
+}
+
+@media print {
+    /* Sembunyikan elemen yang tidak perlu saat cetak */
+    .btn-cetak, .btn-generate, .sidebar, .header-dashboard {
+        display: none !important;
+    }
+    
+    /* Pastikan box laporan muncul penuh saat dicetak */
+    #boxLaporanRekap {
+        display: block !important;
+        width: 100% !important;
+    }
+}
+
+.rekap-card-info{
+    background:#fff;
+    border-radius:18px;
+    padding:28px;
+    margin-top:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    border:1px solid #e5e7eb;
+    width:100%;
+    max-width:100%;
+    overflow:hidden;
+}
+
+/* HEADER */
+
+.raport-header{
+    text-align:center;
+    border-bottom:3px solid #1a5d1a;
+    padding-bottom:18px;
+    margin-bottom:25px;
+}
+
+.raport-header h3{
+    margin:4px 0;
+    color:#1a5d1a;
+    font-weight:700;
+}
+
+.raport-header p{
+    color:#666;
+    margin-top:8px;
+}
+
+.rekap-card-info .form-grid-2{div{
+
+    background:#f8fafc;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+    border:1px solid #e5e7eb;
+
+}
+
+.nilai-box{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+    margin:20px 0;
+
+}
+
+.nilai-box div{
+
+    background:#f3fdf4;
+
+    border:1px solid #b7e4c7;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    text-align:center;
+
+    font-size:16px;
+
+}
+
+
