@@ -157,3 +157,29 @@ body{
 }
 
 }
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper input{
+    width:100%;
+    padding-right:45px;
+}
+
+.toggle-password{
+    position:absolute;
+    top:50%;
+    right:12px;
+    transform:translateY(-50%);
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    color:#666;
+    font-size:18px;
+    padding:0;
+}
+
+.toggle-password:hover{
+    color:#0b7a2a;
+}
