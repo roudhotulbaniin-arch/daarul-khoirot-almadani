@@ -73,39 +73,3 @@
 
     width:100%;
 }
-
-@media (max-width:768px){
-
-    .tab-link{
-        flex:1 1 50%; /* 2 kolom */
-        font-size:.70rem;
-        min-height:65px;
-        padding:12px 5px;
-    }
-
-    .tab-content{
-        padding:20px 15px;
-    }
-
-    .tab-content{
-        padding:20px 15px;
-        display:none;
-        width:100% !important;
-    }
-
-    .tab-content.active{
-        display:flex !important;
-    }
-    
-
-    .tab-navigation{
-        grid-template-columns:1fr;
-    }
-}
-
-#ibadah-panel .tab-navigation,
-#input-panel .tab-navigation,
-#kehadiran-panel .tab-navigation{
-    margin-bottom:20px;
-}
-
