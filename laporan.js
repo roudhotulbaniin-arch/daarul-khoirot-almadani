@@ -24,6 +24,7 @@ const laporan = (data || []).map(item => ({
     ...item,
 
     // IDENTITAS
+    id_santri: item.id_santri ?? "-",
     nama_santri: item.nama ?? "-",
     unit_kelas: item.kelas ?? "-",
 
@@ -43,7 +44,6 @@ const laporan = (data || []).map(item => ({
         tajwid: item.tajwid ?? "-"
     },
 
-    // Tetap pertahankan format baru
     kelancaran: item.kelancaran ?? "-",
     tahsin: item.tahsin ?? "-",
     tajwid: item.tajwid ?? "-",
@@ -130,6 +130,7 @@ set("txtTotalTasmi", hitungTasmi(laporan));
 // ======================
 set("lblNama", terakhir?.nama_santri);
 set("lblKelasUnit", terakhir?.unit_kelas);
+set("lblNIS", terakhir?.id_santri);
 
 // ======================
 // CATATAN
@@ -159,13 +160,30 @@ set("cellMotivasiUstadz", terakhir?.motivasi);
 // ======================
 // PERIODE
 // ======================
-if (el("txtPeriodeLaporan")) {
-    const bulan = el("filter-bulan")?.value || "";
-    const tahun = el("filter-tahun")?.value || "";
-    set("txtPeriodeLaporan", `${bulan} ${tahun}`);
-}
+// ======================
+// PERIODE
+// ======================
+const bulanFilter = document.getElementById("filter-bulan");
+const tahunFilter = document.getElementById("filter-tahun");
 
+const namaBulan = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+];
+
+const sekarang = new Date();
+
+const bulan = bulanFilter?.value?.trim()
+    ? bulanFilter.value
+    : namaBulan[sekarang.getMonth()];
+
+const tahun = tahunFilter?.value?.trim()
+    ? tahunFilter.value
+    : sekarang.getFullYear();
+
+set("txtPeriodeLaporan", `Periode: ${bulan} ${tahun}`);
 sukses("Laporan berhasil dibuat.");
+set("lblPeriode", `${bulan} ${tahun}`);
 
     } catch (err) {
         console.error("ERROR GENERATE LAPORAN:", err);
