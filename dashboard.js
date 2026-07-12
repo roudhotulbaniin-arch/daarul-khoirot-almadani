@@ -440,7 +440,7 @@ function isiDashboardIbadah(data = []) {
     if (elPredikat) {
         elPredikat.innerHTML = `
             <strong>${formatNilai(hasil.angka)}</strong><br>
-            <small>${hasil.arab}</small><br>
+            <small>${hasil.latin}</small><br>
             <small dir="rtl">${hasil.tulisan}</small>
         `;
     }
