@@ -215,3 +215,187 @@
 }
 
 
+
+@media(max-width:768px){
+
+
+
+    .panel-card{
+
+
+
+        padding:18px;
+
+
+
+        border-radius:16px;
+
+
+
+    }
+
+
+
+}
+
+
+
+.panel-card h3 {
+
+    margin: 0 0 12px 0;
+
+    font-size: 16px;
+
+    color: #14532d;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+
+.panel-card small {
+
+    color: #64748b;
+
+}
+
+/* =====================================
+
+   BORDER LEFT PANEL TABLE
+
+===================================== */
+
+
+
+.dashboard-tables .panel-card{
+
+    border-left:6px solid #1a5d1a;
+
+}
+
+
+
+.dashboard-tables .panel-card.kehadiran{
+
+    border-left-color:#16a34a;   /* hijau */
+
+}
+
+
+
+.dashboard-tables .panel-card.hafalan{
+
+    border-left-color:#2563eb;   /* biru */
+
+}
+
+
+
+.dashboard-tables .panel-card.ibadah{
+
+    border-left-color:#7c3aed;   /* ungu */
+
+}
+
+
+
+.dashboard-tables .panel-card.rekap{
+
+    border-left-color:#0891b2;   /* cyan */
+
+}
+
+
+
+.dashboard-tables .panel-card.ranking{
+
+    border-left-color:#f59e0b;   /* emas */
+
+}
+
+/* ==========================================================================
+   RESPONSIVE — CARDS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    .panel-card {
+        padding: 18px 15px;
+        border-radius: 10px;
+    }
+
+    .form-section-title {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    .rekap-card-info {
+        padding: 18px 15px;
+        border-radius: 10px;
+    }
+
+    .sub-judul-rekap {
+        font-size: 0.88rem;
+        margin: 15px 0 10px;
+    }
+
+    .nilai-box {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .nilai-box strong {
+        font-size: 1rem;
+    }
+
+    .catatan-content {
+        padding: 14px;
+        font-size: 0.85rem;
+    }
+
+    .catatan-header {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+    }
+
+    .action-bar {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .raport-header {
+        padding: 15px;
+    }
+
+    .raport-header h3 {
+        font-size: 0.95rem;
+    }
+
+    .raport-header p {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .panel-card {
+        padding: 15px 12px;
+    }
+
+    .action-bar {
+        padding: 12px;
+    }
+
+    .form-section-title {
+        font-size: 0.88rem;
+        gap: 8px;
+    }
+}
