@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
@@ -732,18 +732,30 @@
          style="display:none;">
 
         <!-- HEADER -->
-        <div class="raport-header">
-            <h3>LEMBAGA PENDIDIKAN ISLAM DAARUL KHOIROT AL-MADANI</h3>
-            <h3>LAPORAN BULANAN PERKEMBANGAN HAFALAN</h3>
-            <p id="txtPeriodeLaporan">Periode: -</p>
-        </div>
+        
+<div class="raport-header">
+
+<img id="logoRaport" src="main_logo.png" class="logo-raport" alt="Logo">
+
+    <div class="raport-header-text">
+        <h3>LEMBAGA PENDIDIKAN ISLAM</h3>
+        <h3>DAARUL KHOIROT AL-MADANI</h3>
+           <div class="garis-header"></div>
+        <h3>RAPORT BULANAN SANTRI</h3>
+        <p id="txtPeriodeLaporan">Periode: -</p>
+    </div>
+
+</div>
         <!-- END HEADER -->
 
         <!-- IDENTITAS -->
-        <div class="form-grid-2">
-            <div><strong>Nama:</strong> <span id="lblNama">-</span></div>
-            <div><strong>Kelas:</strong> <span id="lblKelasUnit">-</span></div>
-        </div>
+<div class="form-grid-2">
+    <div>Nama : <b id="lblNama">-</b></div>
+    <div>NIS : <b id="lblNIS">-</b></div>
+
+    <div>Kelas : <b id="lblKelasUnit">-</b></div>
+    <div>Periode : <b id="lblPeriode">-</b></div>
+</div>
         <!-- END IDENTITAS -->
 
         <!-- HAFALAN -->
@@ -1317,6 +1329,7 @@ GRAFIK MONITORING
     <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
     <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
 </footer>
+
 <script type="module" src="firebase.js"></script>
 <script src="utils.js"></script>
 <script src="state.js"></script>
