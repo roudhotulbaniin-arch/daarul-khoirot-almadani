@@ -115,7 +115,7 @@ set("avgTajwidGabungan", formatNilai(tajwid));
 
 set("avgTotalGabungan", formatNilai(predikat.angka));
 set("avgTotalAngka", formatNilai(predikat.angka));
-set("avgTotalHuruf", predikat.latin);
+set("avgTotalHuruf", predikat.arab);
 set("avgTotalArab", predikat.tulisan);
 
 // ======================
