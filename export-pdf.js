@@ -492,54 +492,161 @@ window.printLaporan = function () {
             return;
         }
 
-
+console.log(document.getElementById("txtPeriodeLaporan").textContent);
         const isiRaport = area.innerHTML;
 
+// Ambil URL logo
+const logoSrc = document.getElementById("logoRaport")?.src || "";
 
-        const win = window.open("", "_blank");
-
-
-        win.document.write(`
+const win = window.open("", "_blank");     win.document.write(`
 
         <html>
         <head>
 
         <title>Raport Santri</title>
 
-        <style>
+<style>
 
-        body {
-            font-family: Arial, sans-serif;
-            padding:20px;
-        }
+body{
+    font-family:Quicksand,sans-serif;
+    padding:20px;
+    font-size:12px;
+}
 
+table{
+    width:100%;
+    border-collapse:collapse;
+}
 
-        table {
-            width:100%;
-            border-collapse:collapse;
-        }
+th,td{
+    border:1px solid #333;
+    padding:8px;
+}
 
+.button-group,
+.no-print{
+    display:none!important;
+}
 
-        th, td {
-            border:1px solid #333;
-            padding:8px;
-        }
+.sub-judul-rekap{
+    margin:18px 0 10px;
+    padding:8px 12px;
+    border:1px solid #1a5d1a;
+    background:#eaf6ea;
+    font-weight:bold;
+}
 
+.catatan-card,
+.motivasi-card{
+    border:1px solid #333;
+    margin:15px 0;
+    overflow:hidden;
+}
 
-        .button-group,
-        .no-print {
-            display:none !important;
-        }
+.catatan-header{
+    background:#f3f3f3;
+    border-bottom:1px solid #333;
+    padding:8px 12px;
+    font-weight:bold;
+}
 
+.catatan-content{
+    padding:12px 15px;
+    line-height:1.7;
+    min-height:90px;
+}
 
-        .catatan-card,
-        .motivasi-card {
-            margin-top:15px;
-        }
+.catatan-item{
+    margin-bottom:10px;
+}
 
+.catatan-item strong{
+    display:block;
+    margin-bottom:4px;
+}
 
-        </style>
+.form-grid-2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
 
+.form-grid-2 > div{
+    border:1px solid #333;
+    padding:8px;
+}
+
+.kop-raport{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:18px;
+    padding-bottom:12px;
+    border-bottom:3px solid #1a5d1a;
+}
+
+.raport-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo-raport{
+    width:55px;
+    margin-bottom:8px;
+}
+
+.raport-header h1{
+    font-size:24px;
+    color:#0b6b2c;
+    margin:3px 0;
+}
+
+.raport-header h2{
+    font-size:16px;
+    color:#0b6b2c;
+    margin:0;
+}
+
+.raport-header h3{
+    margin-top:10px;
+    color:#0b6b2c;
+}
+
+.garis-header{
+    width:180px;
+    height:3px;
+    background:#0b6b2c;
+    margin:10px auto;
+    border-radius:10px;
+}
+
+.raport-header p{
+    color:#1a5d1a;
+    margin-top:8px;
+    font-size:15px;
+}
+
+.kop-text{
+    flex:1;
+    text-align:center;
+}
+
+.kop-text h1{
+    margin:2px 0;
+    font-size:24px;
+}
+
+.kop-text h2{
+    margin:0;
+    font-size:17px;
+}
+
+.kop-text p{
+    margin:2px 0;
+    font-size:12px;
+}
+
+</style>
 
         </head>
 
