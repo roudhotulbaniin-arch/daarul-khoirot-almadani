@@ -395,8 +395,7 @@ function isiDashboardKehadiran(data = []) {
         ? Math.round((hadir / total) * 100)
         : 0;
 
-    const hasil = angkaKePredikatArab(persen);
-
+    const hasil = angkaKeHuruf(persen);
     document.getElementById("dash-hadir").textContent = hadir;
 document.getElementById("dash-izin").textContent = izin;
 document.getElementById("dash-sakit").textContent = sakit;
