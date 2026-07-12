@@ -318,34 +318,6 @@
 
 }
 
-/* CATATAN */
-
-.catatan-card,
-.motivasi-card{
-
-    background:#f8fafc;
-
-    border-left:5px solid #1a5d1a;
-
-    border-radius:10px;
-
-    padding:18px;
-
-    margin-bottom:15px;
-
-}
-
-.catatan-header{
-
-    font-weight:bold;
-
-    color:#1a5d1a;
-
-    margin-bottom:8px;
-
-}
-
-
 /* ==========================================
    RAPORT BULANAN
 ========================================== */
@@ -429,5 +401,32 @@
     text-align:center;
 
     font-size:16px;
+
+}
+
+/* CATATAN */
+
+.catatan-card,
+.motivasi-card{
+
+    background:#f8fafc;
+
+    border-left:5px solid #1a5d1a;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+}
+
+.catatan-header{
+
+    font-weight:bold;
+
+    color:#1a5d1a;
+
+    margin-bottom:8px;
 
 }
