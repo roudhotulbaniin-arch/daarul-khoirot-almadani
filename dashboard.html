@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
@@ -263,7 +263,7 @@
 <button class="btn-next-tab"
         onclick="simpanDanKeHafalan()">
     Simpan & Lanjut
-    <i class="fas fa-Chevron-circle-right"></i>
+    <i class="fas fa-chevron-circle-right"></i>
 </button>
 
 </div>
@@ -284,7 +284,6 @@
                             <input type="date" id="tanggal" required>
                         </div>
                     </div>
-                </div>
                 
           <div class="form-grid">
     <div class="form-group">
@@ -437,18 +436,13 @@
     <i class="fas fa-chevron-circle-right"></i>
     Ibadah
 </button>
-
-
 </div>
-</div>
-</div>
-
             </form>
         </div>
    </div>
         
    <div id="ibadah-panel" class="tab-content">
-<div class="penilaian-card">
+    <div class="panel-card">
    <div class="form-section-title">
     <i class="fas fa-praying-hands"></i>
     IBADAH HARIAN
@@ -603,307 +597,358 @@
 
 </div>
 </div>
-</div>
 
-  <div id="rekap-panel" class="tab-content">
+<div id="rekap-panel" class="tab-content">
 
-<!-- =========================
-     1. CONTROL PANEL
-========================= -->
-<div class="panel-card">
+    <!-- =========================
+         1. CONTROL PANEL
+    ========================= -->
+    <div class="panel-card">
 
-    <div class="form-section-title">
-        <i class="fas fa-print"></i>
-        Pemrosesan Rekap & Raport Bulanan
-    </div>
+        <div class="form-section-title">
+            <i class="fas fa-print"></i>
+            Pemrosesan Rekap & Raport Bulanan
+        </div>
 
-    <div class="form-grid-2 no-print">
+        <div class="form-grid-2 no-print">
 
-        <!-- BULAN -->
-        <div class="form-group">
-            <label>PILIH BULAN LAPORAN</label>
-            <div class="dropdown-wrapper-custom">
-                <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
-                    <i class="fas fa-calendar-alt"></i>
-                    <input type="text" id="filter-bulan" data-value="01" value="Januari" readonly>
+            <!-- BULAN -->
+            <div class="form-group">
+                <label>PILIH BULAN LAPORAN</label>
+                <div class="dropdown-wrapper-custom">
+                    <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="text" id="filter-bulan" data-value="01" value="Januari" readonly>
+                    </div>
+
+                    <div class="dropdown-menu-custom">
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','01')">Januari</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','02')">Februari</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','03')">Maret</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','04')">April</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','05')">Mei</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','06')">Juni</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','07')">Juli</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','08')">Agustus</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','09')">September</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','10')">Oktober</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','11')">November</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','12')">Desember</div>
+                    </div>
                 </div>
-                <div class="dropdown-menu-custom">
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','01')">Januari</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','02')">Februari</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','03')">Maret</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','04')">April</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','05')">Mei</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','06')">Juni</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','07')">Juli</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','08')">Agustus</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','09')">September</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','10')">Oktober</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','11')">November</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-bulan','12')">Desember</div>
+            </div>
+            <!-- END BULAN -->
+
+            <!-- TAHUN -->
+            <div class="form-group">
+                <label>TAHUN</label>
+                <div class="dropdown-wrapper-custom">
+                    <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
+                        <i class="fas fa-clock"></i>
+                        <input type="text" id="filter-tahun" data-value="2026" value="2026" readonly>
+                    </div>
+
+                    <div class="dropdown-menu-custom">
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-tahun','2026')">2026</div>
+                        <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-tahun','2027')">2027</div>
+                    </div>
+                </div>
+            </div>
+            <!-- END TAHUN -->
+
+        </div>
+        <!-- END FORM GRID -->
+
+        <!-- BUTTON -->
+        <div class="box-tombol-container-grid">
+            <button type="button" class="btn-prev-tab" onclick="prevTab()">
+                <i class="fas fa-chevron-circle-left fa-lg"></i> SEBELUMNYA
+            </button>
+
+            <button type="button" id="btnProsesRekap" class="btn-simpan-final" onclick="generateLaporan()">
+                <i class="fas fa-sync-alt fa-spin-hover"></i>
+                GENERATE LAPORAN BULANAN
+            </button>
+        </div>
+        <!-- END BUTTON -->
+
+    </div>
+    <!-- END CONTROL PANEL -->
+
+
+    <!-- =========================
+         2. DASHBOARD REKAP
+    ========================= -->
+    <div id="dashboardRekap">
+
+        <!-- DASHBOARD HAFALAN -->
+        <div class="panel-card">
+            <h3>📖 Hafalan</h3>
+            <div class="summary-cards">
+                <div>Total Setoran: <b id="mini-setoran">0</b></div>
+                <div>Juz Tertinggi: <b id="mini-juz">-</b></div>
+                <div>Surat Terakhir: <b id="mini-surat">-</b></div>
+                <div>Ayat Terakhir: <b id="mini-ayat">-</b></div>
+                <div>Kualitas Hafalan: <b id="mini-kualitas">-</b></div>
+            </div>
+        </div>
+        <!-- END DASHBOARD HAFALAN -->
+
+        <!-- DASHBOARD KEHADIRAN -->
+        <div class="panel-card">
+            <h3>📅 Kehadiran</h3>
+            <div class="summary-cards">
+                <div>Hadir: <b id="dash-hadir">0</b></div>
+                <div>Izin: <b id="dash-izin">0</b></div>
+                <div>Sakit: <b id="dash-sakit">0</b></div>
+                <div>Alpha: <b id="dash-alpha">0</b></div>
+                <div>Persentase: <b id="dash-persen">0%</b></div>
+                <div>Nilai: <b id="dash-nilai-kehadiran">-</b></div>
+            </div>
+        </div>
+        <!-- END DASHBOARD KEHADIRAN -->
+
+        <!-- DASHBOARD IBADAH & AKHLAQ -->
+        <div class="panel-card">
+            <h3>🕌 Ibadah & Akhlaq</h3>
+            <div class="summary-cards">
+                <div>Ibadah: <b id="dash-sholat">-</b></div>
+                <div>Akhlaq: <b id="dash-akhlaq">-</b></div>
+                <div>Predikat: <b id="dash-predikat">-</b></div>
+            </div>
+        </div>
+        <!-- END DASHBOARD IBADAH -->
+
+    </div>
+    <!-- END DASHBOARD REKAP -->
+
+
+    <!-- =========================
+         3. FULL RAPORT
+    ========================= -->
+    <div class="rekap-card-info"
+         id="boxLaporanRekap"
+         data-id="area-laporan"
+         style="display:none;">
+
+        <!-- HEADER -->
+        <div class="raport-header">
+            <h3>LEMBAGA PENDIDIKAN ISLAM DAARUL KHOIROT AL-MADANI</h3>
+            <h3>LAPORAN BULANAN PERKEMBANGAN HAFALAN</h3>
+            <p id="txtPeriodeLaporan">Periode: -</p>
+        </div>
+        <!-- END HEADER -->
+
+        <!-- IDENTITAS -->
+        <div class="form-grid-2">
+            <div><strong>Nama:</strong> <span id="lblNama">-</span></div>
+            <div><strong>Kelas:</strong> <span id="lblKelasUnit">-</span></div>
+        </div>
+        <!-- END IDENTITAS -->
+
+        <!-- HAFALAN -->
+        <div class="sub-judul-rekap">
+            <i class="fas fa-book-open"></i> Hafalan
+        </div>
+
+        <div class="table-responsive">
+            <table class="rekap-table">
+                <thead>
+                    <tr>
+                        <th style="width:30%;">KATEGORI LAPORAN</th>
+                        <th>MATERI SURAH & RINCIAN AYAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hafalan Lampau</strong></td>
+                        <td id="cellHafalanLama" style="font-weight:700; background-color:#fffdeb;">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hafalan Baru (Bulan Ini)</strong></td>
+                        <td id="cellHafalanBaru" style="font-weight:700; background-color:#fffdeb;">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Akumulasi Materi Akhir</strong></td>
+                        <td id="cellHafalanTerakhir" style="font-weight:700; background-color:#fffdeb;">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END HAFALAN -->
+
+        <!-- NILAI -->
+        <div class="sub-judul-rekap">
+            <i class="fas fa-star"></i> Nilai
+        </div>
+
+        <div class="table-responsive">
+            <table class="rekap-table text-center">
+                <thead>
+                    <tr>
+                        <th>Kelancaran</th>
+                        <th>Tahsin</th>
+                        <th>Tajwid</th>
+                        <th>Rata-rata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="avgKelancaranGabungan">-</td>
+                        <td id="avgTahsinGabungan">-</td>
+                        <td id="avgTajwidGabungan">-</td>
+                        <td id="avgTotalGabungan">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="nilai-box">
+            <div>
+                Nilai :
+                <strong id="avgTotalAngka">-</strong>
+            </div>
+            <div>
+                Predikat :
+                <strong id="avgTotalHuruf">-</strong>
+            </div>
+            <div>
+                <strong id="avgTotalArab" dir="rtl" style="font-size:22px;">-</strong>
+            </div>
+        </div>
+        <!-- END NILAI -->
+
+        <!-- KEHADIRAN -->
+        <div class="sub-judul-rekap">
+            <i class="fas fa-calendar-check"></i> Kehadiran
+        </div>
+
+        <div class="table-responsive">
+            <table class="rekap-table">
+                <thead>
+                    <tr>
+                        <th>Hadir</th>
+                        <th>Izin</th>
+                        <th>Sakit</th>
+                        <th>Alpha</th>
+                        <th>%</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="rekapHadir">0</td>
+                        <td id="rekapIzin">0</td>
+                        <td id="rekapSakit">0</td>
+                        <td id="rekapAlpha">0</td>
+                        <td id="rekapPersentase">0%</td>
+                        <td id="rekapNilaiKehadiran">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END KEHADIRAN -->
+
+        <!-- IBADAH & AKHLAQ -->
+        <div class="sub-judul-rekap">
+            <i class="fas fa-mosque"></i> Ibadah & Akhlaq
+        </div>
+
+        <div class="table-responsive">
+            <table class="rekap-table">
+                <tbody>
+                    <tr>
+                        <td>Sholat</td>
+                        <td id="rekapSholat">-</td>
+                    </tr>
+                    <tr>
+                        <td>Tilawah</td>
+                        <td id="rekapTilawah">-</td>
+                    </tr>
+                    <tr>
+                        <td>Adab Guru</td>
+                        <td id="rekapAdabGuru">-</td>
+                    </tr>
+                    <tr>
+                        <td>Adab Orang Tua</td>
+                        <td id="rekapAdabOrtu">-</td>
+                    </tr>
+                    <tr>
+                        <td>Disiplin</td>
+                        <td id="rekapDisiplin">-</td>
+                    </tr>
+                    <tr>
+                        <td>Kebersihan</td>
+                        <td id="rekapKebersihan">-</td>
+                    </tr>
+                    <tr>
+                        <td><b>Predikat</b></td>
+                        <td id="rekapPredikatAkhlaq"><b>-</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END IBADAH & AKHLAQ -->
+
+        <!-- CATATAN -->
+        <div class="sub-judul-rekap">
+            <i class="fas fa-comment-dots"></i> Catatan
+        </div>
+
+        <div class="catatan-card">
+            <div class="catatan-header">
+                <i class="fas fa-sticky-note"></i> CATATAN USTADZ
+            </div>
+            <div id="cellCatatanUstadz" class="catatan-content">
+                <div class="catatan-item">
+                    <strong>Hafalan</strong>
+                    <div>-</div>
+                </div>
+                <div class="catatan-item">
+                    <strong>Ibadah & Akhlaq</strong>
+                    <div>-</div>
                 </div>
             </div>
         </div>
+        <!-- END CATATAN -->
 
-        <!-- TAHUN -->
-        <div class="form-group">
-            <label>TAHUN</label>
-            <div class="dropdown-wrapper-custom">
-                <div class="input-ikon select-custom-trigger" onclick="toggleCustomSelect(this)">
-                    <i class="fas fa-clock"></i>
-                    <input type="text" id="filter-tahun" data-value="2026" value="2026" readonly>
-                </div>
-                <div class="dropdown-menu-custom">
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-tahun','2026')">2026</div>
-                    <div class="dropdown-item-custom" onclick="selectFilterOption(this,'filter-tahun','2027')">2027</div>
-                </div>
+        <!-- MOTIVASI -->
+        <div class="motivasi-card">
+            <div class="catatan-header">
+                <i class="fas fa-heart"></i> MOTIVASI USTADZ
             </div>
+            <div id="cellMotivasiUstadz" class="catatan-content">-</div>
+        </div>
+        <!-- END MOTIVASI -->
+
+        <!-- INTENSITAS -->
+        <div class="sub-judul-rekap">
+            <i class="fas fa-chart-line"></i> Intensitas
         </div>
 
-    </div>
-
-    <!-- BUTTON -->
-    <div class="box-tombol-container-grid">
-
-        <button type="button" class="btn-prev-tab" onclick="prevTab()">
-            <i class="fas fa-chevron-circle-left fa-lg"></i> SEBELUMNYA
-        </button>
-
-        <button type="button" id="btnProsesRekap" class="btn-simpan-final"
-            onclick="generateLaporan()">
-            <i class="fas fa-sync-alt fa-spin-hover"></i>
-            GENERATE LAPORAN BULANAN
-        </button>
-
-    </div>
-</div>
-
-<!-- =========================
-     2. DASHBOARD REKAP (RINGAN)
-========================= -->
-<div id="dashboardRekap">
-
-<!-- DASHBOARD HAFALAN -->
-<div class="panel-card">
-    <h3>📖 Hafalan</h3>
-
-    <div class="summary-cards">
-        <div>Total Setoran: <b id="mini-setoran">0</b></div>
-        <div>Juz Tertinggi: <b id="mini-juz">-</b></div>
-        <div>Surat Terakhir: <b id="mini-surat">-</b></div>
-        <div>Ayat Terakhir: <b id="mini-ayat">-</b></div>
-        <div>Kualitas Hafalan: <b id="mini-kualitas">-</b></div>
-    </div>
-</div>
-
-
-    <!-- DASHBOARD KEHADIRAN -->
-    <div class="panel-card">
-      <h3>📅 Kehadiran</h3>
-      <div class="summary-cards">
-        <div>Hadir: <b id="dash-hadir">0</b></div>
-        <div>Izin: <b id="dash-izin">0</b></div>
-        <div>Sakit: <b id="dash-sakit">0</b></div>
-        <div>Alpha: <b id="dash-alpha">0</b></div>
-        <div>Persentase: <b id="dash-persen">0%</b></div>
-        <div>Nilai: <b id="dash-nilai-kehadiran">-</b></div>
-      </div>
-    </div>
-
-    <!-- DASHBOARD IBADAH & AKHLAQ -->
-    <div class="panel-card">
-      <h3>🕌 Ibadah & Akhlaq</h3>
-      <div class="summary-cards">
-        <div>Ibadah: <b id="dash-sholat">-</b></div>
-        <div>Akhlaq: <b id="dash-akhlaq">-</b></div>
-        <div>Predikat: <b id="dash-predikat">-</b></div>
-      </div>
-    </div>
-
-</div>
-
-<!-- =========================
-     3. FULL RAPORT (GENERATE OUTPUT)
-========================= -->
-<div class="rekap-card-info"
-     id="boxLaporanRekap"
-     data-id="area-laporan"
-     style="display:none;">
-
-    <!-- HEADER -->
-    <div class="raport-header">
-        <h3>LEMBAGA PENDIDIKAN ISLAM DAARUL KHOIROT AL-MADANI</h3>
-        <h3>LAPORAN BULANAN PERKEMBANGAN HAFALAN</h3>
-        <p id="txtPeriodeLaporan">Periode: -</p>
-    </div>
-
-    <!-- IDENTITAS -->
-    <div class="form-grid-2">
-        <div><strong>Nama:</strong> <span id="lblNama">-</span></div>
-        <div><strong>Kelas:</strong> <span id="lblKelasUnit">-</span></div>
-    </div>
-
-    <!-- HAFALAN -->
-    <div class="sub-judul-rekap"><i class="fas fa-book-open"></i> Hafalan</div>
-
-   <div class="table-responsive">
-    <table class="rekap-table">
-           <thead><tr><th style="width: 30%;">KATEGORI LAPORAN</th><th>MATERI SURAH & RINCIAN AYAT</th></tr></thead>
-       <tr>
-        <td><strong>Hafalan Lampau</strong></td>
-        <td id="cellHafalanLama" style="font-weight:700; background-color:#fffdeb;">-</td>
-    </tr>
-    <tr>
-        <td><strong>Hafalan Baru (Bulan Ini)</strong></td>
-        <td id="cellHafalanBaru" style="font-weight:700; background-color:#fffdeb;">-</td>
-    </tr>
-    <tr>
-        <td><strong>Akumulasi Materi Akhir</strong></td>
-        <td id="cellHafalanTerakhir" style="font-weight:700; background-color:#fffdeb;">-</td>
-    </tr></table>
-    </div>
-
-    <!-- NILAI -->
-    <div class="sub-judul-rekap"><i class="fas fa-star"></i> Nilai</div>
-<div class="table-responsive">
-
-    <table class="rekap-table text-center">
-
-        <tr>
-            <th>Kelancaran</th>
-            <th>Tahsin</th>
-            <th>Tajwid</th>
-            <th>Rata-rata</th>
-        </tr>
-
-        <tr>
-            <td id="avgKelancaranGabungan">-</td>
-            <td id="avgTahsinGabungan">-</td>
-            <td id="avgTajwidGabungan">-</td>
-            <td id="avgTotalGabungan">-</td>
-        </tr>
-
-    </table>
-
-</div>
-
-<div class="nilai-box">
-
-    <div>
-        Nilai :
-        <strong id="avgTotalAngka">-</strong>
-    </div>
-
-    <div>
-        Predikat :
-        <strong id="avgTotalHuruf">-</strong>
-    </div>
-
-    <div>
-        <strong
-            id="avgTotalArab"
-            dir="rtl"
-            style="font-size:22px">
-            -
-        </strong>
-    </div>
-
-</div>
-
-    <!-- KEHADIRAN -->
-    <div class="sub-judul-rekap"><i class="fas fa-calendar-check"></i> Kehadiran</div>
-
-<div class="table-responsive">
-    <table class="rekap-table">
-   
-<tr>
-    <th>Hadir</th>
-    <th>Izin</th>
-    <th>Sakit</th>
-    <th>Alpha</th>
-    <th>%</th>
-    <th>Nilai</th>
-</tr>
-
-<tr>
-    <td id="rekapHadir">0</td>
-    <td id="rekapIzin">0</td>
-    <td id="rekapSakit">0</td>
-    <td id="rekapAlpha">0</td>
-    <td id="rekapPersentase">0%</td>
-    <td id="rekapNilaiKehadiran">-</td>
-</tr>
-    </table>
-</div>
-
-    <!-- IBADAH & AKHLAQ -->
-    <div class="sub-judul-rekap"><i class="fas fa-mosque"></i> Ibadah & Akhlaq</div>
-
-<div class="table-responsive">
-    <table class="rekap-table">
-        <tr><td>Sholat</td><td id="rekapSholat">-</td></tr>
-        <tr><td>Tilawah</td><td id="rekapTilawah">-</td></tr>
-        <tr><td>Adab Guru</td><td id="rekapAdabGuru">-</td></tr>
-        <tr><td>Adab Orang Tua</td><td id="rekapAdabOrtu">-</td></tr>
-        <tr><td>Disiplin</td><td id="rekapDisiplin">-</td></tr>
-        <tr><td>Kebersihan</td><td id="rekapKebersihan">-</td></tr>
-        <tr><td><b>Predikat</b></td><td id="rekapPredikatAkhlaq"><b>-</b></td></tr>
-    </table>
-    </div>
-
-    <!-- CATATAN -->
-    <div class="sub-judul-rekap"><i class="fas fa-comment-dots"></i> Catatan</div>
-
-<div class="catatan-card">
-    <div class="catatan-header">
-        <i class="fas fa-sticky-note"></i> CATATAN USTADZ
-    </div>
-
-    <div id="cellCatatanUstadz" class="catatan-content">
-        
-        <div class="catatan-item">
-            <strong>Hafalan</strong>
-            <div>-</div>
+        <div class="form-grid-2">
+            <div>Total Setoran: <b id="txtTotalSetoran">0</b></div>
+            <div>Total Ayat: <b id="txtTotalAyat">0</b></div>
+            <div>Tasmi': <b id="txtTotalTasmi">0</b></div>
         </div>
+        <!-- END INTENSITAS -->
 
-        <div class="catatan-item">
-            <strong>Ibadah & Akhlaq</strong>
-            <div>-</div>
+        <!-- PRINT BUTTON -->
+        <div class="button-group no-print">
+            <button type="button" onclick="printLaporan()" class="btn-cetak-box">
+                <i class="fas fa-print"></i> CETAK RAPORT
+            </button>
         </div>
+        <!-- END PRINT BUTTON -->
 
     </div>
-</div>
-
-<div class="motivasi-card">
-    <div class="catatan-header">
-        <i class="fas fa-heart"></i> MOTIVASI USTADZ
-    </div>
-    <div id="cellMotivasiUstadz" class="catatan-content">-</div>
-</div>
-
-    <!-- INTENSITAS -->
-    <div class="sub-judul-rekap"><i class="fas fa-chart-line"></i> Intensitas</div>
-
-    <div class="form-grid-2">
-        <div>Total Setoran: <b id="txtTotalSetoran">0</b></div>
-        <div>Total Ayat: <b id="txtTotalAyat">0</b></div>
-        <div>Tasmi': <b id="txtTotalTasmi">0</b></div>
-    </div>
-
-    <!-- PRINT -->
-    <div class="button-group no-print">
-        <button type="button" onclick="printLaporan()" class="btn-cetak-box">
-            <i class="fas fa-print"></i> CETAK RAPORT
-        </button>
-    </div>
+    <!-- END FULL RAPORT -->
 
 </div>
-
-</div>
+<!-- END rekap-panel -->
     
-    <div id="dashboard-panel" class="tab-content">
-
+     <div id="dashboard-panel" class="tab-content">
 <div class="panel-card">
-
 <div class="form-section-title">
 <i class="fas fa-chart-line"></i>
 Dashboard Monitoring Santri
@@ -1188,70 +1233,91 @@ GRAFIK MONITORING
         </table>
     </div>
 </div>
-
-<div class="panel-card ranking">
-
-    <h3>🏆 Ranking Santri</h3>
-
-    <div class="ranking-wrapper">
-
-        <table class="ranking-table">
-
-      <thead>
-<tr>
-    <th>No</th>
-    <th>Nama Santri</th>
-    <th>ID Santri</th>
-    <th>Kelas</th>
-    <th>Kehadiran</th>
-    <th>Hafalan</th>
-    <th>Ibadah</th>
-    <th>Nilai Akhir</th>
-    <th>Predikat</th>
-</tr>
-</thead>
-
-            <tbody id="rankingBody"></tbody>
-
-        </table>
-
-    </div>
-
-</div> 
-
- <div class="action-bar" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px; display:flex; flex-direction:column; gap:10px;">
-
-    <button type="button" id="btnResetData" class="btn-simpan-final" 
-        style="width:100%; background: #ef4444 !important; padding:12px; border-radius:6px; font-weight:bold;">
-        <i class="fas fa-trash-alt"></i> RESET SEMUA DATA
-    </button>
-    
-<div style="display: flex; gap: 10px; margin-top: 10px;">
-    <button type="button" onclick="exportToWord()" 
-        style="flex: 1; background:#0288d1; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold;">
-        <i class="fas fa-file-word"></i> WORD
-    </button>
-
-   <button type="button" onclick="exportToPDF()"
-        style="flex: 1; background:#d32f2f; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold;">
-        <i class="fas fa-file-pdf"></i> PDF
-    </button>
-</div>
-
-</div>
+                   <!-- RANKING -->
+            <div class="panel-card ranking">
+                <h3>🏆 Ranking Santri</h3>
+                <div class="ranking-wrapper">
+                    <table class="ranking-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Santri</th>
+                                <th>ID Santri</th>
+                                <th>Kelas</th>
+                                <th>Kehadiran</th>
+                                <th>Hafalan</th>
+                                <th>Ibadah</th>
+                                <th>Nilai Akhir</th>
+                                <th>Predikat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rankingBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- ✅ END panel-card ranking -->
 
         </div>
-    </div> 
-</div> 
+        <!-- ✅ END dashboard-tables -->
 
-   <footer>
-        <div class="f-title">Lembaga Pendidikan Islam DAARUL KHOIROT ALMADANI</div>
-        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
-        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
-        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
-    </footer>
-    
-<script type="module" src="js/firebase.js"></script>
+        </div>
+        <!-- ✅ END dashboard-grid -->
+
+    </div>
+    <!-- ✅ END panel-card (utama dashboard) -->
+
+
+    <!-- ===========================================
+         ACTION BAR (DI DALAM DASHBOARD-PANEL,
+         TAPI DI LUAR PANEL-CARD)
+    =========================================== -->
+    <div class="action-bar no-print"
+         style="padding:20px; background:#fff; border-radius:12px;
+                box-shadow:0 4px 15px rgba(0,0,0,.06);
+                display:flex; flex-direction:column; gap:12px;">
+
+        <button type="button" id="btnResetData" class="btn-simpan-final"
+            style="width:100%; background:#ef4444 !important; padding:14px;
+                   border-radius:8px; font-weight:bold; font-size:0.95rem;">
+            <i class="fas fa-trash-alt"></i> RESET SEMUA DATA
+        </button>
+
+        <div style="display:flex; gap:10px;">
+            <button type="button" onclick="exportToWord()"
+                style="flex:1; background:#0288d1; color:white; padding:14px;
+                       border:none; border-radius:8px; font-weight:bold;
+                       font-size:0.95rem; cursor:pointer;">
+                <i class="fas fa-file-word"></i> WORD
+            </button>
+            <button type="button" onclick="exportToPDF()"
+                style="flex:1; background:#d32f2f; color:white; padding:14px;
+                       border:none; border-radius:8px; font-weight:bold;
+                       font-size:0.95rem; cursor:pointer;">
+                <i class="fas fa-file-pdf"></i> PDF
+            </button>
+        </div>
+
+    </div>
+    <!-- ✅ END action-bar -->
+
+</div>
+<!-- ✅ END dashboard-panel -->
+
+
+    </div>
+    <!-- ✅ END tab-container -->
+
+</div>
+<!-- ✅ END container -->
+
+
+<footer>
+    <div class="f-title">Lembaga Pendidikan Islam DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+</footer>
+<script type="module" src="firebase.js"></script>
 <script src="utils.js"></script>
 <script src="state.js"></script>
 <script src="data.js"></script>
@@ -1265,12 +1331,7 @@ GRAFIK MONITORING
 <script src="export-word.js"></script>
 <script src="export-pdf.js"></script>
 <script src="dashboard-reset.js"></script>
-
-<!-- Dashboard -->
 <script src="dashboard.js"></script>
-<script src="dashboard-export-word.js"></script>
-<script src="dashboard-export-pdf.js"></script>
-<script src="dashboard-reset.js"></script>
 <script type="module" src="app.js"></script>
 
 </body>
