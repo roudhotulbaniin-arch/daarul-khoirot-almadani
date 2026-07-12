@@ -31,7 +31,7 @@ function initDropdown(wrapperId, boxId, inputId) {
 
             const val = item.textContent.trim();
 
-            input.value = val; // 🔥 INI YANG HARUS MASUK
+            input.value = val; // ðŸ”¥ INI YANG HARUS MASUK
 
             input.dispatchEvent(new Event("change"));
 
@@ -264,9 +264,15 @@ el.menuStatusKehadiranDropdown.addEventListener("click", (e) => {
     if (!item) return;
 
     el.statusKehadiran.value = item.dataset.value;
+    el.boxStatusKehadiran.value = item.textContent.trim(); // jika ada input tampilan
+
+    wrapperStatus.classList.remove("open");
+    // atau bisa juga:
+    // closeDropdown();
+
+    e.stopPropagation();
 
 });
-    
     /* ==========================================================
    CLICK AYAT MULAI (EVENT DELEGATION)
 ========================================================== */
