@@ -218,7 +218,7 @@ function renderRanking(data = []) {
                 </td>
 
                 <td>
-                    ${predikat.latin}<br>
+                    <strong>${predikat.latin}</strong><br>
                     <small dir="rtl">
                         ${predikat.tulisan}
                     </small>
@@ -395,21 +395,27 @@ function isiDashboardKehadiran(data = []) {
         ? Math.round((hadir / total) * 100)
         : 0;
 
-    const hasil = angkaKeHuruf(persen);
-    document.getElementById("dash-hadir").textContent = hadir;
-document.getElementById("dash-izin").textContent = izin;
-document.getElementById("dash-sakit").textContent = sakit;
-document.getElementById("dash-alpha").textContent = alpha;
-document.getElementById("dash-persen").textContent = persen + "%";
-const elNilai = document.getElementById("dash-nilai-kehadiran");
+    // Konversi persen menjadi nilai
+    const nilai = konversiPersenKehadiran(persen);
 
-if (elNilai) {
-elNilai.innerHTML = `
-    <strong>${formatNilai(hasil.angka)}</strong><br>
-    <small>${hasil.latin}</small><br>
-    <small dir="rtl">${hasil.tulisan}</small>
-`;
-}
+    // Ambil predikat berdasarkan nilai
+    const hasil = angkaKeHuruf(nilai.angka);
+
+    document.getElementById("dash-hadir").textContent = hadir;
+    document.getElementById("dash-izin").textContent = izin;
+    document.getElementById("dash-sakit").textContent = sakit;
+    document.getElementById("dash-alpha").textContent = alpha;
+    document.getElementById("dash-persen").textContent = persen + "%";
+
+    const elNilai = document.getElementById("dash-nilai-kehadiran");
+
+    if (elNilai) {
+        elNilai.innerHTML = `
+            <strong>${formatNilai(nilai.angka)}</strong><br>
+            <small>${hasil.latin}</small><br>
+            <small dir="rtl">${hasil.tulisan}</small>
+        `;
+    }
 }
 
 function isiDashboardIbadah(data = []) {
@@ -990,7 +996,10 @@ function renderDashboardTable(data) {
     if (tbodyRekap) tbodyRekap.innerHTML = "";
 
     data.forEach((row, i) => {
-
+const predikatKehadiran = angkaKeHuruf(Number(row.nilaiKehadiran) || 0);
+const predikatHafalan   = angkaKeHuruf(Number(row.nilaiHafalan) || 0);
+const predikatIbadah    = angkaKeHuruf(Number(row.nilaiIbadahAkhlaq ?? row.nilaiIbadah) || 0);
+const predikatAkhir     = angkaKeHuruf(Number(row.nilaiAkhir) || 0);
         // =========================
         // KEHADIRAN
         // =========================
@@ -1008,7 +1017,11 @@ function renderDashboardTable(data) {
 
             <td>${formatNilai(row.persenHadir)}%</td>
           <td>${konversiHurufKeAngka(nilaiKehadiran(row.persenHadir))}</td>
-            <td><strong>${row.predikatKehadiran ?? "-"}</strong></td>
+      <td>
+    <strong>${predikatKehadiran.latin}</strong><br>
+    <small dir="rtl">${predikatKehadiran.tulisan}</small>
+</td>
+
         </tr>`;
 
         // =========================
@@ -1030,7 +1043,11 @@ function renderDashboardTable(data) {
             <td>${row.tasmi ?? 0}</td>
 
             <td>${formatNilai(row.nilaiHafalan)}</td>
-            <td><strong>${row.predikatHafalan ?? row.predikat ?? "-"}</strong></td>
+
+<td>
+    <strong>${predikatHafalan.latin}</strong><br>
+    <small dir="rtl">${predikatHafalan.tulisan}</small>
+</td>
         </tr>`;
 
         // =========================
@@ -1047,7 +1064,11 @@ function renderDashboardTable(data) {
  <td>${formatNilai(row.nilaiIbadah)}</td>
 <td>${formatNilai(row.nilaiAkhlaq)}</td>
 <td>${formatNilai(row.nilaiIbadahAkhlaq)}</td>
-<td><strong>${row.predikatIbadah}</strong></td>   </tr>`;
+
+<td>
+    <strong>${predikatIbadah.latin}</strong><br>
+    <small dir="rtl">${predikatIbadah.tulisan}</small>
+</td>  </tr>`;
 
         // =========================
         // REKAP AKHIR
@@ -1058,12 +1079,14 @@ function renderDashboardTable(data) {
             <td>${row.nama ?? "-"}</td>
             <td>${row.id_santri ?? "-"}</td>
             <td>${row.kelas || row.tingkat_unit || "-"}</td>
-
-  <td>${row.nilaiKehadiran}</td>
+            <td>${row.nilaiKehadiran}</td>
             <td>${formatNilai(row.nilaiHafalan)}</td>
             <td>${formatNilai(row.nilaiIbadahAkhlaq ?? row.nilaiIbadah)}</td>
             <td><strong>${formatNilai(row.nilaiAkhir)}</strong></td>
-            <td><strong>${row.predikat ?? "-"}</strong></td>
+<td>
+    <strong>${predikatAkhir.latin}</strong><br>
+    <small dir="rtl">${predikatAkhir.tulisan}</small>
+</td>
         </tr>`;
     });
 
