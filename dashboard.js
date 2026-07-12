@@ -406,7 +406,7 @@ const elNilai = document.getElementById("dash-nilai-kehadiran");
 if (elNilai) {
 elNilai.innerHTML = `
     <strong>${formatNilai(hasil.angka)}</strong><br>
-    <small>${hasil.arab}</small><br>
+    <small>${hasil.latin}</small><br>
     <small dir="rtl">${hasil.tulisan}</small>
 `;
 }
