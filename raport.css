@@ -375,32 +375,3 @@
     display:block;
     margin-top:6px;
 }
-
-.nilai-box{
-    display:flex !important;
-    gap:15px;
-    margin-top:12px;
-}
-
-.nilai-box > div{
-    flex:1;
-    border:2px solid #1b5e20;
-    border-radius:8px;
-    background:#fff !important;
-    padding:12px;
-    text-align:center;
-    box-sizing:border-box;
-}
-
-.nilai-box > div strong{
-    display:block;
-    margin-top:6px;
-    font-size:22px;
-    font-weight:700;
-    color:#1b5e20;
-}
-
-.nilai-box > div:last-child strong{
-    font-family:"Amiri","Traditional Arabic",serif;
-    font-size:24px;
-}
