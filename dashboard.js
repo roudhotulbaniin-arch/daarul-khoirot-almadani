@@ -800,7 +800,7 @@ const hasilAkhir = angkaKeHuruf(nilaiAkhir);
 
     nilaiHafalan: nilaiHafalan.angka,
     kualitas: nilaiHafalan.angka,
-    predikatHafalan: nilaiHafalan.latin,
+    predikatHafalan: nilaiHafalan.arab,
     predikatHafalanArab: nilaiHafalan.tulisan,
 
     // ==========================
