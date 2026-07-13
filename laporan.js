@@ -118,6 +118,67 @@ set("avgTotalAngka", formatNilai(predikat.angka));
 set("avgTotalHuruf", predikat.arab);
 set("avgTotalArab", predikat.tulisan);
 
+
+// ======================
+// KEHADIRAN
+// ======================
+
+const dataKehadiran = filterKehadiranBulanan();
+const rekap = rekapKehadiran(dataKehadiran);
+
+const hasilKehadiran = konversiPersenKehadiran(rekap.persen);
+const predikatKehadiran = angkaKeHuruf(hasilKehadiran.angka);
+
+set("rekapHadir", rekap.hadir);
+set("rekapIzin", rekap.izin);
+set("rekapSakit", rekap.sakit);
+set("rekapAlpha", rekap.alpha);
+set("rekapPersentase", formatNilai(rekap.persen) + "%");
+
+set("rekapNilaiKehadiran", formatNilai(predikatKehadiran.angka));
+set("rekapNilaiKehadiranAngka", formatNilai(predikatKehadiran.angka));
+set("rekapPredikatKehadiran", predikatKehadiran.latin);
+set("rekapArabKehadiran", predikatKehadiran.tulisan);
+
+// ======================
+// IBADAH & AKHLAQ
+// ======================
+
+const dataIbadah = filterIbadahBulanan();
+
+if (dataIbadah.length) {
+
+    const last = dataIbadah[dataIbadah.length - 1];
+
+    set("rekapSholat", formatNilai(last.rataSholat));
+    set("rekapTilawah", formatNilai(nilaiToAngka(last.ibadah.tilawah)));
+    set("rekapAdabGuru", formatNilai(nilaiToAngka(last.akhlaq.adabGuru)));
+    set("rekapAdabOrtu", formatNilai(nilaiToAngka(last.akhlaq.adabOrtu)));
+    set("rekapDisiplin", formatNilai(nilaiToAngka(last.akhlaq.disiplin)));
+    set("rekapKebersihan", formatNilai(nilaiToAngka(last.akhlaq.kebersihan)));
+
+    const predikatIbadah = angkaKeHuruf(last.rataTotal);
+
+    set("rekapNilaiIbadah", formatNilai(predikatIbadah.angka));
+    set("rekapPredikatIbadah", predikatIbadah.latin);
+    set("rekapArabIbadah", predikatIbadah.tulisan);
+
+}
+
+// ======================
+// BOX NILAI IBADAH
+// ======================
+
+if (ibadahTerakhir) {
+
+    const predikatIbadah = angkaKeHuruf(ibadahTerakhir.rataTotal);
+
+    set("rekapNilaiIbadah", formatNilai(predikatIbadah.angka));
+    set("rekapPredikatIbadah", predikatIbadah.latin);
+    set("rekapArabIbadah", predikatIbadah.tulisan);
+
+}
+
 // ======================
 // INTENSITAS
 // ======================
