@@ -356,3 +356,27 @@
     margin-top:6px;
 }
 
+.nilai-box-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+.nilai-box-table td{
+    width:50%;
+    border:1px solid #2e7d32;
+    padding:10px;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.nilai-box-table strong{
+    display:block;
+    font-size:18px;
+    margin-top:5px;
+}
+
+.nilai-box-table #avgTotalArab{
+    font-size:20px;
+    margin-top:5px;
+}
