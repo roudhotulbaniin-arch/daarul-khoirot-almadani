@@ -375,3 +375,33 @@
     display:block;
     margin-top:6px;
 }
+
+/* ===== BOX NILAI RAPORT ===== */
+
+.nilai-box{
+    display:flex;
+    gap:15px;
+    margin:18px 0;
+}
+
+.nilai-box > div{
+    flex:1;
+    border:2px solid #1a5d1a;
+    border-radius:10px;
+    background:#fff;
+    padding:15px;
+    text-align:center;
+}
+
+.nilai-box > div strong{
+    display:block;
+    margin-top:8px;
+    font-size:22px;
+    color:#1a5d1a;
+    font-weight:700;
+}
+
+.nilai-box > div:last-child strong{
+    font-family:"Amiri","Traditional Arabic",serif;
+    font-size:26px;
+}
