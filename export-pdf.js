@@ -646,6 +646,34 @@ th,td{
     font-size:12px;
 }
 
+.nilai-box{
+    display:flex;
+    gap:12px;
+    margin:15px 0 20px;
+}
+
+.nilai-box > div{
+    flex:1;
+    border:1px solid #333;
+    background:#e8f5e9;   /* Background hijau muda */
+    padding:10px;
+    text-align:center;
+    box-sizing:border-box;
+}
+
+.nilai-box > div strong{
+    display:block;
+    margin-top:6px;
+    font-size:22px;
+    font-weight:bold;
+    color:#1b5e20;
+}
+
+.nilai-box > div:last-child strong{
+    font-family:"Amiri","Traditional Arabic",serif;
+    font-size:26px;
+}
+
 </style>
 
         </head>
