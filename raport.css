@@ -367,3 +367,97 @@
     font-size:28px;
     color:#1b5e20;
 }
+
+/* ==========================
+   AREA TTD
+========================== */
+
+.ttd-wrapper{
+    margin-top:25px;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#fafafa;
+    overflow:hidden;
+}
+
+
+.ttd-tanggal{
+    text-align:right;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.ttd-mengetahui{
+    text-align:center;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+
+.ttd-row{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:40px;
+    margin-bottom:20px;
+}
+
+.ttd-box{
+    width:100%;
+    min-width:0;
+    text-align:center;
+}
+
+.ttd-box p{
+    margin:0 0 6px;
+    font-size:9px;
+    font-weight:600;
+    line-height:1.2;
+}
+
+.ttd-box b{
+    display:block;
+    width:100%;
+    max-width:100%;
+    border-top:1px solid #000;
+    padding-top:6px;
+    font-size:9px;
+    font-weight:700;
+    white-space:normal;
+    overflow-wrap:break-word;
+    box-sizing:border-box;
+}
+
+.ttd-space{
+    height:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* TTD Bagian Pendidikan */
+.ttd{
+    width:90px;
+    max-width:100%;
+    max-height:80px;
+    object-fit:contain;
+}
+
+/* TTD + Stempel Kepala Lembaga */
+.ttd-stempel{
+    width:90px;
+    max-width:100%;
+    max-height:80px;
+    object-fit:contain;
+}
+
+.ttd-box b{
+    display:block;
+    width:170px;
+    margin:8px auto 0;
+    padding-top:6px;
+    border-top:1px solid #000;
+    font-size:9px;
+    font-weight:700;
+}
