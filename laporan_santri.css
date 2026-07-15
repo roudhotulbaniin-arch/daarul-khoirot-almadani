@@ -127,7 +127,7 @@ header {
 
 .logo h1 {
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin: 0;
     line-height: 1.2;
 }
@@ -1640,7 +1640,7 @@ footer {
 
     .header-text-container h1 {
         margin: 0;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         line-height: 1.2;
         white-space: nowrap;
         overflow: hidden;
