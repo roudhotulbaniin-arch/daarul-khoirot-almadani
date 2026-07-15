@@ -1,0 +1,2148 @@
+/* ==========================================================================
+   =============================================================================
+                    LAPORAN SANTRI DAARUL KHOIROT ALMADANI
+                              STYLESHEET UTAMA
+   =============================================================================
+   
+   STRUKTUR:
+   1. VARIABLES & RESET
+   2. HEADER & NAVIGATION
+   3. MAIN LAYOUT & CARD
+   4. FORM & BUTTON
+   5. RAPOR (Data Santri)
+   6. HAFALAN (Tema Hijau)
+   7. KEHADIRAN (Tema Biru)
+   8. IBADAH & AKHLAQ (Tema Ungu)
+   9. PREDIKAT BOXES
+   10. FOOTER
+   11. RESPONSIVE
+   
+   TEMA WARNA:
+   - Hafalan   : HIJAU (#16a34a)
+   - Kehadiran : BIRU  (#2563eb)
+   - Ibadah    : UNGU  (#7c3aed)
+   =============================================================================
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
+
+:root {
+    /* Warna Utama */
+    --primary-color:   #166534;
+    --secondary-color: #f4ce14;
+    --dark-green:      #144514;
+    --dark-footer:     #0d2e0d;
+    --light-bg:        #f4f7f6;
+    --text-dark:       #1e293b;
+    --gold:            #ffd700;
+
+    /* Warna Tema Section */
+    --hafalan-color:   #16a34a;
+    --hafalan-dark:    #15803d;
+    --hafalan-light:   #dcfce7;
+    --hafalan-bg:      #f0fdf4;
+
+    --kehadiran-color: #2563eb;
+    --kehadiran-dark:  #1e40af;
+    --kehadiran-light: #dbeafe;
+    --kehadiran-bg:    #eff6ff;
+
+    --ibadah-color:    #7c3aed;
+    --ibadah-dark:     #6d28d9;
+    --ibadah-light:    #e9d5ff;
+    --ibadah-bg:       #faf5ff;
+
+    /* Warna Nilai */
+    --nilai-a:  #16a34a;
+    --nilai-b:  #2563eb;
+    --nilai-c:  #0891b2;
+    --nilai-d:  #eab308;
+    --nilai-e:  #dc2626;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--light-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+
+
+/* ==========================================================================
+   2. HEADER & NAVIGATION
+   ========================================================================== */
+
+/* --- Header --- */
+header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--dark-footer);
+    z-index: 9997;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+.logo img {
+    width: 42px !important;
+    height: 42px !important;
+    max-width: 42px;
+    max-height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.logo h1 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.header-text-container {
+    flex: 1;
+    min-width: 0;
+}
+
+.motto-text {
+    color: rgba(255,255,255,.7);
+    font-size: 0.75rem;
+    margin: 3px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- Social Header --- */
+.social-header-tengah {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.social-header-tengah a {
+    color: var(--gold);
+    font-size: 20px;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.social-header-tengah a:hover { transform: scale(1.2); }
+
+/* --- Tombol Menu --- */
+#menu-toggle {
+    position: relative;
+    z-index: 10003;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ffd700, #f4ce14);
+    color: var(--dark-footer);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* --- Overlay --- */
+#menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease;
+    z-index: 9998;
+}
+
+#menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Sidebar Nav --- */
+nav#main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    max-width: 85%;
+    height: 100vh;
+    background: var(--dark-footer);
+    transform: translateX(-100%);
+    transition: .35s ease;
+    z-index: 9999;
+    overflow-y: auto;
+    box-shadow: 8px 0 30px rgba(0,0,0,.35);
+}
+
+nav#main-nav.show { transform: translateX(0); }
+
+.menu-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,.1);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 10004;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+}
+
+.menu-close:hover {
+    background: rgba(255,75,75,.3);
+    transform: rotate(90deg);
+}
+
+/* --- Sidebar Header --- */
+.mobile-sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 15px 15px;
+}
+
+.mobile-sidebar-header img {
+    width: 60px !important;
+    height: 60px !important;
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--gold);
+    animation: logoPulse 3s infinite;
+    flex-shrink: 0;
+}
+
+.sidebar-brand { flex: 1; min-width: 0; }
+
+.sidebar-brand h3 {
+    color: var(--gold);
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.sidebar-brand span {
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
+    display: block;
+    margin-top: 4px;
+}
+
+@keyframes logoPulse {
+    0%   { box-shadow: 0 0 0 rgba(255,215,0,0); }
+    50%  { box-shadow: 0 0 12px rgba(255,215,0,.7), 0 0 24px rgba(255,215,0,.4); }
+    100% { box-shadow: 0 0 0 rgba(255,215,0,0); }
+}
+
+/* --- Menu Items --- */
+nav ul {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+nav ul li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 14px 12px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    background: rgba(255,255,255,.04);
+    color: #fff !important;
+    font-weight: 500;
+    transition: .3s;
+    border-left: 4px solid transparent;
+}
+
+nav ul li a.active {
+    background: rgba(255,215,0,.15);
+}
+
+nav ul li a.active::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 20%;
+    bottom: 15%;
+    width: 5px;
+    background: var(--gold);
+    border-radius: 4px;
+    box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(255,215,0,.7);
+}
+
+nav ul li a:hover {
+    background: rgba(255,215,0,.12);
+    border-left: 4px solid rgba(255,215,0,.7);
+}
+
+nav ul li a i {
+    width: 22px;
+    text-align: center;
+    color: var(--gold);
+}
+
+.sidebar-version {
+    padding: 20px;
+    text-align: center;
+    color: rgba(255,255,255,.45);
+    font-size: .8rem;
+}
+
+
+/* ==========================================================================
+   3. MAIN LAYOUT & CARD
+   ========================================================================== */
+
+.container,
+main.container,
+.laporan-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 15px;
+    flex: 1;
+}
+
+/* --- Card Form Pencarian --- */
+.card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card p,
+.card .subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.logo-laporan {
+    width: 80px !important;
+    height: 80px !important;
+    max-width: 80px;
+    max-height: 80px;
+    display: block;
+    margin: 0 auto 15px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+
+/* ==========================================================================
+   4. FORM & BUTTON
+   ========================================================================== */
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.input-group i {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.input-group input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+    background: #fff;
+    transition: .25s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(22,101,52,.15);
+}
+
+.btn-cari {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #15803D, #166534);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-cari:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(22,101,52,.3);
+}
+
+/* --- Loading --- */
+#loading {
+    text-align: center;
+    padding: 25px;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+#loading i {
+    font-size: 32px;
+    margin-right: 10px;
+}
+
+
+/* ==========================================================================
+   5. RAPOR (Data Santri Container)
+   ========================================================================== */
+
+.rapor {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+}
+
+.rapor-header { margin-bottom: 15px; }
+
+.rapor h2,
+.rapor h3 {
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #E5E7EB;
+}
+
+.rapor h2 { font-size: 18px; margin: 0 0 15px; }
+.rapor h3 { font-size: 17px; margin: 0 0 12px; }
+
+/* --- Item Data Santri (Label & Value) --- */
+.rapor .item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px dashed #E5E7EB;
+    font-size: 14px;
+}
+
+.rapor .item:last-child { border-bottom: none; }
+
+.rapor .item span {
+    color: #64748b;
+    font-weight: 500;
+    line-height: 1.4;
+    position: relative;
+}
+
+.rapor .item span::after {
+    content: ":";
+    position: absolute;
+    right: 4px;
+    color: #cbd5e1;
+}
+
+.rapor .item strong {
+    color: var(--text-dark);
+    font-weight: 700;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* --- Warna Header Section (Beda per Section) --- */
+.rapor:nth-of-type(2) h3 {  /* Hafalan */
+    color: var(--hafalan-dark) !important;
+    border-bottom-color: #bbf7d0 !important;
+}
+.rapor:nth-of-type(2) h3 i { color: var(--hafalan-color) !important; }
+
+.rapor:nth-of-type(3) h3 {  /* Kehadiran */
+    color: var(--kehadiran-dark) !important;
+    border-bottom-color: var(--kehadiran-light) !important;
+}
+.rapor:nth-of-type(3) h3 i { color: var(--kehadiran-color) !important; }
+
+.rapor:nth-of-type(4) h3 {  /* Ibadah & Akhlak */
+    color: var(--ibadah-dark) !important;
+    border-bottom-color: var(--ibadah-light) !important;
+}
+.rapor:nth-of-type(4) h3 i { color: var(--ibadah-color) !important; }
+
+
+/* ==========================================================================
+   6. HAFALAN — TEMA HIJAU
+   ========================================================================== */
+
+.hafalan-item {
+    background: linear-gradient(135deg, var(--hafalan-bg), #ffffff);
+    border-left: 4px solid var(--hafalan-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.hafalan-item:last-child { margin-bottom: 0; }
+
+.hafalan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #E5E7EB;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.hafalan-header strong {
+    color: var(--hafalan-dark);
+    font-size: 16px;
+}
+
+.hafalan-tanggal {
+    background: var(--hafalan-light);
+    color: #166534;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.hafalan-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.hafalan-detail b { color: #1e293b; }
+
+/* --- Grid Nilai (Kelancaran, Tahsin, Tajwid) --- */
+.nilai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.nilai-detail {
+    background: #fff;
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 10px 12px;
+    text-align: center;
+    transition: .3s;
+}
+
+.nilai-detail:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,.1);
+}
+
+.nilai-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed #E5E7EB;
+}
+
+.nilai-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nilai-huruf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.nilai-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.nilai-angka {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.nilai-teks {
+    text-align: right;
+    flex: 1;
+}
+
+.nilai-latin {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+}
+
+.nilai-arab {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+/* --- Tasmi Box --- */
+.tasmi-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 10px 0;
+    border: 2px solid;
+}
+
+.tasmi-box i { font-size: 20px; }
+
+.tasmi-sudah {
+    background: #DCFCE7;
+    color: #166534;
+    border-color: #22c55e;
+}
+
+.tasmi-belum {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-color: #ef4444;
+}
+
+/* --- Catatan Hafalan --- */
+.hafalan-catatan {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border-left: 4px solid #d97706;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.hafalan-catatan > i {
+    font-size: 18px;
+    color: #d97706;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.catatan-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #b45309;
+    margin-bottom: 4px;
+}
+
+.catatan-isi {
+    font-size: 13px;
+    color: #78350f;
+    line-height: 1.5;
+}
+
+/* --- Motivasi Hafalan --- */
+.hafalan-motivasi {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+    color: #831843;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border-left: 4px solid #ec4899;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hafalan-motivasi::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    background: rgba(236, 72, 153, 0.1);
+    border-radius: 50%;
+}
+
+.hafalan-motivasi > i {
+    font-size: 18px;
+    color: #ec4899;
+    margin-top: 2px;
+    flex-shrink: 0;
+    animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+.motivasi-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #be185d;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.motivasi-isi {
+    font-size: 13px;
+    color: #831843;
+    line-height: 1.5;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    25%      { transform: scale(1.15); }
+    50%      { transform: scale(1); }
+    75%      { transform: scale(1.1); }
+}
+
+/* --- Predikat Rata-Rata Hafalan --- */
+.predikat-hafalan {
+    position: relative;
+    margin: 15px 0 10px;
+    padding: 15px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(22, 163, 74, .25);
+    overflow: hidden;
+}
+
+.predikat-hafalan::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255,255,255,.1);
+    border-radius: 50%;
+}
+
+.predikat-hafalan::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255,255,255,.05);
+    border-radius: 50%;
+}
+
+.predikat-hafalan-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+    position: relative;
+    z-index: 1;
+}
+
+.predikat-hafalan-label i {
+    color: #ffd700;
+    font-size: 14px;
+}
+
+.predikat-hafalan-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+}
+
+.predikat-hafalan-arab {
+    font-size: 42px;
+    font-weight: 700;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    line-height: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+
+.predikat-hafalan-info {
+    text-align: right;
+    flex: 1;
+}
+
+.predikat-hafalan-latin {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.predikat-hafalan-angka {
+    display: inline-block;
+    font-size: 32px;
+    font-weight: 800;
+    background: rgba(255,255,255,.25);
+    padding: 6px 18px;
+    border-radius: 25px;
+    backdrop-filter: blur(4px);
+    line-height: 1;
+}
+
+
+/* ==========================================================================
+   7. KEHADIRAN — TEMA BIRU
+   ========================================================================== */
+
+/* --- Statistik Kehadiran --- */
+.statistik-kehadiran {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--kehadiran-bg), var(--kehadiran-light));
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 8px;
+    background: #fff;
+    border: 2px solid;
+}
+
+.stat-hadir {
+    border-color: #16a34a;
+    background: linear-gradient(135deg, #ffffff, var(--hafalan-bg));
+}
+.stat-hadir .stat-angka { color: #16a34a; }
+.stat-hadir .stat-label { color: var(--hafalan-dark); }
+
+.stat-izin {
+    border-color: #eab308;
+    background: linear-gradient(135deg, #ffffff, #fefce8);
+}
+.stat-izin .stat-angka { color: #ca8a04; }
+.stat-izin .stat-label { color: #854d0e; }
+
+.stat-sakit {
+    border-color: #3b82f6;
+    background: linear-gradient(135deg, #ffffff, var(--kehadiran-bg));
+}
+.stat-sakit .stat-angka { color: var(--kehadiran-color); }
+.stat-sakit .stat-label { color: var(--kehadiran-dark); }
+
+.stat-alpha {
+    border-color: #ef4444;
+    background: linear-gradient(135deg, #ffffff, #fef2f2);
+}
+.stat-alpha .stat-angka { color: #dc2626; }
+.stat-alpha .stat-label { color: #991b1b; }
+
+.stat-angka {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Item Kehadiran --- */
+.kehadiran-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: linear-gradient(135deg, var(--kehadiran-bg), #ffffff);
+    border-left: 4px solid var(--kehadiran-color);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.kehadiran-item:last-child { margin-bottom: 0; }
+
+.kehadiran-tanggal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.kehadiran-tanggal i {
+    color: var(--kehadiran-color);
+}
+
+/* --- Kartu Nilai Kehadiran --- */
+.nilai-kehadiran-box {
+    position: relative;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 14px;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, .25);
+    overflow: hidden;
+}
+
+.nilai-kehadiran-box::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255,255,255,.1);
+    border-radius: 50%;
+}
+
+.nilai-kehadiran-box::after {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    width: 140px;
+    height: 140px;
+    background: rgba(255,255,255,.05);
+    border-radius: 50%;
+}
+
+.nilai-kehadiran-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+    position: relative;
+    z-index: 1;
+}
+
+.nilai-kehadiran-header i {
+    color: #ffd700;
+    font-size: 14px;
+}
+
+.nilai-kehadiran-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.nilai-kehadiran-persen,
+.nilai-kehadiran-nilai,
+.nilai-kehadiran-predikat {
+    text-align: center;
+    flex: 1;
+}
+
+.nilai-kehadiran-divider {
+    width: 1px;
+    height: 55px;
+    background: rgba(255,255,255,.3);
+    flex-shrink: 0;
+}
+
+.persen-angka,
+.nilai-angka-besar,
+.predikat-arab-besar {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,.15);
+}
+
+.predikat-arab-besar {
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    font-weight: 700;
+}
+
+.persen-label,
+.predikat-latin-besar {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    margin-top: 4px;
+}
+
+.predikat-latin-besar { font-size: 11px; margin-top: 6px; }
+
+.nilai-huruf-besar {
+    display: inline-block;
+    background: rgba(255,255,255,.25);
+    padding: 3px 12px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 4px;
+    backdrop-filter: blur(4px);
+}
+
+
+/* ==========================================================================
+   8. IBADAH & AKHLAQ — TEMA UNGU
+   ========================================================================== */
+
+.ibadah-item {
+    background: linear-gradient(135deg, var(--ibadah-bg), #ffffff);
+    border-left: 4px solid var(--ibadah-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.ibadah-item:last-child { margin-bottom: 0; }
+
+.ibadah-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #E5E7EB;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ibadah-tanggal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ibadah-tanggal i {
+    color: var(--ibadah-color);
+}
+
+/* --- Catatan Ibadah --- */
+.ibadah-catatan {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 12px;
+}
+
+.ibadah-catatan i {
+    margin-top: 3px;
+    color: #d97706;
+}
+
+/* --- Grid Ringkasan (Ibadah | Akhlaq | Predikat) --- */
+.ringkasan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 12px 0 15px;
+}
+
+.ringkasan-box {
+    background: #fff;
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 12px 8px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.ringkasan-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,.1);
+}
+
+.ringkasan-total {
+    box-shadow: 0 6px 18px rgba(124, 58, 237, .25);
+    transform: scale(1.02);
+}
+
+.ringkasan-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed;
+    opacity: 0.9;
+}
+
+.ringkasan-arab {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.ringkasan-latin {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.ringkasan-nilai {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed;
+}
+
+.ringkasan-angka {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.ringkasan-huruf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 800;
+    font-size: 11px;
+}
+
+/* --- Nested Section (Detail Ibadah / Akhlaq) --- */
+.nested-section {
+    margin-top: 15px;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--ibadah-bg), #f3e8ff);
+    border: 1px solid var(--ibadah-light);
+    border-radius: 10px;
+}
+
+.nested-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ibadah-color);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ibadah-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nested-title i {
+    font-size: 14px;
+    color: var(--ibadah-color);
+}
+
+.nested-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.nested-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #F8FAFC;
+    border-radius: 8px;
+    border: 2px solid #E5E7EB;
+    font-size: 12px;
+    gap: 6px;
+    text-align: center;
+}
+
+.nested-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #E5E7EB;
+}
+
+.nested-label {
+    flex: 1;
+    color: #475569;
+    font-weight: 700;
+    font-size: 11px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.nested-huruf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 800;
+    font-size: 11px;
+    background: #94a3b8;
+    flex-shrink: 0;
+}
+
+.nested-item-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.nested-angka {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1;
+}
+
+.nested-arab {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    line-height: 1;
+    color: #475569;
+}
+
+.nested-item-kata {
+    align-self: center;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: #F1F5F9;
+    color: #475569;
+}
+
+
+/* ==========================================================================
+   9. WARNA NILAI (A, B, C, D, E) — Shared untuk nilai-detail, nested-item, ringkasan-box
+   ========================================================================== */
+
+/* --- NILAI A (Hijau — Mumtaz) --- */
+.nilai-a,
+.nested-item.nilai-a,
+.ringkasan-box.nilai-a {
+    border-color: var(--nilai-a);
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    color: #166534;
+}
+.nilai-a .nilai-huruf,
+.nested-item.nilai-a .nested-huruf,
+.ringkasan-box.nilai-a .ringkasan-huruf { background: var(--nilai-a); color: #fff; }
+
+.nilai-a .nilai-angka,
+.nilai-a .nilai-latin,
+.nilai-a .nilai-arab,
+.nested-item.nilai-a .nested-angka,
+.nested-item.nilai-a .nested-arab { color: #166534; }
+
+.nested-item.nilai-a .nested-item-kata,
+.ringkasan-box.nilai-a .ringkasan-title,
+.ringkasan-box.nilai-a .ringkasan-nilai { border-color: rgba(22,101,52,.3); }
+.nested-item.nilai-a .nested-item-kata { background: var(--nilai-a); color: #fff; }
+
+
+/* --- NILAI B (Biru — Jayyid Jiddan) --- */
+.nilai-b,
+.nested-item.nilai-b,
+.ringkasan-box.nilai-b {
+    border-color: var(--nilai-b);
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    color: #1e40af;
+}
+.nilai-b .nilai-huruf,
+.nested-item.nilai-b .nested-huruf,
+.ringkasan-box.nilai-b .ringkasan-huruf { background: var(--nilai-b); color: #fff; }
+
+.nilai-b .nilai-angka,
+.nilai-b .nilai-latin,
+.nilai-b .nilai-arab,
+.nested-item.nilai-b .nested-angka,
+.nested-item.nilai-b .nested-arab { color: #1e40af; }
+
+.nested-item.nilai-b .nested-item-kata,
+.ringkasan-box.nilai-b .ringkasan-title,
+.ringkasan-box.nilai-b .ringkasan-nilai { border-color: rgba(30,64,175,.3); }
+.nested-item.nilai-b .nested-item-kata { background: var(--nilai-b); color: #fff; }
+
+
+/* --- NILAI C (Cyan — Jayyid) --- */
+.nilai-c,
+.nested-item.nilai-c,
+.ringkasan-box.nilai-c {
+    border-color: var(--nilai-c);
+    background: linear-gradient(135deg, #ecfeff, #cffafe);
+    color: #0e7490;
+}
+.nilai-c .nilai-huruf,
+.nested-item.nilai-c .nested-huruf,
+.ringkasan-box.nilai-c .ringkasan-huruf { background: var(--nilai-c); color: #fff; }
+
+.nilai-c .nilai-angka,
+.nilai-c .nilai-latin,
+.nilai-c .nilai-arab,
+.nested-item.nilai-c .nested-angka,
+.nested-item.nilai-c .nested-arab { color: #0e7490; }
+
+.nested-item.nilai-c .nested-item-kata,
+.ringkasan-box.nilai-c .ringkasan-title,
+.ringkasan-box.nilai-c .ringkasan-nilai { border-color: rgba(14,116,144,.3); }
+.nested-item.nilai-c .nested-item-kata { background: var(--nilai-c); color: #fff; }
+
+
+/* --- NILAI D (Kuning — Maqbul) --- */
+.nilai-d,
+.nested-item.nilai-d,
+.ringkasan-box.nilai-d {
+    border-color: var(--nilai-d);
+    background: linear-gradient(135deg, #fefce8, #fef3c7);
+    color: #854d0e;
+}
+.nilai-d .nilai-huruf,
+.nested-item.nilai-d .nested-huruf,
+.ringkasan-box.nilai-d .ringkasan-huruf { background: var(--nilai-d); color: #fff; }
+
+.nilai-d .nilai-angka,
+.nilai-d .nilai-latin,
+.nilai-d .nilai-arab,
+.nested-item.nilai-d .nested-angka,
+.nested-item.nilai-d .nested-arab { color: #854d0e; }
+
+.nested-item.nilai-d .nested-item-kata,
+.ringkasan-box.nilai-d .ringkasan-title,
+.ringkasan-box.nilai-d .ringkasan-nilai { border-color: rgba(133,77,14,.3); }
+.nested-item.nilai-d .nested-item-kata { background: var(--nilai-d); color: #fff; }
+
+
+/* --- NILAI DEFAULT/E --- */
+.nilai-default,
+.nested-item.nilai-default,
+.ringkasan-box.nilai-default {
+    border-color: #94a3b8;
+    background: #f8fafc;
+    color: #475569;
+}
+.nilai-default .nilai-huruf,
+.nested-item.nilai-default .nested-huruf,
+.ringkasan-box.nilai-default .ringkasan-huruf { background: #94a3b8; color: #fff; }
+
+
+/* ==========================================================================
+   10. PREDIKAT BOX (Gradient Warna Sesuai Level)
+   ========================================================================== */
+
+.predikat-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    color: #fff;
+    margin: 12px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    flex-wrap: wrap;
+}
+
+.predikat-arab {
+    font-size: 26px;
+    font-weight: 700;
+    font-family: 'Traditional Arabic', 'Amiri', serif;
+    line-height: 1;
+}
+
+.predikat-latin {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.predikat-angka {
+    font-size: 22px;
+    font-weight: 800;
+    background: rgba(255,255,255,.25);
+    padding: 4px 14px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+}
+
+/* --- Warna Gradient Predikat --- */
+.predikat-mumtaz         { background: linear-gradient(135deg, #16a34a, #15803d); }
+.predikat-jayyid-jiddan  { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+.predikat-jayyid         { background: linear-gradient(135deg, #0891b2, #0e7490); }
+.predikat-maqbul         { background: linear-gradient(135deg, #eab308, #ca8a04); }
+.predikat-dhoif          { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+
+
+/* ==========================================================================
+   11. BADGE STATUS (Hadir, Izin, Sakit, Alpha)
+   ========================================================================== */
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-hadir { background: #DCFCE7; color: #166534; }
+.badge-izin  { background: #FEF3C7; color: #92400E; }
+.badge-sakit { background: #DBEAFE; color: #1D4ED8; }
+.badge-alpha { background: #FEE2E2; color: #B91C1C; }
+
+
+/* ==========================================================================
+   12. STATE HALAMAN (Hasil, Tidak Ditemukan)
+   ========================================================================== */
+
+#hasil          { display: none; }
+#tidakDitemukan { display: none; }
+
+#tidakDitemukan .card {
+    background: #FEE2E2;
+    border: 1px solid #FCA5A5;
+}
+
+#tidakDitemukan h3 {
+    color: #991B1B !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#tidakDitemukan p {
+    color: #7F1D1D;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* ==========================================================================
+   13. FOOTER
+   ========================================================================== */
+
+footer {
+    margin-top: 40px;
+    padding: 30px 20px;
+    background: var(--dark-footer);
+    color: #fff;
+    text-align: center;
+}
+
+.f-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.f-address,
+.f-contact {
+    margin-top: 10px;
+    color: #CBD5E1;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.f-copy {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #94A3B8;
+}
+
+
+/* ==========================================================================
+   14. RESPONSIVE — ≤ 768px (Tablet)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    /* Header */
+    header { padding: 10px 12px; }
+    .logo { gap: 8px; }
+    .logo img { width: 42px !important; height: 42px !important; }
+
+    .header-text-container h1 {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .motto-text          { display: none; }
+    .social-header-tengah { display: none !important; }
+
+    #menu-toggle {
+        padding: 8px 12px;
+        font-size: 13px;
+        margin-left: auto;
+    }
+
+    /* Main */
+    main.container,
+    .laporan-container {
+        padding: 12px;
+        margin: 15px auto;
+    }
+
+    .card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .logo-laporan {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .card h2 { font-size: 18px; }
+    .card p  { font-size: 13px; }
+
+    .rapor { padding: 15px; border-radius: 12px; }
+    .rapor h2 { font-size: 16px; }
+    .rapor h3 { font-size: 15px; }
+
+    .rapor .item {
+        grid-template-columns: 110px 1fr;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    footer   { padding: 25px 15px; }
+    .f-title { font-size: 17px; }
+}
+
+
+/* ==========================================================================
+   15. RESPONSIVE — ≤ 480px (Mobile)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+
+    /* Layout */
+    .rapor .item {
+        grid-template-columns: 100px 1fr;
+        gap: 6px;
+        font-size: 12.5px;
+    }
+
+    /* Hafalan */
+    .nilai-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .nilai-detail { padding: 8px 10px; }
+    .nilai-angka  { font-size: 22px; }
+    .nilai-arab   { font-size: 16px; }
+    .nilai-latin  { font-size: 10px; }
+
+    .predikat-hafalan { padding: 12px; }
+
+    .predikat-hafalan-body {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .predikat-hafalan-arab  { font-size: 48px; }
+    .predikat-hafalan-info  { text-align: center; }
+    .predikat-hafalan-latin { font-size: 14px; }
+    .predikat-hafalan-angka { font-size: 26px; padding: 5px 16px; }
+
+    /* Kehadiran */
+    .statistik-kehadiran { gap: 6px; }
+    .stat-angka          { font-size: 18px; }
+    .stat-label          { font-size: 10px; }
+
+    .nilai-kehadiran-body   { gap: 6px; }
+    .nilai-kehadiran-divider { height: 45px; }
+
+    .persen-angka,
+    .nilai-angka-besar,
+    .predikat-arab-besar { font-size: 24px; }
+
+    .persen-label,
+    .predikat-latin-besar { font-size: 9px; }
+
+    .nilai-huruf-besar {
+        font-size: 12px;
+        padding: 2px 10px;
+    }
+
+    /* Ibadah */
+    .ringkasan-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .ringkasan-arab  { font-size: 28px; }
+    .ringkasan-latin { font-size: 11px; }
+    .ringkasan-angka { font-size: 22px; }
+
+    .nested-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nested-item  { padding: 8px; }
+    .nested-angka { font-size: 16px; }
+    .nested-arab  { font-size: 16px; }
+
+    /* Predikat */
+    .predikat-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 15px;
+    }
+
+    .predikat-arab  { font-size: 32px; }
+    .predikat-latin { font-size: 13px; }
+    .predikat-angka { font-size: 18px; }
+}
+
+
+/* ==========================================================================
+   16. RESPONSIVE — ≤ 360px (Small Mobile)
+   ========================================================================== */
+
+@media (max-width: 360px) {
+    .nilai-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Kelancaran = EMAS */
+.nilai-grid .nilai-detail:nth-child(1) {
+    background: linear-gradient(135deg, #fefce8, #fef3c7) !important;
+    border-color: #ca8a04 !important;
+}
+
+/* Tahsin = HIJAU */
+.nilai-grid .nilai-detail:nth-child(2) {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7) !important;
+    border-color: #16a34a !important;
+}
+
+/* Tajwid = BIRU LANGIT */
+.nilai-grid .nilai-detail:nth-child(3) {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe) !important;
+    border-color: #0284c7 !important;
+}
+
+/* Ibadah = TOSCA */
+.ringkasan-grid .ringkasan-box:nth-child(1) {
+    background: linear-gradient(135deg, #ecfeff, #cffafe) !important;
+    border-color: #0891b2 !important;
+    color: #0e7490 !important;
+}
+
+/* Akhlaq = HIJAU MINT */
+.ringkasan-grid .ringkasan-box:nth-child(2) {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5) !important;
+    border-color: #059669 !important;
+    color: #065f46 !important;
+}
+
+/* Predikat = EMAS */
+.ringkasan-grid .ringkasan-box:nth-child(3) {
+    background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
+    border-color: #d97706 !important;
+    color: #92400e !important;
+}
+
+/* ==========================================================================
+   WARNA BERBEDA UNTUK CONTAINER DETAIL IBADAH & DETAIL AKHLAQ
+   Detail Ibadah = HIJAU MINT (kalem, spiritual)
+   Detail Akhlaq = PINK LAVENDER (lembut, karakter)
+   ========================================================================== */
+
+/* --- Target berdasarkan urutan nested-section --- */
+
+/* === DETAIL IBADAH (nested-section ke-1) - HIJAU MINT === */
+.ibadah-item .nested-section:nth-of-type(1) {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5) !important;
+    border: 1px solid #86efac !important;
+}
+
+.ibadah-item .nested-section:nth-of-type(1) .nested-title {
+    color: #15803d !important;
+    border-bottom-color: #86efac !important;
+}
+
+.ibadah-item .nested-section:nth-of-type(1) .nested-title i {
+    color: #16a34a !important;
+}
+
+
+/* === DETAIL AKHLAQ (nested-section ke-2) - PINK LAVENDER === */
+.ibadah-item .nested-section:nth-of-type(2) {
+    background: linear-gradient(135deg, #fdf4ff, #fae8ff) !important;
+    border: 1px solid #e9d5ff !important;
+}
+
+.ibadah-item .nested-section:nth-of-type(2) .nested-title {
+    color: #a21caf !important;
+    border-bottom-color: #e9d5ff !important;
+}
+
+.ibadah-item .nested-section:nth-of-type(2) .nested-title i {
+    color: #c026d3 !important;
+}
+
+
+/* ==========================================================================
+   BADGE HURUF DEFAULT (Nilai E - Kurang) - Perbaiki agar tidak abu-abu
+   ========================================================================== */
+
+/* --- Ubah nilai E jadi merah bukan abu-abu --- */
+.nested-item.nilai-e {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2) !important;
+    border-color: #ef4444 !important;
+}
+
+.nested-item.nilai-e .nested-huruf {
+    background: #ef4444 !important;
+    color: #fff !important;
+}
+
+.nested-item.nilai-e .nested-angka,
+.nested-item.nilai-e .nested-arab {
+    color: #991b1b !important;
+}
+
+.nested-item.nilai-e .nested-item-kata {
+    background: #ef4444 !important;
+    color: #fff !important;
+}
+
+/* ==========================================================================
+   ICON PANAH KALENDER - PERBESAR & PERTEBAL
+   ========================================================================== */
+
+/* --- Sembunyikan panah default browser --- */
+.input-group input[type="date"] {
+    position: relative;
+    padding-right: 50px !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23064e3b' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 22px 22px;
+    cursor: pointer;
+}
+
+/* --- Sembunyikan panah bawaan Chrome --- */
+.input-group input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* --- Sembunyikan spin arrow Firefox --- */
+.input-group input[type="date"]::-webkit-inner-spin-button,
+.input-group input[type="date"]::-webkit-clear-button {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* --- Efek focus --- */
+.input-group input[type="date"]:focus {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+}
+
+/* --- Hover: panah agak turun (efek interaktif) --- */
+.input-group input[type="date"]:hover {
+    background-position: right 14px center;
+    background-size: 24px 24px;
+}
+
+.input-group input[type="date"]:focus {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' style='transform:rotate(180deg)'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+}
+
+/* ==========================================================================
+   DROPDOWN SEARCH SANTRI
+   ========================================================================== */
+
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding-right: 40px !important;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23064e3b' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px 18px;
+    cursor: pointer;
+}
+
+.dropdown-santri {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    max-height: 350px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 2px solid #d4af37;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(6, 78, 59, .2);
+    z-index: 1000;
+    padding: 6px;
+    animation: dropdownIn .25s ease-out;
+}
+
+@keyframes dropdownIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Scrollbar Custom --- */
+.dropdown-santri::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdown-santri::-webkit-scrollbar-track {
+    background: #f0fdf4;
+    border-radius: 10px;
+}
+
+.dropdown-santri::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #064e3b, #047857);
+    border-radius: 10px;
+}
+
+.dropdown-santri::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #047857, #059669);
+}
+
+/* --- Item Dropdown --- */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .2s;
+    border-bottom: 1px solid #f0fdf4;
+    background: #ffffff;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    transform: translateX(3px);
+    border-color: transparent;
+}
+
+.dropdown-item.active {
+    box-shadow: 0 2px 8px rgba(6, 78, 59, .15);
+}
+
+/* --- ID Santri (Badge Hijau) --- */
+.dropdown-item-id {
+    background: linear-gradient(135deg, #064e3b, #047857);
+    color: #d4af37;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    border: 1px solid #d4af37;
+    flex-shrink: 0;
+    min-width: 75px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(6, 78, 59, .1);
+}
+
+/* --- Info Santri --- */
+.dropdown-item-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.dropdown-item-nama {
+    font-size: 14px;
+    font-weight: 700;
+    color: #064e3b;
+    line-height: 1.3;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-item-kelas {
+    font-size: 11px;
+    color: #059669;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-item-kelas i {
+    color: #d4af37;
+    font-size: 10px;
+}
+
+/* --- Highlight teks yang cocok --- */
+.dropdown-item mark {
+    background: linear-gradient(180deg, transparent 50%, rgba(212, 175, 55, .5) 50%);
+    color: inherit;
+    font-weight: 800;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* --- Info footer dropdown --- */
+.dropdown-info {
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    color: #64748b;
+    font-style: italic;
+    border-top: 1px dashed #d4af37;
+    background: #fefdfb;
+    margin-top: 4px;
+    border-radius: 0 0 10px 10px;
+}
+
+/* --- Empty state --- */
+.dropdown-empty {
+    text-align: center;
+    padding: 30px 15px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.dropdown-empty i {
+    display: block;
+    font-size: 32px;
+    color: #d4af37;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+/* --- Mobile Adjustment --- */
+@media (max-width: 480px) {
+    .dropdown-item {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    .dropdown-item-id {
+        font-size: 11px;
+        padding: 5px 10px;
+        min-width: 70px;
+    }
+    
+    .dropdown-item-nama {
+        font-size: 13px;
+    }
+    
+    .dropdown-item-kelas {
+        font-size: 10px;
+    }
+    
+    .dropdown-santri {
+        max-height: 300px;
+    }
+}
