@@ -76,44 +76,46 @@
 
         <div class="tab-menu no-print">
 
-            <button class="tab-link"
-                onclick="openTab(event, 'santri-panel')">
-                <i class="fas fa-user-graduate" style="font-size:1.2rem;"></i>
-                <span>DATA SANTRI</span>
-            </button>
+    <button class="tab-link" onclick="openTab(event, 'santri-panel')">
+        <i class="fas fa-user-graduate" style="font-size:1.2rem;"></i>
+        <span>DATA SANTRI</span>
+    </button>
 
-            <button class="tab-link"
-                onclick="openTab(event, 'kehadiran-panel')">
-                <i class="fas fa-calendar-check" style="font-size:1.2rem;"></i>
-                <span>KEHADIRAN</span>
-            </button>
+    <button class="tab-link" onclick="openTab(event, 'kehadiran-panel')">
+        <i class="fas fa-calendar-check" style="font-size:1.2rem;"></i>
+        <span>KEHADIRAN</span>
+    </button>
 
-            <button class="tab-link"
-                onclick="openTab(event, 'input-panel')">
-                <i class="fas fa-book-quran" style="font-size:1.2rem;"></i>
-                <span>HAFALAN</span>
-            </button>
+    <button class="tab-link" onclick="openTab(event, 'input-panel')">
+        <i class="fas fa-book-quran" style="font-size:1.2rem;"></i>
+        <span>HAFALAN</span>
+    </button>
 
-            <button class="tab-link"
-                onclick="openTab(event, 'ibadah-panel')">
-                <i class="fas fa-mosque" style="font-size:1.2rem;"></i>
-                <span>IBADAH & AKHLAQ</span>
-            </button>
+    <button class="tab-link" onclick="openTab(event, 'ibadah-panel')">
+        <i class="fas fa-mosque" style="font-size:1.2rem;"></i>
+        <span>IBADAH & AKHLAQ</span>
+    </button>
 
-            <button class="tab-link"
-                onclick="openTab(event, 'rekap-panel')">
-                <i class="fas fa-file-invoice" style="font-size:1.2rem;"></i>
-                <span>REKAPITULASI</span>
-            </button>
+    <button class="tab-link" onclick="openTab(event, 'rekap-panel')">
+        <i class="fas fa-file-invoice" style="font-size:1.2rem;"></i>
+        <span>REKAPITULASI</span>
+    </button>
 
-            <button class="tab-link"
-                onclick="openTab(event, 'dashboard-panel')"
-                id="tab-admin-dashboard">
-                <i class="fas fa-chart-line" style="font-size:1.2rem;"></i>
-                <span>DASHBOARD ADMIN</span>
-            </button>
+    <button class="tab-link" onclick="openTab(event, 'dashboard-panel')" id="tab-admin-dashboard">
+        <i class="fas fa-chart-line" style="font-size:1.2rem;"></i>
+        <span>DASHBOARD ADMIN</span>
+    </button>
 
-        </div>
+    <!-- ✅ TAMBAHKAN TOMBOL INI -->
+    <button
+        class="tab-link"
+        onclick="window.location.href='admin/user.html'"
+        style="background: linear-gradient(135deg, #667eea, #764ba2);">
+        <i class="fas fa-user-cog" style="font-size:1.2rem;"></i>
+        <span>KELOLA USER</span>
+    </button>
+
+</div>
         
         
 <div id="santri-panel" class="tab-content active">
