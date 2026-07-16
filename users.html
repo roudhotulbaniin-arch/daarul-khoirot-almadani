@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola User | Daarul Khoirot Al-Madani</title>
+
+    <link rel="stylesheet" href="users.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ==================== LOADING SCREEN ==================== -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+        <img src="../main_logo.png" alt="Logo">
+        <div class="loading-spinner"></div>
+        <p>Memverifikasi akses...</p>
+    </div>
+</div>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+            <img src="../main_logo.png" alt="Logo Pesantren">
+            <div>
+                <h3>Admin Panel</h3>
+                <small>Daarul Khoirot</small>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Data Santri</span>
+            </a>
+            <a href="users.html" class="nav-item active">
+                <i class="fas fa-user-cog"></i>
+                <span>Kelola User</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="admin-profile">
+                <div class="admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="admin-detail">
+                    <span id="sidebarNama">Loading...</span>
+                    <small id="sidebarJabatan">-</small>
+                </div>
+            </div>
+            <button id="btnLogout" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+
+    </aside>
+
+    <!-- ==================== OVERLAY SIDEBAR MOBILE ==================== -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button id="toggleSidebar" class="btn-toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="breadcrumb">
+                    <span>Admin</span>
+                    <i class="fas fa-chevron-right"></i>
+                    <span class="active">Kelola User</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-info-topbar">
+                    <span id="topbarNama">Loading...</span>
+                    <small id="topbarRole">Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>
+                        <i class="fas fa-user-cog"></i>
+                        Kelola User Admin
+                    </h1>
+                    <p>Tambah, edit, dan kelola akun admin sistem</p>
+                </div>
+                <button id="btnTambahUser" class="btn-primary">
+                    <i class="fas fa-plus-circle"></i>
+                    Tambah User Baru
+                </button>
+            </div>
+
+            <!-- STATS CARDS -->
+            <div class="stats-row">
+                <div class="stat-card stat-total">
+                    <div class="stat-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statTotal">0</h3>
+                        <p>Total User</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-aktif">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statAktif">0</h3>
+                        <p>User Aktif</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-nonaktif">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-times"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="statNonaktif">0</h3>
+                        <p>User Nonaktif</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEARCH & FILTER -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input
+                        type="text"
+                        id="inputCari"
+                        placeholder="Cari nama, username, atau email...">
+                </div>
+                <div class="filter-group">
+                    <select id="filterStatus">
+                        <option value="semua">Semua Status</option>
+                        <option value="aktif">Aktif</option>
+                        <option value="nonaktif">Nonaktif</option>
+                    </select>
+                    <select id="filterJabatan">
+                        <option value="semua">Semua Jabatan</option>
+                        <option value="Administrator">Administrator</option>
+                        <option value="Kepala Pesantren">Kepala Pesantren</option>
+                        <option value="Sekretaris">Sekretaris</option>
+                        <option value="Bendahara">Bendahara</option>
+                        <option value="Pengajar">Pengajar</option>
+                        <option value="Staff">Staff</option>
+                    </select>
+                    <button id="btnRefresh" class="btn-icon" title="Refresh Data">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABEL USER -->
+            <div class="table-wrapper">
+                <div class="table-container">
+                    <table id="tabelUser">
+                        <thead>
+                            <tr>
+                                <th width="50">No</th>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Jabatan</th>
+                                <th width="100">Status</th>
+                                <th width="130">Dibuat</th>
+                                <th width="140">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <tr>
+                                <td colspan="7" class="td-loading">
+                                    <div class="table-loading">
+                                        <div class="loading-spinner-sm"></div>
+                                        <span>Memuat data user...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span id="infoTotal">Menampilkan 0 user</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ==================== MODAL TAMBAH / EDIT USER ==================== -->
+    <div class="modal-overlay" id="modalUser">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 id="modalTitle">
+                    <i class="fas fa-user-plus"></i>
+                    Tambah User Baru
+                </h3>
+                <button class="btn-close-modal" id="btnCloseModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="formUser">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputNama">
+                                <i class="fas fa-user"></i> Nama Lengkap
+                            </label>
+                            <input
+                                type="text"
+                                id="inputNama"
+                                placeholder="Masukkan nama lengkap"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputUsername">
+                                <i class="fas fa-at"></i> Username
+                            </label>
+                            <input
+                                type="text"
+                                id="inputUsername"
+                                placeholder="Masukkan username"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <input
+                            type="email"
+                            id="inputEmail"
+                            placeholder="contoh@email.com"
+                            required>
+                        <small class="form-hint" id="hintEmail">
+                            Email digunakan untuk login
+                        </small>
+                    </div>
+
+                    <div class="form-group" id="groupPassword">
+                        <label for="inputPassword">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <div class="password-input-wrapper">
+                            <input
+                                type="password"
+                                id="inputPassword"
+                                placeholder="Minimal 6 karakter"
+                                required
+                                minlength="6">
+                            <button type="button" class="btn-toggle-pass" id="toggleModalPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="form-hint">
+                            Minimal 6 karakter, kombinasi huruf dan angka
+                        </small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputJabatan">
+                                <i class="fas fa-briefcase"></i> Jabatan
+                            </label>
+                            <select id="inputJabatan" required>
+                                <option value="">-- Pilih Jabatan --</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Kepala Pesantren">Kepala Pesantren</option>
+                                <option value="Sekretaris">Sekretaris</option>
+                                <option value="Bendahara">Bendahara</option>
+                                <option value="Pengajar">Pengajar</option>
+                                <option value="Staff">Staff</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputStatus">
+                                <i class="fas fa-toggle-on"></i> Status Akun
+                            </label>
+                            <select id="inputStatus" required>
+                                <option value="true">✅ Aktif</option>
+                                <option value="false">❌ Nonaktif</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="btnBatal">
+                            <i class="fas fa-times"></i> Batal
+                        </button>
+                        <button type="submit" class="btn-primary" id="btnSimpanUser">
+                            <i class="fas fa-save"></i> Simpan User
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== MODAL KONFIRMASI HAPUS ==================== -->
+    <div class="modal-overlay" id="modalHapus">
+        <div class="modal-content modal-sm">
+
+            <div class="modal-header modal-header-danger">
+                <h3>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Konfirmasi Hapus
+                </h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="hapus-icon">
+                    <i class="fas fa-user-slash"></i>
+                </div>
+                <p class="hapus-text">
+                    Apakah Anda yakin ingin menghapus user:
+                </p>
+                <p class="hapus-nama" id="namaUserHapus">-</p>
+                <p class="hapus-warning">
+                    <i class="fas fa-info-circle"></i>
+                    Tindakan ini tidak dapat dibatalkan!
+                </p>
+                <div class="modal-actions modal-actions-center">
+                    <button class="btn-secondary" id="btnBatalHapus">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                    <button class="btn-danger" id="btnKonfirmasiHapus">
+                        <i class="fas fa-trash-alt"></i> Ya, Hapus
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== MODAL DETAIL USER ==================== -->
+    <div class="modal-overlay" id="modalDetail">
+        <div class="modal-content modal-sm">
+
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-id-card"></i>
+                    Detail User
+                </h3>
+                <button class="btn-close-modal" id="btnCloseDetail">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="detail-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="detail-list">
+                    <div class="detail-item">
+                        <label>Nama</label>
+                        <span id="detailNama">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Username</label>
+                        <span id="detailUsername">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Email</label>
+                        <span id="detailEmail">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Jabatan</label>
+                        <span id="detailJabatan">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Role</label>
+                        <span id="detailRole">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Status</label>
+                        <span id="detailStatus">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>UID</label>
+                        <span id="detailUID" class="uid-text">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <label>Dibuat</label>
+                        <span id="detailDibuat">-</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== TOAST CONTAINER ==================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module" src="users.js"></script>
+
+</body>
+
+</html>
