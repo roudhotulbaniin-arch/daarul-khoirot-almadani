@@ -76,7 +76,6 @@
     to { transform: rotate(360deg); }
 }
 
-
 /* ==========================================================
    2. MAIN CONTAINER
    ========================================================== */
@@ -142,7 +141,7 @@
 
 
 /* ==========================================================
-   4. STATS CARDS
+   4. STATS CARDS — WRAPPED IN CONTAINER
    ========================================================== */
 
 .stats-wrapper {
@@ -152,6 +151,7 @@
     width: 94%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0;
 }
 
 .stat-card-user {
@@ -164,6 +164,9 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     border-left: 4px solid transparent;
+    border-top: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
 }
 
 .stat-card-user:hover {
@@ -171,9 +174,9 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-.stat-card-user.stat-total    { border-left-color: #3b82f6; }
-.stat-card-user.stat-aktif    { border-left-color: #10b981; }
-.stat-card-user.stat-nonaktif { border-left-color: #ef4444; }
+.stat-card-user.stat-total    { border-left-color: #3b82f6; border-left-width: 4px; }
+.stat-card-user.stat-aktif    { border-left-color: #10b981; border-left-width: 4px; }
+.stat-card-user.stat-nonaktif { border-left-color: #ef4444; border-left-width: 4px; }
 
 .stat-card-user .stat-icon {
     width: 50px;
@@ -203,7 +206,6 @@
     font-weight: 600;
     margin-top: 4px;
 }
-
 
 /* ==========================================================
    5. ADMIN INFO BAR
@@ -962,17 +964,28 @@
     opacity: 1;
 }
 
-
 /* ==========================================================
    10. RESPONSIVE
    ========================================================== */
 
 @media (max-width: 768px) {
 
+    /* Page main compact */
+    .page-main-user {
+        padding: 15px 0;
+        gap: 15px;
+    }
+
+    /* Page header card - stack */
     .page-header-card {
         flex-direction: column;
         align-items: stretch;
         gap: 15px;
+        padding: 25px 20px !important;
+    }
+
+    .page-header-card .judul-seragam {
+        font-size: 1.25rem;
     }
 
     .btn-tambah-user {
@@ -980,11 +993,14 @@
         justify-content: center;
     }
 
+    /* Stats - 1 column pada mobile */
     .stats-wrapper {
         grid-template-columns: 1fr;
         gap: 12px;
+        width: 94%;
     }
 
+    /* Filter bar stack */
     .filter-bar {
         flex-direction: column;
         align-items: stretch;
@@ -1007,6 +1023,7 @@
         min-width: 0;
     }
 
+    /* Modal responsive */
     .form-row {
         grid-template-columns: 1fr;
     }
@@ -1039,6 +1056,7 @@
         font-size: 0.72rem;
     }
 
+    /* Toast mobile */
     .toast-container {
         top: 70px;
         right: 10px;
