@@ -62,18 +62,7 @@
                         <span>Beranda</span>
                     </a>
                 </li>
-                <li>
-                    <a href="dashboard.html">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Dashboard Admin</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="users.html" class="active">
-                        <i class="fas fa-user-cog"></i>
-                        <span>Kelola User Admin</span>
-                    </a>
-                </li>
+         
                 <li>
                     <a href="galeri.html">
                         <i class="fas fa-images"></i>
@@ -110,7 +99,18 @@
                         <span>Kontak</span>
                     </a>
                 </li>
-
+       <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html" class="active">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Kelola User Admin</span>
+                    </a>
+                </li>
                 <li style="margin-top:15px; border-top:1px solid rgba(255,255,255,.1); padding-top:15px;">
                     <a href="#" id="btnLogout" class="logout-link">
                         <i class="fas fa-sign-out-alt"></i>
@@ -141,137 +141,106 @@
     <!-- ==========================================================
          MAIN CONTENT — Pakai container ala kartu-modern
          ========================================================== -->
-    <main class="page-main-user">
+   <main class="page-main-user">
+    <div class="container-user">
 
-        <!-- PAGE HEADER CARD -->
-        <div class="kartu-modern-clean page-header-card">
+        <!-- ==================== PAGE HEADER CARD ==================== -->
+        <div class="page-header-card kartu-modern-clean">
             <div class="page-title-wrapper">
-                <h2 class="judul-seragam">
-                    <i class="fas fa-user-cog"></i>
-                    Kelola User Admin
-                </h2>
-                <p class="page-subtitle">Tambah, edit, dan kelola akun admin sistem</p>
+                <div class="page-title-flex">
+                    <div class="page-title-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <div class="page-title-text">
+                        <h1 class="judul-seragam">Kelola User Admin</h1>
+                        <p class="page-subtitle">Tambah, edit, dan kelola akun admin sistem</p>
+                    </div>
+                </div>
             </div>
-
-            <button id="btnTambahUser" class="btn-tambah-user">
+            <button class="btn-tambah-user" onclick="bukaModalTambah()">
                 <i class="fas fa-plus-circle"></i>
-                Tambah User Baru
+                <span>Tambah User Baru</span>
             </button>
         </div>
 
-        <!-- STAT CARDS -->
+        <!-- ==================== STATS CARDS ==================== -->
         <div class="stats-wrapper">
             <div class="stat-card-user stat-total">
-                <div class="stat-icon">
-                    <i class="fas fa-users-cog"></i>
-                </div>
+                <div class="stat-icon"><i class="fas fa-users-cog"></i></div>
                 <div class="stat-info">
-                    <h3 id="statTotal">0</h3>
+                    <h3 id="statTotalUser">0</h3>
                     <p>Total User</p>
                 </div>
             </div>
-
             <div class="stat-card-user stat-aktif">
-                <div class="stat-icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
+                <div class="stat-icon"><i class="fas fa-user-check"></i></div>
                 <div class="stat-info">
-                    <h3 id="statAktif">0</h3>
+                    <h3 id="statUserAktif">0</h3>
                     <p>User Aktif</p>
                 </div>
             </div>
-
             <div class="stat-card-user stat-nonaktif">
-                <div class="stat-icon">
-                    <i class="fas fa-user-times"></i>
-                </div>
+                <div class="stat-icon"><i class="fas fa-user-times"></i></div>
                 <div class="stat-info">
-                    <h3 id="statNonaktif">0</h3>
+                    <h3 id="statUserNonaktif">0</h3>
                     <p>User Nonaktif</p>
                 </div>
             </div>
         </div>
 
-        <!-- FILTER & TABEL CARD -->
-        <div class="kartu-modern-clean">
+        <!-- ==================== TABLE CARD (bungkus filter + tabel) ==================== -->
+        <div class="table-card kartu-modern-clean">
 
-            <!-- Info admin login -->
-            <div class="admin-info-bar">
-                <div class="admin-avatar-bar">
-                    <i class="fas fa-user-shield"></i>
-                </div>
-                <div class="admin-detail-bar">
-                    <strong id="topbarNama">Loading...</strong>
-                    <small id="topbarRole">Admin</small>
-                </div>
+            <!-- Info User Login -->
+            <div class="current-user-info" id="currentUserInfo">
+                <!-- Diisi via JS -->
             </div>
 
-            <!-- Filter -->
+            <!-- Filter Bar -->
             <div class="filter-bar">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="inputCari"
-                        placeholder="Cari nama, username, atau email...">
+                    <input type="text" id="searchInput" placeholder="Cari nama, username, atau email...">
                 </div>
-
                 <div class="filter-group">
                     <select id="filterStatus">
-                        <option value="semua">Semua Status</option>
+                        <option value="">Semua Status</option>
                         <option value="aktif">Aktif</option>
                         <option value="nonaktif">Nonaktif</option>
                     </select>
-
                     <select id="filterJabatan">
-                        <option value="semua">Semua Jabatan</option>
-                        <option value="Administrator">Administrator</option>
-                        <option value="Kepala Pesantren">Kepala Pesantren</option>
-                        <option value="Sekretaris">Sekretaris</option>
-                        <option value="Bendahara">Bendahara</option>
-                        <option value="Pengajar">Pengajar</option>
-                        <option value="Staff">Staff</option>
+                        <option value="">Semua Jabatan</option>
                     </select>
-
-                    <button id="btnRefresh" class="btn-icon" title="Refresh">
+                    <button class="btn-refresh" onclick="muatData()" title="Refresh">
                         <i class="fas fa-sync-alt"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Tabel -->
+            <!-- Tabel User -->
             <div class="table-wrapper">
-                <div class="table-container">
-                    <table id="tabelUser">
-                        <thead>
-                            <tr>
-                                <th width="50">No</th>
-                                <th>User</th>
-                                <th>Email</th>
-                                <th>Jabatan</th>
-                                <th width="100">Status</th>
-                                <th width="130">Dibuat</th>
-                                <th width="140">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="userTableBody">
-                            <tr>
-                                <td colspan="7" class="td-loading">
-                                    <div class="table-loading">
-                                        <div class="loading-spinner-sm"></div>
-                                        <span>Memuat data user...</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table-footer">
-                    <span id="infoTotal">Menampilkan 0 user</span>
-                </div>
+                <table class="user-table" id="userTable">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>USER</th>
+                            <th>EMAIL</th>
+                            <th>JABATAN</th>
+                            <th>STATUS</th>
+                            <th>LAST LOGIN</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- Diisi via JS -->
+                    </tbody>
+                </table>
             </div>
 
         </div>
 
-    </main>
+    </div>
+</main>
 
 
     <!-- ==========================================================
