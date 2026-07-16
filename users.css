@@ -1585,3 +1585,25 @@ body > footer {
 .table-wrapper {
     overflow: hidden;
 }
+
+/* ==========================================================
+   FIX SIDEBAR TOGGLE — MOBILE
+   ========================================================== */
+
+/* Overlay auto muncul saat sidebar open */
+@media (max-width: 768px) {
+    .sidebar-overlay {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+
+    .sidebar.open ~ .sidebar-overlay {
+        display: block !important;
+        opacity: 1;
+    }
+
+    /* Body tidak scroll saat sidebar open */
+    body:has(.sidebar.open) {
+        overflow: hidden;
+    }
+}
