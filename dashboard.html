@@ -57,6 +57,23 @@
     <li><a href="info_islam.html"><i class="fas fa-info-circle"></i><span>Info Islam</span></a></li>
     <li><a href="kontak.html"><i class="fas fa-phone"></i><span>Kontak</span></a></li>
 
+<li class="menu-divider"></li>
+
+<!-- ✅ TAMBAH INI -->
+<li id="menuKelolaUser" style="display:none;">
+    <a href="admin/user.html">
+        <i class="fas fa-user-cog"></i>
+        <span>Kelola User Admin</span>
+    </a>
+</li>
+
+<li>
+    <a href="#" id="btnLogout" class="logout-link">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout Admin</span>
+    </a>
+</li>
+
     <li class="menu-divider"></li>
 
     <li>
@@ -105,18 +122,7 @@
         <i class="fas fa-chart-line" style="font-size:1.2rem;"></i>
         <span>DASHBOARD ADMIN</span>
     </button>
-
-    <!-- ✅ TAMBAHKAN TOMBOL INI -->
-    <button
-        class="tab-link"
-        onclick="window.location.href='admin/user.html'"
-        style="background: linear-gradient(135deg, #667eea, #764ba2);">
-        <i class="fas fa-user-cog" style="font-size:1.2rem;"></i>
-        <span>KELOLA USER</span>
-    </button>
-
-</div>
-        
+        </div>
         
 <div id="santri-panel" class="tab-content active">
         <div class="panel-card">
