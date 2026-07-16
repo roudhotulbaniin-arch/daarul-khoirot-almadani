@@ -47,7 +47,7 @@ const toggleSidebar  = document.getElementById("toggleSidebar");
 const btnLogout      = document.getElementById("btnLogout");
 const btnTambahUser  = document.getElementById("btnTambahUser");
 const btnRefresh     = document.getElementById("btnRefresh");
-const inputCari      = document.getElementById("inputCari");
+const inputCari      = document.getElementById("searchInput");
 const filterStatus   = document.getElementById("filterStatus");
 const filterJabatan  = document.getElementById("filterJabatan");
 const userTableBody  = document.getElementById("userTableBody");
@@ -98,20 +98,20 @@ onAuthStateChanged(auth, async (user) => {
         }
 
         currentAdminUID = user.uid;
+// Tampilkan info admin di card (opsional)
+const infoEl = document.getElementById("currentUserInfo");
+if (infoEl) {
+    infoEl.innerHTML = `
+        <div class="current-user-icon"><i class="fas fa-user-shield"></i></div>
+        <div class="current-user-text">
+            <strong>${userData.nama || userData.username || "Admin"}</strong>
+            <small>${userData.jabatan || "Administrator"}</small>
+        </div>
+    `;
+}
 
-        // Tampilkan info admin
-        const sidebarNama    = document.getElementById("sidebarNama");
-        const sidebarJabatan = document.getElementById("sidebarJabatan");
-        const topbarNama     = document.getElementById("topbarNama");
-        const topbarRole     = document.getElementById("topbarRole");
-
-        if (sidebarNama)    sidebarNama.textContent    = userData.nama || userData.username || "Admin";
-        if (sidebarJabatan) sidebarJabatan.textContent = userData.jabatan || "-";
-        if (topbarNama)     topbarNama.textContent     = userData.nama || userData.username || "Admin";
-        if (topbarRole)     topbarRole.textContent     = userData.jabatan || "Admin";
-
-        // ✅ SEMBUNYIKAN LOADING
-        console.log("✅ Sembunyikan loading screen");
+// Sembunyikan loading (opsional)
+if (loadingScreen) loadingScreen.classList.add("hidden");
         loadingScreen.classList.add("hidden");
 
         // Muat data
@@ -169,6 +169,7 @@ async function muatDaftarUser() {
         console.log("✅ Data user dimuat:", daftarUser.length);
 
         updateStatistik();
+isiOpsiJabatan();
         applyFilter();
 
     } catch (err) {
@@ -185,17 +186,33 @@ async function muatDaftarUser() {
 }
 
 // ================================================================
-//  STATISTIK
+//  ISI OPSI FILTER JABATAN
 // ================================================================
 
+function isiOpsiJabatan() {
+    if (!filterJabatan) return;
+    const jabatanSet = [...new Set(daftarUser.map(u => u.jabatan).filter(Boolean))];
+    filterJabatan.innerHTML = '<option value="">Semua Jabatan</option>';
+    jabatanSet.forEach(j => {
+        filterJabatan.innerHTML += `<option value="${j}">${j}</option>`;
+    });
+}
+
+// ================================================================
+//  STATISTIK
+// ================================================================
 function updateStatistik() {
     const total    = daftarUser.length;
     const aktif    = daftarUser.filter(u => u.aktif === true).length;
     const nonaktif = total - aktif;
 
-    document.getElementById("statTotal").textContent    = total;
-    document.getElementById("statAktif").textContent    = aktif;
-    document.getElementById("statNonaktif").textContent = nonaktif;
+    const elTotal    = document.getElementById("statTotalUser");
+    const elAktif    = document.getElementById("statUserAktif");
+    const elNonaktif = document.getElementById("statUserNonaktif");
+
+    if (elTotal)    elTotal.textContent    = total;
+    if (elAktif)    elAktif.textContent    = aktif;
+    if (elNonaktif) elNonaktif.textContent = nonaktif;
 }
 
 // ================================================================
@@ -221,7 +238,7 @@ function applyFilter() {
         if (status === "aktif")    okSt = u.aktif === true;
         if (status === "nonaktif") okSt = u.aktif !== true;
 
-        const okJab = jab === "semua" || u.jabatan === jab;
+        const okJab = !jab || jab === "" || u.jabatan === jab;
         return okKw && okSt && okJab;
     });
 
@@ -243,7 +260,7 @@ function renderTabelUser() {
                     <h4>Tidak Ada Data</h4>
                 </div>
             </td></tr>`;
-        document.getElementById("infoTotal").textContent = "Menampilkan 0 user";
+        
         return;
     }
 
@@ -288,9 +305,11 @@ function renderTabelUser() {
                 </td>
             </tr>`;
     }).join("");
+const infoEl = document.getElementById("infoTotal");
+if (infoEl) infoEl.textContent = "Menampilkan 0 user";
 
-    document.getElementById("infoTotal").textContent =
-        `Menampilkan ${filteredUser.length} dari ${daftarUser.length} user`;
+const infoEl = document.getElementById("infoTotal");
+if (infoEl) infoEl.textContent = `Menampilkan ${filteredUser.length} dari ${daftarUser.length} user`;
 }
 
 function tampilkanLoadingTabel() {
