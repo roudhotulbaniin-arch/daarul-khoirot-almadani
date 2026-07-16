@@ -1506,3 +1506,82 @@ tbody tr:last-child td {
         font-size: 0.72rem;
     }
 }
+
+/* ==========================================================
+   FIX MOBILE — SIDEBAR & LAYOUT
+   ========================================================== */
+
+/* Pastikan body tidak ada footer style yang mengganggu */
+body > footer {
+    display: none !important;
+}
+
+/* Fix tombol tambah user tidak hilang */
+.page-header .btn-primary {
+    display: inline-flex !important;
+    background: linear-gradient(135deg, #0c3b2e, #1a6b4a) !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    align-items: center !important;
+    gap: 8px !important;
+    border: none !important;
+    cursor: pointer !important;
+    width: auto !important;
+    justify-content: center !important;
+}
+
+/* Fix filter bar - stack vertikal di mobile */
+@media (max-width: 768px) {
+    .filter-bar {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .search-box {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .filter-group {
+        display: flex !important;
+        gap: 8px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .filter-group select {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .filter-group .btn-icon {
+        flex-shrink: 0 !important;
+    }
+}
+
+/* Sidebar overlay saat open */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+    backdrop-filter: blur(3px);
+}
+
+.sidebar.open ~ .sidebar-overlay,
+.sidebar-overlay.show {
+    display: block;
+}
+
+/* Fix table responsive */
+.table-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper {
+    overflow: hidden;
+}
