@@ -441,6 +441,23 @@
         });
     </script>
 
+<script>
+window.addEventListener('error', function(e) {
+    alert('❌ ERROR:\n' + e.message + '\n\nFile: ' + (e.filename || '?') + '\nLine: ' + (e.lineno || '?'));
+});
+window.addEventListener('unhandledrejection', function(e) {
+    alert('❌ Promise Error:\n' + (e.reason?.message || e.reason));
+});
+
+// Override console.error untuk tangkap semua error
+const originalError = console.error;
+console.error = function(...args) {
+    alert('❌ Console Error:\n' + args.map(a => a?.message || String(a)).join(' '));
+    originalError.apply(console, args);
+};
+</script>
+<script type="module" src="users.js"></script>
+
     <!-- JavaScript utama users -->
     <script type="module" src="users.js"></script>
 
