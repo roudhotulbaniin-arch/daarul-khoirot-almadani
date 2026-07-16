@@ -75,15 +75,20 @@
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
-
 /* ==========================================================
-   2. MAIN CONTAINER
+   2. MAIN CONTAINER + WRAPPER
    ========================================================== */
 
 .page-main-user {
     flex: 1;
     padding: 20px 0;
     width: 100%;
+}
+
+.container-user {
+    width: 94%;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -91,7 +96,7 @@
 
 
 /* ==========================================================
-   3. PAGE HEADER CARD
+   3. PAGE HEADER CARD — DIPERINDAH
    ========================================================== */
 
 .page-header-card {
@@ -100,6 +105,7 @@
     justify-content: space-between;
     gap: 20px;
     flex-wrap: wrap;
+    padding: 24px 28px;
 }
 
 .page-title-wrapper {
@@ -107,16 +113,47 @@
     min-width: 200px;
 }
 
+.page-title-flex {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.page-title-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1a5d1a, #2d7a2d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffd700;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.25);
+}
+
+.page-title-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.page-title-text .judul-seragam {
+    margin: 0;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
 .page-subtitle {
     color: #666;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    margin-top: 4px;
-    padding-left: 16px;
+    margin: 4px 0 0 0;
+    padding: 0;
 }
 
 .btn-tambah-user {
-    padding: 12px 24px;
+    padding: 12px 22px;
     background: linear-gradient(135deg, #1a5d1a, #144514);
     color: white;
     border: none;
@@ -130,28 +167,25 @@
     gap: 8px;
     transition: all 0.3s ease;
     white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2);
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.25);
 }
 
 .btn-tambah-user:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.3);
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.35);
     background: linear-gradient(135deg, #144514, #0d2e0d);
 }
 
 
 /* ==========================================================
-   4. STATS CARDS — WRAPPED IN CONTAINER
+   4. STATS CARDS
    ========================================================== */
 
 .stats-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 94%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
+    gap: 16px;
+    width: 100%;
 }
 
 .stat-card-user {
@@ -174,9 +208,9 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-.stat-card-user.stat-total    { border-left-color: #3b82f6; border-left-width: 4px; }
-.stat-card-user.stat-aktif    { border-left-color: #10b981; border-left-width: 4px; }
-.stat-card-user.stat-nonaktif { border-left-color: #ef4444; border-left-width: 4px; }
+.stat-card-user.stat-total    { border-left-color: #3b82f6; }
+.stat-card-user.stat-aktif    { border-left-color: #10b981; }
+.stat-card-user.stat-nonaktif { border-left-color: #ef4444; }
 
 .stat-card-user .stat-icon {
     width: 50px;
@@ -198,13 +232,26 @@
     font-weight: 700;
     color: #1a5d1a;
     line-height: 1;
+    margin: 0;
 }
 
 .stat-card-user .stat-info p {
     font-size: 0.8rem;
     color: #6b7280;
     font-weight: 600;
-    margin-top: 4px;
+    margin: 4px 0 0 0;
+}
+
+
+/* ==========================================================
+   4b. TABLE CARD WRAPPER (BUNGKUS filter + tabel)
+   ========================================================== */
+
+.table-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 /* ==========================================================
