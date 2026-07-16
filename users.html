@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola User | Daarul Khoirot Al-Madani</title>
+    <title>Kelola User Admin | Daarul Khoirot Al-Madani</title>
 
-    <!-- Favicon (optional) -->
     <link rel="icon" type="image/png" href="main_logo.png">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="users.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,9 +15,116 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- CSS: Global website + CSS khusus user -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="users.css">
 </head>
 
 <body>
+
+    <!-- ==========================================================
+         HEADER — Sama dengan halaman lain
+         ========================================================== -->
+    <header>
+        <div class="logo">
+            <img src="main_logo.png" alt="Logo">
+            <div class="header-text-container">
+                <h1>DAARUL KHOIROT ALMADANI</h1>
+                <p class="motto-text">Menuju Generasi Cerdas Berilmu Mulia Berperilaku</p>
+            </div>
+        </div>
+
+        <div class="social-header-tengah">
+            <a href="https://wa.me/6281401643188" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.tiktok.com/@daarul.khoirot.al" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.facebook.com/share/18PdnmPmym/" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://instagram.com/daarulkhoirot" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+
+        <!-- Navigasi Sidebar -->
+        <nav id="main-nav">
+            <div class="mobile-sidebar-header">
+                <img src="main_logo.png" alt="Logo">
+                <div class="sidebar-brand">
+                    <h3>DAARUL KHOIROT ALMADANI</h3>
+                    <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku</span>
+                </div>
+            </div>
+
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html" class="active">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Kelola User Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="galeri.html">
+                        <i class="fas fa-images"></i>
+                        <span>Galeri</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pendidikan.html">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Pendidikan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pendaftaran.html">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Pendaftaran</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tadzkiroh.html">
+                        <i class="fas fa-microphone"></i>
+                        <span>Tadzkiroh</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="info_islam.html">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Info Islam</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="kontak.html">
+                        <i class="fas fa-phone"></i>
+                        <span>Kontak</span>
+                    </a>
+                </li>
+
+                <li style="margin-top:15px; border-top:1px solid rgba(255,255,255,.1); padding-top:15px;">
+                    <a href="#" id="btnLogout" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout Admin</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-version">v1.0</div>
+        </nav>
+
+        <div id="menu-overlay"></div>
+    </header>
+
 
     <!-- ==========================================================
          LOADING SCREEN
@@ -38,155 +139,78 @@
 
 
     <!-- ==========================================================
-         SIDEBAR
+         MAIN CONTENT — Pakai container ala kartu-modern
          ========================================================== -->
-    <aside class="sidebar" id="sidebar">
+    <main class="page-main-user">
 
-        <!-- Header sidebar -->
-        <div class="sidebar-header">
-            <img src="main_logo.png" alt="Logo Pesantren">
-            <div>
-                <h3>Admin Panel</h3>
-                <small>Daarul Khoirot</small>
+        <!-- PAGE HEADER CARD -->
+        <div class="kartu-modern-clean page-header-card">
+            <div class="page-title-wrapper">
+                <h2 class="judul-seragam">
+                    <i class="fas fa-user-cog"></i>
+                    Kelola User Admin
+                </h2>
+                <p class="page-subtitle">Tambah, edit, dan kelola akun admin sistem</p>
+            </div>
+
+            <button id="btnTambahUser" class="btn-tambah-user">
+                <i class="fas fa-plus-circle"></i>
+                Tambah User Baru
+            </button>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="stats-wrapper">
+            <div class="stat-card-user stat-total">
+                <div class="stat-icon">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="statTotal">0</h3>
+                    <p>Total User</p>
+                </div>
+            </div>
+
+            <div class="stat-card-user stat-aktif">
+                <div class="stat-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="statAktif">0</h3>
+                    <p>User Aktif</p>
+                </div>
+            </div>
+
+            <div class="stat-card-user stat-nonaktif">
+                <div class="stat-icon">
+                    <i class="fas fa-user-times"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="statNonaktif">0</h3>
+                    <p>User Nonaktif</p>
+                </div>
             </div>
         </div>
 
-        <!-- Navigasi -->
-        <nav class="sidebar-nav">
+        <!-- FILTER & TABEL CARD -->
+        <div class="kartu-modern-clean">
 
-            <a href="dashboard.html" class="nav-item">
-                <i class="fas fa-tachometer-alt"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="users.html" class="nav-item active">
-                <i class="fas fa-user-cog"></i>
-                <span>Kelola User</span>
-            </a>
-
-            <a href="index.html" class="nav-item">
-                <i class="fas fa-arrow-left"></i>
-                <span>Kembali ke Website</span>
-            </a>
-
-        </nav>
-
-        <!-- Footer sidebar -->
-        <div class="sidebar-footer">
-
-            <div class="admin-profile">
-                <div class="admin-avatar">
+            <!-- Info admin login -->
+            <div class="admin-info-bar">
+                <div class="admin-avatar-bar">
                     <i class="fas fa-user-shield"></i>
                 </div>
-                <div class="admin-detail">
-                    <span id="sidebarNama">Loading...</span>
-                    <small id="sidebarJabatan">-</small>
-                </div>
-            </div>
-
-            <button id="btnLogout" class="btn-logout">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </button>
-
-        </div>
-
-    </aside>
-
-    <!-- Overlay sidebar untuk mobile -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-
-    <!-- ==========================================================
-         MAIN CONTENT
-         ========================================================== -->
-    <main class="main-content">
-
-        <!-- ================== TOPBAR ================== -->
-        <header class="topbar">
-
-            <div class="topbar-left">
-                <button id="toggleSidebar" class="btn-toggle-sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="breadcrumb">
-                    <span>Admin</span>
-                    <i class="fas fa-chevron-right"></i>
-                    <span class="active">Kelola User</span>
-                </div>
-            </div>
-
-            <div class="topbar-right">
-                <div class="admin-info-topbar">
-                    <span id="topbarNama">Loading...</span>
+                <div class="admin-detail-bar">
+                    <strong id="topbarNama">Loading...</strong>
                     <small id="topbarRole">Admin</small>
                 </div>
             </div>
 
-        </header>
-
-
-        <!-- ================== PAGE CONTENT ================== -->
-        <div class="page-content">
-
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-title">
-                    <h1>
-                        <i class="fas fa-user-cog"></i>
-                        Kelola User Admin
-                    </h1>
-                    <p>Tambah, edit, dan kelola akun admin sistem</p>
-                </div>
-                <button id="btnTambahUser" class="btn-primary">
-                    <i class="fas fa-plus-circle"></i>
-                    Tambah User Baru
-                </button>
-            </div>
-
-            <!-- Stat Cards -->
-            <div class="stats-row">
-
-                <div class="stat-card stat-total">
-                    <div class="stat-icon">
-                        <i class="fas fa-users-cog"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="statTotal">0</h3>
-                        <p>Total User</p>
-                    </div>
-                </div>
-
-                <div class="stat-card stat-aktif">
-                    <div class="stat-icon">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="statAktif">0</h3>
-                        <p>User Aktif</p>
-                    </div>
-                </div>
-
-                <div class="stat-card stat-nonaktif">
-                    <div class="stat-icon">
-                        <i class="fas fa-user-times"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="statNonaktif">0</h3>
-                        <p>User Nonaktif</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Filter Bar -->
+            <!-- Filter -->
             <div class="filter-bar">
-
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input
-                        type="text"
-                        id="inputCari"
+                    <input type="text" id="inputCari"
                         placeholder="Cari nama, username, atau email...">
                 </div>
 
@@ -207,16 +231,14 @@
                         <option value="Staff">Staff</option>
                     </select>
 
-                    <button id="btnRefresh" class="btn-icon" title="Refresh Data">
+                    <button id="btnRefresh" class="btn-icon" title="Refresh">
                         <i class="fas fa-sync-alt"></i>
                     </button>
                 </div>
-
             </div>
 
-            <!-- Tabel User -->
+            <!-- Tabel -->
             <div class="table-wrapper">
-
                 <div class="table-container">
                     <table id="tabelUser">
                         <thead>
@@ -242,11 +264,9 @@
                         </tbody>
                     </table>
                 </div>
-
                 <div class="table-footer">
                     <span id="infoTotal">Menampilkan 0 user</span>
                 </div>
-
             </div>
 
         </div>
@@ -255,15 +275,13 @@
 
 
     <!-- ==========================================================
-         MODAL — TAMBAH / EDIT USER
+         MODAL - TAMBAH / EDIT USER
          ========================================================== -->
     <div class="modal-overlay" id="modalUser">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h3 id="modalTitle">
-                    <i class="fas fa-user-plus"></i>
-                    Tambah User Baru
+                    <i class="fas fa-user-plus"></i> Tambah User Baru
                 </h3>
                 <button class="btn-close-modal" id="btnCloseModal">
                     <i class="fas fa-times"></i>
@@ -278,21 +296,15 @@
                             <label for="inputNama">
                                 <i class="fas fa-user"></i> Nama Lengkap
                             </label>
-                            <input
-                                type="text"
-                                id="inputNama"
-                                placeholder="Masukkan nama lengkap"
-                                required>
+                            <input type="text" id="inputNama"
+                                placeholder="Masukkan nama lengkap" required>
                         </div>
                         <div class="form-group">
                             <label for="inputUsername">
                                 <i class="fas fa-at"></i> Username
                             </label>
-                            <input
-                                type="text"
-                                id="inputUsername"
-                                placeholder="Masukkan username"
-                                required>
+                            <input type="text" id="inputUsername"
+                                placeholder="Masukkan username" required>
                         </div>
                     </div>
 
@@ -300,11 +312,8 @@
                         <label for="inputEmail">
                             <i class="fas fa-envelope"></i> Email
                         </label>
-                        <input
-                            type="email"
-                            id="inputEmail"
-                            placeholder="contoh@email.com"
-                            required>
+                        <input type="email" id="inputEmail"
+                            placeholder="contoh@email.com" required>
                         <small class="form-hint" id="hintEmail">
                             Email digunakan untuk login
                         </small>
@@ -315,12 +324,8 @@
                             <i class="fas fa-lock"></i> Password
                         </label>
                         <div class="password-input-wrapper">
-                            <input
-                                type="password"
-                                id="inputPassword"
-                                placeholder="Minimal 6 karakter"
-                                required
-                                minlength="6">
+                            <input type="password" id="inputPassword"
+                                placeholder="Minimal 6 karakter" required minlength="6">
                             <button type="button" class="btn-toggle-pass" id="toggleModalPassword">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -364,10 +369,8 @@
                             <i class="fas fa-save"></i> Simpan User
                         </button>
                     </div>
-
                 </form>
             </div>
-
         </div>
     </div>
 
@@ -377,30 +380,22 @@
          ========================================================== -->
     <div class="modal-overlay" id="modalHapus">
         <div class="modal-content modal-sm">
-
             <div class="modal-header modal-header-danger">
                 <h3>
                     <i class="fas fa-exclamation-triangle"></i>
                     Konfirmasi Hapus
                 </h3>
             </div>
-
             <div class="modal-body">
-
                 <div class="hapus-icon">
                     <i class="fas fa-user-slash"></i>
                 </div>
-
-                <p class="hapus-text">
-                    Apakah Anda yakin ingin menghapus user:
-                </p>
+                <p class="hapus-text">Apakah Anda yakin ingin menghapus user:</p>
                 <p class="hapus-nama" id="namaUserHapus">-</p>
-
                 <p class="hapus-warning">
                     <i class="fas fa-info-circle"></i>
                     Tindakan ini tidak dapat dibatalkan!
                 </p>
-
                 <div class="modal-actions modal-actions-center">
                     <button class="btn-secondary" id="btnBatalHapus">
                         <i class="fas fa-times"></i> Batal
@@ -409,9 +404,7 @@
                         <i class="fas fa-trash-alt"></i> Ya, Hapus
                     </button>
                 </div>
-
             </div>
-
         </div>
     </div>
 
@@ -421,7 +414,6 @@
          ========================================================== -->
     <div class="modal-overlay" id="modalDetail">
         <div class="modal-content modal-sm">
-
             <div class="modal-header">
                 <h3>
                     <i class="fas fa-id-card"></i>
@@ -431,52 +423,34 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-
             <div class="modal-body">
-
                 <div class="detail-avatar">
                     <i class="fas fa-user-circle"></i>
                 </div>
-
                 <div class="detail-list">
-                    <div class="detail-item">
-                        <label>Nama</label>
-                        <span id="detailNama">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <label>Username</label>
-                        <span id="detailUsername">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <label>Email</label>
-                        <span id="detailEmail">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <label>Jabatan</label>
-                        <span id="detailJabatan">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <label>Role</label>
-                        <span id="detailRole">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <label>Status</label>
-                        <span id="detailStatus">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <label>UID</label>
-                        <span id="detailUID" class="uid-text">-</span>
-                    </div>
-                    <div class="detail-item">
-                        <label>Dibuat</label>
-                        <span id="detailDibuat">-</span>
-                    </div>
+                    <div class="detail-item"><label>Nama</label><span id="detailNama">-</span></div>
+                    <div class="detail-item"><label>Username</label><span id="detailUsername">-</span></div>
+                    <div class="detail-item"><label>Email</label><span id="detailEmail">-</span></div>
+                    <div class="detail-item"><label>Jabatan</label><span id="detailJabatan">-</span></div>
+                    <div class="detail-item"><label>Role</label><span id="detailRole">-</span></div>
+                    <div class="detail-item"><label>Status</label><span id="detailStatus">-</span></div>
+                    <div class="detail-item"><label>UID</label><span id="detailUID" class="uid-text">-</span></div>
+                    <div class="detail-item"><label>Dibuat</label><span id="detailDibuat">-</span></div>
                 </div>
-
             </div>
-
         </div>
     </div>
+
+
+    <!-- ==========================================================
+         FOOTER — Sama dengan halaman lain
+         ========================================================== -->
+    <footer>
+        <div class="f-title">Lembaga Pendidikan Islam DAARUL KHOIROT ALMADANI</div>
+        <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+        <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+        <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
+    </footer>
 
 
     <!-- ==========================================================
@@ -485,11 +459,21 @@
     <div class="toast-container" id="toastContainer"></div>
 
 
-    <!-- ==========================================================
-         JAVASCRIPT
-         ========================================================== -->
+    <!-- Script menu toggle (mobile sidebar) -->
+    <script>
+        document.getElementById('menu-toggle')?.addEventListener('click', () => {
+            document.getElementById('main-nav').classList.toggle('show');
+            document.getElementById('menu-overlay').classList.toggle('show');
+        });
+
+        document.getElementById('menu-overlay')?.addEventListener('click', function () {
+            document.getElementById('main-nav').classList.remove('show');
+            this.classList.remove('show');
+        });
+    </script>
+
+    <!-- JavaScript utama users -->
     <script type="module" src="users.js"></script>
 
 </body>
-
 </html>
