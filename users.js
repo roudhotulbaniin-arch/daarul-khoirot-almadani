@@ -99,16 +99,16 @@ onAuthStateChanged(auth, async (user) => {
 
         currentAdminUID = user.uid;
 // Tampilkan info admin di card (opsional)
-const infoEl = document.getElementById("currentUserInfo");
-if (infoEl) {
-    infoEl.innerHTML = `
+const infoUserEl = document.getElementById("currentUserInfo");
+if (infoUserEl) {
+    infoUserEl.innerHTML = `
         <div class="current-user-icon"><i class="fas fa-user-shield"></i></div>
         <div class="current-user-text">
             <strong>${userData.nama || userData.username || "Admin"}</strong>
             <small>${userData.jabatan || "Administrator"}</small>
         </div>
     `;
-}
+} 
 
 // Sembunyikan loading (opsional)
 if (loadingScreen) loadingScreen.classList.add("hidden");
@@ -250,7 +250,6 @@ function applyFilter() {
 // ================================================================
 
 const AVATAR_COLORS = ["av-1","av-2","av-3","av-4","av-5","av-6"];
-
 function renderTabelUser() {
     if (filteredUser.length === 0) {
         userTableBody.innerHTML = `
@@ -260,7 +259,8 @@ function renderTabelUser() {
                     <h4>Tidak Ada Data</h4>
                 </div>
             </td></tr>`;
-        
+        const infoElEmpty = document.getElementById("infoTotal");
+        if (infoElEmpty) infoElEmpty.textContent = "Menampilkan 0 user";
         return;
     }
 
@@ -305,11 +305,11 @@ function renderTabelUser() {
                 </td>
             </tr>`;
     }).join("");
-const infoEl = document.getElementById("infoTotal");
-if (infoEl) infoEl.textContent = "Menampilkan 0 user";
 
-const infoEl = document.getElementById("infoTotal");
-if (infoEl) infoEl.textContent = `Menampilkan ${filteredUser.length} dari ${daftarUser.length} user`;
+    const infoElData = document.getElementById("infoTotal");
+    if (infoElData) {
+        infoElData.textContent = `Menampilkan ${filteredUser.length} dari ${daftarUser.length} user`;
+    }
 }
 
 function tampilkanLoadingTabel() {
