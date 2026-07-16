@@ -4,6 +4,9 @@
    Header/Nav/Footer pakai style.css global
    ================================================================ */
 
+body {
+    overflow-x: hidden;
+}
 
 /* ==========================================================
    1. LOADING SCREEN
@@ -75,14 +78,16 @@
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
 /* ==========================================================
-   2. MAIN CONTAINER + WRAPPER
+   MAIN CONTAINER + WRAPPER
    ========================================================== */
 
 .page-main-user {
     flex: 1;
     padding: 20px 0;
     width: 100%;
+    overflow-x: hidden; /* ⭐ Cegah horizontal scroll di level page */
 }
 
 .container-user {
@@ -92,8 +97,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    box-sizing: border-box;
 }
-
 
 /* ==========================================================
    3. PAGE HEADER CARD — DIPERINDAH
@@ -479,6 +484,59 @@
     font-weight: 500;
 }
 
+/* ==========================================================
+   INFO USER LOGIN (Current User Card)
+   ========================================================== */
+
+.current-user-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #e8f5e9, #f1f8f2);
+    border-left: 4px solid #1a5d1a;
+    border-radius: 12px;
+    margin-bottom: 4px;
+}
+
+.current-user-info:empty {
+    display: none;
+}
+
+.current-user-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1a5d1a, #2d7a2d);
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(26, 93, 26, 0.2);
+}
+
+.current-user-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.current-user-text strong {
+    font-size: 0.95rem;
+    color: #1a5d1a;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.current-user-text small {
+    font-size: 0.78rem;
+    color: #666;
+    font-weight: 500;
+}
 
 /* ---- User Cell ---- */
 .user-cell {
