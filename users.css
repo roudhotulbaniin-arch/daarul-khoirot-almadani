@@ -1782,3 +1782,90 @@ div.swal-premium button.swal2-deny:focus,
 div.swal-danger button.swal2-confirm:focus {
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3), 0 4px 12px rgba(220, 38, 38, 0.3) !important;
 }
+
+/* ==========================================================
+   SWEETALERT2 — FIX HAPUS BUTTON & HIDE DENY
+   ========================================================== */
+
+/* ⭐ SEMBUNYIKAN tombol Deny bawaan (yang tulisannya "No") */
+.swal2-popup .swal2-deny {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* ⭐ Tombol CONFIRM saat mode HAPUS (merah) */
+div.swal-premium.swal-danger button.swal2-confirm,
+button.swal-btn-danger-confirm {
+    background-image: none !important;
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    background-color: #dc2626 !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    min-width: 130px !important;
+    justify-content: center !important;
+    outline: none !important;
+    text-shadow: none !important;
+    margin: 0 !important;
+}
+
+div.swal-premium.swal-danger button.swal2-confirm:hover,
+button.swal-btn-danger-confirm:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45) !important;
+}
+
+/* ⭐ Actions container — Force flex row */
+.swal-premium .swal2-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 22px !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* Mobile: tombol full width & stack vertical */
+@media (max-width: 480px) {
+    .swal-premium .swal2-actions {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+    
+    .swal-premium .swal2-actions button {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+/* Icon warning warna oranye (bukan default) */
+.swal-premium .swal2-icon.swal2-warning {
+    border-color: #f59e0b !important;
+    color: #f59e0b !important;
+}
+
+.swal-premium .swal2-icon.swal2-warning .swal2-icon-content {
+    color: #f59e0b !important;
+    font-size: 3.5rem !important;
+    font-weight: bold !important;
+}
