@@ -1108,6 +1108,9 @@ html, body {
 /* ==========================================================
    CURRENT USER INFO — Kartu Info Admin Login
    ========================================================== */
+/* ==========================================================
+   CURRENT USER INFO — Kartu Info Admin Login
+   ========================================================== */
 
 .current-user-info {
     background: linear-gradient(135deg, #f0f9f0, #e8f5e8);
@@ -1126,7 +1129,7 @@ html, body {
     box-sizing: border-box;
 }
 
-.current-user-info .user-icon-wrapper {
+.current-user-icon {
     width: 48px;
     height: 48px;
     background: #1a5d1a;
@@ -1134,37 +1137,35 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffd700;
-    font-size: 1.3rem;
     flex-shrink: 0;
 }
 
-.current-user-info .user-icon-wrapper i {
+.current-user-icon i {
     color: #ffd700;
+    font-size: 1.3rem;
 }
 
-.current-user-info .user-detail {
+.current-user-text {
     display: flex;
     flex-direction: column;
     min-width: 0;
     flex: 1;
 }
 
-.current-user-info .user-detail strong,
-.current-user-info .user-detail .user-name {
+.current-user-text strong {
     font-size: 0.95rem;
     color: #144514;
     font-weight: 700;
     line-height: 1.3;
-    margin: 0;
+    display: block;
 }
 
-.current-user-info .user-detail small,
-.current-user-info .user-detail .user-role {
+.current-user-text small {
     font-size: 0.78rem;
     color: #4b5563;
     font-weight: 500;
-    margin-top: 2px;
+    margin-top: 3px;
+    display: block;
 }
 
 /* ==========================================================
