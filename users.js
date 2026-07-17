@@ -91,19 +91,7 @@ function alertKonfirmasi(judul, pesan = "", iconType = 'question') {
     });
 }
 
-function alertKonfirmasiHapus(judul, pesan = "") {
-    return Swal.fire({
-        icon: 'warning',
-        title: judul,
-        html: pesan,
-        showCancelButton: true,
-        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
-        cancelButtonText: '<i class="fas fa-times"></i> Batal',
-        reverseButtons: true,
-        customClass: { popup: 'swal-premium swal-danger' },
-        buttonsStyling: false
-    });
-}
+
 
 function alertLoading(judul = "Sedang memproses...") {
     Swal.fire({
