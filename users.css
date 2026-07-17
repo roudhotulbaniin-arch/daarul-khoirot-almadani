@@ -1470,11 +1470,11 @@ button.btn-warning:hover {
     }
 }
 
-/* ==========================================================
-   SWEETALERT2 PREMIUM CUSTOM — Branding Pesantren
-   ========================================================== */
+/* ================================================================
+   SWEETALERT2 — FINAL CLEAN VERSION (Master Style)
+   ================================================================ */
 
-/* Popup container */
+/* ---------- POPUP CONTAINER ---------- */
 .swal2-popup.swal-premium {
     border-radius: 20px !important;
     padding: 28px 24px !important;
@@ -1482,10 +1482,14 @@ button.btn-warning:hover {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25) !important;
     border-top: 5px solid #1a5d1a !important;
     max-width: 90vw !important;
-    width: 400px !important;
+    width: 420px !important;
 }
 
-/* Title */
+.swal-danger.swal2-popup {
+    border-top-color: #dc2626 !important;
+}
+
+/* ---------- TITLE ---------- */
 .swal-premium .swal2-title {
     font-size: 1.3rem !important;
     font-weight: 700 !important;
@@ -1494,7 +1498,11 @@ button.btn-warning:hover {
     line-height: 1.3 !important;
 }
 
-/* HTML content (message) */
+.swal-danger .swal2-title {
+    color: #dc2626 !important;
+}
+
+/* ---------- CONTENT ---------- */
 .swal-premium .swal2-html-container {
     font-size: 0.92rem !important;
     color: #4b5563 !important;
@@ -1503,7 +1511,7 @@ button.btn-warning:hover {
     margin: 12px 0 !important;
 }
 
-/* Icon */
+/* ---------- ICONS ---------- */
 .swal-premium .swal2-icon {
     border-width: 3px !important;
     margin: 10px auto 15px !important;
@@ -1511,113 +1519,135 @@ button.btn-warning:hover {
     height: 70px !important;
 }
 
-.swal-premium .swal2-icon.swal2-success {
-    border-color: #10b981 !important;
-    color: #10b981 !important;
-}
+.swal-premium .swal2-icon.swal2-success { border-color: #10b981 !important; color: #10b981 !important; }
+.swal-premium .swal2-icon.swal2-error   { border-color: #ef4444 !important; color: #ef4444 !important; }
+.swal-premium .swal2-icon.swal2-warning { border-color: #f59e0b !important; color: #f59e0b !important; }
+.swal-premium .swal2-icon.swal2-question { border-color: #3b82f6 !important; color: #3b82f6 !important; }
+.swal-premium .swal2-icon.swal2-info    { border-color: #06b6d4 !important; color: #06b6d4 !important; }
 
-.swal-premium .swal2-icon.swal2-error {
-    border-color: #ef4444 !important;
-    color: #ef4444 !important;
-}
-
-.swal-premium .swal2-icon.swal2-warning {
-    border-color: #f59e0b !important;
-    color: #f59e0b !important;
-}
-
-.swal-premium .swal2-icon.swal2-question {
-    border-color: #3b82f6 !important;
-    color: #3b82f6 !important;
-}
-
-.swal-premium .swal2-icon.swal2-info {
-    border-color: #06b6d4 !important;
-    color: #06b6d4 !important;
-}
-
-/* Success ring */
-.swal-premium .swal2-success-ring {
-    border-color: #10b98130 !important;
-}
+.swal-premium .swal2-success-ring { border-color: #10b98130 !important; }
 .swal-premium .swal2-success .swal2-success-line-tip,
-.swal-premium .swal2-success .swal2-success-line-long {
-    background-color: #10b981 !important;
+.swal-premium .swal2-success .swal2-success-line-long { background-color: #10b981 !important; }
+
+.swal-premium .swal2-icon.swal2-warning .swal2-icon-content {
+    color: #f59e0b !important;
+    font-size: 3.5rem !important;
+    font-weight: bold !important;
 }
 
-/* Buttons */
+/* ---------- HIDE DENY BUTTON ---------- */
+.swal2-popup .swal2-deny {
+    display: none !important;
+}
+
+/* ---------- ACTIONS CONTAINER (Tombol Wrapper) ---------- */
 .swal-premium .swal2-actions {
-    gap: 8px !important;
-    margin-top: 20px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    margin-top: 22px !important;
+    padding: 0 !important;
+    width: 100% !important;
+    justify-content: center !important;
+    align-items: stretch !important;
 }
 
-.swal-premium .swal2-styled {
-    padding: 11px 24px !important;
-    border-radius: 10px !important;
+/* ---------- BUTTONS BASE (Ukuran Sama) ---------- */
+.swal-premium .swal2-actions button.swal2-styled {
+    flex: 1 1 0 !important;
+    min-height: 48px !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 12px 16px !important;
     font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.88rem !important;
+    font-size: 0.9rem !important;
     font-weight: 700 !important;
-    box-shadow: none !important;
-    transition: all 0.25s ease !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
     letter-spacing: 0.3px !important;
+    outline: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+    transition: all 0.25s ease !important;
 }
 
-.swal-premium .swal2-confirm {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: white !important;
+.swal-premium .swal2-actions button.swal2-styled i {
+    font-size: 0.85rem !important;
+    color: inherit !important;
 }
 
-.swal-premium .swal2-confirm:hover {
-    background: linear-gradient(135deg, #144514, #0d2e0d) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.35) !important;
-}
-
-.swal-premium .swal2-cancel {
+/* ---------- CANCEL BUTTON (Abu-abu) ---------- */
+.swal-premium button.swal2-cancel {
     background: #f3f4f6 !important;
     color: #4b5563 !important;
     border: 2px solid #e5e7eb !important;
+    box-shadow: none !important;
 }
 
-.swal-premium .swal2-cancel:hover {
+.swal-premium button.swal2-cancel:hover {
     background: #e5e7eb !important;
     transform: translateY(-2px) !important;
 }
 
-.swal-premium .swal2-deny {
-    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-    color: white !important;
+/* ---------- CONFIRM BUTTON (Default Hijau) ---------- */
+.swal-premium:not(.swal-danger) button.swal2-confirm {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
 }
 
-.swal-premium .swal2-deny:hover {
+.swal-premium:not(.swal-danger) button.swal2-confirm:hover {
+    background: linear-gradient(135deg, #144514, #0d2e0d) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.35) !important;
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.4) !important;
 }
 
-/* Custom class untuk header danger */
-.swal-danger .swal2-title {
-    color: #dc2626 !important;
+/* ---------- CONFIRM BUTTON (Danger Merah — untuk Hapus) ---------- */
+.swal-premium.swal-danger button.swal2-confirm {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
 }
 
-.swal-danger.swal2-popup {
-    border-top-color: #dc2626 !important;
+.swal-premium.swal-danger button.swal2-confirm:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45) !important;
 }
 
-/* Custom class untuk warning (reset password) */
-.swal-warning-header .swal2-title {
-    color: #d97706 !important;
+/* ---------- FOCUS STATE ---------- */
+.swal-premium button.swal2-styled:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
 }
 
-.swal-warning-header.swal2-popup {
-    border-top-color: #f59e0b !important;
+.swal-premium:not(.swal-danger) button.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.3), 0 4px 12px rgba(26, 93, 26, 0.3) !important;
 }
 
-/* Loading state */
+.swal-premium.swal-danger button.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3), 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+}
+
+/* ---------- LOADING SPINNER ---------- */
 .swal-premium .swal2-loader {
     border-color: #1a5d1a transparent #1a5d1a transparent !important;
 }
 
-/* Toast style */
+/* ---------- BACKDROP ---------- */
+.swal2-backdrop-show {
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+/* ---------- TOAST (Notifikasi Sudut Kanan Atas) ---------- */
 .swal2-container.swal2-top-end > .swal2-popup.swal-toast {
     border-radius: 14px !important;
     padding: 14px 20px !important;
@@ -1634,342 +1664,20 @@ button.btn-warning:hover {
     padding: 0 !important;
 }
 
-.swal-toast.swal2-icon-success {
-    border-left-color: #10b981 !important;
-}
+.swal-toast.swal2-icon-success { border-left-color: #10b981 !important; }
+.swal-toast.swal2-icon-error   { border-left-color: #ef4444 !important; }
+.swal-toast.swal2-icon-warning { border-left-color: #f59e0b !important; }
+.swal-toast.swal2-icon-info    { border-left-color: #06b6d4 !important; }
 
-.swal-toast.swal2-icon-error {
-    border-left-color: #ef4444 !important;
-}
-
-.swal-toast.swal2-icon-warning {
-    border-left-color: #f59e0b !important;
-}
-
-.swal-toast.swal2-icon-info {
-    border-left-color: #06b6d4 !important;
-}
-
-/* Backdrop */
-.swal2-backdrop-show {
-    background: rgba(0, 0, 0, 0.55) !important;
-    backdrop-filter: blur(5px) !important;
-}
-
-/* ==========================================================
-   SWEETALERT2 — Force Button Styling (Priority Fix)
-   ========================================================== */
-
-/* Container tombol */
-div.swal-premium .swal2-actions {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    margin-top: 25px !important;
-    padding: 0 10px !important;
-    justify-content: center !important;
-    width: 100% !important;
-}
-
-/* CONFIRM BUTTON — Hijau */
-div.swal-premium button.swal2-confirm,
-div.swal-premium button.swal2-styled.swal2-confirm {
-    background-image: none !important;
-    background-color: #1a5d1a !important;
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: #ffffff !important;
-    padding: 12px 24px !important;
-    border: none !important;
-    border-radius: 10px !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    min-width: 120px !important;
-    justify-content: center !important;
-    outline: none !important;
-    text-shadow: none !important;
-}
-
-div.swal-premium button.swal2-confirm:hover {
-    background: linear-gradient(135deg, #144514, #0d2e0d) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.4) !important;
-}
-
-/* CANCEL BUTTON — Abu-abu */
-div.swal-premium button.swal2-cancel,
-div.swal-premium button.swal2-styled.swal2-cancel {
-    background-image: none !important;
-    background-color: #f3f4f6 !important;
-    background: #f3f4f6 !important;
-    color: #4b5563 !important;
-    padding: 12px 24px !important;
-    border: 2px solid #e5e7eb !important;
-    border-radius: 10px !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-    box-shadow: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    min-width: 120px !important;
-    justify-content: center !important;
-    outline: none !important;
-    text-shadow: none !important;
-}
-
-div.swal-premium button.swal2-cancel:hover {
-    background: #e5e7eb !important;
-    background-color: #e5e7eb !important;
-    transform: translateY(-2px) !important;
-}
-
-/* DENY BUTTON — Merah (untuk hapus) */
-div.swal-premium button.swal2-deny,
-div.swal-danger button.swal2-confirm {
-    background-image: none !important;
-    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-    color: #ffffff !important;
-    padding: 12px 24px !important;
-    border: none !important;
-    border-radius: 10px !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    min-width: 120px !important;
-    justify-content: center !important;
-    outline: none !important;
-    text-shadow: none !important;
-}
-
-div.swal-premium button.swal2-deny:hover,
-div.swal-danger button.swal2-confirm:hover {
-    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45) !important;
-}
-
-/* Force i tag color di button */
-div.swal-premium button.swal2-styled i {
-    color: inherit !important;
-    font-size: 0.85rem !important;
-}
-
-/* Focus outline hilangkan */
-div.swal-premium button.swal2-styled:focus {
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-div.swal-premium button.swal2-confirm:focus {
-    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.3), 0 4px 12px rgba(26, 93, 26, 0.3) !important;
-}
-
-div.swal-premium button.swal2-cancel:focus {
-    box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.2) !important;
-}
-
-div.swal-premium button.swal2-deny:focus,
-div.swal-danger button.swal2-confirm:focus {
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3), 0 4px 12px rgba(220, 38, 38, 0.3) !important;
-}
-
-/* ==========================================================
-   SWEETALERT2 — FIX HAPUS BUTTON & HIDE DENY
-   ========================================================== */
-
-/* ⭐ SEMBUNYIKAN tombol Deny bawaan (yang tulisannya "No") */
-.swal2-popup .swal2-deny {
-    display: none !important;
-    visibility: hidden !important;
-    width: 0 !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: 0 !important;
-    background: transparent !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
-
-/* ⭐ Tombol CONFIRM saat mode HAPUS (merah) */
-div.swal-premium.swal-danger button.swal2-confirm,
-button.swal-btn-danger-confirm {
-    background-image: none !important;
-    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-    background-color: #dc2626 !important;
-    color: #ffffff !important;
-    padding: 12px 24px !important;
-    border: none !important;
-    border-radius: 10px !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    min-width: 130px !important;
-    justify-content: center !important;
-    outline: none !important;
-    text-shadow: none !important;
-    margin: 0 !important;
-}
-
-div.swal-premium.swal-danger button.swal2-confirm:hover,
-button.swal-btn-danger-confirm:hover {
-    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45) !important;
-}
-
-/* ⭐ Actions container — Force flex row */
-.swal-premium .swal2-actions {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 10px !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-top: 22px !important;
-    padding: 0 !important;
-    width: 100% !important;
-}
-
-/* Mobile: tombol full width & stack vertical */
+/* ---------- MOBILE RESPONSIVE ---------- */
 @media (max-width: 480px) {
     .swal-premium .swal2-actions {
-        flex-direction: column !important;
         gap: 8px !important;
     }
     
-    .swal-premium .swal2-actions button {
-        width: 100% !important;
-        min-width: 0 !important;
-    }
-}
-
-/* Icon warning warna oranye (bukan default) */
-.swal-premium .swal2-icon.swal2-warning {
-    border-color: #f59e0b !important;
-    color: #f59e0b !important;
-}
-
-.swal-premium .swal2-icon.swal2-warning .swal2-icon-content {
-    color: #f59e0b !important;
-    font-size: 3.5rem !important;
-    font-weight: bold !important;
-}
-
-/* ==========================================================
-   SWEETALERT2 — TOMBOL AKSI RAPI (Batal & Hapus)
-   ========================================================== */
-
-/* Container tombol — force horizontal & rapi */
-div.swal-premium .swal2-actions {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 10px !important;
-    margin-top: 22px !important;
-    padding: 0 15px !important;
-    width: 100% !important;
-    justify-content: center !important;
-    align-items: stretch !important;
-}
-
-/* Kedua tombol punya ukuran sama */
-div.swal-premium .swal2-actions button {
-    flex: 1 !important;
-    min-height: 46px !important;
-    max-width: 200px !important;
-    padding: 12px 20px !important;
-    font-size: 0.88rem !important;
-    font-weight: 700 !important;
-    border-radius: 10px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    margin: 0 !important;
-    white-space: nowrap !important;
-}
-
-/* Tombol CANCEL (Batal) — abu-abu */
-div.swal-premium button.swal2-cancel {
-    background: #f3f4f6 !important;
-    background-image: none !important;
-    color: #4b5563 !important;
-    border: 2px solid #e5e7eb !important;
-    box-shadow: none !important;
-}
-
-div.swal-premium button.swal2-cancel:hover {
-    background: #e5e7eb !important;
-    transform: translateY(-2px) !important;
-}
-
-/* Tombol CONFIRM di modal HAPUS (merah) */
-div.swal-premium.swal-danger button.swal2-confirm {
-    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-    background-image: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-    color: white !important;
-    border: none !important;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
-}
-
-div.swal-premium.swal-danger button.swal2-confirm:hover {
-    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45) !important;
-}
-
-/* Tombol CONFIRM di modal KONFIRMASI biasa (hijau) */
-div.swal-premium:not(.swal-danger) button.swal2-confirm {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    background-image: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: white !important;
-    border: none !important;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
-}
-
-div.swal-premium:not(.swal-danger) button.swal2-confirm:hover {
-    background: linear-gradient(135deg, #144514, #0d2e0d) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.4) !important;
-}
-
-/* Icon di dalam tombol */
-div.swal-premium .swal2-actions button i {
-    font-size: 0.85rem !important;
-    color: inherit !important;
-}
-
-/* Focus outline hilang */
-div.swal-premium .swal2-actions button:focus {
-    outline: none !important;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* HP kecil: tetap horizontal tapi lebih pendek */
-@media (max-width: 400px) {
-    div.swal-premium .swal2-actions {
-        padding: 0 !important;
-        gap: 8px !important;
-    }
-    
-    div.swal-premium .swal2-actions button {
-        font-size: 0.82rem !important;
-        padding: 11px 12px !important;
-        min-height: 44px !important;
+    .swal-premium .swal2-actions button.swal2-styled {
+        font-size: 0.85rem !important;
+        padding: 12px 10px !important;
+        min-height: 46px !important;
     }
 }
