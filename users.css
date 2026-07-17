@@ -1278,6 +1278,92 @@ html, body {
 }
 
 /* ==========================================================
+   BTN WARNING (Reset Password via Email) — FORCE STYLE
+   ========================================================== */
+
+.btn-warning,
+button.btn-warning {
+    padding: 12px 22px !important;
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25) !important;
+    white-space: nowrap !important;
+    letter-spacing: 0.3px !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+}
+
+.btn-warning i,
+button.btn-warning i {
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    margin-right: 4px;
+}
+
+.btn-warning:hover,
+.btn-warning:active,
+button.btn-warning:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4) !important;
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+}
+
+.btn-warning:disabled {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* ==========================================================
+   MODAL ACTIONS — Urutan Tombol Rapi (Mobile)
+   ========================================================== */
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f2f5;
+}
+
+.modal-actions button {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Urutan tampil (flex order): Reset → Simpan → Batal */
+.modal-actions .btn-warning   { order: 1; }
+.modal-actions .btn-primary   { order: 2; }
+.modal-actions .btn-secondary { order: 3; }
+
+/* Desktop: horizontal */
+@media (min-width: 769px) {
+    .modal-actions {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+    
+    .modal-actions button {
+        width: auto;
+    }
+    
+    .modal-actions .btn-warning   { order: 1; margin-right: auto; }
+    .modal-actions .btn-secondary { order: 2; }
+    .modal-actions .btn-primary   { order: 3; }
+}
+/* ==========================================================
    RESPONSIVE MOBILE
    ========================================================== */
 
