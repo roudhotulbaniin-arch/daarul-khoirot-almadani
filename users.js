@@ -105,6 +105,18 @@ function alertLoading(judul = "Sedang memproses...") {
 }
 
 // ================================================================
+//  REGISTER WINDOW FUNCTIONS EARLY (agar selalu tersedia)
+// ================================================================
+
+// Placeholder sementara — akan di-override di bawah
+window.editUser     = window.editUser     || function(uid) { console.log('editUser belum ready:', uid); };
+window.hapusUser    = window.hapusUser    || function(uid) { console.log('hapusUser belum ready:', uid); };
+window.toggleStatus = window.toggleStatus || function(uid, cur) { console.log('toggleStatus belum ready'); };
+window.lihatDetail  = window.lihatDetail  || function(uid) { console.log('lihatDetail belum ready:', uid); };
+
+console.log('✅ Placeholder window functions registered');
+
+// ================================================================
 //  VARIABEL GLOBAL
 // ================================================================
 
