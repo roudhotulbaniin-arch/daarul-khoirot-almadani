@@ -1105,6 +1105,67 @@ html, body {
     opacity: 1;
 }
 
+/* ==========================================================
+   CURRENT USER INFO — Kartu Info Admin Login
+   ========================================================== */
+
+.current-user-info {
+    background: linear-gradient(135deg, #f0f9f0, #e8f5e8);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-left: 4px solid #1a5d1a;
+    border-top: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.current-user-info .user-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    background: #1a5d1a;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffd700;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.current-user-info .user-icon-wrapper i {
+    color: #ffd700;
+}
+
+.current-user-info .user-detail {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+.current-user-info .user-detail strong,
+.current-user-info .user-detail .user-name {
+    font-size: 0.95rem;
+    color: #144514;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.current-user-info .user-detail small,
+.current-user-info .user-detail .user-role {
+    font-size: 0.78rem;
+    color: #4b5563;
+    font-weight: 500;
+    margin-top: 2px;
+}
 
 /* ==========================================================
    RESPONSIVE MOBILE
