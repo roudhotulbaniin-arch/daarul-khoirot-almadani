@@ -613,42 +613,25 @@ window.toggleStatus = async function (uid, current) {
 //  HAPUS USER
 // ================================================================
 
-window.hapusUser = async function (uid) {
-    if (uid === currentAdminUID) {
-        alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menghapus akun sendiri!");
-        return;
-    }
-    const u = daftarUser.find(x => x.id === uid);
-    if (!u) return;
-
-    const konf = await alertKonfirmasiHapus(
-        "Hapus User Ini?",
-        `
-        <div style="text-align:left; background:#fef2f2; padding:14px; border-radius:10px; margin-top:10px; border-left:4px solid #ef4444;">
-            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-user" style="color:#dc2626; margin-right:6px;"></i>Nama:</strong> ${u.nama || "-"}</p>
-            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-envelope" style="color:#dc2626; margin-right:6px;"></i>Email:</strong> ${u.email}</p>
-            <p style="margin:0;"><strong><i class="fas fa-briefcase" style="color:#dc2626; margin-right:6px;"></i>Jabatan:</strong> ${u.jabatan || "-"}</p>
-        </div>
-        <p style="margin-top:14px; font-size:0.82rem; color:#dc2626; font-weight:600;">
-            <i class="fas fa-exclamation-triangle"></i>
-            Data yang dihapus TIDAK BISA dikembalikan!
-        </p>
-        `
-    );
-    
-    if (!konf.isConfirmed) return;
-    
-    try {
-        alertLoading("Menghapus user...");
-        await deleteDoc(doc(db, "users", uid));
-        Swal.close();
-        await muatDaftarUser();
-        Toast.fire({ icon: 'success', title: 'User berhasil dihapus!' });
-    } catch (err) {
-        Swal.close();
-        alertError("Gagal Hapus", err.message);
-    }
-};
+function alertKonfirmasiHapus(judul, pesan = "") {
+    return Swal.fire({
+        icon: 'warning',
+        title: judul,
+        html: pesan,
+        showCancelButton: true,
+        showDenyButton: false,   // ⭐ Pastikan deny DISEMBUNYIKAN
+        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
+        cancelButtonText: '<i class="fas fa-times"></i> Batal',
+        reverseButtons: true,
+        focusCancel: true,
+        customClass: { 
+            popup: 'swal-premium swal-danger',
+            confirmButton: 'swal-btn-danger-confirm',   // ⭐ Custom class
+            cancelButton: 'swal-btn-cancel'
+        },
+        buttonsStyling: false
+    });
+}
 
 // ================================================================
 //  DETAIL USER
