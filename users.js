@@ -568,6 +568,7 @@ formUser?.addEventListener("submit", async (e) => {
 // ================================================================
 //  RESET PASSWORD VIA EMAIL ⭐
 // ================================================================
+
 document.getElementById("btnResetPassword")?.addEventListener("click", async () => {
     if (!currentEditUID) return;
     
@@ -577,13 +578,29 @@ document.getElementById("btnResetPassword")?.addEventListener("click", async () 
         return;
     }
     
+    // ⭐ Tutup modal edit dulu supaya swal jelas kelihatan
+    tutupModal(modalUser);
+    
+    const konfirmasi = await alertKonfirmasi(
+        "Kirim Email Reset Password?",
+        `... (isi HTML seperti di atas) ...`,
+        'question'
+    );
+    
+    if (!konfirmasi.isConfirmed) {
+        // Kalau batal, buka lagi modal edit
+        bukaModal(modalUser);
+        return;
+    }
+    
+    
     const konfirmasi = await alertKonfirmasi(
         "Kirim Email Reset Password?",
         `
         <div style="text-align:left; background:#f9fafb; padding:14px; border-radius:10px; margin-top:10px;">
-            <p style="margin:0 0 6px 0;"><strong>📧 Email Tujuan:</strong><br>
+            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-envelope" style="color:#1a5d1a; margin-right:5px;"></i>Email Tujuan:</strong><br>
             <span style="color:#1a5d1a; font-weight:600;">${u.email}</span></p>
-            <p style="margin:6px 0 0 0;"><strong>👤 Nama User:</strong><br>
+           <p style="margin:6px 0 0 0;"><strong><i class="fas fa-user" style="color:#1a5d1a; margin-right:5px;"></i>Nama User:</strong><br>
             <span style="color:#374151;">${u.nama || u.username}</span></p>
         </div>
         <p style="margin-top:14px; font-size:0.82rem; color:#6b7280;">
