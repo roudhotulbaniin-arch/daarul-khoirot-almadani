@@ -1655,3 +1655,130 @@ button.btn-warning:hover {
     background: rgba(0, 0, 0, 0.55) !important;
     backdrop-filter: blur(5px) !important;
 }
+
+/* ==========================================================
+   SWEETALERT2 — Force Button Styling (Priority Fix)
+   ========================================================== */
+
+/* Container tombol */
+div.swal-premium .swal2-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin-top: 25px !important;
+    padding: 0 10px !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+/* CONFIRM BUTTON — Hijau */
+div.swal-premium button.swal2-confirm,
+div.swal-premium button.swal2-styled.swal2-confirm {
+    background-image: none !important;
+    background-color: #1a5d1a !important;
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    min-width: 120px !important;
+    justify-content: center !important;
+    outline: none !important;
+    text-shadow: none !important;
+}
+
+div.swal-premium button.swal2-confirm:hover {
+    background: linear-gradient(135deg, #144514, #0d2e0d) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.4) !important;
+}
+
+/* CANCEL BUTTON — Abu-abu */
+div.swal-premium button.swal2-cancel,
+div.swal-premium button.swal2-styled.swal2-cancel {
+    background-image: none !important;
+    background-color: #f3f4f6 !important;
+    background: #f3f4f6 !important;
+    color: #4b5563 !important;
+    padding: 12px 24px !important;
+    border: 2px solid #e5e7eb !important;
+    border-radius: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    min-width: 120px !important;
+    justify-content: center !important;
+    outline: none !important;
+    text-shadow: none !important;
+}
+
+div.swal-premium button.swal2-cancel:hover {
+    background: #e5e7eb !important;
+    background-color: #e5e7eb !important;
+    transform: translateY(-2px) !important;
+}
+
+/* DENY BUTTON — Merah (untuk hapus) */
+div.swal-premium button.swal2-deny,
+div.swal-danger button.swal2-confirm {
+    background-image: none !important;
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    min-width: 120px !important;
+    justify-content: center !important;
+    outline: none !important;
+    text-shadow: none !important;
+}
+
+div.swal-premium button.swal2-deny:hover,
+div.swal-danger button.swal2-confirm:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45) !important;
+}
+
+/* Force i tag color di button */
+div.swal-premium button.swal2-styled i {
+    color: inherit !important;
+    font-size: 0.85rem !important;
+}
+
+/* Focus outline hilangkan */
+div.swal-premium button.swal2-styled:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+div.swal-premium button.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.3), 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+}
+
+div.swal-premium button.swal2-cancel:focus {
+    box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.2) !important;
+}
+
+div.swal-premium button.swal2-deny:focus,
+div.swal-danger button.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3), 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+}
