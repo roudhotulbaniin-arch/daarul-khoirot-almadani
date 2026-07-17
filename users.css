@@ -250,15 +250,16 @@ body {
 /* ==========================================================
    4b. TABLE CARD WRAPPER (BUNGKUS filter + tabel)
    ========================================================== */
-
 .table-card {
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow: hidden;           /* ⭐ PENTING: jaga anak dalam batas */
+    overflow: hidden;
+    width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    margin: 0;               /* ⭐ Hilangkan margin bawaan */
 }
 
 /* ==========================================================
@@ -625,6 +626,12 @@ body {
     }
 }
 
+@media (max-width: 480px) {
+    .table-wrapper::before {
+        font-size: 0.68rem;
+        padding: 6px 10px;
+    }
+}
 /* ==========================================================
    INFO USER LOGIN (Current User Card)
    ========================================================== */
@@ -1374,3 +1381,15 @@ body {
         min-width: 700px;
     }
 } 
+
+/* ==========================================================
+   FORCE UNIFORM WIDTH — Samakan semua kartu di container
+   ========================================================== */
+
+.container-user > * {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+}
