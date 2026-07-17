@@ -212,55 +212,122 @@ html, body {
 
 
 /* ==========================================================
-   PAGE HEADER CARD
+   PAGE HEADER CARD — Kartu Kelola User Admin (REVAMPED)
    ========================================================== */
 
 .page-header-card {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 20px !important;
 }
 
 .page-title-wrapper {
-    flex: 1;
-    min-width: 200px;
+    width: 100%;
 }
 
-.page-title-wrapper .judul-seragam {
-    margin-bottom: 0;
+.page-title-flex {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+}
+
+.page-title-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.25);
+}
+
+.page-title-icon i {
+    color: #ffd700;
+    font-size: 1.4rem;
+}
+
+.page-title-text {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Override judul-seragam khusus di header card */
+.page-title-text .judul-seragam {
+    font-size: 1.25rem;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    border-left: none !important;
+    line-height: 1.2;
+    color: #1a5d1a;
+    font-weight: 700;
+    display: block;
+}
+
+.page-title-text .judul-seragam i {
+    display: none; /* Sembunyikan icon lama di dalam judul kalau ada */
 }
 
 .page-subtitle {
-    color: #666;
-    font-size: 0.9rem;
+    color: #6b7280;
+    font-size: 0.85rem;
     font-weight: 500;
-    margin: 8px 0 0 16px;
+    margin: 4px 0 0 0 !important;
+    line-height: 1.4;
 }
 
+/* Tombol Tambah User Baru */
 .btn-tambah-user {
-    padding: 12px 24px;
+    width: 100%;
+    padding: 13px 24px;
     background: linear-gradient(135deg, #1a5d1a, #144514);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-family: 'Quicksand', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 700;
     cursor: pointer;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 10px;
     transition: all 0.3s ease;
-    white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2);
+    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.25);
+    letter-spacing: 0.3px;
 }
 
-.btn-tambah-user:hover {
+.btn-tambah-user i {
+    font-size: 1.1rem;
+}
+
+.btn-tambah-user:hover,
+.btn-tambah-user:active {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.3);
+    box-shadow: 0 8px 22px rgba(26, 93, 26, 0.4);
     background: linear-gradient(135deg, #144514, #0d2e0d);
+}
+
+/* Desktop: Layout horizontal */
+@media (min-width: 769px) {
+    .page-header-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    
+    .btn-tambah-user {
+        width: auto;
+        white-space: nowrap;
+    }
+    
+    .page-title-text .judul-seragam {
+        font-size: 1.4rem;
+    }
 }
 
 
