@@ -1469,3 +1469,189 @@ button.btn-warning:hover {
         max-width: 100%;
     }
 }
+
+/* ==========================================================
+   SWEETALERT2 PREMIUM CUSTOM — Branding Pesantren
+   ========================================================== */
+
+/* Popup container */
+.swal2-popup.swal-premium {
+    border-radius: 20px !important;
+    padding: 28px 24px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25) !important;
+    border-top: 5px solid #1a5d1a !important;
+    max-width: 90vw !important;
+    width: 400px !important;
+}
+
+/* Title */
+.swal-premium .swal2-title {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: #1a5d1a !important;
+    margin-bottom: 8px !important;
+    line-height: 1.3 !important;
+}
+
+/* HTML content (message) */
+.swal-premium .swal2-html-container {
+    font-size: 0.92rem !important;
+    color: #4b5563 !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+    margin: 12px 0 !important;
+}
+
+/* Icon */
+.swal-premium .swal2-icon {
+    border-width: 3px !important;
+    margin: 10px auto 15px !important;
+    width: 70px !important;
+    height: 70px !important;
+}
+
+.swal-premium .swal2-icon.swal2-success {
+    border-color: #10b981 !important;
+    color: #10b981 !important;
+}
+
+.swal-premium .swal2-icon.swal2-error {
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+}
+
+.swal-premium .swal2-icon.swal2-warning {
+    border-color: #f59e0b !important;
+    color: #f59e0b !important;
+}
+
+.swal-premium .swal2-icon.swal2-question {
+    border-color: #3b82f6 !important;
+    color: #3b82f6 !important;
+}
+
+.swal-premium .swal2-icon.swal2-info {
+    border-color: #06b6d4 !important;
+    color: #06b6d4 !important;
+}
+
+/* Success ring */
+.swal-premium .swal2-success-ring {
+    border-color: #10b98130 !important;
+}
+.swal-premium .swal2-success .swal2-success-line-tip,
+.swal-premium .swal2-success .swal2-success-line-long {
+    background-color: #10b981 !important;
+}
+
+/* Buttons */
+.swal-premium .swal2-actions {
+    gap: 8px !important;
+    margin-top: 20px !important;
+}
+
+.swal-premium .swal2-styled {
+    padding: 11px 24px !important;
+    border-radius: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    transition: all 0.25s ease !important;
+    letter-spacing: 0.3px !important;
+}
+
+.swal-premium .swal2-confirm {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+}
+
+.swal-premium .swal2-confirm:hover {
+    background: linear-gradient(135deg, #144514, #0d2e0d) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.35) !important;
+}
+
+.swal-premium .swal2-cancel {
+    background: #f3f4f6 !important;
+    color: #4b5563 !important;
+    border: 2px solid #e5e7eb !important;
+}
+
+.swal-premium .swal2-cancel:hover {
+    background: #e5e7eb !important;
+    transform: translateY(-2px) !important;
+}
+
+.swal-premium .swal2-deny {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: white !important;
+}
+
+.swal-premium .swal2-deny:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.35) !important;
+}
+
+/* Custom class untuk header danger */
+.swal-danger .swal2-title {
+    color: #dc2626 !important;
+}
+
+.swal-danger.swal2-popup {
+    border-top-color: #dc2626 !important;
+}
+
+/* Custom class untuk warning (reset password) */
+.swal-warning-header .swal2-title {
+    color: #d97706 !important;
+}
+
+.swal-warning-header.swal2-popup {
+    border-top-color: #f59e0b !important;
+}
+
+/* Loading state */
+.swal-premium .swal2-loader {
+    border-color: #1a5d1a transparent #1a5d1a transparent !important;
+}
+
+/* Toast style */
+.swal2-container.swal2-top-end > .swal2-popup.swal-toast {
+    border-radius: 14px !important;
+    padding: 14px 20px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    border-left: 4px solid #1a5d1a !important;
+}
+
+.swal-toast .swal2-title {
+    font-size: 0.92rem !important;
+    color: #1f2937 !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.swal-toast.swal2-icon-success {
+    border-left-color: #10b981 !important;
+}
+
+.swal-toast.swal2-icon-error {
+    border-left-color: #ef4444 !important;
+}
+
+.swal-toast.swal2-icon-warning {
+    border-left-color: #f59e0b !important;
+}
+
+.swal-toast.swal2-icon-info {
+    border-left-color: #06b6d4 !important;
+}
+
+/* Backdrop */
+.swal2-backdrop-show {
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(5px) !important;
+}
