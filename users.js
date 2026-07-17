@@ -1,5 +1,5 @@
 // ================================================================
-// USERS.JS — Kelola User Admin (Full SweetAlert2 Premium)
+// USERS.JS — Kelola User Admin (FINAL CLEAN VERSION)
 // ================================================================
 
 import {
@@ -28,18 +28,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 // ================================================================
-//  REGISTER WINDOW FUNCTIONS EARLY (agar selalu tersedia)
-// ================================================================
-
-// Placeholder sementara — akan di-override di bawah
-window.editUser     = window.editUser     || function(uid) { console.log('editUser belum ready:', uid); };
-window.hapusUser    = window.hapusUser    || function(uid) { console.log('hapusUser belum ready:', uid); };
-window.toggleStatus = window.toggleStatus || function(uid, cur) { console.log('toggleStatus belum ready'); };
-window.lihatDetail  = window.lihatDetail  || function(uid) { console.log('lihatDetail belum ready:', uid); };
-
-console.log('✅ Placeholder window functions registered');
-
-// ================================================================
 //  SWEETALERT2 HELPERS
 // ================================================================
 
@@ -58,64 +46,191 @@ const Toast = Swal.mixin({
 
 function alertSukses(judul, pesan = "") {
     return Swal.fire({
-        icon: 'success',
-        title: judul,
-        html: pesan,
+        icon: 'success', title: judul, html: pesan,
         confirmButtonText: '<i class="fas fa-check"></i> OK',
-        customClass: { popup: 'swal-premium' },
-        buttonsStyling: false
+        customClass: { popup: 'swal-premium' }, buttonsStyling: false
     });
 }
 
 function alertError(judul, pesan = "") {
     return Swal.fire({
-        icon: 'error',
-        title: judul,
-        html: pesan,
+        icon: 'error', title: judul, html: pesan,
         confirmButtonText: '<i class="fas fa-times"></i> Tutup',
-        customClass: { popup: 'swal-premium swal-danger' },
-        buttonsStyling: false
+        customClass: { popup: 'swal-premium swal-danger' }, buttonsStyling: false
     });
 }
 
 function alertWarning(judul, pesan = "") {
     return Swal.fire({
-        icon: 'warning',
-        title: judul,
-        html: pesan,
+        icon: 'warning', title: judul, html: pesan,
         confirmButtonText: '<i class="fas fa-check"></i> Mengerti',
-        customClass: { popup: 'swal-premium' },
-        buttonsStyling: false
+        customClass: { popup: 'swal-premium' }, buttonsStyling: false
     });
 }
 
 function alertKonfirmasi(judul, pesan = "", iconType = 'question') {
     return Swal.fire({
-        icon: iconType,
-        title: judul,
-        html: pesan,
-        showCancelButton: true,
+        icon: iconType, title: judul, html: pesan,
+        showCancelButton: true, showDenyButton: false,
         confirmButtonText: '<i class="fas fa-check"></i> Ya, Lanjutkan',
         cancelButtonText: '<i class="fas fa-times"></i> Batal',
         reverseButtons: true,
-        customClass: { popup: 'swal-premium' },
-        buttonsStyling: false
+        customClass: { popup: 'swal-premium' }, buttonsStyling: false
     });
 }
 
-
+function alertKonfirmasiHapus(judul, pesan = "") {
+    return Swal.fire({
+        icon: 'warning', title: judul, html: pesan,
+        showCancelButton: true, showDenyButton: false,
+        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
+        cancelButtonText: '<i class="fas fa-times"></i> Batal',
+        reverseButtons: true, focusCancel: true,
+        customClass: { popup: 'swal-premium swal-danger' }, buttonsStyling: false
+    });
+}
 
 function alertLoading(judul = "Sedang memproses...") {
     Swal.fire({
         title: judul,
         html: '<div class="loading-spinner-sm" style="margin: 15px auto;"></div>',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        showConfirmButton: false,
+        allowOutsideClick: false, allowEscapeKey: false, showConfirmButton: false,
         customClass: { popup: 'swal-premium' }
     });
 }
 
+// ================================================================
+//  REGISTER WINDOW FUNCTIONS (ASSIGN LANGSUNG, TANPA PLACEHOLDER)
+// ================================================================
+
+window.editUser = function (uid) {
+    const u = daftarUser.find(x => x.id === uid);
+    if (!u) return;
+
+    currentEditUID = uid;
+    document.getElementById("modalTitle").innerHTML =
+        '<i class="fas fa-user-edit"></i> Edit User';
+
+    document.getElementById("inputNama").value     = u.nama || "";
+    document.getElementById("inputUsername").value = u.username || "";
+    document.getElementById("inputEmail").value    = u.email;
+    document.getElementById("inputEmail").disabled = true;
+    document.getElementById("hintEmail").style.display = "none";
+    document.getElementById("inputJabatan").value  = u.jabatan || "";
+    document.getElementById("inputStatus").value   = u.aktif ? "true" : "false";
+    document.getElementById("groupPassword").style.display = "none";
+    document.getElementById("inputPassword").required      = false;
+
+    const btnReset = document.getElementById("btnResetPassword");
+    if (btnReset) btnReset.style.display = "inline-flex";
+
+    bukaModal(modalUser);
+};
+
+window.hapusUser = async function (uid) {
+    console.log("🗑️ hapusUser dipanggil:", uid);
+    
+    if (uid === currentAdminUID) {
+        alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menghapus akun sendiri!");
+        return;
+    }
+    const u = daftarUser.find(x => x.id === uid);
+    if (!u) {
+        alertError("User Tidak Ditemukan", "Data user tidak ada di daftar.");
+        return;
+    }
+
+    const konf = await alertKonfirmasiHapus(
+        "Hapus User Ini?",
+        `
+        <div style="text-align:left; background:#fef2f2; padding:14px; border-radius:10px; margin-top:10px; border-left:4px solid #ef4444;">
+            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-user" style="color:#dc2626; margin-right:6px;"></i>Nama:</strong> ${u.nama || "-"}</p>
+            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-envelope" style="color:#dc2626; margin-right:6px;"></i>Email:</strong> ${u.email}</p>
+            <p style="margin:0;"><strong><i class="fas fa-briefcase" style="color:#dc2626; margin-right:6px;"></i>Jabatan:</strong> ${u.jabatan || "-"}</p>
+        </div>
+        <p style="margin-top:14px; font-size:0.82rem; color:#dc2626; font-weight:600;">
+            <i class="fas fa-exclamation-triangle"></i>
+            Data yang dihapus TIDAK BISA dikembalikan!
+        </p>
+        `
+    );
+    
+    if (!konf.isConfirmed) return;
+    
+    try {
+        alertLoading("Menghapus user...");
+        await deleteDoc(doc(db, "users", uid));
+        Swal.close();
+        await muatDaftarUser();
+        Toast.fire({ icon: 'success', title: 'User berhasil dihapus!' });
+    } catch (err) {
+        Swal.close();
+        alertError("Gagal Hapus", err.message);
+    }
+};
+
+window.toggleStatus = async function (uid, current) {
+    console.log("🔄 toggleStatus:", uid, current);
+    
+    if (uid === currentAdminUID) {
+        alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menonaktifkan akun sendiri!");
+        return;
+    }
+    
+    const aksi = current ? "menonaktifkan" : "mengaktifkan";
+    const konf = await alertKonfirmasi(
+        `Yakin ${aksi} user ini?`,
+        `Status user akan diubah menjadi <strong>${current ? "Nonaktif" : "Aktif"}</strong>.`,
+        current ? 'warning' : 'question'
+    );
+    
+    if (!konf.isConfirmed) return;
+
+    try {
+        await updateDoc(doc(db, "users", uid), { aktif: !current });
+        await muatDaftarUser();
+        Toast.fire({ 
+            icon: 'success', 
+            title: `User berhasil ${current ? "dinonaktifkan" : "diaktifkan"}!` 
+        });
+    } catch (err) {
+        alertError("Gagal Ubah Status", err.message);
+    }
+};
+
+window.lihatDetail = function (uid) {
+    console.log("👁️ lihatDetail:", uid);
+    
+    const u = daftarUser.find(x => x.id === uid);
+    if (!u) return;
+
+    document.getElementById("detailNama").textContent     = u.nama || "-";
+    document.getElementById("detailUsername").textContent = "@" + (u.username || "-");
+    document.getElementById("detailEmail").textContent    = u.email;
+    document.getElementById("detailJabatan").textContent  = u.jabatan || "-";
+    document.getElementById("detailRole").textContent     = u.role || "-";
+    document.getElementById("detailUID").textContent      = u.uid || u.id;
+
+    document.getElementById("detailStatus").innerHTML = u.aktif
+        ? '<span class="badge badge-aktif">Aktif</span>'
+        : '<span class="badge badge-nonaktif">Nonaktif</span>';
+
+    let tgl = "-";
+    if (u.dibuat) {
+        const d = u.dibuat.toDate ? u.dibuat.toDate() : new Date(u.dibuat);
+        tgl = d.toLocaleString("id-ID");
+    }
+    document.getElementById("detailDibuat").textContent = tgl;
+
+    bukaModal(modalDetail);
+};
+
+console.log("✅ Window functions registered:", {
+    editUser: typeof window.editUser,
+    hapusUser: typeof window.hapusUser,
+    toggleStatus: typeof window.toggleStatus,
+    lihatDetail: typeof window.lihatDetail
+});
 
 // ================================================================
 //  VARIABEL GLOBAL
@@ -124,7 +239,6 @@ function alertLoading(judul = "Sedang memproses...") {
 let daftarUser       = [];
 let filteredUser     = [];
 let currentEditUID   = null;
-let currentDeleteUID = null;
 let currentAdminUID  = null;
 
 // ================================================================
@@ -143,9 +257,15 @@ const filterStatus   = document.getElementById("filterStatus");
 const filterJabatan  = document.getElementById("filterJabatan");
 const userTableBody  = document.getElementById("userTableBody");
 const modalUser      = document.getElementById("modalUser");
-const modalHapus     = document.getElementById("modalHapus");
 const modalDetail    = document.getElementById("modalDetail");
 const formUser       = document.getElementById("formUser");
+
+// ================================================================
+//  MODAL HELPER
+// ================================================================
+
+function bukaModal(m)  { if (m) { m.classList.add("show"); document.body.style.overflow = "hidden"; } }
+function tutupModal(m) { if (m) { m.classList.remove("show"); document.body.style.overflow = ""; } }
 
 // ================================================================
 //  CEK AUTENTIKASI
@@ -198,28 +318,24 @@ onAuthStateChanged(auth, async (user) => {
     } catch (err) {
         console.error("❌ ERROR:", err);
         alertError("Terjadi Kesalahan", err.message);
-        loadingScreen.classList.add("hidden");
+        if (loadingScreen) loadingScreen.classList.add("hidden");
     }
 });
 
 // ================================================================
-//  SIDEBAR
+//  SIDEBAR & LOGOUT
 // ================================================================
 
 toggleSidebar?.addEventListener("click", () => sidebar.classList.toggle("open"));
 sidebarOverlay?.addEventListener("click", () => sidebar.classList.remove("open"));
 
-// ================================================================
-//  LOGOUT
-// ================================================================
-
 btnLogout?.addEventListener("click", async () => {
-    const konfirmasi = await alertKonfirmasi(
+    const konf = await alertKonfirmasi(
         "Yakin Logout?",
         "Anda akan keluar dari sistem admin.",
         'question'
     );
-    if (!konfirmasi.isConfirmed) return;
+    if (!konf.isConfirmed) return;
 
     try {
         alertLoading("Sedang logout...");
@@ -367,10 +483,10 @@ function renderTabelUser() {
                 <td>${tgl}</td>
                 <td>
                     <div class="aksi-buttons">
-                      <button type="button" class="btn-detail" onclick="lihatDetail('${u.id}')" title="Detail"><i class="fas fa-eye"></i></button>
-<button type="button" class="btn-edit" onclick="editUser('${u.id}')" title="Edit"><i class="fas fa-pen"></i></button>
-<button type="button" class="btn-toggle-status ${togCls}" onclick="toggleStatus('${u.id}', ${u.aktif})" title="Toggle status"><i class="fas ${togIcn}"></i></button>
-<button type="button" class="btn-delete" onclick="hapusUser('${u.id}')" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+                        <button type="button" class="btn-detail" onclick="lihatDetail('${u.id}')" title="Detail"><i class="fas fa-eye"></i></button>
+                        <button type="button" class="btn-edit" onclick="editUser('${u.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+                        <button type="button" class="btn-toggle-status ${togCls}" onclick="toggleStatus('${u.id}', ${u.aktif})" title="Toggle status"><i class="fas ${togIcn}"></i></button>
+                        <button type="button" class="btn-delete" onclick="hapusUser('${u.id}')" title="Hapus"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </td>
             </tr>`;
@@ -419,35 +535,7 @@ btnTambahUser?.addEventListener("click", () => {
 });
 
 // ================================================================
-//  EDIT USER
-// ================================================================
-
-window.editUser = function (uid) {
-    const u = daftarUser.find(x => x.id === uid);
-    if (!u) return;
-
-    currentEditUID = uid;
-    document.getElementById("modalTitle").innerHTML =
-        '<i class="fas fa-user-edit"></i> Edit User';
-
-    document.getElementById("inputNama").value     = u.nama || "";
-    document.getElementById("inputUsername").value = u.username || "";
-    document.getElementById("inputEmail").value    = u.email;
-    document.getElementById("inputEmail").disabled = true;
-    document.getElementById("hintEmail").style.display = "none";
-    document.getElementById("inputJabatan").value  = u.jabatan || "";
-    document.getElementById("inputStatus").value   = u.aktif ? "true" : "false";
-    document.getElementById("groupPassword").style.display = "none";
-    document.getElementById("inputPassword").required      = false;
-
-    const btnReset = document.getElementById("btnResetPassword");
-    if (btnReset) btnReset.style.display = "inline-flex";
-
-    bukaModal(modalUser);
-};
-
-// ================================================================
-//  SIMPAN USER (TAMBAH/EDIT)
+//  SIMPAN USER
 // ================================================================
 
 formUser?.addEventListener("submit", async (e) => {
@@ -580,93 +668,7 @@ document.getElementById("btnResetPassword")?.addEventListener("click", async () 
 });
 
 // ================================================================
-//  TOGGLE STATUS
-// ================================================================
-
-window.toggleStatus = async function (uid, current) {
-    if (uid === currentAdminUID) {
-        alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menonaktifkan akun sendiri!");
-        return;
-    }
-    
-    const aksi = current ? "menonaktifkan" : "mengaktifkan";
-    const konf = await alertKonfirmasi(
-        `Yakin ${aksi} user ini?`,
-        `Status user akan diubah menjadi <strong>${current ? "Nonaktif" : "Aktif"}</strong>.`,
-        current ? 'warning' : 'question'
-    );
-    
-    if (!konf.isConfirmed) return;
-
-    try {
-        await updateDoc(doc(db, "users", uid), { aktif: !current });
-        await muatDaftarUser();
-        Toast.fire({ 
-            icon: 'success', 
-            title: `User berhasil ${current ? "dinonaktifkan" : "diaktifkan"}!` 
-        });
-    } catch (err) {
-        alertError("Gagal Ubah Status", err.message);
-    }
-};
-
-// ================================================================
-//  HAPUS USER
-// ================================================================
-
-function alertKonfirmasiHapus(judul, pesan = "") {
-    return Swal.fire({
-        icon: 'warning',
-        title: judul,
-        html: pesan,
-        showCancelButton: true,
-        showDenyButton: false,   // ⭐ Pastikan deny DISEMBUNYIKAN
-        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
-        cancelButtonText: '<i class="fas fa-times"></i> Batal',
-        reverseButtons: true,
-        focusCancel: true,
-        customClass: { 
-            popup: 'swal-premium swal-danger',
-            confirmButton: 'swal-btn-danger-confirm',   // ⭐ Custom class
-            cancelButton: 'swal-btn-cancel'
-        },
-        buttonsStyling: false
-    });
-}
-
-// ================================================================
-//  DETAIL USER
-// ================================================================
-
-window.lihatDetail = function (uid) {
-    const u = daftarUser.find(x => x.id === uid);
-    if (!u) return;
-
-    document.getElementById("detailNama").textContent     = u.nama || "-";
-    document.getElementById("detailUsername").textContent = "@" + (u.username || "-");
-    document.getElementById("detailEmail").textContent    = u.email;
-    document.getElementById("detailJabatan").textContent  = u.jabatan || "-";
-    document.getElementById("detailRole").textContent     = u.role || "-";
-    document.getElementById("detailUID").textContent      = u.uid || u.id;
-
-    document.getElementById("detailStatus").innerHTML = u.aktif
-        ? '<span class="badge badge-aktif">Aktif</span>'
-        : '<span class="badge badge-nonaktif">Nonaktif</span>';
-
-    let tgl = "-";
-    if (u.dibuat) {
-        const d = u.dibuat.toDate ? u.dibuat.toDate() : new Date(u.dibuat);
-        tgl = d.toLocaleString("id-ID");
-    }
-    document.getElementById("detailDibuat").textContent = tgl;
-
-    bukaModal(modalDetail);
-};
-
-document.getElementById("btnCloseDetail")?.addEventListener("click", () => tutupModal(modalDetail));
-
-// ================================================================
-//  TOGGLE PASSWORD (SHOW/HIDE)
+//  TOGGLE PASSWORD & MODAL CLOSE
 // ================================================================
 
 document.getElementById("toggleModalPassword")?.addEventListener("click", () => {
@@ -681,13 +683,6 @@ document.getElementById("toggleModalPassword")?.addEventListener("click", () => 
     }
 });
 
-// ================================================================
-//  MODAL HELPER
-// ================================================================
-
-function bukaModal(m)  { m.classList.add("show"); document.body.style.overflow = "hidden"; }
-function tutupModal(m) { m.classList.remove("show"); document.body.style.overflow = ""; }
-
 document.getElementById("btnCloseModal")?.addEventListener("click", () => {
     tutupModal(modalUser); formUser.reset(); currentEditUID = null;
 });
@@ -695,6 +690,8 @@ document.getElementById("btnCloseModal")?.addEventListener("click", () => {
 document.getElementById("btnBatal")?.addEventListener("click", () => {
     tutupModal(modalUser); formUser.reset(); currentEditUID = null;
 });
+
+document.getElementById("btnCloseDetail")?.addEventListener("click", () => tutupModal(modalDetail));
 
 document.querySelectorAll(".modal-overlay").forEach(m => {
     m.addEventListener("click", (e) => {
