@@ -80,28 +80,51 @@ body {
 }
 
 /* ==========================================================
-   MAIN CONTAINER + WRAPPER
+   2. MAIN CONTAINER & KARTU MODERN
    ========================================================== */
 
 .page-main-user {
     flex: 1;
     padding: 20px 0;
     width: 100%;
-    overflow-x: hidden; /* ⭐ Cegah horizontal scroll di level page */
-}
-
-.container-user {
-    width: 94%;
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+/* Kartu Modern - style konsisten dengan halaman lain */
+.kartu-modern-clean {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-top: 4px solid #1a5d1a;
+    border-left: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    color: #333;
+    width: 94%;
+    max-width: 1200px;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
+/* Judul kartu dengan garis kuning */
+.judul-seragam {
+    font-size: 1.4rem;
+    color: #1a5d1a;
+    margin-bottom: 15px;
+    font-weight: 700;
+    border-left: 4px solid #f4ce14;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
 /* ==========================================================
-   3. PAGE HEADER CARD — DIPERINDAH
+   3. PAGE HEADER CARD
    ========================================================== */
 
 .page-header-card {
@@ -110,7 +133,6 @@ body {
     justify-content: space-between;
     gap: 20px;
     flex-wrap: wrap;
-    padding: 24px 28px;
 }
 
 .page-title-wrapper {
@@ -118,47 +140,20 @@ body {
     min-width: 200px;
 }
 
-.page-title-flex {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.page-title-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #1a5d1a, #2d7a2d);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffd700;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.25);
-}
-
-.page-title-text {
-    flex: 1;
-    min-width: 0;
-}
-
-.page-title-text .judul-seragam {
-    margin: 0;
-    font-size: 1.4rem;
-    line-height: 1.2;
+.page-title-wrapper .judul-seragam {
+    margin-bottom: 0;
 }
 
 .page-subtitle {
     color: #666;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    margin: 4px 0 0 0;
-    padding: 0;
+    margin-top: 8px;
+    padding-left: 16px;
 }
 
 .btn-tambah-user {
-    padding: 12px 22px;
+    padding: 12px 24px;
     background: linear-gradient(135deg, #1a5d1a, #144514);
     color: white;
     border: none;
@@ -172,25 +167,28 @@ body {
     gap: 8px;
     transition: all 0.3s ease;
     white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.25);
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2);
 }
 
 .btn-tambah-user:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.35);
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.3);
     background: linear-gradient(135deg, #144514, #0d2e0d);
 }
 
 
 /* ==========================================================
-   4. STATS CARDS
+   4. STATS CARDS - wrapped in container 94%
    ========================================================== */
 
 .stats-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    width: 100%;
+    gap: 20px;
+    width: 94%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .stat-card-user {
@@ -202,10 +200,10 @@ body {
     gap: 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    border-left: 4px solid transparent;
-    border-top: 1px solid #eaeaea;
-    border-right: 1px solid #eaeaea;
-    border-bottom: 1px solid #eaeaea;
+    border: 1px solid #eaeaea;
+    border-left-width: 4px;
+    border-left-style: solid;
+    box-sizing: border-box;
 }
 
 .stat-card-user:hover {
@@ -237,14 +235,13 @@ body {
     font-weight: 700;
     color: #1a5d1a;
     line-height: 1;
-    margin: 0;
 }
 
 .stat-card-user .stat-info p {
     font-size: 0.8rem;
     color: #6b7280;
     font-weight: 600;
-    margin: 4px 0 0 0;
+    margin-top: 4px;
 }
 
 /* ==========================================================
@@ -1218,45 +1215,30 @@ body {
 }
 
 /* ==========================================================
-   10. RESPONSIVE
+   10. RESPONSIVE MOBILE
    ========================================================== */
 
 @media (max-width: 768px) {
 
     .page-main-user {
         padding: 15px 0;
-    }
-
-    .container-user {
-        width: 94%;
         gap: 15px;
     }
 
-    /* Page header - stack vertikal */
-    .page-header-card {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
-        padding: 20px;
+    /* Kartu utama - padding lebih kecil di mobile */
+    .kartu-modern-clean {
+        padding: 22px 18px;
+        width: 94%;
     }
 
-    .page-title-flex {
-        gap: 12px;
-    }
-
-    .page-title-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.25rem;
-        border-radius: 12px;
-    }
-
-    .page-title-text .judul-seragam {
+    .judul-seragam {
         font-size: 1.15rem;
     }
 
-    .page-subtitle {
-        font-size: 0.78rem;
+    .page-header-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
     }
 
     .btn-tambah-user {
@@ -1264,19 +1246,14 @@ body {
         justify-content: center;
     }
 
-    /* Stats - 1 kolom mobile */
+    /* Stats - 1 column */
     .stats-wrapper {
         grid-template-columns: 1fr;
         gap: 12px;
+        width: 94%;
     }
 
-    /* Table card compact */
-    .table-card {
-        padding: 15px;
-        gap: 12px;
-    }
-
-    /* Filter stack */
+    /* Filter bar stack */
     .filter-bar {
         flex-direction: column;
         align-items: stretch;
@@ -1299,7 +1276,6 @@ body {
         min-width: 0;
     }
 
-    /* Modal */
     .form-row {
         grid-template-columns: 1fr;
     }
@@ -1332,7 +1308,6 @@ body {
         font-size: 0.72rem;
     }
 
-    /* Toast */
     .toast-container {
         top: 70px;
         right: 10px;
@@ -1343,58 +1318,4 @@ body {
         min-width: 0;
         max-width: 100%;
     }
-
-    /* Kompak cell tabel di mobile */
-    .table-wrapper thead th,
-    .user-table thead th {
-        padding: 12px 10px;
-        font-size: 0.7rem;
-        letter-spacing: 0.5px;
-    }
-    
-    .table-wrapper tbody td,
-    .user-table tbody td {
-        padding: 12px 10px;
-        font-size: 0.8rem;
-    }
-    
-    .user-avatar {
-        width: 34px;
-        height: 34px;
-        font-size: 0.75rem;
-    }
-    
-    .user-info-cell strong {
-        font-size: 0.82rem;
-    }
-    
-    .user-info-cell small {
-        font-size: 0.7rem;
-    }
-    
-    /* Min-width tabel dikurangi */
-    .table-wrapper table,
-    .user-table {
-        min-width: 700px;
-    }
-} 
-
-/* ==========================================================
-   FORCE UNIFORM WIDTH — Samakan semua kartu di container
-   ========================================================== */
-
-.container-user > * {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    margin-left: 0;
-    margin-right: 0;
-} 
-
-.table-card.kartu-modern-clean{
-    width:100% !important;
-    max-width:100% !important;
-    margin:0 !important;
-    padding:20px !important;
-    box-sizing:border-box;
 }
