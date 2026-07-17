@@ -574,18 +574,6 @@ body {
         top: 0;
         right: 0;
         bottom: 6px;
-        width: 40px;
-        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,1) 100%);
-        pointer-events: none;
-        z-index: 5;
-    }
-
-    .table-wrapper::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 6px;
         width: 20px;
         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5));
         pointer-events: none;
@@ -1307,4 +1295,38 @@ body {
         min-width: 0;
         max-width: 100%;
     }
-}
+
+    /* Kompak cell tabel di mobile */
+    .table-wrapper thead th,
+    .user-table thead th {
+        padding: 12px 10px;
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .table-wrapper tbody td,
+    .user-table tbody td {
+        padding: 12px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .user-avatar {
+        width: 34px;
+        height: 34px;
+        font-size: 0.75rem;
+    }
+    
+    .user-info-cell strong {
+        font-size: 0.82rem;
+    }
+    
+    .user-info-cell small {
+        font-size: 0.7rem;
+    }
+    
+    /* Min-width tabel dikurangi */
+    .table-wrapper table,
+    .user-table {
+        min-width: 700px;
+    }
+} 
