@@ -1,22 +1,27 @@
 /* ================================================================
-   USERS.CSS — Style khusus halaman Kelola User Admin
-   Hanya berisi style KHUSUS untuk konten user
-   Header/Nav/Footer pakai style.css global
+   USERS.CSS — Final Clean Version
    ================================================================ */
+
+/* ==========================================================
+   BASE
+   ========================================================== */
 
 html, body {
     overflow-x: hidden;
     max-width: 100vw;
     width: 100%;
-}
-
-body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+
 /* ==========================================================
-   1. LOADING SCREEN
+   LOADING SCREEN
    ========================================================== */
 
 .loading-screen {
@@ -47,7 +52,6 @@ body {
 .loading-content img {
     width: 80px;
     height: 80px;
-    max-width: 100%;
     border-radius: 50%;
     object-fit: cover;
     margin: 0 auto 20px;
@@ -86,25 +90,30 @@ body {
     to { transform: rotate(360deg); }
 }
 
+
 /* ==========================================================
-   2. MAIN CONTAINER & KARTU MODERN
+   MAIN CONTAINER
    ========================================================== */
 
 .page-main-user {
-    flex: 1;
     padding: 20px 0;
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
-/* Kartu Modern - style konsisten dengan halaman lain */
+
+/* ==========================================================
+   KARTU MODERN (KHUSUS USER)
+   ========================================================== */
+
 .kartu-modern-clean {
     background: #ffffff;
-    padding: 30px 25px;
+    padding: 25px 20px;
     border-top: 4px solid #1a5d1a;
     border-left: 1px solid #eaeaea;
     border-right: 1px solid #eaeaea;
@@ -115,21 +124,28 @@ body {
     width: 94%;
     max-width: 1200px;
     margin: 0 auto;
-    box-sizing: border-box;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
-/* Judul kartu dengan garis kuning */
+
+/* ==========================================================
+   JUDUL SERAGAM
+   ========================================================== */
+
 .judul-seragam {
     font-size: 1.4rem;
     color: #1a5d1a;
-    margin-bottom: 15px;
+    margin: 0 0 15px 0;
     font-weight: 700;
     border-left: 4px solid #f4ce14;
     padding-left: 12px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 10px;
     line-height: 1.3;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 .judul-seragam i {
@@ -138,8 +154,9 @@ body {
     flex-shrink: 0;
 }
 
+
 /* ==========================================================
-   3. PAGE HEADER CARD
+   PAGE HEADER CARD
    ========================================================== */
 
 .page-header-card {
@@ -153,9 +170,6 @@ body {
 .page-title-wrapper {
     flex: 1;
     min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 .page-title-wrapper .judul-seragam {
@@ -166,8 +180,7 @@ body {
     color: #666;
     font-size: 0.9rem;
     font-weight: 500;
-    margin-top: 8px;
-    padding-left: 16px;
+    margin: 8px 0 0 16px;
 }
 
 .btn-tambah-user {
@@ -194,8 +207,9 @@ body {
     background: linear-gradient(135deg, #144514, #0d2e0d);
 }
 
+
 /* ==========================================================
-   4. STATS CARDS - wrapped in container 94%
+   STATS CARDS
    ========================================================== */
 
 .stats-wrapper {
@@ -205,7 +219,6 @@ body {
     width: 94%;
     max-width: 1200px;
     margin: 0 auto;
-    box-sizing: border-box;
 }
 
 .stat-card-user {
@@ -220,7 +233,6 @@ body {
     border: 1px solid #eaeaea;
     border-left-width: 4px;
     border-left-style: solid;
-    box-sizing: border-box;
 }
 
 .stat-card-user:hover {
@@ -252,30 +264,19 @@ body {
     font-weight: 700;
     color: #1a5d1a;
     line-height: 1;
+    margin: 0;
 }
 
 .stat-card-user .stat-info p {
     font-size: 0.8rem;
     color: #6b7280;
     font-weight: 600;
-    margin-top: 4px;
+    margin: 4px 0 0 0;
 }
 
 
 /* ==========================================================
-   4b. TABLE CARD WRAPPER (BUNGKUS filter + tabel)
-   ========================================================== */
-.table-card{
-    width:100%;
-    max-width:100%;
-    padding:20px;
-    margin:0;
-    box-sizing:border-box;
-    overflow:hidden;
-}
-
-/* ==========================================================
-   5. ADMIN INFO BAR
+   ADMIN INFO BAR
    ========================================================== */
 
 .admin-info-bar {
@@ -287,6 +288,7 @@ body {
     border-radius: 10px;
     margin-bottom: 20px;
     border-left: 4px solid #1a5d1a;
+    max-width: 100%;
 }
 
 .admin-avatar-bar {
@@ -305,6 +307,7 @@ body {
 .admin-detail-bar {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .admin-detail-bar strong {
@@ -320,7 +323,7 @@ body {
 
 
 /* ==========================================================
-   6. FILTER BAR & SEARCH
+   FILTER BAR & SEARCH
    ========================================================== */
 
 .filter-bar {
@@ -357,7 +360,6 @@ body {
     color: #2c3e50;
     background: white;
     outline: none;
-    transition: border-color 0.3s;
 }
 
 .search-box input:focus {
@@ -388,10 +390,6 @@ body {
     border-color: #1a5d1a;
 }
 
-/* ==========================================================
-   TOMBOL REFRESH — Modern & Cantik
-   ========================================================== */
-
 .btn-refresh,
 .btn-icon {
     width: 46px;
@@ -408,49 +406,22 @@ body {
     flex-shrink: 0;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(26, 93, 26, 0.25);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-refresh::before,
-.btn-icon::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
 }
 
 .btn-refresh:hover,
 .btn-icon:hover {
-    transform: translateY(-2px) rotate(15deg);
+    transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(26, 93, 26, 0.4);
-    background: linear-gradient(135deg, #144514, #0d2e0d);
-}
-
-.btn-refresh:hover::before,
-.btn-icon:hover::before {
-    opacity: 1;
-}
-
-.btn-refresh:active,
-.btn-icon:active {
-    transform: translateY(0) rotate(180deg);
 }
 
 .btn-refresh.spinning i,
 .btn-icon.spinning i {
-    animation: spinRefresh 0.8s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
 
-@keyframes spinRefresh {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-}
 
 /* ==========================================================
-   7. TABLE — Wrapper dengan scroll horizontal RAPI
+   TABLE
    ========================================================== */
 
 .table-wrapper {
@@ -463,112 +434,44 @@ body {
     -webkit-overflow-scrolling: touch;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     border: 1px solid #f0f0f0;
-    box-sizing: border-box;
-    position: relative;
 }
 
-.table-wrapper table,
-.user-table {
+.table-wrapper table {
     width: 100%;
     border-collapse: collapse;
     min-width: 750px;
 }
 
-/* ==========================================================
-   COLUMN WIDTH CONTROL — Atur lebar tiap kolom
-   ========================================================== */
-
-.table-wrapper table th,
-.table-wrapper table td,
-.user-table th,
-.user-table td {
-    max-width: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* ==========================================================
-   HEADER TABEL — Gradient Hijau Dominan
-   ========================================================== */
-
-.table-wrapper thead th,
-.user-table thead th {
+.table-wrapper thead th {
     background: linear-gradient(135deg, #1a5d1a, #2d7a2d);
-    color: #ffffff !important;
-    padding: 16px;
-    text-align: center;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 1px;
+    color: #ffffff;
+    padding: 14px;
+    text-align: left;
+    font-size: 0.77rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     white-space: nowrap;
-    position: sticky;
-    top: 0;
     border-bottom: 2px solid #0d2e0d;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Kolom NO - kecil */
-.table-wrapper table th:nth-child(1),
-.table-wrapper table td:nth-child(1),
-.user-table th:nth-child(1),
-.user-table td:nth-child(1) {
-    width: 50px;
-    min-width: 50px;
-}
-
-/* Kolom USER - sedang */
-.table-wrapper table th:nth-child(2),
-.table-wrapper table td:nth-child(2),
-.user-table th:nth-child(2),
-.user-table td:nth-child(2) {
-    min-width: 180px;
-}
-
-/* Kolom EMAIL - kompak */
-.table-wrapper table th:nth-child(3),
-.table-wrapper table td:nth-child(3),
-.user-table th:nth-child(3),
-.user-table td:nth-child(3) {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Kolom JABATAN */
-.table-wrapper table th:nth-child(4),
-.table-wrapper table td:nth-child(4),
-.user-table th:nth-child(4),
-.user-table td:nth-child(4) {
-    min-width: 110px;
-}
-
-/* Kolom STATUS */
-.table-wrapper table th:nth-child(5),
-.table-wrapper table td:nth-child(5),
-.user-table th:nth-child(5),
-.user-table td:nth-child(5) {
-    min-width: 90px;
+.table-wrapper thead th:first-child {
     text-align: center;
 }
 
-/* Kolom LAST LOGIN */
-.table-wrapper table th:nth-child(6),
-.table-wrapper table td:nth-child(6),
-.user-table th:nth-child(6),
-.user-table td:nth-child(6) {
-    min-width: 120px;
+.table-wrapper tbody td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #f0f2f5;
+    font-size: 0.87rem;
+    vertical-align: middle;
 }
 
-/* Kolom AKSI - fix width */
-.table-wrapper table th:nth-child(7),
-.table-wrapper table td:nth-child(7),
-.user-table th:nth-child(7),
-.user-table td:nth-child(7) {
-    width: 160px;
-    min-width: 160px;
-    text-align: center;
+.table-wrapper tbody tr:hover {
+    background: #f8fdf8;
+}
+
+.table-wrapper tbody tr:last-child td {
+    border-bottom: none;
 }
 
 .td-no {
@@ -602,106 +505,25 @@ body {
     font-weight: 500;
 }
 
-/* Scrollbar styling */
-/* Scrollbar - Tipis dan elegan */
+/* Table scrollbar */
 .table-wrapper::-webkit-scrollbar {
     height: 6px;
 }
 
 .table-wrapper::-webkit-scrollbar-track {
     background: #f5f5f5;
-    border-radius: 3px;
 }
 
 .table-wrapper::-webkit-scrollbar-thumb {
     background: rgba(26, 93, 26, 0.4);
     border-radius: 3px;
-    transition: background 0.2s;
 }
 
-.table-wrapper::-webkit-scrollbar-thumb:hover {
-    background: rgba(26, 93, 26, 0.7);
-}
 
-/* Hint mobile - kasih tahu user bisa scroll */
-@media (max-width: 768px) {
-    .table-wrapper::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 6px;
-        width: 20px;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5));
-        pointer-events: none;
-        z-index: 5;
-    }
-}
-
-@media (max-width: 480px) {
-    .table-wrapper::before {
-        font-size: 0.68rem;
-        padding: 6px 10px;
-    }
-}
 /* ==========================================================
-   INFO USER LOGIN (Current User Card)
+   USER CELL & AVATAR
    ========================================================== */
-.current-user-info {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px;                    /* ⭐ Samakan dengan stat card */
-    background: linear-gradient(135deg, #e8f5e9, #f1f8f2);
-    border: 1px solid #d4e9d4;
-    border-left: 4px solid #1a5d1a;
-    border-radius: 14px;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.05);
-}
 
-.current-user-info:empty {
-    display: none;
-}
-
-.current-user-icon {
-    width: 50px;                      /* ⭐ Samakan dengan stat icon */
-    height: 50px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #1a5d1a, #2d7a2d);
-    color: #ffd700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;                /* ⭐ Samakan */
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.25);
-}
-
-.current-user-text {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.current-user-text strong {
-    font-size: 1rem;
-    color: #1a5d1a;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.current-user-text small {
-    font-size: 0.8rem;
-    color: #666;
-    font-weight: 500;
-}
-
-/* ---- User Cell ---- */
 .user-cell {
     display: flex;
     align-items: center;
@@ -743,7 +565,10 @@ body {
 }
 
 
-/* ---- Badge ---- */
+/* ==========================================================
+   BADGE
+   ========================================================== */
+
 .badge {
     padding: 5px 12px;
     border-radius: 20px;
@@ -758,7 +583,10 @@ body {
 .badge-nonaktif { background: #fee2e2; color: #991b1b; }
 
 
-/* ---- Aksi Buttons ---- */
+/* ==========================================================
+   AKSI BUTTONS
+   ========================================================== */
+
 .aksi-buttons {
     display: flex;
     gap: 5px;
@@ -791,7 +619,10 @@ body {
 .btn-toggle-status:hover { transform: translateY(-2px); }
 
 
-/* ---- Table Footer ---- */
+/* ==========================================================
+   TABLE FOOTER & EMPTY STATE
+   ========================================================== */
+
 .table-footer {
     padding: 12px 16px;
     border-top: 1px solid #f0f2f5;
@@ -801,8 +632,6 @@ body {
     background: #fafafa;
 }
 
-
-/* ---- Empty State ---- */
 .empty-state {
     padding: 50px 20px;
     text-align: center;
@@ -827,7 +656,7 @@ body {
 
 
 /* ==========================================================
-   8. MODAL
+   MODAL
    ========================================================== */
 
 .modal-overlay {
@@ -844,12 +673,6 @@ body {
 
 .modal-overlay.show {
     display: flex;
-    animation: modalBgIn 0.3s ease;
-}
-
-@keyframes modalBgIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
 }
 
 .modal-content {
@@ -859,16 +682,10 @@ body {
     max-width: 560px;
     max-height: 92vh;
     overflow-y: auto;
-    animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
 }
 
 .modal-sm { max-width: 420px; }
-
-@keyframes modalSlideUp {
-    from { opacity: 0; transform: translateY(30px) scale(0.96); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
 
 .modal-header {
     padding: 20px 24px;
@@ -885,6 +702,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin: 0;
 }
 
 .modal-header h3 i {
@@ -1075,7 +893,10 @@ body {
 }
 
 
-/* ---- Modal Hapus ---- */
+/* ==========================================================
+   MODAL HAPUS
+   ========================================================== */
+
 .hapus-icon {
     text-align: center;
     margin-bottom: 15px;
@@ -1084,13 +905,6 @@ body {
 .hapus-icon i {
     font-size: 3.5rem;
     color: #fca5a5;
-    animation: hapusShake 0.5s ease;
-}
-
-@keyframes hapusShake {
-    0%, 100% { transform: rotate(0);     }
-    25%      { transform: rotate(-8deg); }
-    75%      { transform: rotate(8deg);  }
 }
 
 .hapus-text {
@@ -1121,7 +935,10 @@ body {
 }
 
 
-/* ---- Modal Detail ---- */
+/* ==========================================================
+   MODAL DETAIL
+   ========================================================== */
+
 .detail-avatar {
     text-align: center;
     margin-bottom: 20px;
@@ -1172,7 +989,7 @@ body {
 
 
 /* ==========================================================
-   9. TOAST NOTIFICATIONS
+   TOAST
    ========================================================== */
 
 .toast-container {
@@ -1232,8 +1049,9 @@ body {
     opacity: 1;
 }
 
+
 /* ==========================================================
-   10. RESPONSIVE MOBILE
+   RESPONSIVE MOBILE
    ========================================================== */
 
 @media (max-width: 768px) {
@@ -1243,14 +1061,17 @@ body {
         gap: 15px;
     }
 
-    /* Kartu utama - padding lebih kecil di mobile */
     .kartu-modern-clean {
-        padding: 22px 18px;
+        padding: 20px 15px;
         width: 94%;
     }
 
     .judul-seragam {
         font-size: 1.15rem;
+    }
+
+    .judul-seragam i {
+        font-size: 1.1rem;
     }
 
     .page-header-card {
@@ -1264,14 +1085,12 @@ body {
         justify-content: center;
     }
 
-    /* Stats - 1 column */
     .stats-wrapper {
         grid-template-columns: 1fr;
         gap: 12px;
         width: 94%;
     }
 
-    /* Filter bar stack */
     .filter-bar {
         flex-direction: column;
         align-items: stretch;
