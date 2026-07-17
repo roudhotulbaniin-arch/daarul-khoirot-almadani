@@ -140,13 +140,21 @@ sidebarOverlay?.addEventListener("click", () => {
 // ================================================================
 
 btnLogout?.addEventListener("click", async () => {
-    if (!confirm("Yakin logout?")) return;
+    const konfirmasi = await alertKonfirmasi(
+        "Yakin Logout?",
+        "Anda akan keluar dari sistem admin.",
+        'question'
+    );
+    if (!konfirmasi.isConfirmed) return;
+    
     try {
+        alertLoading("Sedang logout...");
         await signOut(auth);
         sessionStorage.clear();
         window.location.href = "login.html";
     } catch (err) {
-        console.error(err);
+        Swal.close();
+        alertError("Gagal Logout", err.message);
     }
 });
 
@@ -394,7 +402,6 @@ window.editUser = function (uid) {
 // ================================================================
 //  SIMPAN USER (TAMBAH/EDIT)
 // ================================================================
-
 formUser?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -414,9 +421,9 @@ formUser?.addEventListener("submit", async (e) => {
             await updateDoc(doc(db, "users", currentEditUID), {
                 nama, username, jabatan, aktif
             });
-            alert("✅ User berhasil diperbarui!");
             tutupModal(modalUser);
             await muatDaftarUser();
+            Toast.fire({ icon: 'success', title: 'User berhasil diperbarui!' });
         } else {
             const cred = await createUserWithEmailAndPassword(auth, email, password);
             await setDoc(doc(db, "users", cred.user.uid), {
@@ -426,20 +433,26 @@ formUser?.addEventListener("submit", async (e) => {
                 aktif,
                 dibuat: Timestamp.now()
             });
-            alert("✅ User baru ditambahkan! Silakan login ulang.");
-            setTimeout(async () => {
-                await signOut(auth);
-                window.location.href = "login.html";
-            }, 2000);
+            
+            await alertSukses(
+                "User Baru Ditambahkan! 🎉",
+                `<p><strong>${nama}</strong> berhasil didaftarkan.</p>
+                 <p style="font-size:0.82rem; color:#6b7280; margin-top:10px;">
+                 <i class="fas fa-info-circle" style="color:#f59e0b;"></i>
+                 Anda akan diarahkan ke login untuk masuk ulang.</p>`
+            );
+            
+            await signOut(auth);
+            window.location.href = "login.html";
             return;
         }
     } catch (err) {
         console.error(err);
-        let pesan = "Gagal simpan.";
-        if (err.code === "auth/email-already-in-use") pesan = "Email sudah dipakai!";
+        let pesan = "Terjadi kesalahan saat menyimpan.";
+        if (err.code === "auth/email-already-in-use") pesan = "Email sudah digunakan akun lain!";
         if (err.code === "auth/weak-password")        pesan = "Password minimal 6 karakter!";
-        if (err.code === "auth/invalid-email")        pesan = "Email tidak valid!";
-        alert("❌ " + pesan);
+        if (err.code === "auth/invalid-email")        pesan = "Format email tidak valid!";
+        alertError("Gagal Simpan", pesan);
     }
 
     btn.disabled = false;
@@ -449,104 +462,136 @@ formUser?.addEventListener("submit", async (e) => {
 // ================================================================
 //  RESET PASSWORD VIA EMAIL ⭐
 // ================================================================
-
 document.getElementById("btnResetPassword")?.addEventListener("click", async () => {
     if (!currentEditUID) return;
     
     const u = daftarUser.find(x => x.id === currentEditUID);
     if (!u || !u.email) {
-        alert("❌ Email user tidak ditemukan!");
+        alertError("Email Tidak Ditemukan", "User ini belum memiliki email terdaftar.");
         return;
     }
     
-    const konfirmasi = confirm(
-        `📧 KIRIM EMAIL RESET PASSWORD\n\n` +
-        `Ke: ${u.email}\n` +
-        `Nama: ${u.nama || u.username}\n\n` +
-        `User akan menerima email dari Firebase berisi link untuk membuat password baru.\n\n` +
-        `Lanjutkan?`
+    const konfirmasi = await alertKonfirmasi(
+        "Kirim Email Reset Password?",
+        `
+        <div style="text-align:left; background:#f9fafb; padding:14px; border-radius:10px; margin-top:10px;">
+            <p style="margin:0 0 6px 0;"><strong>📧 Email Tujuan:</strong><br>
+            <span style="color:#1a5d1a; font-weight:600;">${u.email}</span></p>
+            <p style="margin:6px 0 0 0;"><strong>👤 Nama User:</strong><br>
+            <span style="color:#374151;">${u.nama || u.username}</span></p>
+        </div>
+        <p style="margin-top:14px; font-size:0.82rem; color:#6b7280;">
+            <i class="fas fa-info-circle" style="color:#f59e0b;"></i>
+            User akan menerima email dari Firebase berisi link untuk membuat password baru.
+        </p>
+        `,
+        'question'
     );
     
-    if (!konfirmasi) return;
+    if (!konfirmasi.isConfirmed) return;
     
-    const btn = document.getElementById("btnResetPassword");
-    const originalHTML = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+    // Loading
+    alertLoading("Mengirim email reset...");
     
     try {
         await sendPasswordResetEmail(auth, u.email);
-        alert(
-            `✅ EMAIL RESET PASSWORD BERHASIL DIKIRIM!\n\n` +
-            `📧 Cek inbox: ${u.email}\n` +
-            `📁 Cek juga folder Spam/Junk\n\n` +
-            `User bisa langsung klik link di email untuk membuat password baru.`
+        
+        Swal.close();
+        await alertSukses(
+            "Email Berhasil Dikirim! 🎉",
+            `
+            <div style="text-align:left; background:#f0fdf4; padding:14px; border-radius:10px; margin-top:10px; border-left:4px solid #10b981;">
+                <p style="margin:0;"><strong>📧 Cek Inbox:</strong><br>
+                <span style="color:#1a5d1a; font-weight:600;">${u.email}</span></p>
+                <p style="margin:8px 0 0 0; font-size:0.82rem; color:#6b7280;">
+                    <i class="fas fa-folder-open" style="color:#f59e0b;"></i>
+                    Jangan lupa cek folder <strong>Spam/Junk</strong> jika tidak muncul di Inbox.
+                </p>
+            </div>
+            `
         );
     } catch (err) {
+        Swal.close();
         console.error("Error reset password:", err);
-        let pesan = "Gagal kirim email reset.";
+        let pesan = "Gagal mengirim email reset password.";
         if (err.code === "auth/user-not-found")     pesan = "User tidak terdaftar di Firebase Auth!";
         if (err.code === "auth/invalid-email")      pesan = "Format email tidak valid!";
         if (err.code === "auth/too-many-requests")  pesan = "Terlalu banyak permintaan. Tunggu beberapa menit lalu coba lagi.";
         if (err.code === "auth/network-request-failed") pesan = "Koneksi bermasalah. Cek internet Anda.";
-        alert("❌ " + pesan);
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalHTML;
+        
+        alertError("Gagal Kirim Email", pesan);
     }
 });
 
 // ================================================================
 //  TOGGLE STATUS
 // ================================================================
-
 window.toggleStatus = async function (uid, current) {
     if (uid === currentAdminUID) {
-        alert("Tidak bisa nonaktifkan akun sendiri!");
+        alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menonaktifkan akun sendiri!");
         return;
     }
-    if (!confirm(`Yakin ${current ? "nonaktifkan" : "aktifkan"} user ini?`)) return;
+    
+    const aksi = current ? "menonaktifkan" : "mengaktifkan";
+    const konfirmasi = await alertKonfirmasi(
+        `Yakin ${aksi} user ini?`,
+        `Status user akan diubah menjadi <strong>${current ? "Nonaktif" : "Aktif"}</strong>.`,
+        current ? 'warning' : 'question'
+    );
+    
+    if (!konfirmasi.isConfirmed) return;
 
     try {
         await updateDoc(doc(db, "users", uid), { aktif: !current });
         await muatDaftarUser();
+        Toast.fire({ 
+            icon: 'success', 
+            title: `User berhasil ${current ? "dinonaktifkan" : "diaktifkan"}!` 
+        });
     } catch (err) {
-        alert("Gagal ubah status.");
+        alertError("Gagal Ubah Status", err.message);
     }
 };
 
 // ================================================================
 //  HAPUS USER
 // ================================================================
-
-window.hapusUser = function (uid) {
+window.hapusUser = async function (uid) {
     if (uid === currentAdminUID) {
-        alert("Tidak bisa hapus akun sendiri!");
+        alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menghapus akun sendiri!");
         return;
     }
     const u = daftarUser.find(x => x.id === uid);
     if (!u) return;
 
-    currentDeleteUID = uid;
-    document.getElementById("namaUserHapus").textContent = u.nama || u.username || u.email;
-    bukaModal(modalHapus);
-};
-
-document.getElementById("btnKonfirmasiHapus")?.addEventListener("click", async () => {
-    if (!currentDeleteUID) return;
+    const konfirmasi = await alertKonfirmasiHapus(
+        "Hapus User Ini?",
+        `
+        <div style="text-align:left; background:#fef2f2; padding:14px; border-radius:10px; margin-top:10px; border-left:4px solid #ef4444;">
+            <p style="margin:0 0 6px 0;"><strong>👤 Nama:</strong> ${u.nama || "-"}</p>
+            <p style="margin:0 0 6px 0;"><strong>📧 Email:</strong> ${u.email}</p>
+            <p style="margin:0;"><strong>💼 Jabatan:</strong> ${u.jabatan || "-"}</p>
+        </div>
+        <p style="margin-top:14px; font-size:0.82rem; color:#dc2626; font-weight:600;">
+            <i class="fas fa-exclamation-triangle"></i>
+            Data yang dihapus TIDAK BISA dikembalikan!
+        </p>
+        `
+    );
+    
+    if (!konfirmasi.isConfirmed) return;
+    
     try {
-        await deleteDoc(doc(db, "users", currentDeleteUID));
-        tutupModal(modalHapus);
-        currentDeleteUID = null;
+        alertLoading("Menghapus user...");
+        await deleteDoc(doc(db, "users", uid));
+        Swal.close();
         await muatDaftarUser();
+        Toast.fire({ icon: 'success', title: 'User berhasil dihapus!' });
     } catch (err) {
-        alert("Gagal hapus.");
+        Swal.close();
+        alertError("Gagal Hapus", err.message);
     }
-});
-
-document.getElementById("btnBatalHapus")?.addEventListener("click", () => {
-    tutupModal(modalHapus);
-});
+};
 
 // ================================================================
 //  DETAIL USER
