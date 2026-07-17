@@ -1,5 +1,5 @@
 // ================================================================
-// USERS.JS — Kelola User Admin
+// USERS.JS — Kelola User Admin (dengan Reset Password via Email)
 // ================================================================
 
 import {
@@ -10,7 +10,8 @@ import {
 
 import {
     signOut,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 import {
@@ -66,7 +67,6 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("🔍 Auth state changed:", user?.email || "belum login");
 
-    // -- Belum login --
     if (!user) {
         console.log("❌ Belum login → redirect");
         window.location.href = "login.html";
@@ -98,23 +98,21 @@ onAuthStateChanged(auth, async (user) => {
         }
 
         currentAdminUID = user.uid;
-// Tampilkan info admin di card (opsional)
-const infoUserEl = document.getElementById("currentUserInfo");
-if (infoUserEl) {
-    infoUserEl.innerHTML = `
-        <div class="current-user-icon"><i class="fas fa-user-shield"></i></div>
-        <div class="current-user-text">
-            <strong>${userData.nama || userData.username || "Admin"}</strong>
-            <small>${userData.jabatan || "Administrator"}</small>
-        </div>
-    `;
-} 
 
-// Sembunyikan loading (opsional)
-if (loadingScreen) loadingScreen.classList.add("hidden");
-        loadingScreen.classList.add("hidden");
+        // Tampilkan info admin di card
+        const infoUserEl = document.getElementById("currentUserInfo");
+        if (infoUserEl) {
+            infoUserEl.innerHTML = `
+                <div class="current-user-icon"><i class="fas fa-user-shield"></i></div>
+                <div class="current-user-text">
+                    <strong>${userData.nama || userData.username || "Admin"}</strong>
+                    <small>${userData.jabatan || "Administrator"}</small>
+                </div>
+            `;
+        }
 
-        // Muat data
+        if (loadingScreen) loadingScreen.classList.add("hidden");
+
         console.log("🔍 Muat daftar user...");
         await muatDaftarUser();
 
@@ -169,7 +167,7 @@ async function muatDaftarUser() {
         console.log("✅ Data user dimuat:", daftarUser.length);
 
         updateStatistik();
-isiOpsiJabatan();
+        isiOpsiJabatan();
         applyFilter();
 
     } catch (err) {
@@ -201,6 +199,7 @@ function isiOpsiJabatan() {
 // ================================================================
 //  STATISTIK
 // ================================================================
+
 function updateStatistik() {
     const total    = daftarUser.length;
     const aktif    = daftarUser.filter(u => u.aktif === true).length;
@@ -250,6 +249,7 @@ function applyFilter() {
 // ================================================================
 
 const AVATAR_COLORS = ["av-1","av-2","av-3","av-4","av-5","av-6"];
+
 function renderTabelUser() {
     if (filteredUser.length === 0) {
         userTableBody.innerHTML = `
@@ -333,7 +333,7 @@ btnRefresh?.addEventListener("click", async () => {
 });
 
 // ================================================================
-//  MODAL TAMBAH
+//  MODAL TAMBAH USER
 // ================================================================
 
 btnTambahUser?.addEventListener("click", () => {
@@ -341,16 +341,27 @@ btnTambahUser?.addEventListener("click", () => {
     document.getElementById("modalTitle").innerHTML =
         '<i class="fas fa-user-plus"></i> Tambah User Baru';
     formUser.reset();
+    
+    // Password field: tampil & required
     document.getElementById("groupPassword").style.display = "block";
     document.getElementById("inputPassword").required      = true;
+    
+    // Email enabled
     document.getElementById("inputEmail").disabled         = false;
     document.getElementById("hintEmail").style.display     = "block";
+    
+    // Default status aktif
     document.getElementById("inputStatus").value           = "true";
+    
+    // ⭐ Sembunyikan tombol reset password (khusus mode edit)
+    const btnReset = document.getElementById("btnResetPassword");
+    if (btnReset) btnReset.style.display = "none";
+    
     bukaModal(modalUser);
 });
 
 // ================================================================
-//  EDIT
+//  EDIT USER
 // ================================================================
 
 window.editUser = function (uid) {
@@ -368,14 +379,20 @@ window.editUser = function (uid) {
     document.getElementById("hintEmail").style.display = "none";
     document.getElementById("inputJabatan").value  = u.jabatan || "";
     document.getElementById("inputStatus").value   = u.aktif ? "true" : "false";
+    
+    // Sembunyikan field password (pakai tombol reset via email)
     document.getElementById("groupPassword").style.display = "none";
     document.getElementById("inputPassword").required      = false;
+    
+    // ⭐ Tampilkan tombol reset password
+    const btnReset = document.getElementById("btnResetPassword");
+    if (btnReset) btnReset.style.display = "inline-flex";
 
     bukaModal(modalUser);
 };
 
 // ================================================================
-//  SIMPAN
+//  SIMPAN USER (TAMBAH/EDIT)
 // ================================================================
 
 formUser?.addEventListener("submit", async (e) => {
@@ -397,7 +414,7 @@ formUser?.addEventListener("submit", async (e) => {
             await updateDoc(doc(db, "users", currentEditUID), {
                 nama, username, jabatan, aktif
             });
-            alert("User diperbarui!");
+            alert("✅ User berhasil diperbarui!");
             tutupModal(modalUser);
             await muatDaftarUser();
         } else {
@@ -409,7 +426,7 @@ formUser?.addEventListener("submit", async (e) => {
                 aktif,
                 dibuat: Timestamp.now()
             });
-            alert("User baru ditambahkan! Silakan login ulang.");
+            alert("✅ User baru ditambahkan! Silakan login ulang.");
             setTimeout(async () => {
                 await signOut(auth);
                 window.location.href = "login.html";
@@ -422,11 +439,61 @@ formUser?.addEventListener("submit", async (e) => {
         if (err.code === "auth/email-already-in-use") pesan = "Email sudah dipakai!";
         if (err.code === "auth/weak-password")        pesan = "Password minimal 6 karakter!";
         if (err.code === "auth/invalid-email")        pesan = "Email tidak valid!";
-        alert(pesan);
+        alert("❌ " + pesan);
     }
 
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-save"></i> Simpan User';
+});
+
+// ================================================================
+//  RESET PASSWORD VIA EMAIL ⭐
+// ================================================================
+
+document.getElementById("btnResetPassword")?.addEventListener("click", async () => {
+    if (!currentEditUID) return;
+    
+    const u = daftarUser.find(x => x.id === currentEditUID);
+    if (!u || !u.email) {
+        alert("❌ Email user tidak ditemukan!");
+        return;
+    }
+    
+    const konfirmasi = confirm(
+        `📧 KIRIM EMAIL RESET PASSWORD\n\n` +
+        `Ke: ${u.email}\n` +
+        `Nama: ${u.nama || u.username}\n\n` +
+        `User akan menerima email dari Firebase berisi link untuk membuat password baru.\n\n` +
+        `Lanjutkan?`
+    );
+    
+    if (!konfirmasi) return;
+    
+    const btn = document.getElementById("btnResetPassword");
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+    
+    try {
+        await sendPasswordResetEmail(auth, u.email);
+        alert(
+            `✅ EMAIL RESET PASSWORD BERHASIL DIKIRIM!\n\n` +
+            `📧 Cek inbox: ${u.email}\n` +
+            `📁 Cek juga folder Spam/Junk\n\n` +
+            `User bisa langsung klik link di email untuk membuat password baru.`
+        );
+    } catch (err) {
+        console.error("Error reset password:", err);
+        let pesan = "Gagal kirim email reset.";
+        if (err.code === "auth/user-not-found")     pesan = "User tidak terdaftar di Firebase Auth!";
+        if (err.code === "auth/invalid-email")      pesan = "Format email tidak valid!";
+        if (err.code === "auth/too-many-requests")  pesan = "Terlalu banyak permintaan. Tunggu beberapa menit lalu coba lagi.";
+        if (err.code === "auth/network-request-failed") pesan = "Koneksi bermasalah. Cek internet Anda.";
+        alert("❌ " + pesan);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+    }
 });
 
 // ================================================================
@@ -449,7 +516,7 @@ window.toggleStatus = async function (uid, current) {
 };
 
 // ================================================================
-//  HAPUS
+//  HAPUS USER
 // ================================================================
 
 window.hapusUser = function (uid) {
@@ -482,7 +549,7 @@ document.getElementById("btnBatalHapus")?.addEventListener("click", () => {
 });
 
 // ================================================================
-//  DETAIL
+//  DETAIL USER
 // ================================================================
 
 window.lihatDetail = function (uid) {
@@ -513,7 +580,7 @@ window.lihatDetail = function (uid) {
 document.getElementById("btnCloseDetail")?.addEventListener("click", () => tutupModal(modalDetail));
 
 // ================================================================
-//  TOGGLE PASSWORD
+//  TOGGLE PASSWORD (SHOW/HIDE)
 // ================================================================
 
 document.getElementById("toggleModalPassword")?.addEventListener("click", () => {
