@@ -1869,3 +1869,107 @@ button.swal-btn-danger-confirm:hover {
     font-size: 3.5rem !important;
     font-weight: bold !important;
 }
+
+/* ==========================================================
+   SWEETALERT2 — TOMBOL AKSI RAPI (Batal & Hapus)
+   ========================================================== */
+
+/* Container tombol — force horizontal & rapi */
+div.swal-premium .swal2-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    margin-top: 22px !important;
+    padding: 0 15px !important;
+    width: 100% !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+}
+
+/* Kedua tombol punya ukuran sama */
+div.swal-premium .swal2-actions button {
+    flex: 1 !important;
+    min-height: 46px !important;
+    max-width: 200px !important;
+    padding: 12px 20px !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* Tombol CANCEL (Batal) — abu-abu */
+div.swal-premium button.swal2-cancel {
+    background: #f3f4f6 !important;
+    background-image: none !important;
+    color: #4b5563 !important;
+    border: 2px solid #e5e7eb !important;
+    box-shadow: none !important;
+}
+
+div.swal-premium button.swal2-cancel:hover {
+    background: #e5e7eb !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Tombol CONFIRM di modal HAPUS (merah) */
+div.swal-premium.swal-danger button.swal2-confirm {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    background-image: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+}
+
+div.swal-premium.swal-danger button.swal2-confirm:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45) !important;
+}
+
+/* Tombol CONFIRM di modal KONFIRMASI biasa (hijau) */
+div.swal-premium:not(.swal-danger) button.swal2-confirm {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    background-image: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+}
+
+div.swal-premium:not(.swal-danger) button.swal2-confirm:hover {
+    background: linear-gradient(135deg, #144514, #0d2e0d) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.4) !important;
+}
+
+/* Icon di dalam tombol */
+div.swal-premium .swal2-actions button i {
+    font-size: 0.85rem !important;
+    color: inherit !important;
+}
+
+/* Focus outline hilang */
+div.swal-premium .swal2-actions button:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* HP kecil: tetap horizontal tapi lebih pendek */
+@media (max-width: 400px) {
+    div.swal-premium .swal2-actions {
+        padding: 0 !important;
+        gap: 8px !important;
+    }
+    
+    div.swal-premium .swal2-actions button {
+        font-size: 0.82rem !important;
+        padding: 11px 12px !important;
+        min-height: 44px !important;
+    }
+}
