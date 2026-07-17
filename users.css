@@ -1392,4 +1392,11 @@ body {
     box-sizing: border-box;
     margin-left: 0;
     margin-right: 0;
+
+.table-card.kartu-modern-clean{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+    box-sizing:border-box;
+}
 }
