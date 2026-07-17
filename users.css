@@ -474,6 +474,27 @@ body {
     text-overflow: ellipsis;
 }
 
+/* ==========================================================
+   HEADER TABEL — Gradient Hijau Dominan
+   ========================================================== */
+
+.table-wrapper thead th,
+.user-table thead th {
+    background: linear-gradient(135deg, #0d2e0d 0%, #1a5d1a 50%, #144514 100%) !important;
+    color: #ffffff !important;
+    padding: 16px;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid #0d2e0d;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 /* Kolom NO - kecil */
 .table-wrapper table th:nth-child(1),
 .table-wrapper table td:nth-child(1),
