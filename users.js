@@ -367,10 +367,10 @@ function renderTabelUser() {
                 <td>${tgl}</td>
                 <td>
                     <div class="aksi-buttons">
-                        <button class="btn-detail" onclick="lihatDetail('${u.id}')"><i class="fas fa-eye"></i></button>
-                        <button class="btn-edit" onclick="editUser('${u.id}')"><i class="fas fa-pen"></i></button>
-                        <button class="btn-toggle-status ${togCls}" onclick="toggleStatus('${u.id}', ${u.aktif})"><i class="fas ${togIcn}"></i></button>
-                        <button class="btn-delete" onclick="hapusUser('${u.id}')"><i class="fas fa-trash-alt"></i></button>
+                      <button type="button" class="btn-detail" onclick="lihatDetail('${u.id}')" title="Detail"><i class="fas fa-eye"></i></button>
+<button type="button" class="btn-edit" onclick="editUser('${u.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+<button type="button" class="btn-toggle-status ${togCls}" onclick="toggleStatus('${u.id}', ${u.aktif})" title="Toggle status"><i class="fas ${togIcn}"></i></button>
+<button type="button" class="btn-delete" onclick="hapusUser('${u.id}')" title="Hapus"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </td>
             </tr>`;
