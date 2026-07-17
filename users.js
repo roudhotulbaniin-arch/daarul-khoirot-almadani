@@ -1,5 +1,5 @@
 // ================================================================
-// USERS.JS — Kelola User Admin (dengan Reset Password via Email)
+// USERS.JS — Kelola User Admin (Full SweetAlert2 Premium)
 // ================================================================
 
 import {
@@ -28,38 +28,22 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 // ================================================================
-//  VARIABEL GLOBAL
+//  SWEETALERT2 HELPERS
 // ================================================================
 
-let daftarUser       = [];
-let filteredUser     = [];
-let currentEditUID   = null;
-let currentDeleteUID = null;
-let currentAdminUID  = null;
-
-// ================================================================
-
-// ================================================================
-//  SWEETALERT2 HELPER — Premium Alerts
-// ================================================================
-
-// Toast kecil (untuk notifikasi cepat pojok kanan atas)
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    customClass: {
-        popup: 'swal-toast'
-    },
+    customClass: { popup: 'swal-toast' },
     didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer);
         toast.addEventListener('mouseleave', Swal.resumeTimer);
     }
 });
 
-// Alert Sukses
 function alertSukses(judul, pesan = "") {
     return Swal.fire({
         icon: 'success',
@@ -71,35 +55,28 @@ function alertSukses(judul, pesan = "") {
     });
 }
 
-// Alert Error
 function alertError(judul, pesan = "") {
     return Swal.fire({
         icon: 'error',
         title: judul,
         html: pesan,
         confirmButtonText: '<i class="fas fa-times"></i> Tutup',
-        customClass: { 
-            popup: 'swal-premium swal-danger'
-        },
+        customClass: { popup: 'swal-premium swal-danger' },
         buttonsStyling: false
     });
 }
 
-// Alert Warning
 function alertWarning(judul, pesan = "") {
     return Swal.fire({
         icon: 'warning',
         title: judul,
         html: pesan,
         confirmButtonText: '<i class="fas fa-check"></i> Mengerti',
-        customClass: { 
-            popup: 'swal-premium swal-warning-header' 
-        },
+        customClass: { popup: 'swal-premium' },
         buttonsStyling: false
     });
 }
 
-// Konfirmasi (Ya/Tidak)
 function alertKonfirmasi(judul, pesan = "", iconType = 'question') {
     return Swal.fire({
         icon: iconType,
@@ -114,7 +91,6 @@ function alertKonfirmasi(judul, pesan = "", iconType = 'question') {
     });
 }
 
-// Konfirmasi Bahaya (untuk hapus)
 function alertKonfirmasiHapus(judul, pesan = "") {
     return Swal.fire({
         icon: 'warning',
@@ -124,15 +100,11 @@ function alertKonfirmasiHapus(judul, pesan = "") {
         confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
         cancelButtonText: '<i class="fas fa-times"></i> Batal',
         reverseButtons: true,
-        customClass: { 
-            popup: 'swal-premium swal-danger',
-            confirmButton: 'swal2-deny'
-        },
+        customClass: { popup: 'swal-premium swal-danger' },
         buttonsStyling: false
     });
 }
 
-// Loading
 function alertLoading(judul = "Sedang memproses...") {
     Swal.fire({
         title: judul,
@@ -144,6 +116,17 @@ function alertLoading(judul = "Sedang memproses...") {
     });
 }
 
+// ================================================================
+//  VARIABEL GLOBAL
+// ================================================================
+
+let daftarUser       = [];
+let filteredUser     = [];
+let currentEditUID   = null;
+let currentDeleteUID = null;
+let currentAdminUID  = null;
+
+// ================================================================
 //  ELEMEN DOM
 // ================================================================
 
@@ -170,34 +153,25 @@ const formUser       = document.getElementById("formUser");
 console.log("🚀 users.js loaded");
 
 onAuthStateChanged(auth, async (user) => {
-
-    console.log("🔍 Auth state changed:", user?.email || "belum login");
-
     if (!user) {
-        console.log("❌ Belum login → redirect");
         window.location.href = "login.html";
         return;
     }
 
     try {
-        console.log("🔍 Cek user di Firestore, UID:", user.uid);
-
         const userSnap = await getDoc(doc(db, "users", user.uid));
 
         if (!userSnap.exists()) {
-            console.log("❌ User tidak ada di Firestore");
-            alert("Akun Anda tidak terdaftar sebagai admin!");
+            await alertError("Akun Tidak Terdaftar", "Akun Anda tidak terdaftar sebagai admin!");
             await signOut(auth);
             window.location.href = "login.html";
             return;
         }
 
         const userData = userSnap.data();
-        console.log("✅ Data user:", userData);
 
         if (userData.role !== "admin" || userData.aktif !== true) {
-            console.log("❌ Bukan admin aktif");
-            alert("Akses ditolak!");
+            await alertError("Akses Ditolak", "Anda tidak memiliki izin untuk mengakses halaman ini.");
             await signOut(auth);
             window.location.href = "login.html";
             return;
@@ -205,7 +179,6 @@ onAuthStateChanged(auth, async (user) => {
 
         currentAdminUID = user.uid;
 
-        // Tampilkan info admin di card
         const infoUserEl = document.getElementById("currentUserInfo");
         if (infoUserEl) {
             infoUserEl.innerHTML = `
@@ -219,12 +192,11 @@ onAuthStateChanged(auth, async (user) => {
 
         if (loadingScreen) loadingScreen.classList.add("hidden");
 
-        console.log("🔍 Muat daftar user...");
         await muatDaftarUser();
 
     } catch (err) {
         console.error("❌ ERROR:", err);
-        alert("Error: " + err.message);
+        alertError("Terjadi Kesalahan", err.message);
         loadingScreen.classList.add("hidden");
     }
 });
@@ -233,13 +205,8 @@ onAuthStateChanged(auth, async (user) => {
 //  SIDEBAR
 // ================================================================
 
-toggleSidebar?.addEventListener("click", () => {
-    sidebar.classList.toggle("open");
-});
-
-sidebarOverlay?.addEventListener("click", () => {
-    sidebar.classList.remove("open");
-});
+toggleSidebar?.addEventListener("click", () => sidebar.classList.toggle("open"));
+sidebarOverlay?.addEventListener("click", () => sidebar.classList.remove("open"));
 
 // ================================================================
 //  LOGOUT
@@ -252,7 +219,7 @@ btnLogout?.addEventListener("click", async () => {
         'question'
     );
     if (!konfirmasi.isConfirmed) return;
-    
+
     try {
         alertLoading("Sedang logout...");
         await signOut(auth);
@@ -278,8 +245,6 @@ async function muatDaftarUser() {
         daftarUser = [];
         snap.forEach(d => daftarUser.push({ id: d.id, ...d.data() }));
 
-        console.log("✅ Data user dimuat:", daftarUser.length);
-
         updateStatistik();
         isiOpsiJabatan();
         applyFilter();
@@ -297,10 +262,6 @@ async function muatDaftarUser() {
     }
 }
 
-// ================================================================
-//  ISI OPSI FILTER JABATAN
-// ================================================================
-
 function isiOpsiJabatan() {
     if (!filterJabatan) return;
     const jabatanSet = [...new Set(daftarUser.map(u => u.jabatan).filter(Boolean))];
@@ -309,10 +270,6 @@ function isiOpsiJabatan() {
         filterJabatan.innerHTML += `<option value="${j}">${j}</option>`;
     });
 }
-
-// ================================================================
-//  STATISTIK
-// ================================================================
 
 function updateStatistik() {
     const total    = daftarUser.length;
@@ -351,7 +308,7 @@ function applyFilter() {
         if (status === "aktif")    okSt = u.aktif === true;
         if (status === "nonaktif") okSt = u.aktif !== true;
 
-        const okJab = !jab || jab === "" || u.jabatan === jab;
+        const okJab = !jab || u.jabatan === jab;
         return okKw && okSt && okJab;
     });
 
@@ -373,8 +330,6 @@ function renderTabelUser() {
                     <h4>Tidak Ada Data</h4>
                 </div>
             </td></tr>`;
-        const infoElEmpty = document.getElementById("infoTotal");
-        if (infoElEmpty) infoElEmpty.textContent = "Menampilkan 0 user";
         return;
     }
 
@@ -419,11 +374,6 @@ function renderTabelUser() {
                 </td>
             </tr>`;
     }).join("");
-
-    const infoElData = document.getElementById("infoTotal");
-    if (infoElData) {
-        infoElData.textContent = `Menampilkan ${filteredUser.length} dari ${daftarUser.length} user`;
-    }
 }
 
 function tampilkanLoadingTabel() {
@@ -455,19 +405,12 @@ btnTambahUser?.addEventListener("click", () => {
     document.getElementById("modalTitle").innerHTML =
         '<i class="fas fa-user-plus"></i> Tambah User Baru';
     formUser.reset();
-    
-    // Password field: tampil & required
     document.getElementById("groupPassword").style.display = "block";
     document.getElementById("inputPassword").required      = true;
-    
-    // Email enabled
     document.getElementById("inputEmail").disabled         = false;
     document.getElementById("hintEmail").style.display     = "block";
-    
-    // Default status aktif
     document.getElementById("inputStatus").value           = "true";
     
-    // ⭐ Sembunyikan tombol reset password (khusus mode edit)
     const btnReset = document.getElementById("btnResetPassword");
     if (btnReset) btnReset.style.display = "none";
     
@@ -493,12 +436,9 @@ window.editUser = function (uid) {
     document.getElementById("hintEmail").style.display = "none";
     document.getElementById("inputJabatan").value  = u.jabatan || "";
     document.getElementById("inputStatus").value   = u.aktif ? "true" : "false";
-    
-    // Sembunyikan field password (pakai tombol reset via email)
     document.getElementById("groupPassword").style.display = "none";
     document.getElementById("inputPassword").required      = false;
-    
-    // ⭐ Tampilkan tombol reset password
+
     const btnReset = document.getElementById("btnResetPassword");
     if (btnReset) btnReset.style.display = "inline-flex";
 
@@ -508,6 +448,7 @@ window.editUser = function (uid) {
 // ================================================================
 //  SIMPAN USER (TAMBAH/EDIT)
 // ================================================================
+
 formUser?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -566,7 +507,7 @@ formUser?.addEventListener("submit", async (e) => {
 });
 
 // ================================================================
-//  RESET PASSWORD VIA EMAIL ⭐
+//  RESET PASSWORD VIA EMAIL
 // ================================================================
 
 document.getElementById("btnResetPassword")?.addEventListener("click", async () => {
@@ -578,70 +519,61 @@ document.getElementById("btnResetPassword")?.addEventListener("click", async () 
         return;
     }
     
-    // ⭐ Tutup modal edit dulu supaya swal jelas kelihatan
     tutupModal(modalUser);
     
-    const konfirmasi = await alertKonfirmasi(
-        "Kirim Email Reset Password?",
-        `... (isi HTML seperti di atas) ...`,
-        'question'
-    );
-    
-    if (!konfirmasi.isConfirmed) {
-        // Kalau batal, buka lagi modal edit
-        bukaModal(modalUser);
-        return;
-    }
-    
-    
-    const konfirmasi = await alertKonfirmasi(
+    const konf = await alertKonfirmasi(
         "Kirim Email Reset Password?",
         `
         <div style="text-align:left; background:#f9fafb; padding:14px; border-radius:10px; margin-top:10px;">
-            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-envelope" style="color:#1a5d1a; margin-right:5px;"></i>Email Tujuan:</strong><br>
-            <span style="color:#1a5d1a; font-weight:600;">${u.email}</span></p>
-           <p style="margin:6px 0 0 0;"><strong><i class="fas fa-user" style="color:#1a5d1a; margin-right:5px;"></i>Nama User:</strong><br>
-            <span style="color:#374151;">${u.nama || u.username}</span></p>
+            <p style="margin:0 0 8px 0;">
+                <strong><i class="fas fa-envelope" style="color:#1a5d1a; margin-right:6px;"></i>Email Tujuan:</strong><br>
+                <span style="color:#1a5d1a; font-weight:600; word-break:break-all;">${u.email}</span>
+            </p>
+            <p style="margin:8px 0 0 0;">
+                <strong><i class="fas fa-user" style="color:#1a5d1a; margin-right:6px;"></i>Nama User:</strong><br>
+                <span style="color:#374151;">${u.nama || u.username}</span>
+            </p>
         </div>
         <p style="margin-top:14px; font-size:0.82rem; color:#6b7280;">
-            <i class="fas fa-info-circle" style="color:#f59e0b;"></i>
+            <i class="fas fa-info-circle" style="color:#f59e0b; margin-right:4px;"></i>
             User akan menerima email dari Firebase berisi link untuk membuat password baru.
         </p>
         `,
         'question'
     );
     
-    if (!konfirmasi.isConfirmed) return;
+    if (!konf.isConfirmed) {
+        bukaModal(modalUser);
+        return;
+    }
     
-    // Loading
     alertLoading("Mengirim email reset...");
     
     try {
         await sendPasswordResetEmail(auth, u.email);
-        
         Swal.close();
         await alertSukses(
             "Email Berhasil Dikirim! 🎉",
             `
             <div style="text-align:left; background:#f0fdf4; padding:14px; border-radius:10px; margin-top:10px; border-left:4px solid #10b981;">
-                <p style="margin:0;"><strong>📧 Cek Inbox:</strong><br>
-                <span style="color:#1a5d1a; font-weight:600;">${u.email}</span></p>
+                <p style="margin:0;">
+                    <strong><i class="fas fa-envelope-open-text" style="color:#10b981; margin-right:6px;"></i>Cek Inbox:</strong><br>
+                    <span style="color:#1a5d1a; font-weight:600; word-break:break-all;">${u.email}</span>
+                </p>
                 <p style="margin:8px 0 0 0; font-size:0.82rem; color:#6b7280;">
                     <i class="fas fa-folder-open" style="color:#f59e0b;"></i>
-                    Jangan lupa cek folder <strong>Spam/Junk</strong> jika tidak muncul di Inbox.
+                    Jangan lupa cek folder <strong>Spam/Junk</strong>.
                 </p>
             </div>
             `
         );
     } catch (err) {
         Swal.close();
-        console.error("Error reset password:", err);
         let pesan = "Gagal mengirim email reset password.";
         if (err.code === "auth/user-not-found")     pesan = "User tidak terdaftar di Firebase Auth!";
         if (err.code === "auth/invalid-email")      pesan = "Format email tidak valid!";
-        if (err.code === "auth/too-many-requests")  pesan = "Terlalu banyak permintaan. Tunggu beberapa menit lalu coba lagi.";
+        if (err.code === "auth/too-many-requests")  pesan = "Terlalu banyak permintaan. Tunggu beberapa menit.";
         if (err.code === "auth/network-request-failed") pesan = "Koneksi bermasalah. Cek internet Anda.";
-        
         alertError("Gagal Kirim Email", pesan);
     }
 });
@@ -649,6 +581,7 @@ document.getElementById("btnResetPassword")?.addEventListener("click", async () 
 // ================================================================
 //  TOGGLE STATUS
 // ================================================================
+
 window.toggleStatus = async function (uid, current) {
     if (uid === currentAdminUID) {
         alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menonaktifkan akun sendiri!");
@@ -656,13 +589,13 @@ window.toggleStatus = async function (uid, current) {
     }
     
     const aksi = current ? "menonaktifkan" : "mengaktifkan";
-    const konfirmasi = await alertKonfirmasi(
+    const konf = await alertKonfirmasi(
         `Yakin ${aksi} user ini?`,
         `Status user akan diubah menjadi <strong>${current ? "Nonaktif" : "Aktif"}</strong>.`,
         current ? 'warning' : 'question'
     );
     
-    if (!konfirmasi.isConfirmed) return;
+    if (!konf.isConfirmed) return;
 
     try {
         await updateDoc(doc(db, "users", uid), { aktif: !current });
@@ -679,6 +612,7 @@ window.toggleStatus = async function (uid, current) {
 // ================================================================
 //  HAPUS USER
 // ================================================================
+
 window.hapusUser = async function (uid) {
     if (uid === currentAdminUID) {
         alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menghapus akun sendiri!");
@@ -687,13 +621,13 @@ window.hapusUser = async function (uid) {
     const u = daftarUser.find(x => x.id === uid);
     if (!u) return;
 
-    const konfirmasi = await alertKonfirmasiHapus(
+    const konf = await alertKonfirmasiHapus(
         "Hapus User Ini?",
         `
         <div style="text-align:left; background:#fef2f2; padding:14px; border-radius:10px; margin-top:10px; border-left:4px solid #ef4444;">
-            <p style="margin:0 0 6px 0;"><strong>👤 Nama:</strong> ${u.nama || "-"}</p>
-            <p style="margin:0 0 6px 0;"><strong>📧 Email:</strong> ${u.email}</p>
-            <p style="margin:0;"><strong>💼 Jabatan:</strong> ${u.jabatan || "-"}</p>
+            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-user" style="color:#dc2626; margin-right:6px;"></i>Nama:</strong> ${u.nama || "-"}</p>
+            <p style="margin:0 0 6px 0;"><strong><i class="fas fa-envelope" style="color:#dc2626; margin-right:6px;"></i>Email:</strong> ${u.email}</p>
+            <p style="margin:0;"><strong><i class="fas fa-briefcase" style="color:#dc2626; margin-right:6px;"></i>Jabatan:</strong> ${u.jabatan || "-"}</p>
         </div>
         <p style="margin-top:14px; font-size:0.82rem; color:#dc2626; font-weight:600;">
             <i class="fas fa-exclamation-triangle"></i>
@@ -702,7 +636,7 @@ window.hapusUser = async function (uid) {
         `
     );
     
-    if (!konfirmasi.isConfirmed) return;
+    if (!konf.isConfirmed) return;
     
     try {
         alertLoading("Menghapus user...");
