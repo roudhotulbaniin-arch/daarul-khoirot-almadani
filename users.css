@@ -1015,6 +1015,48 @@ html, body {
     box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
 }
 
+/* ==========================================================
+   BTN WARNING (Reset Password via Email)
+   ========================================================== */
+
+.btn-warning {
+    padding: 11px 22px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.25s;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+    white-space: nowrap;
+}
+
+.btn-warning:hover,
+.btn-warning:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+    background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+.btn-warning:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Mobile: tombol full width */
+@media (max-width: 768px) {
+    .btn-warning {
+        width: 100%;
+        justify-content: center;
+    }
+}
 
 /* ==========================================================
    MODAL HAPUS
