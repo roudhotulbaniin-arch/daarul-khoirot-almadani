@@ -481,7 +481,7 @@ body {
 
 .table-wrapper thead th,
 .user-table thead th {
-    background: linear-gradient(135deg, #0d2e0d 0%, #1a5d1a 50%, #144514 100%) !important;
+    background: linear-gradient(135deg, #1a5d1a, #2d7a2d);
     color: #ffffff !important;
     padding: 16px;
     text-align: center;
