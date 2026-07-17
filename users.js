@@ -38,6 +38,112 @@ let currentDeleteUID = null;
 let currentAdminUID  = null;
 
 // ================================================================
+
+// ================================================================
+//  SWEETALERT2 HELPER — Premium Alerts
+// ================================================================
+
+// Toast kecil (untuk notifikasi cepat pojok kanan atas)
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    customClass: {
+        popup: 'swal-toast'
+    },
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+});
+
+// Alert Sukses
+function alertSukses(judul, pesan = "") {
+    return Swal.fire({
+        icon: 'success',
+        title: judul,
+        html: pesan,
+        confirmButtonText: '<i class="fas fa-check"></i> OK',
+        customClass: { popup: 'swal-premium' },
+        buttonsStyling: false
+    });
+}
+
+// Alert Error
+function alertError(judul, pesan = "") {
+    return Swal.fire({
+        icon: 'error',
+        title: judul,
+        html: pesan,
+        confirmButtonText: '<i class="fas fa-times"></i> Tutup',
+        customClass: { 
+            popup: 'swal-premium swal-danger'
+        },
+        buttonsStyling: false
+    });
+}
+
+// Alert Warning
+function alertWarning(judul, pesan = "") {
+    return Swal.fire({
+        icon: 'warning',
+        title: judul,
+        html: pesan,
+        confirmButtonText: '<i class="fas fa-check"></i> Mengerti',
+        customClass: { 
+            popup: 'swal-premium swal-warning-header' 
+        },
+        buttonsStyling: false
+    });
+}
+
+// Konfirmasi (Ya/Tidak)
+function alertKonfirmasi(judul, pesan = "", iconType = 'question') {
+    return Swal.fire({
+        icon: iconType,
+        title: judul,
+        html: pesan,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-check"></i> Ya, Lanjutkan',
+        cancelButtonText: '<i class="fas fa-times"></i> Batal',
+        reverseButtons: true,
+        customClass: { popup: 'swal-premium' },
+        buttonsStyling: false
+    });
+}
+
+// Konfirmasi Bahaya (untuk hapus)
+function alertKonfirmasiHapus(judul, pesan = "") {
+    return Swal.fire({
+        icon: 'warning',
+        title: judul,
+        html: pesan,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
+        cancelButtonText: '<i class="fas fa-times"></i> Batal',
+        reverseButtons: true,
+        customClass: { 
+            popup: 'swal-premium swal-danger',
+            confirmButton: 'swal2-deny'
+        },
+        buttonsStyling: false
+    });
+}
+
+// Loading
+function alertLoading(judul = "Sedang memproses...") {
+    Swal.fire({
+        title: judul,
+        html: '<div class="loading-spinner-sm" style="margin: 15px auto;"></div>',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false,
+        customClass: { popup: 'swal-premium' }
+    });
+}
+
 //  ELEMEN DOM
 // ================================================================
 
