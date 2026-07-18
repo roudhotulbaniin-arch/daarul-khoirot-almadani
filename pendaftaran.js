@@ -926,6 +926,38 @@ try {
     console.error('❌ Error auto-fill tanggal:', err);
 }
 
+/* ---------------------------------------------------
+   INIT FLATPICKR — Custom Date Picker
+--------------------------------------------------- */
+try {
+    if (typeof flatpickr !== "undefined") {
+        flatpickr("#tgl_daftar", {
+            locale: "id",                    // Bahasa Indonesia
+            dateFormat: "Y-m-d",              // Format simpan (2024-11-25)
+            altInput: true,                   // Tampilkan format berbeda ke user
+            altFormat: "l, d F Y",            // Format tampilan (Senin, 25 November 2024)
+            defaultDate: "today",             // Default hari ini
+            maxDate: "today",                 // Batasi max hari ini
+            allowInput: false,                // Tidak bisa diketik
+            disableMobile: true,              // JANGAN pakai native picker di mobile
+            monthSelectorType: "static",
+            
+            onReady: function(selectedDates, dateStr, instance) {
+                // Custom class untuk styling
+                if (instance.altInput) {
+                    instance.altInput.classList.add('custom-date-input');
+                }
+            }
+        });
+        
+        console.log('✅ Flatpickr berhasil di-init');
+    } else {
+        console.warn('⚠️ Flatpickr belum ter-load');
+    }
+} catch (err) {
+    console.error('❌ Error init Flatpickr:', err);
+}
+
     /* ---------------------------------------------------
        AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
     --------------------------------------------------- */
