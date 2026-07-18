@@ -1045,8 +1045,51 @@
             <div>Tasmi': <b id="txtTotalTasmi">0</b></div>
         </div>
         <!-- END INTENSITAS -->
+        <!-- =========================
+             TTD (di dalam raport)
+        ========================= -->
+        <div class="ttd-wrapper">
 
-        <!-- PRINT BUTTON -->
+            <div class="ttd-tanggal">
+                <b id="ttdTanggal">Karawang, 31 Juli 2026</b>
+            </div>
+
+            <div class="ttd-row">
+
+                <div class="ttd-box">
+                    <p>Orang Tua / Wali</p>
+                    <div class="ttd-space"></div>
+                    <b>(...................................)</b>
+                </div>
+
+                <div class="ttd-box">
+                    <p>Ustadz Pembimbing</p>
+                    <div class="ttd-space">
+                        <img src="ttd-pendidikan.png" class="ttd">
+                    </div>
+                    <b id="namaUstadz">(Ustadz Syarif Iswandi)</b>
+                </div>
+
+            </div>
+
+            <div class="ttd-mengetahui bawah">
+                Mengetahui,
+            </div>
+
+            <div class="ttd-box kepala">
+                <p>Kepala Lembaga</p>
+                <div class="ttd-space">
+                    <img src="ttd-stempel.png" class="ttd-stempel">
+                </div>
+                <b>(Al-Ustadz H. Wismo)</b>
+            </div>
+
+        </div>
+        <!-- END TTD -->
+
+        <!-- =========================
+             PRINT BUTTON
+        ========================= -->
         <div class="button-group no-print">
             <button type="button" onclick="printLaporan()" class="btn-cetak-box">
                 <i class="fas fa-print"></i> CETAK RAPORT
@@ -1054,54 +1097,9 @@
         </div>
         <!-- END PRINT BUTTON -->
 
-    </div>
-
-<div class="ttd-wrapper">
-
-    <div class="ttd-tanggal">
-        <b>Karawang, 31 Juli 2026</b>
-    </div>
-
-    <div class="ttd-row">
-
-        <div class="ttd-box">
-            <p>Orang Tua / Wali</p>
-
-            <div class="ttd-space"></div>
-
-            <b>(...................................)</b>
-        </div>
-
-        <div class="ttd-box">
-            <p>Ustadz Pembimbing</p>
-
-            <div class="ttd-space">
-                <img src="ttd-pendidikan.png" class="ttd">
-            </div>
-
-            <b id="namaUstadz">(Ustadz Syarif Iswandi)</b>
-        </div>
-
-    </div>
-
-    <div class="ttd-mengetahui bawah">
-        Mengetahui,
-    </div>
-
-    <div class="ttd-box kepala">
-
-        <p>Kepala Lembaga</p>
-
-        <div class="ttd-space">
-            <img src="ttd-stempel.png" class="ttd-stempel">
-        </div>
-
-        <b>(Al-Ustadz H. Wismo)</b>
-
-    </div>
+    </div>  <!-- ✅ INI TUTUP #boxLaporanRekap DI SINI (setelah TTD & tombol print) -->
 
 </div>
-
     <!-- END FULL RAPORT -->
 
 </div>
