@@ -467,4 +467,158 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 .input-ikon.has-cd .cd-trigger {
     padding-left: 42px !important;
 }
+
+/* ================================================================
+   CUSTOM DATE INPUT — Menyerupai Custom Dropdown
+================================================================ */
+.input-icon-wrapper {
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
+.input-icon-wrapper .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1a5d1a;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.input-icon-wrapper .input-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 0.75rem;
+    pointer-events: none;
+    z-index: 2;
+    transition: transform 0.3s ease, color 0.25s;
+}
+
+.input-icon-wrapper:hover .input-arrow,
+.input-icon-wrapper:focus-within .input-arrow {
+    color: #1a5d1a;
+}
+
+/* Input tanggal utama */
+.custom-date-input {
+    width: 100%;
+    padding: 12px 44px 12px 44px;
+    border: 2px solid #1a5d1a;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #144514;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-height: 46px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.custom-date-input:hover {
+    background: #f9fdf9;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08);
+}
+
+.custom-date-input:focus {
+    border-color: #144514;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15);
+    background: #ffffff;
+}
+
+/* Placeholder saat kosong */
+.custom-date-input:invalid {
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+/* Sembunyikan ikon calendar bawaan browser (kita pakai FA) */
+.custom-date-input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.custom-date-input::-webkit-inner-spin-button,
+.custom-date-input::-webkit-clear-button {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Firefox */
+.custom-date-input::-moz-focus-inner {
+    border: 0;
+}
+
+/* Disabled state */
+.custom-date-input:disabled {
+    background: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+}
+
+/* Read-only */
+.custom-date-input[readonly] {
+    background: #f9fafb;
+    cursor: default;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .custom-date-input {
+        padding: 11px 40px 11px 40px;
+        min-height: 44px;
+        font-size: 0.87rem;
+    }
+    
+    .input-icon-wrapper .input-icon {
+        left: 12px;
+        font-size: 0.95rem;
+    }
+    
+    .input-icon-wrapper .input-arrow {
+        right: 12px;
+    }
+}
+
+/* ================================================================
+   Kalau mau tambahan: badge "hari ini" atau info tanggal
+================================================================ */
+.date-info-badge {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.date-info-badge i {
+    margin-right: 4px;
+    font-size: 0.65rem;
+}
     
