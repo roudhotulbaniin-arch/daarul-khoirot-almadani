@@ -169,32 +169,60 @@ const CustomDropdown = (function () {
         wrapper.addEventListener('keydown', (e) => handleKeyboard(wrapper, e));
         trigger.setAttribute('tabindex', '0');
     }
-    
+
     function renderOptions(wrapper, selectEl, iconMap = {}) {
-        const optionsContainer = wrapper.querySelector('.cd-options');
-        if (!optionsContainer) return;
-        
-        const currentValue = selectEl.value;
-        const options = Array.from(selectEl.options);
-        
-        if (options.length === 0) {
-            optionsContainer.innerHTML = `
-                <div class="cd-empty">
-                    <i class="fas fa-inbox"></i>
-                    ${wrapper.dataset.emptyText || 'Tidak ada pilihan'}
-                </div>
-            `;
-            return;
-        }
-        
-        optionsContainer.innerHTML = options.map(opt => {
-            const val = opt.value;
-            const label = opt.textContent.trim();
+    const optionsContainer = wrapper.querySelector('.cd-options');
+    if (!optionsContainer) return;
+    
+    const currentValue = selectEl.value;
+    
+    // Ambil semua children (option + optgroup)
+    const children = Array.from(selectEl.children);
+    
+    if (children.length === 0) {
+        optionsContainer.innerHTML = `
+            <div class="cd-empty">
+                <i class="fas fa-inbox"></i>
+                ${wrapper.dataset.emptyText || 'Tidak ada pilihan'}
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    
+    children.forEach(child => {
+        if (child.tagName === 'OPTGROUP') {
+            // Header grup
+            html += `<div class="cd-group-header">${escapeHTML(child.label || '')}</div>`;
+            
+            // Options di dalam grup
+            Array.from(child.children).forEach(opt => {
+                if (opt.tagName === 'OPTION') {
+                    const val = opt.value;
+                    const label = opt.textContent.trim();
+                    const isSelected = val === currentValue;
+                    const icon = iconMap[val] || opt.dataset.icon || '';
+                    const iconHTML = icon ? `<i class="${icon}"></i>` : '';
+                    
+                    html += `
+                        <div class="cd-option ${isSelected ? 'selected' : ''}" 
+                             data-value="${escapeHTML(val)}"
+                             data-label="${escapeHTML(label)}">
+                            ${iconHTML}
+                            <span>${escapeHTML(label)}</span>
+                        </div>
+                    `;
+                }
+            });
+        } else if (child.tagName === 'OPTION') {
+            const val = child.value;
+            const label = child.textContent.trim();
             const isSelected = val === currentValue;
-            const icon = iconMap[val] || opt.dataset.icon || '';
+            const icon = iconMap[val] || child.dataset.icon || '';
             const iconHTML = icon ? `<i class="${icon}"></i>` : '';
             
-            return `
+            html += `
                 <div class="cd-option ${isSelected ? 'selected' : ''}" 
                      data-value="${escapeHTML(val)}"
                      data-label="${escapeHTML(label)}">
@@ -202,23 +230,26 @@ const CustomDropdown = (function () {
                     <span>${escapeHTML(label)}</span>
                 </div>
             `;
-        }).join('');
-        
-        // Bind click events
-        optionsContainer.querySelectorAll('.cd-option').forEach(optEl => {
-            optEl.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const val = optEl.dataset.value;
-                selectValue(wrapper, val);
-            });
-            
-            optEl.addEventListener('mouseenter', () => {
-                optionsContainer.querySelectorAll('.cd-option.highlighted')
-                    .forEach(el => el.classList.remove('highlighted'));
-                optEl.classList.add('highlighted');
-            });
+        }
+    });
+    
+    optionsContainer.innerHTML = html;
+    
+    // Bind click events
+    optionsContainer.querySelectorAll('.cd-option').forEach(optEl => {
+        optEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const val = optEl.dataset.value;
+            selectValue(wrapper, val);
         });
-    }
+        
+        optEl.addEventListener('mouseenter', () => {
+            optionsContainer.querySelectorAll('.cd-option.highlighted')
+                .forEach(el => el.classList.remove('highlighted'));
+            optEl.classList.add('highlighted');
+        });
+    });
+}
     
     function updateTrigger(wrapper, selectEl, placeholder) {
         const trigger = wrapper.querySelector('.cd-trigger');
