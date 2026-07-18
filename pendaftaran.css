@@ -1060,9 +1060,9 @@ span.flatpickr-weekday {
 
 /* Batasi lebar kalender agar tidak memenuhi kartu */
 .flatpickr-calendar {
-    width: 320px !important;
-    max-width: 320px !important;
-    min-width: 320px !important;
+    width: 360px !important;
+    max-width: 360px !important;
+    min-width: 360px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     padding: 6px !important;
@@ -1149,9 +1149,9 @@ span.flatpickr-weekday {
 /* Mobile — sedikit lebih kecil */
 @media (max-width: 400px) {
     .flatpickr-calendar {
-        width: 300px !important;
-        max-width: 300px !important;
-        min-width: 300px !important;
+        width: 320px !important;
+        max-width: 320px !important;
+        min-width: 320px !important;
     }
 
     .flatpickr-day {
