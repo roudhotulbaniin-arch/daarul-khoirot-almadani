@@ -465,36 +465,3 @@ if (document.readyState === 'loading') {
 } else {
     CustomDropdown.init();
 }
-
-// Export global
-window.CustomDropdown = CustomDropdown;
-/* ===== TANGGAL REALTIME AUTO-UPDATE ===== */
-function updateTanggalRealtime() {
-    const today = new Date();
-    const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-    const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-    
-    // Format tampilan: "Senin, 14 Juli 2025"
-    const display = hari[today.getDay()] + ', ' + today.getDate() + ' ' + bulan[today.getMonth()] + ' ' + today.getFullYear();
-    
-    // Format simpan: "2025-07-14"
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    const isoDate = today.getFullYear() + '-' + mm + '-' + dd;
-    
-    // Update SEMUA input class .tanggal-display
-    document.querySelectorAll('.tanggal-display').forEach(el => {
-        el.value = display;
-    });
-    
-    // Update SEMUA hidden class .tanggal-value
-    document.querySelectorAll('.tanggal-value').forEach(el => {
-        el.value = isoDate;
-    });
-}
-
-// Jalankan saat halaman load
-document.addEventListener('DOMContentLoaded', updateTanggalRealtime);
-
-// Update tiap 30 detik (biar aman kalau lewat tengah malam)
-setInterval(updateTanggalRealtime, 30000);
