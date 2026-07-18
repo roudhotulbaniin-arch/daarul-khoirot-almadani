@@ -907,29 +907,33 @@ document.addEventListener("DOMContentLoaded", function () {
     /* ---------------------------------------------------
        AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
     --------------------------------------------------- */
-    document.querySelectorAll('form select').forEach(sel => {
-        if (sel.hasAttribute('data-cd')) return; // skip jika sudah ada
+    document.querySelectordocument.querySelectorAll('form select').forEach(sel => {
+    if (sel.hasAttribute('data-cd')) return;
 
-        sel.setAttribute('data-cd', 'true');
+    sel.setAttribute('data-cd', 'true');
 
-        // Ambil placeholder dari opsi pertama (jika value kosong)
-        const firstOpt = sel.options[0];
-        if (firstOpt && (!firstOpt.value || firstOpt.value === "")) {
-            const placeholder = firstOpt.textContent.trim();
-            sel.setAttribute('data-cd-placeholder', placeholder);
-        }
+    const firstOpt = sel.options[0];
+    if (firstOpt && (!firstOpt.value || firstOpt.value === "")) {
+        const placeholder = firstOpt.textContent.trim();
+        sel.setAttribute('data-cd-placeholder', placeholder);
+    }
 
-        // Aktifkan search untuk dropdown wilayah (banyak opsi)
-        const nameAttr = sel.getAttribute('name') || '';
-        if (
-            nameAttr.startsWith('prov_') ||
-            nameAttr.startsWith('kab_') ||
-            nameAttr.startsWith('kec_') ||
-            nameAttr.startsWith('desa_')
-        ) {
-            sel.setAttribute('data-cd-search', 'true');
-        }
-    });
+    const nameAttr = sel.getAttribute('name') || '';
+    if (
+        nameAttr.startsWith('prov_') ||
+        nameAttr.startsWith('kab_') ||
+        nameAttr.startsWith('kec_') ||
+        nameAttr.startsWith('desa_')
+    ) {
+        sel.setAttribute('data-cd-search', 'true');
+    }
+    
+    // ⭐ TAMBAHKAN INI — Tandai .input-ikon parent
+    const inputIkon = sel.closest('.input-ikon');
+    if (inputIkon) {
+        inputIkon.classList.add('has-cd');
+    }
+});
 
     // Inisialisasi custom dropdown untuk SEMUA select
     if (typeof CustomDropdown !== "undefined") {
