@@ -3,7 +3,6 @@
    Untuk: Daarul Khoirot Almadani
    Style: Konsisten dengan tema hijau tua & font Quicksand
    ================================================================ */
-
 const SwalPremium = (function() {
     
     // Base config untuk semua alert
@@ -18,6 +17,12 @@ const SwalPremium = (function() {
         },
         buttonsStyling: false,
         reverseButtons: true,
+        
+        // ⭐ TAMBAHKAN 3 BARIS INI — PAKSA hilangkan tombol Deny
+        showDenyButton: false,
+        showConfirmButton: true,
+        showCancelButton: false,   // default cancel juga off — nanti tiap fungsi enable manual
+        
         showClass: {
             popup: 'swal-anim-zoomIn'
         },
@@ -25,6 +30,7 @@ const SwalPremium = (function() {
             popup: 'swal-anim-zoomOut'
         }
     };
+    
     
     // ============================================================
     // 1. CONFIRM — Konfirmasi Umum
