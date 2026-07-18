@@ -904,27 +904,6 @@ function kirimWA(data) {
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ pendaftaran.js loaded");
 
-/* ---------------------------------------------------
-   AUTO ISI TANGGAL PENDAFTARAN = HARI INI
---------------------------------------------------- */
-try {
-    const inputTgl = document.getElementById('tgl_daftar');
-    if (inputTgl && !inputTgl.value) {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        inputTgl.value = `${yyyy}-${mm}-${dd}`;
-        
-        // Batasi supaya admin gak bisa pilih tanggal mundur terlalu jauh 
-        // atau maju ke masa depan (opsional)
-        inputTgl.setAttribute('max', `${yyyy}-${mm}-${dd}`); // max = hari ini
-        // inputTgl.setAttribute('min', `${yyyy}-01-01`);    // min = 1 Jan tahun ini
-    }
-    console.log('✅ Tanggal pendaftaran auto-fill');
-} catch (err) {
-    console.error('❌ Error auto-fill tanggal:', err);
-}
 
 /* ---------------------------------------------------
    INIT FLATPICKR — Custom Date Picker
