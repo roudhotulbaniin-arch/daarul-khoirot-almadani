@@ -270,6 +270,32 @@ function getDataIbadah() {
 }
 
 
+// Contoh: setelah set value dropdown ibadah, refresh custom dropdown
+function setNilaiIbadah(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = value;
+    
+    // ⭐ Refresh custom dropdown
+    if (window.CustomDropdown) {
+        CustomDropdown.refresh(el);
+    }
+}
+
+// Contoh saat reset form ibadah
+function resetIbadahForm() {
+    const ids = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya', 'tilawah',
+                 'adabGuru', 'adabOrtu', 'disiplin', 'kebersihan'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = 'Sangat Baik'; // atau default lain
+            if (window.CustomDropdown) {
+                CustomDropdown.refresh(el);
+            }
+        }
+    });
+}
 
 /* ==========================================================
    VALIDASI
