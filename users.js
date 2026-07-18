@@ -289,6 +289,12 @@ window.editUser = function (uid) {
     document.getElementById("hintEmail").style.display = "none";
     document.getElementById("inputJabatan").value  = u.jabatan || "";
     document.getElementById("inputStatus").value   = u.aktif ? "true" : "false";
+    
+    // ⭐ Refresh custom dropdown setelah set value
+    if (window.CustomDropdown) {
+        CustomDropdown.refresh(document.getElementById("inputJabatan"));
+        CustomDropdown.refresh(document.getElementById("inputStatus"));
+    }
     document.getElementById("groupPassword").style.display = "none";
     document.getElementById("inputPassword").required      = false;
 
@@ -546,6 +552,11 @@ function isiOpsiJabatan() {
     jabatanSet.forEach(j => {
         filterJabatan.innerHTML += `<option value="${j}">${j}</option>`;
     });
+    
+    // ⭐ Refresh custom dropdown
+    if (window.CustomDropdown) {
+        CustomDropdown.refresh(filterJabatan);
+    }
 }
 
 function updateStatistik() {
@@ -686,8 +697,13 @@ btnTambahUser?.addEventListener("click", () => {
     document.getElementById("inputPassword").required      = true;
     document.getElementById("inputEmail").disabled         = false;
     document.getElementById("hintEmail").style.display     = "block";
-    document.getElementById("inputStatus").value           = "true";
+    document.getElementById("inputStatus").value = "true";
     
+    // ⭐ Refresh custom dropdown
+    if (window.CustomDropdown) {
+        CustomDropdown.refresh(document.getElementById("inputJabatan"));
+        CustomDropdown.refresh(document.getElementById("inputStatus"));
+    }
     const btnReset = document.getElementById("btnResetPassword");
     if (btnReset) btnReset.style.display = "none";
     
