@@ -1117,26 +1117,27 @@
     border-color: #144514 !important;
     box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1) !important;
 }
-
 /* ================================================================
-   OVERRIDE — Dropdown Surah & Ayat Seragam dengan Sistem Baru
+   OVERRIDE — Dropdown Surah, Ayat, Status Kehadiran, Nilai Hafalan
+   Sistem dropdown-wrapper-custom disamakan dengan .cd-*
    ================================================================ */
 
-/* Wrapper */
+/* ---------- WRAPPER ---------- */
 .dropdown-wrapper-custom {
     position: relative;
     width: 100%;
     font-family: 'Quicksand', sans-serif;
+    user-select: none;
 }
 
-/* Trigger (box utama) */
+/* ---------- TRIGGER (Box utama) ---------- */
 .select-custom-trigger {
     width: 100% !important;
     padding: 12px 44px 12px 16px !important;
     border: 2px solid #1a5d1a !important;
     border-radius: 10px !important;
     background: #ffffff !important;
-    color: #1f2937 !important;
+    color: #144514 !important;
     font-family: 'Quicksand', sans-serif !important;
     font-size: 0.9rem !important;
     font-weight: 600 !important;
@@ -1146,8 +1147,8 @@
     gap: 10px !important;
     min-height: 46px !important;
     box-sizing: border-box !important;
-    transition: all 0.25s ease !important;
     position: relative;
+    transition: all 0.25s ease !important;
 }
 
 .select-custom-trigger:hover {
@@ -1155,20 +1156,20 @@
     box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08) !important;
 }
 
-.select-custom-trigger.active,
 .dropdown-wrapper-custom.open .select-custom-trigger {
     border-color: #144514 !important;
     box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
+    background: #ffffff !important;
 }
 
-/* Icon kiri (book, list, calendar) */
+/* Icon kiri (kalender/buku/list) */
 .select-custom-trigger > i:first-child {
     color: #1a5d1a !important;
     font-size: 1rem !important;
     flex-shrink: 0;
 }
 
-/* Input di dalam trigger (untuk search Surah / readonly Ayat) */
+/* Input di dalam trigger (untuk pencarian Surah / readonly Ayat) */
 .select-custom-trigger input {
     flex: 1 !important;
     border: none !important;
@@ -1187,7 +1188,7 @@
     font-weight: 500 !important;
 }
 
-/* Arrow chevron kanan */
+/* Chevron ▼ di kanan (auto rotate saat open) */
 .select-custom-trigger::after {
     content: '\f078';
     font-family: 'Font Awesome 6 Free';
@@ -1207,7 +1208,7 @@
     color: #1a5d1a;
 }
 
-/* Dropdown Menu (list yang muncul) */
+/* ---------- MENU DROPDOWN (List yang muncul) ---------- */
 .dropdown-menu-custom {
     position: absolute !important;
     top: calc(100% + 6px) !important;
@@ -1221,17 +1222,22 @@
     max-height: 280px !important;
     overflow-y: auto !important;
     padding: 6px !important;
-    display: none;
+    display: none !important;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
     scrollbar-width: thin;
     scrollbar-color: rgba(26, 93, 26, 0.3) transparent;
 }
 
-.dropdown-menu-custom.show,
-.dropdown-menu-custom.active {
+/* Show saat wrapper .open */
+.dropdown-wrapper-custom.open .dropdown-menu-custom {
     display: block !important;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Scrollbar */
+/* Scrollbar cantik */
 .dropdown-menu-custom::-webkit-scrollbar {
     width: 6px;
 }
@@ -1249,7 +1255,7 @@
     background: rgba(26, 93, 26, 0.5);
 }
 
-/* Item dalam list */
+/* ---------- ITEM DALAM LIST ---------- */
 .dropdown-item-custom {
     padding: 10px 12px !important;
     border-radius: 8px !important;
@@ -1271,24 +1277,24 @@
     margin-bottom: 0 !important;
 }
 
-.dropdown-item-custom:hover,
-.dropdown-item-custom.highlighted {
+.dropdown-item-custom:hover {
     background: linear-gradient(135deg, #f0f9f0, #e8f5e8) !important;
     color: #144514 !important;
     border-left-color: #1a5d1a;
     transform: translateX(2px);
 }
 
-.dropdown-item-custom.selected,
-.dropdown-item-custom.active {
+/* Item aktif/terpilih */
+.dropdown-item-custom.active,
+.dropdown-item-custom.selected {
     background: linear-gradient(135deg, #1a5d1a, #144514) !important;
     color: #ffffff !important;
     font-weight: 700 !important;
     border-left-color: #ffd700;
 }
 
-.dropdown-item-custom.selected::after,
-.dropdown-item-custom.active::after {
+.dropdown-item-custom.active::after,
+.dropdown-item-custom.selected::after {
     content: '\f00c';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
@@ -1297,7 +1303,7 @@
     font-size: 0.8rem;
 }
 
-/* Empty state */
+/* Empty state ("Pilih surah dahulu...", "Tidak ada data") */
 .dropdown-item-custom[style*="color:#777"],
 .dropdown-item-custom[style*="color: #777"] {
     color: #9ca3af !important;
@@ -1306,6 +1312,7 @@
     cursor: default !important;
     text-align: center;
     padding: 20px 12px !important;
+    justify-content: center;
 }
 
 .dropdown-item-custom[style*="color:#777"]:hover,
@@ -1313,9 +1320,10 @@
     background: transparent !important;
     transform: none !important;
     border-left-color: transparent !important;
+    color: #9ca3af !important;
 }
 
-/* Responsive HP */
+/* ---------- MOBILE ---------- */
 @media (max-width: 480px) {
     .select-custom-trigger {
         padding: 11px 40px 11px 14px !important;
@@ -1330,5 +1338,9 @@
     .dropdown-item-custom {
         padding: 12px !important;
         font-size: 0.86rem !important;
+    }
+    
+    .dropdown-menu-custom {
+        max-height: 260px !important;
     }
 }
