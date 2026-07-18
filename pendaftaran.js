@@ -905,43 +905,79 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ pendaftaran.js loaded");
 
 /* ---------------------------------------------------
-   INIT FLATPICKR — Custom Date Picker
+   INIT FLATPICKR — Tanggal Pendaftaran (Sekarang)
 --------------------------------------------------- */
 try {
     if (typeof flatpickr !== "undefined") {
+        // TANGGAL PENDAFTARAN
         flatpickr("#tgl_daftar", {
-            locale: "id",                    // Bahasa Indonesia
-            dateFormat: "Y-m-d",              // Format simpan (2024-11-25)
-            altInput: true,                   // Tampilkan format berbeda ke user
-            altFormat: "l, d F Y",            // Format tampilan (Senin, 25 November 2024)
-            defaultDate: "today",             // Default hari ini
-            maxDate: "today",                 // Batasi max hari ini
-            allowInput: false,                // Tidak bisa diketik
-            disableMobile: true,              // JANGAN pakai native picker di mobile
+            locale: "id",
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "l, d F Y",
+            defaultDate: "today",
+            maxDate: "today",
+            allowInput: false,
+            disableMobile: true,
             monthSelectorType: "static",
             
             onReady: function(selectedDates, dateStr, instance) {
-                // Custom class untuk styling
                 if (instance.altInput) {
                     instance.altInput.classList.add('custom-date-input');
                 }
             },
-            
-            /* Chevron berputar saat kalender terbuka */
             onOpen: function(selectedDates, dateStr, instance) {
                 const input = instance.altInput || instance.input;
                 const wrapper = input ? input.closest('.input-icon-wrapper') : null;
                 if (wrapper) wrapper.classList.add('flatpickr-open');
             },
-            
             onClose: function(selectedDates, dateStr, instance) {
                 const input = instance.altInput || instance.input;
                 const wrapper = input ? input.closest('.input-icon-wrapper') : null;
                 if (wrapper) wrapper.classList.remove('flatpickr-open');
             }
         });
-        
-        console.log('✅ Flatpickr berhasil di-init');
+
+        /* ---------------------------------------------------
+           INIT FLATPICKR — Tanggal Lahir (Bisa Mundur Jauh)
+        --------------------------------------------------- */
+        const tanggalLahirConfig = {
+            locale: "id",
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "l, d F Y",
+            maxDate: "today",                      // Tidak bisa masa depan
+            minDate: new Date().getFullYear() - 100 + "-01-01",  // 100 tahun ke belakang
+            allowInput: false,
+            disableMobile: true,
+            monthSelectorType: "dropdown",         // ⭐ Bulan pakai dropdown
+            
+            // Aktifkan input tahun yang bisa diketik
+            yearSelectorType: "input",
+            
+            onReady: function(selectedDates, dateStr, instance) {
+                if (instance.altInput) {
+                    instance.altInput.classList.add('custom-date-input');
+                }
+            },
+            onOpen: function(selectedDates, dateStr, instance) {
+                const input = instance.altInput || instance.input;
+                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                if (wrapper) wrapper.classList.add('flatpickr-open');
+            },
+            onClose: function(selectedDates, dateStr, instance) {
+                const input = instance.altInput || instance.input;
+                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                if (wrapper) wrapper.classList.remove('flatpickr-open');
+            }
+        };
+
+        // Init untuk semua field tanggal lahir
+        flatpickr("#tgl_lahir", tanggalLahirConfig);
+        flatpickr("#tgl_ayah",  tanggalLahirConfig);
+        flatpickr("#tgl_ibu",   tanggalLahirConfig);
+
+        console.log('✅ Flatpickr berhasil di-init (Tanggal Pendaftaran + Tanggal Lahir)');
     } else {
         console.warn('⚠️ Flatpickr belum ter-load');
     }
