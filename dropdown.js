@@ -189,25 +189,30 @@ function renderAyatSelesai(total) {
 /* ==========================================================
    OPEN DROPDOWN
 ========================================================== */
-el.ayatMulai.addEventListener("focus", () => {
-    wrapperMulai.classList.add("open");
-});
+// Buka dropdown pakai CLICK (bukan focus) supaya tidak race dengan blur
+function bindOpenOnClick(triggerEl, wrapperEl) {
+    if (!triggerEl || !wrapperEl) return;
+    
+    // Cari parent trigger (box), bukan input
+    const box = triggerEl.closest(".select-custom-trigger") || triggerEl;
+    
+    box.addEventListener("click", (e) => {
+        e.stopPropagation();
+        
+        // Tutup dropdown lain
+        document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(w => {
+            if (w !== wrapperEl) w.classList.remove("open");
+        });
+        
+        wrapperEl.classList.toggle("open");
+    });
+}
 
-el.ayatSelesai.addEventListener("focus", () => {
-    wrapperSelesai.classList.add("open");
-});
-
-el.kelancaran.addEventListener("focus", () => {
-    wrapKelancaran.classList.add("open");
-});
-
-el.tahsin.addEventListener("focus", () => {
-    wrapTahsin.classList.add("open");
-});
-
-el.tajwid.addEventListener("focus", () => {
-    wrapTajwid.classList.add("open");
-});
+bindOpenOnClick(el.ayatMulai, wrapperMulai);
+bindOpenOnClick(el.ayatSelesai, wrapperSelesai);
+bindOpenOnClick(el.kelancaran, wrapKelancaran);
+bindOpenOnClick(el.tahsin, wrapTahsin);
+bindOpenOnClick(el.tajwid, wrapTajwid);
 
 el.boxStatusKehadiran.addEventListener("click", () => {
     wrapperStatus.classList.add("open");
@@ -278,19 +283,23 @@ el.menuStatusKehadiranDropdown.addEventListener("click", (e) => {
 ========================================================== */
 
 el.menuAyatMulai.addEventListener("click", (e) => {
-
     const item = e.target.closest(".dropdown-item-custom");
     if (!item) return;
-
+    
     el.ayatMulai.value = item.dataset.value;
-
+    
+    // Tandai semua item tidak aktif, lalu tandai yang dipilih
+    el.menuAyatMulai.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+    
+    // Tutup dropdown & lepas fokus (biar tidak buka lagi)
     wrapperMulai.classList.remove("open");
-
+    el.ayatMulai.blur();
+    
     hitungSetoran();
     updateAkumulasi();
-
+    
     e.stopPropagation();
-
 });
 
 /* ==========================================================
@@ -298,17 +307,21 @@ el.menuAyatMulai.addEventListener("click", (e) => {
 ========================================================== */
 
 el.menuAyatSelesai.addEventListener("click", (e) => {
-
     const item = e.target.closest(".dropdown-item-custom");
     if (!item) return;
-
+    
     el.ayatSelesai.value = item.dataset.value;
-
+    
+    // Tandai item aktif
+    el.menuAyatSelesai.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+    
+    // Tutup dropdown & lepas fokus
     wrapperSelesai.classList.remove("open");
-
+    el.ayatSelesai.blur();
+    
     hitungSetoran();
     updateAkumulasi();
-
+    
     e.stopPropagation();
-
 });
