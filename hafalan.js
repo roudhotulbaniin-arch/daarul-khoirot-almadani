@@ -227,6 +227,32 @@ function getDataHafalan() {
 
 }
 
+function setNilaiHafalan(data) {
+    if (!data) return;
+    
+    const ids = ['nilai_kelancaran', 'nilai_tahsin', 'nilai_tajwid'];
+    const values = [data.kelancaran, data.tahsin, data.tajwid];
+    
+    ids.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el && values[i]) {
+            el.value = values[i];
+            if (window.CustomDropdown) CustomDropdown.refresh(el);
+        }
+    });
+}
+
+// Reset form hafalan
+function resetHafalanForm() {
+    const ids = ['nilai_kelancaran', 'nilai_tahsin', 'nilai_tajwid'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = '';
+            if (window.CustomDropdown) CustomDropdown.refresh(el);
+        }
+    });
+}
 
 /* ==========================================================
    DOC ID
