@@ -65,6 +65,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <link rel="stylesheet" href="pendaftaran.css">
+<!-- ⭐ TAMBAHKAN INI -->
+<link rel="stylesheet" href="custom-dropdown.css">
 
     <!-- STRUCTURED DATA SEO -->
     <script type="application/ld+json">
@@ -1085,8 +1087,13 @@
     <!-- 1. LIBRARY EKSTERNAL (Swal, ImageCompression) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
+
+
+
+<!-- ⭐ 2. CUSTOM DROPDOWN (WAJIB SEBELUM pendaftaran.js) -->
+<script src="custom-dropdown.js"></script>
     
-    <!-- 2. FIREBASE (type=module untuk import) -->
+    <!-- 3. FIREBASE (type=module untuk import) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -1109,7 +1116,7 @@
         window.firebaseCollection = collection;
     </script>
     
-    <!-- 3. SCRIPT UTAMA APLIKASI (paling akhir) -->
+    <!-- 4. SCRIPT UTAMA APLIKASI (paling akhir) -->
     <script src="pendaftaran.js"></script>
 
 </body>
