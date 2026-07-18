@@ -17,6 +17,53 @@ const CustomDropdown = (function () {
     
     let activeDropdown = null; // Track dropdown yang lagi open
     let idCounter = 0;
+
+
+/* ---------------------------------------------------
+   AUTO ASSIGN IKON DROPDOWN BERDASARKAN NAME
+--------------------------------------------------- */
+const iconMapByName = {
+    'tingkat_unit'  : 'fas fa-user-graduate',
+    'jenis_kelamin' : 'fas fa-venus-mars',
+    'st_ayah'       : 'fas fa-male',
+    'st_ibu'        : 'fas fa-female',
+    'st_wali'       : 'fas fa-user-shield',
+    'wn_ayah'       : 'fas fa-flag',
+    'wn_ibu'        : 'fas fa-flag',
+    'pdk_ayah'      : 'fas fa-graduation-cap',
+    'pdk_ibu'       : 'fas fa-graduation-cap',
+    'pjk_ayah'      : 'fas fa-briefcase',
+    'pjk_ibu'       : 'fas fa-briefcase',
+    'hasil_ayah'    : 'fas fa-money-bill-wave',
+    'hasil_ibu'     : 'fas fa-money-bill-wave',
+    'milik_ayah'    : 'fas fa-home',
+    'biaya'         : 'fas fa-hand-holding-usd',
+    'disabilitas'   : 'fas fa-wheelchair',
+    'keb_khusus'    : 'fas fa-notes-medical',
+    'pilih_dom_ibu'    : 'fas fa-map-marked-alt',
+    'pilih_dom_santri' : 'fas fa-map-marked-alt',
+};
+
+// Provinsi / Kabupaten / Kecamatan / Desa → semua pakai ikon lokasi
+const iconLokasi = 'fas fa-map-marker-alt';
+
+document.querySelectorAll('form select').forEach(sel => {
+    const name = sel.getAttribute('name') || '';
+    let icon = iconMapByName[name] || '';
+
+    if (!icon) {
+        if (name.startsWith('prov_') || 
+            name.startsWith('kab_')  || 
+            name.startsWith('kec_')  || 
+            name.startsWith('desa_')) {
+            icon = iconLokasi;
+        }
+    }
+
+    if (icon && !sel.hasAttribute('data-cd-main-icon')) {
+        sel.setAttribute('data-cd-main-icon', icon);
+    }
+});
     
     /**
      * Init semua <select data-cd="true"> di halaman
@@ -115,13 +162,14 @@ const CustomDropdown = (function () {
         const { searchable, placeholder, emptyText, iconMap } = opts;
         
         // Trigger button
-        const trigger = document.createElement('button');
-        trigger.type = 'button';
-        trigger.className = 'cd-trigger';
-        trigger.innerHTML = `
-            <span class="cd-selected-label"></span>
-            <i class="fas fa-chevron-down cd-arrow"></i>
-        `;
+        // Trigger button
+const trigger = document.createElement('button');
+trigger.type = 'button';
+trigger.className = 'cd-trigger';
+trigger.innerHTML = `
+    <span class="cd-selected-label"></span>
+    <i class="fas fa-chevron-down cd-arrow"></i>
+`;
         
         if (selectEl.disabled) trigger.classList.add('disabled');
         wrapper.appendChild(trigger);
@@ -496,51 +544,6 @@ const CustomDropdown = (function () {
     
 })();
 
-/* ---------------------------------------------------
-   AUTO ASSIGN IKON DROPDOWN BERDASARKAN NAME
---------------------------------------------------- */
-const iconMapByName = {
-    'tingkat_unit'  : 'fas fa-user-graduate',
-    'jenis_kelamin' : 'fas fa-venus-mars',
-    'st_ayah'       : 'fas fa-male',
-    'st_ibu'        : 'fas fa-female',
-    'st_wali'       : 'fas fa-user-shield',
-    'wn_ayah'       : 'fas fa-flag',
-    'wn_ibu'        : 'fas fa-flag',
-    'pdk_ayah'      : 'fas fa-graduation-cap',
-    'pdk_ibu'       : 'fas fa-graduation-cap',
-    'pjk_ayah'      : 'fas fa-briefcase',
-    'pjk_ibu'       : 'fas fa-briefcase',
-    'hasil_ayah'    : 'fas fa-money-bill-wave',
-    'hasil_ibu'     : 'fas fa-money-bill-wave',
-    'milik_ayah'    : 'fas fa-home',
-    'biaya'         : 'fas fa-hand-holding-usd',
-    'disabilitas'   : 'fas fa-wheelchair',
-    'keb_khusus'    : 'fas fa-notes-medical',
-    'pilih_dom_ibu'    : 'fas fa-map-marked-alt',
-    'pilih_dom_santri' : 'fas fa-map-marked-alt',
-};
-
-// Provinsi / Kabupaten / Kecamatan / Desa → semua pakai ikon lokasi
-const iconLokasi = 'fas fa-map-marker-alt';
-
-document.querySelectorAll('form select').forEach(sel => {
-    const name = sel.getAttribute('name') || '';
-    let icon = iconMapByName[name] || '';
-
-    if (!icon) {
-        if (name.startsWith('prov_') || 
-            name.startsWith('kab_')  || 
-            name.startsWith('kec_')  || 
-            name.startsWith('desa_')) {
-            icon = iconLokasi;
-        }
-    }
-
-    if (icon && !sel.hasAttribute('data-cd-main-icon')) {
-        sel.setAttribute('data-cd-main-icon', icon);
-    }
-});
 
 // Auto-init saat DOM ready
 if (document.readyState === 'loading') {
