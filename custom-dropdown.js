@@ -45,6 +45,19 @@ const CustomDropdown = (function () {
         
         // Build UI
         buildUI(wrapper, selectEl, { searchable, placeholder, emptyText, iconMap });
+
+    // Store placeholder
+    wrapper.dataset.placeholder = placeholder;
+    wrapper.dataset.emptyText = emptyText;
+    
+    // ⭐ TAMBAH INI — Support variant
+    const variant = selectEl.dataset.cdVariant || '';
+    if (variant) {
+        wrapper.dataset.cdVariantActive = variant;
+    }
+    
+    // ⭐ TAMBAH INI — Set data-value awal
+    wrapper.dataset.value = selectEl.value || '';
         
         // Return API untuk kontrol dari luar
         return {
@@ -229,21 +242,24 @@ const CustomDropdown = (function () {
             trigger.classList.remove('placeholder');
         }
     }
-    
+
     function selectValue(wrapper, value) {
-        const selectEl = wrapper.querySelector('select.cd-native');
-        selectEl.value = value;
-        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
-        
-        updateTrigger(wrapper, selectEl);
-        
-        // Update selected state
-        wrapper.querySelectorAll('.cd-option').forEach(el => {
-            el.classList.toggle('selected', el.dataset.value === value);
-        });
-        
-        closeMenu(wrapper);
-    }
+    const selectEl = wrapper.querySelector('select.cd-native');
+    selectEl.value = value;
+    selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+    
+    updateTrigger(wrapper, selectEl);
+    
+    // Update selected state
+    wrapper.querySelectorAll('.cd-option').forEach(el => {
+        el.classList.toggle('selected', el.dataset.value === value);
+    });
+    
+    // ⭐ TAMBAH INI — Update data-value untuk styling variant
+    wrapper.dataset.value = value;
+    
+    closeMenu(wrapper);
+}
     
     function toggleMenu(wrapper) {
         if (wrapper.classList.contains('open')) {
