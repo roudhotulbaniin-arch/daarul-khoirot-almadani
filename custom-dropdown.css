@@ -1344,3 +1344,28 @@
         max-height: 260px !important;
     }
 }
+
+/* Ikon utama di kiri trigger (mirip ikon input teks) */
+.cd-trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cd-trigger .cd-main-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1a5319;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.cd-trigger.has-main-icon {
+    padding-left: 42px; /* Beri ruang untuk ikon */
+}
+
+.cd-trigger.has-main-icon .cd-selected-label {
+    padding-left: 0;
+}
