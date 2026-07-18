@@ -542,6 +542,44 @@ const CustomDropdown = (function () {
 
 })();
 
+/* ---------------------------------------------------
+   TAMPILKAN TANGGAL DALAM FORMAT INDONESIA
+--------------------------------------------------- */
+function updateTglInfo() {
+    const input = document.getElementById('tgl_daftar');
+    const badge = document.getElementById('tglDaftarInfo');
+    const txt   = document.getElementById('tglDaftarInfoText');
+    if (!input || !badge || !txt) return;
+
+    const val = input.value;
+    if (!val) {
+        badge.style.display = 'none';
+        return;
+    }
+
+    const hari  = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const bulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
+
+    const d = new Date(val);
+    if (isNaN(d)) {
+        badge.style.display = 'none';
+        return;
+    }
+
+    txt.textContent = `${hari[d.getDay()]}, ${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}`;
+    badge.style.display = 'inline-block';
+}
+
+// Panggil saat load
+updateTglInfo();
+
+// Panggil saat berubah
+const inputTgl = document.getElementById('tgl_daftar');
+if (inputTgl) {
+    inputTgl.addEventListener('change', updateTglInfo);
+}
+
 /* ================================================================
    AUTO INIT — Setelah DOM siap
 ================================================================ */
