@@ -1,3 +1,10 @@
+/* Helper untuk refresh custom dropdown */
+function refreshCD(el) {
+    if (typeof CustomDropdown !== "undefined" && el) {
+        CustomDropdown.refresh(el);
+    }
+}
+
 /* ================================================================
    PENDAFTARAN.JS — Daarul Khoirot Almadani
    Versi Final — Bersih & Terorganisir
@@ -169,6 +176,11 @@ async function loadWilayah(endpoint, elementName, placeholder) {
     el.innerHTML = '<option value="">Loading...</option>';
     el.disabled = true;
 
+    // ⭐ Refresh custom dropdown (biar text "Loading..." muncul)
+    if (typeof CustomDropdown !== "undefined") {
+        CustomDropdown.refresh(el);
+    }
+
     const url = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`;
 
     try {
@@ -182,9 +194,17 @@ async function loadWilayah(endpoint, elementName, placeholder) {
         });
         el.innerHTML = opt;
         el.disabled = false;
+
+        // ⭐ Refresh custom dropdown SETELAH data terisi
+        if (typeof CustomDropdown !== "undefined") {
+            CustomDropdown.refresh(el);
+        }
     } catch (err) {
         console.error("ERROR API:", err);
         el.innerHTML = `<option value="">Gagal memuat data</option>`;
+        if (typeof CustomDropdown !== "undefined") {
+            CustomDropdown.refresh(el);
+        }
     }
 }
 
@@ -193,6 +213,11 @@ function loadKabAyah(val) {
     getEl('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
     getEl('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
     getEl('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+
+
+    // ⭐ Refresh
+    refreshCD(kab); refreshCD(kec); refreshCD(desa);
+
     const inputPos = getEl('pos_ayah');
     if (inputPos) inputPos.value = "";
     if (val && val !== "provinces_init_val") loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
@@ -294,6 +319,8 @@ function resetFields(suffix) {
     dropdowns.forEach(name => {
         const el = getElByName(name, suffix);
         if (el) el.innerHTML = `<option value="">Pilih Data</option>`;
+refreshCD(el); // ⭐ Refresh
+        }
     });
     const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
     inputs.forEach(name => {
@@ -324,6 +351,8 @@ function copyDataAlamat(from, to) {
                 if (sourceEl.selectedIndex >= 0) {
                     targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
                     targetEl.value = sourceEl.value;
+refreshCD(targetEl); // ⭐ Refresh
+                
                 }
             } else {
                 targetEl.value = sourceEl.value || "";
@@ -342,7 +371,9 @@ function isiAlamatPesantren() {
     };
     const setSel = (n, v, t) => {
         const el = getElByName(n);
-        if (el) { el.innerHTML = `<option value="${v}">${t}</option>`; el.value = v; }
+        if (el) { el.innerHTML = `<option value="${v}">${t}</option>`; el.value = v;
+refreshCD(el); // ⭐ Refresh
+                 }
     };
     setSel('prov_santri', d.prov, d.prov_text);
     setSel('kab_santri', d.kab, d.kab_text);
@@ -822,14 +853,52 @@ function kirimWA(data) {
 
 /* =========================================================
    10. DOM READY — Event Listeners
-========================================================= */
-document.addEventListener("DOMContentLoaded", function () {
+========================================================= */document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ pendaftaran.js loaded");
 
-    // Load provinsi ayah otomatis
+    /* =====================================================
+       AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
+    ===================================================== */
+    document.querySelectorAll('form select').forEach(sel => {
+        if (sel.hasAttribute('data-cd')) return; // skip jika sudah ada
+        
+        sel.setAttribute('data-cd', 'true');
+        
+        // Ambil placeholder dari opsi pertama (jika value kosong)
+        const firstOpt = sel.options[0];
+        if (firstOpt && (!firstOpt.value || firstOpt.value === "")) {
+            const placeholder = firstOpt.textContent.trim();
+            sel.setAttribute('data-cd-placeholder', placeholder);
+        }
+        
+        // Aktifkan search untuk dropdown wilayah (banyak opsi)
+        const nameAttr = sel.getAttribute('name') || '';
+        if (
+            nameAttr.startsWith('prov_') ||
+            nameAttr.startsWith('kab_') ||
+            nameAttr.startsWith('kec_') ||
+            nameAttr.startsWith('desa_')
+        ) {
+            sel.setAttribute('data-cd-search', 'true');
+        }
+    });
+    
+    // Inisialisasi custom dropdown untuk SEMUA select
+    if (typeof CustomDropdown !== "undefined") {
+        CustomDropdown.init();
+        console.log("✅ Semua select dikonversi jadi Custom Dropdown");
+    } else {
+        console.warn("⚠️ CustomDropdown belum ter-load");
+    }
+
+    /* =====================================================
+       LOAD PROVINSI AYAH OTOMATIS
+    ===================================================== */
     loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
 
-    // Menu toggle (hamburger)
+    /* =====================================================
+       MENU TOGGLE (hamburger)
+    ===================================================== */
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
 
@@ -839,36 +908,28 @@ document.addEventListener("DOMContentLoaded", function () {
             nav.classList.toggle('show');
         });
         console.log("✅ Menu toggle bound");
-    } else {
-        console.warn("⚠️ Menu toggle atau nav tidak ditemukan", { menuToggle, nav });
     }
 
-    // Highlight menu aktif
+    /* Highlight menu aktif */
     const currentUrl = window.location.pathname.split("/").pop() || "index.html";
     document.querySelectorAll("nav ul li a").forEach(item => {
-        if (item.getAttribute("href") === currentUrl) {
-            item.classList.add("active");
-        }
-        item.addEventListener('click', function () {
-            if (nav) nav.classList.remove('show');
-        });
+        if (item.getAttribute("href") === currentUrl) item.classList.add("active");
+        item.addEventListener('click', () => { if (nav) nav.classList.remove('show'); });
     });
 
-    // Klik luar → tutup menu
+    /* Klik luar → tutup menu */
     document.addEventListener('click', function (e) {
         if (nav && menuToggle && !nav.contains(e.target) && e.target !== menuToggle) {
             nav.classList.remove('show');
         }
     });
 
-    // Validasi 16 digit (NIK & KK)
+    /* Validasi 16 digit */
     const isNumeric = /^\d+$/;
-
     function pasangValidasi16Digit(inputId, errorId, labelNama) {
         const inputEl = document.getElementById(inputId);
         const errorEl = document.getElementById(errorId);
         if (!inputEl || !errorEl) return;
-
         inputEl.addEventListener("input", function () {
             const val = inputEl.value.trim();
             if (val === "") {
@@ -886,7 +947,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
     pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
     pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
     pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
