@@ -1054,42 +1054,113 @@ span.flatpickr-weekday {
     right: 3px !important;
     width: 14px !important;
 }
+/* ================================================================
+   FIX FINAL — Kalender Ukuran Ideal & Center
+================================================================ */
 
-/* Center kalender di bawah input */
+/* Batasi lebar kalender agar tidak memenuhi kartu */
 .flatpickr-calendar {
+    width: 320px !important;
+    max-width: 320px !important;
+    min-width: 320px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    max-width: 360px !important;
-    width: calc(100% - 24px) !important;
+    padding: 6px !important;
+    box-sizing: border-box !important;
 }
 
-/* Saat kalender terbuka dengan animasi */
+/* Saat kalender terbuka */
 .flatpickr-calendar.open {
     left: 50% !important;
     transform: translateX(-50%) !important;
 }
 
-/* Pastikan input wrapper punya posisi relative agar kalender bisa center */
-.input-icon-wrapper {
-    position: relative !important;
+/* Kecilkan tanggal biar proporsional */
+.flatpickr-day {
+    height: 36px !important;
+    line-height: 36px !important;
+    font-size: 0.82rem !important;
 }
 
-/* Mobile — center penuh */
-@media (max-width: 480px) {
+/* Kecilkan header hari */
+span.flatpickr-weekday {
+    font-size: 0.68rem !important;
+    padding: 6px 0 !important;
+}
+
+/* Header bulan/tahun lebih kompak */
+.flatpickr-months {
+    padding: 4px 6px !important;
+    min-height: 42px !important;
+}
+
+.flatpickr-current-month {
+    font-size: 0.92rem !important;
+    gap: 4px !important;
+}
+
+.flatpickr-current-month .cur-month {
+    font-size: 0.92rem !important;
+}
+
+.flatpickr-monthDropdown-months {
+    font-size: 0.85rem !important;
+    padding: 3px 6px !important;
+}
+
+.flatpickr-current-month input.cur-year {
+    width: 66px !important;
+    padding: 3px 16px 3px 6px !important;
+    font-size: 0.9rem !important;
+}
+
+.flatpickr-current-month .numInputWrapper {
+    width: 66px !important;
+}
+
+/* Kecilkan panah navigasi */
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+    width: 28px !important;
+    height: 28px !important;
+}
+
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* Gap grid lebih rapat */
+.flatpickr-weekdaycontainer,
+.dayContainer {
+    gap: 2px !important;
+}
+
+.flatpickr-weekdays {
+    padding: 0 4px !important;
+    margin: 4px 0 2px !important;
+}
+
+.dayContainer {
+    padding: 0 4px 6px !important;
+}
+
+/* Mobile — sedikit lebih kecil */
+@media (max-width: 400px) {
     .flatpickr-calendar {
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: calc(100vw - 24px) !important;
-        max-width: 360px !important;
+        width: 300px !important;
+        max-width: 300px !important;
+        min-width: 300px !important;
     }
 
-    .flatpickr-current-month input.cur-year {
-        width: 72px !important;
-        padding-right: 16px !important;
-        font-size: 0.95rem !important;
+    .flatpickr-day {
+        height: 34px !important;
+        line-height: 34px !important;
+        font-size: 0.78rem !important;
     }
 
-    .flatpickr-current-month .numInputWrapper {
-        width: 72px !important;
+    span.flatpickr-weekday {
+        font-size: 0.64rem !important;
     }
 }
