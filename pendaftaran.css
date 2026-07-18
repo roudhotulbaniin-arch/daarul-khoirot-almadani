@@ -1040,3 +1040,96 @@ try {
     console.error('❌ Error init Flatpickr:', err);
 }
 
+/* ================================================================
+   FIX ALIGNMENT — Header Hari SEJAJAR dengan Tanggal
+================================================================ */
+
+/* Container utama hari & tanggal — samakan lebar */
+.flatpickr-innerContainer,
+.flatpickr-rContainer,
+.flatpickr-days {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* ---------- HEADER HARI (Sen Sel Rab Kam Jum Sab Min) ---------- */
+.flatpickr-weekdays {
+    background: transparent !important;
+    padding: 0 6px !important;
+    margin: 8px 0 4px !important;
+    height: auto !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.flatpickr-weekdaycontainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+span.flatpickr-weekday {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: unset !important;
+    background: #e8f5e8 !important;
+    color: #144514 !important;
+    font-weight: 800 !important;
+    font-size: 0.72rem !important;
+    text-align: center !important;
+    padding: 8px 0 !important;
+    border-radius: 8px !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+}
+
+/* ---------- GRID TANGGAL ---------- */
+.dayContainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    padding: 0 6px 10px !important;
+    justify-content: unset !important;
+    box-sizing: border-box !important;
+}
+
+.flatpickr-day {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: unset !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    box-sizing: border-box !important;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    span.flatpickr-weekday {
+        font-size: 0.68rem !important;
+        padding: 6px 0 !important;
+    }
+    
+    .flatpickr-day {
+        height: 38px !important;
+        line-height: 38px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .flatpickr-weekdaycontainer,
+    .dayContainer {
+        gap: 3px !important;
+    }
+}
+
