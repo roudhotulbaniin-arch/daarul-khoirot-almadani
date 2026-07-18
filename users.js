@@ -1,5 +1,5 @@
 // ================================================================
-// USERS.JS — Kelola User Admin (FINAL CLEAN VERSION)
+// USERS.JS — Kelola User Admin (FINAL with didOpen Button Fix)
 // ================================================================
 
 import {
@@ -28,6 +28,152 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 // ================================================================
+//  HELPER — Force Stylize SweetAlert Buttons (Override element.style)
+// ================================================================
+
+function stylizeSwalButtons(popup, mode = 'primary') {
+    if (!popup) return;
+    
+    // Container actions
+    const actions = popup.querySelector('.swal2-actions');
+    if (actions) {
+        actions.style.cssText = `
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            gap: 12px !important;
+            margin: 22px 0 0 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            justify-content: stretch !important;
+            align-items: stretch !important;
+            box-sizing: border-box !important;
+        `;
+    }
+    
+    // Semua tombol — ukuran sama
+    popup.querySelectorAll('.swal2-actions button').forEach(btn => {
+        // Sembunyikan deny button
+        if (btn.classList.contains('swal2-deny')) {
+            btn.style.display = 'none';
+            return;
+        }
+        
+        // Base style untuk semua tombol
+        btn.style.cssText = `
+            display: inline-flex !important;
+            flex: 1 1 50% !important;
+            width: 50% !important;
+            min-width: 0 !important;
+            max-width: none !important;
+            min-height: 50px !important;
+            padding: 14px 12px !important;
+            font-family: 'Quicksand', sans-serif !important;
+            font-size: 0.92rem !important;
+            font-weight: 700 !important;
+            border-radius: 12px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            margin: 0 !important;
+            white-space: nowrap !important;
+            box-sizing: border-box !important;
+            background-image: none !important;
+            outline: none !important;
+            cursor: pointer !important;
+            letter-spacing: 0.3px !important;
+            line-height: 1 !important;
+            transition: all 0.25s ease !important;
+        `;
+    });
+    
+    // Cancel button — abu-abu
+    const btnCancel = popup.querySelector('.swal2-cancel');
+    if (btnCancel) {
+        btnCancel.style.background = '#f3f4f6';
+        btnCancel.style.backgroundColor = '#f3f4f6';
+        btnCancel.style.color = '#4b5563';
+        btnCancel.style.border = '2px solid #e5e7eb';
+        btnCancel.style.boxShadow = 'none';
+    }
+    
+    // Confirm button — warna tergantung mode
+    const btnConfirm = popup.querySelector('.swal2-confirm');
+    if (btnConfirm) {
+        if (mode === 'danger') {
+            btnConfirm.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+            btnConfirm.style.backgroundColor = '#dc2626';
+            btnConfirm.style.color = '#ffffff';
+            btnConfirm.style.border = 'none';
+            btnConfirm.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.35)';
+        } else {
+            btnConfirm.style.background = 'linear-gradient(135deg, #1a5d1a, #144514)';
+            btnConfirm.style.backgroundColor = '#1a5d1a';
+            btnConfirm.style.color = '#ffffff';
+            btnConfirm.style.border = 'none';
+            btnConfirm.style.boxShadow = '0 4px 12px rgba(26, 93, 26, 0.35)';
+        }
+    }
+}
+
+// Stylize single button (untuk alertSukses, alertError, alertWarning)
+function stylizeSingleButton(popup, mode = 'primary') {
+    if (!popup) return;
+    
+    const actions = popup.querySelector('.swal2-actions');
+    if (actions) {
+        actions.style.cssText = `
+            display: flex !important;
+            justify-content: center !important;
+            margin: 22px 0 0 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        `;
+    }
+    
+    const btnConfirm = popup.querySelector('.swal2-confirm');
+    if (btnConfirm) {
+        btnConfirm.style.cssText = `
+            display: inline-flex !important;
+            min-width: 140px !important;
+            min-height: 50px !important;
+            padding: 14px 28px !important;
+            font-family: 'Quicksand', sans-serif !important;
+            font-size: 0.92rem !important;
+            font-weight: 700 !important;
+            border-radius: 12px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+            background-image: none !important;
+            outline: none !important;
+            cursor: pointer !important;
+            letter-spacing: 0.3px !important;
+            line-height: 1 !important;
+            transition: all 0.25s ease !important;
+            border: none !important;
+            color: #ffffff !important;
+        `;
+        
+        if (mode === 'danger') {
+            btnConfirm.style.background = 'linear-gradient(135deg, #dc2626, #b91c1c)';
+            btnConfirm.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.35)';
+        } else if (mode === 'warning') {
+            btnConfirm.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+            btnConfirm.style.boxShadow = '0 4px 12px rgba(245, 158, 11, 0.35)';
+        } else if (mode === 'success') {
+            btnConfirm.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            btnConfirm.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.35)';
+        } else {
+            btnConfirm.style.background = 'linear-gradient(135deg, #1a5d1a, #144514)';
+            btnConfirm.style.boxShadow = '0 4px 12px rgba(26, 93, 26, 0.35)';
+        }
+    }
+}
+
+// ================================================================
 //  SWEETALERT2 HELPERS
 // ================================================================
 
@@ -46,47 +192,70 @@ const Toast = Swal.mixin({
 
 function alertSukses(judul, pesan = "") {
     return Swal.fire({
-        icon: 'success', title: judul, html: pesan,
+        icon: 'success',
+        title: judul,
+        html: pesan,
         confirmButtonText: '<i class="fas fa-check"></i> OK',
-        customClass: { popup: 'swal-premium' }, buttonsStyling: false
+        customClass: { popup: 'swal-premium' },
+        buttonsStyling: false,
+        didOpen: (popup) => stylizeSingleButton(popup, 'success')
     });
 }
 
 function alertError(judul, pesan = "") {
     return Swal.fire({
-        icon: 'error', title: judul, html: pesan,
+        icon: 'error',
+        title: judul,
+        html: pesan,
         confirmButtonText: '<i class="fas fa-times"></i> Tutup',
-        customClass: { popup: 'swal-premium swal-danger' }, buttonsStyling: false
+        customClass: { popup: 'swal-premium swal-danger' },
+        buttonsStyling: false,
+        didOpen: (popup) => stylizeSingleButton(popup, 'danger')
     });
 }
 
 function alertWarning(judul, pesan = "") {
     return Swal.fire({
-        icon: 'warning', title: judul, html: pesan,
+        icon: 'warning',
+        title: judul,
+        html: pesan,
         confirmButtonText: '<i class="fas fa-check"></i> Mengerti',
-        customClass: { popup: 'swal-premium' }, buttonsStyling: false
+        customClass: { popup: 'swal-premium' },
+        buttonsStyling: false,
+        didOpen: (popup) => stylizeSingleButton(popup, 'warning')
     });
 }
 
 function alertKonfirmasi(judul, pesan = "", iconType = 'question') {
     return Swal.fire({
-        icon: iconType, title: judul, html: pesan,
-        showCancelButton: true, showDenyButton: false,
+        icon: iconType,
+        title: judul,
+        html: pesan,
+        showCancelButton: true,
+        showDenyButton: false,
         confirmButtonText: '<i class="fas fa-check"></i> Ya, Lanjutkan',
         cancelButtonText: '<i class="fas fa-times"></i> Batal',
         reverseButtons: true,
-        customClass: { popup: 'swal-premium' }, buttonsStyling: false
+        customClass: { popup: 'swal-premium' },
+        buttonsStyling: false,
+        didOpen: (popup) => stylizeSwalButtons(popup, 'primary')
     });
 }
 
 function alertKonfirmasiHapus(judul, pesan = "") {
     return Swal.fire({
-        icon: 'warning', title: judul, html: pesan,
-        showCancelButton: true, showDenyButton: false,
+        icon: 'warning',
+        title: judul,
+        html: pesan,
+        showCancelButton: true,
+        showDenyButton: false,
         confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
         cancelButtonText: '<i class="fas fa-times"></i> Batal',
-        reverseButtons: true, focusCancel: true,
-        customClass: { popup: 'swal-premium swal-danger' }, buttonsStyling: false
+        reverseButtons: true,
+        focusCancel: true,
+        customClass: { popup: 'swal-premium swal-danger' },
+        buttonsStyling: false,
+        didOpen: (popup) => stylizeSwalButtons(popup, 'danger')
     });
 }
 
@@ -94,13 +263,15 @@ function alertLoading(judul = "Sedang memproses...") {
     Swal.fire({
         title: judul,
         html: '<div class="loading-spinner-sm" style="margin: 15px auto;"></div>',
-        allowOutsideClick: false, allowEscapeKey: false, showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false,
         customClass: { popup: 'swal-premium' }
     });
 }
 
 // ================================================================
-//  REGISTER WINDOW FUNCTIONS (ASSIGN LANGSUNG, TANPA PLACEHOLDER)
+//  REGISTER WINDOW FUNCTIONS
 // ================================================================
 
 window.editUser = function (uid) {
@@ -128,8 +299,6 @@ window.editUser = function (uid) {
 };
 
 window.hapusUser = async function (uid) {
-    console.log("🗑️ hapusUser dipanggil:", uid);
-    
     if (uid === currentAdminUID) {
         alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menghapus akun sendiri!");
         return;
@@ -170,8 +339,6 @@ window.hapusUser = async function (uid) {
 };
 
 window.toggleStatus = async function (uid, current) {
-    console.log("🔄 toggleStatus:", uid, current);
-    
     if (uid === currentAdminUID) {
         alertWarning("Aksi Tidak Diizinkan", "Anda tidak bisa menonaktifkan akun sendiri!");
         return;
@@ -199,8 +366,6 @@ window.toggleStatus = async function (uid, current) {
 };
 
 window.lihatDetail = function (uid) {
-    console.log("👁️ lihatDetail:", uid);
-    
     const u = daftarUser.find(x => x.id === uid);
     if (!u) return;
 
@@ -225,12 +390,7 @@ window.lihatDetail = function (uid) {
     bukaModal(modalDetail);
 };
 
-console.log("✅ Window functions registered:", {
-    editUser: typeof window.editUser,
-    hapusUser: typeof window.hapusUser,
-    toggleStatus: typeof window.toggleStatus,
-    lihatDetail: typeof window.lihatDetail
-});
+console.log("✅ Window functions registered");
 
 // ================================================================
 //  VARIABEL GLOBAL
