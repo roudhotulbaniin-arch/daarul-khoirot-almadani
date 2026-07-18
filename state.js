@@ -1,3 +1,7 @@
+// Helper: aman ambil closest
+const $closest = (element, selector) => 
+    element ? element.closest(selector) : null;
+
 const $ = id => document.getElementById(id);
 
 const el = {
@@ -87,9 +91,10 @@ tajwid: $("nilai_tajwid"),
 
 };
 
-    const wrapKelancaran = el.kelancaran.closest(".dropdown-wrapper-custom");
-const wrapTahsin = el.tahsin.closest(".dropdown-wrapper-custom");
-const wrapTajwid = el.tajwid.closest(".dropdown-wrapper-custom");
+    const wrapKelancaran = $closest(el.kelancaran, ".dropdown-wrapper-custom");
+const wrapTahsin     = $closest(el.tahsin,     ".dropdown-wrapper-custom");
+const wrapTajwid     = $closest(el.tajwid,     ".dropdown-wrapper-custom");
+
 
 const state = {
 
@@ -127,9 +132,9 @@ let filterSantriDashboard = "";
    WRAPPER
 ========================================================== */
 
-const wrapperMulai = el.menuAyatMulai.closest(".dropdown-wrapper-custom");
-const wrapperSelesai = el.menuAyatSelesai.closest(".dropdown-wrapper-custom");
-const wrapperStatus = el.boxStatusKehadiran.closest(".dropdown-wrapper-custom");
+const wrapperMulai   = $closest(el.menuAyatMulai,      ".dropdown-wrapper-custom");
+const wrapperSelesai = $closest(el.menuAyatSelesai,    ".dropdown-wrapper-custom");
+const wrapperStatus  = $closest(el.boxStatusKehadiran, ".dropdown-wrapper-custom");
 
 
 
