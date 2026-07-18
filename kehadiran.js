@@ -181,6 +181,9 @@ if (!pastikanSantriDipilih(false)) return;
 
     }
 
+CustomDropdown.refresh(document.getElementById('statusKehadiran'));
+    }
+
     catch (err) {
     console.error(err.code);
     console.error(err.message);
