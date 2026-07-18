@@ -56,6 +56,27 @@ function getDataKehadiran() {
 
 }
 
+function setStatusKehadiran(value) {
+    const el = document.getElementById('statusKehadiran');
+    if (!el) return;
+    el.value = value;
+    
+    // ⭐ Refresh custom dropdown
+    if (window.CustomDropdown) {
+        CustomDropdown.refresh(el);
+    }
+}
+
+// Reset form kehadiran
+function resetKehadiranForm() {
+    const el = document.getElementById('statusKehadiran');
+    if (el) {
+        el.value = '';
+        if (window.CustomDropdown) CustomDropdown.refresh(el);
+    }
+    document.getElementById('tanggalKehadiran').value = '';
+}
+
 
 /* ==========================================================
    DOC ID
