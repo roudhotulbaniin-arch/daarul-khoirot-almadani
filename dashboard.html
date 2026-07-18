@@ -214,61 +214,49 @@
 </div>
 
 <div id="kehadiran-panel" class="tab-content">
-      <div class="panel-card">
-    <div class="form-section-title">
-        <i class="fas fa-calendar-check"></i>
-        INPUT KEHADIRAN SANTRI
+    <div class="panel-card">
+        <div class="form-section-title">
+            <i class="fas fa-calendar-check"></i>
+            INPUT KEHADIRAN SANTRI
+        </div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>TANGGAL</label>
+                <input type="date" id="tanggalKehadiran">
+            </div>
+
+            <!-- ⭐ STATUS KEHADIRAN — CUSTOM DROPDOWN -->
+            <div class="form-group">
+                <label>STATUS KEHADIRAN</label>
+                <select id="statusKehadiran"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Status Kehadiran"
+                        data-cd-variant="kehadiran"
+                        data-cd-icons='{"Hadir":"fas fa-check-circle", "Izin":"fas fa-envelope-open-text", "Sakit":"fas fa-hospital", "Alpha":"fas fa-times-circle"}'>
+                    <option value="">-- Pilih Status --</option>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Izin">Izin</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Alpha">Alpha</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="tab-navigation">
+            <button class="btn-prev-tab" onclick="openTab(null,'santri-panel')">
+                <i class="fas fa-chevron-circle-left"></i>
+                Data Santri
+            </button>
+            <button class="btn-next-tab" onclick="simpanDanKeHafalan()">
+                Simpan & Lanjut
+                <i class="fas fa-chevron-circle-right"></i>
+            </button>
+        </div>
+
     </div>
-
-    <div class="form-grid">
-
-        <div class="form-group">
-            <label>TANGGAL</label>
-            <input type="date" id="tanggalKehadiran">
-        </div>
-
-        <div class="form-group">
-    <label>STATUS KEHADIRAN</label>
-
-    <div class="dropdown-wrapper-custom">
-
-        <div class="input-ikon select-custom-trigger" id="boxStatusKehadiran">
-            <i class="fas fa-user-check"></i>
-            <input type="text"
-                   id="statusKehadiran"
-                   placeholder="Pilih Status Kehadiran"
-                   readonly
-                   required>
-        </div>
-
-        <div id="menuStatusKehadiranDropdown" class="dropdown-menu-custom">
-            <div class="dropdown-item-custom" data-value="Hadir">✅ Hadir</div>
-            <div class="dropdown-item-custom" data-value="Izin">🟡 Izin</div>
-            <div class="dropdown-item-custom" data-value="Sakit">🟠 Sakit</div>
-            <div class="dropdown-item-custom" data-value="Alpha">🔴 Alpha</div>
-        </div>
-
-    </div>
-</div>
-</div>
-
-<div class="tab-navigation">
-
-    <button class="btn-prev-tab"
-            onclick="openTab(null,'santri-panel')">
-        <i class="fas fa-chevron-circle-left"></i>
-        Data Santri
-    </button>
-
-<button class="btn-next-tab"
-        onclick="simpanDanKeHafalan()">
-    Simpan & Lanjut
-    <i class="fas fa-chevron-circle-right"></i>
-</button>
-
-</div>
-
-</div>
 </div>
 
         <div id="input-panel" class="tab-content">
@@ -349,59 +337,61 @@
                         <input type="checkbox" id="is_tasmi" style="transform: scale(1.3); cursor: pointer;"> 
                         <span style="font-size: 0.95rem; font-weight: 700; color: var(--primary-color);">Setoran ini Sesi Ujian Tasmi' (Sekali Duduk)</span>
                     </label>
-                </div>
 
-            <div class="form-section-title"><i class="fas fa-star"></i> Penilaian Kelayakan Indikator</div>
+                </div>
+<div class="form-section-title"><i class="fas fa-star"></i> Penilaian Kelayakan Indikator</div>
+
 <div class="form-grid">
+
+    <!-- ⭐ KELANCARAN -->
     <div class="form-group">
         <label>1. KELANCARAN HAFALAN</label>
-        <div class="dropdown-wrapper-custom">
-            <div class="input-ikon select-custom-trigger">
-                <i class="fas fa-check-circle"></i>
-                <input type="text" id="nilai_kelancaran" value="" placeholder="-- Pilih Nilai --" readonly required>
-            </div>
-            <div class="dropdown-menu-custom">
-                <div class="dropdown-item-custom" style="color: #94a3b8;">-- Pilih Nilai --</div>
-                <div class="dropdown-item-custom">A (Sangat Lancar)</div>
-                <div class="dropdown-item-custom">B (Lancar)</div>
-                <div class="dropdown-item-custom">C (Cukup Lancar)</div>
-                <div class="dropdown-item-custom">D (Kurang Lancar)</div>
-            </div>
-        </div>
+        <select id="nilai_kelancaran"
+                data-cd="true"
+                data-cd-placeholder="-- Pilih Nilai --"
+                data-cd-variant="nilai-huruf"
+                data-cd-icons='{"A (Sangat Lancar)":"fas fa-star", "B (Lancar)":"fas fa-thumbs-up", "C (Cukup Lancar)":"fas fa-hand-paper", "D (Kurang Lancar)":"fas fa-exclamation-circle"}'>
+            <option value="">-- Pilih Nilai --</option>
+            <option value="A (Sangat Lancar)">A (Sangat Lancar)</option>
+            <option value="B (Lancar)">B (Lancar)</option>
+            <option value="C (Cukup Lancar)">C (Cukup Lancar)</option>
+            <option value="D (Kurang Lancar)">D (Kurang Lancar)</option>
+        </select>
     </div>
 
+    <!-- ⭐ TAHSIN -->
     <div class="form-group">
         <label>2. KUALITAS TAHSIN / MAKHRAJ</label>
-        <div class="dropdown-wrapper-custom">
-            <div class="input-ikon select-custom-trigger">
-                <i class="fas fa-comment-medical"></i>
-                <input type="text" id="nilai_tahsin" value="" placeholder="-- Pilih Nilai --" readonly required>
-            </div>
-            <div class="dropdown-menu-custom">
-                <div class="dropdown-item-custom" style="color: #94a3b8;">-- Pilih Nilai --</div>
-                <div class="dropdown-item-custom">A (Sangat Baik)</div>
-                <div class="dropdown-item-custom">B (Baik)</div>
-                <div class="dropdown-item-custom">C (Cukup)</div>
-                <div class="dropdown-item-custom">D (Perlu Perbaikan)</div>
-            </div>
-        </div>
+        <select id="nilai_tahsin"
+                data-cd="true"
+                data-cd-placeholder="-- Pilih Nilai --"
+                data-cd-variant="nilai-huruf"
+                data-cd-icons='{"A (Sangat Baik)":"fas fa-star", "B (Baik)":"fas fa-thumbs-up", "C (Cukup)":"fas fa-hand-paper", "D (Perlu Perbaikan)":"fas fa-exclamation-circle"}'>
+            <option value="">-- Pilih Nilai --</option>
+            <option value="A (Sangat Baik)">A (Sangat Baik)</option>
+            <option value="B (Baik)">B (Baik)</option>
+            <option value="C (Cukup)">C (Cukup)</option>
+            <option value="D (Perlu Perbaikan)">D (Perlu Perbaikan)</option>
+        </select>
     </div>
 
+    <!-- ⭐ TAJWID -->
     <div class="form-group">
         <label>3. ATURAN HUKUM TAJWID</label>
-        <div class="dropdown-wrapper-custom">
-            <div class="input-ikon select-custom-trigger">
-                <i class="fas fa-spell-check"></i>
-                <input type="text" id="nilai_tajwid" value="" placeholder="-- Pilih Nilai --" readonly required>
-            </div>
-            <div class="dropdown-menu-custom">
-                <div class="dropdown-item-custom" style="color: #94a3b8;">-- Pilih Nilai --</div>
-                <div class="dropdown-item-custom">A (Sangat Memahami)</div>
-                <div class="dropdown-item-custom">B (Memahami)</div>
-                <div class="dropdown-item-custom">C (Cukup Memahami)</div>
-                 <div class="dropdown-item-custom">D (Belum Memahami)</div>
-            </div>
-        </div>
+        <select id="nilai_tajwid"
+                data-cd="true"
+                data-cd-placeholder="-- Pilih Nilai --"
+                data-cd-variant="nilai-huruf"
+                data-cd-icons='{"A (Sangat Memahami)":"fas fa-star", "B (Memahami)":"fas fa-thumbs-up", "C (Cukup Memahami)":"fas fa-hand-paper", "D (Belum Memahami)":"fas fa-exclamation-circle"}'>
+            <option value="">-- Pilih Nilai --</option>
+            <option value="A (Sangat Memahami)">A (Sangat Memahami)</option>
+            <option value="B (Memahami)">B (Memahami)</option>
+            <option value="C (Cukup Memahami)">C (Cukup Memahami)</option>
+            <option value="D (Belum Memahami)">D (Belum Memahami)</option>
+        </select>
+    </div>
+
+</div>
     </div>
 </div>              
            
