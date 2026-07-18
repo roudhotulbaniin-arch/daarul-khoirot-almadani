@@ -1,9 +1,3 @@
-window.addEventListener('error', function(e) {
-    alert('❌ ERROR: ' + e.message + '\nFile: ' + e.filename + '\nLine: ' + e.lineno);
-});
-
-console.log('🔥 custom-dropdown.js loading...');
-
 /* ================================================================
    AUTO ASSIGN IKON DROPDOWN (dijalankan saat DOM siap)
 ================================================================ */
