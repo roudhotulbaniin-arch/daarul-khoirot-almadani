@@ -907,105 +907,138 @@ document.addEventListener("DOMContentLoaded", function () {
     /* ---------------------------------------------------
        AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
     --------------------------------------------------- */
-    document.querySelectordocument.querySelectorAll('form select').forEach(sel => {
-    if (sel.hasAttribute('data-cd')) return;
+    document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ pendaftaran.js loaded");
 
-    sel.setAttribute('data-cd', 'true');
+    /* ---------------------------------------------------
+       AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
+    --------------------------------------------------- */
+    try {
+        const allSelects = document.querySelectorAll('form select');
+        console.log(`📋 Ditemukan ${allSelects.length} select`);
+        
+        allSelects.forEach(sel => {
+            if (sel.hasAttribute('data-cd')) return;
 
-    const firstOpt = sel.options[0];
-    if (firstOpt && (!firstOpt.value || firstOpt.value === "")) {
-        const placeholder = firstOpt.textContent.trim();
-        sel.setAttribute('data-cd-placeholder', placeholder);
-    }
+            sel.setAttribute('data-cd', 'true');
 
-    const nameAttr = sel.getAttribute('name') || '';
-    if (
-        nameAttr.startsWith('prov_') ||
-        nameAttr.startsWith('kab_') ||
-        nameAttr.startsWith('kec_') ||
-        nameAttr.startsWith('desa_')
-    ) {
-        sel.setAttribute('data-cd-search', 'true');
-    }
-    
-    // ⭐ TAMBAHKAN INI — Tandai .input-ikon parent
-    const inputIkon = sel.closest('.input-ikon');
-    if (inputIkon) {
-        inputIkon.classList.add('has-cd');
-    }
-});
+            // Ambil placeholder dari opsi pertama
+            if (sel.options && sel.options.length > 0) {
+                const firstOpt = sel.options[0];
+                if (firstOpt && (!firstOpt.value || firstOpt.value === "")) {
+                    const placeholder = firstOpt.textContent.trim();
+                    sel.setAttribute('data-cd-placeholder', placeholder);
+                }
+            }
 
-    // Inisialisasi custom dropdown untuk SEMUA select
-    if (typeof CustomDropdown !== "undefined") {
-        CustomDropdown.init();
-        console.log("✅ Semua select dikonversi jadi Custom Dropdown");
-    } else {
-        console.warn("⚠️ CustomDropdown belum ter-load");
+            // Aktifkan search untuk dropdown wilayah
+            const nameAttr = sel.getAttribute('name') || '';
+            if (
+                nameAttr.startsWith('prov_') ||
+                nameAttr.startsWith('kab_') ||
+                nameAttr.startsWith('kec_') ||
+                nameAttr.startsWith('desa_')
+            ) {
+                sel.setAttribute('data-cd-search', 'true');
+            }
+        });
+
+        // Inisialisasi custom dropdown
+        if (typeof CustomDropdown !== "undefined") {
+            CustomDropdown.init();
+            console.log("✅ Custom Dropdown ter-inisialisasi");
+        } else {
+            console.warn("⚠️ CustomDropdown belum ter-load");
+        }
+    } catch (err) {
+        console.error("❌ Error auto-convert dropdown:", err);
     }
 
     /* ---------------------------------------------------
        LOAD PROVINSI AYAH OTOMATIS
     --------------------------------------------------- */
-    loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+    try {
+        loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
+    } catch (err) {
+        console.error("❌ Error loadWilayah:", err);
+    }
 
     /* ---------------------------------------------------
        MENU TOGGLE (hamburger)
     --------------------------------------------------- */
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
+    try {
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.querySelector('nav');
 
-    if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function (e) {
-            e.stopPropagation();
-            nav.classList.toggle('show');
-        });
-        console.log("✅ Menu toggle bound");
-    } else {
-        console.warn("⚠️ Menu toggle atau nav tidak ditemukan");
-    }
+        if (menuToggle && nav) {
+            menuToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                nav.classList.toggle('show');
+            });
+            console.log("✅ Menu toggle bound");
 
-    /* Highlight menu aktif */
-    const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-    document.querySelectorAll("nav ul li a").forEach(item => {
-        if (item.getAttribute("href") === currentUrl) item.classList.add("active");
-        item.addEventListener('click', () => { if (nav) nav.classList.remove('show'); });
-    });
-
-    /* Klik luar → tutup menu */
-    document.addEventListener('click', function (e) {
-        if (nav && menuToggle && !nav.contains(e.target) && e.target !== menuToggle) {
-            nav.classList.remove('show');
-        }
-    });
-
-    /* Validasi 16 digit */
-    const isNumeric = /^\d+$/;
-    function pasangValidasi16Digit(inputId, errorId, labelNama) {
-        const inputEl = document.getElementById(inputId);
-        const errorEl = document.getElementById(errorId);
-        if (!inputEl || !errorEl) return;
-        inputEl.addEventListener("input", function () {
-            const val = inputEl.value.trim();
-            if (val === "") {
-                inputEl.classList.remove("input-error", "input-success");
-                errorEl.style.display = "none";
-            } else if (val.length !== 16 || !isNumeric.test(val)) {
-                inputEl.classList.add("input-error");
-                inputEl.classList.remove("input-success");
-                errorEl.textContent = `${labelNama} harus berupa 16 digit angka!`;
-                errorEl.style.display = "block";
-            } else {
-                inputEl.classList.add("input-success");
-                inputEl.classList.remove("input-error");
-                errorEl.style.display = "none";
+            /* Highlight menu aktif */
+            const currentUrl = window.location.pathname.split("/").pop() || "index.html";
+            const menuLinks = nav.querySelectorAll("ul li a");
+            
+            if (menuLinks && menuLinks.length > 0) {
+                menuLinks.forEach(item => {
+                    const href = item.getAttribute("href");
+                    if (href === currentUrl) item.classList.add("active");
+                    item.addEventListener('click', () => {
+                        if (nav) nav.classList.remove('show');
+                    });
+                });
             }
-        });
-    }
-    pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
-    pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
-    pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
-});
 
+            /* Klik luar → tutup menu */
+            document.addEventListener('click', function (e) {
+                if (nav && menuToggle && !nav.contains(e.target) && e.target !== menuToggle) {
+                    nav.classList.remove('show');
+                }
+            });
+        } else {
+            console.warn("⚠️ Menu toggle atau nav tidak ditemukan");
+        }
+    } catch (err) {
+        console.error("❌ Error menu toggle:", err);
+    }
+
+    /* ---------------------------------------------------
+       VALIDASI 16 DIGIT (NIK & KK)
+    --------------------------------------------------- */
+    try {
+        const isNumeric = /^\d+$/;
+        function pasangValidasi16Digit(inputId, errorId, labelNama) {
+            const inputEl = document.getElementById(inputId);
+            const errorEl = document.getElementById(errorId);
+            if (!inputEl || !errorEl) return;
+            
+            inputEl.addEventListener("input", function () {
+                const val = inputEl.value.trim();
+                if (val === "") {
+                    inputEl.classList.remove("input-error", "input-success");
+                    errorEl.style.display = "none";
+                } else if (val.length !== 16 || !isNumeric.test(val)) {
+                    inputEl.classList.add("input-error");
+                    inputEl.classList.remove("input-success");
+                    errorEl.textContent = `${labelNama} harus berupa 16 digit angka!`;
+                    errorEl.style.display = "block";
+                } else {
+                    inputEl.classList.add("input-success");
+                    inputEl.classList.remove("input-error");
+                    errorEl.style.display = "none";
+                }
+            });
+        }
+        pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
+        pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
+        pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
+        console.log("✅ Validasi 16 digit bound");
+    } catch (err) {
+        console.error("❌ Error validasi:", err);
+    }
+});
 
 /* =========================================================
    11. EXPOSE KE WINDOW (agar bisa dipanggil dari onclick HTML)
