@@ -1,5 +1,5 @@
 /* ==========================================================
-   UTIL — closeDropdown
+   UTIL — closeDropdown (SEMUA dropdown-wrapper-custom)
 ========================================================== */
 function closeDropdown() {
     document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(box => {
@@ -8,7 +8,7 @@ function closeDropdown() {
 }
 
 /* ==========================================================
-   GENERIC INIT DROPDOWN
+   GENERIC INIT DROPDOWN (untuk manual dropdown)
 ========================================================== */
 function initDropdown(wrapperId, boxId, inputId) {
     const wrapper = document.getElementById(wrapperId);
@@ -29,8 +29,7 @@ function initDropdown(wrapperId, boxId, inputId) {
     wrapper.querySelectorAll(".dropdown-item-custom").forEach(item => {
         item.addEventListener("click", (e) => {
             e.stopPropagation();
-            const val = item.textContent.trim();
-            input.value = val;
+            input.value = item.textContent.trim();
             input.dispatchEvent(new Event("change"));
             wrapper.classList.remove("open");
         });
@@ -46,15 +45,14 @@ window.toggleCustomSelect = function (trigger) {
 
     const opened = wrapper.classList.contains("open");
     closeDropdown();
-    if (!opened) {
-        wrapper.classList.add("open");
-    }
+    if (!opened) wrapper.classList.add("open");
 };
 
 /* ==========================================================
-   CLOSE saat klik luar
+   CLOSE saat klik luar (HANYA untuk .dropdown-wrapper-custom)
+   .cd-wrapper punya listener sendiri di custom-dropdown.js
 ========================================================== */
-document.addEventListener("click", e => {
+document.addEventListener("click", (e) => {
     if (!e.target.closest(".dropdown-wrapper-custom")) {
         closeDropdown();
     }
@@ -118,7 +116,7 @@ function renderAyatSelesai(total) {
 }
 
 /* ==========================================================
-   DROPDOWN AYAT MULAI
+   DROPDOWN AYAT MULAI (Manual)
 ========================================================== */
 (function() {
     const box = document.getElementById("boxDariAyat");
@@ -134,9 +132,7 @@ function renderAyatSelesai(total) {
 
     box.addEventListener("click", (e) => {
         e.stopPropagation();
-        document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(w => {
-            if (w !== wrapper) w.classList.remove("open");
-        });
+        closeDropdown();
         wrapper.classList.toggle("open");
     });
 
@@ -159,7 +155,7 @@ function renderAyatSelesai(total) {
 })();
 
 /* ==========================================================
-   DROPDOWN AYAT SELESAI
+   DROPDOWN AYAT SELESAI (Manual)
 ========================================================== */
 (function() {
     const box = document.getElementById("boxSampaiAyat");
@@ -175,9 +171,7 @@ function renderAyatSelesai(total) {
 
     box.addEventListener("click", (e) => {
         e.stopPropagation();
-        document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(w => {
-            if (w !== wrapper) w.classList.remove("open");
-        });
+        closeDropdown();
         wrapper.classList.toggle("open");
     });
 
@@ -200,52 +194,17 @@ function renderAyatSelesai(total) {
 })();
 
 /* ==========================================================
-   DROPDOWN NILAI HAFALAN (Kelancaran, Tahsin, Tajwid)
-========================================================== */
-function initNilaiDropdown(wrapperEl, inputEl) {
-    if (!wrapperEl || !inputEl) return;
-
-    const box = wrapperEl.querySelector(".select-custom-trigger");
-    const menu = wrapperEl.querySelector(".dropdown-menu-custom");
-    if (!box || !menu) return;
-
-    box.addEventListener("click", (e) => {
-        e.stopPropagation();
-        document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(w => {
-            if (w !== wrapperEl) w.classList.remove("open");
-        });
-        wrapperEl.classList.toggle("open");
-    });
-
-    menu.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const item = e.target.closest(".dropdown-item-custom");
-        if (!item) return;
-
-        inputEl.value = item.textContent.trim();
-
-        menu.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
-        item.classList.add("active");
-
-        wrapperEl.classList.remove("open");
-    });
-}
-
-initNilaiDropdown(wrapKelancaran, el.kelancaran);
-initNilaiDropdown(wrapTahsin, el.tahsin);
-initNilaiDropdown(wrapTajwid, el.tajwid);
-
-/* ==========================================================
-   DROPDOWN STATUS KEHADIRAN
+   DROPDOWN STATUS KEHADIRAN (Manual)
 ========================================================== */
 (function() {
-    if (!el.boxStatusKehadiran || !wrapperStatus || !el.menuStatusKehadiranDropdown) return;
+    if (!el.boxStatusKehadiran || !wrapperStatus || !el.menuStatusKehadiranDropdown) {
+        console.warn("❌ Dropdown Status Kehadiran: element missing");
+        return;
+    }
 
     el.boxStatusKehadiran.addEventListener("click", (e) => {
         e.stopPropagation();
-        document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(w => {
-            if (w !== wrapperStatus) w.classList.remove("open");
-        });
+        closeDropdown();
         wrapperStatus.classList.toggle("open");
     });
 
@@ -255,11 +214,6 @@ initNilaiDropdown(wrapTajwid, el.tajwid);
         if (!item) return;
 
         el.statusKehadiran.value = item.dataset.value || item.textContent.trim();
-        
-        // Kalau ada input tampilan
-        if (el.boxStatusKehadiran.value !== undefined) {
-            el.boxStatusKehadiran.value = item.textContent.trim();
-        }
 
         el.menuStatusKehadiranDropdown.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
         item.classList.add("active");
