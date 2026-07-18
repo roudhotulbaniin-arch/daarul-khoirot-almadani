@@ -39,7 +39,7 @@
 /* Input custom dropdown */
 #boxStatusKehadiran input{
     border:none !important;
-    background:transparent !important;
+    border-color: var(--secondary-color) !important;
     padding:0 !important;
     box-shadow:none !important;
     outline:none !important;
