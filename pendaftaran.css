@@ -816,4 +816,181 @@ span.flatpickr-weekday {
         font-size: 0.85rem !important;
     }
 }
-    
+   
+/* ================================================================
+   PERBAIKAN FLATPICKR — Panah, Chevron, Layout
+================================================================ */
+
+/* Posisi panah kiri & kanan */
+.flatpickr-months {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 6px 8px !important;
+    min-height: 48px !important;
+}
+
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+    transition: background 0.2s !important;
+    top: unset !important;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+    fill: #ffd700 !important;
+}
+
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+    width: 14px !important;
+    height: 14px !important;
+    fill: #ffffff !important;
+}
+
+/* Tengah: nama bulan & tahun */
+.flatpickr-months .flatpickr-month {
+    flex: 1 !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.flatpickr-current-month {
+    position: static !important;
+    padding: 0 !important;
+    height: auto !important;
+    width: auto !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+}
+
+.flatpickr-current-month .cur-month {
+    margin-right: 4px !important;
+}
+
+.flatpickr-current-month input.cur-year {
+    width: 52px !important;
+    text-align: center !important;
+    font-size: 1rem !important;
+}
+
+/* Sembunyikan spinner tahun */
+.flatpickr-current-month .numInputWrapper span {
+    display: none !important;
+}
+
+.flatpickr-current-month .numInputWrapper {
+    width: 52px !important;
+}
+
+/* Layout grid tanggal */
+.flatpickr-days {
+    width: 100% !important;
+}
+
+.dayContainer {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    padding: 2px 0 !important;
+    justify-content: center !important;
+    gap: 2px !important;
+}
+
+/* Ukuran sel tanggal */
+.flatpickr-day {
+    max-width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    margin: 1px !important;
+    flex-basis: 13% !important;
+}
+
+/* Hari (header kolom: Sen Sel Rab ...) */
+.flatpickr-weekdays {
+    padding: 0 2px !important;
+}
+
+.flatpickr-weekdaycontainer {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 2px !important;
+}
+
+span.flatpickr-weekday {
+    max-width: 40px !important;
+    flex: 1 !important;
+    text-align: center !important;
+}
+
+/* Panah chevron di input — rotasi saat terbuka */
+.input-icon-wrapper.flatpickr-open .input-arrow {
+    transform: translateY(-50%) rotate(180deg) !important;
+    color: #1a5d1a !important;
+}
+
+/* Input terpilih saat kalender terbuka */
+.custom-date-input.active,
+.flatpickr-input.active ~ .input-arrow,
+.input-icon-wrapper.flatpickr-open .custom-date-input {
+    border-color: #144514 !important;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
+}
+
+/* Hapus segitiga (arrow) bawaan Flatpickr */
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowTop::after,
+.flatpickr-calendar.arrowBottom::before,
+.flatpickr-calendar.arrowBottom::after {
+    display: none !important;
+}
+
+/* Jarak kalender dari input */
+.flatpickr-calendar {
+    margin-top: 6px !important;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .flatpickr-calendar {
+        width: calc(100vw - 32px) !important;
+        max-width: 360px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: 4px !important;
+    }
+
+    .flatpickr-day {
+        max-width: 38px !important;
+        height: 38px !important;
+        line-height: 38px !important;
+        font-size: 0.82rem !important;
+    }
+
+    span.flatpickr-weekday {
+        font-size: 0.72rem !important;
+    }
+}
