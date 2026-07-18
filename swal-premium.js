@@ -1,9 +1,19 @@
+// Buat Swal instance dengan default kita
+const SwalPremiumBase = Swal.mixin({
+    showDenyButton: false,
+    showConfirmButton: true,
+    reverseButtons: true,
+    buttonsStyling: false
+});
+
+// Lalu di dalam SwalPremium, ganti `Swal.fire(...)` jadi `SwalPremiumBase.fire(...)`
+
 /* ================================================================
    SWEETALERT PREMIUM — Library All-in-One
    Untuk: Daarul Khoirot Almadani
    Style: Konsisten dengan tema hijau tua & font Quicksand
    ================================================================ */
-const SwalPremium = (function() {
+const SwalPremiumBase.fire = (function() {
     
     // Base config untuk semua alert
     const baseConfig = {
@@ -55,6 +65,7 @@ const SwalPremium = (function() {
                 <p class="swal-text">${text}</p>
             `,
             showCancelButton: true,
+showDenyButton: false,     
             confirmButtonText: `<i class="fas fa-check"></i> ${confirmText}`,
             cancelButtonText: `<i class="fas fa-times"></i> ${cancelText}`,
             focusCancel: true,
@@ -215,6 +226,7 @@ const SwalPremium = (function() {
                 <p class="swal-subtext">Sesi admin akan diakhiri</p>
             `,
             showCancelButton: true,
+showDenyButton: false,     
             confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Logout',
             cancelButtonText: '<i class="fas fa-times"></i> Batal',
             focusCancel: true,
@@ -260,6 +272,7 @@ const SwalPremium = (function() {
                 <p class="swal-subtext">⚠️ Tindakan ini permanen</p>
             `,
             showCancelButton: true,
+showDenyButton: false,     
             confirmButtonText: '<i class="fas fa-trash-alt"></i> Ya, Hapus',
             cancelButtonText: '<i class="fas fa-times"></i> Batal',
             focusCancel: true,
