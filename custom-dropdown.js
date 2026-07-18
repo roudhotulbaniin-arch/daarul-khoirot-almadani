@@ -7,27 +7,74 @@ console.log('🔥 custom-dropdown.js loading...');
 /* ================================================================
    AUTO ASSIGN IKON DROPDOWN (dijalankan saat DOM siap)
 ================================================================ */
+
 function autoAssignDropdownIcons() {
     const iconMapByName = {
+        /* ===== Data Santri ===== */
         'tingkat_unit'  : 'fas fa-user-graduate',
         'jenis_kelamin' : 'fas fa-venus-mars',
-        'st_ayah'       : 'fas fa-male',
-        'st_ibu'        : 'fas fa-female',
-        'st_wali'       : 'fas fa-user-shield',
-        'wn_ayah'       : 'fas fa-flag',
-        'wn_ibu'        : 'fas fa-flag',
-        'pdk_ayah'      : 'fas fa-graduation-cap',
-        'pdk_ibu'       : 'fas fa-graduation-cap',
-        'pjk_ayah'      : 'fas fa-briefcase',
-        'pjk_ibu'       : 'fas fa-briefcase',
-        'hasil_ayah'    : 'fas fa-money-bill-wave',
-        'hasil_ibu'     : 'fas fa-money-bill-wave',
-        'milik_ayah'    : 'fas fa-home',
-        'biaya'         : 'fas fa-hand-holding-usd',
-        'disabilitas'   : 'fas fa-wheelchair',
+        'cita'          : 'fas fa-bullseye',
+        'cita_cita'     : 'fas fa-bullseye',
+        'hobi'          : 'fas fa-palette',
+        'hobi_santri'   : 'fas fa-palette',
         'keb_khusus'    : 'fas fa-notes-medical',
+        'disabilitas'   : 'fas fa-wheelchair',
+        'biaya'         : 'fas fa-hand-holding-usd',
+        'biaya_sekolah' : 'fas fa-hand-holding-usd',
+        'biaya_oleh'    : 'fas fa-hand-holding-usd',
+        'anak_ke'       : 'fas fa-child',
+        'jml_saudara'   : 'fas fa-users',
+
+        /* ===== Ayah ===== */
+        'st_ayah'       : 'fas fa-male',
+        'wn_ayah'       : 'fas fa-flag',
+        'pdk_ayah'      : 'fas fa-graduation-cap',
+        'pjk_ayah'      : 'fas fa-briefcase',
+        'hasil_ayah'    : 'fas fa-money-bill-wave',
+        'milik_ayah'    : 'fas fa-home',
+
+        /* ===== Ibu ===== */
+        'st_ibu'        : 'fas fa-female',
+        'wn_ibu'        : 'fas fa-flag',
+        'pdk_ibu'       : 'fas fa-graduation-cap',
+        'pjk_ibu'       : 'fas fa-briefcase',
+        'hasil_ibu'     : 'fas fa-money-bill-wave',
+
+        /* ===== Wali ===== */
+        'st_wali'       : 'fas fa-user-shield',
+
+        /* ===== Domisili ===== */
         'pilih_dom_ibu'    : 'fas fa-map-marked-alt',
         'pilih_dom_santri' : 'fas fa-map-marked-alt',
+
+        /* ===== Jarak & Transportasi ===== */
+        'jarak'            : 'fas fa-route',
+        'jarak_lembaga'    : 'fas fa-route',
+        'jarak_ke_lembaga' : 'fas fa-route',
+        'transportasi'     : 'fas fa-bus',
+        'trans'            : 'fas fa-bus',
+        'waktu_tempuh'     : 'fas fa-clock',
+        'waktu'            : 'fas fa-clock',
+
+        /* ===== Informasi Tambahan / Pernyataan ===== */
+        'w_visi'        : 'fas fa-eye',
+        'w_pola'        : 'fas fa-clipboard-list',
+        'w_perilaku'    : 'fas fa-user-check',
+        'w_sehat'       : 'fas fa-heartbeat',
+        'w_tazir'       : 'fas fa-balance-scale',
+        'w_harapan'     : 'fas fa-star',
+
+        /* ===== Alternatif nama field ===== */
+        'visi_ortu'         : 'fas fa-eye',
+        'visi_orang_tua'    : 'fas fa-eye',
+        'pola_disiplin'     : 'fas fa-clipboard-list',
+        'pola_rumah'        : 'fas fa-clipboard-list',
+        'perilaku_dominan'  : 'fas fa-user-check',
+        'kondisi_kesehatan' : 'fas fa-heartbeat',
+        'sikap_sanksi'      : 'fas fa-balance-scale',
+        'sikap_tazir'       : 'fas fa-balance-scale',
+        'harapan'           : 'fas fa-star',
+        'harapan_terbesar'  : 'fas fa-star',
     };
 
     const iconLokasi = 'fas fa-map-marker-alt';
@@ -36,6 +83,7 @@ function autoAssignDropdownIcons() {
         const name = sel.getAttribute('name') || '';
         let icon = iconMapByName[name] || '';
 
+        // Fallback wilayah
         if (!icon) {
             if (name.startsWith('prov_') ||
                 name.startsWith('kab_')  ||
@@ -50,7 +98,72 @@ function autoAssignDropdownIcons() {
         }
     });
 
-    console.log('✅ Ikon dropdown otomatis di-assign');
+    /* ===== FALLBACK — Berdasarkan LABEL (untuk yang belum ke-mapping) ===== */
+    const labelIconMap = [
+        { keywords: ['cita'],                  icon: 'fas fa-bullseye' },
+        { keywords: ['hobi'],                  icon: 'fas fa-palette' },
+        { keywords: ['jarak'],                 icon: 'fas fa-route' },
+        { keywords: ['transportasi'],          icon: 'fas fa-bus' },
+        { keywords: ['waktu tempuh', 'waktu'], icon: 'fas fa-clock' },
+        { keywords: ['visi'],                  icon: 'fas fa-eye' },
+        { keywords: ['pola disiplin', 'pola'], icon: 'fas fa-clipboard-list' },
+        { keywords: ['perilaku'],              icon: 'fas fa-user-check' },
+        { keywords: ['kondisi kesehatan', 'kesehatan'], icon: 'fas fa-heartbeat' },
+        { keywords: ['sanksi', 'tazir'],       icon: 'fas fa-balance-scale' },
+        { keywords: ['harapan'],               icon: 'fas fa-star' },
+        { keywords: ['biaya'],                 icon: 'fas fa-hand-holding-usd' },
+        { keywords: ['kebutuhan khusus'],      icon: 'fas fa-notes-medical' },
+        { keywords: ['disabilitas'],           icon: 'fas fa-wheelchair' },
+        { keywords: ['unit', 'kelas', 'jenjang'],        icon: 'fas fa-user-graduate' },
+        { keywords: ['jenis kelamin', 'gender'],         icon: 'fas fa-venus-mars' },
+        { keywords: ['pendidikan'],            icon: 'fas fa-graduation-cap' },
+        { keywords: ['pekerjaan'],             icon: 'fas fa-briefcase' },
+        { keywords: ['penghasilan', 'gaji'],   icon: 'fas fa-money-bill-wave' },
+        { keywords: ['domisili', 'tinggal'],   icon: 'fas fa-map-marked-alt' },
+        { keywords: ['provinsi'],              icon: 'fas fa-map-marker-alt' },
+        { keywords: ['kabupaten', 'kota'],     icon: 'fas fa-city' },
+        { keywords: ['kecamatan'],             icon: 'fas fa-map' },
+        { keywords: ['desa', 'kelurahan'],     icon: 'fas fa-map-pin' },
+        { keywords: ['warga negara', 'kewarganegaraan'], icon: 'fas fa-flag' },
+        { keywords: ['status ayah'],           icon: 'fas fa-male' },
+        { keywords: ['status ibu'],            icon: 'fas fa-female' },
+        { keywords: ['wali'],                  icon: 'fas fa-user-shield' },
+        { keywords: ['kepemilikan', 'rumah'],  icon: 'fas fa-home' },
+        { keywords: ['anak ke'],               icon: 'fas fa-child' },
+        { keywords: ['jumlah saudara'],        icon: 'fas fa-users' },
+    ];
+
+    document.querySelectorAll('form select').forEach(sel => {
+        if (sel.hasAttribute('data-cd-main-icon')) return;
+
+        let labelText = '';
+
+        // 1. Cek <label for="...">
+        if (sel.id) {
+            const lbl = document.querySelector(`label[for="${sel.id}"]`);
+            if (lbl) labelText = lbl.textContent.toLowerCase();
+        }
+
+        // 2. Cek label di parent group
+        if (!labelText) {
+            const group = sel.closest('.form-group, .input-group, .field-group, div');
+            if (group) {
+                const lbl = group.querySelector('label');
+                if (lbl) labelText = lbl.textContent.toLowerCase();
+            }
+        }
+
+        if (!labelText) return;
+
+        for (const item of labelIconMap) {
+            if (item.keywords.some(k => labelText.includes(k))) {
+                sel.setAttribute('data-cd-main-icon', item.icon);
+                break;
+            }
+        }
+    });
+
+    console.log('✅ Ikon dropdown otomatis di-assign (name + label)');
 }
 
 /* ================================================================
