@@ -160,12 +160,19 @@ HTML
                         <input type="text" id="searchInput" placeholder="Cari nama, username, atau email...">
                     </div>
                     <div class="filter-group">
-                        <select id="filterStatus">
+                       <select id="filterStatus" 
+        data-cd="true" 
+        data-cd-placeholder="Semua Status"
+        data-cd-icons='{"":"fas fa-list", "aktif":"fas fa-check-circle", "nonaktif":"fas fa-times-circle"}'>
                             <option value="">Semua Status</option>
                             <option value="aktif">Aktif</option>
                             <option value="nonaktif">Nonaktif</option>
                         </select>
-                        <select id="filterJabatan">
+                       <select id="filterJabatan" 
+        data-cd="true"
+        data-cd-search="true"
+        data-cd-placeholder="Semua Jabatan"
+        data-cd-icons='{"":"fas fa-briefcase"}'>
                             <option value="">Semua Jabatan</option>
                         </select>
                         <button class="btn-refresh" id="btnRefresh" title="Refresh">
@@ -253,7 +260,10 @@ HTML
                             <label for="inputJabatan">
                                 <i class="fas fa-briefcase"></i> Jabatan
                             </label>
-                            <select id="inputJabatan" required>
+                           <select id="inputJabatan" required
+        data-cd="true"
+        data-cd-placeholder="-- Pilih Jabatan --"
+        data-cd-icons='{"Administrator":"fas fa-user-shield", "Kepala Pesantren":"fas fa-crown", "Sekretaris":"fas fa-file-signature", "Bendahara":"fas fa-money-bill", "Pengajar":"fas fa-chalkboard-teacher", "Staff":"fas fa-users"}'>
                                 <option value="">-- Pilih Jabatan --</option>
                                 <option value="Administrator">Administrator</option>
                                 <option value="Kepala Pesantren">Kepala Pesantren</option>
@@ -267,9 +277,11 @@ HTML
                             <label for="inputStatus">
                                 <i class="fas fa-toggle-on"></i> Status Akun
                             </label>
-                            <select id="inputStatus" required>
-                                <option value="true">✅ Aktif</option>
-                                <option value="false">❌ Nonaktif</option>
+                           <select id="inputStatus" required
+        data-cd="true"
+        data-cd-icons='{"true":"fas fa-check-circle", "false":"fas fa-times-circle"}'>
+                                <option value="true">Aktif</option>
+                                <option value="false">Nonaktif</option>
                             </select>
                         </div>
                     </div>
