@@ -279,49 +279,104 @@ el.menuStatusKehadiranDropdown.addEventListener("click", (e) => {
 
 });
     /* ==========================================================
-   CLICK AYAT MULAI (EVENT DELEGATION)
+   DROPDOWN AYAT MULAI
 ========================================================== */
-
-el.menuAyatMulai.addEventListener("click", (e) => {
-    const item = e.target.closest(".dropdown-item-custom");
-    if (!item) return;
+(function() {
+    const wrapper = document.getElementById("wrapperAyatMulai") 
+                    || document.getElementById("boxDariAyat")?.closest(".dropdown-wrapper-custom");
+    const box = document.getElementById("boxDariAyat");
+    const menu = document.getElementById("menuAyatMulaiDropdown");
+    const input = document.getElementById("ayat_mulai");
     
-    el.ayatMulai.value = item.dataset.value;
+    if (!wrapper || !box || !menu || !input) {
+        console.warn("❌ Dropdown Ayat Mulai: element missing", { wrapper, box, menu, input });
+        return;
+    }
     
-    // Tandai semua item tidak aktif, lalu tandai yang dipilih
-    el.menuAyatMulai.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
-    item.classList.add("active");
+    console.log("✅ Dropdown Ayat Mulai ready");
     
-    // Tutup dropdown & lepas fokus (biar tidak buka lagi)
-    wrapperMulai.classList.remove("open");
-    el.ayatMulai.blur();
+    // KLIK BOX → buka/tutup
+    box.addEventListener("click", (e) => {
+        e.stopPropagation();
+        
+        // Tutup dropdown lain
+        document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(w => {
+            if (w !== wrapper) w.classList.remove("open");
+        });
+        
+        wrapper.classList.toggle("open");
+        console.log("Toggle:", wrapper.classList.contains("open"));
+    });
     
-    hitungSetoran();
-    updateAkumulasi();
-    
-    e.stopPropagation();
-});
+    // KLIK ITEM → pilih & tutup
+    menu.addEventListener("click", (e) => {
+        e.stopPropagation();
+        
+        const item = e.target.closest(".dropdown-item-custom");
+        if (!item) return;
+        if (!item.dataset.value) return; // skip placeholder
+        
+        input.value = item.dataset.value;
+        
+        // Tandai aktif
+        menu.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+        
+        // Tutup
+        wrapper.classList.remove("open");
+        
+        // Hitung ulang
+        if (typeof hitungSetoran === "function") hitungSetoran();
+        if (typeof updateAkumulasi === "function") updateAkumulasi();
+        
+        console.log("Selected Ayat Mulai:", input.value);
+    });
+})();
 
 /* ==========================================================
-   CLICK AYAT SELESAI (EVENT DELEGATION)
+   DROPDOWN AYAT SELESAI
 ========================================================== */
-
-el.menuAyatSelesai.addEventListener("click", (e) => {
-    const item = e.target.closest(".dropdown-item-custom");
-    if (!item) return;
+(function() {
+    const wrapper = document.getElementById("wrapperAyatSelesai") 
+                    || document.getElementById("boxSampaiAyat")?.closest(".dropdown-wrapper-custom");
+    const box = document.getElementById("boxSampaiAyat");
+    const menu = document.getElementById("menuAyatSelesaiDropdown");
+    const input = document.getElementById("ayat_selesai");
     
-    el.ayatSelesai.value = item.dataset.value;
+    if (!wrapper || !box || !menu || !input) {
+        console.warn("❌ Dropdown Ayat Selesai: element missing", { wrapper, box, menu, input });
+        return;
+    }
     
-    // Tandai item aktif
-    el.menuAyatSelesai.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
-    item.classList.add("active");
+    console.log("✅ Dropdown Ayat Selesai ready");
     
-    // Tutup dropdown & lepas fokus
-    wrapperSelesai.classList.remove("open");
-    el.ayatSelesai.blur();
+    box.addEventListener("click", (e) => {
+        e.stopPropagation();
+        
+        document.querySelectorAll(".dropdown-wrapper-custom.open").forEach(w => {
+            if (w !== wrapper) w.classList.remove("open");
+        });
+        
+        wrapper.classList.toggle("open");
+    });
     
-    hitungSetoran();
-    updateAkumulasi();
-    
-    e.stopPropagation();
-});
+    menu.addEventListener("click", (e) => {
+        e.stopPropagation();
+        
+        const item = e.target.closest(".dropdown-item-custom");
+        if (!item) return;
+        if (!item.dataset.value) return;
+        
+        input.value = item.dataset.value;
+        
+        menu.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+        
+        wrapper.classList.remove("open");
+        
+        if (typeof hitungSetoran === "function") hitungSetoran();
+        if (typeof updateAkumulasi === "function") updateAkumulasi();
+        
+        console.log("Selected Ayat Selesai:", input.value);
+    });
+})();
