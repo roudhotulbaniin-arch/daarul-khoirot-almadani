@@ -904,7 +904,6 @@ function kirimWA(data) {
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ pendaftaran.js loaded");
 
-
 /* ---------------------------------------------------
    INIT FLATPICKR — Custom Date Picker
 --------------------------------------------------- */
@@ -926,6 +925,19 @@ try {
                 if (instance.altInput) {
                     instance.altInput.classList.add('custom-date-input');
                 }
+            },
+            
+            /* Chevron berputar saat kalender terbuka */
+            onOpen: function(selectedDates, dateStr, instance) {
+                const input = instance.altInput || instance.input;
+                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                if (wrapper) wrapper.classList.add('flatpickr-open');
+            },
+            
+            onClose: function(selectedDates, dateStr, instance) {
+                const input = instance.altInput || instance.input;
+                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                if (wrapper) wrapper.classList.remove('flatpickr-open');
             }
         });
         
@@ -936,7 +948,6 @@ try {
 } catch (err) {
     console.error('❌ Error init Flatpickr:', err);
 }
-
     /* ---------------------------------------------------
        AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
     --------------------------------------------------- */
