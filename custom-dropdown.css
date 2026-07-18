@@ -1361,11 +1361,62 @@
     font-size: 16px;
     pointer-events: none;
 }
+/* ================================================================
+   IKON UTAMA DROPDOWN (di kiri trigger, seperti ikon input teks)
+================================================================ */
 
+/* Beri ruang di kiri untuk ikon utama */
 .cd-trigger.has-main-icon {
-    padding-left: 42px; /* Beri ruang untuk ikon */
+    padding-left: 44px !important;
 }
 
-.cd-trigger.has-main-icon .cd-selected-label {
-    padding-left: 0;
+/* Ikon utama */
+.cd-trigger .cd-main-icon {
+    position: absolute !important;
+    left: 14px !important;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1a5d1a !important;
+    font-size: 1rem !important;
+    pointer-events: none;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+/* Untuk form-group juga */
+.form-group .cd-trigger.has-main-icon {
+    padding-left: 44px !important;
+}
+
+/* Untuk select-custom-trigger (dropdown Surah/Ayat) */
+.select-custom-trigger.has-main-icon {
+    padding-left: 44px !important;
+}
+
+.select-custom-trigger.has-main-icon > i:first-child {
+    position: absolute !important;
+    left: 14px !important;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1a5d1a !important;
+    font-size: 1rem !important;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Saat option terpilih, sembunyikan ikon kecil di label (agar tidak dobel) */
+.cd-trigger.has-main-icon .cd-selected-label > i:first-child {
+    display: none !important;
+}
+
+/* Mobile adjustment */
+@media (max-width: 480px) {
+    .cd-trigger.has-main-icon {
+        padding-left: 40px !important;
+    }
+    
+    .cd-trigger .cd-main-icon {
+        left: 12px !important;
+        font-size: 0.95rem !important;
+    }
 }
