@@ -1072,5 +1072,3 @@ window.handleMainAction     = handleMainAction;
 window.prosesSimpanFinal    = prosesSimpanFinal;
 window.kirimWA              = kirimWA;
 window.refreshCD            = refreshCD;
-
-console.log("✅ Semua fungsi ter-expose ke window");
