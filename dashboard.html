@@ -222,36 +222,16 @@
 
         <div class="form-grid">
 
-            <!-- TANGGAL CUSTOM -->
+<!-- TANGGAL REALTIME (Read-Only) -->
 <div class="form-group">
     <label>TANGGAL SETORAN</label>
-    <div class="dropdown-wrapper-custom">
-        <div class="input-ikon select-custom-trigger" id="boxTanggal" onclick="toggleCalendar()">
-            <i class="fas fa-calendar-alt"></i>
-            <input type="text" id="tanggalDisplay" placeholder="Pilih tanggal..." readonly required>
-            <input type="hidden" id="tanggal">
-            <i class="fas fa-chevron-down" style="margin-left:auto; color:#1e824c; font-size:0.8rem;"></i>
-        </div>
-        <div id="calendarDropdown" class="dropdown-menu-custom calendar-dropdown">
-            <div class="cal-header">
-                <button type="button" class="cal-nav" onclick="calNavMonth(-1)">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <span id="calMonthYear" class="cal-month-year"></span>
-                <button type="button" class="cal-nav" onclick="calNavMonth(1)">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-            <div class="cal-days-header">
-                <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
-            </div>
-            <div id="calGrid" class="cal-grid"></div>
-            <div class="cal-footer">
-                <button type="button" class="cal-today-btn" onclick="calSelectToday()">
-                    <i class="fas fa-calendar-check"></i> Hari Ini
-                </button>
-            </div>
-        </div>
+    <div class="input-ikon tanggal-realtime">
+        <i class="fas fa-calendar-alt"></i>
+        <input type="text" class="tanggal-display" readonly>
+        <input type="hidden" class="tanggal-value" id="tanggal">
+        <span class="tanggal-badge">
+            <i class="fas fa-circle"></i> LIVE
+        </span>
     </div>
 </div>
 
@@ -297,13 +277,18 @@
             <input type="hidden" id="santri" required>
 
             <!-- TANGGAL -->
-            <div class="form-group">
-                <label>TANGGAL SETORAN</label>
-                <div class="input-ikon">
-                    <i class="fas fa-calendar-alt"></i>
-                    <input type="date" id="tanggal" required>
-                </div>
-            </div>
+         <!-- TANGGAL REALTIME (Read-Only) -->
+<div class="form-group">
+    <label>TANGGAL SETORAN</label>
+    <div class="input-ikon tanggal-realtime">
+        <i class="fas fa-calendar-alt"></i>
+        <input type="text" class="tanggal-display" readonly>
+        <input type="hidden" class="tanggal-value" id="tanggal">
+        <span class="tanggal-badge">
+            <i class="fas fa-circle"></i> LIVE
+        </span>
+    </div>
+</div>
             
             <!-- SURAH & AYAT -->
             <div class="form-grid">
