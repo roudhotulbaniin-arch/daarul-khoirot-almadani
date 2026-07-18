@@ -40,20 +40,47 @@ const huruf = value => {
    FORMAT
 ========================================================== */
 function setTanggalHariIni() {
-
-    const input = document.getElementById("tanggalKehadiran");
-    if (!input) return;
-
     const hariIni = new Date();
-
-    // Format YYYY-MM-DD
-    const tanggal = hariIni.getFullYear() + "-" +
+    
+    const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    
+    // Format tampilan cantik: "Senin, 14 Juli 2025"
+    const displayText = hari[hariIni.getDay()] + ', ' + 
+                        hariIni.getDate() + ' ' + 
+                        bulan[hariIni.getMonth()] + ' ' + 
+                        hariIni.getFullYear();
+    
+    // Format ISO: "2025-07-14"
+    const isoDate = hariIni.getFullYear() + "-" +
         String(hariIni.getMonth() + 1).padStart(2, "0") + "-" +
         String(hariIni.getDate()).padStart(2, "0");
-
-    input.value = tanggal;
-
+    
+    // 1. Isi SEMUA elemen dengan class .tanggal-display-text (span teks cantik)
+    document.querySelectorAll('.tanggal-display-text').forEach(el => {
+        el.textContent = displayText;
+    });
+    
+    // 2. Isi SEMUA elemen dengan class .tanggal-value (hidden input untuk simpan)
+    document.querySelectorAll('.tanggal-value').forEach(el => {
+        el.value = isoDate;
+    });
+    
+    // 3. Backward compatibility - isi juga input lama by ID
+    const inputKehadiran = document.getElementById("tanggalKehadiran");
+    if (inputKehadiran) inputKehadiran.value = isoDate;
+    
+    const inputHafalan = document.getElementById("tanggal");
+    if (inputHafalan) inputHafalan.value = isoDate;
+    
+    console.log("✅ Tanggal realtime updated: " + displayText);
 }
+
+// Auto-jalankan saat halaman siap
+document.addEventListener('DOMContentLoaded', setTanggalHariIni);
+
+// Update tiap 30 detik (aman lewat tengah malam)
+setInterval(setTanggalHariIni, 30000);
 
 function formatTanggal(value){
 
