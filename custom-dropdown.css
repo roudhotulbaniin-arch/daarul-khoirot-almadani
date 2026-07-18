@@ -511,3 +511,458 @@
 .cd-wrapper[data-cd-variant-active="nilai"] .cd-trigger .cd-selected-label i {
     font-size: 0.95rem;
 }
+
+/* ================================================================
+   VARIANT "KEHADIRAN" — Hadir / Izin / Sakit / Alpha
+   ================================================================ */
+
+/* HADIR — Hijau */
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Hadir"] .cd-trigger {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Hadir"] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Hadir"] .cd-arrow {
+    color: #059669;
+}
+
+/* IZIN — Kuning */
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Izin"] .cd-trigger {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Izin"] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Izin"] .cd-arrow {
+    color: #d97706;
+}
+
+/* SAKIT — Oranye */
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Sakit"] .cd-trigger {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    border-color: #ea580c;
+    color: #7c2d12;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Sakit"] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Sakit"] .cd-arrow {
+    color: #c2410c;
+}
+
+/* ALPHA — Merah */
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Alpha"] .cd-trigger {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Alpha"] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Alpha"] .cd-arrow {
+    color: #dc2626;
+}
+
+/* ---------- OPTIONS KEHADIRAN (menu dropdown) ---------- */
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option {
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+/* HADIR Option */
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"] {
+    border-left-color: #10b981;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"] i {
+    color: #10b981;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"]:hover,
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"].highlighted {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"].selected {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"].selected i {
+    color: white;
+}
+
+/* IZIN Option */
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"] {
+    border-left-color: #f59e0b;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"] i {
+    color: #d97706;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"]:hover,
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"].highlighted {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"].selected {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"].selected i {
+    color: white;
+}
+
+/* SAKIT Option */
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"] {
+    border-left-color: #ea580c;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"] i {
+    color: #ea580c;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"]:hover,
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"].highlighted {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    color: #7c2d12;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"].selected {
+    background: linear-gradient(135deg, #ea580c, #c2410c);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"].selected i {
+    color: white;
+}
+
+/* ALPHA Option */
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"] {
+    border-left-color: #ef4444;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"] i {
+    color: #ef4444;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"]:hover,
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"].highlighted {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    color: #991b1b;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"].selected {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"].selected i {
+    color: white;
+}
+
+/* Check mark putih untuk semua selected */
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option.selected::after {
+    color: white;
+}
+
+
+/* ================================================================
+   VARIANT "NILAI-HURUF" — A / B / C / D (Hafalan)
+   ================================================================ */
+
+/* Matcher: cek awalan "A ", "B ", "C ", "D " di data-value */
+
+/* NILAI A — Hijau */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A "] .cd-trigger,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A("] .cd-trigger {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A "] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A "] .cd-arrow,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A("] .cd-arrow {
+    color: #059669;
+}
+
+/* NILAI B — Biru */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B "] .cd-trigger,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B("] .cd-trigger {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-color: #3b82f6;
+    color: #1e40af;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B "] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B "] .cd-arrow,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B("] .cd-arrow {
+    color: #2563eb;
+}
+
+/* NILAI C — Oranye */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C "] .cd-trigger,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C("] .cd-trigger {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C "] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C "] .cd-arrow,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C("] .cd-arrow {
+    color: #d97706;
+}
+
+/* NILAI D — Merah */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D "] .cd-trigger,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D("] .cd-trigger {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D "] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D "] .cd-arrow,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D("] .cd-arrow {
+    color: #dc2626;
+}
+
+/* ---------- OPTIONS NILAI-HURUF ---------- */
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option {
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+/* A options */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "],
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("] {
+    border-left-color: #10b981;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "] i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("] i {
+    color: #10b981;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "].highlighted,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("].highlighted {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "].selected,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("].selected {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "].selected i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("].selected i {
+    color: white;
+}
+
+/* B options */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "],
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("] {
+    border-left-color: #3b82f6;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "] i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("] i {
+    color: #3b82f6;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "].highlighted,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("].highlighted {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "].selected,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("].selected {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "].selected i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("].selected i {
+    color: white;
+}
+
+/* C options */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "],
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("] {
+    border-left-color: #f59e0b;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "] i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("] i {
+    color: #d97706;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "].highlighted,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("].highlighted {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    color: #92400e;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "].selected,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("].selected {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "].selected i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("].selected i {
+    color: white;
+}
+
+/* D options */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "],
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("] {
+    border-left-color: #ef4444;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "] i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("] i {
+    color: #ef4444;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "].highlighted,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("]:hover,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("].highlighted {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    color: #991b1b;
+    transform: translateX(2px);
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "].selected,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("].selected {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "].selected i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("].selected i {
+    color: white;
+}
+
+/* Check mark putih untuk semua selected */
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option.selected::after {
+    color: white;
+}
+
+
+/* ================================================================
+   ENHANCEMENT — Trigger di dalam .form-group biasa
+   ================================================================ */
+
+/* Wrapper dropdown di form-group (Kehadiran & Hafalan) */
+.form-group .cd-wrapper {
+    width: 100%;
+}
+
+.form-group .cd-trigger {
+    padding: 12px 44px 12px 16px;
+    min-height: 46px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: left;
+    justify-content: flex-start;
+    border-radius: 10px;
+    border: 2px solid #e0e6ed;
+    background: #ffffff;
+}
+
+.form-group .cd-selected-label {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.form-group .cd-trigger:hover {
+    border-color: #1a5d1a;
+}
+
+.form-group .cd-wrapper.open .cd-trigger {
+    border-color: #1a5d1a;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08);
+}
+
+/* Icon di selected label (form-group) */
+.form-group .cd-trigger .cd-selected-label i {
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+/* Options di form-group */
+.form-group .cd-option {
+    padding: 11px 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group .cd-option i {
+    font-size: 0.95rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Check mark saat selected — putih */
+.form-group .cd-option.selected::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-left: auto;
+    color: white;
+    font-size: 0.8rem;
+}
+
+
+/* ================================================================
+   MOBILE RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 768px) {
+    .form-group .cd-trigger {
+        padding: 11px 40px 11px 14px;
+        font-size: 0.87rem;
+        min-height: 44px;
+    }
+    
+    .form-group .cd-option {
+        padding: 12px 12px;
+        font-size: 0.86rem;
+    }
+}
