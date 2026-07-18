@@ -623,10 +623,11 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 }
 
 /* ================================================================
-   FLATPICKR CUSTOM THEME — Hijau Daarul Khoirot
+   FLATPICKR CUSTOM THEME — Daarul Khoirot Almadani
+   Versi Final & Bersih
 ================================================================ */
 
-/* Kalender container */
+/* ---------------- KALENDER CONTAINER ---------------- */
 .flatpickr-calendar {
     font-family: 'Quicksand', sans-serif !important;
     border-radius: 14px !important;
@@ -634,95 +635,249 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     border: 2px solid #1a5d1a !important;
     background: #ffffff !important;
     padding: 8px !important;
+    margin-top: 6px !important;
+    width: auto !important;
+    box-sizing: border-box !important;
 }
 
-/* Header (bulan & tahun) */
+/* Hapus segitiga bawaan */
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowTop::after,
+.flatpickr-calendar.arrowBottom::before,
+.flatpickr-calendar.arrowBottom::after {
+    display: none !important;
+}
+
+/* Animasi buka */
+.flatpickr-calendar.open,
+.flatpickr-calendar.inline {
+    animation: fpFadeIn 0.2s ease;
+}
+
+@keyframes fpFadeIn {
+    from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------------- HEADER (Bulan & Tahun + Panah) ---------------- */
 .flatpickr-months {
     background: linear-gradient(135deg, #1a5d1a, #144514) !important;
     color: white !important;
     border-radius: 10px !important;
-    padding: 10px 0 !important;
-    margin-bottom: 6px;
+    padding: 6px 8px !important;
+    margin-bottom: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 48px !important;
+    position: relative !important;
 }
 
-.flatpickr-month {
-    color: white !important;
-}
-
-.flatpickr-current-month {
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    padding-top: 6px !important;
-    color: white !important;
-}
-
-.flatpickr-current-month .cur-month,
-.flatpickr-current-month input.cur-year {
-    color: white !important;
-    font-weight: 700 !important;
-    font-family: 'Quicksand', sans-serif !important;
-}
-
-.flatpickr-current-month input.cur-year:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-radius: 4px;
-}
-
-/* Panah navigasi */
-.flatpickr-prev-month,
-.flatpickr-next-month {
+/* Panah Prev & Next */
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+    position: static !important;
+    top: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
     fill: white !important;
-    color: white !important;
-    padding: 8px !important;
-    transition: all 0.2s;
+    transition: background 0.2s !important;
+    cursor: pointer !important;
 }
 
-.flatpickr-prev-month svg,
-.flatpickr-next-month svg {
-    fill: white !important;
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
 }
 
-.flatpickr-prev-month:hover,
-.flatpickr-next-month:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-radius: 6px !important;
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+    width: 14px !important;
+    height: 14px !important;
+    fill: #ffffff !important;
 }
 
-.flatpickr-prev-month:hover svg,
-.flatpickr-next-month:hover svg {
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
     fill: #ffd700 !important;
 }
 
-/* Hari (Sen, Sel, Rab, ...) */
+/* Container tengah (bulan & tahun) */
+.flatpickr-months .flatpickr-month {
+    flex: 1 !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+}
+
+.flatpickr-current-month {
+    position: static !important;
+    padding: 0 !important;
+    height: auto !important;
+    width: auto !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    left: unset !important;
+    transform: none !important;
+}
+
+.flatpickr-current-month .cur-month {
+    color: white !important;
+    font-weight: 700 !important;
+    font-family: 'Quicksand', sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.flatpickr-current-month input.cur-year {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 6px !important;
+    padding: 4px 6px !important;
+    font-weight: 700 !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 1rem !important;
+    width: 60px !important;
+    text-align: center !important;
+    outline: none;
+}
+
+.flatpickr-current-month input.cur-year:hover,
+.flatpickr-current-month input.cur-year:focus {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Dropdown bulan (untuk tanggal lahir) */
+.flatpickr-monthDropdown-months {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    font-weight: 700 !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.95rem !important;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.flatpickr-monthDropdown-months:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+.flatpickr-monthDropdown-months option {
+    background: white !important;
+    color: #144514 !important;
+    font-weight: 600 !important;
+}
+
+/* Sembunyikan spinner tahun */
+.flatpickr-current-month .numInputWrapper {
+    width: 60px !important;
+    position: relative;
+}
+
+.flatpickr-current-month .numInputWrapper span {
+    display: none !important;
+}
+
+/* ---------------- WEEKDAYS (Header Sen Sel Rab...) ---------------- */
+.flatpickr-innerContainer,
+.flatpickr-rContainer,
+.flatpickr-days {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
 .flatpickr-weekdays {
-    background: #f9fdf9 !important;
-    border-radius: 8px;
-    margin: 4px 0;
+    background: transparent !important;
+    padding: 0 6px !important;
+    margin: 6px 0 4px !important;
+    height: auto !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.flatpickr-weekdaycontainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 span.flatpickr-weekday {
-    color: #1a5d1a !important;
-    font-weight: 700 !important;
-    font-size: 0.78rem !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: unset !important;
+    background: #e8f5e8 !important;
+    color: #144514 !important;
+    font-weight: 800 !important;
+    font-size: 0.72rem !important;
     font-family: 'Quicksand', sans-serif !important;
+    text-align: center !important;
+    padding: 8px 0 !important;
+    border-radius: 8px !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
 }
 
-/* Tanggal-tanggal */
+/* ---------------- GRID TANGGAL ---------------- */
+.dayContainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    padding: 0 6px 10px !important;
+    justify-content: unset !important;
+    box-sizing: border-box !important;
+}
+
 .flatpickr-day {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: unset !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
     color: #374151 !important;
     font-weight: 600 !important;
     font-family: 'Quicksand', sans-serif !important;
-    border-radius: 8px !important;
-    font-size: 0.88rem;
-    transition: all 0.15s ease;
-    margin: 1px;
+    font-size: 0.88rem !important;
+    transition: all 0.15s ease !important;
+    box-sizing: border-box !important;
 }
 
 .flatpickr-day:hover {
     background: linear-gradient(135deg, #f0f9f0, #d1fae5) !important;
     color: #144514 !important;
     border-color: transparent !important;
-    transform: scale(1.05);
 }
 
 /* Hari ini */
@@ -746,10 +901,9 @@ span.flatpickr-weekday {
     border-color: #1a5d1a !important;
     font-weight: 800 !important;
     box-shadow: 0 4px 10px rgba(26, 93, 26, 0.3);
-    transform: scale(1.05);
 }
 
-/* Tanggal disabled */
+/* Disabled */
 .flatpickr-day.disabled,
 .flatpickr-day.disabled:hover,
 .flatpickr-day.flatpickr-disabled {
@@ -758,378 +912,54 @@ span.flatpickr-weekday {
     cursor: not-allowed !important;
 }
 
-/* Bulan/tahun sebelah (opacity) */
+/* Bulan sebelumnya/berikutnya */
 .flatpickr-day.prevMonthDay,
 .flatpickr-day.nextMonthDay {
     color: #9ca3af !important;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
-/* Panah bulan */
-.flatpickr-monthDropdown-months {
-    background: rgba(255,255,255,0.15) !important;
-    color: white !important;
-    border-radius: 6px !important;
-    padding: 4px 8px !important;
-    font-weight: 700 !important;
-    border: none !important;
-    outline: none !important;
-    cursor: pointer;
-}
-
-.flatpickr-monthDropdown-months option {
-    background: white !important;
-    color: #144514 !important;
-    font-weight: 600 !important;
-}
-
-/* Animasi buka */
-.flatpickr-calendar.open,
-.flatpickr-calendar.inline {
-    animation: fpFadeIn 0.2s ease;
-}
-
-@keyframes fpFadeIn {
-    from { opacity: 0; transform: translateY(-8px) scale(0.95); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Segitiga arrow ke input */
-.flatpickr-calendar.arrowTop::before,
-.flatpickr-calendar.arrowTop::after {
-    border-bottom-color: #1a5d1a !important;
-}
-
-.flatpickr-calendar.arrowBottom::before,
-.flatpickr-calendar.arrowBottom::after {
-    border-top-color: #1a5d1a !important;
-}
-
-/* Mobile responsive */
-@media (max-width: 480px) {
-    .flatpickr-calendar {
-        width: 92% !important;
-        max-width: 340px !important;
-    }
-    
-    .flatpickr-day {
-        font-size: 0.85rem !important;
-    }
-}
-   
-/* ================================================================
-   PERBAIKAN FLATPICKR — Panah, Chevron, Layout
-================================================================ */
-
-/* Posisi panah kiri & kanan */
-.flatpickr-months {
-    position: relative !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 6px 8px !important;
-    min-height: 48px !important;
-}
-
-.flatpickr-months .flatpickr-prev-month,
-.flatpickr-months .flatpickr-next-month {
-    position: static !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 32px !important;
-    height: 32px !important;
-    padding: 0 !important;
-    border-radius: 8px !important;
-    flex-shrink: 0 !important;
-    transition: background 0.2s !important;
-    top: unset !important;
-}
-
-.flatpickr-months .flatpickr-prev-month:hover,
-.flatpickr-months .flatpickr-next-month:hover {
-    background: rgba(255, 255, 255, 0.25) !important;
-}
-
-.flatpickr-months .flatpickr-prev-month:hover svg,
-.flatpickr-months .flatpickr-next-month:hover svg {
-    fill: #ffd700 !important;
-}
-
-.flatpickr-months .flatpickr-prev-month svg,
-.flatpickr-months .flatpickr-next-month svg {
-    width: 14px !important;
-    height: 14px !important;
-    fill: #ffffff !important;
-}
-
-/* Tengah: nama bulan & tahun */
-.flatpickr-months .flatpickr-month {
-    flex: 1 !important;
-    height: auto !important;
-    padding: 0 !important;
-    background: transparent !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.flatpickr-current-month {
-    position: static !important;
-    padding: 0 !important;
-    height: auto !important;
-    width: auto !important;
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 4px !important;
-}
-
-.flatpickr-current-month .cur-month {
-    margin-right: 4px !important;
-}
-
-.flatpickr-current-month input.cur-year {
-    width: 52px !important;
-    text-align: center !important;
-    font-size: 1rem !important;
-}
-
-/* Sembunyikan spinner tahun */
-.flatpickr-current-month .numInputWrapper span {
-    display: none !important;
-}
-
-.flatpickr-current-month .numInputWrapper {
-    width: 52px !important;
-}
-
-/* Layout grid tanggal */
-.flatpickr-days {
-    width: 100% !important;
-}
-
-.dayContainer {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    padding: 2px 0 !important;
-    justify-content: center !important;
-    gap: 2px !important;
-}
-
-/* Ukuran sel tanggal */
-.flatpickr-day {
-    max-width: 40px !important;
-    height: 40px !important;
-    line-height: 40px !important;
-    margin: 1px !important;
-    flex-basis: 13% !important;
-}
-
-/* Hari (header kolom: Sen Sel Rab ...) */
-.flatpickr-weekdays {
-    padding: 0 2px !important;
-}
-
-.flatpickr-weekdaycontainer {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 2px !important;
-}
-
-span.flatpickr-weekday {
-    max-width: 40px !important;
-    flex: 1 !important;
-    text-align: center !important;
-}
-
-/* Panah chevron di input — rotasi saat terbuka */
+/* ---------------- INPUT WRAPPER — Chevron ---------------- */
 .input-icon-wrapper.flatpickr-open .input-arrow {
     transform: translateY(-50%) rotate(180deg) !important;
     color: #1a5d1a !important;
 }
 
-/* Input terpilih saat kalender terbuka */
-.custom-date-input.active,
-.flatpickr-input.active ~ .input-arrow,
 .input-icon-wrapper.flatpickr-open .custom-date-input {
     border-color: #144514 !important;
     box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
 }
 
-/* Hapus segitiga (arrow) bawaan Flatpickr */
-.flatpickr-calendar.arrowTop::before,
-.flatpickr-calendar.arrowTop::after,
-.flatpickr-calendar.arrowBottom::before,
-.flatpickr-calendar.arrowBottom::after {
-    display: none !important;
-}
-
-/* Jarak kalender dari input */
-.flatpickr-calendar {
-    margin-top: 6px !important;
-}
-
-/* Mobile */
+/* ---------------- MOBILE RESPONSIVE ---------------- */
 @media (max-width: 480px) {
     .flatpickr-calendar {
-        width: calc(100vw - 32px) !important;
+        width: calc(100vw - 24px) !important;
         max-width: 360px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
         margin-top: 4px !important;
     }
 
-    .flatpickr-day {
-        max-width: 38px !important;
-        height: 38px !important;
-        line-height: 38px !important;
-        font-size: 0.82rem !important;
+    .flatpickr-weekdaycontainer,
+    .dayContainer {
+        gap: 3px !important;
     }
 
-    span.flatpickr-weekday {
-        font-size: 0.72rem !important;
-    }
-}
-
-/* ---------------------------------------------------
-   INIT FLATPICKR — Custom Date Picker
---------------------------------------------------- */
-try {
-    if (typeof flatpickr !== "undefined") {
-        flatpickr("#tgl_daftar", {
-            locale: "id",                    // Bahasa Indonesia
-            dateFormat: "Y-m-d",              // Format simpan (2024-11-25)
-            altInput: true,                   // Tampilkan format berbeda ke user
-            altFormat: "l, d F Y",            // Format tampilan (Senin, 25 November 2024)
-            defaultDate: "today",             // Default hari ini
-            maxDate: "today",                 // Batasi max hari ini
-            allowInput: false,                // Tidak bisa diketik
-            disableMobile: true,              // JANGAN pakai native picker di mobile
-            monthSelectorType: "static",
-            
-            onReady: function(selectedDates, dateStr, instance) {
-                // Custom class untuk styling
-                if (instance.altInput) {
-                    instance.altInput.classList.add('custom-date-input');
-                }
-            },
-            
-            /* Chevron berputar saat kalender terbuka */
-            onOpen: function(selectedDates, dateStr, instance) {
-                const input = instance.altInput || instance.input;
-                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                if (wrapper) wrapper.classList.add('flatpickr-open');
-            },
-            
-            onClose: function(selectedDates, dateStr, instance) {
-                const input = instance.altInput || instance.input;
-                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                if (wrapper) wrapper.classList.remove('flatpickr-open');
-            }
-        });
-        
-        console.log('✅ Flatpickr berhasil di-init');
-    } else {
-        console.warn('⚠️ Flatpickr belum ter-load');
-    }
-} catch (err) {
-    console.error('❌ Error init Flatpickr:', err);
-}
-
-/* ================================================================
-   FIX ALIGNMENT — Header Hari SEJAJAR dengan Tanggal
-================================================================ */
-
-/* Container utama hari & tanggal — samakan lebar */
-.flatpickr-innerContainer,
-.flatpickr-rContainer,
-.flatpickr-days {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* ---------- HEADER HARI (Sen Sel Rab Kam Jum Sab Min) ---------- */
-.flatpickr-weekdays {
-    background: transparent !important;
-    padding: 0 6px !important;
-    margin: 8px 0 4px !important;
-    height: auto !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.flatpickr-weekdaycontainer {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    gap: 4px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-span.flatpickr-weekday {
-    width: 100% !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    flex: unset !important;
-    background: #e8f5e8 !important;
-    color: #144514 !important;
-    font-weight: 800 !important;
-    font-size: 0.72rem !important;
-    text-align: center !important;
-    padding: 8px 0 !important;
-    border-radius: 8px !important;
-    line-height: 1 !important;
-    box-sizing: border-box !important;
-}
-
-/* ---------- GRID TANGGAL ---------- */
-.dayContainer {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    gap: 4px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 100% !important;
-    padding: 0 6px 10px !important;
-    justify-content: unset !important;
-    box-sizing: border-box !important;
-}
-
-.flatpickr-day {
-    width: 100% !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    flex: unset !important;
-    height: 40px !important;
-    line-height: 40px !important;
-    margin: 0 !important;
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-    box-sizing: border-box !important;
-}
-
-/* Mobile */
-@media (max-width: 480px) {
     span.flatpickr-weekday {
         font-size: 0.68rem !important;
         padding: 6px 0 !important;
     }
-    
+
     .flatpickr-day {
         height: 38px !important;
         line-height: 38px !important;
         font-size: 0.85rem !important;
     }
-    
-    .flatpickr-weekdaycontainer,
-    .dayContainer {
-        gap: 3px !important;
+
+    .flatpickr-current-month {
+        font-size: 0.95rem !important;
+    }
+
+    .flatpickr-current-month input.cur-year {
+        width: 55px !important;
+        font-size: 0.95rem !important;
     }
 }
-
