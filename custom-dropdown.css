@@ -332,3 +332,182 @@
     padding: 12px 14px;
     font-size: 0.92rem;
 }
+
+/* ================================================================
+   VARIANT "NILAI" — Untuk Penilaian Ibadah & Akhlaq
+   ================================================================ */
+
+/* Wrapper kecil (dalam penilaian-card) */
+.penilaian-card .cd-wrapper {
+    margin-top: 8px;
+}
+
+/* Trigger di dalam penilaian-card */
+.penilaian-card .cd-trigger {
+    padding: 10px 40px 10px 14px;
+    font-size: 0.9rem;
+    min-height: 44px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-align: center;
+    justify-content: center;
+    border-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.penilaian-card .cd-trigger .cd-selected-label {
+    justify-content: center;
+    text-align: center;
+}
+
+/* ==========================================================
+   COLOR STATES BERDASARKAN NILAI (data-cd-variant="nilai")
+   ========================================================== */
+
+/* SANGAT BAIK — Hijau */
+.cd-wrapper[data-value="Sangat Baik"] .cd-trigger {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.cd-wrapper[data-value="Sangat Baik"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Sangat Baik"] .cd-arrow {
+    color: #10b981;
+}
+
+/* BAIK — Biru */
+.cd-wrapper[data-value="Baik"] .cd-trigger {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-color: #3b82f6;
+    color: #1e40af;
+}
+
+.cd-wrapper[data-value="Baik"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Baik"] .cd-arrow {
+    color: #3b82f6;
+}
+
+/* CUKUP — Oranye */
+.cd-wrapper[data-value="Cukup"] .cd-trigger {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.cd-wrapper[data-value="Cukup"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Cukup"] .cd-arrow {
+    color: #d97706;
+}
+
+/* KURANG — Merah */
+.cd-wrapper[data-value="Kurang"] .cd-trigger {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.cd-wrapper[data-value="Kurang"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Kurang"] .cd-arrow {
+    color: #ef4444;
+}
+
+/* ==========================================================
+   OPTIONS DENGAN WARNA (dalam menu dropdown)
+   ========================================================== */
+
+/* Nilai variant options */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option {
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+/* SANGAT BAIK Option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"] {
+    border-left-color: #10b981;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"].highlighted {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"] i {
+    color: #10b981;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"].selected {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+/* BAIK Option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"] {
+    border-left-color: #3b82f6;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"].highlighted {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"] i {
+    color: #3b82f6;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"].selected {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+/* CUKUP Option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"] {
+    border-left-color: #f59e0b;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"].highlighted {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    color: #92400e;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"] i {
+    color: #d97706;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"].selected {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+/* KURANG Option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"] {
+    border-left-color: #ef4444;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"].highlighted {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    color: #991b1b;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"] i {
+    color: #ef4444;
+}
+
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"].selected {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+/* Selected state check mark — pakai warna putih */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option.selected::after {
+    color: white;
+}
+
+/* Icon di trigger nilai */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-trigger .cd-selected-label i {
+    font-size: 0.95rem;
+}
