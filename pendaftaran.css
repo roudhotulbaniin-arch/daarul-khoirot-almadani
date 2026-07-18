@@ -1039,3 +1039,4 @@ try {
 } catch (err) {
     console.error('❌ Error init Flatpickr:', err);
 }
+
