@@ -11,6 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Custom Dropdown -->
+<link rel="stylesheet" href="custom-dropdown.css">
+
 <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -436,162 +440,215 @@
             </form>
         </div>
    </div>
-        
-   <div id="ibadah-panel" class="tab-content">
+        <div id="ibadah-panel" class="tab-content">
     <div class="panel-card">
-   <div class="form-section-title">
-    <i class="fas fa-praying-hands"></i>
-    IBADAH HARIAN
-</div>
 
-<div class="penilaian-grid">
+        <!-- ==================== IBADAH HARIAN ==================== -->
+        <div class="form-section-title">
+            <i class="fas fa-praying-hands"></i>
+            IBADAH HARIAN
+        </div>
 
-    <div class="penilaian-card">
-        <i class="fas fa-sun penilaian-icon"></i>
-        <div class="penilaian-title">SHOLAT SUBUH</div>
-        <select id="subuh">
-            <option>Sangat Baik</option>
-            <option>Baik</option>
-            <option>Cukup</option>
-            <option>Kurang</option>
-        </select>
+        <div class="penilaian-grid">
+
+            <!-- SHOLAT SUBUH -->
+            <div class="penilaian-card">
+                <i class="fas fa-sun penilaian-icon"></i>
+                <div class="penilaian-title">SHOLAT SUBUH</div>
+                <select id="subuh" 
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- SHOLAT DZUHUR -->
+            <div class="penilaian-card">
+                <i class="fas fa-mosque penilaian-icon"></i>
+                <div class="penilaian-title">SHOLAT DZUHUR</div>
+                <select id="dzuhur"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- SHOLAT ASHAR -->
+            <div class="penilaian-card">
+                <i class="fas fa-cloud-sun penilaian-icon"></i>
+                <div class="penilaian-title">SHOLAT ASHAR</div>
+                <select id="ashar"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- SHOLAT MAGHRIB -->
+            <div class="penilaian-card">
+                <i class="fas fa-moon penilaian-icon"></i>
+                <div class="penilaian-title">SHOLAT MAGHRIB</div>
+                <select id="maghrib"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- SHOLAT ISYA -->
+            <div class="penilaian-card">
+                <i class="fas fa-star-and-crescent penilaian-icon"></i>
+                <div class="penilaian-title">SHOLAT ISYA</div>
+                <select id="isya"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- TILAWAH -->
+            <div class="penilaian-card">
+                <i class="fas fa-book-quran penilaian-icon"></i>
+                <div class="penilaian-title">TILAWAH QUR'AN</div>
+                <select id="tilawah"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- ==================== AKHLAQ SANTRI ==================== -->
+        <div class="form-section-title">
+            <i class="fas fa-star"></i>
+            AKHLAQ SANTRI
+        </div>
+
+        <div class="penilaian-grid">
+
+            <!-- ADAB KEPADA GURU -->
+            <div class="penilaian-card">
+                <i class="fas fa-chalkboard-teacher penilaian-icon"></i>
+                <div class="penilaian-title">ADAB KEPADA GURU</div>
+                <select id="adabGuru"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- ADAB KEPADA ORANG TUA -->
+            <div class="penilaian-card">
+                <i class="fas fa-people-roof penilaian-icon"></i>
+                <div class="penilaian-title">ADAB KEPADA ORANG TUA</div>
+                <select id="adabOrtu"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- KEDISIPLINAN -->
+            <div class="penilaian-card">
+                <i class="fas fa-clock penilaian-icon"></i>
+                <div class="penilaian-title">KEDISIPLINAN</div>
+                <select id="disiplin"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+            <!-- KEBERSIHAN -->
+            <div class="penilaian-card">
+                <i class="fas fa-broom penilaian-icon"></i>
+                <div class="penilaian-title">KEBERSIHAN</div>
+                <select id="kebersihan"
+                        data-cd="true"
+                        data-cd-placeholder="Pilih Nilai"
+                        data-cd-variant="nilai"
+                        data-cd-icons='{"Sangat Baik":"fas fa-star", "Baik":"fas fa-thumbs-up", "Cukup":"fas fa-hand-paper", "Kurang":"fas fa-exclamation-circle"}'>
+                    <option value="Sangat Baik">Sangat Baik</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Cukup">Cukup</option>
+                    <option value="Kurang">Kurang</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="penilaian-grid" id="gridAkhlaq"></div>
+
+        <!-- ==================== CATATAN USTADZ ==================== -->
+        <div class="form-group" style="margin-top:20px;">
+            <label>CATATAN USTADZ</label>
+            <div class="input-ikon">
+                <i class="fas fa-sticky-note"></i>
+                <textarea id="catatanAkhlaq"
+                          rows="4"
+                          placeholder="Tulis catatan perkembangan santri..."></textarea>
+            </div>
+        </div>
+
+        <!-- ==================== NAVIGASI ==================== -->
+        <div class="tab-navigation">
+            <button class="btn-prev-tab" onclick="openTab(null,'input-panel')">
+                <i class="fas fa-chevron-circle-left"></i>
+                Hafalan
+            </button>
+            <button class="btn-next-tab" onclick="simpanDanKeRekap()">
+                Simpan & Lanjut
+                <i class="fas fa-chevron-circle-right"></i>
+            </button>
+        </div>
+
     </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-mosque penilaian-icon"></i>
-        <div class="penilaian-title">SHOLAT DZUHUR</div>
-        <select id="dzuhur">
-            <option>Sangat Baik</option>
-            <option>Baik</option>
-            <option>Cukup</option>
-            <option>Kurang</option>
-        </select>
-    </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-cloud-sun penilaian-icon"></i>
-        <div class="penilaian-title">SHOLAT ASHAR</div>
-        <select id="ashar">
-            <option>Sangat Baik</option>
-            <option>Baik</option>
-            <option>Cukup</option>
-            <option>Kurang</option>
-        </select>
-    </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-moon penilaian-icon"></i>
-        <div class="penilaian-title">SHOLAT MAGHRIB</div>
-        <select id="maghrib">
-            <option>Sangat Baik</option>
-            <option>Baik</option>
-            <option>Cukup</option>
-            <option>Kurang</option>
-        </select>
-    </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-star-and-crescent penilaian-icon"></i>
-        <div class="penilaian-title">SHOLAT ISYA</div>
-        <select id="isya">
-            <option>Sangat Baik</option>
-            <option>Baik</option>
-            <option>Cukup</option>
-            <option>Kurang</option>
-        </select>
-    </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-book-quran penilaian-icon"></i>
-        <div class="penilaian-title">TILAWAH QUR'AN</div>
-        <select id="tilawah">
-            <option>Sangat Baik</option>
-            <option>Baik</option>
-            <option>Cukup</option>
-            <option>Kurang</option>
-        </select>
-    </div>
-
-</div>
-<div class="form-section-title">
-    <i class="fas fa-star"></i>
-    AKHLAQ SANTRI
-</div>
-
-<div class="penilaian-grid">
-
-    <div class="penilaian-card">
-        <i class="fas fa-chalkboard-teacher penilaian-icon"></i>
-        <div class="penilaian-title">ADAB KEPADA GURU</div>
-        <select id="adabGuru">
-            <option value="Sangat Baik">Sangat Baik</option>
-            <option value="Baik">Baik</option>
-            <option value="Cukup">Cukup</option>
-            <option value="Kurang">Kurang</option>
-        </select>
-    </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-people-roof penilaian-icon"></i>
-        <div class="penilaian-title">ADAB KEPADA ORANG TUA</div>
-        <select id="adabOrtu">
-             <option value="Sangat Baik">Sangat Baik</option>
-            <option value="Baik">Baik</option>
-            <option value="Cukup">Cukup</option>
-            <option value="Kurang">Kurang</option>
-        </select>
-    </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-clock penilaian-icon"></i>
-        <div class="penilaian-title">KEDISIPLINAN</div>
-        <select id="disiplin">
-            <option value="Sangat Baik">Sangat Baik</option>
-            <option value="Baik">Baik</option>
-            <option value="Cukup">Cukup</option>
-            <option value="Kurang">Kurang</option>
-        </select>
-    </div>
-
-    <div class="penilaian-card">
-        <i class="fas fa-broom penilaian-icon"></i>
-        <div class="penilaian-title">KEBERSIHAN</div>
-        <select id="kebersihan">
-            <option value="Sangat Baik">Sangat Baik</option>
-            <option value="Baik">Baik</option>
-            <option value="Cukup">Cukup</option>
-            <option value="Kurang">Kurang</option>
-        </select>
-    </div>
-
-</div>
-
-    <div class="penilaian-grid" id="gridAkhlaq"></div>
-
-    <div class="form-group" style="margin-top:20px;">
-        <label>CATATAN USTADZ</label>
-        <textarea id="catatanAkhlaq"
-                  rows="4"
-                  placeholder="Tulis catatan perkembangan santri..."></textarea>
-    </div>
-
-    <div class="tab-navigation">
-
-        <button class="btn-prev-tab"
-                onclick="openTab(null,'input-panel')">
-            <i class="fas fa-chevron-circle-left"></i>
-            Hafalan
-        </button>
-
-        <button class="btn-next-tab"
-                onclick="simpanDanKeRekap()">
-            Simpan & Lanjut
-            <i class="fas fa-chevron-circle-right"></i>
-        </button>
-
-    </div>
-
-</div>
 </div>
 
 <div id="rekap-panel" class="tab-content">
@@ -1407,6 +1464,7 @@ GRAFIK MONITORING
     <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
 </footer>
 
+<script src="custom-dropdown.js"></script>
 <script type="module" src="firebase.js"></script>
 <script src="utils.js"></script>
 <script src="state.js"></script>
