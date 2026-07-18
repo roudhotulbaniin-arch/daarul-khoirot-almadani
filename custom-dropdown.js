@@ -73,17 +73,21 @@ const CustomDropdown = (function () {
     /**
      * Refresh dropdown (jika <option> berubah via JS)
      */
+
     function refresh(wrapper) {
-        const selectEl = wrapper.querySelector('select.cd-native');
-        if (!selectEl) return;
-        
-        const optionsContainer = wrapper.querySelector('.cd-options');
-        if (!optionsContainer) return;
-        
-        const iconMap = parseIconMap(selectEl.dataset.cdIcons);
-        renderOptions(wrapper, selectEl, iconMap);
-        updateTrigger(wrapper, selectEl);
-    }
+    const selectEl = wrapper.querySelector('select.cd-native');
+    if (!selectEl) return;
+    
+    const optionsContainer = wrapper.querySelector('.cd-options');
+    if (!optionsContainer) return;
+    
+    const iconMap = parseIconMap(selectEl.dataset.cdIcons);
+    renderOptions(wrapper, selectEl, iconMap);
+    updateTrigger(wrapper, selectEl);
+    
+    // ⭐ TAMBAH INI — Update data-value
+    wrapper.dataset.value = selectEl.value || '';
+}
     
     /**
      * Set value dropdown (juga trigger event change)
