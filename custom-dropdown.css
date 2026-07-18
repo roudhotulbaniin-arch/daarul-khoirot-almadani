@@ -1,0 +1,334 @@
+/* ================================================================
+   CUSTOM DROPDOWN — Premium Style (Konsisten dengan SweetAlert)
+   ================================================================ */
+
+/* ---------- WRAPPER ---------- */
+.cd-wrapper {
+    position: relative;
+    width: 100%;
+    font-family: 'Quicksand', sans-serif;
+    user-select: none;
+}
+
+/* Hide native select */
+.cd-wrapper select.cd-native {
+    display: none !important;
+}
+
+/* ---------- TRIGGER (Tombol utama dropdown) ---------- */
+.cd-trigger {
+    width: 100%;
+    padding: 12px 44px 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1f2937;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: left;
+    outline: none;
+    transition: all 0.25s ease;
+    position: relative;
+    min-height: 46px;
+    box-sizing: border-box;
+}
+
+.cd-trigger:hover {
+    border-color: #1a5d1a;
+    background: #f9fdf9;
+}
+
+.cd-trigger:focus,
+.cd-wrapper.open .cd-trigger {
+    border-color: #1a5d1a;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.1);
+    background: #ffffff;
+}
+
+.cd-trigger.disabled {
+    background: #f3f4f6 !important;
+    color: #9ca3af !important;
+    cursor: not-allowed !important;
+    border-color: #e5e7eb !important;
+}
+
+/* Placeholder (saat belum pilih) */
+.cd-trigger.placeholder {
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+/* Selected label */
+.cd-trigger .cd-selected-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cd-trigger .cd-selected-label i {
+    color: #1a5d1a;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* Arrow icon */
+.cd-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 0.75rem;
+    transition: transform 0.3s ease, color 0.25s;
+    pointer-events: none;
+}
+
+.cd-wrapper.open .cd-arrow {
+    transform: translateY(-50%) rotate(180deg);
+    color: #1a5d1a;
+}
+
+/* ---------- DROPDOWN MENU ---------- */
+.cd-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+    z-index: 9999;
+    max-height: 280px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    display: flex;
+    flex-direction: column;
+}
+
+.cd-wrapper.open .cd-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Open UP (jika dropdown mepet bawah layar) */
+.cd-wrapper.open-up .cd-menu {
+    top: auto;
+    bottom: calc(100% + 6px);
+    transform: translateY(10px);
+}
+
+.cd-wrapper.open-up.open .cd-menu {
+    transform: translateY(0);
+}
+
+/* ---------- SEARCH BAR (Opsional) ---------- */
+.cd-search {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f2f5;
+    background: #fafafa;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.cd-search input {
+    width: 100%;
+    padding: 8px 12px 8px 34px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #1f2937;
+    background: #ffffff;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.cd-search input:focus {
+    border-color: #1a5d1a;
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.08);
+}
+
+.cd-search i {
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 0.8rem;
+    pointer-events: none;
+}
+
+/* ---------- OPTIONS LIST ---------- */
+.cd-options {
+    overflow-y: auto;
+    padding: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26, 93, 26, 0.3) transparent;
+    flex: 1;
+}
+
+.cd-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cd-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cd-options::-webkit-scrollbar-thumb {
+    background: rgba(26, 93, 26, 0.3);
+    border-radius: 3px;
+}
+
+.cd-options::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 93, 26, 0.5);
+}
+
+/* ---------- OPTION ITEM ---------- */
+.cd-option {
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.87rem;
+    font-weight: 600;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s ease;
+    margin-bottom: 2px;
+    line-height: 1.3;
+}
+
+.cd-option:last-child {
+    margin-bottom: 0;
+}
+
+.cd-option:hover,
+.cd-option.highlighted {
+    background: linear-gradient(135deg, #f0f9f0, #e8f5e8);
+    color: #144514;
+    transform: translateX(2px);
+}
+
+.cd-option.selected {
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.cd-option.selected:hover {
+    background: linear-gradient(135deg, #144514, #0d2e0d);
+    transform: translateX(2px);
+}
+
+.cd-option i {
+    font-size: 0.85rem;
+    width: 18px;
+    text-align: center;
+    color: #1a5d1a;
+    flex-shrink: 0;
+}
+
+.cd-option.selected i {
+    color: #ffd700;
+}
+
+/* Check mark saat selected */
+.cd-option.selected::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-left: auto;
+    color: #ffd700;
+    font-size: 0.8rem;
+}
+
+/* Empty state */
+.cd-empty {
+    padding: 30px 20px;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.cd-empty i {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: #d1d5db;
+}
+
+/* ---------- SEPARATOR / GROUP HEADER ---------- */
+.cd-group-header {
+    padding: 8px 12px 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid #f0f2f5;
+    margin: 4px 0 6px;
+}
+
+/* ---------- MOBILE ADJUSTMENTS ---------- */
+@media (max-width: 480px) {
+    .cd-menu {
+        max-height: 260px;
+    }
+    
+    .cd-option {
+        padding: 12px;
+        font-size: 0.88rem;
+    }
+    
+    .cd-trigger {
+        min-height: 48px;
+        font-size: 0.92rem;
+    }
+}
+
+/* ---------- SIZE VARIANTS ---------- */
+
+/* Small */
+.cd-wrapper.cd-sm .cd-trigger {
+    padding: 8px 36px 8px 12px;
+    font-size: 0.82rem;
+    min-height: 38px;
+    border-radius: 8px;
+}
+
+.cd-wrapper.cd-sm .cd-option {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+}
+
+/* Large */
+.cd-wrapper.cd-lg .cd-trigger {
+    padding: 14px 48px 14px 18px;
+    font-size: 0.95rem;
+    min-height: 52px;
+    border-radius: 12px;
+}
+
+.cd-wrapper.cd-lg .cd-option {
+    padding: 12px 14px;
+    font-size: 0.92rem;
+}
