@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
 
+HTML
+
+<!-- CSS Custom Dropdown -->
+<link rel="stylesheet" href="custom-dropdown.css">
+
     <!-- CSS: Global website + CSS khusus user -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="users.css">
@@ -340,6 +345,9 @@
             this.classList.remove('show');
         });
     </script>
+
+<!-- Custom Dropdown (harus sebelum users.js) -->
+<script src="custom-dropdown.js"></script>
 
     <!-- Main Script -->
     <script type="module" src="users.js"></script>
