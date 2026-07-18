@@ -417,4 +417,54 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
            
         }
        
+/* ================================================================
+   FIX — Custom Dropdown di dalam .input-ikon
+   Hilangkan border dobel & posisikan icon dengan benar
+   ================================================================ */
+
+/* Kalau .input-ikon berisi custom dropdown, hilangkan border sendiri */
+.input-ikon:has(.cd-wrapper) {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
+}
+
+/* Sembunyikan icon <i> asli — karena custom dropdown punya icon sendiri di trigger */
+.input-ikon:has(.cd-wrapper) > i {
+    display: none !important;
+}
+
+/* Pastikan cd-wrapper full width */
+.input-ikon .cd-wrapper {
+    width: 100% !important;
+}
+
+/* Kalau butuh icon tetap tampil di dalam trigger, tampilkan di sisi kiri */
+.input-ikon > i + .cd-wrapper .cd-trigger {
+    padding-left: 44px !important;
+    position: relative;
+}
+
+/* Icon di kiri trigger */
+.input-ikon.has-cd {
+    position: relative !important;
+}
+
+.input-ikon.has-cd > i {
+    display: block !important;
+    position: absolute !important;
+    left: 15px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: #1a5d1a !important;
+    font-size: 1rem !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+}
+
+.input-ikon.has-cd .cd-trigger {
+    padding-left: 42px !important;
+}
     
