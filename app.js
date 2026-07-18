@@ -184,27 +184,55 @@ document.getElementById("menu-overlay")?.addEventListener("click", function () {
 // ================================================================
 //  LOGOUT HANDLER
 // ================================================================
-
 const btnLogout = document.getElementById("btnLogout");
 
 if (btnLogout) {
-    btnLogout.addEventListener("click", async (e) => {
-        e.preventDefault();
+  btnLogout.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-        if (!confirm("Apakah Anda yakin ingin logout?")) return;
-
-        try {
-            await signOut(auth);
-            sessionStorage.clear();
-            alert("Anda telah logout!");
-            window.location.href = "admin/login.html";   // ✅ path benar
-        } catch (err) {
-            console.error("Logout error:", err);
-            alert("Gagal logout. Coba lagi.");
-        }
+    // 1) Konfirmasi premium (menggantikan confirm())
+    const res = await SwalPremium.confirm({
+      title: "Konfirmasi Logout",
+      text: "Apakah Anda yakin ingin logout?",
+      icon: "logout",
+      confirmText: "Ya, Logout",
+      cancelText: "Batal",
+      color: "danger"
     });
-}
 
+    if (!res.isConfirmed) return;
+
+    // 2) Loading premium
+    SwalPremium.loading({
+      title: "Sedang Logout...",
+      text: "Mohon tunggu sebentar"
+    });
+
+    try {
+      // 3) Proses logout
+      await signOut(auth);
+      sessionStorage.clear();
+
+      // 4) Sukses premium (menggantikan alert())
+      await SwalPremium.success({
+        title: "Logout Berhasil",
+        text: "Anda akan diarahkan ke halaman login",
+        timer: 1400
+      });
+
+      window.location.href = "login.html";
+    } catch (err) {
+      console.error("Logout error:", err);
+
+      // 5) Error premium (menggantikan alert())
+      SwalPremium.error({
+        title: "Gagal Logout",
+        text: "Coba lagi.",
+        detail: err?.message ? `Detail: ${err.message}` : ""
+      });
+    }
+  });
+}
 
 // ================================================================
 //  ON PAGE READY
