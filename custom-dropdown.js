@@ -468,3 +468,131 @@ if (document.readyState === 'loading') {
 
 // Export global
 window.CustomDropdown = CustomDropdown;
+
+/* ===== CUSTOM CALENDAR DROPDOWN ===== */
+let calCurrentMonth, calCurrentYear, calSelectedDate = null;
+
+function initCalendar() {
+    const today = new Date();
+    calCurrentMonth = today.getMonth();
+    calCurrentYear = today.getFullYear();
+    renderCalendar();
+    
+    // Set default hari ini
+    calSelectDate(today);
+    
+    // Klik luar = tutup
+    document.addEventListener('click', function(e) {
+        const wrap = document.querySelector('#boxTanggal')?.closest('.dropdown-wrapper-custom');
+        if (wrap && !wrap.contains(e.target)) {
+            document.getElementById('calendarDropdown')?.classList.remove('show');
+        }
+    });
+}
+
+function toggleCalendar() {
+    const dd = document.getElementById('calendarDropdown');
+    dd.classList.toggle('show');
+    if (dd.classList.contains('show')) renderCalendar();
+}
+
+function calNavMonth(dir) {
+    calCurrentMonth += dir;
+    if (calCurrentMonth > 11) { calCurrentMonth = 0; calCurrentYear++; }
+    if (calCurrentMonth < 0) { calCurrentMonth = 11; calCurrentYear--; }
+    renderCalendar();
+}
+
+function renderCalendar() {
+    const grid = document.getElementById('calGrid');
+    const label = document.getElementById('calMonthYear');
+    
+    const bulanNama = [
+        'Januari','Februari','Maret','April','Mei','Juni',
+        'Juli','Agustus','September','Oktober','November','Desember'
+    ];
+    
+    label.textContent = bulanNama[calCurrentMonth] + ' ' + calCurrentYear;
+    
+    const firstDay = new Date(calCurrentYear, calCurrentMonth, 1).getDay();
+    const daysInMonth = new Date(calCurrentYear, calCurrentMonth + 1, 0).getDate();
+    const daysInPrevMonth = new Date(calCurrentYear, calCurrentMonth, 0).getDate();
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    let html = '';
+    
+    // Hari dari bulan sebelumnya
+    for (let i = firstDay - 1; i >= 0; i--) {
+        const d = daysInPrevMonth - i;
+        html += `<button type="button" class="cal-day other-month" onclick="calGoToPrevMonth(${d})">${d}</button>`;
+    }
+    
+    // Hari bulan ini
+    for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(calCurrentYear, calCurrentMonth, d);
+        date.setHours(0,0,0,0);
+        
+        let cls = 'cal-day';
+        if (date.getDay() === 0) cls += ' sunday';
+        if (date.getTime() === today.getTime()) cls += ' today';
+        if (calSelectedDate && date.getTime() === calSelectedDate.getTime()) cls += ' selected';
+        
+        html += `<button type="button" class="${cls}" onclick="calSelectDate(new Date(${calCurrentYear},${calCurrentMonth},${d}))">${d}</button>`;
+    }
+    
+    // Hari bulan berikutnya (isi sisa grid)
+    const totalCells = firstDay + daysInMonth;
+    const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+    for (let d = 1; d <= remaining; d++) {
+        html += `<button type="button" class="cal-day other-month" onclick="calGoToNextMonth(${d})">${d}</button>`;
+    }
+    
+    grid.innerHTML = html;
+}
+
+function calSelectDate(date) {
+    calSelectedDate = new Date(date);
+    calSelectedDate.setHours(0,0,0,0);
+    
+    calCurrentMonth = date.getMonth();
+    calCurrentYear = date.getFullYear();
+    
+    const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    
+    const tgl = date.getDate();
+    const display = hari[date.getDay()] + ', ' + tgl + ' ' + bulan[date.getMonth()] + ' ' + date.getFullYear();
+    
+    document.getElementById('tanggalDisplay').value = display;
+    
+    // Format YYYY-MM-DD untuk hidden input
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    document.getElementById('tanggal').value = date.getFullYear() + '-' + mm + '-' + dd;
+    
+    renderCalendar();
+    
+    // Tutup dropdown
+    setTimeout(() => {
+        document.getElementById('calendarDropdown')?.classList.remove('show');
+    }, 200);
+}
+
+function calSelectToday() {
+    calSelectDate(new Date());
+}
+
+function calGoToPrevMonth(day) {
+    calNavMonth(-1);
+    calSelectDate(new Date(calCurrentYear, calCurrentMonth, day));
+}
+
+function calGoToNextMonth(day) {
+    calNavMonth(1);
+    calSelectDate(new Date(calCurrentYear, calCurrentMonth, day));
+}
+
+// Inisialisasi saat halaman load
+document.addEventListener('DOMContentLoaded', initCalendar);
