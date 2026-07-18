@@ -949,6 +949,29 @@
     font-size: 0.8rem;
 }
 
+/* ===== CUSTOM DROPDOWN NILAI (Kelancaran, Tahsin, Tajwid) ===== */
+.cd-dropdown {
+    border: 2px solid var(--primary-color) !important;
+    border-radius: 12px !important;
+}
+
+.cd-dropdown .cd-selected {
+    border: 2px solid var(--primary-color) !important;
+    border-radius: 12px !important;
+}
+
+.cd-dropdown .cd-selected:hover,
+.cd-dropdown .cd-selected:focus,
+.cd-dropdown.cd-open .cd-selected {
+    border-color: var(--secondary-color) !important;
+    box-shadow: 0 0 0 3px rgba(30, 130, 76, 0.15) !important;
+}
+
+.cd-dropdown .cd-menu {
+    border: 2px solid var(--primary-color) !important;
+    border-top: none !important;
+    border-radius: 0 0 12px 12px !important;
+}
 
 /* ================================================================
    MOBILE RESPONSIVE
