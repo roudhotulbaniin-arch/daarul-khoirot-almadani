@@ -1033,3 +1033,63 @@ span.flatpickr-weekday {
 .form-group:has(.flatpickr-open) {
     position: relative;
 }
+
+/* ================================================================
+   FIX FINAL — Kalender Center & Input Tahun Lebih Lebar
+================================================================ */
+
+/* Perlebar input tahun agar 4 digit + spinner tidak terpotong */
+.flatpickr-current-month input.cur-year {
+    width: 78px !important;
+    padding: 4px 18px 4px 8px !important;
+    font-size: 1rem !important;
+}
+
+.flatpickr-current-month .numInputWrapper {
+    width: 78px !important;
+}
+
+/* Spinner tahun (panah atas/bawah) posisi di kanan input */
+.flatpickr-current-month .numInputWrapper span {
+    right: 3px !important;
+    width: 14px !important;
+}
+
+/* Center kalender di bawah input */
+.flatpickr-calendar {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    max-width: 360px !important;
+    width: calc(100% - 24px) !important;
+}
+
+/* Saat kalender terbuka dengan animasi */
+.flatpickr-calendar.open {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+/* Pastikan input wrapper punya posisi relative agar kalender bisa center */
+.input-icon-wrapper {
+    position: relative !important;
+}
+
+/* Mobile — center penuh */
+@media (max-width: 480px) {
+    .flatpickr-calendar {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: calc(100vw - 24px) !important;
+        max-width: 360px !important;
+    }
+
+    .flatpickr-current-month input.cur-year {
+        width: 72px !important;
+        padding-right: 16px !important;
+        font-size: 0.95rem !important;
+    }
+
+    .flatpickr-current-month .numInputWrapper {
+        width: 72px !important;
+    }
+}
