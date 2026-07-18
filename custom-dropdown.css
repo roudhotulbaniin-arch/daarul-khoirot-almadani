@@ -567,7 +567,7 @@
 /* ---------- OPTIONS KEHADIRAN (menu dropdown) ---------- */
 
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option {
-    border-left: 4px solid transparent;
+    border: 2px solid #1a5d1a !important;
     transition: all 0.2s ease;
 }
 
@@ -989,54 +989,59 @@
         font-size: 0.86rem;
     }
 }
-/* ===== TANGGAL REALTIME (Read-Only) ===== */
+
+/* ===== TANGGAL REALTIME (Read-Only) — Seragam dengan Dropdown ===== */
 .tanggal-realtime {
-    border: 2px solid #1e824c !important;
-    border-radius: 12px !important;
-    background: linear-gradient(135deg, #f0faf4, #e8f5e9) !important;
-    padding: 10px 15px !important;
+    border: 2px solid #1a5d1a !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    padding: 12px 15px !important;
     display: flex;
     align-items: center;
     gap: 10px;
     position: relative;
-    box-shadow: 0 2px 6px rgba(30, 130, 76, 0.1);
-    transition: all 0.3s;
+    min-height: 46px;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
 }
 
 .tanggal-realtime:hover {
-    box-shadow: 0 4px 12px rgba(30, 130, 76, 0.2);
+    background: #f9fdf9 !important;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08);
 }
 
 .tanggal-realtime i.fa-calendar-alt {
-    color: #1e824c;
-    font-size: 1.1rem;
+    color: #1a5d1a;
+    font-size: 1rem;
+    flex-shrink: 0;
 }
 
-.tanggal-realtime .tanggal-display {
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
-    font-weight: 700 !important;
-    color: #1e824c !important;
-    font-size: 0.95rem !important;
-    cursor: default !important;
+.tanggal-display-text {
     flex: 1;
-    padding: 0 !important;
+    color: #144514 !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    font-family: 'Quicksand', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Badge LIVE animasi kedip */
+/* Badge LIVE — Seragam dengan tema */
 .tanggal-badge {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: linear-gradient(135deg, #1e824c, #27ae60);
+    background: linear-gradient(135deg, #1a5d1a, #144514);
     color: white;
     font-size: 0.65rem;
     font-weight: 800;
     padding: 4px 10px;
     border-radius: 20px;
     letter-spacing: 1px;
-    box-shadow: 0 2px 5px rgba(30, 130, 76, 0.3);
+    box-shadow: 0 2px 5px rgba(26, 93, 26, 0.3);
+    flex-shrink: 0;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .tanggal-badge i.fa-circle {
@@ -1052,11 +1057,63 @@
 
 /* Responsive HP */
 @media (max-width: 480px) {
-    .tanggal-realtime .tanggal-display {
+    .tanggal-realtime {
+        padding: 11px 14px !important;
+        min-height: 44px;
+    }
+    .tanggal-display-text {
         font-size: 0.85rem !important;
     }
     .tanggal-badge {
         font-size: 0.6rem;
         padding: 3px 8px;
     }
+}
+
+/* ================================================================
+   OVERRIDE — Seragamkan Semua Border Dropdown ke Hijau Tua
+   ================================================================ */
+
+/* Trigger utama semua custom dropdown */
+.cd-trigger {
+    border: 2px solid #1a5d1a !important;
+}
+
+/* Form group dropdown (Status Kehadiran, Nilai Hafalan, dll) */
+.form-group .cd-trigger {
+    border: 2px solid #1a5d1a !important;
+}
+
+/* Menu dropdown (yang muncul saat diklik) */
+.cd-menu {
+    border: 2px solid #1a5d1a !important;
+}
+
+/* Hover state */
+.cd-trigger:hover {
+    border-color: #144514 !important;
+    background: #f9fdf9 !important;
+}
+
+/* Focus / Open state */
+.cd-trigger:focus,
+.cd-wrapper.open .cd-trigger {
+    border-color: #144514 !important;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
+}
+
+/* Disabled state tetap abu-abu */
+.cd-trigger.disabled {
+    border-color: #e5e7eb !important;
+    background: #f3f4f6 !important;
+}
+
+/* Search input di dalam dropdown */
+.cd-search input {
+    border: 1px solid #1a5d1a !important;
+}
+
+.cd-search input:focus {
+    border-color: #144514 !important;
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1) !important;
 }
