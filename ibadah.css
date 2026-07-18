@@ -213,3 +213,371 @@
     text-align:center;
     outline:none;
 }
+
+/* ================================================================
+   CUSTOM DROPDOWN — Integrasi dengan .penilaian-card
+   ================================================================ */
+
+/* Sembunyikan native select saat sudah jadi custom dropdown */
+.penilaian-card select.cd-native {
+    display: none !important;
+}
+
+/* Wrapper custom dropdown di dalam penilaian-card */
+.penilaian-card .cd-wrapper {
+    width: 100%;
+    margin-top: 0;
+}
+
+/* Trigger button */
+.penilaian-card .cd-trigger {
+    width: 100%;
+    padding: 12px 40px 12px 14px;
+    border-radius: 12px;
+    border: 2px solid #dbeafe;
+    background: #ffffff;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 46px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    position: relative;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.penilaian-card .cd-trigger:hover {
+    border-color: #1a5d1a;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.12);
+    transform: translateY(-1px);
+}
+
+.penilaian-card .cd-wrapper.open .cd-trigger {
+    border-color: #1a5d1a;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.1);
+}
+
+.penilaian-card .cd-trigger.placeholder {
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.penilaian-card .cd-selected-label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.penilaian-card .cd-selected-label i {
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+/* Arrow */
+.penilaian-card .cd-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    color: #6b7280;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+.penilaian-card .cd-wrapper.open .cd-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Dropdown menu */
+.penilaian-card .cd-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+    max-height: 260px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.penilaian-card .cd-wrapper.open .cd-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.penilaian-card .cd-wrapper.open-up .cd-menu {
+    top: auto;
+    bottom: calc(100% + 6px);
+    transform: translateY(8px);
+}
+
+.penilaian-card .cd-wrapper.open-up.open .cd-menu {
+    transform: translateY(0);
+}
+
+/* Options container */
+.penilaian-card .cd-options {
+    padding: 6px;
+    overflow-y: auto;
+    max-height: 240px;
+}
+
+/* Option item */
+.penilaian-card .cd-option {
+    padding: 12px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    margin-bottom: 3px;
+    border-left: 4px solid transparent;
+}
+
+.penilaian-card .cd-option:last-child {
+    margin-bottom: 0;
+}
+
+.penilaian-card .cd-option i {
+    font-size: 0.95rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* ==========================================================
+   COLOR STATES BERDASARKAN NILAI (Trigger)
+   ========================================================== */
+
+/* SANGAT BAIK — Hijau */
+.penilaian-card .cd-wrapper[data-value="Sangat Baik"] .cd-trigger {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.penilaian-card .cd-wrapper[data-value="Sangat Baik"] .cd-selected-label i,
+.penilaian-card .cd-wrapper[data-value="Sangat Baik"] .cd-arrow {
+    color: #059669;
+}
+
+/* BAIK — Biru */
+.penilaian-card .cd-wrapper[data-value="Baik"] .cd-trigger {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-color: #3b82f6;
+    color: #1e40af;
+}
+
+.penilaian-card .cd-wrapper[data-value="Baik"] .cd-selected-label i,
+.penilaian-card .cd-wrapper[data-value="Baik"] .cd-arrow {
+    color: #2563eb;
+}
+
+/* CUKUP — Oranye */
+.penilaian-card .cd-wrapper[data-value="Cukup"] .cd-trigger {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.penilaian-card .cd-wrapper[data-value="Cukup"] .cd-selected-label i,
+.penilaian-card .cd-wrapper[data-value="Cukup"] .cd-arrow {
+    color: #d97706;
+}
+
+/* KURANG — Merah */
+.penilaian-card .cd-wrapper[data-value="Kurang"] .cd-trigger {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.penilaian-card .cd-wrapper[data-value="Kurang"] .cd-selected-label i,
+.penilaian-card .cd-wrapper[data-value="Kurang"] .cd-arrow {
+    color: #dc2626;
+}
+
+/* ==========================================================
+   COLOR STATES OPTIONS (dalam menu)
+   ========================================================== */
+
+/* SANGAT BAIK Option */
+.penilaian-card .cd-option[data-value="Sangat Baik"] {
+    border-left-color: #10b981;
+}
+
+.penilaian-card .cd-option[data-value="Sangat Baik"] i {
+    color: #10b981;
+}
+
+.penilaian-card .cd-option[data-value="Sangat Baik"]:hover,
+.penilaian-card .cd-option[data-value="Sangat Baik"].highlighted {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+    transform: translateX(2px);
+}
+
+.penilaian-card .cd-option[data-value="Sangat Baik"].selected {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+}
+
+.penilaian-card .cd-option[data-value="Sangat Baik"].selected i {
+    color: #ffffff;
+}
+
+/* BAIK Option */
+.penilaian-card .cd-option[data-value="Baik"] {
+    border-left-color: #3b82f6;
+}
+
+.penilaian-card .cd-option[data-value="Baik"] i {
+    color: #3b82f6;
+}
+
+.penilaian-card .cd-option[data-value="Baik"]:hover,
+.penilaian-card .cd-option[data-value="Baik"].highlighted {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
+    transform: translateX(2px);
+}
+
+.penilaian-card .cd-option[data-value="Baik"].selected {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #ffffff;
+}
+
+.penilaian-card .cd-option[data-value="Baik"].selected i {
+    color: #ffffff;
+}
+
+/* CUKUP Option */
+.penilaian-card .cd-option[data-value="Cukup"] {
+    border-left-color: #f59e0b;
+}
+
+.penilaian-card .cd-option[data-value="Cukup"] i {
+    color: #d97706;
+}
+
+.penilaian-card .cd-option[data-value="Cukup"]:hover,
+.penilaian-card .cd-option[data-value="Cukup"].highlighted {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    color: #92400e;
+    transform: translateX(2px);
+}
+
+.penilaian-card .cd-option[data-value="Cukup"].selected {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #ffffff;
+}
+
+.penilaian-card .cd-option[data-value="Cukup"].selected i {
+    color: #ffffff;
+}
+
+/* KURANG Option */
+.penilaian-card .cd-option[data-value="Kurang"] {
+    border-left-color: #ef4444;
+}
+
+.penilaian-card .cd-option[data-value="Kurang"] i {
+    color: #ef4444;
+}
+
+.penilaian-card .cd-option[data-value="Kurang"]:hover,
+.penilaian-card .cd-option[data-value="Kurang"].highlighted {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    color: #991b1b;
+    transform: translateX(2px);
+}
+
+.penilaian-card .cd-option[data-value="Kurang"].selected {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+}
+
+.penilaian-card .cd-option[data-value="Kurang"].selected i {
+    color: #ffffff;
+}
+
+/* Check mark saat selected — putih */
+.penilaian-card .cd-option.selected::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-left: auto;
+    color: #ffffff;
+    font-size: 0.8rem;
+}
+
+/* Scrollbar dropdown */
+.penilaian-card .cd-options::-webkit-scrollbar {
+    width: 5px;
+}
+
+.penilaian-card .cd-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.penilaian-card .cd-options::-webkit-scrollbar-thumb {
+    background: rgba(26, 93, 26, 0.3);
+    border-radius: 3px;
+}
+
+/* ==========================================================
+   RESPONSIVE MOBILE
+   ========================================================== */
+
+@media (max-width: 768px) {
+    .penilaian-card .cd-trigger {
+        padding: 11px 36px 11px 12px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    .penilaian-card .cd-option {
+        padding: 11px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .penilaian-card .cd-selected-label i {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .penilaian-card .cd-trigger {
+        padding: 10px 32px 10px 10px;
+        font-size: 0.82rem;
+        min-height: 42px;
+    }
+}
