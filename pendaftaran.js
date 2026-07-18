@@ -1,14 +1,17 @@
-/* Helper untuk refresh custom dropdown */
+/* ================================================================
+   PENDAFTARAN.JS — Daarul Khoirot Almadani
+   Versi Final — Bersih & Lengkap dengan Custom Dropdown
+   ================================================================ */
+
+
+/* =========================================================
+   0. HELPER — Refresh Custom Dropdown
+========================================================= */
 function refreshCD(el) {
     if (typeof CustomDropdown !== "undefined" && el) {
         CustomDropdown.refresh(el);
     }
 }
-
-/* ================================================================
-   PENDAFTARAN.JS — Daarul Khoirot Almadani
-   Versi Final — Bersih & Terorganisir
-   ================================================================ */
 
 
 /* =========================================================
@@ -45,7 +48,7 @@ async function handleFormSubmit(event) {
             }
         });
 
-        // 2. Ambil paksa nama_santri secara manual jika FormData melewatkannya
+        // 2. Ambil paksa nama_santri manual jika FormData melewatkannya
         const inputNamaSantri = document.getElementsByName('nama_santri')[0] || document.getElementById('nama_santri');
         if (inputNamaSantri && inputNamaSantri.value) {
             dataFinal['nama_santri'] = inputNamaSantri.value;
@@ -175,11 +178,7 @@ async function loadWilayah(endpoint, elementName, placeholder) {
 
     el.innerHTML = '<option value="">Loading...</option>';
     el.disabled = true;
-
-    // ⭐ Refresh custom dropdown (biar text "Loading..." muncul)
-    if (typeof CustomDropdown !== "undefined") {
-        CustomDropdown.refresh(el);
-    }
+    refreshCD(el);
 
     const url = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`;
 
@@ -194,40 +193,50 @@ async function loadWilayah(endpoint, elementName, placeholder) {
         });
         el.innerHTML = opt;
         el.disabled = false;
-
-        // ⭐ Refresh custom dropdown SETELAH data terisi
-        if (typeof CustomDropdown !== "undefined") {
-            CustomDropdown.refresh(el);
-        }
+        refreshCD(el);
     } catch (err) {
         console.error("ERROR API:", err);
         el.innerHTML = `<option value="">Gagal memuat data</option>`;
-        if (typeof CustomDropdown !== "undefined") {
-            CustomDropdown.refresh(el);
-        }
+        refreshCD(el);
     }
 }
 
+
 /* ---------- WILAYAH AYAH ---------- */
 function loadKabAyah(val) {
-    getEl('kab_ayah').innerHTML = '<option value="">Pilih Kabupaten</option>';
-    getEl('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
-    getEl('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    const kab  = getEl('kab_ayah');
+    const kec  = getEl('kec_ayah');
+    const desa = getEl('desa_ayah');
 
+    if (kab)  kab.innerHTML  = '<option value="">Pilih Kabupaten</option>';
+    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
+    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
 
-    // ⭐ Refresh
-    refreshCD(kab); refreshCD(kec); refreshCD(desa);
+    refreshCD(kab);
+    refreshCD(kec);
+    refreshCD(desa);
 
     const inputPos = getEl('pos_ayah');
     if (inputPos) inputPos.value = "";
-    if (val && val !== "provinces_init_val") loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+
+    if (val && val !== "provinces_init_val") {
+        loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+    }
 }
 
 function loadKecAyah(val) {
-    getEl('kec_ayah').innerHTML = '<option value="">Pilih Kecamatan</option>';
-    getEl('desa_ayah').innerHTML = '<option value="">Pilih Desa</option>';
+    const kec  = getEl('kec_ayah');
+    const desa = getEl('desa_ayah');
+
+    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
+    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
+
+    refreshCD(kec);
+    refreshCD(desa);
+
     const inputPos = getEl('pos_ayah');
     if (inputPos) inputPos.value = "";
+
     if (val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
 }
 
@@ -253,12 +262,28 @@ function loadDesaDanPosAyah(val) {
     }
 }
 
+
 /* ---------- WILAYAH IBU ---------- */
 function loadKabIbu(val) {
-    if (val && val !== "provinces_init_val") loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten');
+    const kec  = getEl('kec_ibu');
+    const desa = getEl('desa_ibu');
+
+    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
+    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
+
+    refreshCD(kec);
+    refreshCD(desa);
+
+    if (val && val !== "provinces_init_val") {
+        loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten');
+    }
 }
 
 function loadKecIbu(val) {
+    const desa = getEl('desa_ibu');
+    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
+    refreshCD(desa);
+
     if (val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan');
 }
 
@@ -270,12 +295,28 @@ function loadDesaDanPosIbu(val) {
     }
 }
 
+
 /* ---------- WILAYAH SANTRI ---------- */
 function loadKabSantri(val) {
-    if (val && val !== "provinces_init_val") loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten');
+    const kec  = getEl('kec_santri');
+    const desa = getEl('desa_santri');
+
+    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
+    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
+
+    refreshCD(kec);
+    refreshCD(desa);
+
+    if (val && val !== "provinces_init_val") {
+        loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten');
+    }
 }
 
 function loadKecSantri(val) {
+    const desa = getEl('desa_santri');
+    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
+    refreshCD(desa);
+
     if (val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan');
 }
 
@@ -318,10 +359,12 @@ function resetFields(suffix) {
     const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
     dropdowns.forEach(name => {
         const el = getElByName(name, suffix);
-        if (el) el.innerHTML = `<option value="">Pilih Data</option>`;
-refreshCD(el); // ⭐ Refresh
+        if (el) {
+            el.innerHTML = `<option value="">Pilih Data</option>`;
+            refreshCD(el);
         }
     });
+
     const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
     inputs.forEach(name => {
         const el = getElByName(name, suffix);
@@ -351,8 +394,7 @@ function copyDataAlamat(from, to) {
                 if (sourceEl.selectedIndex >= 0) {
                     targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
                     targetEl.value = sourceEl.value;
-refreshCD(targetEl); // ⭐ Refresh
-                
+                    refreshCD(targetEl);
                 }
             } else {
                 targetEl.value = sourceEl.value || "";
@@ -363,25 +405,30 @@ refreshCD(targetEl); // ⭐ Refresh
 
 function isiAlamatPesantren() {
     const d = {
-        prov: "32", prov_text: "JAWA BARAT",
-        kab: "3215", kab_text: "KABUPATEN KARAWANG",
-        kec: "321516", kec_text: "JATISARI",
+        prov: "32",         prov_text: "JAWA BARAT",
+        kab: "3215",        kab_text: "KABUPATEN KARAWANG",
+        kec: "321516",      kec_text: "JATISARI",
         desa: "3215162001", desa_text: "JATISARI",
         al: "Dusun Sukamaju II", rt: "002", rw: "004", pos: "41374"
     };
+
     const setSel = (n, v, t) => {
         const el = getElByName(n);
-        if (el) { el.innerHTML = `<option value="${v}">${t}</option>`; el.value = v;
-refreshCD(el); // ⭐ Refresh
-                 }
+        if (el) {
+            el.innerHTML = `<option value="${v}">${t}</option>`;
+            el.value = v;
+            refreshCD(el);
+        }
     };
+
     setSel('prov_santri', d.prov, d.prov_text);
-    setSel('kab_santri', d.kab, d.kab_text);
-    setSel('kec_santri', d.kec, d.kec_text);
+    setSel('kab_santri',  d.kab,  d.kab_text);
+    setSel('kec_santri',  d.kec,  d.kec_text);
     setSel('desa_santri', d.desa, d.desa_text);
-    if (getElByName('al_santri')) getElByName('al_santri').value = d.al;
-    if (getElByName('rt_santri')) getElByName('rt_santri').value = d.rt;
-    if (getElByName('rw_santri')) getElByName('rw_santri').value = d.rw;
+
+    if (getElByName('al_santri'))  getElByName('al_santri').value  = d.al;
+    if (getElByName('rt_santri'))  getElByName('rt_santri').value  = d.rt;
+    if (getElByName('rw_santri'))  getElByName('rw_santri').value  = d.rw;
     if (getElByName('pos_santri')) getElByName('pos_santri').value = d.pos;
 }
 
@@ -853,24 +900,25 @@ function kirimWA(data) {
 
 /* =========================================================
    10. DOM READY — Event Listeners
-========================================================= */document.addEventListener("DOMContentLoaded", function () {
+========================================================= */
+document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ pendaftaran.js loaded");
 
-    /* =====================================================
+    /* ---------------------------------------------------
        AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
-    ===================================================== */
+    --------------------------------------------------- */
     document.querySelectorAll('form select').forEach(sel => {
         if (sel.hasAttribute('data-cd')) return; // skip jika sudah ada
-        
+
         sel.setAttribute('data-cd', 'true');
-        
+
         // Ambil placeholder dari opsi pertama (jika value kosong)
         const firstOpt = sel.options[0];
         if (firstOpt && (!firstOpt.value || firstOpt.value === "")) {
             const placeholder = firstOpt.textContent.trim();
             sel.setAttribute('data-cd-placeholder', placeholder);
         }
-        
+
         // Aktifkan search untuk dropdown wilayah (banyak opsi)
         const nameAttr = sel.getAttribute('name') || '';
         if (
@@ -882,7 +930,7 @@ function kirimWA(data) {
             sel.setAttribute('data-cd-search', 'true');
         }
     });
-    
+
     // Inisialisasi custom dropdown untuk SEMUA select
     if (typeof CustomDropdown !== "undefined") {
         CustomDropdown.init();
@@ -891,14 +939,14 @@ function kirimWA(data) {
         console.warn("⚠️ CustomDropdown belum ter-load");
     }
 
-    /* =====================================================
+    /* ---------------------------------------------------
        LOAD PROVINSI AYAH OTOMATIS
-    ===================================================== */
+    --------------------------------------------------- */
     loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
 
-    /* =====================================================
+    /* ---------------------------------------------------
        MENU TOGGLE (hamburger)
-    ===================================================== */
+    --------------------------------------------------- */
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('nav');
 
@@ -908,6 +956,8 @@ function kirimWA(data) {
             nav.classList.toggle('show');
         });
         console.log("✅ Menu toggle bound");
+    } else {
+        console.warn("⚠️ Menu toggle atau nav tidak ditemukan");
     }
 
     /* Highlight menu aktif */
@@ -956,33 +1006,34 @@ function kirimWA(data) {
 /* =========================================================
    11. EXPOSE KE WINDOW (agar bisa dipanggil dari onclick HTML)
 ========================================================= */
-window.handleFormSubmit    = handleFormSubmit;
-window.loadWilayah         = loadWilayah;
-window.loadKabAyah         = loadKabAyah;
-window.loadKecAyah         = loadKecAyah;
-window.loadDesaDanPosAyah  = loadDesaDanPosAyah;
-window.loadKabIbu          = loadKabIbu;
-window.loadKecIbu          = loadKecIbu;
-window.loadDesaDanPosIbu   = loadDesaDanPosIbu;
-window.loadKabSantri       = loadKabSantri;
-window.loadKecSantri       = loadKecSantri;
-window.loadDesaDanPosSantri= loadDesaDanPosSantri;
-window.lockFields          = lockFields;
-window.resetFields         = resetFields;
-window.dataAyahLengkap     = dataAyahLengkap;
-window.copyDataAlamat      = copyDataAlamat;
-window.toggleDomisiliIbu   = toggleDomisiliIbu;
-window.toggleDomisiliSantri= toggleDomisiliSantri;
-window.toggleAyahFields    = toggleAyahFields;
-window.handleNoNISN        = handleNoNISN;
-window.toggleHP            = toggleHP;
-window.toggleRiwayat       = toggleRiwayat;
-window.validateInput       = validateInput;
-window.openTab             = openTab;
-window.navigasiMaju        = navigasiMaju;
-window.navigasiMundur      = navigasiMundur;
-window.handleMainAction    = handleMainAction;
-window.prosesSimpanFinal   = prosesSimpanFinal;
-window.kirimWA             = kirimWA;
+window.handleFormSubmit     = handleFormSubmit;
+window.loadWilayah          = loadWilayah;
+window.loadKabAyah          = loadKabAyah;
+window.loadKecAyah          = loadKecAyah;
+window.loadDesaDanPosAyah   = loadDesaDanPosAyah;
+window.loadKabIbu           = loadKabIbu;
+window.loadKecIbu           = loadKecIbu;
+window.loadDesaDanPosIbu    = loadDesaDanPosIbu;
+window.loadKabSantri        = loadKabSantri;
+window.loadKecSantri        = loadKecSantri;
+window.loadDesaDanPosSantri = loadDesaDanPosSantri;
+window.lockFields           = lockFields;
+window.resetFields          = resetFields;
+window.dataAyahLengkap      = dataAyahLengkap;
+window.copyDataAlamat       = copyDataAlamat;
+window.toggleDomisiliIbu    = toggleDomisiliIbu;
+window.toggleDomisiliSantri = toggleDomisiliSantri;
+window.toggleAyahFields     = toggleAyahFields;
+window.handleNoNISN         = handleNoNISN;
+window.toggleHP             = toggleHP;
+window.toggleRiwayat        = toggleRiwayat;
+window.validateInput        = validateInput;
+window.openTab              = openTab;
+window.navigasiMaju         = navigasiMaju;
+window.navigasiMundur       = navigasiMundur;
+window.handleMainAction     = handleMainAction;
+window.prosesSimpanFinal    = prosesSimpanFinal;
+window.kirimWA              = kirimWA;
+window.refreshCD            = refreshCD;
 
 console.log("✅ Semua fungsi ter-expose ke window");
