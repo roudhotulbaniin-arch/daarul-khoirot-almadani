@@ -1117,3 +1117,218 @@
     border-color: #144514 !important;
     box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1) !important;
 }
+
+/* ================================================================
+   OVERRIDE — Dropdown Surah & Ayat Seragam dengan Sistem Baru
+   ================================================================ */
+
+/* Wrapper */
+.dropdown-wrapper-custom {
+    position: relative;
+    width: 100%;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Trigger (box utama) */
+.select-custom-trigger {
+    width: 100% !important;
+    padding: 12px 44px 12px 16px !important;
+    border: 2px solid #1a5d1a !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    color: #1f2937 !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-height: 46px !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+    position: relative;
+}
+
+.select-custom-trigger:hover {
+    background: #f9fdf9 !important;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08) !important;
+}
+
+.select-custom-trigger.active,
+.dropdown-wrapper-custom.open .select-custom-trigger {
+    border-color: #144514 !important;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
+}
+
+/* Icon kiri (book, list, calendar) */
+.select-custom-trigger > i:first-child {
+    color: #1a5d1a !important;
+    font-size: 1rem !important;
+    flex-shrink: 0;
+}
+
+/* Input di dalam trigger (untuk search Surah / readonly Ayat) */
+.select-custom-trigger input {
+    flex: 1 !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #144514 !important;
+    padding: 0 !important;
+    min-width: 0;
+}
+
+.select-custom-trigger input::placeholder {
+    color: #9ca3af !important;
+    font-weight: 500 !important;
+}
+
+/* Arrow chevron kanan */
+.select-custom-trigger::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 0.75rem;
+    transition: transform 0.3s ease, color 0.25s;
+    pointer-events: none;
+}
+
+.dropdown-wrapper-custom.open .select-custom-trigger::after {
+    transform: translateY(-50%) rotate(180deg);
+    color: #1a5d1a;
+}
+
+/* Dropdown Menu (list yang muncul) */
+.dropdown-menu-custom {
+    position: absolute !important;
+    top: calc(100% + 6px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+    z-index: 9999 !important;
+    max-height: 280px !important;
+    overflow-y: auto !important;
+    padding: 6px !important;
+    display: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26, 93, 26, 0.3) transparent;
+}
+
+.dropdown-menu-custom.show,
+.dropdown-menu-custom.active {
+    display: block !important;
+}
+
+/* Scrollbar */
+.dropdown-menu-custom::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-menu-custom::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dropdown-menu-custom::-webkit-scrollbar-thumb {
+    background: rgba(26, 93, 26, 0.3);
+    border-radius: 3px;
+}
+
+.dropdown-menu-custom::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 93, 26, 0.5);
+}
+
+/* Item dalam list */
+.dropdown-item-custom {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.87rem !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    transition: all 0.15s ease !important;
+    margin-bottom: 2px !important;
+    line-height: 1.3;
+    border-left: 4px solid transparent;
+}
+
+.dropdown-item-custom:last-child {
+    margin-bottom: 0 !important;
+}
+
+.dropdown-item-custom:hover,
+.dropdown-item-custom.highlighted {
+    background: linear-gradient(135deg, #f0f9f0, #e8f5e8) !important;
+    color: #144514 !important;
+    border-left-color: #1a5d1a;
+    transform: translateX(2px);
+}
+
+.dropdown-item-custom.selected,
+.dropdown-item-custom.active {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border-left-color: #ffd700;
+}
+
+.dropdown-item-custom.selected::after,
+.dropdown-item-custom.active::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-left: auto;
+    color: #ffd700;
+    font-size: 0.8rem;
+}
+
+/* Empty state */
+.dropdown-item-custom[style*="color:#777"],
+.dropdown-item-custom[style*="color: #777"] {
+    color: #9ca3af !important;
+    font-style: italic;
+    font-weight: 500 !important;
+    cursor: default !important;
+    text-align: center;
+    padding: 20px 12px !important;
+}
+
+.dropdown-item-custom[style*="color:#777"]:hover,
+.dropdown-item-custom[style*="color: #777"]:hover {
+    background: transparent !important;
+    transform: none !important;
+    border-left-color: transparent !important;
+}
+
+/* Responsive HP */
+@media (max-width: 480px) {
+    .select-custom-trigger {
+        padding: 11px 40px 11px 14px !important;
+        min-height: 44px !important;
+        font-size: 0.87rem !important;
+    }
+    
+    .select-custom-trigger input {
+        font-size: 0.87rem !important;
+    }
+    
+    .dropdown-item-custom {
+        padding: 12px !important;
+        font-size: 0.86rem !important;
+    }
+}
