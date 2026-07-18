@@ -621,4 +621,199 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     margin-right: 4px;
     font-size: 0.65rem;
 }
+
+/* ================================================================
+   FLATPICKR CUSTOM THEME — Hijau Daarul Khoirot
+================================================================ */
+
+/* Kalender container */
+.flatpickr-calendar {
+    font-family: 'Quicksand', sans-serif !important;
+    border-radius: 14px !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08) !important;
+    border: 2px solid #1a5d1a !important;
+    background: #ffffff !important;
+    padding: 8px !important;
+}
+
+/* Header (bulan & tahun) */
+.flatpickr-months {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    border-radius: 10px !important;
+    padding: 10px 0 !important;
+    margin-bottom: 6px;
+}
+
+.flatpickr-month {
+    color: white !important;
+}
+
+.flatpickr-current-month {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    padding-top: 6px !important;
+    color: white !important;
+}
+
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month input.cur-year {
+    color: white !important;
+    font-weight: 700 !important;
+    font-family: 'Quicksand', sans-serif !important;
+}
+
+.flatpickr-current-month input.cur-year:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 4px;
+}
+
+/* Panah navigasi */
+.flatpickr-prev-month,
+.flatpickr-next-month {
+    fill: white !important;
+    color: white !important;
+    padding: 8px !important;
+    transition: all 0.2s;
+}
+
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+    fill: white !important;
+}
+
+.flatpickr-prev-month:hover,
+.flatpickr-next-month:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 6px !important;
+}
+
+.flatpickr-prev-month:hover svg,
+.flatpickr-next-month:hover svg {
+    fill: #ffd700 !important;
+}
+
+/* Hari (Sen, Sel, Rab, ...) */
+.flatpickr-weekdays {
+    background: #f9fdf9 !important;
+    border-radius: 8px;
+    margin: 4px 0;
+}
+
+span.flatpickr-weekday {
+    color: #1a5d1a !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    font-family: 'Quicksand', sans-serif !important;
+}
+
+/* Tanggal-tanggal */
+.flatpickr-day {
+    color: #374151 !important;
+    font-weight: 600 !important;
+    font-family: 'Quicksand', sans-serif !important;
+    border-radius: 8px !important;
+    font-size: 0.88rem;
+    transition: all 0.15s ease;
+    margin: 1px;
+}
+
+.flatpickr-day:hover {
+    background: linear-gradient(135deg, #f0f9f0, #d1fae5) !important;
+    color: #144514 !important;
+    border-color: transparent !important;
+    transform: scale(1.05);
+}
+
+/* Hari ini */
+.flatpickr-day.today {
+    border-color: #1a5d1a !important;
+    color: #1a5d1a !important;
+    background: #f0f9f0 !important;
+    font-weight: 800 !important;
+}
+
+.flatpickr-day.today:hover {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
+    color: #065f46 !important;
+}
+
+/* Tanggal terpilih */
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    border-color: #1a5d1a !important;
+    font-weight: 800 !important;
+    box-shadow: 0 4px 10px rgba(26, 93, 26, 0.3);
+    transform: scale(1.05);
+}
+
+/* Tanggal disabled */
+.flatpickr-day.disabled,
+.flatpickr-day.disabled:hover,
+.flatpickr-day.flatpickr-disabled {
+    color: #d1d5db !important;
+    background: transparent !important;
+    cursor: not-allowed !important;
+}
+
+/* Bulan/tahun sebelah (opacity) */
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    color: #9ca3af !important;
+    opacity: 0.6;
+}
+
+/* Panah bulan */
+.flatpickr-monthDropdown-months {
+    background: rgba(255,255,255,0.15) !important;
+    color: white !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    outline: none !important;
+    cursor: pointer;
+}
+
+.flatpickr-monthDropdown-months option {
+    background: white !important;
+    color: #144514 !important;
+    font-weight: 600 !important;
+}
+
+/* Animasi buka */
+.flatpickr-calendar.open,
+.flatpickr-calendar.inline {
+    animation: fpFadeIn 0.2s ease;
+}
+
+@keyframes fpFadeIn {
+    from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Segitiga arrow ke input */
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowTop::after {
+    border-bottom-color: #1a5d1a !important;
+}
+
+.flatpickr-calendar.arrowBottom::before,
+.flatpickr-calendar.arrowBottom::after {
+    border-top-color: #1a5d1a !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .flatpickr-calendar {
+        width: 92% !important;
+        max-width: 340px !important;
+    }
+    
+    .flatpickr-day {
+        font-size: 0.85rem !important;
+    }
+}
     
