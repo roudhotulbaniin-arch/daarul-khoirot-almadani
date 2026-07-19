@@ -984,6 +984,29 @@ try {
 } catch (err) {
     console.error('❌ Error init Flatpickr:', err);
 }
+
+/* ---------------------------------------------------
+   GLOBAL FIX — Klik di luar Flatpickr = Tutup
+--------------------------------------------------- */
+document.addEventListener('click', function(e) {
+    const allCalendars = document.querySelectorAll('.flatpickr-calendar.open');
+    
+    allCalendars.forEach(cal => {
+        // Cek apakah klik ada di dalam kalender atau input
+        const isInsideCal = cal.contains(e.target);
+        const isInsideInput = e.target.closest('.flatpickr-input, .custom-date-input, .input-icon-wrapper');
+        
+        if (!isInsideCal && !isInsideInput) {
+            // Cari instance flatpickr yang aktif dan tutup
+            const inputs = document.querySelectorAll('.flatpickr-input');
+            inputs.forEach(inp => {
+                if (inp._flatpickr && inp._flatpickr.isOpen) {
+                    inp._flatpickr.close();
+                }
+            });
+        }
+    });
+});
     /* ---------------------------------------------------
        AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
     --------------------------------------------------- */
