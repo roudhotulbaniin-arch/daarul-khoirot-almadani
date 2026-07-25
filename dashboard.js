@@ -491,47 +491,33 @@ function setPredikatCard(id, nilai, suffix = "") {
 }
 
 function updateDashboardSummary() {
-
     const s = state.dashboard.summary;
-
     if (!s) return;
 
-    // =====================================
-    // DATA KOSONG
-    // =====================================
-
-    if (!s.terbaik) {
-
+    // Cek data kosong lengkap
+    if (!s.terbaik || !s.hafalan || !s.hadir || !s.ibadah) {
         setCard("dashBestNama", "-");
         setCard("dashBestPredikat", "-");
-
         setCard("dashHafalanNama", "-");
         setCard("dashHafalanInfo", "0 Ayat");
         setCard("dashHafalanNilai", "-");
-
         setCard("dashHadirNama", "-");
         setCard("dashHadirPersen", "0 %");
         setCard("dashHadirNilai", "-");
-
         setCard("dashIbadahNama", "-");
         setCard("dashIbadahNilai", "-");
-
         setCard("dashAvgHadir", "-");
         setCard("dashAvgHafalan", "-");
         setCard("dashAvgIbadah", "-");
         setCard("dashAvgPredikat", "-");
-
-        // Card statistik (Dashboard V3)
-
         setCard("dashJumlahSantri", "0");
         setCard("dashTotalSetoran", "0");
         setCard("dashTotalAyat", "0");
         setCard("dashTotalTasmi", "0");
-
         return;
     }
 
-    // =====================================
+     =====================================
     // SANTRI TERBAIK
     // =====================================
 
