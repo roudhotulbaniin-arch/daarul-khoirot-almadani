@@ -178,35 +178,25 @@ try {
         set("rekapKebersihan", formatNilai(nilaiToAngka(last.akhlaq?.kebersihan)));
 
         const predikatIbadah = angkaKeHuruf(last.rataTotal);
-        console.log("📊 Predikat Ibadah:", predikatIbadah);
 
-        // Nilai (box hijau) - sudah OK
+        // ✅ Nilai (box hijau di bawah tabel)
         set("rekapNilaiIbadah", formatNilai(predikatIbadah.angka));
         set("rekapPredikatIbadah", predikatIbadah.latin);
         set("rekapArabIbadah", predikatIbadah.tulisan);
 
-        // 🆕 Predikat di TABEL (kalau ID beda, sesuaikan)
-        const idsPredikatTabel = [
-            "rekapPredikatIbadahTabel",
-            "cellPredikatIbadah",
-            "predikatIbadahTabel",
-            "tbPredikatIbadah"
-        ];
-        
-        for (const id of idsPredikatTabel) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.innerHTML = `
-                    <strong>${predikatIbadah.latin}</strong><br>
-                    <small dir="rtl">${predikatIbadah.tulisan}</small>
-                `;
-                console.log(`✅ Predikat tabel ibadah di-set ke ID: ${id}`);
-            }
+        // ✅ Predikat di TABEL Ibadah (baris terakhir)
+        const elPredikatTabel = document.getElementById("rekapPredikatAkhlaq");
+        if (elPredikatTabel) {
+            elPredikatTabel.innerHTML = `
+                <strong>${predikatIbadah.latin}</strong><br>
+                <small dir="rtl">${predikatIbadah.tulisan}</small>
+            `;
         }
     }
 } catch (e) {
     console.error("❌ Error blok Ibadah:", e);
 }
+
         // ======================
         // BOX NILAI IBADAH (dari state.historyIbadah)
         // ======================
