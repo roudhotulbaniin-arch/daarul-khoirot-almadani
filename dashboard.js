@@ -69,22 +69,25 @@ dashDropdown?.addEventListener("click", function(e){
 });
 
 function isiFilterSantriDashboard() {
-
     const select = document.getElementById("dashFilterSantri");
-
     if (!select) return;
+
+    // ✅ Tambahkan pengecekan
+    if (!state.daftarSantri || !Array.isArray(state.daftarSantri)) {
+        console.warn("Data santri belum ter-load");
+        select.innerHTML = '<option value="">Semua Santri</option>';
+        return;
+    }
 
     select.innerHTML = '<option value="">Semua Santri</option>';
 
     state.daftarSantri.forEach(s => {
-
-    select.innerHTML += `
-        <option value="${s.nama}">
-            ${s.nama}
-        </option>
-    `;
-
-});
+        select.innerHTML += `
+            <option value="${s.nama}">
+                ${s.nama}
+            </option>
+        `;
+    });
 }
 
 document
