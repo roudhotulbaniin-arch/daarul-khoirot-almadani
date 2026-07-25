@@ -520,14 +520,12 @@ function updateDashboardSummary() {
     // =====================================
     // SANTRI TERBAIK
     // =====================================
-
     setCard("dashBestNama", s.terbaik.nama);
     setPredikatCard("dashBestPredikat", s.terbaik.nilaiAkhir);
 
     // =====================================
     // HAFALAN TERBAIK
     // =====================================
-
     setCard("dashHafalanNama", s.hafalan.nama);
     setCard("dashHafalanInfo", `${s.hafalan.totalAyat} Ayat`);
     setPredikatCard("dashHafalanNilai", s.hafalan.nilaiHafalan);
@@ -535,29 +533,31 @@ function updateDashboardSummary() {
     // =====================================
     // KEHADIRAN TERBAIK
     // =====================================
-
     const hasilKehadiran = konversiPersenKehadiran(s.hadir.persenHadir);
-setCard("dashHadirNama", s.hadir.nama);
-setCard("dashHadirPersen", `${formatNilai(s.hadir.persenHadir)} %`);
-setPredikatCard("dashHadirNilai", hasilKehadiran.angka);
+    setCard("dashHadirNama", s.hadir.nama);
+    setCard("dashHadirPersen", `${formatNilai(s.hadir.persenHadir)} %`);
+    setPredikatCard("dashHadirNilai", hasilKehadiran.angka);
+
     // =====================================
     // IBADAH TERBAIK
     // =====================================
-
     setCard("dashIbadahNama", s.ibadah.nama);
     setPredikatCard("dashIbadahNilai", s.ibadah.nilaiIbadah);
 
     // =====================================
     // RATA-RATA
     // =====================================
-const hasil = konversiPersenKehadiran(s.avgHadir);
-const nilai = angkaKeHuruf(hasil.angka);
-document.getElementById("dashAvgHadir").innerHTML = `
-    <strong>${formatNilai(s.avgHadir)} %</strong><br>
-    <small>${formatNilai(hasil.angka)}</small><br>
-    <small>${nilai.latin}</small><br>
-    <small dir="rtl">${nilai.tulisan}</small>
-`;
+    const hasil = konversiPersenKehadiran(s.avgHadir);
+    const nilai = angkaKeHuruf(hasil.angka);
+    const elAvgHadir = document.getElementById("dashAvgHadir");
+    if (elAvgHadir) {
+        elAvgHadir.innerHTML = `
+            <strong>${formatNilai(s.avgHadir)} %</strong><br>
+            <small>${formatNilai(hasil.angka)}</small><br>
+            <small>${nilai.latin}</small><br>
+            <small dir="rtl">${nilai.tulisan}</small>
+        `;
+    }
 
     setPredikatCard("dashAvgHafalan", s.avgHafalan);
     setPredikatCard("dashAvgIbadah", s.avgIbadah);
@@ -566,15 +566,13 @@ document.getElementById("dashAvgHadir").innerHTML = `
     // =====================================
     // STATISTIK
     // =====================================
-
     setCard("dashJumlahSantri", s.jumlahSantri);
     setCard("dashTotalSetoran", s.totalSetoran);
     setCard("dashTotalAyat", s.totalAyat);
     setCard("dashTotalTasmi", s.totalTasmi);
-   
-   updateGrafikDashboard();
-}
 
+    updateGrafikDashboard();
+}
 function konversiHurufKeAngka(huruf) {
     switch (huruf) {
         case "A": return 95;
