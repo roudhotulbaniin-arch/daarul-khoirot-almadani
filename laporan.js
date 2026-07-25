@@ -132,24 +132,29 @@ try {
     
     // 🔍 DEBUG
     console.log("📊 Total data kehadiran:", dataKehadiran.length);
-    console.log("📊 Sample data:", dataKehadiran[0]);
     console.log("📊 state.historyKehadiran:", state.historyKehadiran?.length);
-    console.log("📊 Sample state:", state.historyKehadiran?.[0]);
+    console.log("📊 el.bulan value:", el.bulan?.dataset?.value);
+    console.log("📊 el.tahun value:", el.tahun?.dataset?.value);
+    console.log("📊 santriAktif:", state.santriAktif?.id_santri);
 
-    const rekap = rekapKehadiran(dataKehadiran) || {
-        hadir: 0, izin: 0, sakit: 0, alpha: 0, persen: 0
+    // ✅ FIX: pakai nama fungsi yang benar
+    const rekap = hitungRekapKehadiran(dataKehadiran) || {
+        hadir: 0, izin: 0, sakit: 0, alpha: 0, persentase: 0, total: 0
     };
     
     console.log("📊 Hasil rekap:", rekap);
 
-    const hasilKehadiran = konversiPersenKehadiran(rekap.persen);
+    // ✅ FIX: pakai property 'persentase' bukan 'persen'
+    const persen = rekap.persentase ?? 0;
+
+    const hasilKehadiran = konversiPersenKehadiran(persen);
     const predikatKehadiran = angkaKeHuruf(hasilKehadiran.angka);
 
     set("rekapHadir", rekap.hadir);
     set("rekapIzin", rekap.izin);
     set("rekapSakit", rekap.sakit);
     set("rekapAlpha", rekap.alpha);
-    set("rekapPersentase", formatNilai(rekap.persen) + "%");
+    set("rekapPersentase", formatNilai(persen) + "%");
 
     set("rekapNilaiKehadiran", formatNilai(predikatKehadiran.angka));
     set("rekapNilaiKehadiranAngka", formatNilai(predikatKehadiran.angka));
