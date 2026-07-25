@@ -5,6 +5,7 @@ console.log("✅ laporan_santri.js LOADED");
 ========================================================== */
 let semuaSantri = [];
 
+
 /* ==========================================================
    FUNGSI KONVERSI NILAI
 ========================================================== */
@@ -89,13 +90,13 @@ document.addEventListener("DOMContentLoaded", function() {
 ========================================================== */
 function tungguFirebaseLalu(callback) {
     let count = 0;
-    let cek = setInterval(function() {
+    const cek = setInterval(function() {
         count++;
         if (window.db) {
             clearInterval(cek);
             console.log("✅ Firebase siap (tunggu " + (count * 200) + "ms)");
             callback();
-        } else if (count > 50) {  // Timeout 10 detik
+        } else if (count > 50) {
             clearInterval(cek);
             console.error("❌ Firebase TIDAK siap setelah 10 detik!");
             alert("Firebase gagal load. Cek koneksi & konfigurasi.");
@@ -105,22 +106,19 @@ function tungguFirebaseLalu(callback) {
 
 
 /* ==========================================================
-   LOAD SEMUA SANTRI (SATU FUNGSI SAJA!)
+   LOAD SEMUA SANTRI
 ========================================================== */
 async function loadSemuaSantri() {
     console.log("📋 Loading daftar santri...");
 
     try {
-        // TANPA orderBy — biar tidak error kalau field kosong
         const snap = await window.db.collection("pendaftaran_santri").get();
-
-        console.log("📦 Total dokumen dari Firestore:", snap.size);
+        console.log("📦 Total dokumen:", snap.size);
 
         semuaSantri = [];
         snap.forEach(function(doc) {
             const d = doc.data();
             console.log("📄 Doc:", doc.id, "→ id_santri:", d.id_santri, "nama:", d.nama_santri);
-            
             if (d.id_santri) {
                 semuaSantri.push({
                     id: d.id_santri,
@@ -131,14 +129,12 @@ async function loadSemuaSantri() {
             }
         });
 
-        // Sort manual di JS (biar tidak butuh index Firestore)
         semuaSantri.sort(function(a, b) {
             return a.id.localeCompare(b.id);
         });
 
         console.log("✅ Total santri ter-load:", semuaSantri.length);
-        console.log("📊 Sample data:", semuaSantri.slice(0, 3));
-
+        console.log("📊 Sample:", semuaSantri.slice(0, 3));
         window.semuaSantri = semuaSantri;
 
     } catch (e) {
@@ -149,7 +145,7 @@ async function loadSemuaSantri() {
 
 
 /* ==========================================================
-   SETUP DROPDOWN & SEARCH (SATU FUNGSI SAJA!)
+   SETUP DROPDOWN SEARCH
 ========================================================== */
 function setupSearchSantri() {
     const inputNis = document.getElementById("nis");
@@ -159,7 +155,6 @@ function setupSearchSantri() {
         console.error("❌ Element #nis tidak ditemukan!");
         return;
     }
-
     if (!dropdown) {
         console.error("❌ Element #dropdownSantri tidak ditemukan!");
         return;
@@ -167,17 +162,9 @@ function setupSearchSantri() {
 
     console.log("✅ setupSearchSantri OK");
 
-    inputNis.addEventListener("focus", function() {
-        showDropdown(inputNis.value);
-    });
-
-    inputNis.addEventListener("click", function() {
-        showDropdown(inputNis.value);
-    });
-
-    inputNis.addEventListener("input", function() {
-        showDropdown(inputNis.value);
-    });
+    inputNis.addEventListener("focus", function() { showDropdown(inputNis.value); });
+    inputNis.addEventListener("click", function() { showDropdown(inputNis.value); });
+    inputNis.addEventListener("input", function() { showDropdown(inputNis.value); });
 
     document.addEventListener("click", function(e) {
         if (!e.target.closest(".search-wrapper")) {
@@ -221,19 +208,14 @@ function setActive(items, idx) {
 
 
 /* ==========================================================
-   TAMPILKAN DROPDOWN (SATU FUNGSI SAJA!)
+   TAMPILKAN DROPDOWN
 ========================================================== */
 function showDropdown(keyword) {
     const dropdown = document.getElementById("dropdownSantri");
     if (!dropdown) return;
 
-    // Kalau belum ter-load, kasih tahu user
     if (semuaSantri.length === 0) {
-        dropdown.innerHTML =
-            '<div class="dropdown-empty">' +
-                '<i class="fas fa-spinner fa-spin"></i> ' +
-                'Memuat daftar santri...' +
-            '</div>';
+        dropdown.innerHTML = '<div class="dropdown-empty"><i class="fas fa-spinner fa-spin"></i> Memuat daftar santri...</div>';
         dropdown.style.display = "block";
         return;
     }
@@ -254,11 +236,7 @@ function showDropdown(keyword) {
     const tampil = hasil.slice(0, 20);
 
     if (tampil.length === 0) {
-        dropdown.innerHTML =
-            '<div class="dropdown-empty">' +
-                '<i class="fas fa-search"></i> ' +
-                'Santri tidak ditemukan' +
-            '</div>';
+        dropdown.innerHTML = '<div class="dropdown-empty"><i class="fas fa-search"></i> Santri tidak ditemukan</div>';
         dropdown.style.display = "block";
         return;
     }
@@ -267,15 +245,12 @@ function showDropdown(keyword) {
     tampil.forEach(function(s) {
         const namaHL = highlightText(s.nama, keyword);
         const idHL = highlightText(s.id, keyword);
-
         html +=
             '<div class="dropdown-item" data-id="' + s.id + '" data-tgl="' + s.tgl_lahir + '">' +
                 '<div class="dropdown-item-id">' + idHL + '</div>' +
                 '<div class="dropdown-item-info">' +
                     '<div class="dropdown-item-nama">' + namaHL + '</div>' +
-                    '<div class="dropdown-item-kelas">' +
-                        '<i class="fas fa-graduation-cap"></i> ' + s.kelas +
-                    '</div>' +
+                    '<div class="dropdown-item-kelas"><i class="fas fa-graduation-cap"></i> ' + s.kelas + '</div>' +
                 '</div>' +
             '</div>';
     });
@@ -291,10 +266,8 @@ function showDropdown(keyword) {
         item.addEventListener("click", function() {
             const id = this.getAttribute("data-id");
             const tgl = this.getAttribute("data-tgl");
-
             document.getElementById("nis").value = id;
             if (tgl) document.getElementById("tglLahir").value = tgl;
-
             dropdown.style.display = "none";
         });
     });
@@ -308,7 +281,7 @@ function highlightText(text, keyword) {
 
 
 /* ==========================================================
-   CARI LAPORAN (tetap sama)
+   CARI LAPORAN
 ========================================================== */
 async function cariLaporan() {
     console.log("🔍 cariLaporan() DIPANGGIL");
@@ -366,88 +339,480 @@ async function cariLaporan() {
 
 
 /* ==========================================================
-   FUNGSI loadHafalan, loadKehadiran, loadIbadah
-   ⚠️ PASTE dari file lama Anda di sini
+   LOAD HAFALAN
 ========================================================== */
+async function loadHafalan(idSantri) {
+    console.log("loadHafalan:", idSantri);
 
-// [Copy paste fungsi loadHafalan, loadKehadiran, loadIbadah 
-//  yang sudah ada di kode Anda — jangan ubah]
+    try {
+        const snap = await window.db.collection("setoran_hafalan")
+            .where("id_santri", "==", idSantri)
+            .get();
 
-function setActive(items, idx) {
-    items.forEach(item => item.classList.remove("active"));
-    if (items[idx]) {
-        items[idx].classList.add("active");
-        items[idx].scrollIntoView({ block: "nearest" });
-    }
-}
+        const dataList = [];
+        snap.forEach(function(doc) { dataList.push(doc.data()); });
 
-// Tampilkan dropdown dengan filter
-function showDropdown(keyword) {
-    const dropdown = document.getElementById("dropdownSantri");
-    if (!dropdown) return;
-    
-    keyword = keyword.trim().toLowerCase();
-    
-    // Filter santri
-    const hasil = semuaSantri.filter(function(s) {
-        return s.id.toLowerCase().includes(keyword) ||
-               s.nama.toLowerCase().includes(keyword) ||
-               s.kelas.toLowerCase().includes(keyword);
-    });
-    
-    // Batasi 20 hasil pertama
-    const tampil = hasil.slice(0, 20);
-    
-    if (tampil.length === 0) {
-        dropdown.innerHTML = '<div class="dropdown-empty"><i class="fas fa-search"></i> Santri tidak ditemukan</div>';
-        dropdown.style.display = "block";
-        return;
-    }
-    
-    let html = "";
-    tampil.forEach(function(s) {
-        // Highlight keyword
-        const namaHighlight = highlightText(s.nama, keyword);
-        const idHighlight = highlightText(s.id, keyword);
-        
-        html += 
-            '<div class="dropdown-item" data-id="' + s.id + '" data-tgl="' + s.tgl_lahir + '">' +
-                '<div class="dropdown-item-id">' + idHighlight + '</div>' +
-                '<div class="dropdown-item-info">' +
-                    '<div class="dropdown-item-nama">' + namaHighlight + '</div>' +
-                    '<div class="dropdown-item-kelas"><i class="fas fa-graduation-cap"></i> ' + s.kelas + '</div>' +
-                '</div>' +
-            '</div>';
-    });
-    
-    if (hasil.length > 20) {
-        html += '<div class="dropdown-info">Menampilkan 20 dari ' + hasil.length + ' santri</div>';
-    }
-    
-    dropdown.innerHTML = html;
-    dropdown.style.display = "block";
-    
-    // Attach click event ke setiap item
-    dropdown.querySelectorAll(".dropdown-item").forEach(function(item) {
-        item.addEventListener("click", function() {
-            const id = this.getAttribute("data-id");
-            const tgl = this.getAttribute("data-tgl");
-            
-            document.getElementById("nis").value = id;
-            
-            // Auto-isi tanggal lahir juga (opsional)
-            if (tgl) {
-                document.getElementById("tglLahir").value = tgl;
-            }
-            
-            dropdown.style.display = "none";
+        dataList.sort(function(a, b) {
+            return (b.tanggal || "").localeCompare(a.tanggal || "");
         });
-    });
+
+        function hurufToAngka(kode) {
+            if (!kode) return 0;
+            const k = String(kode).trim().toUpperCase();
+            if (k.startsWith("A")) return 95;
+            if (k.startsWith("B")) return 80;
+            if (k.startsWith("C")) return 70;
+            if (k.startsWith("D")) return 50;
+            const lower = k.toLowerCase();
+            if (lower === "sangat baik") return 95;
+            if (lower === "baik")        return 80;
+            if (lower === "cukup")       return 70;
+            if (lower === "kurang")      return 50;
+            return 0;
+        }
+
+        function detailNilai(kode) {
+            const angka = hurufToAngka(kode);
+            if (angka === 0) return null;
+            if (angka >= 90) return { angka: 95, huruf: "A", latin: "Mumtaz",        arab: "ممتاز" };
+            if (angka >= 80) return { angka: 80, huruf: "B", latin: "Jayyid Jiddan", arab: "جيد جداً" };
+            if (angka >= 70) return { angka: 70, huruf: "C", latin: "Jayyid",        arab: "جيد" };
+            return                { angka: 50, huruf: "D", latin: "Maqbul",        arab: "مقبول" };
+        }
+
+        function kelasBadge(huruf) {
+            if (huruf === "A") return "nilai-a";
+            if (huruf === "B") return "nilai-b";
+            if (huruf === "C") return "nilai-c";
+            if (huruf === "D") return "nilai-d";
+            return "nilai-default";
+        }
+
+        function labelTasmi(val) {
+            if (val === true || val === "true") return "Sudah";
+            if (val === false || val === "false") return "Belum";
+            if (val === undefined || val === null || val === "") return null;
+            return val;
+        }
+
+        function renderNilai(label, kode) {
+            const d = detailNilai(kode);
+            if (!d) return "";
+            return '<div class="nilai-detail ' + kelasBadge(d.huruf) + '">' +
+                    '<div class="nilai-header">' +
+                        '<span class="nilai-label">' + label + '</span>' +
+                        '<span class="nilai-huruf">' + d.huruf + '</span>' +
+                    '</div>' +
+                    '<div class="nilai-body">' +
+                        '<div class="nilai-angka">' + d.angka + '</div>' +
+                        '<div class="nilai-teks">' +
+                            '<div class="nilai-latin">' + d.latin + '</div>' +
+                            '<div class="nilai-arab">' + d.arab + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        let html = "";
+        dataList.forEach(function(d) {
+            const nilaiTahsin     = hurufToAngka(d.tahsin);
+            const nilaiTajwid     = hurufToAngka(d.tajwid);
+            const nilaiKelancaran = hurufToAngka(d.kelancaran);
+
+            const nilaiList = [nilaiTahsin, nilaiTajwid, nilaiKelancaran].filter(function(n) { return n > 0; });
+            const rataHafalan = nilaiList.length > 0 ?
+                nilaiList.reduce(function(a, b) { return a + b; }, 0) / nilaiList.length : 0;
+
+            const predikat = angkaKeHuruf(rataHafalan);
+            const tasmi = labelTasmi(d.tasmi);
+
+            let item = '<div class="hafalan-item">';
+            item += '<div class="hafalan-header">' +
+                        '<strong>' + (d.surah || "-") + '</strong>' +
+                        '<span class="hafalan-tanggal">' + (d.tanggal || "-") + '</span>' +
+                    '</div>';
+
+            item += '<div class="hafalan-detail">';
+            item += '<span><b>Juz:</b> ' + (d.juzMulai || "-") + ' - ' + (d.juzSelesai || "-") + '</span>';
+            item += '<span><b>Ayat:</b> ' + (d.ayatMulai || "-") + ' - ' + (d.ayatSelesai || "-") + '</span>';
+            if (d.totalAyat) item += '<span><b>Total:</b> ' + d.totalAyat + ' ayat</span>';
+            item += '</div>';
+
+            item += '<div class="nilai-grid">';
+            item += renderNilai("Kelancaran", d.kelancaran);
+            item += renderNilai("Tahsin", d.tahsin);
+            item += renderNilai("Tajwid", d.tajwid);
+            item += '</div>';
+
+            if (rataHafalan > 0) {
+                item += '<div class="predikat-hafalan ' + predikat.kelas + '">' +
+                            '<div class="predikat-hafalan-label">' +
+                                '<i class="fas fa-star"></i> Rata-rata Predikat' +
+                            '</div>' +
+                            '<div class="predikat-hafalan-body">' +
+                                '<div class="predikat-hafalan-arab">' + predikat.arab + '</div>' +
+                                '<div class="predikat-hafalan-info">' +
+                                    '<div class="predikat-hafalan-latin">' + predikat.predikat + '</div>' +
+                                    '<div class="predikat-hafalan-angka">' + rataHafalan.toFixed(1) + '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+            }
+
+            if (tasmi) {
+                const iconTasmi = tasmi === "Sudah" ? "check-circle" : "times-circle";
+                const classTasmi = tasmi === "Sudah" ? "tasmi-sudah" : "tasmi-belum";
+                item += '<div class="tasmi-box ' + classTasmi + '">' +
+                        '<i class="fas fa-' + iconTasmi + '"></i>' +
+                        '<span>Tasmi: <b>' + tasmi + '</b></span>' +
+                    '</div>';
+            }
+
+            if (d.catatan) {
+                item += '<div class="hafalan-catatan">' +
+                        '<i class="fas fa-comment"></i>' +
+                        '<div>' +
+                            '<div class="catatan-label">Catatan</div>' +
+                            '<div class="catatan-isi">' + d.catatan + '</div>' +
+                        '</div>' +
+                    '</div>';
+            }
+
+            if (d.motivasi) {
+                item += '<div class="hafalan-motivasi">' +
+                        '<i class="fas fa-heart"></i>' +
+                        '<div>' +
+                            '<div class="motivasi-label">Motivasi</div>' +
+                            '<div class="motivasi-isi">' + d.motivasi + '</div>' +
+                        '</div>' +
+                    '</div>';
+            }
+
+            item += '</div>';
+            html += item;
+        });
+
+        if (html === "") html = "<p>Belum ada data hafalan.</p>";
+        document.getElementById("hasilHafalan").innerHTML = html;
+
+    } catch (e) {
+        console.error("Error hafalan:", e);
+        document.getElementById("hasilHafalan").innerHTML = "<p>Error memuat data.</p>";
+    }
 }
 
-// Highlight teks yang cocok
-function highlightText(text, keyword) {
-    if (!keyword) return text;
-    const regex = new RegExp("(" + keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
-    return text.replace(regex, '<mark>$1</mark>');
+
+/* ==========================================================
+   LOAD KEHADIRAN
+========================================================== */
+async function loadKehadiran(idSantri) {
+    console.log("loadKehadiran:", idSantri);
+
+    try {
+        const snap = await window.db.collection("kehadiran_santri")
+            .where("id_santri", "==", idSantri)
+            .get();
+
+        let hadir = 0, izin = 0, sakit = 0, alpha = 0;
+        const dataList = [];
+
+        snap.forEach(function(doc) {
+            const d = doc.data();
+            dataList.push(d);
+            const status = (d.status || "").toLowerCase();
+            if (status === "hadir") hadir++;
+            else if (status === "izin") izin++;
+            else if (status === "sakit") sakit++;
+            else if (status === "alpha" || status === "alpa") alpha++;
+        });
+
+        const total = hadir + izin + sakit + alpha;
+        const persenHadir = total > 0 ? (hadir / total) * 100 : 0;
+
+        const konversi = konversiPersenKehadiran(persenHadir);
+        const predikat = angkaKeHuruf(konversi.angka);
+
+        function formatPersen(nilai) {
+            if (nilai % 1 === 0) return nilai + "%";
+            return nilai.toFixed(1) + "%";
+        }
+
+        dataList.sort(function(a, b) {
+            return (b.tanggal || "").localeCompare(a.tanggal || "");
+        });
+
+        let html = "";
+
+        if (snap.size > 0) {
+            html += '<div class="statistik-kehadiran">' +
+                    '<div class="stat-item stat-hadir"><div class="stat-angka">' + hadir + '</div><div class="stat-label">Hadir</div></div>' +
+                    '<div class="stat-item stat-izin"><div class="stat-angka">' + izin + '</div><div class="stat-label">Izin</div></div>' +
+                    '<div class="stat-item stat-sakit"><div class="stat-angka">' + sakit + '</div><div class="stat-label">Sakit</div></div>' +
+                    '<div class="stat-item stat-alpha"><div class="stat-angka">' + alpha + '</div><div class="stat-label">Alpha</div></div>' +
+                '</div>';
+
+            html += '<div class="nilai-kehadiran-box ' + predikat.kelas + '">' +
+                    '<div class="nilai-kehadiran-header"><i class="fas fa-award"></i> Nilai Kehadiran</div>' +
+                    '<div class="nilai-kehadiran-body">' +
+                        '<div class="nilai-kehadiran-persen">' +
+                            '<div class="persen-angka">' + formatPersen(persenHadir) + '</div>' +
+                            '<div class="persen-label">Kehadiran</div>' +
+                        '</div>' +
+                        '<div class="nilai-kehadiran-divider"></div>' +
+                        '<div class="nilai-kehadiran-nilai">' +
+                            '<div class="nilai-angka-besar">' + konversi.angka + '</div>' +
+                            '<div class="nilai-huruf-besar">' + konversi.huruf + '</div>' +
+                        '</div>' +
+                        '<div class="nilai-kehadiran-divider"></div>' +
+                        '<div class="nilai-kehadiran-predikat">' +
+                            '<div class="predikat-arab-besar">' + predikat.arab + '</div>' +
+                            '<div class="predikat-latin-besar">' + predikat.predikat + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        dataList.forEach(function(d) {
+            const status = (d.status || "-").toLowerCase();
+            let badgeClass = "badge-alpha";
+            if (status === "hadir") badgeClass = "badge-hadir";
+            else if (status === "izin") badgeClass = "badge-izin";
+            else if (status === "sakit") badgeClass = "badge-sakit";
+
+            html += '<div class="kehadiran-item">' +
+                    '<div class="kehadiran-tanggal">' +
+                        '<i class="fas fa-calendar-day"></i> ' + (d.tanggal || "-") +
+                    '</div>' +
+                    '<span class="badge ' + badgeClass + '">' + (d.status || "-") + '</span>' +
+                '</div>';
+        });
+
+        if (snap.size === 0) html = "<p>Belum ada data kehadiran.</p>";
+        document.getElementById("hasilKehadiran").innerHTML = html;
+
+    } catch (e) {
+        console.error("Error kehadiran:", e);
+        document.getElementById("hasilKehadiran").innerHTML = "<p>Error memuat data.</p>";
+    }
+}
+
+
+/* ==========================================================
+   LOAD IBADAH & AKHLAQ
+========================================================== */
+async function loadIbadah(idSantri) {
+    console.log("loadIbadah:", idSantri);
+
+    try {
+        const snap = await window.db.collection("ibadah_akhlaq_santri")
+            .where("id_santri", "==", idSantri)
+            .get();
+
+        const dataList = [];
+        snap.forEach(function(doc) { dataList.push(doc.data()); });
+
+        dataList.sort(function(a, b) {
+            return (b.tanggal || "").localeCompare(a.tanggal || "");
+        });
+
+        function kataToAngka(kata) {
+            if (!kata) return 0;
+            const k = String(kata).trim().toLowerCase();
+            if (k === "sangat baik") return 95;
+            if (k === "baik")        return 80;
+            if (k === "cukup")       return 70;
+            if (k === "kurang")      return 50;
+            return 0;
+        }
+
+        function detailAngka(angka) {
+            if (!angka || angka === 0) return null;
+            if (angka >= 90) return { angka: angka, huruf: "A", latin: "Mumtaz",        arab: "ممتاز" };
+            if (angka >= 80) return { angka: angka, huruf: "B", latin: "Jayyid Jiddan", arab: "جيد جداً" };
+            if (angka >= 70) return { angka: angka, huruf: "C", latin: "Jayyid",        arab: "جيد" };
+            if (angka >= 60) return { angka: angka, huruf: "D", latin: "Maqbul",        arab: "مقبول" };
+            return                { angka: angka, huruf: "E", latin: "Dho'if",        arab: "ضعيف" };
+        }
+
+        function kelasNilai(huruf) {
+            if (huruf === "A") return "nilai-a";
+            if (huruf === "B") return "nilai-b";
+            if (huruf === "C") return "nilai-c";
+            if (huruf === "D") return "nilai-d";
+            if (huruf === "E") return "nilai-e";
+            return "nilai-default";
+        }
+
+        const urutanIbadah = ["subuh", "dzuhur", "ashar", "maghrib", "isya", "tilawah"];
+        const labelIbadah = {
+            subuh: "Subuh", dzuhur: "Dzuhur", ashar: "Ashar",
+            maghrib: "Maghrib", isya: "Isya", tilawah: "Tilawah"
+        };
+
+        const urutanAkhlaq = ["adabGuru", "adabOrtu", "disiplin", "kebersihan"];
+        const labelAkhlaq = {
+            adabGuru: "Adab pada Guru", adabOrtu: "Adab pada Orang Tua",
+            disiplin: "Kedisiplinan", kebersihan: "Kebersihan"
+        };
+
+        function renderNestedItem(label, kata) {
+            const angka = kataToAngka(kata);
+            const detail = detailAngka(angka);
+
+            if (!detail) {
+                return '<div class="nested-item">' +
+                       '<div class="nested-item-header"><span class="nested-label">' + label + '</span></div>' +
+                       '<div class="nested-item-kata">-</div>' +
+                       '</div>';
+            }
+
+            return '<div class="nested-item ' + kelasNilai(detail.huruf) + '">' +
+                       '<div class="nested-item-header">' +
+                           '<span class="nested-label">' + label + '</span>' +
+                           '<span class="nested-huruf">' + detail.huruf + '</span>' +
+                       '</div>' +
+                       '<div class="nested-item-body">' +
+                           '<span class="nested-angka">' + detail.angka + '</span>' +
+                           '<span class="nested-arab">' + detail.arab + '</span>' +
+                       '</div>' +
+                       '<div class="nested-item-kata">' + kata + '</div>' +
+                   '</div>';
+        }
+
+        let html = "";
+
+        dataList.forEach(function(d) {
+            let nilaiIbadahList = [];
+            if (d.ibadah && typeof d.ibadah === "object") {
+                urutanIbadah.forEach(function(key) {
+                    if (d.ibadah[key]) {
+                        const n = kataToAngka(d.ibadah[key]);
+                        if (n > 0) nilaiIbadahList.push(n);
+                    }
+                });
+            }
+            const rataIbadah = nilaiIbadahList.length > 0 ?
+                nilaiIbadahList.reduce(function(a, b) { return a + b; }, 0) / nilaiIbadahList.length : 0;
+
+            let nilaiAkhlaqList = [];
+            if (d.akhlaq && typeof d.akhlaq === "object") {
+                urutanAkhlaq.forEach(function(key) {
+                    if (d.akhlaq[key]) {
+                        const n = kataToAngka(d.akhlaq[key]);
+                        if (n > 0) nilaiAkhlaqList.push(n);
+                    }
+                });
+            }
+            const rataAkhlaq = nilaiAkhlaqList.length > 0 ?
+                nilaiAkhlaqList.reduce(function(a, b) { return a + b; }, 0) / nilaiAkhlaqList.length : 0;
+
+            let rataTotal = 0;
+            if (rataIbadah > 0 && rataAkhlaq > 0) rataTotal = (rataIbadah + rataAkhlaq) / 2;
+            else if (rataIbadah > 0) rataTotal = rataIbadah;
+            else if (rataAkhlaq > 0) rataTotal = rataAkhlaq;
+
+            const detailIbadah = detailAngka(rataIbadah);
+            const detailAkhlaq = detailAngka(rataAkhlaq);
+            const detailTotal  = detailAngka(rataTotal);
+
+            let detailIbadahHtml = "";
+            if (d.ibadah && typeof d.ibadah === "object") {
+                urutanIbadah.forEach(function(key) {
+                    if (d.ibadah[key] !== undefined) {
+                        detailIbadahHtml += renderNestedItem(labelIbadah[key] || key, d.ibadah[key]);
+                    }
+                });
+            }
+
+            let detailAkhlaqHtml = "";
+            if (d.akhlaq && typeof d.akhlaq === "object") {
+                urutanAkhlaq.forEach(function(key) {
+                    if (d.akhlaq[key] !== undefined) {
+                        detailAkhlaqHtml += renderNestedItem(labelAkhlaq[key] || key, d.akhlaq[key]);
+                    }
+                });
+            }
+
+            let item = '<div class="ibadah-item">';
+            item += '<div class="ibadah-header">' +
+                    '<span class="ibadah-tanggal">' +
+                        '<i class="fas fa-calendar-day"></i> ' + (d.tanggal || "-") +
+                    '</span>' +
+                '</div>';
+
+            item += '<div class="ringkasan-grid">';
+
+            if (detailIbadah) {
+                item += '<div class="ringkasan-box ' + kelasNilai(detailIbadah.huruf) + '">' +
+                        '<div class="ringkasan-title"><i class="fas fa-mosque"></i> Ibadah</div>' +
+                        '<div class="ringkasan-arab">' + detailIbadah.arab + '</div>' +
+                        '<div class="ringkasan-latin">' + detailIbadah.latin + '</div>' +
+                        '<div class="ringkasan-nilai">' +
+                            '<span class="ringkasan-angka">' + rataIbadah.toFixed(1) + '</span>' +
+                            '<span class="ringkasan-huruf">' + detailIbadah.huruf + '</span>' +
+                        '</div>' +
+                    '</div>';
+            }
+
+            if (detailAkhlaq) {
+                item += '<div class="ringkasan-box ' + kelasNilai(detailAkhlaq.huruf) + '">' +
+                        '<div class="ringkasan-title"><i class="fas fa-heart"></i> Akhlaq</div>' +
+                        '<div class="ringkasan-arab">' + detailAkhlaq.arab + '</div>' +
+                        '<div class="ringkasan-latin">' + detailAkhlaq.latin + '</div>' +
+                        '<div class="ringkasan-nilai">' +
+                            '<span class="ringkasan-angka">' + rataAkhlaq.toFixed(1) + '</span>' +
+                            '<span class="ringkasan-huruf">' + detailAkhlaq.huruf + '</span>' +
+                        '</div>' +
+                    '</div>';
+            }
+
+            if (detailTotal) {
+                item += '<div class="ringkasan-box ringkasan-total ' + kelasNilai(detailTotal.huruf) + '">' +
+                        '<div class="ringkasan-title"><i class="fas fa-star"></i> Predikat</div>' +
+                        '<div class="ringkasan-arab">' + detailTotal.arab + '</div>' +
+                        '<div class="ringkasan-latin">' + detailTotal.latin + '</div>' +
+                        '<div class="ringkasan-nilai">' +
+                            '<span class="ringkasan-angka">' + rataTotal.toFixed(1) + '</span>' +
+                            '<span class="ringkasan-huruf">' + detailTotal.huruf + '</span>' +
+                        '</div>' +
+                    '</div>';
+            }
+
+            item += '</div>';
+
+            if (detailIbadahHtml) {
+                item += '<div class="nested-section">' +
+                        '<div class="nested-title"><i class="fas fa-mosque"></i> Detail Ibadah</div>' +
+                        '<div class="nested-grid">' + detailIbadahHtml + '</div>' +
+                    '</div>';
+            }
+
+            if (detailAkhlaqHtml) {
+                item += '<div class="nested-section">' +
+                        '<div class="nested-title"><i class="fas fa-heart"></i> Detail Akhlaq</div>' +
+                        '<div class="nested-grid">' + detailAkhlaqHtml + '</div>' +
+                    '</div>';
+            }
+
+            if (d.catatan) {
+                item += '<div class="ibadah-catatan">' +
+                        '<i class="fas fa-comment"></i>' +
+                        '<div>' +
+                            '<div class="catatan-label">Catatan Musyrif</div>' +
+                            '<div class="catatan-isi">' + d.catatan + '</div>' +
+                        '</div>' +
+                    '</div>';
+            }
+
+            item += '</div>';
+            html += item;
+        });
+
+        if (html === "") html = "<p>Belum ada data ibadah & akhlak.</p>";
+        document.getElementById("hasilIbadah").innerHTML = html;
+
+    } catch (e) {
+        console.error("Error ibadah:", e);
+        document.getElementById("hasilIbadah").innerHTML = "<p>Error memuat data.</p>";
+    }
 }
