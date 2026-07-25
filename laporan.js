@@ -124,64 +124,89 @@
             console.error("❌ Error blok Nilai:", e);
         }
 
-        // ======================
-        // KEHADIRAN
-        // ======================
-        try {
-            const dataKehadiran = filterKehadiranBulanan() || [];
-            console.log("📊 Data Kehadiran:", dataKehadiran.length);
+// ======================
+// KEHADIRAN
+// ======================
+try {
+    const dataKehadiran = filterKehadiranBulanan() || [];
+    
+    // 🔍 DEBUG
+    console.log("📊 Total data kehadiran:", dataKehadiran.length);
+    console.log("📊 Sample data:", dataKehadiran[0]);
+    console.log("📊 state.historyKehadiran:", state.historyKehadiran?.length);
+    console.log("📊 Sample state:", state.historyKehadiran?.[0]);
 
-            const rekap = rekapKehadiran(dataKehadiran) || {
-                hadir: 0, izin: 0, sakit: 0, alpha: 0, persen: 0
-            };
+    const rekap = rekapKehadiran(dataKehadiran) || {
+        hadir: 0, izin: 0, sakit: 0, alpha: 0, persen: 0
+    };
+    
+    console.log("📊 Hasil rekap:", rekap);
 
-            const hasilKehadiran = konversiPersenKehadiran(rekap.persen);
-            const predikatKehadiran = angkaKeHuruf(hasilKehadiran.angka);
+    const hasilKehadiran = konversiPersenKehadiran(rekap.persen);
+    const predikatKehadiran = angkaKeHuruf(hasilKehadiran.angka);
 
-            set("rekapHadir", rekap.hadir);
-            set("rekapIzin", rekap.izin);
-            set("rekapSakit", rekap.sakit);
-            set("rekapAlpha", rekap.alpha);
-            set("rekapPersentase", formatNilai(rekap.persen) + "%");
+    set("rekapHadir", rekap.hadir);
+    set("rekapIzin", rekap.izin);
+    set("rekapSakit", rekap.sakit);
+    set("rekapAlpha", rekap.alpha);
+    set("rekapPersentase", formatNilai(rekap.persen) + "%");
 
-            set("rekapNilaiKehadiran", formatNilai(predikatKehadiran.angka));
-            set("rekapNilaiKehadiranAngka", formatNilai(predikatKehadiran.angka));
-            set("rekapPredikatKehadiran", predikatKehadiran.latin);
-            set("rekapArabKehadiran", predikatKehadiran.tulisan);
-        } catch (e) {
-            console.error("❌ Error blok Kehadiran:", e);
-        }
+    set("rekapNilaiKehadiran", formatNilai(predikatKehadiran.angka));
+    set("rekapNilaiKehadiranAngka", formatNilai(predikatKehadiran.angka));
+    set("rekapPredikatKehadiran", predikatKehadiran.latin);
+    set("rekapArabKehadiran", predikatKehadiran.tulisan);
+} catch (e) {
+    console.error("❌ Error blok Kehadiran:", e);
+}
 
-        // ======================
-        // IBADAH & AKHLAQ
-        // ======================
-        try {
-            const dataIbadah = filterIbadahBulanan() || [];
-            console.log("📊 Data Ibadah:", dataIbadah.length);
+// ======================
+// IBADAH & AKHLAQ
+// ======================
+try {
+    const dataIbadah = filterIbadahBulanan() || [];
+    console.log("📊 Data Ibadah:", dataIbadah.length);
+    console.log("📊 Sample Ibadah:", dataIbadah[0]);
 
-            if (dataIbadah.length) {
+    if (dataIbadah.length) {
+        const last = dataIbadah[dataIbadah.length - 1];
 
-                const last = dataIbadah[dataIbadah.length - 1];
+        set("rekapSholat", formatNilai(last.rataSholat));
+        set("rekapTilawah", formatNilai(nilaiToAngka(last.ibadah?.tilawah)));
+        set("rekapAdabGuru", formatNilai(nilaiToAngka(last.akhlaq?.adabGuru)));
+        set("rekapAdabOrtu", formatNilai(nilaiToAngka(last.akhlaq?.adabOrtu)));
+        set("rekapDisiplin", formatNilai(nilaiToAngka(last.akhlaq?.disiplin)));
+        set("rekapKebersihan", formatNilai(nilaiToAngka(last.akhlaq?.kebersihan)));
 
-                set("rekapSholat", formatNilai(last.rataSholat));
-                set("rekapTilawah", formatNilai(nilaiToAngka(last.ibadah?.tilawah)));
-                set("rekapAdabGuru", formatNilai(nilaiToAngka(last.akhlaq?.adabGuru)));
-                set("rekapAdabOrtu", formatNilai(nilaiToAngka(last.akhlaq?.adabOrtu)));
-                set("rekapDisiplin", formatNilai(nilaiToAngka(last.akhlaq?.disiplin)));
-                set("rekapKebersihan", formatNilai(nilaiToAngka(last.akhlaq?.kebersihan)));
+        const predikatIbadah = angkaKeHuruf(last.rataTotal);
+        console.log("📊 Predikat Ibadah:", predikatIbadah);
 
-                const predikatIbadah = angkaKeHuruf(last.rataTotal);
+        // Nilai (box hijau) - sudah OK
+        set("rekapNilaiIbadah", formatNilai(predikatIbadah.angka));
+        set("rekapPredikatIbadah", predikatIbadah.latin);
+        set("rekapArabIbadah", predikatIbadah.tulisan);
 
-                set("rekapNilaiIbadah", formatNilai(predikatIbadah.angka));
-                set("rekapPredikatIbadah", predikatIbadah.latin);
-                set("rekapArabIbadah", predikatIbadah.tulisan);
-            } else {
-                console.warn("⚠️ dataIbadah kosong, blok ibadah dilewati");
+        // 🆕 Predikat di TABEL (kalau ID beda, sesuaikan)
+        const idsPredikatTabel = [
+            "rekapPredikatIbadahTabel",
+            "cellPredikatIbadah",
+            "predikatIbadahTabel",
+            "tbPredikatIbadah"
+        ];
+        
+        for (const id of idsPredikatTabel) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.innerHTML = `
+                    <strong>${predikatIbadah.latin}</strong><br>
+                    <small dir="rtl">${predikatIbadah.tulisan}</small>
+                `;
+                console.log(`✅ Predikat tabel ibadah di-set ke ID: ${id}`);
             }
-        } catch (e) {
-            console.error("❌ Error blok Ibadah:", e);
         }
-
+    }
+} catch (e) {
+    console.error("❌ Error blok Ibadah:", e);
+}
         // ======================
         // BOX NILAI IBADAH (dari state.historyIbadah)
         // ======================
