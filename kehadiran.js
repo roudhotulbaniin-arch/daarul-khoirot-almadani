@@ -91,59 +91,49 @@ function getKehadiranId(data) {
 /* ==========================================================
    SIMPAN
 ========================================================== */
-
 async function simpanKehadiran() {
 
     if (!validasiKehadiran()) return false;
 
     try {
-
         setLoading(true);
 
         const data = getDataKehadiran();
 
         await setDoc(
-
-            doc(
-                db,
-                COL.KEHADIRAN,
-                getKehadiranId(data)
-            ),
-
+            doc(db, COL.KEHADIRAN, getKehadiranId(data)),
             data,
-
-            {
-                merge: true
-            }
-
+            { merge: true }
         );
 
-        state.historyKehadiran.push(data);
+        // Update state
+        const idxExisting = state.historyKehadiran.findIndex(
+            x => x.id_santri === data.id_santri && x.tanggal === data.tanggal
+        );
+
+        if (idxExisting >= 0) {
+            state.historyKehadiran[idxExisting] = { ...data };
+        } else {
+            state.historyKehadiran.push(data);
+        }
+
+        // Refresh dashboard mini
+        if (typeof refreshDashboardMini === "function") {
+            refreshDashboardMini();
+        }
 
         sukses("Kehadiran berhasil disimpan.");
-
         return true;
 
-    }
-
-    catch (err) {
-
-        console.error(err);
-
-        gagal("Gagal menyimpan kehadiran.");
-
+    } catch (err) {
+        console.error("❌ Error simpanKehadiran:", err);
+        gagal("Gagal menyimpan kehadiran: " + err.message);
         return false;
 
-    }
-
-    finally {
-
+    } finally {
         setLoading(false);
-
     }
-
 }
-
 
 /* ==========================================================
    LOAD HISTORY KEHADIRAN
@@ -265,11 +255,21 @@ function hitungRekapKehadiran(data) {
 ========================================================== */
 
 function resetFormKehadiran() {
+    // Reset tanggal ke hari ini
+    if (el.tanggalKehadiran) {
+        el.tanggalKehadiran.value = today();
+    }
 
-    el.tanggalKehadiran.value = today();
+    // Reset status
+    if (el.statusKehadiran) {
+        el.statusKehadiran.value = '';
+        el.statusKehadiran.selectedIndex = 0;
 
-    el.statusKehadiran.selectedIndex = 0;
-
+        // ⭐ Refresh custom dropdown
+        if (typeof CustomDropdown !== "undefined") {
+            CustomDropdown.refresh(el.statusKehadiran);
+        }
+    }
 }
 
 /* ==========================================================
@@ -277,41 +277,35 @@ function resetFormKehadiran() {
 ========================================================== */
 
 window.simpanDanKeHafalan = async function () {
-
     const ok = await simpanKehadiran();
-
     if (!ok) return;
 
     resetFormKehadiran();
 
-    openTab(null, "input-panel");
+    // Reload history dan refresh dashboard
+    await loadHistoryKehadiran();
 
-}
+    if (typeof refreshDashboardMini === "function") {
+        refreshDashboardMini();
+    }
 
+    // Pindah ke tab hafalan
+    if (typeof openTab === "function") {
+        openTab(null, "input-panel");
+    }
+};
 
 /* ==========================================================
-   LOAD HISTORY KEHADIRAN
+   LOAD HISTORY KEHADIRAN — Versi Bersih & Final
 ========================================================== */
-
 window.loadHistoryKehadiran = async function () {
-
-
-if (!pastikanSantriDipilih(false)) return;
+    if (!pastikanSantriDipilih(false)) return [];
 
     try {
-
         const q = query(
-
             collection(db, COL.KEHADIRAN),
-
-            where(
-                "id_santri",
-                "==",
-                state.santriAktif.id_santri
-            ),
-
+            where("id_santri", "==", state.santriAktif.id_santri),
             orderBy("tanggal", "asc")
-
         );
 
         const snap = await getDocs(q);
@@ -321,19 +315,19 @@ if (!pastikanSantriDipilih(false)) return;
             ...doc.data()
         }));
 
+        // Refresh custom dropdown status setelah load
+        const elStatus = document.getElementById('statusKehadiran');
+        if (elStatus && typeof CustomDropdown !== "undefined") {
+            CustomDropdown.refresh(elStatus);
+        }
+
         return state.historyKehadiran;
 
-    }
-
-    catch (err) {
-
-        console.error(err);
-
+    } catch (err) {
+        console.error("❌ Error loadHistoryKehadiran:", err.code, err.message, err);
         return [];
-
     }
-
-}
+};
 
 
 /* ==========================================================
