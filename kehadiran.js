@@ -224,25 +224,52 @@ function hitungRekapKehadiran(data) {
 
 
 /* ==========================================================
-   FILTER KEHADIRAN BULANAN
+   FILTER KEHADIRAN BULANAN (LEBIH TOLERAN)
 ========================================================== */
 function filterKehadiranBulanan() {
 
-    const bulan = el.bulan?.dataset?.value || "";
-    const tahun = el.tahun?.dataset?.value || "";
+    const now = new Date();
+    
+    // Ambil dari dataset, fallback ke bulan/tahun sekarang
+    let bulan = el.bulan?.dataset?.value 
+             || el.bulan?.value 
+             || String(now.getMonth() + 1).padStart(2, "0");
+    
+    let tahun = el.tahun?.dataset?.value 
+             || el.tahun?.value 
+             || String(now.getFullYear());
 
-    if (!bulan || !tahun) return [];
+    // Normalisasi bulan (biar selalu 2 digit)
+    bulan = String(bulan).padStart(2, "0");
+    tahun = String(tahun);
+
+    console.log("🔍 Filter Kehadiran:", { 
+        bulan, 
+        tahun, 
+        santriId: state.santriAktif?.id_santri,
+        totalHistory: state.historyKehadiran?.length 
+    });
+
+    if (!state.historyKehadiran || !Array.isArray(state.historyKehadiran)) {
+        return [];
+    }
 
     return state.historyKehadiran.filter(item => {
+        if (!item.tanggal) return false;
+        
         const tgl = new Date(item.tanggal);
-        return (
-            item.id_santri === state.santriAktif?.id_santri &&
-            String(tgl.getMonth() + 1).padStart(2, "0") === bulan &&
-            String(tgl.getFullYear()) === tahun
-        );
+        if (isNaN(tgl.getTime())) return false;
+        
+        const bulanItem = String(tgl.getMonth() + 1).padStart(2, "0");
+        const tahunItem = String(tgl.getFullYear());
+        
+        const matchSantri = item.id_santri === state.santriAktif?.id_santri;
+        const matchBulan = bulanItem === bulan;
+        const matchTahun = tahunItem === tahun;
+        
+        return matchSantri && matchBulan && matchTahun;
     });
 }
-
 
 /* ==========================================================
    NILAI KEHADIRAN (Persen → Huruf)
