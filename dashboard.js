@@ -590,99 +590,153 @@ async function rebuildDashboard() {
 
     try {
 
+        // =====================================
+        // 1. AMBIL DATA
+        // =====================================
         const semuaData = await ambilSemuaData();
 
-  let rekap = hitungRekapPerSantri(semuaData);
+        if (!semuaData) {
+            console.warn("⚠️ ambilSemuaData() mengembalikan null/undefined");
+            return;
+        }
 
-    const filterNama = filterSantriDashboard;
+        console.log("✅ Data berhasil diambil:", {
+            hafalan: semuaData.hafalan?.length || 0,
+            kehadiran: semuaData.kehadiran?.length || 0,
+            ibadah: semuaData.ibadah?.length || 0
+        });
 
-    if (filterNama) {
-        rekap = rekap.filter(item =>
-            (item.nama || "")
-                .toLowerCase()
-                .includes(filterNama)
-        );
+        // =====================================
+        // 2. HITUNG REKAP
+        // =====================================
+        let rekap = hitungRekapPerSantri(semuaData);
+
+        if (!Array.isArray(rekap)) {
+            console.warn("⚠️ hitungRekapPerSantri tidak return array");
+            rekap = [];
+        }
+
+        // =====================================
+        // 3. FILTER SANTRI
+        // =====================================
+        const filterNama = (typeof filterSantriDashboard !== "undefined")
+            ? filterSantriDashboard
+            : "";
+
+        if (filterNama) {
+            rekap = rekap.filter(item =>
+                (item.nama || "")
+                    .toLowerCase()
+                    .includes(filterNama)
+            );
+        }
+
+        // =====================================
+        // 4. HITUNG SUMMARY
+        // =====================================
+        const summary = hitungSummaryDashboard(rekap);
+
+        // =====================================
+        // 5. HITUNG STATISTIK
+        // =====================================
+        const statistik = {
+
+            jumlahSantri: rekap.length,
+
+            totalAyat: rekap.reduce(
+                (total, item) => total + (Number(item.totalAyat) || 0),
+                0
+            ),
+
+            totalSetoran: rekap.reduce(
+                (total, item) => total + (Number(item.frekuensi) || 0),
+                0
+            ),
+
+            totalTasmi: rekap.reduce(
+                (total, item) => total + (Number(item.tasmi) || 0),
+                0
+            ),
+
+            rataKehadiran: rekap.length
+                ? rekap.reduce(
+                    (total, item) => total + (Number(item.persenHadir) || 0),
+                    0
+                ) / rekap.length
+                : 0,
+
+            rataHafalan: rekap.length
+                ? rekap.reduce(
+                    (total, item) => total + (Number(item.nilaiHafalan) || 0),
+                    0
+                ) / rekap.length
+                : 0,
+
+            rataIbadah: rekap.length
+                ? rekap.reduce(
+                    (total, item) => total + (Number(item.nilaiIbadah) || 0),
+                    0
+                ) / rekap.length
+                : 0,
+
+            rataNilaiAkhir: rekap.length
+                ? rekap.reduce(
+                    (total, item) => total + (Number(item.nilaiAkhir) || 0),
+                    0
+                ) / rekap.length
+                : 0
+
+        };
+
+        // =====================================
+        // 6. SIMPAN KE STATE
+        // =====================================
+        state.dashboard = {
+            rekap,
+            statistik,
+            summary,
+            periode: (typeof getPeriode === "function") ? getPeriode() : "-"
+        };
+
+        // =====================================
+        // 7. RENDER UI (satu per satu dengan try-catch)
+        // =====================================
+        try {
+            updateDashboardSummary();
+        } catch (e) {
+            console.error("❌ Error updateDashboardSummary:", e);
+        }
+
+        try {
+            renderDashboardTable(rekap);
+        } catch (e) {
+            console.error("❌ Error renderDashboardTable:", e);
+        }
+
+        try {
+            renderRanking(rekap);
+        } catch (e) {
+            console.error("❌ Error renderRanking:", e);
+        }
+
+        // Update grafik dengan delay
+        setTimeout(() => {
+            try {
+                updateGrafikDashboard();
+            } catch (e) {
+                console.error("❌ Error updateGrafikDashboard:", e);
+            }
+        }, 300);
+
+    } catch (error) {
+
+        console.error("❌ ERROR rebuildDashboard:", error);
+        console.error("Stack:", error?.stack);
+        console.error("Message:", error?.message);
+
     }
 
-const summary = hitungSummaryDashboard(rekap);
-
-const statistik = {
-
-    jumlahSantri: rekap.length,
-
-    totalAyat: rekap.reduce(
-        (total, item) => total + (Number(item.totalAyat) || 0),
-        0
-    ),
-
-    totalSetoran: rekap.reduce(
-        (total, item) => total + (Number(item.frekuensi) || 0),
-        0
-    ),
-
-    totalTasmi: rekap.reduce(
-        (total, item) => total + (Number(item.tasmi) || 0),
-        0
-    ),
-
-    rataKehadiran: rekap.length
-        ? rekap.reduce(
-            (total, item) => total + (Number(item.persenHadir) || 0),
-            0
-        ) / rekap.length
-        : 0,
-
-    rataHafalan: rekap.length
-        ? rekap.reduce(
-            (total, item) => total + (Number(item.nilaiHafalan) || 0),
-            0
-        ) / rekap.length
-        : 0,
-
-    rataIbadah: rekap.length
-        ? rekap.reduce(
-            (total, item) => total + (Number(item.nilaiIbadah) || 0),
-            0
-        ) / rekap.length
-        : 0,
-
-    rataNilaiAkhir: rekap.length
-        ? rekap.reduce(
-            (total, item) => total + (Number(item.nilaiAkhir) || 0),
-            0
-        ) / rekap.length
-        : 0
-
-};
-
-state.dashboard = {
-    rekap,
-    statistik,
-    summary,
-    periode: getPeriode()
-};
-
-    updateDashboardSummary();
-
-    renderDashboardTable(rekap);
-
-    renderRanking(rekap);
-
-    renderDashboardTable(rekap);
-
-renderRanking(rekap);
-
-setTimeout(() => {
-    updateGrafikDashboard();
-}, 300);
-    
-    } catch (error) {
-    console.error(error.stack);
 }
-
-
-}
-
 async function ambilSemuaData() {
 
     const [
