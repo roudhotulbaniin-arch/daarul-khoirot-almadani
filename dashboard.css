@@ -1187,3 +1187,168 @@
         padding: 14px 8px !important;
     }
 }
+
+/* ================================================================
+   PATCH FINAL — DASHBOARD ADMIN GRID FIX
+================================================================ */
+
+@media (min-width: 768px) {
+
+    /* ---------- DASHBOARD GRID — FIX AUTO-FIT ---------- */
+    .dashboard-grid {
+        display: grid !important;
+        /* Auto-fit dengan minmax, tidak akan mengecil di bawah 220px */
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+        gap: 16px !important;
+        margin-bottom: 25px !important;
+        align-items: stretch !important;
+    }
+    
+    /* Semua card WAJIB min-width & tinggi seragam */
+    .dashboard-card {
+        min-width: 0 !important;              /* Penting! biar text bisa wrap */
+        min-height: 150px !important;
+        padding: 20px !important;
+        border-radius: 12px !important;
+        background: white !important;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.06) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        overflow: hidden !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+    }
+    
+    /* Semua isi card TIDAK boleh overflow */
+    .dashboard-card > * {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* Title card */
+    .dashboard-card .card-title {
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        color: #1a5d1a !important;
+        margin: 0 0 5px 0 !important;
+        line-height: 1.3 !important;
+        white-space: normal !important;      /* Wrap OK */
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    /* Value angka besar */
+    .dashboard-card .card-value {
+        font-size: 1.8rem !important;
+        font-weight: 800 !important;
+        color: #144514 !important;
+        line-height: 1.1 !important;
+        margin: 5px 0 !important;
+    }
+    
+    /* Sub-info di card */
+    .dashboard-card .card-sub {
+        font-size: 0.75rem !important;
+        color: #6b7280 !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Nama santri di card ranking (biar tidak vertikal) */
+    .dashboard-card #dashBestNama,
+    .dashboard-card #dashHafalanNama,
+    .dashboard-card #dashHadirNama,
+    .dashboard-card #dashIbadahNama,
+    .dashboard-card > div {
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        color: #144514 !important;
+        line-height: 1.3 !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+    }
+    
+    /* Font Arab predikat — biar tidak terlalu besar */
+    .dashboard-card [dir="rtl"],
+    .dashboard-card .predikat-arab {
+        font-size: 0.95rem !important;
+        display: inline !important;
+    }
+
+    /* ---------- KARTU GRAFIK — Span 2 atau full ---------- */
+    .dashboard-card:has(canvas),
+    .dashboard-card:has(.grafik-wrapper) {
+        grid-column: 1 / -1 !important;      /* Full width */
+        min-height: 400px !important;
+    }
+    
+    .grafik-wrapper {
+        height: 320px !important;
+        width: 100% !important;
+        position: relative !important;
+        margin-top: 15px !important;
+    }
+    
+    .grafik-wrapper canvas {
+        max-height: 320px !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* ---------- FILTER DASHBOARD ---------- */
+    #dashFilterSantri,
+    .dashboard-panel .form-group input {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* ---------- CARD BORDER WARNA (per kategori) ---------- */
+    .dashboard-card.terbaik  { border-top: 4px solid #f59e0b !important; }
+    .dashboard-card.hafalan  { border-top: 4px solid #3b82f6 !important; }
+    .dashboard-card.hadir    { border-top: 4px solid #10b981 !important; }
+    .dashboard-card.ibadah   { border-top: 4px solid #8b5cf6 !important; }
+    .dashboard-card.rata     { border-top: 4px solid #ec4899 !important; }
+    .dashboard-card.statistik { border-top: 4px solid #1a5d1a !important; }
+    
+    /* Hilangkan border-left agar tidak dobel */
+    .dashboard-card {
+        border-left: none !important;
+    }
+    
+    /* Icon di title */
+    .dashboard-card .card-title::before {
+        margin-right: 6px !important;
+    }
+    
+    /* ---------- DASHBOARD PANEL CARD (utama) ---------- */
+    #dashboard-panel .panel-card {
+        max-width: 100% !important;
+        padding: 25px !important;
+    }
+}
+
+
+/* ================================================================
+   PATCH — LAYAR BESAR (>= 1200px)
+================================================================ */
+
+@media (min-width: 1200px) {
+    
+    .dashboard-grid {
+        /* Layar besar: 4 kolom */
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 18px !important;
+    }
+    
+    /* Grafik jadi span 2 kolom */
+    .dashboard-card:has(canvas),
+    .dashboard-card:has(.grafik-wrapper) {
+        grid-column: span 2 !important;
+        min-height: 420px !important;
+    }
+    
+    .grafik-wrapper {
+        height: 340px !important;
+    }
+}
