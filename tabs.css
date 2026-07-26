@@ -208,3 +208,70 @@
         max-width: calc(100% - 20px) !important;
     }
 }
+
+/* ================================================================
+   📱 FIX MOBILE — KASIH JARAK SAMPING SEMUA KONTEN
+================================================================ */
+
+@media (max-width: 768px) {
+    
+    /* Container utama → kasih padding kiri-kanan */
+    body > .container,
+    .container,
+    main.container,
+    #main-container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Kalau tab-container langsung di body (bukan di dalam .container) */
+    body > .tab-container {
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        width: auto !important;
+        max-width: calc(100% - 30px) !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Reset internal padding tab-container biar tidak double */
+    .tab-container {
+        padding: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Tab menu — full width dalam container */
+    .tab-menu {
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+    
+    /* Panel card — full width dalam container */
+    .panel-card {
+        margin: 15px 0 0 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ============================================
+   📱 HP KECIL (max 400px)
+============================================ */
+@media (max-width: 400px) {
+    body > .container,
+    .container,
+    body > .tab-container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        margin-left: 12px !important;
+        margin-right: 12px !important;
+        max-width: calc(100% - 24px) !important;
+    }
+}
