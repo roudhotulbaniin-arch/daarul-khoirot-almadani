@@ -2110,3 +2110,80 @@ div:has(> .action-bar) {
         gap: 10px !important;
     }
 }
+
+/* ================================================================
+   🔧 FIX — .box-tombol-container-grid (SEBELUMNYA & GENERATE SAMA LEBAR)
+================================================================ */
+
+.box-tombol-container-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;   /* ⭐ 50-50 */
+    gap: 15px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 25px !important;
+    box-sizing: border-box !important;
+    align-items: stretch !important;
+}
+
+/* Semua tombol → full width kolom, tinggi sama */
+.box-tombol-container-grid > button,
+.box-tombol-container-grid .btn-prev-tab,
+.box-tombol-container-grid .btn-simpan-final,
+.box-tombol-container-grid #btnProsesRekap {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+    padding: 16px 24px !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    border: 2px solid transparent !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+    transition: all 0.25s ease !important;
+    box-sizing: border-box !important;
+}
+
+/* Tombol SEBELUMNYA (outline) */
+.box-tombol-container-grid .btn-prev-tab {
+    background: #fff !important;
+    color: #1a5d1a !important;
+    border-color: #1a5d1a !important;
+}
+
+.box-tombol-container-grid .btn-prev-tab:hover {
+    background: #f0f9f0 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2) !important;
+}
+
+/* Tombol GENERATE (solid hijau) */
+.box-tombol-container-grid #btnProsesRekap,
+.box-tombol-container-grid .btn-simpan-final {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    border-color: #144514 !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+}
+
+.box-tombol-container-grid #btnProsesRekap:hover,
+.box-tombol-container-grid .btn-simpan-final:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.45) !important;
+}
+
+/* Mobile: tumpuk vertikal */
+@media (max-width: 600px) {
+    .box-tombol-container-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+}
