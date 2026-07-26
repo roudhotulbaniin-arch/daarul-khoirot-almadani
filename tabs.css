@@ -104,29 +104,32 @@
     width: 100%;
 }
 
-
 /* ==========================================================================
    📱 RESPONSIVE — TABLET & MOBILE (max-width: 768px)
    ========================================================================== */
 
 @media (max-width: 768px) {
 
-    /* — Container utama — */
+    /* — Container utama (kalau ada) — */
     .container {
         padding-left: 15px;
         padding-right: 15px;
         max-width: 100%;
+        box-sizing: border-box;
     }
 
-    /* — Tab container — */
+    /* — ⭐ Tab container: kasih margin samping biar tidak mepet — */
     .tab-container {
-        padding: 10px;
+        margin-left: 15px;
+        margin-right: 15px;
         margin-bottom: 20px;
+        padding: 10px;
         border-radius: 12px;
-        /* Margin samping sudah ditangani oleh padding .container */
+        width: auto;                       /* ⭐ WAJIB auto biar margin bekerja */
+        box-sizing: border-box;
     }
 
-    /* — Tab menu: 3 kolom (2 baris) — */
+    /* — Tab menu: 3 kolom — */
     .tab-menu {
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
@@ -134,6 +137,7 @@
         margin-bottom: 12px;
         border-radius: 10px;
         width: 100%;
+        box-sizing: border-box;
     }
 
     /* — Tab link — */
@@ -159,10 +163,14 @@
         gap: 10px;
     }
 
-    /* — Panel card — */
+    /* — ⭐ Panel card (DATA SANTRI, dll): kasih margin samping juga — */
     .panel-card {
-        margin: 15px 0 0 0;
-        width: 100%;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 15px;
+        margin-bottom: 0;
+        width: auto;                       /* ⭐ WAJIB auto */
+        max-width: calc(100% - 30px);
         box-sizing: border-box;
     }
 }
@@ -175,6 +183,8 @@
 @media (max-width: 480px) {
 
     .tab-container {
+        margin-left: 12px;
+        margin-right: 12px;
         padding: 8px;
     }
 
@@ -197,6 +207,12 @@
         padding: 8px 0;
         gap: 12px;
     }
+
+    .panel-card {
+        margin-left: 12px;
+        margin-right: 12px;
+        max-width: calc(100% - 24px);
+    }
 }
 
 
@@ -207,8 +223,15 @@
 @media (max-width: 400px) {
 
     .container {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .tab-container,
+    .panel-card {
+        margin-left: 10px;
+        margin-right: 10px;
+        max-width: calc(100% - 20px);
     }
 
     .tab-container {
