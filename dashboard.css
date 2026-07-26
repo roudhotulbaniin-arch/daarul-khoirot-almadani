@@ -606,18 +606,54 @@
 }
 
 /* ================================================================
-   🌈 AUTO WARNA BORDER-TOP dengan nth-child
-   (Kalau HTML tidak punya class kategori)
+   🎨 WARNA BORDER-TOP DASHBOARD CARDS — FINAL
 ================================================================ */
 
-.dashboard-grid .dashboard-card:nth-child(1) { border-top: 4px solid #1a5d1a; }  /* Hijau tua  */
-.dashboard-grid .dashboard-card:nth-child(2) { border-top: 4px solid #3b82f6; }  /* Biru       */
-.dashboard-grid .dashboard-card:nth-child(3) { border-top: 4px solid #8b5cf6; }  /* Ungu       */
-.dashboard-grid .dashboard-card:nth-child(4) { border-top: 4px solid #f59e0b; }  /* Oranye     */
-.dashboard-grid .dashboard-card:nth-child(5) { border-top: 4px solid #06b6d4; }  /* Cyan       */
-.dashboard-grid .dashboard-card:nth-child(6) { border-top: 4px solid #eab308; }  /* Emas       */
-.dashboard-grid .dashboard-card:nth-child(7) { border-top: 4px solid #ec4899; }  /* Pink       */
-.dashboard-grid .dashboard-card:nth-child(8) { border-top: 4px solid #10b981; }  /* Hijau muda */
+.dashboard-grid .dashboard-card {
+    border-top: 5px solid #1a5d1a;   /* default */
+}
 
-/* Kalau lebih dari 8 kartu → looping ulang */
-.dashboard-grid .dashboard-card:nth-child(n+9) { border-top: 4px solid #a855f7; } /* Ungu muda */
+/* — 🏆 RINGKASAN MONITORING — */
+.dashboard-grid .dashboard-card.terbaik { border-top-color: #eab308; }  /* 🥇 Emas       */
+.dashboard-grid .dashboard-card.hafalan { border-top-color: #3b82f6; }  /* 🔵 Biru       */
+.dashboard-grid .dashboard-card.hadir   { border-top-color: #10b981; }  /* 🟢 Hijau muda */
+.dashboard-grid .dashboard-card.ibadah  { border-top-color: #8b5cf6; }  /* 🟣 Ungu       */
+
+/* — 📊 RATA-RATA — */
+.dashboard-grid .dashboard-card.rata-hadir    { border-top-color: #06b6d4; }  /* 🔷 Cyan       */
+.dashboard-grid .dashboard-card.rata-hafalan  { border-top-color: #6366f1; }  /* 💙 Indigo     */
+.dashboard-grid .dashboard-card.rata-ibadah   { border-top-color: #ec4899; }  /* 🌸 Pink       */
+.dashboard-grid .dashboard-card.rata-predikat { border-top-color: #f97316; }  /* 🟠 Oranye tua */
+
+/* — 📈 STATISTIK — */
+.dashboard-grid .dashboard-card.stat-santri   { border-top-color: #1a5d1a; }  /* 🟢 Hijau tua  */
+.dashboard-grid .dashboard-card.stat-setoran  { border-top-color: #0891b2; }  /* 🔵 Cyan tua   */
+.dashboard-grid .dashboard-card.stat-ayat     { border-top-color: #7c3aed; }  /* 🟣 Ungu tua   */
+.dashboard-grid .dashboard-card.stat-tasmi    { border-top-color: #d97706; }  /* 🟡 Amber      */
+
+
+/* ================================================================
+   🎨 BONUS — Warna judul (card-title) ikut border
+================================================================ */
+.dashboard-grid .dashboard-card.terbaik       .card-title { color: #eab308; }
+.dashboard-grid .dashboard-card.hafalan       .card-title { color: #3b82f6; }
+.dashboard-grid .dashboard-card.hadir         .card-title { color: #10b981; }
+.dashboard-grid .dashboard-card.ibadah        .card-title { color: #8b5cf6; }
+.dashboard-grid .dashboard-card.rata-hadir    .card-title { color: #06b6d4; }
+.dashboard-grid .dashboard-card.rata-hafalan  .card-title { color: #6366f1; }
+.dashboard-grid .dashboard-card.rata-ibadah   .card-title { color: #ec4899; }
+.dashboard-grid .dashboard-card.rata-predikat .card-title { color: #f97316; }
+.dashboard-grid .dashboard-card.stat-santri   .card-title { color: #1a5d1a; }
+.dashboard-grid .dashboard-card.stat-setoran  .card-title { color: #0891b2; }
+.dashboard-grid .dashboard-card.stat-ayat     .card-title { color: #7c3aed; }
+.dashboard-grid .dashboard-card.stat-tasmi    .card-title { color: #d97706; }
+
+
+/* ================================================================
+   🎨 BONUS — Warna value (angka besar) ikut border
+================================================================ */
+.dashboard-grid .dashboard-card.stat-santri   .card-value { color: #1a5d1a; }
+.dashboard-grid .dashboard-card.stat-setoran  .card-value { color: #0891b2; }
+.dashboard-grid .dashboard-card.stat-ayat     .card-value { color: #7c3aed; }
+.dashboard-grid .dashboard-card.stat-tasmi    .card-value { color: #d97706; }
+.dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
