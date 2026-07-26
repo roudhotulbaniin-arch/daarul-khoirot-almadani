@@ -171,3 +171,40 @@
         gap: 12px;
     }
 }
+
+/* ================================================================
+   📱 FIX MOBILE — TAB MENU KASIH JARAK SAMPING (TIDAK MEPET)
+================================================================ */
+
+@media (max-width: 768px) {
+    
+    /* Tab container (pembungkus tab menu) → kasih margin samping */
+    .tab-container {
+        margin-left: 12px !important;
+        margin-right: 12px !important;
+        width: auto !important;              /* ⭐ Biar margin bekerja */
+        max-width: calc(100% - 24px) !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* ATAU kalau tab-menu langsung di body/container tanpa wrapper */
+    .tab-menu {
+        margin-left: 12px !important;
+        margin-right: 12px !important;
+        width: auto !important;
+        max-width: calc(100% - 24px) !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ============================================
+   📱 HP KECIL (max 400px) — jarak lebih tipis
+============================================ */
+@media (max-width: 400px) {
+    .tab-container,
+    .tab-menu {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        max-width: calc(100% - 20px) !important;
+    }
+}
