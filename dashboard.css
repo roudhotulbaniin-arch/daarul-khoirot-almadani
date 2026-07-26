@@ -2344,3 +2344,91 @@ div:has(> .action-bar) {
         min-height: 70px !important;
     }
 }
+
+/* ================================================================
+   📱 FIX MOBILE — TAB MENU 3 KOLOM (2 BARIS)
+================================================================ */
+
+@media (max-width: 768px) {
+    
+    .tab-menu {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;   /* ⭐ 3 KOLOM */
+        gap: 8px !important;
+        padding: 10px !important;
+        background: #f5f7fa !important;
+        border-radius: 12px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .tab-link {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        padding: 12px 4px !important;
+        min-height: 75px !important;
+        font-size: 0.68rem !important;                       /* Font kecil biar muat */
+        font-weight: 700 !important;
+        text-align: center !important;
+        border-radius: 8px !important;
+        border: 2px solid transparent !important;
+        background: #fff !important;
+        color: #1a5d1a !important;
+        cursor: pointer !important;
+        transition: all 0.25s ease !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04) !important;
+        line-height: 1.2 !important;
+        white-space: normal !important;                       /* Boleh wrap kalau panjang */
+        word-break: break-word !important;
+    }
+    
+    .tab-link i {
+        font-size: 1.2rem !important;
+        color: #1a5d1a !important;
+        margin: 0 !important;
+    }
+    
+    /* Tab aktif */
+    .tab-link.active {
+        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+        color: white !important;
+        border-color: #144514 !important;
+        box-shadow: 0 4px 12px rgba(26, 93, 26, 0.35) !important;
+    }
+    
+    .tab-link.active i {
+        color: white !important;
+    }
+    
+    /* Hover (walau di HP jarang) */
+    .tab-link:hover {
+        background: #f0f9f0 !important;
+        border-color: #1a5d1a !important;
+    }
+    
+    .tab-link.active:hover {
+        background: linear-gradient(135deg, #144514, #0d3d0d) !important;
+    }
+}
+
+/* ============================================
+   📱 HP KECIL (< 400px) — Font lebih kecil lagi
+============================================ */
+@media (max-width: 400px) {
+    .tab-menu {
+        gap: 6px !important;
+        padding: 8px !important;
+    }
+    
+    .tab-link {
+        font-size: 0.62rem !important;
+        padding: 10px 3px !important;
+        min-height: 70px !important;
+    }
+    
+    .tab-link i {
+        font-size: 1.1rem !important;
+    }
+}
