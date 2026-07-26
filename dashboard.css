@@ -1568,3 +1568,91 @@
 .dashboard-tables .panel-card.hafalan   { border-left: 5px solid #3b82f6 !important; }
 .dashboard-tables .panel-card.ibadah    { border-left: 5px solid #8b5cf6 !important; }
 .dashboard-tables .panel-card.ranking   { border-left: 5px solid #f59e0b !important; }
+
+/* ================================================================
+   🔧 FIX — ACTION BAR (Reset, Word, PDF) — LEBAR SAMA
+================================================================ */
+
+.action-bar {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;  /* ⭐ 3 kolom sama lebar */
+    gap: 15px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 25px 0 !important;
+    padding: 20px !important;
+    background: #fff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06) !important;
+    box-sizing: border-box !important;
+}
+
+/* Semua tombol di action-bar SAMA UKURAN */
+.action-bar > button,
+.action-bar > a,
+.action-bar > .btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+    padding: 14px 20px !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1) !important;
+    box-sizing: border-box !important;
+}
+
+/* Hover effect semua tombol */
+.action-bar > button:hover,
+.action-bar > a:hover,
+.action-bar > .btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15) !important;
+}
+
+/* Warna tombol RESET (merah) */
+.action-bar button[onclick*="reset" i],
+.action-bar .btn-reset,
+.action-bar .btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    color: white !important;
+}
+
+/* Warna tombol WORD (biru) */
+.action-bar button[onclick*="word" i],
+.action-bar .btn-word,
+.action-bar .btn-info {
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+    color: white !important;
+}
+
+/* Warna tombol PDF (merah bata) */
+.action-bar button[onclick*="pdf" i],
+.action-bar .btn-pdf {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: white !important;
+}
+
+/* Icon di tombol */
+.action-bar button i,
+.action-bar a i {
+    font-size: 1.1rem !important;
+}
+
+/* ===== RESPONSIVE MOBILE ===== */
+@media (max-width: 600px) {
+    .action-bar {
+        grid-template-columns: 1fr !important;  /* Mobile: 1 kolom */
+        gap: 10px !important;
+    }
+}
