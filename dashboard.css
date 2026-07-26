@@ -493,12 +493,12 @@
 
     /* Dashboard tables → padding lebih tipis */
     .dashboard-tables {
-        gap: 15px;
+        gap: 12px;
         margin-top: 15px;
     }
 
     .dashboard-tables > .panel-card {
-        padding: 15px;
+        padding: 10px;
         border-radius: 10px;
     }
 
