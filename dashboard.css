@@ -1926,7 +1926,7 @@ div:has(> .action-bar) {
 
 /* Badge LIVE (di kanan) */
 .input-ikon.tanggal-realtime .tanggal-badge {
-    background: #dc2626 !important;
+    background: #1a5d1a !important;
     color: #fff !important;
     font-size: 0.7rem !important;
     font-weight: 700 !important;
@@ -2186,4 +2186,32 @@ div:has(> .action-bar) {
         grid-template-columns: 1fr !important;
         gap: 10px !important;
     }
+}
+
+/* ================================================================
+   🔧 FIX — TAB CONTENT SYSTEM (Sembunyikan panel tidak aktif)
+================================================================ */
+
+/* Default: SEMUA tab-content SEMBUNYI */
+.tab-content {
+    display: none !important;
+}
+
+/* HANYA tab dengan class 'active' yang tampil */
+.tab-content.active {
+    display: block !important;
+}
+
+/* ================================================================
+   🔧 EXTRA PROTECTION — Paksa dashboard hanya di tab dashboard
+================================================================ */
+
+/* Sembunyikan dashboard-panel by default */
+#dashboard-panel:not(.active) {
+    display: none !important;
+}
+
+/* Tampilkan HANYA saat aktif */
+#dashboard-panel.active {
+    display: block !important;
 }
