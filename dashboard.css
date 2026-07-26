@@ -670,3 +670,109 @@
 .dashboard-grid .dashboard-card.stat-ayat     .card-value { color: #7c3aed; }
 .dashboard-grid .dashboard-card.stat-tasmi    .card-value { color: #d97706; }
 .dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
+
+/* ================================================================
+   🔧 FIX MOBILE — Tabel Full Lebar Kartu (Padding Rapat)
+================================================================ */
+
+@media (max-width: 768px) {
+
+    /* ============================================
+       Panel card tabel → padding rapat
+    ============================================ */
+    .dashboard-tables > .panel-card {
+        padding: 12px 8px !important;      /* ⭐ Kanan-kiri cuma 8px */
+        border-radius: 10px !important;
+    }
+
+    /* Judul h3 tetap ada padding samping biar rapi */
+    .dashboard-tables .panel-card h3 {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        font-size: 0.9rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* ============================================
+       Wrapper tabel → hilangkan padding & border
+    ============================================ */
+    .dashboard-tables .ranking-wrapper,
+    .dashboard-tables .table-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 6px !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* ============================================
+       Tabel → auto width, min-width kecil
+    ============================================ */
+    .dashboard-tables table {
+        min-width: 100% !important;         /* ⭐ Jangan paksa 900px */
+        width: 100% !important;
+        font-size: 0.8rem !important;
+        border-collapse: collapse !important;
+    }
+
+    /* Header tabel */
+    .dashboard-tables table th {
+        padding: 10px 6px !important;
+        font-size: 0.72rem !important;
+        min-width: unset !important;         /* ⭐ Hapus min-width */
+    }
+
+    /* Kolom NO (pertama) */
+    .dashboard-tables table th:nth-child(1),
+    .dashboard-tables table td:nth-child(1) {
+        width: 40px !important;              /* ⭐ Ramping */
+        min-width: 40px !important;
+        max-width: 50px !important;
+        padding: 8px 4px !important;
+        text-align: center !important;
+    }
+
+    /* Kolom NAMA SANTRI (kedua) */
+    .dashboard-tables table th:nth-child(2),
+    .dashboard-tables table td:nth-child(2) {
+        min-width: unset !important;
+        max-width: unset !important;
+        width: auto !important;
+        padding: 8px 6px !important;
+        text-align: left !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+    }
+
+    /* Semua cell — padding rapat */
+    .dashboard-tables table td {
+        padding: 8px 6px !important;
+        font-size: 0.78rem !important;
+        white-space: normal !important;      /* ⭐ Boleh wrap teks */
+    }
+}
+
+
+/* ============================================
+   📱 HP KECIL (max-width: 400px) — lebih rapat
+============================================ */
+@media (max-width: 400px) {
+
+    .dashboard-tables > .panel-card {
+        padding: 10px 6px !important;
+    }
+
+    .dashboard-tables table th,
+    .dashboard-tables table td {
+        padding: 7px 4px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .dashboard-tables table th:nth-child(1),
+    .dashboard-tables table td:nth-child(1) {
+        width: 35px !important;
+        min-width: 35px !important;
+    }
+}
