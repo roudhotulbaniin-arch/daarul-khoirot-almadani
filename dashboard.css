@@ -545,3 +545,62 @@
         padding: 12px;
     }
 }
+
+/* ================================================================
+   🔧 FIX MOBILE — Kurangi padding kartu tabel dashboard
+================================================================ */
+
+@media (max-width: 768px) {
+
+    /* — Panel card pembungkus utama dashboard: padding tipis — */
+    #dashboard-panel > .panel-card,
+    #dashboard-panel .panel-card:first-child {
+        padding: 10px !important;
+    }
+
+    /* — Panel card tabel di dalam dashboard-tables: padding rapat — */
+    .dashboard-tables {
+        gap: 12px !important;
+        margin-top: 12px !important;
+        padding: 0 !important;
+    }
+
+    .dashboard-tables > .panel-card {
+        padding: 12px 10px !important;      /* ⭐ Padding kecil */
+        border-radius: 10px !important;
+        margin: 0 !important;
+    }
+
+    /* — Judul panel card tabel: margin rapat — */
+    .dashboard-tables .panel-card h3 {
+        font-size: 0.9rem !important;
+        margin: 0 0 10px 0 !important;
+        padding-bottom: 8px !important;
+    }
+
+    /* — Wrapper tabel: hilangkan border ganda — */
+    .dashboard-tables .ranking-wrapper,
+    .dashboard-tables .table-wrapper {
+        border: none !important;
+        border-radius: 6px !important;
+    }
+}
+
+
+/* ============================================
+   📱 HP KECIL (max-width: 400px)
+============================================ */
+@media (max-width: 400px) {
+
+    #dashboard-panel > .panel-card {
+        padding: 8px !important;
+    }
+
+    .dashboard-tables > .panel-card {
+        padding: 10px 8px !important;
+    }
+
+    .dashboard-tables .panel-card h3 {
+        font-size: 0.85rem !important;
+    }
+}
