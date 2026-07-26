@@ -847,38 +847,343 @@
 
 
 /* ================================================================
-   PERBAIKAN LAYAR BESAR (>= 1200px)
+   PATCH — FIX TAMPILAN DESKTOP
+================================================================ */
+
+@media (min-width: 768px) {
+
+    /* ---------- LAPORAN SANTRI ---------- */
+    /* Fix icon di kiri form (jangan keluar box) */
+    .search-form,
+    .form-cari-santri {
+        max-width: 700px !important;
+        margin: 0 auto !important;
+        padding: 25px !important;
+    }
+    
+    .search-form .input-group,
+    .form-cari-santri .input-group {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .icon-box,
+    .input-group > .icon,
+    .search-form .icon,
+    .form-cari-santri .icon {
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+        color: white !important;
+        border-radius: 10px !important;
+        font-size: 1.1rem !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .search-wrapper {
+        flex: 1 !important;
+        position: relative;
+    }
+    
+    /* Dropdown search santri — batasi tinggi */
+    #dropdownSantri {
+        max-height: 350px !important;
+        overflow-y: auto !important;
+        border-radius: 10px !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    }
+    
+    .dropdown-empty {
+        padding: 30px 20px !important;
+        text-align: center !important;
+        color: #6b7280 !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .dropdown-empty i {
+        display: block !important;
+        font-size: 2rem !important;
+        margin-bottom: 10px !important;
+        color: #9ca3af !important;
+    }
+
+    /* ---------- TAB MENU (perkecil sedikit) ---------- */
+    .tab-menu {
+        padding: 12px !important;
+        gap: 6px !important;
+    }
+    
+    .tab-link {
+        padding: 12px 6px !important;
+        min-height: 70px !important;
+        font-size: 0.72rem !important;
+    }
+    
+    .tab-link i {
+        font-size: 1.3rem !important;
+    }
+
+    /* ---------- REKAPITULASI CONTROL PANEL ---------- */
+    .box-tombol-container-grid,
+    .form-cari-santri > .button-group {
+        display: grid !important;
+        grid-template-columns: 1fr 2fr !important;
+        gap: 15px !important;
+        margin-top: 20px !important;
+        max-width: 100% !important;
+    }
+    
+    #btnProsesRekap,
+    .btn-simpan-final {
+        padding: 14px 24px !important;
+        font-size: 0.95rem !important;
+        font-weight: 700 !important;
+        border-radius: 10px !important;
+        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+        color: white !important;
+        border: none !important;
+        cursor: pointer;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+        transition: all 0.25s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    #btnProsesRekap:hover,
+    .btn-simpan-final:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(26, 93, 26, 0.45) !important;
+    }
+    
+    #btnProsesRekap i,
+    .btn-simpan-final i {
+        font-size: 1.1rem !important;
+    }
+
+    /* ---------- DASHBOARD GRID — 4 kolom rapi ---------- */
+    .dashboard-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 16px !important;
+        margin-bottom: 25px !important;
+    }
+    
+    /* Semua kartu dashboard SAMA UKURAN */
+    .dashboard-card {
+        min-height: 130px !important;
+        padding: 20px !important;
+        border-radius: 12px !important;
+        background: white !important;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.06) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        overflow: hidden !important;
+    }
+    
+    .dashboard-card .card-title {
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        color: #1a5d1a !important;
+        margin-bottom: 8px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    .dashboard-card .card-value {
+        font-size: 2.2rem !important;
+        font-weight: 800 !important;
+        color: #144514 !important;
+        line-height: 1 !important;
+    }
+    
+    .dashboard-card .card-sub {
+        font-size: 0.75rem !important;
+        color: #6b7280 !important;
+        margin-top: 5px !important;
+    }
+    
+    /* Card berwarna sesuai kategori */
+    .dashboard-card.statistik {
+        border-left: 5px solid #1a5d1a !important;
+    }
+    
+    .dashboard-card.terbaik {
+        border-left: 5px solid #f59e0b !important;
+    }
+    
+    .dashboard-card.hafalan {
+        border-left: 5px solid #3b82f6 !important;
+    }
+    
+    .dashboard-card.hadir {
+        border-left: 5px solid #10b981 !important;
+    }
+    
+    .dashboard-card.ibadah {
+        border-left: 5px solid #8b5cf6 !important;
+    }
+    
+    .dashboard-card.rata {
+        border-left: 5px solid #ec4899 !important;
+    }
+    
+    /* Kartu grafik span 2 kolom */
+    .dashboard-card:has(canvas),
+    .dashboard-card:has(.grafik-wrapper) {
+        grid-column: span 2 !important;
+        min-height: 380px !important;
+    }
+    
+    .grafik-wrapper {
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 10px !important;
+    }
+    
+    .grafik-wrapper canvas {
+        max-height: 300px !important;
+        width: 100% !important;
+    }
+    
+    /* Dropdown mode grafik */
+    #grafikMode {
+        padding: 6px 12px !important;
+        border: 2px solid #1a5d1a !important;
+        border-radius: 8px !important;
+        font-size: 0.82rem !important;
+        font-weight: 600 !important;
+        color: #144514 !important;
+        cursor: pointer !important;
+        background: white !important;
+    }
+    
+    .card-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* ---------- DASHBOARD TABLES ---------- */
+    .dashboard-tables {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .dashboard-tables .panel-card {
+        padding: 20px !important;
+    }
+    
+    /* Tabel — scroll horizontal kalau sempit */
+    .table-wrapper,
+    .ranking-wrapper {
+        overflow-x: auto !important;
+        border-radius: 8px !important;
+        border: 1px solid #e5e7eb !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .rekap-table,
+    .ranking-table {
+        width: 100% !important;
+        min-width: 1000px !important;
+        border-collapse: collapse !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .rekap-table th,
+    .ranking-table th {
+        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+        color: white !important;
+        padding: 12px 10px !important;
+        text-align: center !important;
+        white-space: nowrap !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.3px !important;
+    }
+    
+    .rekap-table td,
+    .ranking-table td {
+        padding: 12px 10px !important;
+        text-align: center !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        white-space: nowrap !important;
+    }
+    
+    .rekap-table tbody tr:hover,
+    .ranking-table tbody tr:hover {
+        background: #f9fdf9 !important;
+    }
+
+    /* ---------- FILTER DASHBOARD ---------- */
+    #dashFilterSantri {
+        max-width: 500px !important;
+    }
+
+    /* ---------- ACTION BAR (Reset/Word/PDF) ---------- */
+    .action-bar {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 12px !important;
+        padding: 20px !important;
+        max-width: 100% !important;
+    }
+    
+    .action-bar button {
+        flex: 1 !important;
+        padding: 14px 18px !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        border-radius: 10px !important;
+        cursor: pointer;
+        transition: all 0.25s;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+    
+    .action-bar button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15) !important;
+    }
+}
+
+
+/* ================================================================
+   PATCH — LAYAR BESAR (>= 1200px)
 ================================================================ */
 
 @media (min-width: 1200px) {
 
-    .container {
-        max-width: 1300px;
-    }
-
-    /* Tab lebih besar */
-    .tab-link {
-        padding: 16px 10px !important;
-        font-size: 0.82rem !important;
-        min-height: 80px !important;
-    }
-
-    .tab-link i {
-        font-size: 1.6rem !important;
-    }
-
-    /* Form grid lebih longgar */
-    .form-grid {
-        gap: 25px !important;
-    }
-
-    /* Dashboard grid — kartu utama 4 kolom */
+    /* Grid dashboard tetap 4 kolom */
     .dashboard-grid {
-        gap: 22px !important;
+        gap: 18px !important;
     }
 
-    /* Grafik lebih besar */
+    /* Grafik lebih tinggi */
     .grafik-wrapper {
-        height: 350px !important;
+        height: 340px !important;
+    }
+
+    /* Tab menu font lebih besar */
+    .tab-link {
+        font-size: 0.78rem !important;
+        padding: 14px 8px !important;
     }
 }
