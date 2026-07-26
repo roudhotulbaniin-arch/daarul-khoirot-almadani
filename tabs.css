@@ -8,17 +8,17 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
     overflow: visible;
     margin-bottom: 30px;
-    padding: 15px;                    /* ⭐ Padding wrapper */
+    padding: 15px;
     box-sizing: border-box;
 }
 
 .tab-menu {
-    display: grid;                    /* ⭐ Ubah dari flex ke grid */
-    grid-template-columns: repeat(6, 1fr);  /* ⭐ Desktop: 6 kolom */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 8px;
     background: #f8f9fa;
     border-radius: 10px;
-    padding: 10px;                    /* ⭐ Padding tab menu */
+    padding: 10px;
     margin-bottom: 15px;
     width: 100%;
     box-sizing: border-box;
@@ -27,7 +27,7 @@
 
 .tab-content {
     display: none;
-    padding: 20px 0 20px 0;           /* ⭐ Hilangkan padding samping (sudah di container) */
+    padding: 20px 0;
     flex-direction: column;
     gap: 30px;
     width: 100%;
@@ -41,7 +41,7 @@
 .tab-link {
     padding: 12px 8px;
     border: 2px solid transparent;
-    border-radius: 8px !important;    /* ⭐ Semua tab bulat konsisten */
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 700;
     color: var(--primary-color);
@@ -56,9 +56,10 @@
     text-align: center;
     outline: none;
     min-height: 70px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
     text-transform: uppercase;
     letter-spacing: 0.3px;
+    box-sizing: border-box;
 }
 
 .tab-link i {
@@ -73,14 +74,14 @@
 }
 
 .tab-link.active {
-    background-color: var(--primary-color) !important;
-    color: white !important;
-    border-color: var(--primary-color) !important;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.35);
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(26, 93, 26, .35);
 }
 
 .tab-link.active i {
-    color: white !important;
+    color: #fff;
 }
 
 .tab-navigation {
@@ -90,59 +91,85 @@
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 
 /* ==========================================================================
-   📱 RESPONSIVE — TABLET & MOBILE (max 768px)
+   CONTAINER UTAMA
+   ========================================================================== */
+
+.container {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+
+/* ==========================================================================
+   📱 RESPONSIVE — TABLET & MOBILE (max-width: 768px)
    ========================================================================== */
 
 @media (max-width: 768px) {
 
-    /* Container tab — padding rapat tapi konsisten */
+    /* — Container utama — */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100%;
+    }
+
+    /* — Tab container — */
     .tab-container {
         padding: 10px;
         margin-bottom: 20px;
         border-radius: 12px;
+        /* Margin samping sudah ditangani oleh padding .container */
     }
 
-    /* Tab menu — 3 KOLOM (2 baris) */
+    /* — Tab menu: 3 kolom (2 baris) — */
     .tab-menu {
-        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-columns: repeat(3, 1fr);
         gap: 6px;
         padding: 8px;
         margin-bottom: 12px;
+        border-radius: 10px;
+        width: 100%;
     }
 
-    /* Tab link — reset flex, ikut grid parent */
+    /* — Tab link — */
     .tab-link {
-        flex: unset !important;         /* ⭐ Cabut flex biar ikut grid */
         font-size: .68rem;
         min-height: 72px;
         padding: 10px 4px;
-        border-radius: 8px !important;
     }
 
     .tab-link i {
         font-size: 1.1rem;
     }
 
-    /* Tab content — padding tipis (container luar sudah punya) */
+    /* — Tab content — */
     .tab-content {
         padding: 10px 0;
         gap: 15px;
-        width: 100% !important;
     }
 
-    /* Navigation button — tumpuk vertikal */
+    /* — Tab navigation: tumpuk vertikal — */
     .tab-navigation {
         grid-template-columns: 1fr;
         gap: 10px;
     }
+
+    /* — Panel card — */
+    .panel-card {
+        margin: 15px 0 0 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
+
 /* ==========================================================================
-   📱 HP KECIL (max 480px)
+   📱 HP KECIL (max-width: 480px)
    ========================================================================== */
 
 @media (max-width: 480px) {
@@ -172,146 +199,19 @@
     }
 }
 
-/* ================================================================
-   📱 FIX MOBILE — TAB MENU KASIH JARAK SAMPING (TIDAK MEPET)
-================================================================ */
 
-@media (max-width: 768px) {
-    
-    /* Tab container (pembungkus tab menu) → kasih margin samping */
-    .tab-container {
-        margin-left: 12px !important;
-        margin-right: 12px !important;
-        width: auto !important;              /* ⭐ Biar margin bekerja */
-        max-width: calc(100% - 24px) !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* ATAU kalau tab-menu langsung di body/container tanpa wrapper */
-    .tab-menu {
-        margin-left: 12px !important;
-        margin-right: 12px !important;
-        width: auto !important;
-        max-width: calc(100% - 24px) !important;
-        box-sizing: border-box !important;
-    }
-}
+/* ==========================================================================
+   📱 HP SANGAT KECIL (max-width: 400px)
+   ========================================================================== */
 
-/* ============================================
-   📱 HP KECIL (max 400px) — jarak lebih tipis
-============================================ */
 @media (max-width: 400px) {
-    .tab-container,
-    .tab-menu {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-        max-width: calc(100% - 20px) !important;
-    }
-}
 
-/* ================================================================
-   📱 FIX MOBILE — KASIH JARAK SAMPING SEMUA KONTEN
-================================================================ */
-
-@media (max-width: 768px) {
-    
-    /* Container utama → kasih padding kiri-kanan */
-    body > .container,
-    .container,
-    main.container,
-    #main-container {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Kalau tab-container langsung di body (bukan di dalam .container) */
-    body > .tab-container {
-        margin-left: 15px !important;
-        margin-right: 15px !important;
-        width: auto !important;
-        max-width: calc(100% - 30px) !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Reset internal padding tab-container biar tidak double */
-    .tab-container {
-        padding: 0 !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Tab menu — full width dalam container */
-    .tab-menu {
-        margin: 0 !important;
-        padding: 10px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        border-radius: 12px 12px 0 0 !important;
-    }
-    
-    /* Panel card — full width dalam container */
-    .panel-card {
-        margin: 15px 0 0 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-}
-
-/* ============================================
-   📱 HP KECIL (max 400px)
-============================================ */
-@media (max-width: 400px) {
-    body > .container,
-    .container,
-    body > .tab-container {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
-        margin-left: 12px !important;
-        margin-right: 12px !important;
-        max-width: calc(100% - 24px) !important;
-    }
-}
-
-/* ================================================================
-   📱 FIX MOBILE — KASIH JARAK SAMPING DI .container
-================================================================ */
-
-@media (max-width: 768px) {
-    
-    /* Container utama → kasih padding kiri-kanan */
     .container {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
+        padding-left: 12px;
+        padding-right: 12px;
     }
-    
-    /* Tab content → hapus padding samping (sudah di container) */
-    .tab-content {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-}
 
-/* ============================================
-   📱 HP KECIL (max 400px)
-============================================ */
-@media (max-width: 400px) {
-    .container {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
-    }
-}
-
-@media (max-width: 768px) {
-    body > .container,
-    body div.container {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        box-sizing: border-box !important;
+    .tab-container {
+        padding: 6px;
     }
 }
