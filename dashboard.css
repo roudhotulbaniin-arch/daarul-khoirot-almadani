@@ -657,3 +657,38 @@
 .dashboard-grid .dashboard-card.stat-ayat     .card-value { color: #7c3aed; }
 .dashboard-grid .dashboard-card.stat-tasmi    .card-value { color: #d97706; }
 .dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
+
+/* ================================================================
+   🔧 FIX — Action Bar HANYA tampil di panel Rekapitulasi
+================================================================ */
+
+/* Default: sembunyikan action-bar */
+.action-bar {
+    display: none !important;
+}
+
+/* Tampilkan HANYA saat panel rekap aktif */
+body:has(#rekap-panel.active) .action-bar {
+    display: grid !important;
+}
+
+/* Desktop → 3 kolom sejajar */
+@media (min-width: 768px) {
+    body:has(#rekap-panel.active) .action-bar {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+        padding: 20px;
+    }
+}
+
+/* Mobile → Reset full atas, Word & PDF sejajar bawah */
+@media (max-width: 768px) {
+    body:has(#rekap-panel.active) .action-bar {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "reset reset"
+            "word  pdf";
+        gap: 10px;
+        padding: 15px;
+    }
+}
