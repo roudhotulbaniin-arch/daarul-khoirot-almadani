@@ -1427,31 +1427,19 @@ GRAFIK MONITORING
          ACTION BAR (DI DALAM DASHBOARD-PANEL,
          TAPI DI LUAR PANEL-CARD)
     =========================================== -->
-    <div class="action-bar no-print"
-         style="padding:20px; background:#fff; border-radius:12px;
-                box-shadow:0 4px 15px rgba(0,0,0,.06);
-                display:flex; flex-direction:column; gap:12px;">
+<div class="action-bar no-print">
+    <button type="button" id="btnResetData" class="btn-action btn-reset">
+        <i class="fas fa-trash-alt"></i> RESET SEMUA DATA
+    </button>
 
-        <button type="button" id="btnResetData" class="btn-simpan-final"
-            style="width:100%; background:#ef4444 !important; padding:14px;
-                   border-radius:8px; font-weight:bold; font-size:0.95rem;">
-            <i class="fas fa-trash-alt"></i> RESET SEMUA DATA
-        </button>
+    <button type="button" onclick="exportToWord()" class="btn-action btn-word">
+        <i class="fas fa-file-word"></i> WORD
+    </button>
 
-        <div style="display:flex; gap:10px;">
-            <button type="button" onclick="exportToWord()"
-                style="flex:1; background:#0288d1; color:white; padding:14px;
-                       border:none; border-radius:8px; font-weight:bold;
-                       font-size:0.95rem; cursor:pointer;">
-                <i class="fas fa-file-word"></i> WORD
-            </button>
-            <button type="button" onclick="exportToPDF()"
-                style="flex:1; background:#d32f2f; color:white; padding:14px;
-                       border:none; border-radius:8px; font-weight:bold;
-                       font-size:0.95rem; cursor:pointer;">
-                <i class="fas fa-file-pdf"></i> PDF
-            </button>
-        </div>
+    <button type="button" onclick="exportToPDF()" class="btn-action btn-pdf">
+        <i class="fas fa-file-pdf"></i> PDF
+    </button>
+</div>
 
     </div>
     <!-- ✅ END action-bar -->
