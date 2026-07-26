@@ -1139,113 +1139,80 @@ Dashboard Monitoring Santri
     </div>
 
 </div>
-
-<!-- =========================
-RINGKASAN MONITORING
-========================= -->
-
 <div class="dashboard-grid">
 
-<div class="dashboard-card terbaik">
-    <div class="card-title">🏆 Santri Terbaik</div>
-    <div id="dashBestNama" class="card-value">-</div>
-    <div id="dashBestPredikat" class="card-sub">
-        0 Mumtaz ممتاز
-    </div>
-</div>
+    <!-- === RINGKASAN MONITORING === -->
 
-<div class="dashboard-card hafalan">
-    <div class="card-title">📖 Hafalan Terbaik</div>
-    <div id="dashHafalanNama">-</div>
-    <div id="dashHafalanInfo">
-        0 Juz
-    </div>
-    <div id="dashHafalanNilai">
-        0 Mumtaz ممتاز
-    </div>
-</div>
-
-<div class="dashboard-card hadir">
-    <div class="card-title">📅 Kehadiran Terbaik</div>
-    <div id="dashHadirNama">-</div>
-    <div id="dashHadirPersen">
-        0 %
-    </div>
-    <div id="dashHadirNilai">
-        0 Mumtaz ممتاز
-    </div>
-</div>
-
-<div class="dashboard-card ibadah">
-    <div class="card-title">🕌 Ibadah & Akhlaq Terbaik</div>
-    <div id="dashIbadahNama">-</div>
-    <div id="dashIbadahNilai">
-        0 Mumtaz ممتاز
-    </div>
-</div>
-
-<div class="dashboard-card rata">
-    <div class="card-title">
-        📊 Rata-rata Kehadiran
+    <div class="dashboard-card terbaik">
+        <div class="card-title">🏆 Santri Terbaik</div>
+        <div id="dashBestNama" class="card-value">-</div>
+        <div id="dashBestPredikat" class="card-sub">0 Mumtaz ممتاز</div>
     </div>
 
-    <div id="dashAvgHadir">
-        0 %
-    </div>
-</div>
-
-<div class="dashboard-card rata">
-    <div class="card-title">
-        📖 Rata-rata Hafalan
+    <div class="dashboard-card hafalan">
+        <div class="card-title">📖 Hafalan Terbaik</div>
+        <div id="dashHafalanNama">-</div>
+        <div id="dashHafalanInfo">0 Juz</div>
+        <div id="dashHafalanNilai">0 Mumtaz ممتاز</div>
     </div>
 
-    <div id="dashAvgHafalan">
-        0 Jayyid جيد
-    </div>
-</div>
-
-<div class="dashboard-card rata">
-    <div class="card-title">
-        🕌 Rata-rata Ibadah
+    <div class="dashboard-card hadir">
+        <div class="card-title">📅 Kehadiran Terbaik</div>
+        <div id="dashHadirNama">-</div>
+        <div id="dashHadirPersen">0 %</div>
+        <div id="dashHadirNilai">0 Mumtaz ممتاز</div>
     </div>
 
-    <div id="dashAvgIbadah">
-        0 Jayyid Jiddan جيد جدا
-    </div>
-</div>
-
-<div class="dashboard-card rata">
-    <div class="card-title">
-        ⭐ Predikat Seluruh Santri
+    <div class="dashboard-card ibadah">
+        <div class="card-title">🕌 Ibadah & Akhlaq Terbaik</div>
+        <div id="dashIbadahNama">-</div>
+        <div id="dashIbadahNilai">0 Mumtaz ممتاز</div>
     </div>
 
-    <div id="dashAvgPredikat">
-        0 Jayyid Jiddan جيد جدا
+    <!-- === RATA-RATA (⭐ tambah class unik) === -->
+
+    <div class="dashboard-card rata rata-hadir">
+        <div class="card-title">📊 Rata-rata Kehadiran</div>
+        <div id="dashAvgHadir">0 %</div>
     </div>
-</div>
 
-<!-- =======================================
-STATISTIK
-======================================= -->
+    <div class="dashboard-card rata rata-hafalan">
+        <div class="card-title">📖 Rata-rata Hafalan</div>
+        <div id="dashAvgHafalan">0 Jayyid جيد</div>
+    </div>
 
-<div class="dashboard-card statistik">
-    <div class="card-title">👨‍🎓 Jumlah Santri</div>
-    <div id="dashJumlahSantri" class="card-value">0</div>
-</div>
+    <div class="dashboard-card rata rata-ibadah">
+        <div class="card-title">🕌 Rata-rata Ibadah</div>
+        <div id="dashAvgIbadah">0 Jayyid Jiddan جيد جدا</div>
+    </div>
 
-<div class="dashboard-card statistik">
-    <div class="card-title">📚 Total Setoran</div>
-    <div id="dashTotalSetoran" class="card-value">0</div>
-</div>
+    <div class="dashboard-card rata rata-predikat">
+        <div class="card-title">⭐ Predikat Seluruh Santri</div>
+        <div id="dashAvgPredikat">0 Jayyid Jiddan جيد جدا</div>
+    </div>
 
-<div class="dashboard-card statistik">
-    <div class="card-title">📖 Total Ayat</div>
-    <div id="dashTotalAyat" class="card-value">0</div>
-</div>
+    <!-- === STATISTIK (⭐ tambah class unik) === -->
 
-<div class="dashboard-card statistik">
-    <div class="card-title">🎙️ Total Tasmi'</div>
-    <div id="dashTotalTasmi" class="card-value">0</div>
+    <div class="dashboard-card statistik stat-santri">
+        <div class="card-title">👨‍🎓 Jumlah Santri</div>
+        <div id="dashJumlahSantri" class="card-value">0</div>
+    </div>
+
+    <div class="dashboard-card statistik stat-setoran">
+        <div class="card-title">📚 Total Setoran</div>
+        <div id="dashTotalSetoran" class="card-value">0</div>
+    </div>
+
+    <div class="dashboard-card statistik stat-ayat">
+        <div class="card-title">📖 Total Ayat</div>
+        <div id="dashTotalAyat" class="card-value">0</div>
+    </div>
+
+    <div class="dashboard-card statistik stat-tasmi">
+        <div class="card-title">🎙️ Total Tasmi'</div>
+        <div id="dashTotalTasmi" class="card-value">0</div>
+    </div>
+
 </div>
 
 <!-- ===========================
