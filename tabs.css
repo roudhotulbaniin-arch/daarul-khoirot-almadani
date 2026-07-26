@@ -275,3 +275,34 @@
         max-width: calc(100% - 24px) !important;
     }
 }
+
+/* ================================================================
+   📱 FIX MOBILE — KASIH JARAK SAMPING DI .container
+================================================================ */
+
+@media (max-width: 768px) {
+    
+    /* Container utama → kasih padding kiri-kanan */
+    .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Tab content → hapus padding samping (sudah di container) */
+    .tab-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+/* ============================================
+   📱 HP KECIL (max 400px)
+============================================ */
+@media (max-width: 400px) {
+    .container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+}
