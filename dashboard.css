@@ -772,3 +772,92 @@
         margin-bottom: 15px !important;
     }
 }
+
+/* ================================================================
+   📱 FIX MOBILE — SAMAKAN LEBAR TAB MENU & PANEL CARD
+================================================================ */
+
+@media (max-width: 768px) {
+    
+    /* ============================================
+       CONTAINER — Padding samping seragam
+    ============================================ */
+    .container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* ============================================
+       TAB MENU — Sama lebar dengan panel-card
+    ============================================ */
+    .tab-menu {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 15px !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+        background: #f5f7fa !important;
+        border-radius: 12px !important;
+    }
+    
+    /* ============================================
+       PANEL CARD — Sama lebar dengan tab menu
+    ============================================ */
+    .panel-card,
+    .tab-content > .panel-card,
+    #santri-panel .panel-card,
+    #kehadiran-panel .panel-card,
+    #hafalan-panel .panel-card,
+    #ibadah-panel .panel-card,
+    #rekap-panel .panel-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 18px !important;
+        box-sizing: border-box !important;
+        border-radius: 12px !important;
+    }
+    
+    /* ============================================
+       TAB CONTENT wrapper — full width
+    ============================================ */
+    .tab-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Tab container juga full width */
+    .tab-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ============================================
+   📱 HP KECIL (max 400px) — Padding lebih tipis
+============================================ */
+@media (max-width: 400px) {
+    .container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    
+    .tab-menu {
+        padding: 8px !important;
+    }
+    
+    .panel-card {
+        padding: 15px !important;
+    }
+}
