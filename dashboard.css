@@ -1902,7 +1902,7 @@ div:has(> .action-bar) {
 
 .input-ikon.tanggal-realtime:hover,
 .input-ikon.tanggal-realtime:focus-within {
-    border-color: #144514 !important;
+    border-color: #ec4899 !important;
     box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.12) !important;
 }
 
@@ -2214,4 +2214,133 @@ div:has(> .action-bar) {
 /* Tampilkan HANYA saat aktif */
 #dashboard-panel.active {
     display: block !important;
+}
+
+/* ================================================================
+   📱 FIX MOBILE — SEMUA TOMBOL TUMPUK VERTIKAL DI HP
+================================================================ */
+
+@media (max-width: 768px) {
+    
+    /* ============================================
+       TOMBOL NAVIGASI TAB (Data Santri, Simpan & Lanjut, dll)
+    ============================================ */
+    .tab-navigation,
+    .box-tombol-container-grid,
+    .btn-navigation-wrapper {
+        display: flex !important;
+        flex-direction: column !important;      /* ⭐ TUMPUK VERTIKAL */
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 20px !important;
+    }
+    
+    /* Semua tombol dalam navigasi → full width */
+    .tab-navigation > button,
+    .box-tombol-container-grid > button,
+    .btn-navigation-wrapper > button,
+    .tab-navigation .btn-prev-tab,
+    .tab-navigation .btn-next-tab,
+    .box-tombol-container-grid .btn-prev-tab,
+    .box-tombol-container-grid .btn-simpan-final,
+    .box-tombol-container-grid #btnProsesRekap {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        padding: 14px 20px !important;
+        font-size: 0.95rem !important;
+        white-space: nowrap !important;         /* Text 1 baris */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* ============================================
+       TOMBOL ACTION BAR (Reset, Word, PDF)
+    ============================================ */
+    .action-bar {
+        display: flex !important;
+        flex-direction: column !important;      /* ⭐ TUMPUK VERTIKAL */
+        gap: 10px !important;
+        width: 100% !important;
+        padding: 15px !important;
+    }
+    
+    .action-bar > button,
+    .action-bar > .btn-action,
+    .action-bar .btn-reset,
+    .action-bar .btn-word,
+    .action-bar .btn-pdf {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 14px 20px !important;
+        font-size: 0.9rem !important;
+        white-space: nowrap !important;
+        justify-content: center !important;
+    }
+    
+    /* ============================================
+       FORM GRID (Tanggal + Status, dll) — ikut vertikal
+    ============================================ */
+    .form-grid,
+    .form-grid-2,
+    #kehadiran-panel .form-grid,
+    #input-panel .form-grid,
+    #rekap-panel .form-grid,
+    #rekapitulasi-panel .form-grid {
+        grid-template-columns: 1fr !important;   /* ⭐ 1 kolom */
+        gap: 15px !important;
+    }
+    
+    /* ============================================
+       TAB MENU (Data Santri, Kehadiran, dll)
+    ============================================ */
+    .tab-menu {
+        grid-template-columns: repeat(2, 1fr) !important;  /* 2 kolom di HP */
+        gap: 8px !important;
+        padding: 10px !important;
+    }
+    
+    .tab-link {
+        padding: 12px 6px !important;
+        min-height: 75px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .tab-link i {
+        font-size: 1.3rem !important;
+    }
+}
+
+/* ============================================
+   📱 HP KECIL (< 480px) — Padding lebih kecil
+============================================ */
+@media (max-width: 480px) {
+    
+    .tab-navigation,
+    .box-tombol-container-grid,
+    .action-bar {
+        gap: 10px !important;
+        padding: 12px !important;
+    }
+    
+    .tab-navigation > button,
+    .box-tombol-container-grid > button,
+    .action-bar > button {
+        padding: 13px 15px !important;
+        font-size: 0.88rem !important;
+    }
+    
+    /* Tab menu jadi 2 kolom */
+    .tab-menu {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .tab-link {
+        font-size: 0.7rem !important;
+        min-height: 70px !important;
+    }
 }
