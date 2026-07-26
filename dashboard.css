@@ -1,11 +1,13 @@
 /* ================================================================
-   🎨 CSS FINAL — DAARUL KHOIROT ALMADANI
-   Struktur: Base → Desktop → Mobile → Special
-   Terakhir update: bersih, no-conflict, 3 kolom tab HP
+   🎨 DASHBOARD.CSS — DAARUL KHOIROT ALMADANI
+   Fokus: Summary cards, Dashboard grid, Dashboard tables,
+          Tanggal realtime, Action bar, Tab navigation buttons
+   Catatan: Tab menu & Panel card responsive → di tabs.css & cards.css
 ================================================================ */
 
+
 /* ================================================================
-   1️⃣ BASE — SUMMARY CARDS
+   1️⃣ SUMMARY CARDS
 ================================================================ */
 .summary-cards {
     display: grid;
@@ -34,244 +36,228 @@
 .highlight-warning { color: #f59e0b; font-weight: 700; }
 .highlight-bad     { color: #ef4444; font-weight: 700; }
 
-/* ================================================================
-   2️⃣ TAB CONTENT SYSTEM (Sembunyikan tab tidak aktif)
-================================================================ */
-.tab-content {
-    display: none !important;
-}
-.tab-content.active {
-    display: block !important;
-}
 
 /* ================================================================
-   3️⃣ DASHBOARD GRID (Base: mobile 1 kolom)
+   2️⃣ DASHBOARD GRID (Base = mobile 1 kolom)
 ================================================================ */
 .dashboard-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-    margin: 20px 0 30px !important;
-    width: 100% !important;
-    align-items: stretch !important;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 20px 0 30px;
+    width: 100%;
+    align-items: stretch;
+    box-sizing: border-box;
 }
 
 .dashboard-grid > .dashboard-card,
 .dashboard-grid > div {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    min-height: 150px !important;
-    padding: 18px !important;
-    box-sizing: border-box !important;
-    background: #fff !important;
-    border-radius: 12px !important;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    overflow: hidden !important;
-    word-break: break-word !important;
-}
-
-.dashboard-grid .dashboard-card * {
-    min-width: 0 !important;
-    max-width: 100% !important;
-    white-space: normal !important;
-    word-break: break-word !important;
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
+    min-height: 150px;
+    padding: 18px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .06);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    word-break: break-word;
 }
 
 .dashboard-grid .card-title {
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
-    color: #1a5d1a !important;
-    line-height: 1.3 !important;
-    margin: 0 0 5px 0 !important;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1a5d1a;
+    line-height: 1.3;
+    margin: 0 0 5px 0;
 }
 
 .dashboard-grid .card-value {
-    font-size: 1.6rem !important;
-    font-weight: 800 !important;
-    color: #144514 !important;
-    line-height: 1.15 !important;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #144514;
+    line-height: 1.15;
 }
 
 .dashboard-grid .card-sub {
-    font-size: 0.78rem !important;
-    color: #6b7280 !important;
-    line-height: 1.4 !important;
+    font-size: 0.78rem;
+    color: #6b7280;
+    line-height: 1.4;
 }
 
-/* Border warna per kategori */
-.dashboard-grid .dashboard-card.terbaik   { border-top: 4px solid #f59e0b !important; border-left: none !important; }
-.dashboard-grid .dashboard-card.hafalan   { border-top: 4px solid #3b82f6 !important; border-left: none !important; }
-.dashboard-grid .dashboard-card.hadir     { border-top: 4px solid #10b981 !important; border-left: none !important; }
-.dashboard-grid .dashboard-card.ibadah    { border-top: 4px solid #8b5cf6 !important; border-left: none !important; }
-.dashboard-grid .dashboard-card.rata      { border-top: 4px solid #ec4899 !important; border-left: none !important; }
-.dashboard-grid .dashboard-card.statistik { border-top: 4px solid #1a5d1a !important; border-left: none !important; }
+/* Aksen border atas per kategori */
+.dashboard-grid .dashboard-card.terbaik   { border-top: 4px solid #f59e0b; }
+.dashboard-grid .dashboard-card.hafalan   { border-top: 4px solid #3b82f6; }
+.dashboard-grid .dashboard-card.hadir     { border-top: 4px solid #10b981; }
+.dashboard-grid .dashboard-card.ibadah    { border-top: 4px solid #8b5cf6; }
+.dashboard-grid .dashboard-card.rata      { border-top: 4px solid #ec4899; }
+.dashboard-grid .dashboard-card.statistik { border-top: 4px solid #1a5d1a; }
 
-/* Kartu grafik selalu full width */
+/* Kartu berisi grafik → full width */
 .dashboard-grid .dashboard-card:has(canvas),
 .dashboard-grid .dashboard-card:has(.grafik-wrapper) {
-    grid-column: 1 / -1 !important;
-    min-height: 380px !important;
+    grid-column: 1 / -1;
+    min-height: 380px;
 }
 
 .grafik-wrapper {
-    position: relative !important;
-    width: 100% !important;
-    height: 300px !important;
-    margin-top: 10px !important;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-top: 10px;
 }
 
 .grafik-wrapper canvas {
-    width: 100% !important;
-    height: 100% !important;
-    max-height: 300px !important;
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
 }
 
+
 /* ================================================================
-   4️⃣ DASHBOARD TABLES (paksa keluar dari grid)
+   3️⃣ DASHBOARD TABLES
 ================================================================ */
 .dashboard-tables {
-    grid-column: 1 / -1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
-    width: 100% !important;
-    margin-top: 20px !important;
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box;
 }
 
 .dashboard-tables > .panel-card {
-    width: 100% !important;
-    padding: 20px !important;
-    background: #fff !important;
-    border-radius: 12px !important;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06) !important;
-    box-sizing: border-box !important;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .06);
+    padding: 20px;
+    box-sizing: border-box;
+    border-left: 5px solid #1a5d1a;
 }
 
-.dashboard-tables .panel-card.kehadiran { border-left: 5px solid #10b981 !important; }
-.dashboard-tables .panel-card.hafalan   { border-left: 5px solid #3b82f6 !important; }
-.dashboard-tables .panel-card.ibadah    { border-left: 5px solid #8b5cf6 !important; }
-.dashboard-tables .panel-card.ranking   { border-left: 5px solid #f59e0b !important; }
+.dashboard-tables .panel-card.kehadiran { border-left-color: #10b981; }
+.dashboard-tables .panel-card.hafalan   { border-left-color: #3b82f6; }
+.dashboard-tables .panel-card.ibadah    { border-left-color: #8b5cf6; }
+.dashboard-tables .panel-card.rekap     { border-left-color: #06b6d4; }
+.dashboard-tables .panel-card.ranking   { border-left-color: #f59e0b; }
 
 .dashboard-tables .panel-card h3 {
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    color: #1a5d1a !important;
-    margin: 0 0 15px 0 !important;
-    padding-bottom: 10px !important;
-    border-bottom: 2px solid #e5e7eb !important;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a5d1a;
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
 }
 
 .dashboard-tables .ranking-wrapper,
 .dashboard-tables .table-wrapper {
-    width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    border-radius: 8px !important;
-    border: 1px solid #e5e7eb !important;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
 }
 
 .dashboard-tables table {
-    width: 100% !important;
-    min-width: 900px !important;
-    border-collapse: collapse !important;
-    font-size: 0.88rem !important;
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+    font-size: 0.88rem;
 }
 
 .dashboard-tables table th {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: white !important;
-    padding: 12px 10px !important;
-    text-align: center !important;
-    font-weight: 700 !important;
-    font-size: 0.8rem !important;
-    text-transform: uppercase !important;
-    white-space: nowrap !important;
-    min-width: 70px !important;
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #fff;
+    padding: 12px 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    min-width: 70px;
 }
 
 .dashboard-tables table td {
-    padding: 10px 12px !important;
-    text-align: center !important;
-    border-bottom: 1px solid #f0f0f0 !important;
-    white-space: nowrap !important;
-    font-size: 0.85rem !important;
+    padding: 10px 12px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    white-space: nowrap;
+    font-size: 0.85rem;
 }
 
 .dashboard-tables table td:nth-child(2) {
-    white-space: normal !important;
-    min-width: 200px !important;
-    text-align: left !important;
-    font-weight: 600 !important;
+    white-space: normal;
+    min-width: 200px;
+    text-align: left;
+    font-weight: 600;
 }
 
 .dashboard-tables table tbody tr:hover {
-    background: #f9fdf9 !important;
+    background: #f9fdf9;
 }
 
+
 /* ================================================================
-   5️⃣ TANGGAL REALTIME (form kehadiran)
+   4️⃣ TANGGAL REALTIME (form kehadiran)
 ================================================================ */
 .input-ikon.tanggal-realtime {
-    width: 100% !important;
-    min-height: 52px !important;
-    padding: 10px 15px !important;
-    background: #fff !important;
-    border: 2px solid #1a5d1a !important;
-    border-radius: 10px !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    cursor: pointer !important;
-    box-sizing: border-box !important;
-    transition: all 0.25s ease !important;
+    width: 100%;
+    min-height: 52px;
+    padding: 10px 15px;
+    background: #fff;
+    border: 2px solid #1a5d1a;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
 }
 
 .input-ikon.tanggal-realtime:hover {
-    background: #f9fdf9 !important;
-    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08) !important;
+    background: #f9fdf9;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08);
 }
 
 .input-ikon.tanggal-realtime > i.fa-calendar-alt {
-    font-size: 1.1rem !important;
-    color: #1a5d1a !important;
-    flex-shrink: 0 !important;
+    font-size: 1.1rem;
+    color: #1a5d1a;
+    flex-shrink: 0;
 }
 
 .tanggal-display-text {
-    flex: 1 !important;
-    font-size: 0.95rem !important;
-    font-weight: 600 !important;
-    color: #144514 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #144514;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tanggal-badge {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: #fff !important;
-    font-size: 0.7rem !important;
-    font-weight: 800 !important;
-    padding: 4px 10px !important;
-    border-radius: 20px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 5px !important;
-    letter-spacing: 1px !important;
-    flex-shrink: 0 !important;
-    box-shadow: 0 2px 5px rgba(26, 93, 26, 0.3) !important;
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(26, 93, 26, 0.3);
 }
 
 .tanggal-badge > i.fa-circle {
-    font-size: 0.5rem !important;
-    color: #ff5252 !important;
-    animation: blinkLive 1.2s infinite !important;
+    font-size: 0.5rem;
+    color: #ff5252;
+    animation: blinkLive 1.2s infinite;
 }
 
 @keyframes blinkLive {
@@ -279,8 +265,127 @@
     50%      { opacity: 0.3; transform: scale(0.8); }
 }
 
+
 /* ================================================================
-   6️⃣ 💻 DESKTOP (min-width: 768px)
+   5️⃣ TOMBOL NAVIGASI (Prev / Next / Simpan / Generate)
+   Base: MOBILE (stack vertikal)
+================================================================ */
+.tab-navigation,
+.box-tombol-container-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.tab-navigation > button,
+.box-tombol-container-grid > button {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+/* Tombol Prev (outline) */
+.btn-prev-tab {
+    background: #fff;
+    color: #1a5d1a;
+    border-color: #1a5d1a;
+}
+
+.btn-prev-tab:hover {
+    background: #f0f9f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 93, 26, .2);
+}
+
+/* Tombol Next / Simpan / Generate (solid) */
+.btn-next-tab,
+.btn-simpan-final,
+#btnProsesRekap {
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #fff;
+    border-color: #144514;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, .3);
+}
+
+.btn-next-tab:hover,
+.btn-simpan-final:hover,
+#btnProsesRekap:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(26, 93, 26, .45);
+}
+
+
+/* ================================================================
+   6️⃣ ACTION BAR (Reset | Word | PDF)
+   Base: MOBILE (Reset full atas, Word & PDF sejajar bawah)
+================================================================ */
+.action-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "reset reset"
+        "word  pdf";
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .06);
+    box-sizing: border-box;
+    margin: 20px 0;
+}
+
+.action-bar .btn-reset,
+#btnResetData { grid-area: reset; }
+
+.action-bar .btn-word  { grid-area: word; }
+.action-bar .btn-pdf   { grid-area: pdf; }
+
+.action-bar > button {
+    width: 100%;
+    padding: 14px 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+}
+
+.action-bar > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
+}
+
+.action-bar .btn-reset,
+#btnResetData { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+.action-bar .btn-word  { background: linear-gradient(135deg, #3b82f6, #0288d1); }
+.action-bar .btn-pdf   { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+
+
+/* ================================================================
+   7️⃣ 💻 DESKTOP (min-width: 768px)
 ================================================================ */
 @media (min-width: 768px) {
 
@@ -290,415 +395,129 @@
         padding: 0 20px;
     }
 
-    /* TAB MENU — 6 kolom */
-    .tab-menu {
-        display: grid !important;
-        grid-template-columns: repeat(6, 1fr) !important;
-        gap: 8px !important;
-        padding: 12px !important;
-        background: #f5f7fa !important;
-        border-radius: 12px !important;
-        margin-bottom: 20px !important;
+    /* Dashboard grid → 2 kolom di tablet */
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .tab-link {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 6px !important;
-        padding: 12px 6px !important;
-        min-height: 70px !important;
-        font-size: 0.72rem !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        border-radius: 10px !important;
-        border: 2px solid transparent !important;
-        background: white !important;
-        color: #1a5d1a !important;
-        cursor: pointer !important;
-        transition: all 0.25s ease !important;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.04) !important;
-    }
-
-    .tab-link i {
-        font-size: 1.3rem !important;
-        color: #1a5d1a !important;
-    }
-
-    .tab-link:hover {
-        background: #f0f9f0 !important;
-        border-color: #1a5d1a !important;
-        transform: translateY(-2px);
-    }
-
-    .tab-link.active {
-        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-        color: white !important;
-        border-color: #144514 !important;
-        box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35) !important;
-    }
-
-    .tab-link.active i {
-        color: white !important;
-    }
-
-    /* PANEL CARD */
-    .panel-card {
-        padding: 30px !important;
-        border-radius: 14px !important;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    }
-
-    /* FORM GRID */
+    /* Form grid */
     .form-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 20px !important;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
 
     .form-grid-2 {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
-    /* DASHBOARD GRID — 2 kolom di tablet */
-    .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-    /* PENILAIAN GRID */
-    .penilaian-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 18px !important;
-    }
-
-    /* FORM KEHADIRAN (Tanggal + Status) */
+    /* Form kehadiran → 2 kolom (Tanggal + Status) */
     #kehadiran-panel .form-grid,
     #input-panel .form-grid {
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: 1fr 1fr;
     }
 
+    /* Penilaian grid */
+    .penilaian-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+
+    /* Tombol navigasi → 2 kolom sejajar */
+    .tab-navigation,
+    .box-tombol-container-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    /* Kalau hanya 1 tombol → full width */
+    .tab-navigation:has(> button:only-child) {
+        grid-template-columns: 1fr;
+    }
+
+    /* Action bar → 3 kolom sejajar */
+    .action-bar {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: "reset word pdf";
+        gap: 15px;
+        padding: 20px;
+        margin: 25px 0;
+    }
+
+    /* Select status kehadiran */
     #statusKehadiran {
-        width: 100% !important;
-        min-height: 52px !important;
-        padding: 12px 15px !important;
-        font-size: 0.95rem !important;
-        font-weight: 600 !important;
-        color: #144514 !important;
-        border: 2px solid #1a5d1a !important;
-        border-radius: 10px !important;
-        background: #fff !important;
-        box-sizing: border-box !important;
-        appearance: none !important;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a5d1a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e") !important;
-        background-repeat: no-repeat !important;
-        background-position: right 15px center !important;
-        background-size: 16px !important;
-        padding-right: 40px !important;
+        width: 100%;
+        min-height: 52px;
+        padding: 12px 40px 12px 15px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #144514;
+        border: 2px solid #1a5d1a;
+        border-radius: 10px;
+        background: #fff url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a5d1a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e") no-repeat right 15px center / 16px;
+        box-sizing: border-box;
+        appearance: none;
     }
 }
 
+
 /* ================================================================
-   7️⃣ 🖥️ LAYAR 1024+ (Desktop besar — 3 kolom dashboard)
+   8️⃣ 🖥️ DESKTOP BESAR (min-width: 1024px) — 3 kolom
 ================================================================ */
 @media (min-width: 1024px) {
     .dashboard-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
+
 /* ================================================================
-   8️⃣ 🖥️ LAYAR 1280+ (Wide — 4 kolom dashboard)
+   9️⃣ 🖥️ WIDE (min-width: 1280px) — 4 kolom
 ================================================================ */
 @media (min-width: 1280px) {
     .dashboard-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
-/* ================================================================
-   9️⃣ DESKTOP — TOMBOL NAVIGASI (Sebelumnya / Simpan / Generate)
-================================================================ */
-@media (min-width: 769px) {
-
-    /* TAB NAVIGATION (Prev + Next) */
-    .tab-navigation {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 15px !important;
-        width: 100% !important;
-        margin-top: 25px !important;
-    }
-
-    .tab-navigation:has(> button:only-child) {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* BOX TOMBOL CONTAINER (Sebelumnya + Generate) */
-    .box-tombol-container-grid {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 15px !important;
-        width: 100% !important;
-        margin-top: 25px !important;
-    }
-
-    /* Semua tombol navigasi */
-    .tab-navigation > button,
-    .box-tombol-container-grid > button {
-        width: 100% !important;
-        padding: 14px 24px !important;
-        font-size: 0.95rem !important;
-        font-weight: 700 !important;
-        border-radius: 10px !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 10px !important;
-        border: 2px solid transparent !important;
-        transition: all 0.25s ease !important;
-        white-space: nowrap !important;
-    }
-
-    /* Tombol PREV (outline) */
-    .btn-prev-tab {
-        background: #fff !important;
-        color: #1a5d1a !important;
-        border-color: #1a5d1a !important;
-    }
-
-    .btn-prev-tab:hover {
-        background: #f0f9f0 !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2);
-    }
-
-    /* Tombol NEXT / GENERATE (solid) */
-    .btn-next-tab,
-    .btn-simpan-final,
-    #btnProsesRekap {
-        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-        color: white !important;
-        border-color: #144514 !important;
-        box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
-    }
-
-    .btn-next-tab:hover,
-    .btn-simpan-final:hover,
-    #btnProsesRekap:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(26, 93, 26, 0.45) !important;
-    }
-
-    /* ACTION BAR — Reset | Word | PDF sejajar 3 kolom */
-    .action-bar {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr 1fr !important;
-        gap: 15px !important;
-        padding: 20px !important;
-        background: #fff !important;
-        border-radius: 12px !important;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.06) !important;
-        margin: 25px 0 !important;
-    }
-
-    .action-bar > button {
-        width: 100% !important;
-        padding: 14px 20px !important;
-        font-size: 0.9rem !important;
-        font-weight: 700 !important;
-        border-radius: 10px !important;
-        border: none !important;
-        color: white !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 10px !important;
-        text-transform: uppercase !important;
-        transition: all 0.25s ease !important;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1) !important;
-    }
-
-    .action-bar > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0,0,0,0.15) !important;
-    }
-
-    .action-bar .btn-reset,
-    #btnResetData { background: linear-gradient(135deg, #ef4444, #dc2626) !important; }
-    
-    .action-bar .btn-word  { background: linear-gradient(135deg, #3b82f6, #0288d1) !important; }
-    .action-bar .btn-pdf   { background: linear-gradient(135deg, #dc2626, #b91c1c) !important; }
-}
 
 /* ================================================================
-   🔟 📱 MOBILE (max-width: 768px) — SEMUA MOBILE FIX DI SINI
+   🔟 📱 MOBILE (max-width: 768px) — Penyesuaian dashboard-tables
 ================================================================ */
 @media (max-width: 768px) {
 
-    /* ============================================
-       TAB MENU — 3 KOLOM (2 baris)
-    ============================================ */
-    .tab-menu {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
-        padding: 10px !important;
-        background: #f5f7fa !important;
-        border-radius: 12px !important;
-        margin-bottom: 15px !important;
+    /* Dashboard tables → padding lebih tipis */
+    .dashboard-tables {
+        gap: 15px;
+        margin-top: 15px;
     }
 
-    .tab-link {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 6px !important;
-        padding: 12px 4px !important;
-        min-height: 75px !important;
-        font-size: 0.68rem !important;
-        font-weight: 700 !important;
-        text-align: center !important;
-        border-radius: 8px !important;
-        border: 2px solid transparent !important;
-        background: #fff !important;
-        color: #1a5d1a !important;
-        line-height: 1.2 !important;
+    .dashboard-tables > .panel-card {
+        padding: 15px;
+        border-radius: 10px;
     }
 
-    .tab-link i {
-        font-size: 1.2rem !important;
-        color: #1a5d1a !important;
+    .dashboard-tables .panel-card h3 {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
     }
 
-    .tab-link.active {
-        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-        color: white !important;
-        border-color: #144514 !important;
-        box-shadow: 0 4px 12px rgba(26, 93, 26, 0.35) !important;
-    }
-
-    .tab-link.active i {
-        color: white !important;
-    }
-
-    /* ============================================
-       FORM GRID — 1 kolom
-    ============================================ */
+    /* Form grid → 1 kolom */
     .form-grid,
     .form-grid-2 {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-    }
-
-    /* ============================================
-       TOMBOL NAVIGASI — Tumpuk vertikal
-    ============================================ */
-    .tab-navigation,
-    .box-tombol-container-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-        width: 100% !important;
-        margin-top: 20px !important;
-    }
-
-    .tab-navigation > button,
-    .box-tombol-container-grid > button {
-        width: 100% !important;
-        padding: 14px 20px !important;
-        font-size: 0.95rem !important;
-        border-radius: 10px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 10px !important;
-        white-space: nowrap !important;
-    }
-
-    /* ============================================
-       ACTION BAR — Reset full, Word & PDF sejajar 50-50
-    ============================================ */
-    .action-bar {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        grid-template-areas:
-            "reset reset"
-            "word  pdf" !important;
-        gap: 10px !important;
-        width: 100% !important;
-        padding: 15px !important;
-        background: #fff !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important;
-    }
-
-    .action-bar .btn-reset,
-    #btnResetData { grid-area: reset !important; }
-    
-    .action-bar .btn-word  { grid-area: word  !important; }
-    .action-bar .btn-pdf   { grid-area: pdf   !important; }
-
-    .action-bar > button {
-        width: 100% !important;
-        padding: 14px 15px !important;
-        font-size: 0.9rem !important;
-        font-weight: 700 !important;
-        border-radius: 10px !important;
-        border: none !important;
-        color: white !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 8px !important;
-        white-space: nowrap !important;
-    }
-
-    .action-bar .btn-reset,
-    #btnResetData { background: linear-gradient(135deg, #ef4444, #dc2626) !important; }
-    
-    .action-bar .btn-word  { background: linear-gradient(135deg, #3b82f6, #0288d1) !important; }
-    .action-bar .btn-pdf   { background: linear-gradient(135deg, #dc2626, #b91c1c) !important; }
-}
-
-/* ================================================================
-   1️⃣1️⃣ 📱 HP KECIL (max-width: 400px)
-================================================================ */
-@media (max-width: 400px) {
-    .tab-menu {
-        gap: 6px !important;
-        padding: 8px !important;
-    }
-
-    .tab-link {
-        font-size: 0.62rem !important;
-        padding: 10px 3px !important;
-        min-height: 70px !important;
-    }
-
-    .tab-link i {
-        font-size: 1.1rem !important;
-    }
-
-    .action-bar {
-        gap: 8px !important;
-        padding: 12px !important;
-    }
-
-    .action-bar > button {
-        padding: 13px 12px !important;
-        font-size: 0.85rem !important;
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 }
 
+
 /* ================================================================
-   1️⃣2️⃣ SUMMARY CARDS — Mobile
+   1️⃣1️⃣ 📱 SUMMARY CARDS (max-width: 600px)
 ================================================================ */
 @media (max-width: 600px) {
     .summary-cards {
@@ -706,158 +525,23 @@
     }
 }
 
-/* ================================================================
-   🔧 FIX — HAPUS DOUBLE CARD (Panel Card di dalam Panel Card)
-================================================================ */
-
-/* Panel-card di dalam dashboard-tables → HAPUS BACKGROUND & SHADOW */
-.dashboard-tables > .panel-card,
-.dashboard-tables .panel-card.kehadiran,
-.dashboard-tables .panel-card.hafalan,
-.dashboard-tables .panel-card.ibadah,
-.dashboard-tables .panel-card.rekap,
-.dashboard-tables .panel-card.ranking {
-    background: transparent !important;      /* ⭐ Hapus BG putih */
-    box-shadow: none !important;              /* ⭐ Hapus shadow */
-    border: none !important;                  /* ⭐ Hapus border */
-    border-radius: 0 !important;
-    padding: 0 !important;                    /* ⭐ Hapus padding */
-    margin: 0 !important;
-    border-left: none !important;
-}
-
-/* Tapi TETAP tampilkan garis warna kiri (accent) — pakai border-left saja */
-.dashboard-tables > .panel-card {
-    padding-left: 15px !important;            /* Sedikit padding untuk border */
-    border-left: 5px solid transparent !important;
-    background: #fff !important;              /* BG putih tipis */
-    border-radius: 10px !important;
-    padding: 20px !important;                  /* Balik lagi padding */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;  /* Shadow tipis */
-    margin-bottom: 15px !important;
-}
-
-/* Border warna per panel */
-.dashboard-tables .panel-card.kehadiran { border-left-color: #10b981 !important; }
-.dashboard-tables .panel-card.hafalan   { border-left-color: #3b82f6 !important; }
-.dashboard-tables .panel-card.ibadah    { border-left-color: #8b5cf6 !important; }
-.dashboard-tables .panel-card.rekap     { border-left-color: #06b6d4 !important; }
-.dashboard-tables .panel-card.ranking   { border-left-color: #f59e0b !important; }
-
-/* Panel Card UTAMA (yang jadi pembungkus luar) → BUAT TRANSPARAN di MOBILE */
-@media (max-width: 768px) {
-    
-    /* Panel card utama dashboard-panel — hilangkan padding dan bg */
-    #dashboard-panel > .panel-card {
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        border-radius: 0 !important;
-        padding: 10px !important;                /* Padding tipis saja */
-        margin: 0 !important;
-    }
-    
-    /* Dashboard-tables tidak ada padding tambahan */
-    .dashboard-tables {
-        padding: 0 !important;
-        margin-top: 15px !important;
-    }
-    
-    /* Setiap panel-card tabel → jadi kartu tunggal yang jelas */
-    .dashboard-tables > .panel-card {
-        padding: 15px !important;
-        border-radius: 10px !important;
-        background: #fff !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-        margin-bottom: 15px !important;
-    }
-}
 
 /* ================================================================
-   📱 FIX MOBILE — SAMAKAN LEBAR TAB MENU & PANEL CARD
+   1️⃣2️⃣ 📱 HP KECIL (max-width: 400px)
 ================================================================ */
-
-@media (max-width: 768px) {
-    
-    /* ============================================
-       CONTAINER — Padding samping seragam
-    ============================================ */
-    .container {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* ============================================
-       TAB MENU — Sama lebar dengan panel-card
-    ============================================ */
-    .tab-menu {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        margin-bottom: 15px !important;
-        padding: 10px !important;
-        box-sizing: border-box !important;
-        background: #f5f7fa !important;
-        border-radius: 12px !important;
-    }
-    
-    /* ============================================
-       PANEL CARD — Sama lebar dengan tab menu
-    ============================================ */
-    .panel-card,
-    .tab-content > .panel-card,
-    #santri-panel .panel-card,
-    #kehadiran-panel .panel-card,
-    #hafalan-panel .panel-card,
-    #ibadah-panel .panel-card,
-    #rekap-panel .panel-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding: 18px !important;
-        box-sizing: border-box !important;
-        border-radius: 12px !important;
-    }
-    
-    /* ============================================
-       TAB CONTENT wrapper — full width
-    ============================================ */
-    .tab-content {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Tab container juga full width */
-    .tab-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        box-sizing: border-box !important;
-    }
-}
-
-/* ============================================
-   📱 HP KECIL (max 400px) — Padding lebih tipis
-============================================ */
 @media (max-width: 400px) {
-    .container {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
+
+    .action-bar {
+        gap: 8px;
+        padding: 12px;
     }
-    
-    .tab-menu {
-        padding: 8px !important;
+
+    .action-bar > button {
+        padding: 13px 12px;
+        font-size: 0.85rem;
     }
-    
-    .panel-card {
-        padding: 15px !important;
+
+    .dashboard-tables > .panel-card {
+        padding: 12px;
     }
 }
