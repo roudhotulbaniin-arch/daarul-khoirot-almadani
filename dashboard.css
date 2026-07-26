@@ -579,7 +579,7 @@
     }
 
     .dashboard-tables > .panel-card {
-        padding: 12px 10px !important;      /* ⭐ Padding kecil */
+        padding: 10px 8px !important;      /* ⭐ Padding kecil */
         border-radius: 10px !important;
         margin: 0 !important;
     }
