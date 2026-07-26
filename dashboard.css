@@ -705,3 +705,70 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ================================================================
+   🔧 FIX — HAPUS DOUBLE CARD (Panel Card di dalam Panel Card)
+================================================================ */
+
+/* Panel-card di dalam dashboard-tables → HAPUS BACKGROUND & SHADOW */
+.dashboard-tables > .panel-card,
+.dashboard-tables .panel-card.kehadiran,
+.dashboard-tables .panel-card.hafalan,
+.dashboard-tables .panel-card.ibadah,
+.dashboard-tables .panel-card.rekap,
+.dashboard-tables .panel-card.ranking {
+    background: transparent !important;      /* ⭐ Hapus BG putih */
+    box-shadow: none !important;              /* ⭐ Hapus shadow */
+    border: none !important;                  /* ⭐ Hapus border */
+    border-radius: 0 !important;
+    padding: 0 !important;                    /* ⭐ Hapus padding */
+    margin: 0 !important;
+    border-left: none !important;
+}
+
+/* Tapi TETAP tampilkan garis warna kiri (accent) — pakai border-left saja */
+.dashboard-tables > .panel-card {
+    padding-left: 15px !important;            /* Sedikit padding untuk border */
+    border-left: 5px solid transparent !important;
+    background: #fff !important;              /* BG putih tipis */
+    border-radius: 10px !important;
+    padding: 20px !important;                  /* Balik lagi padding */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;  /* Shadow tipis */
+    margin-bottom: 15px !important;
+}
+
+/* Border warna per panel */
+.dashboard-tables .panel-card.kehadiran { border-left-color: #10b981 !important; }
+.dashboard-tables .panel-card.hafalan   { border-left-color: #3b82f6 !important; }
+.dashboard-tables .panel-card.ibadah    { border-left-color: #8b5cf6 !important; }
+.dashboard-tables .panel-card.rekap     { border-left-color: #06b6d4 !important; }
+.dashboard-tables .panel-card.ranking   { border-left-color: #f59e0b !important; }
+
+/* Panel Card UTAMA (yang jadi pembungkus luar) → BUAT TRANSPARAN di MOBILE */
+@media (max-width: 768px) {
+    
+    /* Panel card utama dashboard-panel — hilangkan padding dan bg */
+    #dashboard-panel > .panel-card {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 10px !important;                /* Padding tipis saja */
+        margin: 0 !important;
+    }
+    
+    /* Dashboard-tables tidak ada padding tambahan */
+    .dashboard-tables {
+        padding: 0 !important;
+        margin-top: 15px !important;
+    }
+    
+    /* Setiap panel-card tabel → jadi kartu tunggal yang jelas */
+    .dashboard-tables > .panel-card {
+        padding: 15px !important;
+        border-radius: 10px !important;
+        background: #fff !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+        margin-bottom: 15px !important;
+    }
+}
