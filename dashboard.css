@@ -1756,3 +1756,83 @@ div:has(> .action-bar) {
     margin: 0 !important;
     display: block !important;
 }
+
+/* ================================================================
+   🔧 FIX — TOMBOL "LANJUT" FULL WIDTH (Tab Data Santri)
+================================================================ */
+
+/* Container tab-navigation full width */
+.tab-navigation {
+    display: grid !important;
+    gap: 15px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 25px 0 0 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Kalau HANYA ada 1 tombol (btn-next saja) → full width */
+.tab-navigation:has(> .btn-next-tab:only-child),
+.tab-navigation:has(> button:only-child) {
+    grid-template-columns: 1fr !important;
+}
+
+/* Kalau ada 2 tombol (prev + next) → 50-50 */
+.tab-navigation:has(> .btn-prev-tab):has(> .btn-next-tab) {
+    grid-template-columns: 1fr 1fr !important;
+}
+
+/* Tombol prev & next — WAJIB full isi kolomnya */
+.tab-navigation .btn-prev-tab,
+.tab-navigation .btn-next-tab,
+.tab-navigation > button {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+    padding: 16px 24px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    transition: all 0.25s ease !important;
+    box-sizing: border-box !important;
+    border: 2px solid transparent !important;
+}
+
+/* Tombol NEXT (Lanjut) */
+.tab-navigation .btn-next-tab {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    border-color: #144514 !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+}
+
+.tab-navigation .btn-next-tab:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.45) !important;
+}
+
+/* Tombol PREV (Kembali) */
+.tab-navigation .btn-prev-tab {
+    background: #fff !important;
+    color: #1a5d1a !important;
+    border-color: #1a5d1a !important;
+}
+
+.tab-navigation .btn-prev-tab:hover {
+    background: #f0f9f0 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2) !important;
+}
+
+/* Mobile: tombol tumpuk */
+@media (max-width: 600px) {
+    .tab-navigation {
+        grid-template-columns: 1fr !important;
+    }
+}
