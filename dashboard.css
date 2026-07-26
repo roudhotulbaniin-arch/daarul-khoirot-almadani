@@ -1448,3 +1448,119 @@
     height: 100% !important;
     max-height: 320px !important;
 }
+
+/* ================================================================
+   🔧 FIX FINAL — TABEL DATA (KEHADIRAN, HAFALAN, IBADAH)
+================================================================ */
+
+/* Container tabel WAJIB full width */
+.dashboard-tables,
+#dashboardRekap,
+#dashboardRekap .panel-card,
+.dashboard-tables .panel-card {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 20px !important;
+    margin: 0 0 20px 0 !important;
+}
+
+/* Wrapper untuk scroll horizontal */
+.table-wrapper,
+.ranking-wrapper,
+#dashboardRekap .panel-card > div:has(table) {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 8px !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+/* Tabel WAJIB min-width supaya kolom tidak nyempit */
+#dashboardRekap table,
+.dashboard-tables table,
+.rekap-table,
+.ranking-table {
+    width: 100% !important;
+    min-width: 800px !important;   /* ⭐ KUNCI: paksa lebar minimum */
+    border-collapse: collapse !important;
+    font-size: 0.88rem !important;
+    table-layout: auto !important;
+}
+
+/* Header tabel */
+#dashboardRekap table th,
+.dashboard-tables table th,
+.rekap-table th,
+.ranking-table th {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    padding: 12px 10px !important;
+    text-align: center !important;
+    font-weight: 700 !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;      /* ⭐ TIDAK boleh wrap */
+    writing-mode: horizontal-tb !important; /* ⭐ Paksa horizontal */
+    text-orientation: mixed !important;
+    vertical-align: middle !important;
+    min-width: 80px !important;
+}
+
+/* Cell tabel */
+#dashboardRekap table td,
+.dashboard-tables table td,
+.rekap-table td,
+.ranking-table td {
+    padding: 10px 12px !important;
+    text-align: center !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+    white-space: nowrap !important;      /* ⭐ Cell juga tidak wrap */
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    vertical-align: middle !important;
+    font-size: 0.85rem !important;
+}
+
+/* Cell NAMA boleh wrap tapi minimum lebar */
+#dashboardRekap table td:nth-child(2),
+.dashboard-tables table td:nth-child(2),
+.rekap-table td:nth-child(2) {
+    white-space: normal !important;
+    min-width: 200px !important;
+    text-align: left !important;
+}
+
+/* Hover effect */
+#dashboardRekap table tbody tr:hover,
+.dashboard-tables table tbody tr:hover,
+.rekap-table tbody tr:hover {
+    background: #f9fdf9 !important;
+}
+
+/* Judul panel card */
+#dashboardRekap .panel-card h3,
+.dashboard-tables .panel-card h3,
+#dashboardRekap .panel-card > div:first-child {
+    white-space: normal !important;
+    writing-mode: horizontal-tb !important;
+    font-size: 1rem !important;
+    margin-bottom: 15px !important;
+}
+
+/* Pastikan panel card tabel FULL WIDTH (bukan grid item sempit) */
+#dashboard-panel,
+#dashboardRekap {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Force break dari grid parent kalau ada */
+.dashboard-tables > * {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+}
