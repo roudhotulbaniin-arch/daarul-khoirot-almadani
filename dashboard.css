@@ -1836,3 +1836,193 @@ div:has(> .action-bar) {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* ================================================================
+   🔧 FIX — FORM KEHADIRAN (Tanggal & Status) SAMA LEBAR
+================================================================ */
+
+/* Parent form — 2 kolom sama lebar */
+#kehadiran-panel .form-grid,
+#kehadiran-panel .form-grid-2,
+#input-panel .form-grid,
+#input-panel .form-grid-2 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px !important;
+    align-items: stretch !important;
+    box-sizing: border-box !important;
+}
+
+/* Form group — full width isi kolom */
+#kehadiran-panel .form-group,
+#input-panel .form-group {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+}
+
+/* Label */
+#kehadiran-panel .form-group > label,
+#input-panel .form-group > label {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    color: #1a5d1a !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    margin: 0 !important;
+}
+
+/* ============================================
+   INPUT TANGGAL — .input-ikon.tanggal-realtime
+============================================ */
+#kehadiran-panel .input-ikon.tanggal-realtime,
+#input-panel .input-ikon.tanggal-realtime,
+.input-ikon.tanggal-realtime {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 52px !important;             /* ⭐ Tinggi seragam dengan select */
+    padding: 10px 15px !important;
+    background: #fff !important;
+    border: 2px solid #1a5d1a !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+}
+
+.input-ikon.tanggal-realtime:hover,
+.input-ikon.tanggal-realtime:focus-within {
+    border-color: #144514 !important;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.12) !important;
+}
+
+/* Icon kalender */
+.input-ikon.tanggal-realtime > i.fa-calendar-alt {
+    font-size: 1.1rem !important;
+    color: #1a5d1a !important;
+    flex-shrink: 0 !important;
+}
+
+/* Teks tanggal */
+.input-ikon.tanggal-realtime .tanggal-display-text {
+    flex: 1 !important;                     /* ⭐ Ambil sisa ruang */
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #144514 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Badge LIVE (di kanan) */
+.input-ikon.tanggal-realtime .tanggal-badge {
+    background: #dc2626 !important;
+    color: #fff !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    padding: 5px 10px !important;
+    border-radius: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.35) !important;
+}
+
+.input-ikon.tanggal-realtime .tanggal-badge > i.fa-circle {
+    font-size: 0.5rem !important;
+    animation: pulseLiveDot 1.5s infinite !important;
+}
+
+@keyframes pulseLiveDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ============================================
+   SELECT STATUS KEHADIRAN
+============================================ */
+#kehadiran-panel #statusKehadiran,
+#input-panel #statusKehadiran,
+#statusKehadiran {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 52px !important;             /* ⭐ Sama tinggi dengan tanggal */
+    padding: 12px 15px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #144514 !important;
+    border: 2px solid #1a5d1a !important;
+    border-radius: 10px !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a5d1a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 15px center !important;
+    background-size: 16px !important;
+    padding-right: 40px !important;
+}
+
+#statusKehadiran:focus {
+    outline: none !important;
+    border-color: #144514 !important;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.12) !important;
+}
+
+/* ============================================
+   CUSTOM DROPDOWN (data-cd) — kalau pakai plugin
+============================================ */
+.form-group .cd-wrapper,
+.form-group .custom-dropdown,
+.form-group [data-cd] + .cd-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+
+.form-group .cd-selected,
+.form-group .cd-trigger {
+    width: 100% !important;
+    min-height: 52px !important;
+    padding: 12px 15px !important;
+    border: 2px solid #1a5d1a !important;
+    border-radius: 10px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #144514 !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    cursor: pointer !important;
+}
+
+/* ============================================
+   MOBILE — Tumpuk vertikal
+============================================ */
+@media (max-width: 600px) {
+    #kehadiran-panel .form-grid,
+    #kehadiran-panel .form-grid-2,
+    #input-panel .form-grid,
+    #input-panel .form-grid-2 {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+}
