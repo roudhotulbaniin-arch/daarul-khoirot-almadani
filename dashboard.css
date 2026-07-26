@@ -1745,6 +1745,26 @@
     }
 }
 
+/* ============================================
+   💻 DESKTOP (> 768px) — 3 kolom sejajar
+============================================ */
+@media (min-width: 769px) {
+    .action-bar {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        grid-template-areas: none !important;   /* Reset area mobile */
+        gap: 15px !important;
+        padding: 20px !important;
+    }
+    
+    .action-bar .btn-reset,
+    .action-bar .btn-word,
+    .action-bar .btn-pdf,
+    .action-bar #btnResetData {
+        grid-area: unset !important;             /* Reset area */
+    }
+}
+
 /* Paksa parent action-bar full width */
 .action-bar-wrapper,
 .rekap-footer,
