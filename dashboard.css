@@ -672,78 +672,94 @@
 .dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
 
 /* ================================================================
-   🔧 FIX MOBILE — DASHBOARD TABLES (FINAL)
-   ✅ Kartu padding rapat
-   ✅ Tabel scroll horizontal (biar semua kolom terbaca)
-   ✅ Kolom NAMA lebar cukup
+   🔧 FIX MOBILE — DASHBOARD TABLES (FINAL v2)
+   ✅ Kartu pembungkus TANPA padding kanan-kiri
+   ✅ Kartu tabel scroll horizontal
 ================================================================ */
 
 @media (max-width: 768px) {
 
-    /* — Panel card pembungkus dashboard-panel — */
+    /* ⭐ Panel card pembungkus DASHBOARD-PANEL — padding kanan-kiri NOL — */
     #dashboard-panel > .panel-card {
-        padding: 8px !important;
+        padding: 8px 0 !important;           /* ⭐ Kanan-kiri = 0 */
     }
 
-    /* — Container dashboard-tables — */
+    /* ⭐ Header/title dashboard-panel tetap punya padding sendiri — */
+    #dashboard-panel > .panel-card > h2,
+    #dashboard-panel > .panel-card > h3,
+    #dashboard-panel > .panel-card > .card-header {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    /* — Dashboard grid tetap padding samping tipis biar kartu tidak nempel — */
+    #dashboard-panel .dashboard-grid {
+        padding: 0 8px !important;
+    }
+
+    /* — Container dashboard-tables — padding NOL — */
     .dashboard-tables {
         gap: 10px !important;
         margin-top: 10px !important;
-        padding: 0 !important;
+        padding: 0 !important;               /* ⭐ Tanpa padding */
+        width: 100% !important;
     }
 
-    /* ⭐ KARTU PEMBUNGKUS TABEL — padding rapat ⭐ */
+    /* ⭐⭐⭐ KARTU PEMBUNGKUS TABEL — LEBAR PENUH ⭐⭐⭐ */
     .dashboard-tables > .panel-card {
-        padding: 10px 6px !important;      /* Kanan-kiri 6px */
-        border-radius: 10px !important;
+        padding: 10px 0 !important;          /* ⭐ Kanan-kiri = 0 */
+        border-radius: 8px !important;
         margin: 0 !important;
-        overflow: hidden !important;        /* Biar scroll di wrapper, bukan card */
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
     }
 
-    /* — Judul h3 — */
+    /* — Judul h3 — kasih padding sendiri — */
     .dashboard-tables .panel-card h3 {
-        padding: 0 6px 8px 6px !important;
+        padding: 0 10px 8px 10px !important;
         margin: 0 0 8px 0 !important;
         font-size: 0.9rem !important;
     }
 
-    /* — Wrapper tabel: SCROLL HORIZONTAL AKTIF — */
+    /* — Wrapper tabel: full width, scroll aktif — */
     .dashboard-tables .ranking-wrapper,
     .dashboard-tables .table-wrapper {
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        border: 1px solid #e5e7eb !important;
-        border-radius: 6px !important;
-        overflow-x: auto !important;                 /* ⭐ Scroll aktif */
+        border: none !important;
+        border-top: 1px solid #e5e7eb !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        border-radius: 0 !important;         /* ⭐ Tanpa radius biar rata */
+        overflow-x: auto !important;
         overflow-y: hidden !important;
         -webkit-overflow-scrolling: touch !important;
     }
 
-    /* — Tabel: BIARKAN LEBAR NATURAL (bisa scroll) — */
+    /* — Tabel — */
     .dashboard-tables table {
-        width: auto !important;              /* ⭐ Auto, jangan 100% */
-        min-width: 700px !important;         /* ⭐ Minimum 700px biar semua kolom muat */
+        width: auto !important;
+        min-width: 700px !important;
         border-collapse: collapse !important;
         font-size: 0.8rem !important;
     }
 
-    /* — Header — */
     .dashboard-tables table th {
         padding: 10px 8px !important;
         font-size: 0.72rem !important;
         min-width: 70px !important;
-        white-space: nowrap !important;      /* ⭐ Header tidak wrap */
+        white-space: nowrap !important;
     }
 
-    /* — Cell — */
     .dashboard-tables table td {
         padding: 9px 8px !important;
         font-size: 0.78rem !important;
-        white-space: nowrap !important;      /* ⭐ Cell tidak wrap */
+        white-space: nowrap !important;
     }
 
-    /* — Kolom NO — ramping — */
+    /* Kolom NO — ramping */
     .dashboard-tables table th:nth-child(1),
     .dashboard-tables table td:nth-child(1) {
         width: 40px !important;
@@ -752,18 +768,18 @@
         padding: 9px 4px !important;
     }
 
-    /* — Kolom NAMA — lebar cukup, boleh wrap — */
+    /* Kolom NAMA — lebar cukup */
     .dashboard-tables table th:nth-child(2),
     .dashboard-tables table td:nth-child(2) {
-        min-width: 180px !important;         /* ⭐ Lebar cukup untuk nama */
-        max-width: 200px !important;
+        min-width: 180px !important;
+        max-width: 220px !important;
         text-align: left !important;
-        white-space: normal !important;      /* ⭐ Boleh wrap kalau panjang */
+        white-space: normal !important;
         word-break: break-word !important;
         font-weight: 600 !important;
     }
 
-    /* — Kolom lain (angka/status) — auto — */
+    /* Kolom lain */
     .dashboard-tables table th:nth-child(n+3),
     .dashboard-tables table td:nth-child(n+3) {
         min-width: 65px !important;
@@ -778,9 +794,8 @@
         text-align: center;
         font-size: 0.7rem;
         color: #94a3b8;
-        padding: 4px;
+        padding: 4px 0;
         background: #f9fafb;
-        border-top: 1px dashed #e5e7eb;
     }
 }
 
@@ -791,16 +806,16 @@
 @media (max-width: 400px) {
 
     #dashboard-panel > .panel-card {
-        padding: 6px !important;
+        padding: 6px 0 !important;
     }
 
     .dashboard-tables > .panel-card {
-        padding: 8px 4px !important;
+        padding: 8px 0 !important;
     }
 
     .dashboard-tables .panel-card h3 {
+        padding: 0 8px 6px 8px !important;
         font-size: 0.85rem !important;
-        padding: 0 4px 6px 4px !important;
     }
 
     .dashboard-tables table {
