@@ -267,7 +267,13 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             box-shadow: none;
         }
 
-        .button-group { width: 100%; display: flex; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .button-group {
+    display: flex;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    /* ⚠️ TANPA width: 100% dan margin-top */
+}
         .btn-full { width: 100%; }
 
   @media (min-width: 769px) {
@@ -1166,101 +1172,105 @@ span.flatpickr-weekday {
 }
 
 /* ================================================================
-   🔘 TOMBOL NAVIGASI (Kembali / Lanjut / Simpan)
+   🔘 TOMBOL NAVIGASI FINAL (Kembali / Lanjut / Simpan)
 ================================================================ */
 
+/* Reset & base */
 .button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 25px 15px 15px 15px !important;   /* ⭐ Kasih margin samping */
-    padding: 0;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: auto !important;                    /* ⭐ WAJIB auto biar margin bekerja */
+    margin: 25px 15px 15px 15px !important;    /* ⭐ Margin samping 15px */
+    padding: 20px 0 0 0 !important;
+    border-top: 1px solid #eee !important;
+    box-sizing: border-box !important;
 }
 
 /* ============================================
    TOMBOL DASAR — Semua button navigasi
 ============================================ */
-.btn-prev,
-.btn-next,
-.btn-simpan-final {
-    width: 100%;
-    padding: 14px 24px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border: 2px solid transparent;
-    transition: all 0.25s ease;
-    box-sizing: border-box;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    letter-spacing: 0.3px;
+.button-group .btn-prev,
+.button-group .btn-next,
+.button-group .btn-simpan-final {
+    width: 100% !important;
+    padding: 14px 24px !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    border: 2px solid transparent !important;
+    transition: all 0.25s ease !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    letter-spacing: 0.3px !important;
 }
 
 /* ============================================
-   TOMBOL KEMBALI (outline)
+   TOMBOL KEMBALI (outline abu-abu)
 ============================================ */
-.btn-prev {
-    background: #f8f9fa;
-    color: #1a5d1a;
-    border: 2px solid #d1d5db;
+.button-group .btn-prev {
+    background: #f8f9fa !important;
+    color: #1a5d1a !important;
+    border: 2px solid #d1d5db !important;
 }
 
-.btn-prev:hover {
-    background: #e8f5e9;
-    border-color: #1a5d1a;
+.button-group .btn-prev:hover {
+    background: #e8f5e9 !important;
+    border-color: #1a5d1a !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2);
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2) !important;
 }
 
-.btn-prev i {
-    color: #1a5d1a;
-    font-size: 1.1rem;
+.button-group .btn-prev i {
+    color: #1a5d1a !important;
+    font-size: 1.1rem !important;
 }
 
 /* ============================================
    TOMBOL LANJUT (solid hijau)
 ============================================ */
-.btn-next {
-    background: linear-gradient(135deg, #1a5d1a, #144514);
-    color: #fff;
-    border-color: #144514;
-    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35);
+.button-group .btn-next {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: #fff !important;
+    border-color: #144514 !important;
+    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35) !important;
 }
 
-.btn-next:hover {
-    background: linear-gradient(135deg, #144514, #0d3d0d);
+.button-group .btn-next:hover {
+    background: linear-gradient(135deg, #144514, #0d3d0d) !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.5);
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.5) !important;
 }
 
-.btn-next i {
-    color: #fff;
-    font-size: 1.1rem;
+.button-group .btn-next i {
+    color: #fff !important;
+    font-size: 1.1rem !important;
 }
 
 /* ============================================
-   TOMBOL SIMPAN FINAL (solid emas/orange)
+   TOMBOL SIMPAN FINAL (solid emas)
 ============================================ */
-.btn-simpan-final {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff;
-    border-color: #d97706;
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+.button-group .btn-simpan-final {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #fff !important;
+    border-color: #d97706 !important;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35) !important;
 }
 
-.btn-simpan-final:hover {
-    background: linear-gradient(135deg, #d97706, #b45309);
+.button-group .btn-simpan-final:hover {
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5) !important;
 }
 
-.btn-simpan-final i {
-    color: #fff;
-    font-size: 1.1rem;
+.button-group .btn-simpan-final i {
+    color: #fff !important;
+    font-size: 1.1rem !important;
 }
 
 
@@ -1270,23 +1280,17 @@ span.flatpickr-weekday {
 @media (min-width: 768px) {
     
     .button-group {
-        flex-direction: row;                   /* ⭐ Sejajar kiri-kanan */
-        gap: 15px;
+        flex-direction: row !important;
+        gap: 15px !important;
         margin: 30px 25px 20px 25px !important;
     }
     
-    /* Kalau hanya 1 tombol (di tab pertama) → full width */
-    .button-group:has(> button[style*="display: none"]) .btn-next,
-    .button-group:has(> button[style*="display: none"]) .btn-simpan-final {
-        width: 100%;
-    }
-    
-    .btn-prev,
-    .btn-next,
-    .btn-simpan-final {
-        flex: 1;                               /* ⭐ Sama lebar */
-        padding: 15px 30px;
-        font-size: 1rem;
+    .button-group .btn-prev,
+    .button-group .btn-next,
+    .button-group .btn-simpan-final {
+        flex: 1 !important;
+        padding: 15px 30px !important;
+        font-size: 1rem !important;
     }
 }
 
@@ -1298,14 +1302,15 @@ span.flatpickr-weekday {
     
     .button-group {
         margin: 20px 12px 15px 12px !important;
-        gap: 10px;
+        gap: 10px !important;
+        padding-top: 15px !important;
     }
     
-    .btn-prev,
-    .btn-next,
-    .btn-simpan-final {
-        padding: 13px 20px;
-        font-size: 0.9rem;
-        border-radius: 10px;
+    .button-group .btn-prev,
+    .button-group .btn-next,
+    .button-group .btn-simpan-final {
+        padding: 13px 20px !important;
+        font-size: 0.9rem !important;
+        border-radius: 10px !important;
     }
 }
