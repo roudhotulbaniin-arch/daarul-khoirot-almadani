@@ -1,150 +1,272 @@
-/* Rekap Card */
+/* ================================================================
+   📊 REKAP TABLE (Rekap Card / Rekapitulasi)
+================================================================ */
+
 .rekap-table {
     width: 100%;
+    min-width: 600px;               /* Minimal biar scroll horizontal di HP */
     border-collapse: collapse;
-    table-layout: fixed;
-    overflow: hidden;
+    table-layout: auto;
+    font-size: 13px;
 }
 
 .rekap-table th,
 .rekap-table td {
-    border: 1px solid #d6d6d6;
-    padding: 12px 8px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
     text-align: center;
     vertical-align: middle;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    font-size: 14px;
+    white-space: nowrap;            /* Tidak wrap, biar scroll horizontal */
 }
 
 .rekap-table th {
-    font-size: 13px;
-    line-height: 1.4;
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.3;
 }
 
 .rekap-table td {
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: #334155;
 }
 
-.table-wrapper {
+.rekap-table tbody tr:nth-child(even) {
+    background: #f9fdf9;
+}
+
+.rekap-table tbody tr:hover {
+    background: #f0f9f0;
+}
+
+/* Kolom NAMA (kolom 2) boleh wrap */
+.rekap-table th:nth-child(2),
+.rekap-table td:nth-child(2) {
+    white-space: normal;
+    word-break: break-word;
+    min-width: 180px;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Kolom NO (kolom 1) ramping */
+.rekap-table th:nth-child(1),
+.rekap-table td:nth-child(1) {
+    width: 45px;
+    min-width: 45px;
+}
+
+
+/* ================================================================
+   🏆 RANKING TABLE (Tabel Ranking Santri)
+================================================================ */
+
+.ranking-table {
     width: 100%;
-    overflow-x: auto; /* Scroll hanya muncul jika isi tabel lebih lebar dari layar */
-    margin: 15px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Tabel */
-.rekap-table {
-    width: 100%; /* Atau gunakan 'min-width: 500px' jika ingin selalu scroll */
+    min-width: 700px;               /* Kolom banyak, tetap scroll di HP */
     border-collapse: collapse;
+    table-layout: auto;
     font-size: 13px;
-    table-layout: auto; /* Menyesuaikan lebar konten */
-}
-
-.rekap-table th, .rekap-table td {
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    white-space: nowrap; /* Teks tidak akan turun baris, memaksa lebar kolom */
-    text-align: center;
-}
-
-.rekap-table th {
-    background-color: #1a5d1a;
-    color: white;
-}
-
-/* Pengaturan lebar kolom agar tidak berantakan */
-.rekap-table th:nth-child(1) { width: 15%; } /* Tanggal */
-.rekap-table th:nth-child(2) { width: 30%; } /* Nama */
-.rekap-table th:nth-child(3) { width: 25%; } /* Surah & Ayat */
-.rekap-table th:nth-child(4) { width: 10%; } /* Sesi */
-.rekap-table th:nth-child(5) { width: 20%; } /* Predikat */
-
-.table-responsive{
-
-    width:100%;
-
-    overflow-x:auto;
-
-    overflow-y:hidden;
-
-    -webkit-overflow-scrolling:touch;
-
-    margin:15px 0;
-
-    border-radius:12px;
-
-}
-
-/* Scrollbar */
-
-.table-responsive::-webkit-scrollbar{
-
-    height:8px;
-
-}
-
-.table-responsive::-webkit-scrollbar-thumb{
-
-    background:#1a5d1a;
-
-    border-radius:10px;
-
-}
-
-.ranking-wrapper {
-    width: 100%;
-    overflow-x: auto; /* Scroll hanya muncul jika isi tabel lebih lebar dari layar */
-    margin: 15px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    -webkit-overflow-scrolling: touch;
-}
-
-.ranking-table{
-    min-width:700px;     /* sesuaikan jumlah kolom */
-    border-collapse:collapse;
-    font-size: 13px;
-    table-layout:auto;
 }
 
 .ranking-table th,
-.ranking-table td{
-    padding:10px 8px;
-    border:1px solid #ddd;
-    white-space:nowrap;
-    text-align:center;
+.ranking-table td {
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.ranking-table th{
-    background:#1a5d1a;
-    color:#fff;
+.ranking-table th {
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-/* Lebar kolom */
+.ranking-table td {
+    font-size: 12.5px;
+    color: #334155;
+}
+
+.ranking-table tbody tr:nth-child(even) {
+    background: #f9fdf9;
+}
+
+.ranking-table tbody tr:hover {
+    background: #f0f9f0;
+}
+
+/* Lebar kolom Ranking */
 .ranking-table th:nth-child(1),
-.ranking-table td:nth-child(1){ width:25px; }
+.ranking-table td:nth-child(1) { width: 45px; min-width: 45px; text-align: center; }   /* NO */
 
 .ranking-table th:nth-child(2),
-.ranking-table td:nth-child(2){ width:220px; }
+.ranking-table td:nth-child(2) {
+    min-width: 200px;
+    white-space: normal;
+    word-break: break-word;
+    text-align: left;
+    font-weight: 600;
+}                                                                                        /* NAMA */
 
 .ranking-table th:nth-child(3),
-.ranking-table td:nth-child(3){ width:100px; }
+.ranking-table td:nth-child(3) { width: 100px; min-width: 100px; }                       /* Kolom 3 */
 
 .ranking-table th:nth-child(4),
-.ranking-table td:nth-child(4){ width:90px; }
+.ranking-table td:nth-child(4) { width: 90px; min-width: 90px; }                         /* Kolom 4 */
 
 .ranking-table th:nth-child(5),
-.ranking-table td:nth-child(5){ width:90px; }
+.ranking-table td:nth-child(5) { width: 90px; min-width: 90px; }                         /* Kolom 5 */
 
 .ranking-table th:nth-child(6),
-.ranking-table td:nth-child(6){ width:90px; }
+.ranking-table td:nth-child(6) { width: 90px; min-width: 90px; }                         /* Kolom 6 */
 
 .ranking-table th:nth-child(7),
-.ranking-table td:nth-child(7){ width:100px; }
+.ranking-table td:nth-child(7) { width: 100px; min-width: 100px; }                       /* Kolom 7 */
 
 .ranking-table th:nth-child(8),
-.ranking-table td:nth-child(8){ width:150px; }
+.ranking-table td:nth-child(8) { width: 150px; min-width: 150px; }                       /* Kolom 8 (Predikat) */
+
+
+/* ================================================================
+   📦 TABLE WRAPPER (Scroll Container)
+   Bisa dipakai untuk semua tabel: .table-wrapper, .table-responsive, .ranking-wrapper
+================================================================ */
+
+.table-wrapper,
+.table-responsive,
+.ranking-wrapper {
+    width: 100%;
+    margin: 15px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+}
+
+/* Scrollbar custom (webkit browser) */
+.table-wrapper::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar,
+.ranking-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track,
+.table-responsive::-webkit-scrollbar-track,
+.ranking-wrapper::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb,
+.table-responsive::-webkit-scrollbar-thumb,
+.ranking-wrapper::-webkit-scrollbar-thumb {
+    background: #1a5d1a;
+    border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover,
+.table-responsive::-webkit-scrollbar-thumb:hover,
+.ranking-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #144514;
+}
+
+
+/* ================================================================
+   📱 RESPONSIVE — MOBILE (max-width: 768px)
+================================================================ */
+
+@media (max-width: 768px) {
+
+    /* Wrapper: hilangkan margin & border ekstra */
+    .table-wrapper,
+    .table-responsive,
+    .ranking-wrapper {
+        margin: 10px 0;
+        border-radius: 6px;
+    }
+
+    /* Rekap table lebih compact */
+    .rekap-table {
+        font-size: 12px;
+    }
+
+    .rekap-table th {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .rekap-table td {
+        padding: 8px 6px;
+        font-size: 11.5px;
+    }
+
+    /* Ranking table lebih compact */
+    .ranking-table {
+        font-size: 12px;
+    }
+
+    .ranking-table th {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .ranking-table td {
+        padding: 8px 6px;
+        font-size: 11.5px;
+    }
+
+    /* Kolom NAMA di mobile */
+    .rekap-table th:nth-child(2),
+    .rekap-table td:nth-child(2),
+    .ranking-table th:nth-child(2),
+    .ranking-table td:nth-child(2) {
+        min-width: 160px;
+    }
+
+    /* Hint scroll untuk user */
+    .table-wrapper::after,
+    .table-responsive::after,
+    .ranking-wrapper::after {
+        content: "← Geser →";
+        display: block;
+        text-align: center;
+        font-size: 0.7rem;
+        color: #94a3b8;
+        padding: 4px 0;
+        background: #f9fafb;
+        border-top: 1px dashed #e5e7eb;
+    }
+}
+
+
+/* ================================================================
+   📱 HP KECIL (max-width: 400px)
+================================================================ */
+
+@media (max-width: 400px) {
+
+    .rekap-table,
+    .ranking-table {
+        font-size: 11px;
+    }
+
+    .rekap-table th,
+    .ranking-table th {
+        padding: 7px 5px;
+        font-size: 10.5px;
+    }
+
+    .rekap-table td,
+    .ranking-table td {
+        padding: 7px 5px;
+        font-size: 11px;
+    }
+}
