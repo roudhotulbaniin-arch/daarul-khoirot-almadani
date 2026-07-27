@@ -704,11 +704,12 @@
         padding: 0 !important;               /* ⭐ Tanpa padding */
         width: 100% !important;
     }
+@media (max-width: 768px) {
 
-    /* ⭐⭐⭐ KARTU PEMBUNGKUS TABEL — LEBAR PENUH ⭐⭐⭐ */
+    /* ⭐⭐⭐ KARTU PEMBUNGKUS TABEL — sedikit padding samping ⭐⭐⭐ */
     .dashboard-tables > .panel-card {
-        padding: 10px 0 !important;          /* ⭐ Kanan-kiri = 0 */
-        border-radius: 8px !important;
+        padding: 10px 6px !important;        /* ⭐ Kanan-kiri 6px (tidak 0) */
+        border-radius: 10px !important;
         margin: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -716,27 +717,26 @@
         box-sizing: border-box !important;
     }
 
-    /* — Judul h3 — kasih padding sendiri — */
+    /* — Judul h3 — padding samping sedikit — */
     .dashboard-tables .panel-card h3 {
-        padding: 0 10px 8px 10px !important;
+        padding: 0 4px 8px 4px !important;   /* ⭐ Padding kecil (sudah dari card) */
         margin: 0 0 8px 0 !important;
         font-size: 0.9rem !important;
     }
 
-    /* — Wrapper tabel: full width, scroll aktif — */
+    /* — Wrapper tabel: kasih border tipis lagi biar rapi — */
     .dashboard-tables .ranking-wrapper,
     .dashboard-tables .table-wrapper {
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        border: none !important;
-        border-top: 1px solid #e5e7eb !important;
-        border-bottom: 1px solid #e5e7eb !important;
-        border-radius: 0 !important;         /* ⭐ Tanpa radius biar rata */
+        border: 1px solid #e5e7eb !important;   /* ⭐ Border tipis */
+        border-radius: 6px !important;           /* ⭐ Radius kecil */
         overflow-x: auto !important;
         overflow-y: hidden !important;
         -webkit-overflow-scrolling: touch !important;
     }
+
 
     /* — Tabel — */
     .dashboard-tables table {
