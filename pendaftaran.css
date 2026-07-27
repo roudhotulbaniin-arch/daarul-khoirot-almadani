@@ -1164,3 +1164,148 @@ span.flatpickr-weekday {
         font-size: 0.64rem !important;
     }
 }
+
+/* ================================================================
+   🔘 TOMBOL NAVIGASI (Kembali / Lanjut / Simpan)
+================================================================ */
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 25px 15px 15px 15px !important;   /* ⭐ Kasih margin samping */
+    padding: 0;
+}
+
+/* ============================================
+   TOMBOL DASAR — Semua button navigasi
+============================================ */
+.btn-prev,
+.btn-next,
+.btn-simpan-final {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   TOMBOL KEMBALI (outline)
+============================================ */
+.btn-prev {
+    background: #f8f9fa;
+    color: #1a5d1a;
+    border: 2px solid #d1d5db;
+}
+
+.btn-prev:hover {
+    background: #e8f5e9;
+    border-color: #1a5d1a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2);
+}
+
+.btn-prev i {
+    color: #1a5d1a;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   TOMBOL LANJUT (solid hijau)
+============================================ */
+.btn-next {
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #fff;
+    border-color: #144514;
+    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35);
+}
+
+.btn-next:hover {
+    background: linear-gradient(135deg, #144514, #0d3d0d);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.5);
+}
+
+.btn-next i {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   TOMBOL SIMPAN FINAL (solid emas/orange)
+============================================ */
+.btn-simpan-final {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    border-color: #d97706;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+}
+
+.btn-simpan-final:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+.btn-simpan-final i {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+
+/* ================================================================
+   💻 DESKTOP (min-width: 768px) — Tombol Sejajar
+================================================================ */
+@media (min-width: 768px) {
+    
+    .button-group {
+        flex-direction: row;                   /* ⭐ Sejajar kiri-kanan */
+        gap: 15px;
+        margin: 30px 25px 20px 25px !important;
+    }
+    
+    /* Kalau hanya 1 tombol (di tab pertama) → full width */
+    .button-group:has(> button[style*="display: none"]) .btn-next,
+    .button-group:has(> button[style*="display: none"]) .btn-simpan-final {
+        width: 100%;
+    }
+    
+    .btn-prev,
+    .btn-next,
+    .btn-simpan-final {
+        flex: 1;                               /* ⭐ Sama lebar */
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+}
+
+
+/* ================================================================
+   📱 HP KECIL (max-width: 400px)
+================================================================ */
+@media (max-width: 400px) {
+    
+    .button-group {
+        margin: 20px 12px 15px 12px !important;
+        gap: 10px;
+    }
+    
+    .btn-prev,
+    .btn-next,
+    .btn-simpan-final {
+        padding: 13px 20px;
+        font-size: 0.9rem;
+        border-radius: 10px;
+    }
+}
