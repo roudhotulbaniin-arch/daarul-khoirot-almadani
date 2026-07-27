@@ -1,6 +1,6 @@
 /* ================================================================
    PENDAFTARAN.JS — Daarul Khoirot Almadani
-   Versi Final — Bersih & Lengkap dengan Custom Dropdown
+   Versi Final — Auto-Increment ID Santri (DKM001, DKM002, ...)
    ================================================================ */
 
 
@@ -10,6 +10,52 @@
 function refreshCD(el) {
     if (typeof CustomDropdown !== "undefined" && el) {
         CustomDropdown.refresh(el);
+    }
+}
+
+
+/* =========================================================
+   0.5. GENERATE ID SANTRI AUTO-INCREMENT
+   Format: DKM001, DKM002, DKM003, ...
+========================================================= */
+async function generateIdSantri() {
+    try {
+        const { getDocs, collection } = await import(
+            "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+        );
+
+        const snap = await getDocs(
+            collection(window.firebaseDB, "pendaftaran_santri")
+        );
+
+        // Cari nomor tertinggi dari semua id_santri format DKM###
+        let nomorTertinggi = 0;
+
+        snap.docs.forEach(doc => {
+            const id = doc.data().id_santri || "";
+            const match = id.match(/^DKM(\d+)$/);   // Regex: DKM diikuti angka
+            if (match) {
+                const nomor = parseInt(match[1], 10);
+                if (nomor > nomorTertinggi) {
+                    nomorTertinggi = nomor;
+                }
+            }
+        });
+
+        const nomorBaru = nomorTertinggi + 1;
+        const idBaru = `DKM${String(nomorBaru).padStart(3, '0')}`;
+
+        console.log(`🆔 ID Terakhir: DKM${String(nomorTertinggi).padStart(3, '0')}`);
+        console.log(`🆔 ID Baru    : ${idBaru}`);
+
+        return idBaru;
+
+    } catch (err) {
+        console.error("❌ generateIdSantri error:", err);
+        // Fallback pakai timestamp bila gagal query
+        const fallback = `DKM-ERR-${Date.now().toString().slice(-6)}`;
+        console.warn("⚠️ Pakai fallback ID:", fallback);
+        return fallback;
     }
 }
 
@@ -108,20 +154,72 @@ async function handleFormSubmit(event) {
         delete dataFinal['up_ijazah'];
         delete dataFinal['cek_pernyataan'];
         delete dataFinal['riwayat_sakit[]'];
-        dataFinal['waktu_simpan'] = new Date().toISOString();
 
-        // 8. Simpan ke Firebase (pakai window.firebaseDB dari HTML)
+        // 8. ⭐ FIELD WAJIB SISTEM
+        dataFinal['id_santri']     = await generateIdSantri();  // Auto DKM001, DKM002, ...
+        dataFinal['status_santri'] = 'Aktif';                    // Default aktif
+        dataFinal['waktu_simpan']  = new Date().toISOString();
+
+        // Pastikan tgl_daftar ada
+        if (!dataFinal['tgl_daftar']) {
+            dataFinal['tgl_daftar'] = new Date().toISOString().split('T')[0];
+        }
+
+        // Validasi id_santri wajib ada
+        if (!dataFinal['id_santri']) {
+            throw new Error("Gagal generate id_santri!");
+        }
+
+        console.log("📦 Data Final:", dataFinal);
+        console.log("🆔 id_santri :", dataFinal['id_santri']);
+        console.log("✅ status    :", dataFinal['status_santri']);
+
+        // 9. Cek Firebase siap
         if (!window.firebaseDB || !window.firebaseAddDoc || !window.firebaseCollection) {
             throw new Error("Firebase belum siap. Cek script module di HTML.");
         }
 
+        // 10. Simpan ke Firebase
         const docRef = await window.firebaseAddDoc(
             window.firebaseCollection(window.firebaseDB, "pendaftaran_santri"),
             dataFinal
         );
 
         if (docRef.id) {
-            Swal.fire('Berhasil!', 'Data pendaftaran tersimpan.', 'success').then(() => {
+            console.log("✅ Tersimpan! Firebase Doc ID:", docRef.id);
+            console.log("✅ ID Santri Custom     :", dataFinal['id_santri']);
+
+            Swal.fire({
+                title: 'Pendaftaran Berhasil!',
+                html: `
+                    <p style="margin-bottom:12px;">Data santri telah tersimpan dengan aman.</p>
+                    <div style="
+                        background: #f0f9f0;
+                        border: 2px solid #1a5d1a;
+                        border-radius: 10px;
+                        padding: 14px;
+                        margin: 12px 0;
+                    ">
+                        <p style="margin:0; font-size:0.85rem; color:#555; text-transform:uppercase; letter-spacing:1px;">
+                            ID Santri Anda
+                        </p>
+                        <p style="
+                            margin: 6px 0 0;
+                            font-size: 1.8rem;
+                            font-weight: bold;
+                            color: #1a5d1a;
+                            letter-spacing: 2px;
+                        ">${dataFinal['id_santri']}</p>
+                    </div>
+                    <p style="font-size:0.8rem; color:#888; margin-top:12px;">
+                        Simpan ID ini untuk keperluan administrasi.<br>
+                        Data akan dikirim ke admin via WhatsApp.
+                    </p>
+                `,
+                icon: 'success',
+                confirmButtonColor: '#1a5d1a',
+                confirmButtonText: 'Lanjut Kirim WA'
+            }).then(() => {
                 if (typeof window.kirimWA === "function") window.kirimWA(dataFinal);
                 form.reset();
                 location.reload();
@@ -810,10 +908,12 @@ function kirimWA(data) {
 
     const ICON_SANTRI = "🧒", ICON_AYAH = "👲", ICON_IBU = "🧕";
     const RUMAH_AYAH = "🏡", RUMAH_IBU = "🏠", RUMAH_SANTRI = "🏘️";
-    const CLIP = "📋", ICON_MEMO = "📝";
+    const CLIP = "📋", ICON_MEMO = "📝", ICON_ID = "🆔";
 
     let m = "*PENDAFTARAN SANTRI BARU*\n";
     m += "*DAARUL KHOIROT AL-MADANI*\n";
+    m += "------------------------------------------\n";
+    m += `*${ICON_ID} ID SANTRI: ${gV('id_santri')}*\n`;      // ⭐ ID di header
     m += "------------------------------------------\n\n";
 
     m += `*${ICON_SANTRI} DATA SANTRI*\n`;
@@ -904,109 +1004,103 @@ function kirimWA(data) {
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ pendaftaran.js loaded");
 
-/* ---------------------------------------------------
-   INIT FLATPICKR — Tanggal Pendaftaran (Sekarang)
---------------------------------------------------- */
-try {
-    if (typeof flatpickr !== "undefined") {
-        // TANGGAL PENDAFTARAN
-        flatpickr("#tgl_daftar", {
-            locale: "id",
-            dateFormat: "Y-m-d",
-            altInput: true,
-            altFormat: "l, d F Y",
-            defaultDate: "today",
-            maxDate: "today",
-            allowInput: false,
-            disableMobile: true,
-            monthSelectorType: "static",
-            
-            onReady: function(selectedDates, dateStr, instance) {
-                if (instance.altInput) {
-                    instance.altInput.classList.add('custom-date-input');
-                }
-            },
-            onOpen: function(selectedDates, dateStr, instance) {
-                const input = instance.altInput || instance.input;
-                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                if (wrapper) wrapper.classList.add('flatpickr-open');
-            },
-            onClose: function(selectedDates, dateStr, instance) {
-                const input = instance.altInput || instance.input;
-                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                if (wrapper) wrapper.classList.remove('flatpickr-open');
-            }
-        });
+    /* ---------------------------------------------------
+       INIT FLATPICKR — Tanggal Pendaftaran & Tanggal Lahir
+    --------------------------------------------------- */
+    try {
+        if (typeof flatpickr !== "undefined") {
+            // TANGGAL PENDAFTARAN
+            flatpickr("#tgl_daftar", {
+                locale: "id",
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "l, d F Y",
+                defaultDate: "today",
+                maxDate: "today",
+                allowInput: false,
+                disableMobile: true,
+                monthSelectorType: "static",
 
-        /* ---------------------------------------------------
-           INIT FLATPICKR — Tanggal Lahir (Bisa Mundur Jauh)
-        --------------------------------------------------- */
-        const tanggalLahirConfig = {
-            locale: "id",
-            dateFormat: "Y-m-d",
-            altInput: true,
-            altFormat: "l, d F Y",
-            maxDate: "today",                      // Tidak bisa masa depan
-            minDate: new Date().getFullYear() - 100 + "-01-01",  // 100 tahun ke belakang
-            allowInput: false,
-            disableMobile: true,
-            monthSelectorType: "dropdown",         // ⭐ Bulan pakai dropdown
-            
-            // Aktifkan input tahun yang bisa diketik
-            yearSelectorType: "input",
-            
-            onReady: function(selectedDates, dateStr, instance) {
-                if (instance.altInput) {
-                    instance.altInput.classList.add('custom-date-input');
-                }
-            },
-            onOpen: function(selectedDates, dateStr, instance) {
-                const input = instance.altInput || instance.input;
-                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                if (wrapper) wrapper.classList.add('flatpickr-open');
-            },
-            onClose: function(selectedDates, dateStr, instance) {
-                const input = instance.altInput || instance.input;
-                const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                if (wrapper) wrapper.classList.remove('flatpickr-open');
-            }
-        };
-
-        // Init untuk semua field tanggal lahir
-        flatpickr("#tgl_lahir", tanggalLahirConfig);
-        flatpickr("#tgl_ayah",  tanggalLahirConfig);
-        flatpickr("#tgl_ibu",   tanggalLahirConfig);
-
-        console.log('✅ Flatpickr berhasil di-init (Tanggal Pendaftaran + Tanggal Lahir)');
-    } else {
-        console.warn('⚠️ Flatpickr belum ter-load');
-    }
-} catch (err) {
-    console.error('❌ Error init Flatpickr:', err);
-}
-
-/* ---------------------------------------------------
-   GLOBAL FIX — Klik di luar Flatpickr = Tutup
---------------------------------------------------- */
-document.addEventListener('click', function(e) {
-    const allCalendars = document.querySelectorAll('.flatpickr-calendar.open');
-    
-    allCalendars.forEach(cal => {
-        // Cek apakah klik ada di dalam kalender atau input
-        const isInsideCal = cal.contains(e.target);
-        const isInsideInput = e.target.closest('.flatpickr-input, .custom-date-input, .input-icon-wrapper');
-        
-        if (!isInsideCal && !isInsideInput) {
-            // Cari instance flatpickr yang aktif dan tutup
-            const inputs = document.querySelectorAll('.flatpickr-input');
-            inputs.forEach(inp => {
-                if (inp._flatpickr && inp._flatpickr.isOpen) {
-                    inp._flatpickr.close();
+                onReady: function(selectedDates, dateStr, instance) {
+                    if (instance.altInput) {
+                        instance.altInput.classList.add('custom-date-input');
+                    }
+                },
+                onOpen: function(selectedDates, dateStr, instance) {
+                    const input = instance.altInput || instance.input;
+                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                    if (wrapper) wrapper.classList.add('flatpickr-open');
+                },
+                onClose: function(selectedDates, dateStr, instance) {
+                    const input = instance.altInput || instance.input;
+                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                    if (wrapper) wrapper.classList.remove('flatpickr-open');
                 }
             });
+
+            /* TANGGAL LAHIR (Bisa mundur jauh) */
+            const tanggalLahirConfig = {
+                locale: "id",
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "l, d F Y",
+                maxDate: "today",
+                minDate: new Date().getFullYear() - 100 + "-01-01",
+                allowInput: false,
+                disableMobile: true,
+                monthSelectorType: "dropdown",
+                yearSelectorType: "input",
+
+                onReady: function(selectedDates, dateStr, instance) {
+                    if (instance.altInput) {
+                        instance.altInput.classList.add('custom-date-input');
+                    }
+                },
+                onOpen: function(selectedDates, dateStr, instance) {
+                    const input = instance.altInput || instance.input;
+                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                    if (wrapper) wrapper.classList.add('flatpickr-open');
+                },
+                onClose: function(selectedDates, dateStr, instance) {
+                    const input = instance.altInput || instance.input;
+                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
+                    if (wrapper) wrapper.classList.remove('flatpickr-open');
+                }
+            };
+
+            flatpickr("#tgl_lahir", tanggalLahirConfig);
+            flatpickr("#tgl_ayah",  tanggalLahirConfig);
+            flatpickr("#tgl_ibu",   tanggalLahirConfig);
+
+            console.log('✅ Flatpickr berhasil di-init');
+        } else {
+            console.warn('⚠️ Flatpickr belum ter-load');
         }
+    } catch (err) {
+        console.error('❌ Error init Flatpickr:', err);
+    }
+
+    /* ---------------------------------------------------
+       GLOBAL FIX — Klik di luar Flatpickr = Tutup
+    --------------------------------------------------- */
+    document.addEventListener('click', function(e) {
+        const allCalendars = document.querySelectorAll('.flatpickr-calendar.open');
+
+        allCalendars.forEach(cal => {
+            const isInsideCal = cal.contains(e.target);
+            const isInsideInput = e.target.closest('.flatpickr-input, .custom-date-input, .input-icon-wrapper');
+
+            if (!isInsideCal && !isInsideInput) {
+                const inputs = document.querySelectorAll('.flatpickr-input');
+                inputs.forEach(inp => {
+                    if (inp._flatpickr && inp._flatpickr.isOpen) {
+                        inp._flatpickr.close();
+                    }
+                });
+            }
+        });
     });
-});
+
     /* ---------------------------------------------------
        AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
     --------------------------------------------------- */
@@ -1150,10 +1244,12 @@ document.addEventListener('click', function(e) {
     }
 });
 
+
 /* =========================================================
    11. EXPOSE KE WINDOW (agar bisa dipanggil dari onclick HTML)
 ========================================================= */
 window.handleFormSubmit     = handleFormSubmit;
+window.generateIdSantri     = generateIdSantri;   // ⭐ Baru
 window.loadWilayah          = loadWilayah;
 window.loadKabAyah          = loadKabAyah;
 window.loadKecAyah          = loadKecAyah;
