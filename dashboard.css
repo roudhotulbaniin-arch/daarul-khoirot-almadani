@@ -756,7 +756,7 @@
     }
 
     .dashboard-tables table th {
-        padding: 10px 8px !important;
+        padding: 12px 10px !important;
         font-size: 0.72rem !important;
         min-width: 70px !important;
         white-space: nowrap !important;
@@ -782,7 +782,7 @@
     .dashboard-tables table td:nth-child(2) {
         min-width: 180px !important;
         max-width: 220px !important;
-        text-align: left !important;
+        text-align: center !important;
         white-space: normal !important;
         word-break: break-word !important;
         font-weight: 600 !important;
