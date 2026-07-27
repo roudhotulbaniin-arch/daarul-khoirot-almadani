@@ -672,19 +672,22 @@
 .dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
 
 /* ================================================================
-   🔧 FIX MOBILE — DASHBOARD TABLES (FINAL v2)
-   ✅ Kartu pembungkus TANPA padding kanan-kiri
-   ✅ Kartu tabel scroll horizontal
+   🔧 FIX MOBILE — DASHBOARD TABLES (FINAL v3 — BERSIH)
+   ✅ Tidak ada @media nested
+   ✅ Kartu ada napas 6px
+   ✅ Scroll horizontal aktif
 ================================================================ */
 
 @media (max-width: 768px) {
 
-    /* ⭐ Panel card pembungkus DASHBOARD-PANEL — padding kanan-kiri NOL — */
+    /* ============================================
+       DASHBOARD PANEL (pembungkus utama)
+    ============================================ */
     #dashboard-panel > .panel-card {
-        padding: 8px 0 !important;           /* ⭐ Kanan-kiri = 0 */
+        padding: 8px 0 !important;           /* Kanan-kiri = 0 */
     }
 
-    /* ⭐ Header/title dashboard-panel tetap punya padding sendiri — */
+    /* Header/title dashboard-panel tetap ada padding samping */
     #dashboard-panel > .panel-card > h2,
     #dashboard-panel > .panel-card > h3,
     #dashboard-panel > .panel-card > .card-header {
@@ -692,23 +695,26 @@
         padding-right: 10px !important;
     }
 
-    /* — Dashboard grid tetap padding samping tipis biar kartu tidak nempel — */
+    /* Dashboard grid tetap padding samping tipis */
     #dashboard-panel .dashboard-grid {
         padding: 0 8px !important;
     }
 
-    /* — Container dashboard-tables — padding NOL — */
+    /* ============================================
+       DASHBOARD TABLES (container)
+    ============================================ */
     .dashboard-tables {
         gap: 10px !important;
         margin-top: 10px !important;
-        padding: 0 !important;               /* ⭐ Tanpa padding */
+        padding: 0 !important;
         width: 100% !important;
     }
-@media (max-width: 768px) {
 
-    /* ⭐⭐⭐ KARTU PEMBUNGKUS TABEL — sedikit padding samping ⭐⭐⭐ */
+    /* ============================================
+       KARTU PEMBUNGKUS TABEL
+    ============================================ */
     .dashboard-tables > .panel-card {
-        padding: 10px 6px !important;        /* ⭐ Kanan-kiri 6px (tidak 0) */
+        padding: 10px 6px !important;        /* ⭐ Napas 6px kanan-kiri */
         border-radius: 10px !important;
         margin: 0 !important;
         width: 100% !important;
@@ -717,28 +723,31 @@
         box-sizing: border-box !important;
     }
 
-    /* — Judul h3 — padding samping sedikit — */
+    /* Judul h3 */
     .dashboard-tables .panel-card h3 {
-        padding: 0 4px 8px 4px !important;   /* ⭐ Padding kecil (sudah dari card) */
+        padding: 0 4px 8px 4px !important;
         margin: 0 0 8px 0 !important;
         font-size: 0.9rem !important;
     }
 
-    /* — Wrapper tabel: kasih border tipis lagi biar rapi — */
+    /* ============================================
+       WRAPPER TABEL (scroll horizontal)
+    ============================================ */
     .dashboard-tables .ranking-wrapper,
     .dashboard-tables .table-wrapper {
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        border: 1px solid #e5e7eb !important;   /* ⭐ Border tipis */
-        border-radius: 6px !important;           /* ⭐ Radius kecil */
+        border: 1px solid #e5e7eb !important;
+        border-radius: 6px !important;
         overflow-x: auto !important;
         overflow-y: hidden !important;
         -webkit-overflow-scrolling: touch !important;
     }
 
-
-    /* — Tabel — */
+    /* ============================================
+       TABEL
+    ============================================ */
     .dashboard-tables table {
         width: auto !important;
         min-width: 700px !important;
@@ -779,14 +788,14 @@
         font-weight: 600 !important;
     }
 
-    /* Kolom lain */
+    /* Kolom lain (angka/status) */
     .dashboard-tables table th:nth-child(n+3),
     .dashboard-tables table td:nth-child(n+3) {
         min-width: 65px !important;
         text-align: center !important;
     }
 
-    /* — Hint scroll — */
+    /* Hint scroll */
     .dashboard-tables .ranking-wrapper::after,
     .dashboard-tables .table-wrapper::after {
         content: "← Geser →";
@@ -797,7 +806,8 @@
         padding: 4px 0;
         background: #f9fafb;
     }
-}
+
+}   /* ⭐ PENUTUP @media (max-width: 768px) */
 
 
 /* ================================================================
@@ -810,11 +820,11 @@
     }
 
     .dashboard-tables > .panel-card {
-        padding: 8px 0 !important;
+        padding: 8px 4px !important;         /* ⭐ Napas 4px di HP kecil */
     }
 
     .dashboard-tables .panel-card h3 {
-        padding: 0 8px 6px 8px !important;
+        padding: 0 4px 6px 4px !important;
         font-size: 0.85rem !important;
     }
 
@@ -837,4 +847,5 @@
     .dashboard-tables table td:nth-child(2) {
         min-width: 160px !important;
     }
-}
+
+}   /* ⭐ PENUTUP @media (max-width: 400px) */
