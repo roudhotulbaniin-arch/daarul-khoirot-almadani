@@ -24,21 +24,22 @@ async function generateIdSantri() {
             "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
         );
 
-        const snap = await getDocs(
-            collection(window.firebaseDB, "pendaftaran_santri")
-        );
+        // ⭐ Fallback: coba window.firebaseDB dulu, kalau tidak ada pakai window.db
+        const dbRef = window.firebaseDB || window.db;
+        
+        if (!dbRef) {
+            throw new Error("Firebase DB tidak tersedia (window.firebaseDB & window.db kosong)");
+        }
 
-        // Cari nomor tertinggi dari semua id_santri format DKM###
+        const snap = await getDocs(collection(dbRef, "pendaftaran_santri"));
+
         let nomorTertinggi = 0;
-
         snap.docs.forEach(doc => {
             const id = doc.data().id_santri || "";
-            const match = id.match(/^DKM(\d+)$/);   // Regex: DKM diikuti angka
+            const match = id.match(/^DKM(\d+)$/);
             if (match) {
                 const nomor = parseInt(match[1], 10);
-                if (nomor > nomorTertinggi) {
-                    nomorTertinggi = nomor;
-                }
+                if (nomor > nomorTertinggi) nomorTertinggi = nomor;
             }
         });
 
@@ -52,7 +53,6 @@ async function generateIdSantri() {
 
     } catch (err) {
         console.error("❌ generateIdSantri error:", err);
-        // Fallback pakai timestamp bila gagal query
         const fallback = `DKM-ERR-${Date.now().toString().slice(-6)}`;
         console.warn("⚠️ Pakai fallback ID:", fallback);
         return fallback;
@@ -175,15 +175,19 @@ async function handleFormSubmit(event) {
         console.log("✅ status    :", dataFinal['status_santri']);
 
         // 9. Cek Firebase siap
-        if (!window.firebaseDB || !window.firebaseAddDoc || !window.firebaseCollection) {
-            throw new Error("Firebase belum siap. Cek script module di HTML.");
-        }
+        const dbRef = window.firebaseDB || window.db;
+if (!dbRef) {
+    throw new Error("Firebase belum siap.");
+}
 
-        // 10. Simpan ke Firebase
-        const docRef = await window.firebaseAddDoc(
-            window.firebaseCollection(window.firebaseDB, "pendaftaran_santri"),
-            dataFinal
-        );
+const { addDoc, collection: fCollection } = await import(
+    "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+);
+
+const docRef = await addDoc(
+    fCollection(dbRef, "pendaftaran_santri"),
+    dataFinal
+);
 
         if (docRef.id) {
             console.log("✅ Tersimpan! Firebase Doc ID:", docRef.id);
