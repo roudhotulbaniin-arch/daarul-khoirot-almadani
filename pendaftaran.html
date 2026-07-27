@@ -84,6 +84,7 @@
 </head>
 <body>
 
+
 <header>
        <div class="logo">
         <img src="main_logo.png" alt="Logo">
@@ -113,36 +114,6 @@
             </div>
         </div>
         <ul>
-  <li id="menuLogin">
-        <a href="login.html">
-            <i class="fas fa-user-shield"></i>
-            <span>Login Admin</span>
-        </a>
-    </li>
-
-    <li id="menuDashboard" style="display:none;">
-        <a href="dashboard.html">
-            <i class="fas fa-chart-line"></i>
-            <span>Dashboard Admin</span>
-        </a>
-    </li>
-
-    <li id="menuLogout" style="display:none;">
-        <a href="#" id="btnLogout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-        </a>
-    </li>
-
-    <hr style="border-color:rgba(255,255,255,.15); margin:10px 0;">
-
-           <li>
-   <a href="laporan_santri.html">
-       
-        <i class="fas fa-file-alt"></i>
-        Laporan Santri
-    </a>
-</li> 
             <li>
                 <a href="index.html">
                     <i class="fas fa-home"></i>
@@ -406,23 +377,7 @@
                 <div class="form-grid-santri">
                     <div class="form-group">
                         <label>Tanggal Pendaftaran<span style="color: red;">*</span></label>
-                      <div class="input-icon-wrapper">
-    <i class="fas fa-calendar-alt input-icon"></i>
-    <input 
-        type="text" 
-        id="tgl_daftar" 
-        name="tgl_daftar" 
-        class="custom-date-input flatpickr-input"
-        placeholder="Pilih Tanggal"
-        readonly
-        required
-    >
-    <i class="fas fa-chevron-down input-arrow"></i>
-</div>
-<div class="date-info-badge" id="tglDaftarInfo" style="display:none;">
-    <i class="fas fa-info-circle"></i>
-    <span id="tglDaftarInfoText"></span>
-</div>
+                        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_daftar"></div>
                     </div>
                     <div class="form-group">
                         <label>Nama Lengkap<span style="color: red;">*</span></label>
@@ -492,19 +447,7 @@
                     </div>
                     <div class="form-group">
                         <label>Tanggal Lahir</label>
-             <div class="input-icon-wrapper">
-    <i class="fas fa-cake-candles input-icon"></i>
-    <input 
-        type="text" 
-        id="tgl_lahir" 
-        name="tgl_lahir" 
-        class="custom-date-input flatpickr-input"
-        placeholder="Pilih Tanggal Lahir"
-        readonly
-        required
-    >
-    <i class="fas fa-chevron-down input-arrow"></i>
-</div>
+                        <div class="input-ikon"><i class="fas fa-calendar-day"></i><input type="date" name="tgl_lahir"></div>
                     </div>
                 </div>
 
@@ -606,20 +549,7 @@
                     </div>
                     <div class="form-group">
                         <label>Tanggal Lahir Ayah</label>
-                       <!-- Tanggal Lahir Ayah -->
-<div class="input-icon-wrapper">
-    <i class="fas fa-cake-candles input-icon"></i>
-    <input 
-        type="text" 
-        id="tgl_ayah" 
-        name="tgl_ayah" 
-        class="custom-date-input flatpickr-input"
-        placeholder="Pilih Tanggal Lahir Ayah"
-        readonly
-    >
-    <i class="fas fa-chevron-down input-arrow"></i>
-</div>
-
+                        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ayah"></div>
                     </div>
                     <div class="form-group">
                         <label>Pendidikan Terakhir</label>
@@ -724,66 +654,48 @@
                     </div>
                     <div class="form-group">
                         <label>Tanggal Lahir<span style="color: red;">*</span></label>
-                       <!-- ============ TANGGAL LAHIR IBU ============ -->
-<div class="form-group">
-    <label>Tanggal Lahir<span style="color: red;">*</span></label>
-    <div class="input-icon-wrapper">
-        <i class="fas fa-cake-candles input-icon"></i>
-        <input 
-            type="text" 
-            id="tgl_ibu" 
-            name="tgl_ibu" 
-            class="custom-date-input flatpickr-input"
-            placeholder="Pilih Tanggal Lahir Ibu"
-            readonly
-        >
-        <i class="fas fa-chevron-down input-arrow"></i>
-    </div>
-</div>
-
-<!-- ============ PENDIDIKAN IBU ============ -->
-<div class="form-group">
-    <label>Pendidikan Terakhir</label>
-    <div class="input-ikon">
-        <i class="fas fa-graduation-cap"></i>
-        <select name="pdk_ibu">
-            <option value="">-- Pilih --</option>
-            <option>SD/Sederajat</option>
-            <option>SMP/Sederajat</option>
-            <option>SMA/Sederajat</option>
-            <option>D1</option>
-            <option>D2</option>
-            <option>D3</option>
-            <option>D4/S1</option>
-            <option>S2</option>
-            <option>S3</option>
-            <option>Tidak Bersekolah</option>
-            <option>Lainnya</option>
-        </select>
-    </div>
-</div>
-
-<!-- ============ PEKERJAAN IBU ============ -->
-<div class="form-group">
-    <label>Pekerjaan Utama</label>
-    <div class="input-ikon">
-        <i class="fas fa-briefcase"></i>
-        <select name="pjk_ibu">
-            <option value="">-- Pilih --</option>
-            <option>Ibu Rumah Tangga</option>
-            <option>Pensiunan</option>
-            <option>PNS/TNI/Polri</option>
-            <option>Guru/Dosen</option>
-            <option>Pegawai Swasta</option>
-            <option>Wira Swasta</option>
-            <option>Petani/Peternak</option>
-            <option>Nelayan</option>
-            <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
-            <option>Sopir</option>
-            <option>Lainnya</option>
-        </select>
-    </div>
-</div>
+                        <div class="input-ikon"><i class="fas fa-calendar-alt"></i><input type="date" name="tgl_ibu"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pendidikan Terakhir</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-graduation-cap"></i>
+                            <select name="pdk_ibu">
+                                <option value="">-- Pilih --</option>
+                                <option>SD/Sederajat</option>
+                                <option>SMP/Sederajat</option>
+                                <option>SMA/Sederajat</option>
+                                <option>D1</option>
+                                <option>D2</option>
+                                <option>D3</option>
+                                <option>D4/S1</option>
+                                <option>S2</option>
+                                <option>S3</option>
+                                <option>Tidak Bersekolah</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pekerjaan Utama</label>
+                        <div class="input-ikon">
+                            <i class="fas fa-briefcase"></i>
+                            <select name="pjk_ibu">
+                                <option value="">-- Pilih --</option>
+                                <option>Ibu Rumah Tangga</option>
+                                <option>Pensiunan</option>
+                                <option>PNS/TNI/Polri</option>
+                                <option>Guru/Dosen</option>
+                                <option>Pegawai Swasta</option>
+                                <option>Wira Swasta</option>
+                                <option>Petani/Peternak</option>
+                                <option>Nelayan</option>
+                                <option>Buruh(Pabrik/Pertanian/Peternakan)</option>
+                                <option>Sopir</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label>Penghasilan Rata-rata / Bulan</label>
                         <div class="input-ikon">
