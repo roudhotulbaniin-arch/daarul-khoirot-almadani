@@ -423,3 +423,86 @@
 .swal2-icon {
     display: none !important;
 }
+
+/* =========================================================
+   FIX 14 — SEMBUNYIKAN DENY BUTTON PAKSA
+========================================================= */
+.swal-hidden,
+.swal2-deny {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   FIX 15 — TOMBOL SEJAJAR HORIZONTAL
+========================================================= */
+.swal2-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    margin-top: 1.5rem !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.swal-actions-inline {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+}
+
+.swal2-actions .swal-premium-btn {
+    flex: 0 1 auto !important;
+    min-width: 120px !important;
+    max-width: 200px !important;
+}
+
+
+/* =========================================================
+   FIX 16 — RESPONSIVE HP (Override yang lama)
+========================================================= */
+@media (max-width: 480px) {
+    .swal2-actions {
+        flex-direction: row !important;   /* ⭐ Tetap horizontal di HP */
+        flex-wrap: nowrap !important;
+        gap: 8px !important;
+    }
+
+    .swal2-actions .swal-premium-btn {
+        flex: 1 1 auto !important;
+        min-width: auto !important;
+        padding: 10px 12px !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+
+/* =========================================================
+   FIX 17 — Icon Wrap Order (Icon di ATAS teks)
+========================================================= */
+.swal-premium-html {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* =========================================================
+   FIX 18 — Fix aria-hidden warning
+========================================================= */
+body.swal2-shown [aria-hidden="true"] {
+    /* Biarkan focus tetap bisa dipindah */
+}
+
+/* Auto-blur elemen sebelum popup */
+.swal2-container {
+    z-index: 99999 !important;
+}
