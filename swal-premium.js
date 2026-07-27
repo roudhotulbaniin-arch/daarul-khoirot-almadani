@@ -207,51 +207,58 @@ if (typeof window.SwalPremium === "undefined") {
 
 
         // ============================================================
-        // 7. LOGOUT — Khusus Konfirmasi Logout
-        // ============================================================
-        function logout({
-            onConfirm = null,
-            redirectUrl = 'index.html'
-        } = {}) {
-            return Swal.fire({
-                ...baseConfig,
-                title: 'Konfirmasi Logout',
-                html: `
-                    <div class="swal-icon-wrap swal-icon-danger swal-pulse">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </div>
-                    <p class="swal-text">
-                        Apakah Anda yakin ingin <b style="color:#dc2626;">keluar</b> dari sistem?
-                    </p>
-                    <p class="swal-subtext">Sesi admin akan diakhiri</p>
-                `,
-                showCancelButton: true,
-                showDenyButton: false,
-                confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Logout',
-                cancelButtonText: '<i class="fas fa-times"></i> Batal',
-                focusCancel: true,
-                customClass: {
-                    ...baseConfig.customClass,
-                    confirmButton: 'swal-premium-btn swal-btn-danger',
-                    cancelButton: 'swal-premium-btn swal-btn-gray'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    loading({ title: 'Sedang Logout...', text: 'Mengakhiri sesi Anda' });
-
-                    setTimeout(() => {
-                        if (typeof onConfirm === 'function') {
-                            onConfirm();
-                        } else {
-                            localStorage.clear();
-                            sessionStorage.clear();
-                            window.location.href = redirectUrl;
-                        }
-                    }, 1200);
-                }
-            });
+// 7. LOGOUT — Khusus Konfirmasi Logout (FIXED)
+// ============================================================
+function logout({
+    onConfirm = null,
+    redirectUrl = 'index.html'
+} = {}) {
+    return Swal.fire({
+        ...baseConfig,
+        title: 'Konfirmasi Logout',
+        html: `
+            <div class="swal-icon-wrap swal-icon-danger swal-pulse">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <p class="swal-text">
+                Apakah Anda yakin ingin <b style="color:#dc2626;">keluar</b> dari sistem?
+            </p>
+            <p class="swal-subtext">Sesi admin akan diakhiri</p>
+        `,
+        // ⭐ PAKSA hilangkan Deny Button
+        showConfirmButton: true,
+        showCancelButton: true,
+        showDenyButton: false,
+        denyButtonText: '',        // ← Kosongkan
+        
+        confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Logout',
+        cancelButtonText: '<i class="fas fa-times"></i> Batal',
+        focusCancel: true,
+        reverseButtons: true,      // ← Batal di kiri, Logout di kanan
+        
+        customClass: {
+            ...baseConfig.customClass,
+            actions: 'swal-actions-inline',            // ⭐ Class khusus
+            confirmButton: 'swal-premium-btn swal-btn-danger',
+            cancelButton: 'swal-premium-btn swal-btn-gray',
+            denyButton: 'swal-hidden'                  // ⭐ Sembunyikan paksa
         }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            loading({ title: 'Sedang Logout...', text: 'Mengakhiri sesi Anda' });
 
+            setTimeout(() => {
+                if (typeof onConfirm === 'function') {
+                    onConfirm();
+                } else {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    window.location.href = redirectUrl;
+                }
+            }, 1200);
+        }
+    });
+}
 
         // ============================================================
         // 8. DELETE — Konfirmasi Hapus Data
