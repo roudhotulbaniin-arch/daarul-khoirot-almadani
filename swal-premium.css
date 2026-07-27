@@ -1,0 +1,425 @@
+/* ================================================================
+   SWEETALERT PREMIUM — STYLESHEET
+   Untuk: Daarul Khoirot Almadani
+   Tema: Hijau Tua + Font Quicksand
+   ================================================================ */
+
+/* =========================================================
+   0. VARIABEL WARNA
+========================================================= */
+:root {
+    --swal-primary       : #1a5d1a;
+    --swal-primary-dark  : #14471a;
+    --swal-primary-light : #e8f5e9;
+    --swal-success       : #2e7d32;
+    --swal-danger        : #dc2626;
+    --swal-danger-dark   : #991b1b;
+    --swal-warning       : #f59e0b;
+    --swal-warning-dark  : #b45309;
+    --swal-info          : #0284c7;
+    --swal-info-dark     : #075985;
+    --swal-gray          : #6b7280;
+    --swal-gray-dark     : #374151;
+    --swal-text          : #1f2937;
+    --swal-text-soft     : #6b7280;
+    --swal-bg            : #ffffff;
+    --swal-border        : #e5e7eb;
+    --swal-shadow        : 0 20px 50px rgba(26, 93, 26, 0.15);
+    --swal-radius        : 20px;
+    --swal-btn-radius    : 12px;
+    --swal-font          : 'Quicksand', 'Segoe UI', sans-serif;
+}
+
+
+/* =========================================================
+   1. POPUP UTAMA
+========================================================= */
+.swal-premium-popup {
+    font-family: var(--swal-font) !important;
+    border-radius: var(--swal-radius) !important;
+    padding: 2rem 1.5rem 1.5rem !important;
+    box-shadow: var(--swal-shadow) !important;
+    border: 1px solid var(--swal-border) !important;
+    max-width: 420px !important;
+}
+
+.swal-premium-title {
+    font-family: var(--swal-font) !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    color: var(--swal-text) !important;
+    letter-spacing: -0.3px !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.swal-premium-html {
+    font-family: var(--swal-font) !important;
+    color: var(--swal-text-soft) !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+}
+
+
+/* =========================================================
+   2. ICON WRAPPER (Bulatan Icon)
+========================================================= */
+.swal-icon-wrap {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem auto 1rem;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+}
+
+.swal-icon-wrap:hover {
+    transform: scale(1.05);
+}
+
+.swal-icon-primary  { background: linear-gradient(135deg, var(--swal-primary), var(--swal-primary-dark)); }
+.swal-icon-success  { background: linear-gradient(135deg, #4caf50, var(--swal-success)); }
+.swal-icon-danger   { background: linear-gradient(135deg, #ef4444, var(--swal-danger)); }
+.swal-icon-warning  { background: linear-gradient(135deg, #fbbf24, var(--swal-warning)); }
+.swal-icon-info     { background: linear-gradient(135deg, #38bdf8, var(--swal-info)); }
+
+
+/* =========================================================
+   3. TEKS DALAM POPUP
+========================================================= */
+.swal-text {
+    font-family: var(--swal-font) !important;
+    color: var(--swal-text) !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin: 0.5rem 0 !important;
+    text-align: center !important;
+}
+
+.swal-subtext {
+    font-family: var(--swal-font) !important;
+    color: var(--swal-text-soft) !important;
+    font-size: 0.85rem !important;
+    margin-top: 0.5rem !important;
+    font-style: italic !important;
+}
+
+.swal-detail {
+    background: #f9fafb;
+    border-left: 3px solid var(--swal-danger);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--swal-text-soft);
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    word-break: break-word;
+}
+
+.swal-item-tag {
+    display: inline-block;
+    background: var(--swal-primary-light);
+    color: var(--swal-primary-dark);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 10px 0;
+    border: 1px solid var(--swal-primary);
+}
+
+
+/* =========================================================
+   4. TOMBOL PREMIUM
+========================================================= */
+.swal-premium-btn {
+    font-family: var(--swal-font) !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    padding: 12px 24px !important;
+    border-radius: var(--swal-btn-radius) !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    justify-content: center !important;
+    min-width: 120px !important;
+    letter-spacing: 0.3px !important;
+}
+
+.swal-premium-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.swal-premium-btn:active {
+    transform: translateY(0) !important;
+}
+
+.swal-premium-btn i {
+    font-size: 0.9em !important;
+}
+
+/* Variasi Warna Tombol */
+.swal-btn-primary {
+    background: linear-gradient(135deg, var(--swal-primary), var(--swal-primary-dark)) !important;
+    color: white !important;
+}
+
+.swal-btn-success {
+    background: linear-gradient(135deg, #4caf50, var(--swal-success)) !important;
+    color: white !important;
+}
+
+.swal-btn-danger {
+    background: linear-gradient(135deg, #ef4444, var(--swal-danger)) !important;
+    color: white !important;
+}
+
+.swal-btn-warning {
+    background: linear-gradient(135deg, #fbbf24, var(--swal-warning)) !important;
+    color: white !important;
+}
+
+.swal-btn-info {
+    background: linear-gradient(135deg, #38bdf8, var(--swal-info)) !important;
+    color: white !important;
+}
+
+.swal-btn-gray {
+    background: #f3f4f6 !important;
+    color: var(--swal-gray-dark) !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.swal-btn-gray:hover {
+    background: #e5e7eb !important;
+}
+
+
+/* =========================================================
+   5. ACTIONS CONTAINER (Wadah Tombol)
+========================================================= */
+.swal2-actions {
+    gap: 10px !important;
+    margin-top: 1.5rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+}
+
+
+/* =========================================================
+   6. INPUT PREMIUM
+========================================================= */
+.swal-premium-input {
+    font-family: var(--swal-font) !important;
+    border: 2px solid var(--swal-border) !important;
+    border-radius: 10px !important;
+    padding: 12px 16px !important;
+    font-size: 1rem !important;
+    transition: all 0.25s ease !important;
+    width: 90% !important;
+    margin: 10px auto !important;
+    box-shadow: none !important;
+}
+
+.swal-premium-input:focus {
+    border-color: var(--swal-primary) !important;
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.15) !important;
+    outline: none !important;
+}
+
+
+/* =========================================================
+   7. LOADING SPINNER
+========================================================= */
+.swal-loading-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem auto;
+}
+
+.swal-loading-spinner {
+    display: inline-block;
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+
+.swal-loading-spinner div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    margin: 6px;
+    border: 5px solid var(--swal-primary);
+    border-radius: 50%;
+    animation: swal-loading-anim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--swal-primary) transparent transparent transparent;
+}
+
+.swal-loading-spinner div:nth-child(1) { animation-delay: -0.45s; }
+.swal-loading-spinner div:nth-child(2) { animation-delay: -0.3s; }
+.swal-loading-spinner div:nth-child(3) { animation-delay: -0.15s; }
+
+@keyframes swal-loading-anim {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* =========================================================
+   8. TOAST NOTIFICATION
+========================================================= */
+.swal-premium-toast {
+    font-family: var(--swal-font) !important;
+    border-radius: 12px !important;
+    padding: 12px 20px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+    border-left: 4px solid !important;
+    background: white !important;
+    min-width: 300px !important;
+}
+
+.swal-toast-success  { border-left-color: var(--swal-success) !important; --toast-color: var(--swal-success); }
+.swal-toast-danger   { border-left-color: var(--swal-danger)  !important; --toast-color: var(--swal-danger); }
+.swal-toast-warning  { border-left-color: var(--swal-warning) !important; --toast-color: var(--swal-warning); }
+.swal-toast-info     { border-left-color: var(--swal-info)    !important; --toast-color: var(--swal-info); }
+
+.swal-premium-toast .swal2-title {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+
+/* =========================================================
+   9. ANIMASI POPUP
+========================================================= */
+@keyframes swal-zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.7) translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes swal-zoomOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+}
+
+.swal-anim-zoomIn {
+    animation: swal-zoomIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+.swal-anim-zoomOut {
+    animation: swal-zoomOut 0.25s ease-in both !important;
+}
+
+
+/* =========================================================
+   10. ANIMASI ICON KHUSUS
+========================================================= */
+@keyframes swal-pulse-anim {
+    0%, 100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+    50%      { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(220, 38, 38, 0); }
+}
+
+.swal-pulse {
+    animation: swal-pulse-anim 1.5s ease-in-out infinite;
+}
+
+@keyframes swal-shake-anim {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-6px) rotate(-3deg); }
+    40%      { transform: translateX(6px) rotate(3deg); }
+    60%      { transform: translateX(-4px) rotate(-2deg); }
+    80%      { transform: translateX(4px) rotate(2deg); }
+}
+
+.swal-shake {
+    animation: swal-shake-anim 0.6s ease-in-out;
+}
+
+
+/* =========================================================
+   11. BACKDROP (Latar Gelap)
+========================================================= */
+.swal2-container.swal2-backdrop-show {
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+}
+
+
+/* =========================================================
+   12. RESPONSIVE — HP
+========================================================= */
+@media (max-width: 480px) {
+    .swal-premium-popup {
+        padding: 1.5rem 1rem 1.25rem !important;
+        max-width: 92% !important;
+        margin: 0 auto !important;
+    }
+
+    .swal-premium-title {
+        font-size: 1.2rem !important;
+    }
+
+    .swal-icon-wrap {
+        width: 65px;
+        height: 65px;
+        font-size: 2rem;
+    }
+
+    .swal-premium-btn {
+        font-size: 0.9rem !important;
+        padding: 10px 18px !important;
+        min-width: 110px !important;
+    }
+
+    .swal2-actions {
+        flex-direction: column-reverse !important;
+        width: 100% !important;
+    }
+
+    .swal-premium-btn {
+        width: 100% !important;
+    }
+
+    .swal-premium-toast {
+        min-width: auto !important;
+        width: 92% !important;
+    }
+}
+
+
+/* =========================================================
+   13. HIDE DEFAULT SWEETALERT2 ICON
+========================================================= */
+.swal2-icon {
+    display: none !important;
+}
