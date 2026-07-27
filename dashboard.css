@@ -672,8 +672,10 @@
 .dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
 
 /* ================================================================
-   🔧 FIX MOBILE — DASHBOARD TABLES (FINAL, tidak duplikat)
-   Kartu pembungkus tabel → padding sangat rapat
+   🔧 FIX MOBILE — DASHBOARD TABLES (FINAL)
+   ✅ Kartu padding rapat
+   ✅ Tabel scroll horizontal (biar semua kolom terbaca)
+   ✅ Kolom NAMA lebar cukup
 ================================================================ */
 
 @media (max-width: 768px) {
@@ -690,73 +692,101 @@
         padding: 0 !important;
     }
 
-    /* ⭐⭐⭐ KARTU PEMBUNGKUS TABEL — padding kanan-kiri MINIMAL ⭐⭐⭐ */
+    /* ⭐ KARTU PEMBUNGKUS TABEL — padding rapat ⭐ */
     .dashboard-tables > .panel-card {
-        padding: 10px 4px !important;    /* ⭐ Kanan-kiri cuma 4px */
+        padding: 10px 6px !important;      /* Kanan-kiri 6px */
         border-radius: 10px !important;
         margin: 0 !important;
+        overflow: hidden !important;        /* Biar scroll di wrapper, bukan card */
     }
 
-    /* — Judul h3 tetap ada padding samping biar rapi — */
+    /* — Judul h3 — */
     .dashboard-tables .panel-card h3 {
-        padding: 0 8px 8px 8px !important;
+        padding: 0 6px 8px 6px !important;
         margin: 0 0 8px 0 !important;
         font-size: 0.9rem !important;
     }
 
-    /* — Wrapper tabel: hilangkan border ganda — */
+    /* — Wrapper tabel: SCROLL HORIZONTAL AKTIF — */
     .dashboard-tables .ranking-wrapper,
     .dashboard-tables .table-wrapper {
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        border: none !important;
+        border: 1px solid #e5e7eb !important;
         border-radius: 6px !important;
-        overflow-x: auto !important;
+        overflow-x: auto !important;                 /* ⭐ Scroll aktif */
+        overflow-y: hidden !important;
         -webkit-overflow-scrolling: touch !important;
     }
 
-    /* — Tabel — */
+    /* — Tabel: BIARKAN LEBAR NATURAL (bisa scroll) — */
     .dashboard-tables table {
-        width: 100% !important;
-        min-width: 100% !important;
+        width: auto !important;              /* ⭐ Auto, jangan 100% */
+        min-width: 700px !important;         /* ⭐ Minimum 700px biar semua kolom muat */
         border-collapse: collapse !important;
-        font-size: 0.78rem !important;
+        font-size: 0.8rem !important;
     }
 
+    /* — Header — */
     .dashboard-tables table th {
-        padding: 9px 4px !important;
-        font-size: 0.7rem !important;
-        min-width: unset !important;
+        padding: 10px 8px !important;
+        font-size: 0.72rem !important;
+        min-width: 70px !important;
+        white-space: nowrap !important;      /* ⭐ Header tidak wrap */
     }
 
+    /* — Cell — */
     .dashboard-tables table td {
-        padding: 8px 4px !important;
-        font-size: 0.75rem !important;
-        white-space: normal !important;
+        padding: 9px 8px !important;
+        font-size: 0.78rem !important;
+        white-space: nowrap !important;      /* ⭐ Cell tidak wrap */
     }
 
-    /* Kolom NO — ramping */
+    /* — Kolom NO — ramping — */
     .dashboard-tables table th:nth-child(1),
     .dashboard-tables table td:nth-child(1) {
-        width: 35px !important;
-        min-width: 35px !important;
+        width: 40px !important;
+        min-width: 40px !important;
+        text-align: center !important;
+        padding: 9px 4px !important;
+    }
+
+    /* — Kolom NAMA — lebar cukup, boleh wrap — */
+    .dashboard-tables table th:nth-child(2),
+    .dashboard-tables table td:nth-child(2) {
+        min-width: 180px !important;         /* ⭐ Lebar cukup untuk nama */
+        max-width: 200px !important;
+        text-align: left !important;
+        white-space: normal !important;      /* ⭐ Boleh wrap kalau panjang */
+        word-break: break-word !important;
+        font-weight: 600 !important;
+    }
+
+    /* — Kolom lain (angka/status) — auto — */
+    .dashboard-tables table th:nth-child(n+3),
+    .dashboard-tables table td:nth-child(n+3) {
+        min-width: 65px !important;
         text-align: center !important;
     }
 
-    /* Kolom NAMA — melebar */
-    .dashboard-tables table th:nth-child(2),
-    .dashboard-tables table td:nth-child(2) {
-        min-width: unset !important;
-        text-align: left !important;
-        white-space: normal !important;
-        word-break: break-word !important;
+    /* — Hint scroll — */
+    .dashboard-tables .ranking-wrapper::after,
+    .dashboard-tables .table-wrapper::after {
+        content: "← Geser →";
+        display: block;
+        text-align: center;
+        font-size: 0.7rem;
+        color: #94a3b8;
+        padding: 4px;
+        background: #f9fafb;
+        border-top: 1px dashed #e5e7eb;
     }
 }
 
 
 /* ================================================================
-   📱 HP KECIL (max-width: 400px) — Padding LEBIH rapat lagi
+   📱 HP KECIL (max-width: 400px)
 ================================================================ */
 @media (max-width: 400px) {
 
@@ -764,19 +794,32 @@
         padding: 6px !important;
     }
 
-    /* ⭐ Kartu pembungkus tabel — hampir tanpa padding samping ⭐ */
     .dashboard-tables > .panel-card {
-        padding: 8px 2px !important;     /* ⭐ Kanan-kiri cuma 2px */
+        padding: 8px 4px !important;
     }
 
     .dashboard-tables .panel-card h3 {
-        padding: 0 6px 6px 6px !important;
         font-size: 0.85rem !important;
+        padding: 0 4px 6px 4px !important;
     }
 
-    .dashboard-tables table th,
+    .dashboard-tables table {
+        min-width: 650px !important;
+        font-size: 0.75rem !important;
+    }
+
+    .dashboard-tables table th {
+        padding: 8px 6px !important;
+        font-size: 0.68rem !important;
+    }
+
     .dashboard-tables table td {
-        padding: 7px 3px !important;
+        padding: 8px 6px !important;
         font-size: 0.72rem !important;
+    }
+
+    .dashboard-tables table th:nth-child(2),
+    .dashboard-tables table td:nth-child(2) {
+        min-width: 160px !important;
     }
 }
