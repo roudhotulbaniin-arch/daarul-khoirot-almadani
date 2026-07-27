@@ -763,7 +763,7 @@
     }
 
     .dashboard-tables table td {
-        padding: 9px 8px !important;
+        padding: 12px 10px !important;
         font-size: 0.78rem !important;
         white-space: nowrap !important;
     }
@@ -780,7 +780,7 @@
     /* Kolom NAMA — lebar cukup */
     .dashboard-tables table th:nth-child(2),
     .dashboard-tables table td:nth-child(2) {
-        min-width: 180px !important;
+        min-width: 220px !important;
         max-width: 220px !important;
         text-align: center !important;
         white-space: normal !important;
@@ -834,12 +834,12 @@
     }
 
     .dashboard-tables table th {
-        padding: 8px 6px !important;
+        padding: 10px 8px !important;
         font-size: 0.68rem !important;
     }
 
     .dashboard-tables table td {
-        padding: 8px 6px !important;
+        padding: 10px 8px !important;
         font-size: 0.72rem !important;
     }
 
