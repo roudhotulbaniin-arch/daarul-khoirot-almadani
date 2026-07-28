@@ -919,77 +919,68 @@
 
 
 /* =========================================================
-   TOMBOL NEXT (Simpan & Lanjut) — Solid Gradient
+   TOMBOL PREV (Data Santri) — FORCE STYLE dengan !important
 ========================================================= */
-.btn-next-tab {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.btn-prev-tab,
+button.btn-prev-tab,
+.tab-navigation .btn-prev-tab,
+.tab-navigation button.btn-prev-tab {
+    /* ⭐ BORDER PAKSA */
+    border: 2px solid #1a5d1a !important;
+    border-style: solid !important;
+    border-width: 2px !important;
+    border-color: #1a5d1a !important;
     
-    /* Solid hijau */
-    background: linear-gradient(135deg, #1a5d1a, #14471a);
-    color: #ffffff;
-    border: 2px solid #1a5d1a;
+    /* Background & Warna */
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #1a5d1a !important;
+    
+    /* Layout */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
     
     /* Ukuran */
-    padding: 12px 32px;
-    min-width: 200px;
-    border-radius: 10px;
+    padding: 14px 24px !important;
+    min-width: 160px !important;
+    width: 100% !important;                /* Full width di mobile */
+    max-width: 100% !important;
+    border-radius: 12px !important;
     
     /* Font */
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
+    font-family: 'Quicksand', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
     
     /* Effect */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3);
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.1) !important;
+    outline: none !important;
+    box-sizing: border-box !important;
 }
 
-.btn-next-tab:hover {
-    background: linear-gradient(135deg, #14471a, #0d2f0d);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.45);
+.btn-prev-tab:hover,
+button.btn-prev-tab:hover {
+    background: #1a5d1a !important;
+    background-color: #1a5d1a !important;
+    color: #ffffff !important;
+    transform: translateX(-4px) !important;
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3) !important;
 }
 
-.btn-next-tab:active {
-    transform: translateY(0);
+.btn-prev-tab:hover i,
+button.btn-prev-tab:hover i {
+    color: #ffffff !important;
 }
 
-.btn-next-tab i {
-    font-size: 1.1em;
-    transition: transform 0.3s ease;
-}
-
-.btn-next-tab:hover i {
-    transform: translateX(4px);
-}
-
-
-/* =========================================================
-   RESPONSIVE — Mobile
-========================================================= */
-@media (max-width: 600px) {
-    .tab-navigation {
-        flex-direction: column-reverse;
-        gap: 10px;
-    }
-    
-    .btn-prev-tab,
-    .btn-next-tab {
-        width: 100%;
-        min-width: unset;
-        padding: 12px 20px;
-    }
-    
-    .btn-prev-tab:hover {
-        transform: none;
-    }
-    
-    .btn-next-tab:hover {
-        transform: none;
-    }
+.btn-prev-tab i,
+button.btn-prev-tab i {
+    color: #1a5d1a !important;
+    font-size: 1.2em !important;
+    transition: all 0.3s ease !important;
 }
