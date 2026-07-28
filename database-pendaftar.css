@@ -164,6 +164,10 @@
 .db-summary-icon.icon-green  { background: linear-gradient(135deg, #10b981, #059669); }
 .db-summary-icon.icon-orange { background: linear-gradient(135deg, #f59e0b, #d97706); }
 .db-summary-icon.icon-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+/* Tambahkan warna teal untuk PONPES */
+.db-summary-icon.icon-teal { 
+    background: linear-gradient(135deg, #14b8a6, #0d9488); 
+}
 
 .db-summary-info {
     display: flex;
@@ -698,5 +702,42 @@
     
     .btn-back-dashboard:hover i {
         transform: none;
+    }
+}
+
+/* Tambahkan warna teal untuk PONPES */
+.db-summary-icon.icon-teal { 
+    background: linear-gradient(135deg, #14b8a6, #0d9488); 
+}
+
+
+/* ================================================================
+   GRID SUMMARY — Update jadi 5 kolom di desktop
+================================================================ */
+.db-summary {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);    /* ⭐ 5 kolom */
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+
+/* Responsive break points */
+@media (max-width: 1200px) {
+    .db-summary {
+        grid-template-columns: repeat(3, 1fr);   /* 3 kolom di tablet */
+    }
+}
+
+@media (max-width: 768px) {
+    .db-summary {
+        grid-template-columns: repeat(2, 1fr);   /* 2 kolom di mobile */
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .db-summary {
+        grid-template-columns: 1fr;               /* 1 kolom di HP kecil */
     }
 }
