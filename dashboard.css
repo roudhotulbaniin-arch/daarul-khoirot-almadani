@@ -908,3 +908,53 @@
         font-size: 0.85rem;
     }
 }
+
+/* =========================================================
+   CD-MENU & OPTIONS — Scroll Halus di HP
+========================================================= */
+.cd-menu {
+    max-height: 320px;
+    overflow: hidden;                        /* ⭐ Hidden di menu */
+    display: flex;
+    flex-direction: column;
+}
+
+.cd-options {
+    max-height: 280px;
+    overflow-y: auto !important;             /* ⭐ Scroll di options */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;       /* ⭐ Smooth iOS */
+    overscroll-behavior: contain;             /* ⭐ Anti bounce */
+    scroll-behavior: smooth;
+    
+    /* Scrollbar cantik */
+    scrollbar-width: thin;
+    scrollbar-color: #1a5d1a #f0f0f0;
+}
+
+.cd-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cd-options::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.cd-options::-webkit-scrollbar-thumb {
+    background: #1a5d1a;
+    border-radius: 4px;
+}
+
+.cd-options::-webkit-scrollbar-thumb:hover {
+    background: #144514;
+}
+
+/* Touch target yang nyaman */
+.cd-option {
+    min-height: 44px !important;
+    padding: 10px 14px !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
