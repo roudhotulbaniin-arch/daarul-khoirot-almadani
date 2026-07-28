@@ -603,3 +603,100 @@
         print-color-adjust: exact;
     }
 }
+
+/* ================================================================
+   🔙 TOMBOL BACK KE DASHBOARD — Full Width, Center, Style Prev-Tab
+================================================================ */
+
+.db-back-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px dashed #e0e0e0;
+}
+
+.btn-back-dashboard {
+    /* Layout */
+    width: 100%;
+    max-width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+    /* Ukuran */
+    padding: 14px 24px;
+    min-height: 54px;
+    
+    /* Border & Background (mirip btn-prev-tab) */
+    background: #ffffff;
+    color: #1a5d1a;
+    border: 2px solid #1a5d1a;
+    border-radius: 12px;
+    
+    /* Font */
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    
+    /* Effect */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.1);
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Hover: fill hijau + geser kiri */
+.btn-back-dashboard:hover {
+    background: #1a5d1a;
+    color: #ffffff;
+    transform: translateX(-4px);
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3);
+}
+
+.btn-back-dashboard:active {
+    transform: translateX(-2px);
+}
+
+/* Icon panah */
+.btn-back-dashboard i {
+    font-size: 1.1em;
+    color: #1a5d1a;
+    transition: all 0.3s ease;
+}
+
+.btn-back-dashboard:hover i {
+    color: #ffffff;
+    transform: translateX(-4px);
+}
+
+
+/* ================================================================
+   RESPONSIVE MOBILE
+================================================================ */
+@media (max-width: 768px) {
+    .db-back-wrapper {
+        margin-top: 20px;
+        padding-top: 16px;
+    }
+    
+    .btn-back-dashboard {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+    
+    /* Hilangkan animasi geser di HP */
+    .btn-back-dashboard:hover {
+        transform: none;
+    }
+    
+    .btn-back-dashboard:hover i {
+        transform: none;
+    }
+}
