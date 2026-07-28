@@ -877,33 +877,27 @@ document.querySelectorAll(".modal-overlay").forEach(m => {
 });
 
 function populateFilterJabatan(users) {
-    const selectFilter = document.getElementById('filterJabatan');
-    if (!selectFilter) return;
+    const select = document.getElementById('filterJabatan');
+    if (!select) return;
     
-    // 1. Jabatan default (list utama)
-    const jabatanDefault = [
-        'Administrator',
-        'Kepala Pesantren',
-        'Sekretaris',
-        'Bendahara',
-        'Pengajar',
-        'Staff'
-    ];
+    // Simpan value yang sedang dipilih
+    const currentValue = select.value;
     
-    // 2. Ambil jabatan unik dari data user
-    const jabatanFromData = new Set();
-    users.forEach(user => {
-        if (user.jabatan && user.jabatan.trim()) {
-            jabatanFromData.add(user.jabatan.trim());
-        }
+    // 1. Kumpulkan jabatan unik
+    const jabatanSet = new Set();
+    users.forEach(u => {
+        if (u.jabatan?.trim()) jabatanSet.add(u.jabatan.trim());
     });
     
-    // 3. Merge & sort
-    const allJabatan = new Set([...jabatanDefault, ...jabatanFromData]);
-    const jabatanList = Array.from(allJabatan).sort();
+    // Tambahkan jabatan default (biar selalu ada)
+    ['Administrator', 'Kepala Pesantren', 'Sekretaris', 
+     'Bendahara', 'Pengajar', 'Staff'].forEach(j => jabatanSet.add(j));
     
-    // 4. Icon mapping
+    const jabatanList = Array.from(jabatanSet).sort();
+    
+    // 2. Update icon map
     const iconMap = {
+        "": "fas fa-briefcase",
         "Administrator": "fas fa-user-shield",
         "Kepala Pesantren": "fas fa-crown",
         "Sekretaris": "fas fa-file-signature",
@@ -911,36 +905,28 @@ function populateFilterJabatan(users) {
         "Pengajar": "fas fa-chalkboard-teacher",
         "Staff": "fas fa-users"
     };
-    
-    // 5. Simpan value yang sedang dipilih
-    const currentValue = selectFilter.value;
-    
-    // 6. Rebuild options
-    selectFilter.innerHTML = '<option value="">Semua Jabatan</option>';
-    jabatanList.forEach(jabatan => {
-        const option = document.createElement('option');
-        option.value = jabatan;
-        option.textContent = jabatan;
-        selectFilter.appendChild(option);
-    });
-    
-    // 7. Update icon map di attribute (untuk custom-dropdown.js)
-    const finalIconMap = { "": "fas fa-briefcase", ...iconMap };
-    // Tambahkan icon default untuk jabatan yang belum ada di iconMap
     jabatanList.forEach(j => {
-        if (!finalIconMap[j]) finalIconMap[j] = "fas fa-user-tie";
+        if (!iconMap[j]) iconMap[j] = "fas fa-user-tie";
     });
-    selectFilter.setAttribute('data-cd-icons', JSON.stringify(finalIconMap));
+    select.setAttribute('data-cd-icons', JSON.stringify(iconMap));
     
-    // 8. Restore value
-    if (currentValue) {
-        selectFilter.value = currentValue;
-    }
+    // 3. Rebuild options
+    select.innerHTML = '<option value="">Semua Jabatan</option>';
+    jabatanList.forEach(j => {
+        const opt = document.createElement('option');
+        opt.value = j;
+        opt.textContent = j;
+        select.appendChild(opt);
+    });
     
-    // 9. Refresh custom dropdown
+    // 4. Restore value
+    if (currentValue) select.value = currentValue;
+    
+    // ⭐ 5. REFRESH CUSTOM DROPDOWN — INI YANG PENTING!
     if (typeof CustomDropdown !== 'undefined') {
-        CustomDropdown.refresh(selectFilter);
+        CustomDropdown.refresh(select);
+        console.log('🔄 Custom dropdown filterJabatan di-refresh');
     }
     
-    console.log(`✅ Filter jabatan siap: ${jabatanList.length} opsi`, jabatanList);
+    console.log(`✅ Filter jabatan: ${jabatanList.length} opsi`, jabatanList);
 }
