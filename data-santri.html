@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Santri Aktif | Daarul Khoirot Almadani</title>
+
+    <link rel="icon" type="image/png" href="main_logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="data-santri.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-container">
+        <div class="logo-area">
+            <img src="main_logo.png" alt="Logo">
+            <div class="title-area">
+                <h1>DAARUL KHOIROT ALMADANI</h1>
+                <p>Data Santri Aktif</p>
+            </div>
+        </div>
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+    </div>
+</header>
+
+
+<!-- MAIN -->
+<main class="ds-main">
+    <div class="ds-container">
+        
+        <!-- Page Header -->
+        <div class="ds-page-header">
+            <div class="ds-title">
+                <i class="fas fa-user-graduate"></i>
+                <div>
+                    <h2>Data Santri Aktif</h2>
+                    <p>Kelola data santri yang aktif belajar</p>
+                </div>
+            </div>
+            <button class="btn-tambah-santri" onclick="tambahSantri()">
+                <i class="fas fa-user-plus"></i>
+                <span>Tambah Santri</span>
+            </button>
+        </div>
+
+        <!-- Summary -->
+        <div class="ds-summary">
+            <div class="ds-summary-item">
+                <div class="ds-icon icon-green">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="ds-info">
+                    <span class="ds-label">Total Aktif</span>
+                    <span class="ds-value" id="dsTotalAktif">0</span>
+                </div>
+            </div>
+            
+            <div class="ds-summary-item">
+                <div class="ds-icon icon-blue">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="ds-info">
+                    <span class="ds-label">TPQ</span>
+                    <span class="ds-value" id="dsTotalTPQ">0</span>
+                </div>
+            </div>
+            
+            <div class="ds-summary-item">
+                <div class="ds-icon icon-purple">
+                    <i class="fas fa-mosque"></i>
+                </div>
+                <div class="ds-info">
+                    <span class="ds-label">MDT</span>
+                    <span class="ds-value" id="dsTotalMDT">0</span>
+                </div>
+            </div>
+            
+            <div class="ds-summary-item">
+                <div class="ds-icon icon-teal">
+                    <i class="fas fa-book-quran"></i>
+                </div>
+                <div class="ds-info">
+                    <span class="ds-label">PONPES</span>
+                    <span class="ds-value" id="dsTotalPONPES">0</span>
+                </div>
+            </div>
+            
+            <div class="ds-summary-item">
+                <div class="ds-icon icon-orange">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="ds-info">
+                    <span class="ds-label">Alumni</span>
+                    <span class="ds-value" id="dsTotalAlumni">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="ds-toolbar">
+            <div class="ds-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="dsSearch" placeholder="Cari nama santri, ID, atau NIK..." oninput="filterSantri(this.value)">
+            </div>
+            <div class="ds-toolbar-actions">
+                <select id="dsFilterStatus" class="ds-select" onchange="filterByStatus(this.value)">
+                    <option value="">Semua Status</option>
+                    <option value="Aktif">Aktif</option>
+                    <option value="Nonaktif">Nonaktif</option>
+                    <option value="Alumni">Alumni</option>
+                    <option value="Pindah">Pindah</option>
+                </select>
+                <select id="dsFilterUnit" class="ds-select" onchange="filterByUnit(this.value)">
+                    <option value="">Semua Unit</option>
+                    <option value="TPQ">TPQ</option>
+                    <option value="MDT">MDT</option>
+                    <option value="PONPES">PONPES</option>
+                </select>
+                <button class="btn-naik-kelas" onclick="naikKelasMassal()">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Naik Kelas</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="ds-table-wrapper">
+            <table class="ds-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>ID Santri</th>
+                        <th>Nama Lengkap</th>
+                        <th>Unit / Kelas</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Nama Ayah</th>
+                        <th>HP Ayah/Ibu</th>
+                        <th>Tgl Daftar</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="dsTableBody">
+                    <tr>
+                        <td colspan="10" style="text-align:center; padding:40px;">
+                            <i class="fas fa-spinner fa-spin" style="font-size:1.5rem; color:#1a5d1a;"></i>
+                            <br><br>Memuat data santri...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer info -->
+        <div class="ds-footer-info">
+            <i class="fas fa-info-circle"></i>
+            <span>Klik tombol aksi untuk edit data atau ubah status santri</span>
+        </div>
+
+        <!-- Tombol Back -->
+        <div class="ds-back-wrapper">
+            <a href="dashboard.html" class="btn-back-dashboard">
+                <i class="fas fa-chevron-left"></i>
+                <span>Kembali ke Dashboard</span>
+            </a>
+        </div>
+
+    </div>
+</main>
+
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 <b>DAARUL KHOIROT ALMADANI</b>. All Rights Reserved.</p>
+</footer>
+
+
+<!-- Firebase -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } 
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
+        authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
+        projectId: "daarul-khoirot-pendaftaran",
+        storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
+        messagingSenderId: "963910462284",
+        appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.db = db;
+    window.firebaseDB = db;
+    window.firebaseUpdateDoc = updateDoc;
+    window.firebaseDeleteDoc = deleteDoc;
+    window.firebaseDoc = doc;
+
+    console.log("✅ Firebase ready untuk data-santri");
+
+    setTimeout(() => {
+        if (typeof window.muatDataSantri === 'function') window.muatDataSantri();
+    }, 300);
+</script>
+
+<script>
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+        document.querySelector('nav')?.classList.toggle('show');
+    });
+</script>
+
+<script src="data-santri.js"></script>
+
+</body>
+</html>
