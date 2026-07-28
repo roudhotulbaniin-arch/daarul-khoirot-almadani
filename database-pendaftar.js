@@ -28,8 +28,6 @@ function formatWaktu(iso) {
     } catch { return iso; }
 }
 
-
-/* ========== MUAT DATA ========== */
 async function muatDataPendaftar() {
     const tbody = document.getElementById('dbTablePendaftar');
     if (!tbody) return;
@@ -57,8 +55,9 @@ async function muatDataPendaftar() {
         window.dataPendaftarCache = {};
 
         let totalSetuju = 0;
-        let totalTPQ = 0;
-        let totalMDT = 0;
+        let totalTPQ    = 0;
+        let totalMDT    = 0;
+        let totalPONPES = 0;      // ⭐ Counter baru
         let no = 1;
 
         snapshot.forEach((docSnap) => {
@@ -67,10 +66,16 @@ async function muatDataPendaftar() {
 
             if (d.status_setuju === "SETUJU") totalSetuju++;
             
+            // ⭐ Deteksi unit lebih fleksibel (case-insensitive)
             const unit = (d.tingkat_unit || '').toUpperCase();
-            if (unit.includes('TPQ')) totalTPQ++;
-            if (unit.includes('MDT')) totalMDT++;
+            
+            if (unit.includes('TPQ'))                                totalTPQ++;
+            else if (unit.includes('MDT'))                           totalMDT++;
+            else if (unit.includes('PONPES') || 
+                     unit.includes('PESANTREN') || 
+                     unit.includes('PST'))                           totalPONPES++;
 
+            // ... kode render row (sama seperti sebelumnya) ...
             const badgeSetuju = d.status_setuju === "SETUJU"
                 ? '<span class="db-badge-setuju"><i class="fas fa-check"></i> Setuju</span>'
                 : '<span class="db-badge-belum"><i class="fas fa-times"></i> Belum</span>';
@@ -143,11 +148,12 @@ async function muatDataPendaftar() {
             tbody.appendChild(row);
         });
 
-        // Update summary
+        // ⭐ Update summary (termasuk PONPES)
         document.getElementById('dbTotalPendaftar').textContent = snapshot.size;
-        document.getElementById('dbTotalSetuju').textContent = totalSetuju;
-        document.getElementById('dbTotalTPQ').textContent = totalTPQ;
-        document.getElementById('dbTotalMDT').textContent = totalMDT;
+        document.getElementById('dbTotalSetuju').textContent    = totalSetuju;
+        document.getElementById('dbTotalTPQ').textContent       = totalTPQ;
+        document.getElementById('dbTotalMDT').textContent       = totalMDT;
+        document.getElementById('dbTotalPONPES').textContent    = totalPONPES;   // ⭐ Baru
 
         if (snapshot.size === 0) {
             tbody.innerHTML = `
@@ -161,6 +167,7 @@ async function muatDataPendaftar() {
         }
 
         console.log(`✅ ${snapshot.size} pendaftar dimuat`);
+        console.log(`   📊 TPQ: ${totalTPQ}, MDT: ${totalMDT}, PONPES: ${totalPONPES}`);
 
     } catch (err) {
         console.error("❌ Error:", err);
@@ -174,7 +181,6 @@ async function muatDataPendaftar() {
         `;
     }
 }
-
 
 /* ========== FILTER SEARCH ========== */
 function filterDatabasePendaftar(keyword) {
