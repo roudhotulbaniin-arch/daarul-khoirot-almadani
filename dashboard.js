@@ -1376,3 +1376,34 @@ if (grafikMode) {
         updateGrafikDashboard
     );
 }
+
+/* =========================================================
+   UPDATE BADGE JUMLAH PENDAFTAR
+========================================================= */
+async function updateBadgePendaftar() {
+    try {
+        const { collection, getDocs } = 
+            await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+        
+        const dbRef = window.db || window.firebaseDB;
+        if (!dbRef) return;
+        
+        const snap = await getDocs(collection(dbRef, "pendaftaran_santri"));
+        const badge = document.getElementById('badgePendaftar');
+        
+        if (badge) {
+            badge.textContent = snap.size;
+            
+            // Sembunyikan kalau kosong
+            badge.style.display = snap.size === 0 ? 'none' : 'inline-block';
+        }
+    } catch (err) {
+        console.error("❌ Update badge error:", err);
+    }
+}
+
+// Panggil saat halaman ready
+document.addEventListener('DOMContentLoaded', updateBadgePendaftar);
+
+// Refresh setiap 30 detik (optional)
+setInterval(updateBadgePendaftar, 30000);
