@@ -19,8 +19,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- SweetAlert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Di bawah </body> -->
+
+<!-- 1. SweetAlert2 Library (WAJIB PERTAMA) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- 2. SwalPremium (setelah SweetAlert2) -->
+<script src="sweetalert-premium.js"></script>
+
+<!-- 3. Dashboard JS (paling akhir) -->
+<script type="module" src="dashboard.js"></script>
+<!-- atau tanpa module jika tidak pakai import -->
+<!-- <script src="dashboard.js"></script> -->
     
     <!-- CSS Utama Kamu (opsional, kalau mau konsisten dengan dashboard) -->
     <link rel="stylesheet" href="style.css">
