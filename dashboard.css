@@ -721,67 +721,100 @@
 
 
 /* ================================================================
-   📱 MOBILE — Card Statistik dengan padding lebih besar
+   🔧 FIX PADDING KANAN — Card Pembungkus Tabel Dashboard (Mobile)
 ================================================================ */
+
 @media (max-width: 768px) {
     
-    .dashboard-grid .dashboard-card:has(canvas),
-    .dashboard-grid .dashboard-card:has(.grafik-wrapper) {
-        padding: 16px 12px !important;
-        border-radius: 12px !important;
-        border-left: 5px solid #1a5d1a !important;
+    /* ============================================
+       PARENT CONTAINER — Padding kanan-kiri parent
+    ============================================ */
+    #dashboard-panel {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Reset panel-card induk (karena parent sudah punya padding) */
+    #dashboard-panel > .panel-card {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         margin: 0 !important;
-        
-        /* ⭐ SHADOW LEBIH TEBAL BIAR JELAS */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
     }
     
-    /* Header (Statistik + dropdown) */
-    .dashboard-card .card-header {
-        padding: 4px 6px 12px 6px !important;
-        margin-bottom: 14px !important;
-        gap: 10px !important;
-    }
-    
-    /* Judul "Statistik" */
-    .dashboard-card .card-header .card-title {
-        font-size: 1rem !important;
-        padding: 0 !important;
-    }
-    
-    /* Dropdown */
-    .dashboard-card .card-header select,
-    #grafikMode {
+    /* ============================================
+       DASHBOARD TABLES CONTAINER
+    ============================================ */
+    .dashboard-tables {
         width: 100% !important;
-        min-width: unset !important;
-        padding: 10px 40px 10px 14px !important;
-        font-size: 0.9rem !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        gap: 14px !important;
+        box-sizing: border-box !important;
     }
     
-    /* Grafik wrapper */
-    .grafik-wrapper {
-        padding: 12px 8px !important;
+    /* ============================================
+       ⭐ KARTU TABEL — PADDING KANAN-KIRI SIMETRIS
+    ============================================ */
+    .dashboard-tables > .panel-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        
+        /* ⭐⭐⭐ PADDING KANAN-KIRI SIMETRIS ⭐⭐⭐ */
+        padding-top: 14px !important;
+        padding-right: 14px !important;      /* ⭐ Kanan */
+        padding-bottom: 14px !important;
+        padding-left: 14px !important;       /* ⭐ Kiri (sama) */
+        
         margin: 0 !important;
-        border-radius: 10px !important;
+        box-sizing: border-box !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+    }
+    
+    /* Judul h3 dalam card table */
+    .dashboard-tables .panel-card h3 {
+        padding: 0 0 10px 0 !important;
+        margin: 0 0 12px 0 !important;
+        font-size: 0.95rem !important;
+        border-bottom: 2px solid #e5e7eb !important;
+    }
+    
+    /* ============================================
+       TABLE WRAPPER — Full width dalam card
+    ============================================ */
+    .dashboard-tables .ranking-wrapper,
+    .dashboard-tables .table-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
     }
 }
 
 
 /* ================================================================
-   📱 HP SANGAT KECIL (max 400px)
+   📱 HP KECIL (max 400px)
 ================================================================ */
 @media (max-width: 400px) {
     
-    .dashboard-grid .dashboard-card:has(canvas),
-    .dashboard-grid .dashboard-card:has(.grafik-wrapper) {
-        padding: 14px 10px !important;
+    #dashboard-panel {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
     
-    .grafik-wrapper {
-        padding: 10px 6px !important;
-    }
-    
-    .dashboard-card .card-header .card-title {
-        font-size: 0.95rem !important;
+    .dashboard-tables > .panel-card {
+        padding-top: 12px !important;
+        padding-right: 12px !important;      /* ⭐ Kanan */
+        padding-bottom: 12px !important;
+        padding-left: 12px !important;       /* ⭐ Kiri (sama) */
     }
 }
