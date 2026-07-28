@@ -632,9 +632,8 @@
     min-height: 54px;
     
     /* Border & Background (mirip btn-prev-tab) */
-    background: #ffffff;
-    color: #1a5d1a;
-    border: 2px solid #1a5d1a;
+    background: #1a5d1a;
+    color: #ffffff;
     border-radius: 12px;
     
     /* Font */
