@@ -520,16 +520,65 @@ const CustomDropdown = (function () {
             .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
+        /* =========================================================
+       CLOSE ON CLICK OUTSIDE (dengan pengecualian menu dropdown)
+    ========================================================= */
     document.addEventListener('click', (e) => {
-        if (activeDropdown && !activeDropdown.contains(e.target)) closeMenu(activeDropdown);
+        if (!activeDropdown) return;
+        
+        // ⭐ Skip kalau klik di dalam wrapper atau menu dropdown
+        if (activeDropdown.contains(e.target)) return;
+        
+        // ⭐ Skip kalau klik di dalam .cd-menu (jaga-jaga menu di-portal ke body)
+        if (e.target.closest('.cd-menu, .cd-options, .cd-search')) return;
+        
+        closeMenu(activeDropdown);
     });
 
+
+    /* =========================================================
+       CLOSE ON SCROLL — ANTI SCROLL DI DALAM MENU
+    ========================================================= */
     let scrollTimeout;
-    document.addEventListener('scroll', () => {
+    let lastScrollTarget = null;
+    
+    document.addEventListener('scroll', (e) => {
         if (!activeDropdown) return;
+        
+        // ⭐ Kalau scroll target ADA di dalam menu dropdown → SKIP close
+        const scrollTarget = e.target;
+        const isInsideMenu = 
+            scrollTarget === activeDropdown ||
+            (scrollTarget.nodeType === 1 && (
+                activeDropdown.contains(scrollTarget) ||
+                scrollTarget.closest?.('.cd-menu, .cd-options')
+            ));
+        
+        if (isInsideMenu) {
+            // Scroll di DALAM menu → jangan close
+            return;
+        }
+        
+        // Scroll di LUAR (misal user scroll halaman) → close
         clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => { if (activeDropdown) closeMenu(activeDropdown); }, 200);
+        scrollTimeout = setTimeout(() => {
+            if (activeDropdown) closeMenu(activeDropdown);
+        }, 200);
     }, true);
+
+
+    /* =========================================================
+       TOUCH FIX — Cegah body scroll saat scroll di dalam menu
+    ========================================================= */
+    document.addEventListener('touchmove', (e) => {
+        if (!activeDropdown) return;
+        
+        const menu = e.target.closest('.cd-menu, .cd-options');
+        if (menu) {
+            // ⭐ Tandai bahwa user lagi scroll di menu
+            e.stopPropagation();
+        }
+    }, { passive: true, capture: true });
 
     return {
         init,
