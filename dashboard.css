@@ -693,3 +693,95 @@
         padding: 12px 8px !important;
     }
 }
+
+/* ================================================================
+   🎨 CARD STATISTIK — Border Kiri Warna & Background Jelas
+================================================================ */
+
+/* Card yang berisi chart → styling khusus */
+.dashboard-grid .dashboard-card:has(canvas),
+.dashboard-grid .dashboard-card:has(.grafik-wrapper) {
+    /* ⭐ BORDER KIRI JELAS seperti card table */
+    border-left: 5px solid #1a5d1a !important;
+    border-top: none !important;         /* Hilangkan border top biar cuma 1 aksen */
+    
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    
+    padding: 18px 16px !important;
+    min-height: 380px !important;
+}
+
+/* Warna border kiri chart card — sesuai statistik hijau tua */
+.dashboard-grid .dashboard-card.statistik,
+.dashboard-grid .dashboard-card.stat-chart {
+    border-left-color: #1a5d1a !important;
+}
+
+
+/* ================================================================
+   📱 MOBILE — Card Statistik dengan padding lebih besar
+================================================================ */
+@media (max-width: 768px) {
+    
+    .dashboard-grid .dashboard-card:has(canvas),
+    .dashboard-grid .dashboard-card:has(.grafik-wrapper) {
+        padding: 16px 12px !important;
+        border-radius: 12px !important;
+        border-left: 5px solid #1a5d1a !important;
+        margin: 0 !important;
+        
+        /* ⭐ SHADOW LEBIH TEBAL BIAR JELAS */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    /* Header (Statistik + dropdown) */
+    .dashboard-card .card-header {
+        padding: 4px 6px 12px 6px !important;
+        margin-bottom: 14px !important;
+        gap: 10px !important;
+    }
+    
+    /* Judul "Statistik" */
+    .dashboard-card .card-header .card-title {
+        font-size: 1rem !important;
+        padding: 0 !important;
+    }
+    
+    /* Dropdown */
+    .dashboard-card .card-header select,
+    #grafikMode {
+        width: 100% !important;
+        min-width: unset !important;
+        padding: 10px 40px 10px 14px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Grafik wrapper */
+    .grafik-wrapper {
+        padding: 12px 8px !important;
+        margin: 0 !important;
+        border-radius: 10px !important;
+    }
+}
+
+
+/* ================================================================
+   📱 HP SANGAT KECIL (max 400px)
+================================================================ */
+@media (max-width: 400px) {
+    
+    .dashboard-grid .dashboard-card:has(canvas),
+    .dashboard-grid .dashboard-card:has(.grafik-wrapper) {
+        padding: 14px 10px !important;
+    }
+    
+    .grafik-wrapper {
+        padding: 10px 6px !important;
+    }
+    
+    .dashboard-card .card-header .card-title {
+        font-size: 0.95rem !important;
+    }
+}
