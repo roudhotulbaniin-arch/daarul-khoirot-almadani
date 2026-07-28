@@ -1,8 +1,7 @@
 /* ================================================================
-   🎨 DASHBOARD.CSS — DAARUL KHOIROT ALMADANI
-   Fokus: Summary cards, Dashboard grid, Dashboard tables,
-          Tanggal realtime, Action bar, Tab navigation buttons
-   Catatan: Tab menu & Panel card responsive → di tabs.css & cards.css
+   🎨 DASHBOARD.CSS — DAARUL KHOIROT ALMADANI (v2 CLEAN)
+   Fokus: Summary cards, Dashboard grid, Tables, Chart cards,
+          Tab navigation, Action bar
 ================================================================ */
 
 
@@ -63,6 +62,7 @@
     gap: 8px;
     overflow: hidden;
     word-break: break-word;
+    position: relative;
 }
 
 .dashboard-grid .card-title {
@@ -86,13 +86,54 @@
     line-height: 1.4;
 }
 
-/* Aksen border atas per kategori */
-.dashboard-grid .dashboard-card.terbaik   { border-top: 4px solid #f59e0b; }
-.dashboard-grid .dashboard-card.hafalan   { border-top: 4px solid #3b82f6; }
-.dashboard-grid .dashboard-card.hadir     { border-top: 4px solid #10b981; }
-.dashboard-grid .dashboard-card.ibadah    { border-top: 4px solid #8b5cf6; }
-.dashboard-grid .dashboard-card.rata      { border-top: 4px solid #ec4899; }
-.dashboard-grid .dashboard-card.statistik { border-top: 4px solid #1a5d1a; }
+
+/* ================================================================
+   3️⃣ WARNA BORDER TOP PER KATEGORI
+================================================================ */
+.dashboard-grid .dashboard-card { border-top: 5px solid #1a5d1a; }
+
+/* Ringkasan Monitoring */
+.dashboard-grid .dashboard-card.terbaik       { border-top-color: #eab308; }
+.dashboard-grid .dashboard-card.hafalan       { border-top-color: #3b82f6; }
+.dashboard-grid .dashboard-card.hadir         { border-top-color: #10b981; }
+.dashboard-grid .dashboard-card.ibadah        { border-top-color: #8b5cf6; }
+
+/* Rata-rata */
+.dashboard-grid .dashboard-card.rata-hadir    { border-top-color: #06b6d4; }
+.dashboard-grid .dashboard-card.rata-hafalan  { border-top-color: #6366f1; }
+.dashboard-grid .dashboard-card.rata-ibadah   { border-top-color: #ec4899; }
+.dashboard-grid .dashboard-card.rata-predikat { border-top-color: #f97316; }
+
+/* Statistik */
+.dashboard-grid .dashboard-card.stat-santri   { border-top-color: #1a5d1a; }
+.dashboard-grid .dashboard-card.stat-setoran  { border-top-color: #0891b2; }
+.dashboard-grid .dashboard-card.stat-ayat     { border-top-color: #7c3aed; }
+.dashboard-grid .dashboard-card.stat-tasmi    { border-top-color: #d97706; }
+
+/* Judul & Value ikut warna border */
+.dashboard-grid .dashboard-card.terbaik       .card-title,
+.dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
+.dashboard-grid .dashboard-card.hafalan       .card-title { color: #3b82f6; }
+.dashboard-grid .dashboard-card.hadir         .card-title { color: #10b981; }
+.dashboard-grid .dashboard-card.ibadah        .card-title { color: #8b5cf6; }
+.dashboard-grid .dashboard-card.rata-hadir    .card-title { color: #06b6d4; }
+.dashboard-grid .dashboard-card.rata-hafalan  .card-title { color: #6366f1; }
+.dashboard-grid .dashboard-card.rata-ibadah   .card-title { color: #ec4899; }
+.dashboard-grid .dashboard-card.rata-predikat .card-title { color: #f97316; }
+
+.dashboard-grid .dashboard-card.stat-santri   .card-title,
+.dashboard-grid .dashboard-card.stat-santri   .card-value { color: #1a5d1a; }
+.dashboard-grid .dashboard-card.stat-setoran  .card-title,
+.dashboard-grid .dashboard-card.stat-setoran  .card-value { color: #0891b2; }
+.dashboard-grid .dashboard-card.stat-ayat     .card-title,
+.dashboard-grid .dashboard-card.stat-ayat     .card-value { color: #7c3aed; }
+.dashboard-grid .dashboard-card.stat-tasmi    .card-title,
+.dashboard-grid .dashboard-card.stat-tasmi    .card-value { color: #d97706; }
+
+
+/* ================================================================
+   4️⃣ KARTU STATISTIK (dengan chart) — Premium
+================================================================ */
 
 /* Kartu berisi grafik → full width */
 .dashboard-grid .dashboard-card:has(canvas),
@@ -100,36 +141,101 @@
     grid-column: 1 / -1;
     min-height: 380px;
 }
-.grafik-wrapper{
-    position:relative;
-    width:100%;
-    height:300px;
+
+/* CARD HEADER (Judul + Dropdown Filter) */
+.dashboard-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed #e5e7eb;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
 }
 
-#grafikRingkasan{
-    width:100%!important;
-    height:100%!important;
+.dashboard-card .card-header .card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #1a5d1a;
+    letter-spacing: 0.3px;
+    margin: 0;
 }
 
-.card-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
+/* Dropdown filter #grafikMode */
+.dashboard-card .card-header select,
+#grafikMode {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 
+    background: #ffffff;
+    border: 2px solid #1a5d1a;
+    border-radius: 10px;
+    padding: 9px 40px 9px 16px;
+
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #1a5d1a;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+    min-width: 140px;
+    outline: none;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a5d1a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px;
 }
 
-#grafikMode{
-    padding:6px 10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    cursor:pointer;
+.dashboard-card .card-header select:hover,
+#grafikMode:hover {
+    background-color: #f0f9f0;
+    box-shadow: 0 2px 10px rgba(26, 93, 26, 0.15);
+}
 
+.dashboard-card .card-header select:focus,
+#grafikMode:focus {
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.15);
 }
 
 
 /* ================================================================
-   3️⃣ DASHBOARD TABLES
+   5️⃣ GRAFIK WRAPPER (Canvas Chart)
+================================================================ */
+.grafik-wrapper {
+    position: relative;
+    width: 100%;
+    background: #fafbfc;
+    border-radius: 12px;
+    padding: 16px 12px;
+    border: 1px solid #f0f0f0;
+    min-height: 280px;
+    max-height: 420px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.grafik-wrapper canvas,
+#grafikRingkasan {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 380px !important;
+    display: block;
+}
+
+
+/* ================================================================
+   6️⃣ DASHBOARD TABLES
 ================================================================ */
 .dashboard-tables {
     grid-column: 1 / -1;
@@ -214,7 +320,7 @@
 
 
 /* ================================================================
-   4️⃣ TANGGAL REALTIME (form kehadiran)
+   7️⃣ TANGGAL REALTIME
 ================================================================ */
 .input-ikon.tanggal-realtime {
     width: 100%;
@@ -280,8 +386,8 @@
 
 
 /* ================================================================
-   5️⃣ TOMBOL NAVIGASI (Prev / Next / Simpan / Generate)
-   Base: MOBILE (stack vertikal)
+   8️⃣ TOMBOL NAVIGASI (Prev / Next / Simpan)
+   Base: Mobile (stack vertikal)
 ================================================================ */
 .tab-navigation,
 .box-tombol-container-grid {
@@ -308,28 +414,34 @@
     transition: all 0.25s ease;
     white-space: nowrap;
     box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
 }
 
-/* Tombol Prev (outline) */
+/* Tombol Prev — Outline hijau */
 .btn-prev-tab {
-    background: #fff;
-    color: #1a5d1a;
-    border-color: #1a5d1a;
+    background: #fff !important;
+    color: #1a5d1a !important;
+    border: 2px solid #1a5d1a !important;
+    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.1);
 }
 
 .btn-prev-tab:hover {
-    background: #f0f9f0;
+    background: #1a5d1a !important;
+    color: #fff !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 93, 26, .2);
+    box-shadow: 0 4px 12px rgba(26, 93, 26, .3);
 }
 
-/* Tombol Next / Simpan / Generate (solid) */
+.btn-prev-tab i { transition: transform 0.3s ease; }
+.btn-prev-tab:hover i { transform: translateX(-3px); }
+
+/* Tombol Next / Simpan / Generate — Solid gradient */
 .btn-next-tab,
 .btn-simpan-final,
 #btnProsesRekap {
-    background: linear-gradient(135deg, #1a5d1a, #144514);
-    color: #fff;
-    border-color: #144514;
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: #fff !important;
+    border: 2px solid #144514 !important;
     box-shadow: 0 4px 12px rgba(26, 93, 26, .3);
 }
 
@@ -340,10 +452,12 @@
     box-shadow: 0 6px 18px rgba(26, 93, 26, .45);
 }
 
+.btn-next-tab i { transition: transform 0.3s ease; }
+.btn-next-tab:hover i { transform: translateX(3px); }
+
 
 /* ================================================================
-   6️⃣ ACTION BAR (Reset | Word | PDF)
-   Base: MOBILE (Reset full atas, Word & PDF sejajar bawah)
+   9️⃣ ACTION BAR (Reset | Word | PDF)
 ================================================================ */
 .action-bar {
     display: grid;
@@ -392,54 +506,41 @@
 
 .action-bar .btn-reset,
 #btnResetData { background: linear-gradient(135deg, #ef4444, #dc2626); }
-
 .action-bar .btn-word  { background: linear-gradient(135deg, #3b82f6, #0288d1); }
 .action-bar .btn-pdf   { background: linear-gradient(135deg, #dc2626, #b91c1c); }
 
 
 /* ================================================================
-   7️⃣ 💻 DESKTOP (min-width: 768px)
+   🔟 ANIMASI
+================================================================ */
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-card { animation: cardFadeIn 0.5s ease-out; }
+
+
+/* ================================================================
+   1️⃣1️⃣ 💻 DESKTOP (min-width: 768px)
 ================================================================ */
 @media (min-width: 768px) {
-
     .container {
         max-width: 1200px;
         margin: 20px auto;
         padding: 0 20px;
     }
 
-    /* Dashboard grid → 2 kolom di tablet */
-    .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
 
-    /* Form grid */
-    .form-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
+    .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .form-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
-    .form-grid-2 {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    /* Form kehadiran → 2 kolom (Tanggal + Status) */
     #kehadiran-panel .form-grid,
-    #input-panel .form-grid {
-        grid-template-columns: 1fr 1fr;
-    }
+    #input-panel .form-grid { grid-template-columns: 1fr 1fr; }
 
-    /* Penilaian grid */
-    .penilaian-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-    }
+    .penilaian-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 
-    /* Tombol navigasi → 2 kolom sejajar */
     .tab-navigation,
     .box-tombol-container-grid {
         display: grid;
@@ -448,12 +549,8 @@
         margin-top: 25px;
     }
 
-    /* Kalau hanya 1 tombol → full width */
-    .tab-navigation:has(> button:only-child) {
-        grid-template-columns: 1fr;
-    }
+    .tab-navigation:has(> button:only-child) { grid-template-columns: 1fr; }
 
-    /* Action bar → 3 kolom sejajar */
     .action-bar {
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas: "reset word pdf";
@@ -462,7 +559,6 @@
         margin: 25px 0;
     }
 
-    /* Select status kehadiran */
     #statusKehadiran {
         width: 100%;
         min-height: 52px;
@@ -478,216 +574,25 @@
     }
 }
 
-
-/* ================================================================
-   8️⃣ 🖥️ DESKTOP BESAR (min-width: 1024px) — 3 kolom
-================================================================ */
 @media (min-width: 1024px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    .dashboard-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-
-/* ================================================================
-   9️⃣ 🖥️ WIDE (min-width: 1280px) — 4 kolom
-================================================================ */
 @media (min-width: 1280px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+    .dashboard-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 
 /* ================================================================
-   🔟 📱 MOBILE (max-width: 768px) — Penyesuaian dashboard-tables
+   1️⃣2️⃣ 📱 MOBILE (max-width: 768px)
 ================================================================ */
 @media (max-width: 768px) {
 
-    /* Dashboard tables → padding lebih tipis */
-    .dashboard-tables {
-        gap: 12px;
-        margin-top: 15px;
-    }
-
-    .dashboard-tables > .panel-card {
-        padding: 8px;
-        border-radius: 10px;
-    }
-
-    .dashboard-tables .panel-card h3 {
-        font-size: 0.95rem;
-        margin-bottom: 12px;
-    }
-
-    /* Form grid → 1 kolom */
-    .form-grid,
-    .form-grid-2 {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-}
-
-
-/* ================================================================
-   1️⃣1️⃣ 📱 SUMMARY CARDS (max-width: 600px)
-================================================================ */
-@media (max-width: 600px) {
-    .summary-cards {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-/* ================================================================
-   1️⃣2️⃣ 📱 HP KECIL (max-width: 400px)
-================================================================ */
-@media (max-width: 400px) {
-
-    .action-bar {
-        gap: 8px;
-        padding: 12px;
-    }
-
-    .action-bar > button {
-        padding: 13px 12px;
-        font-size: 0.85rem;
-    }
-
-    .dashboard-tables > .panel-card {
-        padding: 12px;
-    }
-}
-
-/* ================================================================
-   🔧 FIX MOBILE — Kurangi padding kartu tabel dashboard
-================================================================ */
-
-@media (max-width: 768px) {
-
-    /* — Panel card pembungkus utama dashboard: padding tipis — */
-    #dashboard-panel > .panel-card,
-    #dashboard-panel .panel-card:first-child {
-        padding: 10px !important;
-    }
-
-    /* — Panel card tabel di dalam dashboard-tables: padding rapat — */
-    .dashboard-tables {
-        gap: 12px !important;
-        margin-top: 12px !important;
-        padding: 0 !important;
-    }
-
-    .dashboard-tables > .panel-card {
-        padding: 6px 8px !important;      /* ⭐ Padding kecil */
-        border-radius: 10px !important;
-        margin: 0 !important;
-    }
-
-    /* — Judul panel card tabel: margin rapat — */
-    .dashboard-tables .panel-card h3 {
-        font-size: 0.9rem !important;
-        margin: 0 0 10px 0 !important;
-        padding-bottom: 8px !important;
-    }
-
-    /* — Wrapper tabel: hilangkan border ganda — */
-    .dashboard-tables .ranking-wrapper,
-    .dashboard-tables .table-wrapper {
-        border: none !important;
-        border-radius: 6px !important;
-    }
-}
-
-
-/* ============================================
-   📱 HP KECIL (max-width: 400px)
-============================================ */
-@media (max-width: 400px) {
-
+    /* Dashboard panel padding */
     #dashboard-panel > .panel-card {
-        padding: 8px !important;
+        padding: 8px 0 !important;
     }
 
-    .dashboard-tables > .panel-card {
-        padding: 10px 8px !important;
-    }
-
-    .dashboard-tables .panel-card h3 {
-        font-size: 0.85rem !important;
-    }
-}
-
-/* ================================================================
-   🎨 WARNA BORDER-TOP DASHBOARD CARDS — FINAL
-================================================================ */
-
-.dashboard-grid .dashboard-card {
-    border-top: 5px solid #1a5d1a;   /* default */
-}
-
-/* — 🏆 RINGKASAN MONITORING — */
-.dashboard-grid .dashboard-card.terbaik { border-top-color: #eab308; }  /* 🥇 Emas       */
-.dashboard-grid .dashboard-card.hafalan { border-top-color: #3b82f6; }  /* 🔵 Biru       */
-.dashboard-grid .dashboard-card.hadir   { border-top-color: #10b981; }  /* 🟢 Hijau muda */
-.dashboard-grid .dashboard-card.ibadah  { border-top-color: #8b5cf6; }  /* 🟣 Ungu       */
-
-/* — 📊 RATA-RATA — */
-.dashboard-grid .dashboard-card.rata-hadir    { border-top-color: #06b6d4; }  /* 🔷 Cyan       */
-.dashboard-grid .dashboard-card.rata-hafalan  { border-top-color: #6366f1; }  /* 💙 Indigo     */
-.dashboard-grid .dashboard-card.rata-ibadah   { border-top-color: #ec4899; }  /* 🌸 Pink       */
-.dashboard-grid .dashboard-card.rata-predikat { border-top-color: #f97316; }  /* 🟠 Oranye tua */
-
-/* — 📈 STATISTIK — */
-.dashboard-grid .dashboard-card.stat-santri   { border-top-color: #1a5d1a; }  /* 🟢 Hijau tua  */
-.dashboard-grid .dashboard-card.stat-setoran  { border-top-color: #0891b2; }  /* 🔵 Cyan tua   */
-.dashboard-grid .dashboard-card.stat-ayat     { border-top-color: #7c3aed; }  /* 🟣 Ungu tua   */
-.dashboard-grid .dashboard-card.stat-tasmi    { border-top-color: #d97706; }  /* 🟡 Amber      */
-
-
-/* ================================================================
-   🎨 BONUS — Warna judul (card-title) ikut border
-================================================================ */
-.dashboard-grid .dashboard-card.terbaik       .card-title { color: #eab308; }
-.dashboard-grid .dashboard-card.hafalan       .card-title { color: #3b82f6; }
-.dashboard-grid .dashboard-card.hadir         .card-title { color: #10b981; }
-.dashboard-grid .dashboard-card.ibadah        .card-title { color: #8b5cf6; }
-.dashboard-grid .dashboard-card.rata-hadir    .card-title { color: #06b6d4; }
-.dashboard-grid .dashboard-card.rata-hafalan  .card-title { color: #6366f1; }
-.dashboard-grid .dashboard-card.rata-ibadah   .card-title { color: #ec4899; }
-.dashboard-grid .dashboard-card.rata-predikat .card-title { color: #f97316; }
-.dashboard-grid .dashboard-card.stat-santri   .card-title { color: #1a5d1a; }
-.dashboard-grid .dashboard-card.stat-setoran  .card-title { color: #0891b2; }
-.dashboard-grid .dashboard-card.stat-ayat     .card-title { color: #7c3aed; }
-.dashboard-grid .dashboard-card.stat-tasmi    .card-title { color: #d97706; }
-
-
-/* ================================================================
-   🎨 BONUS — Warna value (angka besar) ikut border
-================================================================ */
-.dashboard-grid .dashboard-card.stat-santri   .card-value { color: #1a5d1a; }
-.dashboard-grid .dashboard-card.stat-setoran  .card-value { color: #0891b2; }
-.dashboard-grid .dashboard-card.stat-ayat     .card-value { color: #7c3aed; }
-.dashboard-grid .dashboard-card.stat-tasmi    .card-value { color: #d97706; }
-.dashboard-grid .dashboard-card.terbaik       .card-value { color: #eab308; }
-
-/* ================================================================
-   🔧 FIX MOBILE — DASHBOARD TABLES (FINAL v3 — BERSIH)
-   ✅ Tidak ada @media nested
-   ✅ Kartu ada napas 6px
-   ✅ Scroll horizontal aktif
-================================================================ */
-
-@media (max-width: 768px) {
-
-    /* ============================================
-       DASHBOARD PANEL (pembungkus utama)
-    ============================================ */
-    #dashboard-panel > .panel-card {
-        padding: 8px 0 !important;           /* Kanan-kiri = 0 */
-    }
-
-    /* Header/title dashboard-panel tetap ada padding samping */
     #dashboard-panel > .panel-card > h2,
     #dashboard-panel > .panel-card > h3,
     #dashboard-panel > .panel-card > .card-header {
@@ -695,14 +600,43 @@
         padding-right: 10px !important;
     }
 
-    /* Dashboard grid tetap padding samping tipis */
     #dashboard-panel .dashboard-grid {
         padding: 0 8px !important;
     }
 
-    /* ============================================
-       DASHBOARD TABLES (container)
-    ============================================ */
+    /* Chart card header stack di mobile */
+    .dashboard-card .card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding-bottom: 12px;
+        margin-bottom: 14px;
+    }
+
+    .dashboard-card .card-header .card-title {
+        font-size: 1.05rem;
+    }
+
+    .dashboard-card .card-header select,
+    #grafikMode {
+        width: 100%;
+        min-width: unset;
+        padding: 11px 40px 11px 14px;
+        font-size: 0.92rem;
+    }
+
+    /* Grafik wrapper responsive */
+    .grafik-wrapper {
+        padding: 10px 6px;
+        min-height: 260px;
+        max-height: 340px;
+    }
+
+    .grafik-wrapper canvas {
+        max-height: 300px !important;
+    }
+
+    /* Dashboard tables */
     .dashboard-tables {
         gap: 10px !important;
         margin-top: 10px !important;
@@ -710,11 +644,8 @@
         width: 100% !important;
     }
 
-    /* ============================================
-       KARTU PEMBUNGKUS TABEL
-    ============================================ */
     .dashboard-tables > .panel-card {
-        padding: 10px 6px !important;        /* ⭐ Napas 6px kanan-kiri */
+        padding: 10px 6px !important;
         border-radius: 10px !important;
         margin: 0 !important;
         width: 100% !important;
@@ -723,16 +654,12 @@
         box-sizing: border-box !important;
     }
 
-    /* Judul h3 */
     .dashboard-tables .panel-card h3 {
         padding: 0 4px 8px 4px !important;
         margin: 0 0 8px 0 !important;
         font-size: 0.9rem !important;
     }
 
-    /* ============================================
-       WRAPPER TABEL (scroll horizontal)
-    ============================================ */
     .dashboard-tables .ranking-wrapper,
     .dashboard-tables .table-wrapper {
         width: 100% !important;
@@ -745,9 +672,6 @@
         -webkit-overflow-scrolling: touch !important;
     }
 
-    /* ============================================
-       TABEL
-    ============================================ */
     .dashboard-tables table {
         width: auto !important;
         min-width: 700px !important;
@@ -768,7 +692,6 @@
         white-space: nowrap !important;
     }
 
-    /* Kolom NO — ramping */
     .dashboard-tables table th:nth-child(1),
     .dashboard-tables table td:nth-child(1) {
         width: 40px !important;
@@ -777,7 +700,6 @@
         padding: 9px 4px !important;
     }
 
-    /* Kolom NAMA — lebar cukup */
     .dashboard-tables table th:nth-child(2),
     .dashboard-tables table td:nth-child(2) {
         min-width: 220px !important;
@@ -788,14 +710,12 @@
         font-weight: 600 !important;
     }
 
-    /* Kolom lain (angka/status) */
     .dashboard-tables table th:nth-child(n+3),
     .dashboard-tables table td:nth-child(n+3) {
         min-width: 65px !important;
         text-align: center !important;
     }
 
-    /* Hint scroll */
     .dashboard-tables .ranking-wrapper::after,
     .dashboard-tables .table-wrapper::after {
         content: "← Geser →";
@@ -807,20 +727,29 @@
         background: #f9fafb;
     }
 
-}   /* ⭐ PENUTUP @media (max-width: 768px) */
+    /* Form grid 1 kolom di mobile */
+    .form-grid,
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
 
 
 /* ================================================================
-   📱 HP KECIL (max-width: 400px)
+   1️⃣3️⃣ 📱 SUMMARY & HP KECIL
 ================================================================ */
-@media (max-width: 400px) {
+@media (max-width: 600px) {
+    .summary-cards { grid-template-columns: 1fr; }
+}
 
+@media (max-width: 400px) {
     #dashboard-panel > .panel-card {
         padding: 6px 0 !important;
     }
 
     .dashboard-tables > .panel-card {
-        padding: 8px 4px !important;         /* ⭐ Napas 4px di HP kecil */
+        padding: 8px 4px !important;
     }
 
     .dashboard-tables .panel-card h3 {
@@ -848,355 +777,13 @@
         min-width: 160px !important;
     }
 
-}   /* ⭐ PENUTUP @media (max-width: 400px) */
-
-/* =========================================================
-   NAVIGASI TAB — Container Tombol
-========================================================= */
-.tab-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px dashed #e0e0e0;
-    flex-wrap: wrap;
-}
-
-
-/* =========================================================
-   TOMBOL PREV (Data Santri) — Outline Style
-========================================================= */
-.btn-prev-tab {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    
-    /* ⭐ BORDER HIJAU */
-    background: #ffffff;
-    color: #1a5d1a;
-    border: 2px solid #1a5d1a;
-    
-    /* Ukuran */
-    padding: 12px 24px;
-    min-width: 160px;
-    border-radius: 10px;
-    
-    /* Font */
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    
-    /* Effect */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.1);
-    text-decoration: none;
-}
-
-.btn-prev-tab:hover {
-    background: #1a5d1a;
-    color: #ffffff;
-    transform: translateX(-4px);
-    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3);
-}
-
-.btn-prev-tab:active {
-    transform: translateX(-2px);
-}
-
-.btn-prev-tab i {
-    font-size: 1.1em;
-    transition: transform 0.3s ease;
-}
-
-.btn-prev-tab:hover i {
-    transform: translateX(-3px);
-}
-
-
-/* =========================================================
-   TOMBOL PREV (Data Santri) — FORCE STYLE dengan !important
-========================================================= */
-.btn-prev-tab,
-button.btn-prev-tab,
-.tab-navigation .btn-prev-tab,
-.tab-navigation button.btn-prev-tab {
-    /* ⭐ BORDER PAKSA */
-    border: 2px solid #1a5d1a !important;
-    border-style: solid !important;
-    border-width: 2px !important;
-    border-color: #1a5d1a !important;
-    
-    /* Background & Warna */
-    background: #ffffff !important;
-    background-color: #ffffff !important;
-    color: #1a5d1a !important;
-    
-    /* Layout */
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    
-    /* Ukuran */
-    padding: 14px 24px !important;
-    min-width: 160px !important;
-    width: 100% !important;                /* Full width di mobile */
-    max-width: 100% !important;
-    border-radius: 12px !important;
-    
-    /* Font */
-    font-family: 'Quicksand', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: 1rem !important;
-    letter-spacing: 0.5px !important;
-    text-decoration: none !important;
-    
-    /* Effect */
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.1) !important;
-    outline: none !important;
-    box-sizing: border-box !important;
-}
-
-.btn-prev-tab:hover,
-button.btn-prev-tab:hover {
-    background: #1a5d1a !important;
-    background-color: #1a5d1a !important;
-    color: #ffffff !important;
-    transform: translateX(-4px) !important;
-    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3) !important;
-}
-
-.btn-prev-tab:hover i,
-button.btn-prev-tab:hover i {
-    color: #ffffff !important;
-}
-
-.btn-prev-tab i,
-button.btn-prev-tab i {
-    color: #1a5d1a !important;
-    font-size: 1.2em !important;
-    transition: all 0.3s ease !important;
-}
-
-/* ================================================================
-   DASHBOARD CARD — Wrapper Statistik Premium
-================================================================ */
-.dashboard-card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 22px 20px;
-    margin: 20px 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    animation: cardFadeIn 0.5s ease-out;
-}
-
-.dashboard-card:hover {
-    box-shadow: 0 8px 30px rgba(26, 93, 26, 0.15);
-    transform: translateY(-2px);
-}
-
-/* Gradient glow di sudut kanan atas */
-.dashboard-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(
-        circle at top right,
-        rgba(26, 93, 26, 0.06) 0%,
-        transparent 65%
-    );
-    pointer-events: none;
-    z-index: 0;
-}
-
-
-/* ================================================================
-   CARD HEADER (Judul + Dropdown Filter)
-================================================================ */
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-    border-bottom: 1px dashed #e5e7eb;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
-}
-
-.card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: #1a5d1a;
-    letter-spacing: 0.3px;
-    
-    margin: 0;
-}
-
-
-/* ================================================================
-   DROPDOWN FILTER (Ringkasan / Hafalan / Kehadiran / Ibadah)
-================================================================ */
-.card-header select,
-#grafikMode {
-    /* Reset default browser style */
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    
-    /* Style utama */
-    background: #ffffff;
-    border: 2px solid #1a5d1a;
-    border-radius: 10px;
-    padding: 9px 40px 9px 16px;
-    
-    /* Font */
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #1a5d1a;
-    
-    /* Interaction */
-    cursor: pointer;
-    transition: all 0.25s ease;
-    min-width: 140px;
-    outline: none;
-    
-    /* Icon panah custom */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231a5d1a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 12px;
-}
-
-.card-header select:hover,
-#grafikMode:hover {
-    background-color: #f0f9f0;
-    box-shadow: 0 2px 10px rgba(26, 93, 26, 0.15);
-}
-
-.card-header select:focus,
-#grafikMode:focus {
-    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.15);
-}
-
-.card-header select option {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-    padding: 10px;
-    color: #1f2937;
-}
-
-
-/* ================================================================
-   GRAFIK WRAPPER (Canvas Chart)
-================================================================ */
-.grafik-wrapper {
-    position: relative;
-    background: #fafbfc;
-    border-radius: 12px;
-    padding: 16px 12px;
-    border: 1px solid #f0f0f0;
-    min-height: 280px;
-    max-height: 420px;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.grafik-wrapper canvas {
-    max-width: 100% !important;
-    height: auto !important;
-    max-height: 380px !important;
-    display: block;
-}
-
-
-/* ================================================================
-   ANIMASI CARD MUNCUL
-================================================================ */
-@keyframes cardFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    .action-bar {
+        gap: 8px;
+        padding: 12px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    .action-bar > button {
+        padding: 13px 12px;
+        font-size: 0.85rem;
     }
 }
-
-
-/* ================================================================
-   RESPONSIVE — HP (max-width 600px)
-================================================================ */
-@media (max-width: 600px) {
-    .dashboard-card {
-        padding: 18px 14px;
-        margin: 16px 0;
-        border-radius: 14px;
-        border-left-width: 4px;
-    }
-    
-    .card-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding-bottom: 12px;
-        margin-bottom: 14px;
-    }
-    
-    .card-title {
-        font-size: 1.05rem;
-    }
-    
-    .card-header select,
-    #grafikMode {
-        width: 100%;
-        min-width: unset;
-        padding: 11px 40px 11px 14px;
-        font-size: 0.92rem;
-    }
-    
-    .grafik-wrapper {
-        padding: 10px 6px;
-        min-height: 260px;
-        max-height: 340px;
-    }
-    
-    .grafik-wrapper canvas {
-        max-height: 300px !important;
-    }
-}
-
-
-/* ================================================================
-   VARIASI WARNA BORDER (Kalau butuh multi kartu berbeda)
-================================================================ */
-.dashboard-card.border-blue    { border-left-color: #3b82f6; }
-.dashboard-card.border-purple  { border-left-color: #8b5cf6; }
-.dashboard-card.border-orange  { border-left-color: #f59e0b; }
-.dashboard-card.border-red     { border-left-color: #dc2626; }
-
-.dashboard-card.border-blue::before    { background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.06) 0%, transparent 65%); }
-.dashboard-card.border-purple::before  { background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.06) 0%, transparent 65%); }
-.dashboard-card.border-orange::before  { background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.06) 0%, transparent 65%); }
-.dashboard-card.border-red::before     { background: radial-gradient(circle at top right, rgba(220, 38, 38, 0.06) 0%, transparent 65%); }
