@@ -2,116 +2,104 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Login Admin | Daarul Khoirot Al-Madani</title>
-
     <link rel="stylesheet" href="login.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 </head>
 
 <body>
 
     <div class="login-container">
 
-        <div class="login-card">
+        <!-- ✅ WRAPPER membungkus login-card + back-card -->
+        <div class="login-wrapper">
 
-            <!-- HEADER -->
+            <!-- ═══════════════════════════════════ -->
+            <!--           CARD LOGIN               -->
+            <!-- ═══════════════════════════════════ -->
+            <div class="login-card">
 
-            <div class="login-header">
+                <!-- HEADER -->
+                <div class="login-header">
+                    <img src="main_logo.png" alt="Logo Pesantren">
+                    <h2>LOGIN ADMIN</h2>
+                    <p>Sistem Informasi Santri</p>
+                </div>
 
-                <img src="main_logo.png" alt="Logo Pesantren">
+                <!-- BODY -->
+                <div class="login-body">
+                    <form id="loginForm">
 
-                <h2>LOGIN ADMIN</h2>
+                        <!-- EMAIL -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Masukkan email admin"
+                                required>
+                        </div>
 
-                <p>Sistem Informasi Santri</p>
+                        <!-- PASSWORD -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-lock"></i>
+                                Password
+                            </label>
+                            <div class="password-wrapper">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    placeholder="Masukkan password"
+                                    required>
+                                <button
+                                    type="button"
+                                    id="togglePassword"
+                                    class="toggle-password"
+                                    aria-label="Tampilkan Password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
 
-            </div>
+                        <!-- TOMBOL MASUK -->
+                        <button
+                            type="button"
+                            id="btnLogin"
+                            class="btn-login">
+                            <i class="fas fa-user-shield"></i>
+                            MASUK KE DASHBOARD
+                        </button>
 
-            <!-- BODY -->
-
-            <div class="login-body">
-
-                <form id="loginForm">
-
-                    <div class="form-group">
-
-                        <label>
-                            <i class="fas fa-envelope"></i>
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Masukkan email admin"
-                            required>
-
-                    </div>
-
-                  <div class="form-group">
-
-    <label>
-        <i class="fas fa-lock"></i>
-        Password
-    </label>
-
-    <div class="password-wrapper">
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Masukkan password"
-            required>
-
-        <button
-            type="button"
-            id="togglePassword"
-            class="toggle-password"
-            aria-label="Tampilkan Password">
-
-            <i class="fas fa-eye"></i>
-
-        </button>
-
-    </div>
-
-</div>
-
-<button
-    type="button"
-    id="btnLogin"
-    class="btn-login">
-
-    <i class="fas fa-user-shield"></i>
-
-    MASUK KE DASHBOARD
-
-</button>
-                </form>
+                    </form>
+                </div>
 
             </div>
+            <!-- ✅ TUTUP login-card di sini -->
 
-<!-- ⭐ CARD BOX TOMBOL BACK (Terpisah) -->
-<div class="back-card">
-    <a href="index.html" class="btn-back-website">
-        <i class="fas fa-chevron-left"></i>
-        <span>Kembali ke Website</span>
-    </a>
-</div>
+            <!-- ═══════════════════════════════════ -->
+            <!-- ⭐ CARD BACK — DI LUAR login-card   -->
+            <!-- ═══════════════════════════════════ -->
+            <div class="back-card">
+                <a href="index.html" class="btn-back-website">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>Kembali ke Website</span>
+                </a>
+            </div>
+
         </div>
+        <!-- ✅ TUTUP login-wrapper -->
 
     </div>
+    <!-- ✅ TUTUP login-container -->
 
     <script type="module" src="login.js"></script>
 
