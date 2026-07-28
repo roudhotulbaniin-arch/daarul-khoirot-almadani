@@ -188,12 +188,10 @@ body{
    🔙 TOMBOL KEMBALI KE WEBSITE — Login Page
 ================================================================ */
 
-
 .btn-back-website {
-    background: transparent;
+    background: #f0f9f0;
     color: #1a5d1a;
     border: none;
-    border-bottom: 2px solid #1a5d1a;
     border-radius: 0;
     padding: 10px 0;
     
@@ -230,10 +228,10 @@ body{
     transition: left 0.6s ease;
 }
 
+
 .btn-back-website:hover {
-    color: #14471a;
-    border-bottom-color: #14471a;
-    background: rgba(26, 93, 26, 0.05);
+    background: #1a5d1a;
+    color: white;
 }
 
 .btn-back-website:hover::before {
@@ -274,4 +272,35 @@ body{
     .btn-back-website:hover i {
         transform: none;
     }
+}
+
+.back-website-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-back-website-outside {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a5d1a;
+    border: 2px solid rgba(26, 93, 26, 0.2);
+    border-radius: 30px;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn-back-website-outside:hover {
+    background: white;
+    border-color: #1a5d1a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2);
 }
