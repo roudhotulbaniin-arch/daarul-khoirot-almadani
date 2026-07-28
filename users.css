@@ -955,7 +955,7 @@ html, body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #1a5d1a, #144514);
+    background: linear-gradient(135deg, ##dc2626, #144514);
     color: white;
     box-shadow: 0 4px 12px rgba(26, 93, 26, 0.2);
 }
