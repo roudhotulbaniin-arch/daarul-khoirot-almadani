@@ -235,20 +235,37 @@ function tambahSantri() {
     });
 }
 
-function naikKelasMassal() {
+function tambahSantri() {
     Swal.fire({
-        title: '📈 Naik Kelas Massal',
+        title: '<i class="fas fa-user-plus"></i> Tambah Santri Manual',
         html: `
-            <p>Fitur ini akan menaikkan kelas semua santri aktif sekaligus.</p>
-            <p style="color:#f59e0b; font-weight:700; margin-top:10px;">
-                ⚠️ Sedang dalam pengembangan
-            </p>
+            <div class="swal-tambah-content">
+                <p class="swal-tambah-desc">
+                    Untuk menambahkan santri baru, silakan gunakan 
+                    <b>form pendaftaran resmi</b>.
+                </p>
+                
+                <a href="pendaftaran.html" class="btn-buka-form-swal">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Buka Form Pendaftaran</span>
+                </a>
+                
+                <p class="swal-tambah-note">
+                    <i class="fas fa-info-circle"></i>
+                    Data akan otomatis masuk ke database
+                </p>
+            </div>
         `,
         icon: 'info',
-        confirmButtonColor: '#1a5d1a'
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fas fa-times"></i> Tutup',
+        confirmButtonColor: '#6b7280',
+        customClass: {
+            popup: 'swal-tambah-popup',
+            confirmButton: 'swal-btn-tutup'
+        }
     });
 }
-
 
 /* ========== EXPOSE ========== */
 window.muatDataSantri = muatDataSantri;
