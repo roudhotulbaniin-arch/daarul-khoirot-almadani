@@ -1347,3 +1347,433 @@ html, body {
     }
 }
 
+/* ================================================================
+   🎯 CUSTOM DROPDOWN (custom-dropdown.js) — FINAL STYLE
+================================================================ */
+
+/* Sembunyikan select native */
+select.cd-native {
+    display: none !important;
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+/* WRAPPER */
+.cd-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* ================================================================
+   TRIGGER (Tombol Dropdown)
+================================================================ */
+.cd-trigger {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 36px 11px 14px;
+    border: 2px solid #e0e6ed;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #2c3e50;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+    position: relative;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
+    line-height: 1.2;
+}
+
+.cd-trigger:hover {
+    border-color: #1a5d1a;
+}
+
+.cd-wrapper.open .cd-trigger {
+    border-color: #1a5d1a;
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
+}
+
+.cd-trigger.disabled {
+    background: #f5f5f5;
+    color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Icon utama */
+.cd-trigger .cd-main-icon {
+    color: #1a5d1a;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+}
+
+/* Label */
+.cd-selected-label {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cd-selected-label span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cd-selected-label i {
+    color: #1a5d1a;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* Placeholder state */
+.cd-trigger.placeholder .cd-selected-label {
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+/* Arrow */
+.cd-arrow {
+    position: absolute !important;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1a5d1a;
+    font-size: 0.75rem;
+    transition: transform 0.25s ease;
+}
+
+.cd-wrapper.open .cd-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+
+/* ================================================================
+   MENU DROPDOWN
+================================================================ */
+.cd-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    max-height: 300px;
+    overflow: hidden;
+    z-index: 1000;
+    display: none;
+    animation: cdFadeIn 0.15s ease;
+}
+
+.cd-wrapper.open .cd-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.cd-wrapper.open-up .cd-menu {
+    top: auto;
+    bottom: calc(100% + 6px);
+}
+
+@keyframes cdFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Search bar */
+.cd-search {
+    padding: 10px;
+    border-bottom: 1px solid #f0f2f5;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.cd-search i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 0.85rem;
+}
+
+.cd-search input {
+    width: 100%;
+    padding: 8px 12px 8px 34px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.cd-search input:focus {
+    border-color: #1a5d1a;
+}
+
+/* Options container */
+.cd-options {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 250px;
+    padding: 6px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cd-options::-webkit-scrollbar {
+    width: 6px;
+}
+.cd-options::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+.cd-options::-webkit-scrollbar-thumb {
+    background: rgba(26, 93, 26, 0.3);
+    border-radius: 3px;
+}
+
+/* Group header */
+.cd-group-header {
+    padding: 8px 12px 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Option item */
+.cd-option {
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.87rem;
+    color: #374151;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    margin-bottom: 2px;
+    line-height: 1.3;
+}
+
+.cd-option:hover,
+.cd-option.highlighted {
+    background: #f0f9f0;
+    color: #1a5d1a;
+}
+
+.cd-option.selected {
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: white;
+    font-weight: 600;
+}
+
+.cd-option.selected i {
+    color: #ffd700;
+}
+
+.cd-option i {
+    color: #1a5d1a;
+    width: 18px;
+    text-align: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.cd-option span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Empty state */
+.cd-empty {
+    padding: 20px;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.85rem;
+}
+
+.cd-empty i {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+    color: #d1d5db;
+}
+
+
+/* ================================================================
+   🎯 FIX FILTER BAR — Layout Rapih (2 Dropdown + Refresh)
+================================================================ */
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* Search full-width di atas */
+.filter-bar .search-box {
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.filter-bar .search-box input {
+    width: 100%;
+    padding: 12px 14px 12px 40px;
+    border: 2px solid #e0e6ed;
+    border-radius: 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.88rem;
+    background: white;
+    outline: none;
+    box-sizing: border-box;
+    min-height: 46px;
+}
+
+.filter-bar .search-box input:focus {
+    border-color: #1a5d1a;
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
+}
+
+/* Filter group — dropdown + refresh dalam 1 baris */
+.filter-bar .filter-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Dropdown wrapper — HARUS shrink biar tombol muat */
+.filter-bar .filter-group .cd-wrapper {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+    width: auto;
+}
+
+/* Trigger dropdown di dalam filter-bar */
+.filter-bar .filter-group .cd-trigger {
+    width: 100%;
+    padding: 11px 32px 11px 12px;
+    font-size: 0.83rem;
+    min-height: 46px;
+}
+
+.filter-bar .filter-group .cd-trigger .cd-arrow {
+    right: 10px;
+    font-size: 0.7rem;
+}
+
+/* Tombol refresh — FIXED, tidak boleh shrink */
+.filter-bar .filter-group .btn-refresh,
+.filter-bar .filter-group .btn-icon {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    max-width: 46px !important;
+    flex: 0 0 46px !important;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.25);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.filter-bar .filter-group .btn-refresh:hover,
+.filter-bar .filter-group .btn-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.4);
+}
+
+
+/* ================================================================
+   📱 MOBILE — Fine Tuning
+================================================================ */
+
+@media (max-width: 480px) {
+    .filter-bar .filter-group {
+        gap: 6px;
+    }
+    
+    .filter-bar .filter-group .cd-trigger {
+        font-size: 0.78rem;
+        padding: 10px 28px 10px 10px;
+        min-height: 44px;
+        gap: 5px;
+    }
+    
+    .filter-bar .filter-group .cd-trigger .cd-main-icon {
+        font-size: 0.82rem;
+        width: 14px;
+    }
+    
+    .filter-bar .filter-group .cd-arrow {
+        right: 8px;
+        font-size: 0.65rem;
+    }
+    
+    .filter-bar .filter-group .btn-refresh,
+    .filter-bar .filter-group .btn-icon {
+        width: 44px !important;
+        min-width: 44px !important;
+        max-width: 44px !important;
+        flex: 0 0 44px !important;
+        height: 44px !important;
+    }
+    
+    .cd-option {
+        padding: 11px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .cd-menu {
+        max-height: 260px;
+    }
+}
+
