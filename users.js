@@ -876,35 +876,47 @@ document.querySelectorAll(".modal-overlay").forEach(m => {
     });
 });
 
-// ================================================================
-// 🎯 AUTO-POPULATE Filter Jabatan dari data user
-// ================================================================
 function populateFilterJabatan(users) {
     const selectFilter = document.getElementById('filterJabatan');
-    if (!selectFilter) {
-        console.error('❌ #filterJabatan tidak ditemukan');
-        return;
-    }
+    if (!selectFilter) return;
     
-    // 1. Kumpulkan semua jabatan unik dari data user
-    const jabatanSet = new Set();
+    // 1. Jabatan default (list utama)
+    const jabatanDefault = [
+        'Administrator',
+        'Kepala Pesantren',
+        'Sekretaris',
+        'Bendahara',
+        'Pengajar',
+        'Staff'
+    ];
+    
+    // 2. Ambil jabatan unik dari data user
+    const jabatanFromData = new Set();
     users.forEach(user => {
         if (user.jabatan && user.jabatan.trim()) {
-            jabatanSet.add(user.jabatan.trim());
+            jabatanFromData.add(user.jabatan.trim());
         }
     });
     
-    // 2. Sort A-Z
-    const jabatanList = Array.from(jabatanSet).sort();
+    // 3. Merge & sort
+    const allJabatan = new Set([...jabatanDefault, ...jabatanFromData]);
+    const jabatanList = Array.from(allJabatan).sort();
     
-    console.log('📋 Jabatan yang ditemukan:', jabatanList);
+    // 4. Icon mapping
+    const iconMap = {
+        "Administrator": "fas fa-user-shield",
+        "Kepala Pesantren": "fas fa-crown",
+        "Sekretaris": "fas fa-file-signature",
+        "Bendahara": "fas fa-money-bill",
+        "Pengajar": "fas fa-chalkboard-teacher",
+        "Staff": "fas fa-users"
+    };
     
-    // 3. Simpan nilai yang sedang dipilih (biar tidak reset)
+    // 5. Simpan value yang sedang dipilih
     const currentValue = selectFilter.value;
     
-    // 4. Kosongkan dan isi ulang
+    // 6. Rebuild options
     selectFilter.innerHTML = '<option value="">Semua Jabatan</option>';
-    
     jabatanList.forEach(jabatan => {
         const option = document.createElement('option');
         option.value = jabatan;
@@ -912,15 +924,23 @@ function populateFilterJabatan(users) {
         selectFilter.appendChild(option);
     });
     
-    // 5. Restore nilai yang tadi dipilih
-    if (currentValue && jabatanList.includes(currentValue)) {
+    // 7. Update icon map di attribute (untuk custom-dropdown.js)
+    const finalIconMap = { "": "fas fa-briefcase", ...iconMap };
+    // Tambahkan icon default untuk jabatan yang belum ada di iconMap
+    jabatanList.forEach(j => {
+        if (!finalIconMap[j]) finalIconMap[j] = "fas fa-user-tie";
+    });
+    selectFilter.setAttribute('data-cd-icons', JSON.stringify(finalIconMap));
+    
+    // 8. Restore value
+    if (currentValue) {
         selectFilter.value = currentValue;
     }
     
-    // 6. Refresh custom dropdown (WAJIB karena pakai custom-dropdown.js)
+    // 9. Refresh custom dropdown
     if (typeof CustomDropdown !== 'undefined') {
         CustomDropdown.refresh(selectFilter);
     }
     
-    console.log(`✅ Filter jabatan ter-populate dengan ${jabatanList.length} opsi`);
+    console.log(`✅ Filter jabatan siap: ${jabatanList.length} opsi`, jabatanList);
 }
