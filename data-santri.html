@@ -15,20 +15,101 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-    <div class="header-container">
-        <div class="logo-area">
+   <div class="logo">
+        <img src="main_logo.png" alt="Logo">
+        <div class="header-text-container">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+            <p class="motto-text">Menuju Generasi Cerdas Berilmu Mulia Berperilaku</p>
+        </div>
+    </div>
+    <div class="social-header-tengah">
+        <a href="https://wa.me/6281401643188" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@daarul.khoirot.al" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/share/18PdnmPmym/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com/daarulkhoirot" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+   
+    <button id="menu-toggle"><i class="fas fa-bars"></i>Menu</button>
+    <nav id="main-nav">
+        <div class="mobile-sidebar-header">
             <img src="main_logo.png" alt="Logo">
-            <div class="title-area">
-                <h1>DAARUL KHOIROT ALMADANI</h1>
-                <p>Data Santri Aktif</p>
+            <div class="sidebar-brand">
+                <h3>DAARUL KHOIROT ALMADANI</h3>
+                <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku </span>
             </div>
         </div>
-        <button id="menu-toggle">
-            <i class="fas fa-bars"></i> Menu
-        </button>
-    </div>
+<ul>
+
+    <!-- SECTION: MONITORING -->
+    <li class="menu-section-title">
+        <span>📊 MONITORING</span>
+    </li>
+    
+    <li>
+        <a href="dashboard.html">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard Admin</span>
+        </a>
+    </li>
+
+
+    <!-- SECTION: DATA -->
+    <li class="menu-divider"></li>
+    <li class="menu-section-title">
+        <span>🗄️ DATA MASTER</span>
+    </li>
+    
+    <li>
+        <a href="database-pendaftar.html">
+            <i class="fas fa-database"></i>
+            <span>Database Pendaftar</span>
+            <span class="menu-badge" id="badgePendaftar">0</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="data-santri.html" class="active">
+            <i class="fas fa-user-graduate"></i>
+            <span>Data Santri Aktif</span>
+        </a>
+    </li>
+
+
+    <!-- SECTION: ADMINISTRASI -->
+    <li class="menu-divider"></li>
+    <li class="menu-section-title">
+        <span>⚙️ ADMINISTRASI</span>
+    </li>
+    
+    <li>
+        <a href="users.html">
+            <i class="fas fa-user-cog"></i>
+            <span>Kelola User Admin</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="pengaturan.html">
+            <i class="fas fa-cog"></i>
+            <span>Pengaturan Sistem</span>
+        </a>
+    </li>
+
+
+    <!-- LOGOUT -->
+    <li class="menu-divider"></li>
+    
+    <li>
+        <a href="#" id="btnLogout" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout Admin</span>
+        </a>
+    </li>
+    
+</ul>
+<div class="sidebar-version">v1.0</div>
+</nav>
 </header>
 
 
@@ -179,9 +260,11 @@
 
 <!-- FOOTER -->
 <footer>
-    <p>&copy; 2026 <b>DAARUL KHOIROT ALMADANI</b>. All Rights Reserved.</p>
+    <div class="f-title">Lembaga Pendidikan Islam DAARUL KHOIROT ALMADANI</div>
+    <div class="f-address">Dusun Sukamaju II, RT.002 / RW.004, Desa Jatisari, Kec. Jatisari, Karawang, Jawa Barat 41374</div>
+    <div class="f-contact">Hubungi Kami: +62 814 0164 3188 | daarulkhoirot2025@gmail.com</div>
+    <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
 </footer>
-
 
 <!-- Firebase -->
 <script type="module">
