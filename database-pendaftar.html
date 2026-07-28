@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Pendaftar | Daarul Khoirot Almadani</title>
+    
+    <meta property="og:title" content="Database Pendaftar Daarul Khoirot Almadani">
+    <meta property="og:description" content="Sistem Database Pendaftar Santri Baru Daarul Khoirot Al-Madani">
+    <meta property="og:image" content="profil_lembaga.jpg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1a5d1a">
+
+    <link rel="icon" type="image/png" href="main_logo.png">
+    
+    <!-- Font & Icon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- CSS Utama Kamu (opsional, kalau mau konsisten dengan dashboard) -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- CSS Khusus Database Page -->
+    <link rel="stylesheet" href="database-pendaftar.css">
+</head>
+<body>
+
+<!-- ==========================================================
+     HEADER (Konsisten dengan dashboard)
+========================================================== -->
+<header>
+    <div class="header-container">
+        <div class="logo-area">
+            <img src="main_logo.png" alt="Logo Daarul Khoirot">
+            <div class="title-area">
+                <h1>DAARUL KHOIROT ALMADANI</h1>
+                <p>Database Pendaftar Santri Baru</p>
+            </div>
+        </div>
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
+            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="database-pendaftar.html" class="active"><i class="fas fa-database"></i> Database</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<!-- ==========================================================
+     MAIN CONTENT
+========================================================== -->
+<main class="db-main">
+    <div class="db-container">
+
+        <!-- Breadcrumb -->
+        <div class="db-breadcrumb">
+            <a href="dashboard.html"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</a>
+        </div>
+
+        <!-- Header Halaman -->
+        <div class="db-page-header">
+            <div class="db-title">
+                <i class="fas fa-database"></i>
+                <div>
+                    <h2>Database Pendaftar Santri</h2>
+                    <p>Data lengkap seluruh pendaftar Daarul Khoirot Al-Madani</p>
+                </div>
+            </div>
+            <button class="btn-refresh-db" onclick="muatDataPendaftar()">
+                <i class="fas fa-sync"></i>
+                <span>Refresh Data</span>
+            </button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="db-summary">
+            <div class="db-summary-item">
+                <div class="db-summary-icon icon-blue">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="db-summary-info">
+                    <span class="db-summary-label">Total Pendaftar</span>
+                    <span class="db-summary-value" id="dbTotalPendaftar">0</span>
+                </div>
+            </div>
+            
+            <div class="db-summary-item">
+                <div class="db-summary-icon icon-green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="db-summary-info">
+                    <span class="db-summary-label">Menyetujui</span>
+                    <span class="db-summary-value" id="dbTotalSetuju">0</span>
+                </div>
+            </div>
+            
+            <div class="db-summary-item">
+                <div class="db-summary-icon icon-orange">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="db-summary-info">
+                    <span class="db-summary-label">Unit TPQ</span>
+                    <span class="db-summary-value" id="dbTotalTPQ">0</span>
+                </div>
+            </div>
+            
+            <div class="db-summary-item">
+                <div class="db-summary-icon icon-purple">
+                    <i class="fas fa-mosque"></i>
+                </div>
+                <div class="db-summary-info">
+                    <span class="db-summary-label">Unit MDT</span>
+                    <span class="db-summary-value" id="dbTotalMDT">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar (Search + Filter + Export) -->
+        <div class="db-toolbar">
+            <div class="db-filter">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    id="dbSearchInput" 
+                    placeholder="Cari nama, NIK, ID santri, nama ayah/ibu..."
+                    oninput="filterDatabasePendaftar(this.value)"
+                >
+            </div>
+            
+            <div class="db-toolbar-actions">
+                <select id="dbFilterUnit" class="db-filter-select" onchange="filterByUnit(this.value)">
+                    <option value="">Semua Unit</option>
+                    <option value="TPQ">TPQ</option>
+                    <option value="MDT">MDT</option>
+                    <option value="Pesantren">Pesantren</option>
+                </select>
+                
+                <button class="btn-export-excel" onclick="exportToExcel()">
+                    <i class="fas fa-file-excel"></i>
+                    <span>Export Excel</span>
+                </button>
+                
+                <button class="btn-export-print" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                    <span>Cetak</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Info Hasil Filter -->
+        <div class="db-filter-info" id="dbFilterInfo" style="display:none;">
+            <i class="fas fa-filter"></i>
+            <span id="dbFilterInfoText"></span>
+        </div>
+
+        <!-- Table -->
+        <div class="db-table-wrapper">
+            <table class="db-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>ID Santri</th>
+                        <th>Waktu Daftar</th>
+                        <th>Nama Lengkap</th>
+                        <th>Unit</th>
+                        <th>NIK</th>
+                        <th>No KK</th>
+                        <th>NISN</th>
+                        <th>L/P</th>
+                        <th>Tempat, Tgl Lahir</th>
+                        <th>Anak Ke</th>
+                        <th>Jml Saudara</th>
+                        <th>Cita-cita</th>
+                        <th>Hobi</th>
+                        <th>Keb. Khusus</th>
+                        <th>Disabilitas</th>
+                        <th>Biaya Oleh</th>
+                        <th>Status Ayah</th>
+                        <th>Nama Ayah</th>
+                        <th>WN Ayah</th>
+                        <th>NIK Ayah</th>
+                        <th>KK Ayah</th>
+                        <th>TTL Ayah</th>
+                        <th>Pdk Ayah</th>
+                        <th>Pkj Ayah</th>
+                        <th>Hasil Ayah</th>
+                        <th>HP Ayah</th>
+                        <th>Status Ibu</th>
+                        <th>Nama Ibu</th>
+                        <th>WN Ibu</th>
+                        <th>NIK Ibu</th>
+                        <th>TTL Ibu</th>
+                        <th>Pdk Ibu</th>
+                        <th>Pkj Ibu</th>
+                        <th>Hasil Ibu</th>
+                        <th>HP Ibu</th>
+                        <th>Wali</th>
+                        <th>Alamat Ayah</th>
+                        <th>Alamat Ibu</th>
+                        <th>Alamat Santri</th>
+                        <th>Visi</th>
+                        <th>Pola</th>
+                        <th>Perilaku</th>
+                        <th>Sehat</th>
+                        <th>Riwayat</th>
+                        <th>Tazir</th>
+                        <th>Harapan</th>
+                        <th>Setuju</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="dbTablePendaftar">
+                    <tr>
+                        <td colspan="49" style="text-align:center; padding: 40px;">
+                            <i class="fas fa-spinner fa-spin" style="font-size:1.5rem; color:#1a5d1a;"></i>
+                            <br><br>
+                            Memuat data pendaftar...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="db-footer-info">
+            <i class="fas fa-info-circle"></i>
+            <span>Geser tabel ke kanan untuk melihat semua kolom. Klik "Detail" untuk info lengkap per santri.</span>
+        </div>
+
+    </div>
+</main>
+
+
+<!-- ==========================================================
+     FOOTER
+========================================================== -->
+<footer>
+    <p>&copy; 2026 <b>DAARUL KHOIROT ALMADANI</b>. All Rights Reserved.</p>
+</footer>
+
+
+<!-- ==========================================================
+     FIREBASE INIT
+========================================================== -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy, doc, deleteDoc } 
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBUd34AXvnBkUMaciculMQLLRRAPkxf-6o",
+        authDomain: "daarul-khoirot-pendaftaran.firebaseapp.com",
+        projectId: "daarul-khoirot-pendaftaran",
+        storageBucket: "daarul-khoirot-pendaftaran.firebasestorage.app",
+        messagingSenderId: "963910462284",
+        appId: "1:963910462284:web:17de15dc5d2481b20b3de9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Expose ke window
+    window.db = db;
+    window.firebaseDB = db;
+    window.firebaseCollection = collection;
+    window.firebaseGetDocs = getDocs;
+    window.firebaseQuery = query;
+    window.firebaseOrderBy = orderBy;
+    window.firebaseDoc = doc;
+    window.firebaseDeleteDoc = deleteDoc;
+
+    console.log("✅ Firebase ready untuk database-pendaftar");
+
+    // Auto load data setelah Firebase siap
+    if (typeof window.muatDataPendaftar === 'function') {
+        window.muatDataPendaftar();
+    } else {
+        // Tunggu JS ter-load
+        setTimeout(() => {
+            if (typeof window.muatDataPendaftar === 'function') {
+                window.muatDataPendaftar();
+            }
+        }, 500);
+    }
+</script>
+
+
+<!-- Menu Toggle Script -->
+<script>
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+        document.querySelector('nav')?.classList.toggle('show');
+    });
+</script>
+
+
+<!-- Database Pendaftar Script -->
+<script src="database-pendaftar.js"></script>
+
+</body>
+</html>
