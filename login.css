@@ -185,27 +185,45 @@ body{
 }
 
 /* ================================================================
-   🔙 TOMBOL KEMBALI KE WEBSITE — Login Page (Ghost Style)
-   Untuk: <a class="btn-back-website">
+   📦 BOX CARD PEMBUNGKUS TOMBOL BACK
 ================================================================ */
+.back-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 14px;
+    margin-top: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(26, 93, 26, 0.08);
+    transition: all 0.3s ease;
+    animation: cardFadeIn 0.5s ease-out 0.2s both;
+}
 
+.back-card:hover {
+    box-shadow: 0 6px 25px rgba(26, 93, 26, 0.12);
+    transform: translateY(-2px);
+    border-color: rgba(26, 93, 26, 0.2);
+}
+
+
+/* ================================================================
+   🔙 TOMBOL KEMBALI KE WEBSITE
+================================================================ */
 .btn-back-website {
     /* Layout */
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: 100%;
     
     /* Ukuran */
-    padding: 12px 20px;
-    margin-top: 12px;
+    padding: 14px 20px;
     
-    /* Style — Ghost/Minimal */
+    /* Style — Ghost Green */
     background: #f0f9f0;
     color: #1a5d1a;
-    border: none;
-    border-radius: 10px;
+    border: 2px solid transparent;
+    border-radius: 12px;
     
     /* Font */
     font-family: 'Quicksand', sans-serif;
@@ -222,7 +240,7 @@ body{
     overflow: hidden;
 }
 
-/* Efek shimmer bergerak */
+/* Efek shimmer */
 .btn-back-website::before {
     content: '';
     position: absolute;
@@ -233,15 +251,16 @@ body{
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(26, 93, 26, 0.15),
+        rgba(255, 255, 255, 0.4),
         transparent
     );
     transition: left 0.6s ease;
 }
 
 .btn-back-website:hover {
-    background: #1a5d1a;
+    background: linear-gradient(135deg, #1a5d1a, #14471a);
     color: white !important;
+    border-color: #1a5d1a;
     transform: translateX(-3px);
     box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3);
 }
@@ -256,7 +275,7 @@ body{
 
 /* Icon panah */
 .btn-back-website i {
-    font-size: 0.95em;
+    font-size: 1em;
     color: #1a5d1a;
     transition: all 0.3s ease;
 }
@@ -268,49 +287,17 @@ body{
 
 
 /* ================================================================
-   🎯 ALTERNATIF — TOMBOL DI LUAR CARD (Pill Style)
-   Untuk: <div class="back-website-wrapper">
-             <a class="btn-back-website-outside">
+   ANIMASI CARD MASUK
 ================================================================ */
-
-.back-website-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.btn-back-website-outside {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #1a5d1a;
-    border: 2px solid rgba(26, 93, 26, 0.2);
-    border-radius: 30px;
-    font-weight: 700;
-    text-decoration: none;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 0.9rem;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.btn-back-website-outside i {
-    color: #1a5d1a;
-    transition: all 0.3s ease;
-}
-
-.btn-back-website-outside:hover {
-    background: white;
-    border-color: #1a5d1a;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2);
-}
-
-.btn-back-website-outside:hover i {
-    transform: translateX(-3px);
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -318,8 +305,14 @@ body{
    📱 RESPONSIVE MOBILE
 ================================================================ */
 @media (max-width: 480px) {
+    .back-card {
+        padding: 12px;
+        margin-top: 16px;
+        border-radius: 14px;
+    }
+    
     .btn-back-website {
-        padding: 11px 16px;
+        padding: 12px 16px;
         font-size: 0.9rem;
     }
     
@@ -332,16 +325,7 @@ body{
         transform: none;
     }
     
-    .btn-back-website-outside {
-        padding: 10px 20px;
-        font-size: 0.85rem;
-    }
-    
-    .btn-back-website-outside:hover {
-        transform: none;
-    }
-    
-    .btn-back-website-outside:hover i {
+    .back-card:hover {
         transform: none;
     }
 }
