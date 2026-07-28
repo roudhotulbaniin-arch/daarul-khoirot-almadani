@@ -875,3 +875,52 @@ document.querySelectorAll(".modal-overlay").forEach(m => {
         tutupModal(m);
     });
 });
+
+// ================================================================
+// 🎯 AUTO-POPULATE Filter Jabatan dari data user
+// ================================================================
+function populateFilterJabatan(users) {
+    const selectFilter = document.getElementById('filterJabatan');
+    if (!selectFilter) {
+        console.error('❌ #filterJabatan tidak ditemukan');
+        return;
+    }
+    
+    // 1. Kumpulkan semua jabatan unik dari data user
+    const jabatanSet = new Set();
+    users.forEach(user => {
+        if (user.jabatan && user.jabatan.trim()) {
+            jabatanSet.add(user.jabatan.trim());
+        }
+    });
+    
+    // 2. Sort A-Z
+    const jabatanList = Array.from(jabatanSet).sort();
+    
+    console.log('📋 Jabatan yang ditemukan:', jabatanList);
+    
+    // 3. Simpan nilai yang sedang dipilih (biar tidak reset)
+    const currentValue = selectFilter.value;
+    
+    // 4. Kosongkan dan isi ulang
+    selectFilter.innerHTML = '<option value="">Semua Jabatan</option>';
+    
+    jabatanList.forEach(jabatan => {
+        const option = document.createElement('option');
+        option.value = jabatan;
+        option.textContent = jabatan;
+        selectFilter.appendChild(option);
+    });
+    
+    // 5. Restore nilai yang tadi dipilih
+    if (currentValue && jabatanList.includes(currentValue)) {
+        selectFilter.value = currentValue;
+    }
+    
+    // 6. Refresh custom dropdown (WAJIB karena pakai custom-dropdown.js)
+    if (typeof CustomDropdown !== 'undefined') {
+        CustomDropdown.refresh(selectFilter);
+    }
+    
+    console.log(`✅ Filter jabatan ter-populate dengan ${jabatanList.length} opsi`);
+}
