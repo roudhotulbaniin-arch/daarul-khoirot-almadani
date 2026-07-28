@@ -133,7 +133,6 @@ function lihatAktivitas() {
     });
 }
 
-
 /* Expose */
 window.simpanProfil = simpanProfil;
 window.simpanKontak = simpanKontak;
