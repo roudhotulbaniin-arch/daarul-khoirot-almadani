@@ -958,3 +958,79 @@
     user-select: none;
     -webkit-user-select: none;
 }
+
+/* ================================================================
+   MENU SECTION TITLE (Header per kategori)
+================================================================ */
+.menu-section-title {
+    padding: 12px 16px 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+/* ================================================================
+   MENU BADGE (Notifikasi angka di sebelah menu)
+================================================================ */
+.menu-badge {
+    background: #dc2626;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: auto;
+    min-width: 22px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+}
+
+
+/* ================================================================
+   MENU DIVIDER
+================================================================ */
+.menu-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+    margin: 8px 12px;
+    list-style: none;
+    pointer-events: none;
+}
+
+
+/* ================================================================
+   LOGOUT LINK - Warna Merah
+================================================================ */
+.logout-link {
+    color: #dc2626 !important;
+}
+
+.logout-link:hover {
+    background: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+.logout-link i {
+    color: #dc2626 !important;
+}
+
+
+/* ================================================================
+   ACTIVE STATE (Halaman aktif)
+================================================================ */
+ul li a.active {
+    background: linear-gradient(135deg, #1a5d1a, #14471a);
+    color: white !important;
+    font-weight: 700;
+}
+
+ul li a.active i {
+    color: white !important;
+}
