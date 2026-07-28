@@ -34,26 +34,100 @@
      HEADER (Konsisten dengan dashboard)
 ========================================================== -->
 <header>
-    <div class="header-container">
-        <div class="logo-area">
-            <img src="main_logo.png" alt="Logo Daarul Khoirot">
-            <div class="title-area">
-                <h1>DAARUL KHOIROT ALMADANI</h1>
-                <p>Database Pendaftar Santri Baru</p>
+   <div class="logo">
+        <img src="main_logo.png" alt="Logo">
+        <div class="header-text-container">
+            <h1>DAARUL KHOIROT ALMADANI</h1>
+            <p class="motto-text">Menuju Generasi Cerdas Berilmu Mulia Berperilaku</p>
+        </div>
+    </div>
+    <div class="social-header-tengah">
+        <a href="https://wa.me/6281401643188" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@daarul.khoirot.al" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/share/18PdnmPmym/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com/daarulkhoirot" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+   
+    <button id="menu-toggle"><i class="fas fa-bars"></i>Menu</button>
+    <nav id="main-nav">
+        <div class="mobile-sidebar-header">
+            <img src="main_logo.png" alt="Logo">
+            <div class="sidebar-brand">
+                <h3>DAARUL KHOIROT ALMADANI</h3>
+                <span>Menuju Generasi Cerdas Berilmu Mulia Berperilaku </span>
             </div>
         </div>
-        <button id="menu-toggle">
-            <i class="fas fa-bars"></i> Menu
-        </button>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
-            <li><a href="pendaftaran.html"><i class="fas fa-user-plus"></i> Pendaftaran</a></li>
-            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href="database-pendaftar.html" class="active"><i class="fas fa-database"></i> Database</a></li>
-        </ul>
-    </nav>
+<ul>
+
+    <!-- SECTION: MONITORING -->
+    <li class="menu-section-title">
+        <span>📊 MONITORING</span>
+    </li>
+    
+    <li>
+        <a href="dashboard.html" class="active">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard Admin</span>
+        </a>
+    </li>
+
+
+    <!-- SECTION: DATA -->
+    <li class="menu-divider"></li>
+    <li class="menu-section-title">
+        <span>🗄️ DATA MASTER</span>
+    </li>
+    
+    <li>
+        <a href="database-pendaftar.html">
+            <i class="fas fa-database"></i>
+            <span>Database Pendaftar</span>
+            <span class="menu-badge" id="badgePendaftar">0</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="data-santri.html">
+            <i class="fas fa-user-graduate"></i>
+            <span>Data Santri Aktif</span>
+        </a>
+    </li>
+
+
+    <!-- SECTION: ADMINISTRASI -->
+    <li class="menu-divider"></li>
+    <li class="menu-section-title">
+        <span>⚙️ ADMINISTRASI</span>
+    </li>
+    
+    <li>
+        <a href="users.html">
+            <i class="fas fa-user-cog"></i>
+            <span>Kelola User Admin</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="pengaturan.html">
+            <i class="fas fa-cog"></i>
+            <span>Pengaturan Sistem</span>
+        </a>
+    </li>
+
+
+    <!-- LOGOUT -->
+    <li class="menu-divider"></li>
+    
+    <li>
+        <a href="#" id="btnLogout" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout Admin</span>
+        </a>
+    </li>
+    
+</ul>
+<div class="sidebar-version">v1.0</div>
+</nav>
 </header>
 
 
