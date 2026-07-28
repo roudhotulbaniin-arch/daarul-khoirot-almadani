@@ -283,3 +283,72 @@ window.muatDataPendaftar = muatDataPendaftar;
 window.filterDatabasePendaftar = filterDatabasePendaftar;
 window.filterByUnit = filterByUnit;
 window.exportToExcel = exportToExcel;
+
+// ================================================================
+// 🚪 HANDLE TOMBOL LOGOUT ADMIN
+// ================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    
+    const btnLogout = document.getElementById("btnLogout");
+    
+    if (!btnLogout) {
+        console.error("❌ Tombol #btnLogout tidak ditemukan!");
+        return;
+    }
+    
+    console.log("✅ Tombol logout siap digunakan");
+    
+    btnLogout.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log("🖱️ Tombol logout diklik");
+        
+        // Pastikan SwalPremium sudah ter-load
+        if (typeof SwalPremium === "undefined") {
+            console.error("❌ SwalPremium belum ter-load!");
+            
+            // Fallback logout biasa
+            if (confirm("Yakin ingin logout?")) {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.href = "login.html";
+            }
+            return;
+        }
+        
+        // Panggil SwalPremium.logout()
+        SwalPremium.logout({
+            redirectUrl: "login.html",
+            
+            // Custom action logout (Firebase)
+            onConfirm: async () => {
+                try {
+                    // Kalau pakai Firebase Auth
+                    if (typeof firebase !== "undefined" && firebase.auth) {
+                        await firebase.auth().signOut();
+                    }
+                    
+                    // Atau kalau pakai module Firebase v9+
+                    // import { getAuth, signOut } from "..."
+                    // await signOut(getAuth());
+                    
+                    // Clear storage
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    
+                    // Redirect
+                    window.location.replace("login.html");
+                    
+                } catch (error) {
+                    console.error("❌ Error saat logout:", error);
+                    SwalPremium.error({
+                        title: "Gagal Logout",
+                        text: "Terjadi kesalahan saat logout",
+                        detail: error.message
+                    });
+                }
+            }
+        });
+    });
+});
