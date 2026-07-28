@@ -437,3 +437,202 @@
 @media (max-width: 480px) {
     .ds-summary { grid-template-columns: 1fr; }
 }
+
+/* ================================================================
+   SWAL — TAMBAH SANTRI POPUP
+================================================================ */
+
+.swal-tambah-popup {
+    border-radius: 20px !important;
+    padding: 30px 20px !important;
+    max-width: 400px !important;
+}
+
+.swal-tambah-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 0;
+}
+
+/* Deskripsi */
+.swal-tambah-desc {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+}
+
+.swal-tambah-desc b {
+    color: #1a5d1a;
+    font-weight: 700;
+}
+
+
+/* ================================================================
+   ⭐ TOMBOL BUKA FORM PENDAFTARAN — Premium Style
+================================================================ */
+.btn-buka-form-swal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 24px;
+    
+    /* Solid gradient hijau */
+    background: linear-gradient(135deg, #1a5d1a, #14471a);
+    color: white !important;
+    
+    /* Border & radius */
+    border: none;
+    border-radius: 12px;
+    
+    /* Typography */
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    text-decoration: none !important;
+    
+    /* Effect */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35);
+    position: relative;
+    overflow: hidden;
+    
+    /* Animation on load */
+    animation: btnPulse 2s ease-in-out infinite;
+}
+
+/* Efek shimmer bergerak */
+.btn-buka-form-swal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25),
+        transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.btn-buka-form-swal:hover {
+    background: linear-gradient(135deg, #14471a, #0d2f0d);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(26, 93, 26, 0.5);
+    color: white !important;
+}
+
+.btn-buka-form-swal:hover::before {
+    left: 100%;
+}
+
+.btn-buka-form-swal:active {
+    transform: translateY(-1px);
+}
+
+/* Icon */
+.btn-buka-form-swal i {
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.btn-buka-form-swal:hover i {
+    transform: translateX(4px) rotate(15deg);
+}
+
+
+/* Animasi pulse subtle */
+@keyframes btnPulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(26, 93, 26, 0.55), 
+                    0 0 0 4px rgba(26, 93, 26, 0.1);
+    }
+}
+
+
+/* ================================================================
+   NOTE INFO
+================================================================ */
+.swal-tambah-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #6b7280;
+    font-style: italic;
+    margin: 0;
+    padding: 8px 14px;
+    background: #f0f9f0;
+    border-radius: 20px;
+    border: 1px dashed #a7d1a7;
+}
+
+.swal-tambah-note i {
+    color: #1a5d1a;
+}
+
+
+/* ================================================================
+   TOMBOL TUTUP (Cancel)
+================================================================ */
+.swal-btn-tutup {
+    background: #f3f4f6 !important;
+    color: #4b5563 !important;
+    border: 2px solid #e5e7eb !important;
+    padding: 10px 24px !important;
+    border-radius: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+}
+
+.swal-btn-tutup:hover {
+    background: #e5e7eb !important;
+    color: #1f2937 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+
+/* ================================================================
+   RESPONSIVE MOBILE
+================================================================ */
+@media (max-width: 480px) {
+    .swal-tambah-popup {
+        padding: 24px 16px !important;
+        max-width: 92% !important;
+    }
+    
+    .swal-tambah-desc {
+        font-size: 0.9rem;
+    }
+    
+    .btn-buka-form-swal {
+        padding: 13px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .swal-tambah-note {
+        font-size: 0.72rem;
+        padding: 6px 12px;
+    }
+} 
