@@ -719,27 +719,88 @@
     border-left-color: #1a5d1a !important;
 }
 
-
 /* ================================================================
-   🔧 FIX PADDING KANAN — Card Pembungkus Tabel Dashboard (Mobile)
+   🔧 FIX FINAL — Padding Dashboard Mobile (v3 CLEAN)
+   Override semua konflik sebelumnya
 ================================================================ */
 
 @media (max-width: 768px) {
     
     /* ============================================
-       PARENT CONTAINER — Padding kanan-kiri parent
+       PARENT — Panel utama tetap ada padding
     ============================================ */
-    #dashboard-panel {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
+    #dashboard-panel > .panel-card {
+        padding: 14px !important;              /* ⭐ Padding 14px SEMUA sisi */
+        margin: 0 !important;
         box-sizing: border-box !important;
     }
     
-    /* Reset panel-card induk (karena parent sudah punya padding) */
-    #dashboard-panel > .panel-card {
+    /* Header/judul dashboard */
+    #dashboard-panel > .panel-card > h2,
+    #dashboard-panel > .panel-card > h3,
+    #dashboard-panel > .panel-card > .card-header {
         padding-left: 0 !important;
         padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* ============================================
+       DASHBOARD GRID — Card kecil (Santri Terbaik dll)
+    ============================================ */
+    #dashboard-panel .dashboard-grid,
+    .dashboard-grid {
+        padding: 0 !important;
+        margin: 14px 0 !important;
+        gap: 14px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Card individual dalam grid */
+    .dashboard-grid > .dashboard-card,
+    .dashboard-grid > div {
+        padding: 16px !important;              /* ⭐ Padding internal card */
         margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        border-radius: 12px !important;
+    }
+    
+    /* ============================================
+       CARD STATISTIK (chart)
+    ============================================ */
+    .dashboard-card:has(canvas),
+    .dashboard-card:has(.grafik-wrapper),
+    .dashboard-grid .dashboard-card:has(canvas),
+    .dashboard-grid .dashboard-card:has(.grafik-wrapper) {
+        padding: 16px !important;              /* ⭐ Sama 16px semua sisi */
+        margin: 14px 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        border-left: 5px solid #1a5d1a !important;
+        border-top: none !important;
+        background: #ffffff !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    /* Header chart card */
+    .dashboard-card .card-header {
+        padding: 0 !important;
+        margin: 0 0 14px 0 !important;
+        padding-bottom: 12px !important;
+        border-bottom: 1px dashed #e5e7eb !important;
+    }
+    
+    /* Grafik wrapper */
+    .grafik-wrapper {
+        padding: 12px 8px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     /* ============================================
@@ -748,34 +809,24 @@
     .dashboard-tables {
         width: 100% !important;
         max-width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        padding: 0 !important;
+        margin: 14px 0 0 0 !important;
         gap: 14px !important;
         box-sizing: border-box !important;
     }
     
-    /* ============================================
-       ⭐ KARTU TABEL — PADDING KANAN-KIRI SIMETRIS
-    ============================================ */
+    /* ⭐ KARTU TABEL — Padding SIMETRIS */
     .dashboard-tables > .panel-card {
         width: 100% !important;
         max-width: 100% !important;
-        
-        /* ⭐⭐⭐ PADDING KANAN-KIRI SIMETRIS ⭐⭐⭐ */
-        padding-top: 14px !important;
-        padding-right: 14px !important;      /* ⭐ Kanan */
-        padding-bottom: 14px !important;
-        padding-left: 14px !important;       /* ⭐ Kiri (sama) */
-        
+        padding: 14px !important;              /* ⭐ 14px SEMUA sisi */
         margin: 0 !important;
         box-sizing: border-box !important;
         border-radius: 12px !important;
         overflow: hidden !important;
     }
     
-    /* Judul h3 dalam card table */
+    /* Judul h3 table */
     .dashboard-tables .panel-card h3 {
         padding: 0 0 10px 0 !important;
         margin: 0 0 12px 0 !important;
@@ -783,9 +834,7 @@
         border-bottom: 2px solid #e5e7eb !important;
     }
     
-    /* ============================================
-       TABLE WRAPPER — Full width dalam card
-    ============================================ */
+    /* Table wrapper */
     .dashboard-tables .ranking-wrapper,
     .dashboard-tables .table-wrapper {
         width: 100% !important;
@@ -802,19 +851,29 @@
 
 
 /* ================================================================
-   📱 HP KECIL (max 400px)
+   📱 HP KECIL (max 400px) — Padding lebih hemat
 ================================================================ */
 @media (max-width: 400px) {
     
-    #dashboard-panel {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
+    #dashboard-panel > .panel-card {
+        padding: 12px !important;
+    }
+    
+    .dashboard-grid > .dashboard-card,
+    .dashboard-grid > div {
+        padding: 14px !important;
+    }
+    
+    .dashboard-card:has(canvas),
+    .dashboard-card:has(.grafik-wrapper) {
+        padding: 14px !important;
     }
     
     .dashboard-tables > .panel-card {
-        padding-top: 12px !important;
-        padding-right: 12px !important;      /* ⭐ Kanan */
-        padding-bottom: 12px !important;
-        padding-left: 12px !important;       /* ⭐ Kiri (sama) */
+        padding: 12px !important;
+    }
+    
+    .grafik-wrapper {
+        padding: 10px 6px !important;
     }
 }
