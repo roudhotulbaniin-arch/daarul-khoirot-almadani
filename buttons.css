@@ -1,211 +1,31 @@
-.btn-simpan{
-    background:linear-gradient(
-        135deg,
-        #1a5d1a,
-        #0d2e0d
-    );
-    color:#fff;
-    border:none;
-    border-radius:10px;
-    padding:14px 20px;
-    cursor:pointer;
-    font-weight:700;
-    font-size:1.1rem;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    transition:.3s;
-}
-
-.btn-simpan:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(26,93,26,.25);
-}
-
-/* ==========================================================================
-   PERBAIKAN TOTAL TOMBOL SIMPAN DATA (PRESTASI FIX)
-   ========================================================================== */
-/* Jarak Tombol Navigasi Umum */
-.btn-prev, .btn-next, .btn-wa-konfirmasi {
-    border: none; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease-in-out;
-}
-.btn-next { padding: 15px; width: 100%; background-color: var(--primary-color); color: white; }
-.button-group{
-    width:100%;
-    display:flex;
-    gap:15px;
-    margin-top:20px;
-    padding-top:20px;
-    border-top:1px solid #eee;
-    flex-wrap:wrap;
-}
-
-@media (max-width:768px){
-
-    .bottom-actions,
-    .box-tombol-container,
-    .box-tombol-container-grid{
-        display:flex !important;
-        flex-direction:column !important;
-        width:100% !important;
-        gap:10px !important;
-        margin-top:20px !important;
-    }
-
-    .bottom-actions, .box-tombol-container-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-top: 35px;
-    }
-
-    #btnSimpan, #btnProsesRekap, .btn-simpan-final {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        min-height: 54px;
-        padding: 15px 20px;
-        font-size: 16px;
-        font-weight: 800;
-        text-transform: uppercase;
-        border: none !important;
-        border-radius: 8px !important;
-        background-color: #1a5d1a !important;
-        color: white !important;
-        cursor: pointer;
-    }
-
-    .btn-kembali, .btn-prev-tab {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: #e2e8f0;
-        color: #334155;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 800;
-        min-height: 54px;
-    }
-
-.btn-cetak-box {
-    display: flex;
+/* ================================================================
+   TOMBOL SIMPAN UMUM
+================================================================ */
+.btn-simpan {
+    background: linear-gradient(135deg, #1a5d1a, #0d2e0d);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
-    width: 100%;
-    padding: 16px 20px;
-
-    background: linear-gradient(135deg, #0f7a2d, #14532d);
-    color: white;
-
-    border: none;
-    border-radius: 14px;
-
-    font-size: 15px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
-.btn-cetak-box:hover {
+.btn-simpan:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(26, 93, 26, 0.25);
 }
 
-.btn-cetak-box:active {
-    transform: scale(0.98);
-}
 
-.btn-cetak-box i {
-    font-size: 18px;
-}
-
-.btn-prev-tab{
-    background:#fff;
-    color:#1a5d1a;
-
-    border:2px solid #1a5d1a;
-
-    border-radius:12px;
-
-    min-height:60px;
-    padding:14px 20px;
-
-    width:100%;
-
-    font-size:1.05rem;
-    font-weight:700;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-
-    cursor:pointer;
-    transition:.3s;
-}
-
-.btn-prev-tab:hover{
-    background:#1a5d1a;
-    color:#fff;
-}
-
-.btn-next-tab{
-    background:linear-gradient(
-        135deg,
-        #1a5d1a,
-        #0d3f0d
-    );
-
-    color:#fff;
-    border:none;
-
-    border-radius:12px;
-
-    min-height:60px;
-    padding:14px 20px;
-
-    width:100%;
-
-    font-size:1.05rem;
-    font-weight:700;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-
-    cursor:pointer;
-    transition:.3s;
-}
-
-.btn-next-tab:hover{
-    transform:translateY(-2px);
-}
-
-.btn-prev-tab i,
-.btn-next-tab i{
-    font-size:1.4rem;
-}
-
-.btn-simpan-final:hover{
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(21,128,61,0.25);
-}
-
-/* =========================================================
+/* ================================================================
    NAVIGASI TAB — Container Tombol
-========================================================= */
+================================================================ */
 .tab-navigation {
     display: flex;
     justify-content: space-between;
@@ -218,131 +38,247 @@
 }
 
 
-/* =========================================================
-   TOMBOL PREV (Data Santri) — Outline Style
-========================================================= */
+/* ================================================================
+   TOMBOL PREV (Data Santri) — OUTLINE STYLE
+   Berlaku untuk semua ukuran layar
+================================================================ */
 .btn-prev-tab {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
     
-    /* ⭐ BORDER HIJAU */
-    background: #ffffff;
-    color: #1a5d1a;
-    border: 2px solid #1a5d1a;
+    /* ⭐ BORDER HIJAU — Paksa muncul */
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #1a5d1a !important;
+    border: 2px solid #1a5d1a !important;
+    border-radius: 12px !important;
     
     /* Ukuran */
-    padding: 12px 24px;
-    min-width: 160px;
-    border-radius: 10px;
+    padding: 14px 24px !important;
+    min-width: 160px !important;
+    min-height: 54px !important;
     
     /* Font */
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
+    font-family: 'Quicksand', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
     
     /* Effect */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.1);
-    text-decoration: none;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.1) !important;
+    outline: none !important;
+    box-sizing: border-box !important;
 }
 
 .btn-prev-tab:hover {
-    background: #1a5d1a;
-    color: #ffffff;
-    transform: translateX(-4px);
-    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3);
-}
-
-.btn-prev-tab:active {
-    transform: translateX(-2px);
-}
-
-.btn-prev-tab i {
-    font-size: 1.1em;
-    transition: transform 0.3s ease;
+    background: #1a5d1a !important;
+    background-color: #1a5d1a !important;
+    color: #ffffff !important;
+    transform: translateX(-4px) !important;
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3) !important;
 }
 
 .btn-prev-tab:hover i {
-    transform: translateX(-3px);
+    color: #ffffff !important;
+    transform: translateX(-3px) !important;
+}
+
+.btn-prev-tab i {
+    font-size: 1.2em !important;
+    color: #1a5d1a !important;
+    transition: all 0.3s ease !important;
 }
 
 
-/* =========================================================
-   TOMBOL NEXT (Simpan & Lanjut) — Solid Gradient
-========================================================= */
+/* ================================================================
+   TOMBOL NEXT (Simpan & Lanjut) — SOLID GRADIENT
+================================================================ */
 .btn-next-tab {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
     
-    /* Solid hijau */
-    background: linear-gradient(135deg, #1a5d1a, #14471a);
-    color: #ffffff;
-    border: 2px solid #1a5d1a;
+    /* Solid hijau gradient */
+    background: linear-gradient(135deg, #1a5d1a, #14471a) !important;
+    color: #ffffff !important;
+    border: 2px solid #1a5d1a !important;
+    border-radius: 12px !important;
     
     /* Ukuran */
-    padding: 12px 32px;
-    min-width: 200px;
-    border-radius: 10px;
+    padding: 14px 32px !important;
+    min-width: 200px !important;
+    min-height: 54px !important;
     
     /* Font */
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
+    font-family: 'Quicksand', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.5px !important;
     
     /* Effect */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3);
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3) !important;
+    outline: none !important;
+    box-sizing: border-box !important;
 }
 
 .btn-next-tab:hover {
-    background: linear-gradient(135deg, #14471a, #0d2f0d);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.45);
-}
-
-.btn-next-tab:active {
-    transform: translateY(0);
+    background: linear-gradient(135deg, #14471a, #0d2f0d) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(26, 93, 26, 0.45) !important;
 }
 
 .btn-next-tab i {
-    font-size: 1.1em;
-    transition: transform 0.3s ease;
+    font-size: 1.2em !important;
+    transition: all 0.3s ease !important;
 }
 
 .btn-next-tab:hover i {
-    transform: translateX(4px);
+    transform: translateX(4px) !important;
 }
 
 
-/* =========================================================
-   RESPONSIVE — Mobile
-========================================================= */
-@media (max-width: 600px) {
+/* ================================================================
+   BUTTON GROUP (Kalau ada)
+================================================================ */
+.button-group {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    flex-wrap: wrap;
+}
+
+
+/* ================================================================
+   TOMBOL CETAK BOX
+================================================================ */
+.btn-cetak-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #0f7a2d, #14532d);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.btn-cetak-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cetak-box:active {
+    transform: scale(0.98);
+}
+
+.btn-cetak-box i {
+    font-size: 18px;
+}
+
+
+/* ================================================================
+   RESPONSIVE — HP (max-width 768px)
+================================================================ */
+@media (max-width: 768px) {
+    
+    /* Container navigasi tab jadi kolom */
     .tab-navigation {
-        flex-direction: column-reverse;
-        gap: 10px;
+        flex-direction: column-reverse !important;
+        gap: 12px !important;
     }
     
-    .btn-prev-tab,
+    /* Tombol full width di HP, TAPI TETAP ADA BORDER */
+    .btn-prev-tab {
+        width: 100% !important;
+        min-width: unset !important;
+        max-width: 100% !important;
+        padding: 14px 20px !important;
+        
+        /* ⭐ PASTIKAN BORDER TETAP ADA DI HP */
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        color: #1a5d1a !important;
+        border: 2px solid #1a5d1a !important;
+        border-radius: 12px !important;
+    }
+    
     .btn-next-tab {
-        width: 100%;
-        min-width: unset;
-        padding: 12px 20px;
+        width: 100% !important;
+        min-width: unset !important;
+        max-width: 100% !important;
+        padding: 14px 20px !important;
     }
     
+    /* Hilangkan animasi geser di HP */
     .btn-prev-tab:hover {
-        transform: none;
+        transform: none !important;
     }
     
     .btn-next-tab:hover {
-        transform: none;
+        transform: none !important;
+    }
+    
+    /* Container umum */
+    .bottom-actions,
+    .box-tombol-container,
+    .box-tombol-container-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 10px !important;
+        margin-top: 20px !important;
+    }
+    
+    /* Tombol simpan lain */
+    #btnSimpan,
+    #btnProsesRekap,
+    .btn-simpan-final {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        width: 100% !important;
+        min-height: 54px !important;
+        padding: 15px 20px !important;
+        font-size: 16px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        border: none !important;
+        border-radius: 8px !important;
+        background-color: #1a5d1a !important;
+        color: white !important;
+        cursor: pointer !important;
+    }
+    
+    /* Tombol kembali (BUKAN btn-prev-tab) */
+    .btn-kembali {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        background: #e2e8f0 !important;
+        color: #334155 !important;
+        border-radius: 8px !important;
+        text-decoration: none !important;
+        font-weight: 800 !important;
+        min-height: 54px !important;
     }
 }
