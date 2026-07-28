@@ -1214,40 +1214,34 @@ Dashboard Monitoring Santri
     </div>
 
 </div>
-
 <!-- ===========================
 GRAFIK MONITORING
 =========================== -->
 
-<!-- Grafik Ringkasan -->
-<div class="dashboard-card">
+<!-- ⭐ BUNGKUS dengan .dashboard-grid -->
+<div class="dashboard-grid">
+    
+    <div class="dashboard-card statistik">        <!-- ⭐ Tambah class .statistik -->
 
-    <div class="card-header">
-
-        <div class="card-title">
-            📊 Statistik
+        <div class="card-header">
+            <div class="card-title">
+                📊 Statistik
+            </div>
+            <select id="grafikMode">
+                <option value="ringkasan">Ringkasan</option>
+                <option value="hafalan">Hafalan</option>
+                <option value="kehadiran">Kehadiran</option>
+                <option value="ibadah">Ibadah</option>
+            </select>
         </div>
 
-        <select id="grafikMode">
+        <div class="grafik-wrapper">
+            <canvas id="grafikRingkasan"></canvas>
+        </div>
 
-            <option value="ringkasan">Ringkasan</option>
-
-            <option value="hafalan">Hafalan</option>
-
-            <option value="kehadiran">Kehadiran</option>
-
-            <option value="ibadah">Ibadah</option>
-
-        </select>
-
-    </div>
-
-    <div class="grafik-wrapper">
-        <canvas id="grafikRingkasan"></canvas>
     </div>
 
 </div>
-
 <div class="dashboard-tables">
 <div class="panel-card kehadiran">
     <div class="form-section-title">
