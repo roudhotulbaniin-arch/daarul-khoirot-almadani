@@ -125,7 +125,7 @@ function renderAyatSelesai(total) {
     const wrapper = box?.closest(".dropdown-wrapper-custom");
 
     if (!wrapper || !box || !menu || !input) {
-        console.warn("❌ Dropdown Ayat Mulai: element missing");
+        
         return;
     }
     console.log("✅ Dropdown Ayat Mulai ready");
@@ -164,7 +164,7 @@ function renderAyatSelesai(total) {
     const wrapper = box?.closest(".dropdown-wrapper-custom");
 
     if (!wrapper || !box || !menu || !input) {
-        console.warn("❌ Dropdown Ayat Selesai: element missing");
+        
         return;
     }
     console.log("✅ Dropdown Ayat Selesai ready");
@@ -194,11 +194,12 @@ function renderAyatSelesai(total) {
 })();
 
 /* ==========================================================
-   DROPDOWN STATUS KEHADIRAN (Manual)
+   DROPDOWN STATUS KEHADIRAN (Manual) — SILENT VERSION
 ========================================================== */
 (function() {
     if (!el.boxStatusKehadiran || !wrapperStatus || !el.menuStatusKehadiranDropdown) {
-        console.warn("❌ Dropdown Status Kehadiran: element missing");
+        // Cuma muncul kalau filter "Verbose" aktif
+        console.debug("ℹ️ Dropdown Status Kehadiran skip (elemen tidak ada di halaman ini)");
         return;
     }
 
@@ -215,9 +216,13 @@ function renderAyatSelesai(total) {
 
         el.statusKehadiran.value = item.dataset.value || item.textContent.trim();
 
-        el.menuStatusKehadiranDropdown.querySelectorAll(".dropdown-item-custom").forEach(i => i.classList.remove("active"));
+        el.menuStatusKehadiranDropdown
+            .querySelectorAll(".dropdown-item-custom")
+            .forEach(i => i.classList.remove("active"));
         item.classList.add("active");
 
         wrapperStatus.classList.remove("open");
     });
+
+    console.log("✅ Dropdown Status Kehadiran ready");
 })();
