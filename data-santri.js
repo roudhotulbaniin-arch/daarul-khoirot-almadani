@@ -267,6 +267,100 @@ function tambahSantri() {
     });
 }
 
+// ================================================================
+// 🎓 NAIK KELAS MASSAL
+// ================================================================
+async function naikKelasMassal() {
+    console.log("🎓 Memulai naik kelas massal");
+    
+    // Cek SwalPremium tersedia
+    if (typeof SwalPremium === 'undefined') {
+        alert("SwalPremium belum ter-load!");
+        return;
+    }
+    
+    // 1. Konfirmasi
+    const konf = await SwalPremium.confirm({
+        title: "Naik Kelas Massal?",
+        text: "Semua santri akan naik ke tingkat berikutnya. Yakin ingin melanjutkan?",
+        confirmText: "Ya, Naikkan Semua",
+        cancelText: "Batal",
+        color: "warning"
+    });
+    
+    if (!konf.isConfirmed) return;
+    
+    // 2. Loading
+    SwalPremium.loading({
+        title: "Memproses...",
+        text: "Sedang menaikkan kelas semua santri"
+    });
+    
+    try {
+        // Import functions
+        const { collection, getDocs, doc, writeBatch } 
+            = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+        
+        // 3. Ambil semua santri
+        const snap = await getDocs(collection(db, "santri"));
+        
+        if (snap.empty) {
+            SwalPremium.close();
+            SwalPremium.warning({
+                title: "Data Kosong",
+                text: "Tidak ada santri untuk dinaikkan."
+            });
+            return;
+        }
+        
+        // 4. Batch update
+        const batch = writeBatch(db);
+        let counter = 0;
+        let skipped = 0;
+        
+        snap.forEach(docSnap => {
+            const data = docSnap.data();
+            const kelasSekarang = parseInt(data.kelas || 0);
+            
+            // Aturan: kelas max 12 (SMA)
+            if (kelasSekarang >= 12) {
+                skipped++;
+                return;
+            }
+            
+            batch.update(doc(db, "santri", docSnap.id), {
+                kelas: kelasSekarang + 1,
+                tahun_naik: new Date().getFullYear(),
+                updated_at: new Date()
+            });
+            counter++;
+        });
+        
+        await batch.commit();
+        
+        // 5. Success
+        SwalPremium.close();
+        await SwalPremium.success({
+            title: "Berhasil! 🎉",
+            text: `${counter} santri dinaikkan, ${skipped} sudah maksimal.`
+        });
+        
+        // 6. Reload
+        if (typeof muatDataSantri === 'function') {
+            await muatDataSantri();
+        }
+        
+    } catch (err) {
+        console.error("❌ Error:", err);
+        SwalPremium.close();
+        SwalPremium.error({
+            title: "Gagal Memproses",
+            text: err.message
+        });
+    }
+}
+
+
 /* ========== EXPOSE ========== */
 window.muatDataSantri = muatDataSantri;
 window.filterSantri = filterSantri;
@@ -276,8 +370,7 @@ window.editSantri = editSantri;
 window.ubahStatus = ubahStatus;
 window.hapusSantri = hapusSantri;
 window.tambahSantri = tambahSantri;
-window.naikKelasMassal = naikKelasMassal;
-
+window.naikKelasMassal = naikKelasMassal;  // ✅ Sekarang tidak error 
 
 // ================================================================
 // 🚪 HANDLE TOMBOL LOGOUT ADMIN
