@@ -1377,33 +1377,35 @@ if (grafikMode) {
     );
 }
 
-/* =========================================================
-   UPDATE BADGE JUMLAH PENDAFTAR
-========================================================= */
 async function updateBadgePendaftar() {
     try {
-        const { collection, getDocs } = 
-            await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+        // ⭐ Cek db & functions ready
+        if (!window.db || !window.collection || !window.getDocs) {
+            console.warn("⚠️ Firebase belum siap");
+            return;
+        }
         
-        const dbRef = window.db || window.firebaseDB;
-        if (!dbRef) return;
+        // ⭐ Pakai dari window (sudah versi yang sama dengan db)
+        const snap = await window.getDocs(
+            window.collection(window.db, "pendaftaran_santri")
+        );
         
-        const snap = await getDocs(collection(dbRef, "pendaftaran_santri"));
         const badge = document.getElementById('badgePendaftar');
-        
         if (badge) {
             badge.textContent = snap.size;
-            
-            // Sembunyikan kalau kosong
             badge.style.display = snap.size === 0 ? 'none' : 'inline-block';
         }
+        
+        console.log(`✅ Badge pendaftar: ${snap.size}`);
+        
     } catch (err) {
-        console.error("❌ Update badge error:", err);
+        console.error("❌ Update badge error:", err.message);
     }
 }
 
-// Panggil saat halaman ready
-document.addEventListener('DOMContentLoaded', updateBadgePendaftar);
 
-// Refresh setiap 30 detik (optional)
-setInterval(updateBadgePendaftar, 30000);
+// Delay biar firebase.js selesai load
+setTimeout(() => {
+    updateBadgePendaftar();
+    setInterval(updateBadgePendaftar, 30000);
+}, 1500);
