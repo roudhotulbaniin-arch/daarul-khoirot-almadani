@@ -39,60 +39,78 @@ async function muatDataSantri() {
 
         const snap = await getDocs(collection(window.db, "pendaftaran_santri"));
 
-        tbody.innerHTML = '';
-        window.dataSantriCache = {};
+tbody.innerHTML = '';
+window.dataSantriCache = {};
 
-        let totalAktif = 0, totalTPQ = 0, totalMDT = 0, totalPONPES = 0, totalAlumni = 0;
-        let no = 1;
+let totalAktif = 0, totalTPQ = 0, totalMDT = 0, totalPONPES = 0, totalAlumni = 0;
+let no = 1;
 
-        snap.forEach(docSnap => {
-            const d = docSnap.data();
-            window.dataSantriCache[docSnap.id] = d;
+// ✅ Konversi snapshot ke array agar bisa di-sort
+const dataArray = [];
+snap.forEach(docSnap => {
+    dataArray.push({
+        id: docSnap.id,
+        data: docSnap.data()
+    });
+});
 
-            const status = d.status_santri || 'Aktif';
-            const unit = (d.tingkat_unit || '').toUpperCase();
+// ✅ Sort berdasarkan id_santri (numeric-aware)
+dataArray.sort((a, b) => {
+    const idA = a.data.id_santri || '';
+    const idB = b.data.id_santri || '';
+    return String(idA).localeCompare(String(idB), undefined, { numeric: true });
+});
 
-            if (status === 'Aktif') totalAktif++;
-            if (status === 'Alumni') totalAlumni++;
-            if (unit.includes('TPQ')) totalTPQ++;
-            else if (unit.includes('MDT')) totalMDT++;
-            else if (unit.includes('PONPES') || unit.includes('PESANTREN') || unit.includes('PST')) totalPONPES++;
+// ✅ Baru loop yang sudah terurut
+dataArray.forEach(item => {
+    const docSnap = { id: item.id, data: () => item.data };
+    const d = item.data;
 
-            const hpKontak = d.hp_ayah || d.hp_ibu || '-';
-            const statusClass = status.toLowerCase();
+    window.dataSantriCache[item.id] = d;
 
-            const row = document.createElement('tr');
-            row.dataset.searchable = [d.nama_santri, d.id_santri, d.nik].filter(Boolean).join(' ').toLowerCase();
-            row.dataset.status = status.toLowerCase();
-            row.dataset.unit = unit.toLowerCase();
+    const status = d.status_santri || 'Aktif';
+    const unit = (d.tingkat_unit || '').toUpperCase();
 
-            row.innerHTML = `
-                <td>${no++}</td>
-                <td><span class="ds-id-badge">${safeVal(d.id_santri)}</span></td>
-                <td class="nama-cell">${safeVal(d.nama_santri)}</td>
-                <td>${safeVal(d.tingkat_unit)}</td>
-                <td>${safeVal(d.jenis_kelamin)}</td>
-                <td>${safeVal(d.nama_ayah)}</td>
-                <td>${hpKontak}</td>
-                <td>${formatTgl(d.tgl_daftar)}</td>
-                <td><span class="ds-status ${statusClass}">${status}</span></td>
-                <td>
-                    <div class="ds-actions">
-                        <button class="btn-aksi edit" onclick="editSantri('${docSnap.id}')" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-aksi status" onclick="ubahStatus('${docSnap.id}')" title="Status">
-                            <i class="fas fa-user-cog"></i>
-                        </button>
-                        <button class="btn-aksi hapus" onclick="hapusSantri('${docSnap.id}')" title="Hapus">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
+    if (status === 'Aktif') totalAktif++;
+    if (status === 'Alumni') totalAlumni++;
+    if (unit.includes('TPQ')) totalTPQ++;
+    else if (unit.includes('MDT')) totalMDT++;
+    else if (unit.includes('PONPES') || unit.includes('PESANTREN') || unit.includes('PST')) totalPONPES++;
 
+    const hpKontak = d.hp_ayah || d.hp_ibu || '-';
+    const statusClass = status.toLowerCase();
+
+    const row = document.createElement('tr');
+    row.dataset.searchable = [d.nama_santri, d.id_santri, d.nik].filter(Boolean).join(' ').toLowerCase();
+    row.dataset.status = status.toLowerCase();
+    row.dataset.unit = unit.toLowerCase();
+
+    row.innerHTML = `
+        <td>${no++}</td>
+        <td><span class="ds-id-badge">${safeVal(d.id_santri)}</span></td>
+        <td class="nama-cell">${safeVal(d.nama_santri)}</td>
+        <td>${safeVal(d.tingkat_unit)}</td>
+        <td>${safeVal(d.jenis_kelamin)}</td>
+        <td>${safeVal(d.nama_ayah)}</td>
+        <td>${hpKontak}</td>
+        <td>${formatTgl(d.tgl_daftar)}</td>
+        <td><span class="ds-status ${statusClass}">${status}</span></td>
+        <td>
+            <div class="ds-actions">
+                <button class="btn-aksi edit" onclick="editSantri('${item.id}')" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-aksi status" onclick="ubahStatus('${item.id}')" title="Status">
+                    <i class="fas fa-user-cog"></i>
+                </button>
+                <button class="btn-aksi hapus" onclick="hapusSantri('${item.id}')" title="Hapus">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </td>
+    `;
+    tbody.appendChild(row);
+});
         document.getElementById('dsTotalAktif').textContent = totalAktif;
         document.getElementById('dsTotalTPQ').textContent = totalTPQ;
         document.getElementById('dsTotalMDT').textContent = totalMDT;
