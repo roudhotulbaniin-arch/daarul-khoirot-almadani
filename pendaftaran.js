@@ -434,88 +434,29 @@ function loadDesaDanPosSantri(val) {
 /* =========================================================
    5. LOCK / RESET / COPY / DOMISILI
 ========================================================= */
-function toggleAyahFields(status) {
-    const fields = ['wn_ayah','nik_ayah','kk_ayah','tmpt_ayah','tgl_ayah','pdk_ayah','pjk_ayah','hasil_ayah','hp_ayah'];
-    const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
 
-    fields.forEach(name => {
-        const el = document.getElementsByName(name)[0];
-        if (!el) return;
+// ============================================================
+// ✅ FUNGSI YANG HILANG — lockFields
+// ============================================================
+function lockFields(suffix, isLocked) {
+    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
+    dropdowns.forEach(name => {
+        const el = getElByName(name);
+        if (el) {
+            el.disabled = isLocked;
+            el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
+        }
+    });
 
-        const isSelect = el.tagName === 'SELECT';
-        const isFlatpickrDate =
-            name === 'tgl_ayah' ||
-            el.classList.contains('custom-date-input') ||
-            el.classList.contains('flatpickr-input');
-
-        if (isLocked) {
-            // reset value
-            if (isSelect || isFlatpickrDate) el.value = "";
-            else el.value = "-";
-
-            // lock field
-            if (isSelect) {
-                el.disabled = true;
-            } else {
-                el.readOnly = true;
-                el.setAttribute('readonly', 'readonly');
-            }
-
-            // khusus flatpickr / custom date input
-            if (isFlatpickrDate) {
-                const fp = el._flatpickr;
-
-                if (fp) {
-                    fp.clear();
-                    fp.close();
-                    fp.set('clickOpens', false);
-                }
-
-                el.style.pointerEvents = 'none';
-                el.tabIndex = -1;
-
-                const wrapper = el.closest('.input-icon-wrapper');
-                if (wrapper) wrapper.style.pointerEvents = 'none';
-            }
-
-            el.style.backgroundColor = "#e9ecef";
-            el.style.color = "#6c757d";
-            el.style.opacity = "0.7";
-
-        } else {
-            if (!isFlatpickrDate && el.value === "-") el.value = "";
-
-            // unlock field
-            if (isSelect) {
-                el.disabled = false;
-            } else {
-                // khusus flatpickr: tetap readonly supaya tidak bisa diketik manual
-                if (isFlatpickrDate) {
-                    el.readOnly = true;
-                    el.setAttribute('readonly', 'readonly');
-                } else {
-                    el.readOnly = false;
-                    el.removeAttribute('readonly');
-                }
-            }
-
-            // aktifkan kembali flatpickr
-            if (isFlatpickrDate) {
-                const fp = el._flatpickr;
-                if (fp) {
-                    fp.set('clickOpens', true);
-                }
-
-                el.style.pointerEvents = 'auto';
-                el.tabIndex = 0;
-
-                const wrapper = el.closest('.input-icon-wrapper');
-                if (wrapper) wrapper.style.pointerEvents = 'auto';
-            }
-
-            el.style.backgroundColor = "#ffffff";
-            el.style.color = "#000000";
-            el.style.opacity = "1";
+    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
+    inputs.forEach(name => {
+        const el = getElByName(name);
+        if (el) {
+            if (isLocked) el.setAttribute('readonly', 'true');
+            else el.removeAttribute('readonly');
+            el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
+            el.style.color           = isLocked ? "#6c757d" : "#000000";
+            el.style.cursor          = isLocked ? "not-allowed" : "text";
         }
     });
 }
@@ -523,7 +464,7 @@ function toggleAyahFields(status) {
 function resetFields(suffix) {
     const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
     dropdowns.forEach(name => {
-        const el = getElByName(name, suffix);
+        const el = getElByName(name);
         if (el) {
             el.innerHTML = `<option value="">Pilih Data</option>`;
             refreshCD(el);
@@ -532,7 +473,7 @@ function resetFields(suffix) {
 
     const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
     inputs.forEach(name => {
-        const el = getElByName(name, suffix);
+        const el = getElByName(name);
         if (el) el.value = "";
     });
 }
@@ -546,8 +487,8 @@ function dataAyahLengkap() {
     const rt     = getElByName('rt_ayah')?.value?.trim();
     const rw     = getElByName('rw_ayah')?.value?.trim();
     const pos    = getElByName('pos_ayah')?.value?.trim();
-    return !!(prov && prov !== "provinces_init_val" 
-              && kab && kec && desa 
+    return !!(prov && prov !== "provinces_init_val"
+              && kab && kec && desa
               && alamat && rt && rw && pos);
 }
 
@@ -602,14 +543,13 @@ function isiAlamatPesantren() {
 }
 
 // ============================================================
-// ✅ FIX — toggleDomisiliIbu (TANPA rename ID)
+// toggleDomisiliIbu
 // ============================================================
 function toggleDomisiliIbu(val) {
     const box = getElByName('box_ibu');
     if (box) box.style.display = (val === "") ? 'none' : 'grid';
 
     if (val === 'sama') {
-        // Validasi data Ayah dulu
         if (!dataAyahLengkap()) {
             Swal.fire({
                 icon: 'warning',
@@ -627,14 +567,11 @@ function toggleDomisiliIbu(val) {
 
     } else if (val === 'beda') {
         lockFields('ibu', false);
-        resetFields('ibu');  // reset dulu → innerHTML jadi "Pilih Data"
+        resetFields('ibu');
 
-        // ✅ LANGSUNG load ke ID asli (TANPA rename ke _temp)
         const provIbuEl = getElByName('prov_ibu');
         if (provIbuEl) {
-            // Pastikan ID element benar (jaga-jaga kalau sebelumnya pernah di-rename)
             provIbuEl.id = 'prov_ibu';
-
             console.log('📥 Loading provinsi Ibu...');
             loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
         } else {
@@ -644,7 +581,7 @@ function toggleDomisiliIbu(val) {
 }
 
 // ============================================================
-// ✅ FIX — toggleDomisiliSantri (TANPA rename ID)
+// toggleDomisiliSantri
 // ============================================================
 function toggleDomisiliSantri(val) {
     const box = getElByName('box_santri');
@@ -655,7 +592,6 @@ function toggleDomisiliSantri(val) {
         lockFields('santri', true);
 
     } else if (val === 'sama') {
-        // Validasi data Ayah dulu
         if (!dataAyahLengkap()) {
             Swal.fire({
                 icon: 'warning',
@@ -675,12 +611,9 @@ function toggleDomisiliSantri(val) {
         lockFields('santri', false);
         resetFields('santri');
 
-        // ✅ LANGSUNG load ke ID asli (TANPA rename ke _temp)
         const provSantriEl = getElByName('prov_santri');
         if (provSantriEl) {
-            // Kembalikan ID asli kalau sebelumnya pernah direname
             provSantriEl.id = 'prov_santri';
-
             console.log('📥 Loading provinsi Santri...');
             loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
         } else {
@@ -689,9 +622,15 @@ function toggleDomisiliSantri(val) {
     }
 }
 
+
 /* =========================================================
    6. TOGGLE FIELDS (Ayah / NISN / HP / Riwayat Kesehatan)
 ========================================================= */
+
+// ============================================================
+// ✅ toggleAyahFields — VERSI FINAL (flatpickr aware)
+// HAPUS versi duplikat yang lain!
+// ============================================================
 function toggleAyahFields(status) {
     const fields = ['wn_ayah','nik_ayah','kk_ayah','tmpt_ayah','tgl_ayah','pdk_ayah','pjk_ayah','hasil_ayah','hp_ayah'];
     const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
@@ -701,10 +640,13 @@ function toggleAyahFields(status) {
         if (!el) return;
 
         const isSelect = el.tagName === 'SELECT';
-        const isDate = el.type === 'date';
+        const isFlatpickrDate =
+            name === 'tgl_ayah' ||
+            el.classList.contains('custom-date-input') ||
+            el.classList.contains('flatpickr-input');
 
         if (isLocked) {
-            if (isDate || isSelect) el.value = "";
+            if (isSelect || isFlatpickrDate) el.value = "";
             else el.value = "-";
 
             if (isSelect) {
@@ -714,24 +656,19 @@ function toggleAyahFields(status) {
                 el.setAttribute('readonly', 'readonly');
             }
 
-            // khusus input date
-            if (isDate) {
-                el.style.pointerEvents = "none";
-                el.tabIndex = -1;
-                el.blur();
-
-                // kalau pakai flatpickr / custom datepicker
-                if (el._flatpickr) {
-                    el._flatpickr.close();
-                    el._flatpickr.set('clickOpens', false);
-
-                    if (el._flatpickr.altInput) {
-                        el._flatpickr.altInput.readOnly = true;
-                        el._flatpickr.altInput.setAttribute('readonly', 'readonly');
-                        el._flatpickr.altInput.style.pointerEvents = "none";
-                        el._flatpickr.altInput.tabIndex = -1;
-                    }
+            if (isFlatpickrDate) {
+                const fp = el._flatpickr;
+                if (fp) {
+                    fp.clear();
+                    fp.close();
+                    fp.set('clickOpens', false);
                 }
+
+                el.style.pointerEvents = 'none';
+                el.tabIndex = -1;
+
+                const wrapper = el.closest('.input-icon-wrapper');
+                if (wrapper) wrapper.style.pointerEvents = 'none';
             }
 
             el.style.backgroundColor = "#e9ecef";
@@ -739,30 +676,31 @@ function toggleAyahFields(status) {
             el.style.opacity = "0.7";
 
         } else {
-            if (el.value === "-") el.value = "";
+            if (!isFlatpickrDate && el.value === "-") el.value = "";
 
             if (isSelect) {
                 el.disabled = false;
             } else {
-                el.readOnly = false;
-                el.removeAttribute('readonly');
+                if (isFlatpickrDate) {
+                    el.readOnly = true;
+                    el.setAttribute('readonly', 'readonly');
+                } else {
+                    el.readOnly = false;
+                    el.removeAttribute('readonly');
+                }
             }
 
-            // khusus input date
-            if (isDate) {
-                el.style.pointerEvents = "auto";
+            if (isFlatpickrDate) {
+                const fp = el._flatpickr;
+                if (fp) {
+                    fp.set('clickOpens', true);
+                }
+
+                el.style.pointerEvents = 'auto';
                 el.tabIndex = 0;
 
-                if (el._flatpickr) {
-                    el._flatpickr.set('clickOpens', true);
-
-                    if (el._flatpickr.altInput) {
-                        el._flatpickr.altInput.readOnly = false;
-                        el._flatpickr.altInput.removeAttribute('readonly');
-                        el._flatpickr.altInput.style.pointerEvents = "auto";
-                        el._flatpickr.altInput.tabIndex = 0;
-                    }
-                }
+                const wrapper = el.closest('.input-icon-wrapper');
+                if (wrapper) wrapper.style.pointerEvents = 'auto';
             }
 
             el.style.backgroundColor = "#ffffff";
@@ -771,6 +709,7 @@ function toggleAyahFields(status) {
         }
     });
 }
+
 function handleNoNISN(checked) {
     const el = document.getElementsByName('nisn')[0];
     if (!el) return;
