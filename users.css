@@ -1768,5 +1768,140 @@ select.cd-native {
 }
 
 /* ================================================================
+   🎯 TOMBOL KEMBALI KE DASHBOARD
+================================================================ */
+
+.db-back-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 20px auto 0 auto;
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(26, 93, 26, 0.1);
+    transition: all 0.3s ease;
+    animation: dbBackFadeIn 0.5s ease-out both;
+    box-sizing: border-box;
+}
+
+.db-back-wrapper:hover {
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.15);
+    border-color: rgba(26, 93, 26, 0.25);
+}
+
+
+/* Tombol Kembali */
+.btn-back-dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 20px;
+    
+    background: #f0f9f0;
+    color: #1a5d1a;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    text-decoration: none !important;
+    
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efek shimmer saat hover */
+.btn-back-dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.btn-back-dashboard:hover {
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: white !important;
+    border-color: #1a5d1a;
+    transform: translateX(-3px);
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.3);
+}
+
+.btn-back-dashboard:hover::before {
+    left: 100%;
+}
+
+.btn-back-dashboard:active {
+    transform: translateX(-1px);
+}
+
+.btn-back-dashboard i {
+    font-size: 1em;
+    color: #1a5d1a;
+    transition: all 0.3s ease;
+}
+
+.btn-back-dashboard:hover i {
+    color: white;
+    transform: translateX(-4px);
+}
+
+
+/* Animasi masuk */
+@keyframes dbBackFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Responsive Mobile */
+@media (max-width: 480px) {
+    .db-back-wrapper {
+        padding: 12px;
+        margin: 16px auto 0 auto;
+        border-radius: 12px;
+    }
+    
+    .btn-back-dashboard {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    /* Hilangkan animasi geser di HP */
+    .btn-back-dashboard:hover {
+        transform: none;
+    }
+    
+    .btn-back-dashboard:hover i {
+        transform: none;
+    }
+    
+    .db-back-wrapper:hover {
+        transform: none;
+    }
+}
+/* ================================================================
    END OF FILE
 ================================================================ */
