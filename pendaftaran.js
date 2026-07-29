@@ -638,21 +638,70 @@ function toggleAyahFields(status) {
         const el = document.getElementsByName(name)[0];
         if (!el) return;
 
+        const isSelect = el.tagName === 'SELECT';
+        const isDate = el.type === 'date';
+
         if (isLocked) {
-            if (el.type === 'date' || el.tagName === 'SELECT') el.value = "";
+            if (isDate || isSelect) el.value = "";
             else el.value = "-";
 
-            if (el.tagName === 'SELECT') el.disabled = true;
-            else el.readOnly = true;
+            if (isSelect) {
+                el.disabled = true;
+            } else {
+                el.readOnly = true;
+                el.setAttribute('readonly', 'readonly');
+            }
+
+            // khusus input date
+            if (isDate) {
+                el.style.pointerEvents = "none";
+                el.tabIndex = -1;
+                el.blur();
+
+                // kalau pakai flatpickr / custom datepicker
+                if (el._flatpickr) {
+                    el._flatpickr.close();
+                    el._flatpickr.set('clickOpens', false);
+
+                    if (el._flatpickr.altInput) {
+                        el._flatpickr.altInput.readOnly = true;
+                        el._flatpickr.altInput.setAttribute('readonly', 'readonly');
+                        el._flatpickr.altInput.style.pointerEvents = "none";
+                        el._flatpickr.altInput.tabIndex = -1;
+                    }
+                }
+            }
 
             el.style.backgroundColor = "#e9ecef";
             el.style.color = "#6c757d";
             el.style.opacity = "0.7";
+
         } else {
             if (el.value === "-") el.value = "";
 
-            if (el.tagName === 'SELECT') el.disabled = false;
-            else el.readOnly = false;
+            if (isSelect) {
+                el.disabled = false;
+            } else {
+                el.readOnly = false;
+                el.removeAttribute('readonly');
+            }
+
+            // khusus input date
+            if (isDate) {
+                el.style.pointerEvents = "auto";
+                el.tabIndex = 0;
+
+                if (el._flatpickr) {
+                    el._flatpickr.set('clickOpens', true);
+
+                    if (el._flatpickr.altInput) {
+                        el._flatpickr.altInput.readOnly = false;
+                        el._flatpickr.altInput.removeAttribute('readonly');
+                        el._flatpickr.altInput.style.pointerEvents = "auto";
+                        el._flatpickr.altInput.tabIndex = 0;
+                    }
+                }
+            }
 
             el.style.backgroundColor = "#ffffff";
             el.style.color = "#000000";
@@ -660,7 +709,6 @@ function toggleAyahFields(status) {
         }
     });
 }
-
 function handleNoNISN(checked) {
     const el = document.getElementsByName('nisn')[0];
     if (!el) return;
