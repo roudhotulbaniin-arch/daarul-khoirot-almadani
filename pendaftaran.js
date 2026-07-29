@@ -814,6 +814,22 @@ function toggleRiwayat() {
     div.style.display = (sel.value === "Pernah Sakit") ? "block" : "none";
 }
 
+function handleStatusAyah(status) {
+    const domIbu = document.getElementsByName('pilih_dom_ibu')[0];
+    const domSantri = document.getElementsByName('pilih_dom_santri')[0];
+
+    if (status === 'Tidak Diketahui') {
+        if (domIbu?.value === 'sama') {
+            domIbu.value = "";
+            if (typeof toggleDomisiliIbu === 'function') toggleDomisiliIbu("");
+        }
+
+        if (domSantri?.value === 'sama') {
+            domSantri.value = "";
+            if (typeof toggleDomisiliSantri === 'function') toggleDomisiliSantri("");
+        }
+    }
+}
 
 /* =========================================================
    7. VALIDASI INPUT PER TAB
@@ -833,22 +849,92 @@ function validateInput(tabId) {
         });
     };
 
+    const showErrorAlert = (title, text) => {
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: 'error',
+            confirmButtonColor: '#1a5319'
+        });
+    };
+
+    const getEl = (name) => {
+        return document.getElementsByName(name)[0] || document.getElementById(name);
+    };
+
+    const getVal = (name) => {
+        const el = getEl(name);
+        return el?.value ? el.value.trim() : "";
+    };
+
+    const isInvalidValue = (el, val) => {
+        if (!el) return true;
+
+        const invalidValues = [
+            "",
+            "-- Pilih --",
+            "Pilih Data",
+            "provinces_init_val",
+            "regencies_init_val",
+            "districts_init_val",
+            "villages_init_val"
+        ];
+
+        if (invalidValues.includes(val)) return true;
+
+        // Cek text option yang sedang dipilih (untuk select)
+        if (el.tagName === 'SELECT' && el.selectedIndex >= 0) {
+            const selectedText = el.options[el.selectedIndex]?.text?.trim() || "";
+            if (
+                selectedText === "-- Pilih --" ||
+                selectedText === "Pilih Data" ||
+                selectedText === "Pilih Provinsi" ||
+                selectedText === "Pilih Kabupaten" ||
+                selectedText === "Pilih Kecamatan" ||
+                selectedText === "Pilih Desa" ||
+                selectedText === "Pilih Kelurahan"
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
     const check = (name, label) => {
-        const el = document.getElementsByName(name)[0] || document.getElementById(name);
+        const el = getEl(name);
         if (!el) {
             console.error(`Elemen '${name}' tidak ditemukan!`);
             return false;
         }
-        const val = el.value ? el.value.trim() : "";
-        if (val === "" || val.includes("-- Pilih")) {
+
+        const val = getVal(name);
+
+        if (isInvalidValue(el, val)) {
             showWarningAlert(`Field <b>${label}</b> wajib diisi dengan benar!`);
             return false;
         }
+
+        return true;
+    };
+
+    const checkAlamat = (suffix, label) => {
+        if (!check(`prov_${suffix}`, `Provinsi ${label}`)) return false;
+        if (!check(`kab_${suffix}`, `Kabupaten ${label}`)) return false;
+        if (!check(`kec_${suffix}`, `Kecamatan ${label}`)) return false;
+        if (!check(`desa_${suffix}`, `Desa/Kelurahan ${label}`)) return false;
+        if (!check(`al_${suffix}`, `Alamat ${label}`)) return false;
+        if (!check(`rt_${suffix}`, `RT ${label}`)) return false;
+        if (!check(`rw_${suffix}`, `RW ${label}`)) return false;
+        if (!check(`pos_${suffix}`, `Kode Pos ${label}`)) return false;
         return true;
     };
 
     if (tabId === 'info') return true;
 
+    /* =====================================================
+       TAB SANTRI
+    ===================================================== */
     if (tabId === 'santri') {
         if (!check('tgl_daftar', 'Tanggal Pendaftaran')) return false;
         if (!check('nama_santri', 'Nama Lengkap Santri')) return false;
@@ -857,18 +943,23 @@ function validateInput(tabId) {
         if (!check('no_kk', 'Nomor KK')) return false;
         if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
 
-        const nikVal = document.getElementsByName('nik')[0]?.value || "";
+        const nikVal = getVal('nik');
         if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
-            Swal.fire({ title: 'Format Salah', text: 'NIK Santri harus 16 digit angka!', icon: 'error', confirmButtonColor: '#1a5319' });
+            showErrorAlert('Format Salah', 'NIK Santri harus 16 digit angka!');
             return false;
         }
     }
 
+    /* =====================================================
+       TAB ORTU
+    ===================================================== */
     if (tabId === 'ortu') {
-        const statusAyah = document.getElementsByName('st_ayah')[0]?.value;
+        const statusAyah = getVal('st_ayah');
+
         if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
         if (!check('st_ayah', 'Status Ayah')) return false;
 
+        // Data detail ayah hanya wajib jika status = Masih Hidup
         if (statusAyah === 'Masih Hidup') {
             if (!check('nik_ayah', 'NIK Ayah')) return false;
             if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
@@ -876,9 +967,9 @@ function validateInput(tabId) {
             if (!check('hasil_ayah', 'Penghasilan Ayah')) return false;
             if (!check('hp_ayah', 'No Handphone Ayah')) return false;
 
-            const nikA = document.getElementsByName('nik_ayah')[0]?.value || "";
+            const nikA = getVal('nik_ayah');
             if (nikA.length !== 16 || !isNumeric.test(nikA)) {
-                Swal.fire({ title: 'Format Salah', text: 'NIK Ayah harus 16 digit angka!', icon: 'error', confirmButtonColor: '#1a5319' });
+                showErrorAlert('Format Salah', 'NIK Ayah harus 16 digit angka!');
                 return false;
             }
         }
@@ -890,19 +981,82 @@ function validateInput(tabId) {
         if (!check('st_wali', 'Status Wali Santri')) return false;
     }
 
+    /* =====================================================
+       TAB ALAMAT
+    ===================================================== */
     if (tabId === 'alamat') {
-        if (!check('milik_ayah', 'Status Kepemilikan Rumah')) return false;
-        if (!check('prov_ayah', 'Provinsi')) return false;
-        if (!check('kab_ayah', 'Kabupaten')) return false;
-        if (!check('al_ayah', 'Alamat Jalan/Kampung')) return false;
+        const statusAyah = getVal('st_ayah');
+        const domIbu = getVal('pilih_dom_ibu');
+        const domSantri = getVal('pilih_dom_santri');
+
+        const ayahTidakDiketahui = (statusAyah === 'Tidak Diketahui');
+
+        // 1. Alamat Ayah
+        // Jika status ayah tidak diketahui, alamat ayah tidak diwajibkan
+        if (!ayahTidakDiketahui) {
+            if (!check('milik_ayah', 'Status Kepemilikan Rumah')) return false;
+            if (!checkAlamat('ayah', 'Ayah')) return false;
+        }
+
+        // 2. Domisili Ibu
         if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
+
+        if (ayahTidakDiketahui && domIbu === 'sama') {
+            showWarningAlert(
+                'Karena <b>Status Ayah = Tidak Diketahui</b>, maka <b>Domisili Ibu</b> tidak boleh <b>Sama dengan Ayah</b>. Silakan pilih <b>Beda</b>.'
+            );
+            return false;
+        }
+
+        if (domIbu === 'sama') {
+            if (!dataAyahLengkap()) {
+                showWarningAlert(
+                    'Data alamat <b>Ayah</b> belum lengkap, sehingga <b>Domisili Ibu = Sama dengan Ayah</b> tidak bisa digunakan.'
+                );
+                return false;
+            }
+        }
+
+        if (domIbu === 'beda') {
+            if (!checkAlamat('ibu', 'Ibu')) return false;
+        }
+
+        // 3. Domisili Santri
         if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
+
+        if (ayahTidakDiketahui && domSantri === 'sama') {
+            showWarningAlert(
+                'Karena <b>Status Ayah = Tidak Diketahui</b>, maka <b>Domisili Santri</b> tidak boleh <b>Sama dengan Ayah</b>. Silakan pilih <b>Mukim</b> atau <b>Beda</b>.'
+            );
+            return false;
+        }
+
+        if (domSantri === 'sama') {
+            if (!dataAyahLengkap()) {
+                showWarningAlert(
+                    'Data alamat <b>Ayah</b> belum lengkap, sehingga <b>Domisili Santri = Sama dengan Ayah</b> tidak bisa digunakan.'
+                );
+                return false;
+            }
+        }
+
+        if (domSantri === 'beda' || domSantri === 'mukim') {
+            if (!checkAlamat('santri', 'Santri')) return false;
+        }
     }
 
+    /* =====================================================
+       TAB PERNYATAAN
+    ===================================================== */
     if (tabId === 'pernyataan') {
         const elCek = document.getElementsByName('cek_pernyataan')[0];
         if (!elCek || !elCek.checked) {
-            Swal.fire({ title: 'Persetujuan Diperlukan', text: 'Silakan centang kotak persetujuan sebelum mengirimkan data.', icon: 'warning', confirmButtonColor: '#1a5319' });
+            Swal.fire({
+                title: 'Persetujuan Diperlukan',
+                text: 'Silakan centang kotak persetujuan sebelum mengirimkan data.',
+                icon: 'warning',
+                confirmButtonColor: '#1a5319'
+            });
             return false;
         }
     }
