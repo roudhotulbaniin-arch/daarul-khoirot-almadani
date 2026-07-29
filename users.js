@@ -497,25 +497,49 @@ sidebarOverlay?.addEventListener("click", () => sidebar.classList.remove("open")
 
 btnLogout?.addEventListener("click", (e) => {
     e.preventDefault();
+    e.stopPropagation();
     
+    // Fallback kalau SwalPremium belum load
+    if (typeof SwalPremium === "undefined") {
+        console.error("❌ SwalPremium belum ter-load!");
+        if (confirm("Yakin ingin logout?")) {
+            doLogoutUser();
+        }
+        return;
+    }
+    
+    // Panggil SwalPremium.logout() — konsisten dengan halaman lain
     SwalPremium.logout({
         redirectUrl: "login.html",
-        onConfirm: async () => {
-            try {
-                await signOut(auth);
-                localStorage.clear();
-                sessionStorage.clear();
-                window.location.replace("login.html");
-            } catch (err) {
-                SwalPremium.error({
-                    title: "Gagal Logout",
-                    text: err.message
-                });
-            }
-        }
+        onConfirm: doLogoutUser
     });
-    
-    return; // Hentikan eksekusi kode lama di bawah
+});
+
+
+// Fungsi logout terpisah
+async function doLogoutUser() {
+    try {
+        console.log("🔐 Logging out...");
+        await signOut(auth);
+        localStorage.clear();
+        sessionStorage.clear();
+        console.log("✅ Logout success");
+        window.location.replace("login.html");
+    } catch (err) {
+        console.error("❌ Error logout:", err);
+        if (typeof SwalPremium !== "undefined") {
+            SwalPremium.error({
+                title: "Gagal Logout",
+                text: err.message
+            });
+        } else {
+            alert("Gagal logout: " + err.message);
+        }
+    }
+}
+
+
+
 // ================================================================
 //  MUAT USER
 // ================================================================
