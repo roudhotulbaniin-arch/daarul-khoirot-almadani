@@ -495,25 +495,27 @@ onAuthStateChanged(auth, async (user) => {
 toggleSidebar?.addEventListener("click", () => sidebar.classList.toggle("open"));
 sidebarOverlay?.addEventListener("click", () => sidebar.classList.remove("open"));
 
-btnLogout?.addEventListener("click", async () => {
-    const konf = await alertKonfirmasi(
-        "Yakin Logout?",
-        "Anda akan keluar dari sistem admin.",
-        'question'
-    );
-    if (!konf.isConfirmed) return;
-
-    try {
-        alertLoading("Sedang logout...");
-        await signOut(auth);
-        sessionStorage.clear();
-        window.location.href = "login.html";
-    } catch (err) {
-        Swal.close();
-        alertError("Gagal Logout", err.message);
-    }
-});
-
+btnLogout?.addEventListener("click", (e) => {
+    e.preventDefault();
+    
+    SwalPremium.logout({
+        redirectUrl: "login.html",
+        onConfirm: async () => {
+            try {
+                await signOut(auth);
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.replace("login.html");
+            } catch (err) {
+                SwalPremium.error({
+                    title: "Gagal Logout",
+                    text: err.message
+                });
+            }
+        }
+    });
+    
+    return; // Hentikan eksekusi kode lama di bawah
 // ================================================================
 //  MUAT USER
 // ================================================================
