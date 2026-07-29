@@ -929,11 +929,11 @@
     
     /* Scrollbar cantik */
     scrollbar-width: thin;
-    scrollbar-color: #1a5d1a #f0f0f0;
+    scrollbar-color: #98FB98 #f0f0f0;
 }
 
 .cd-options::-webkit-scrollbar {
-    width: 6px;
+    width: 3px;
 }
 
 .cd-options::-webkit-scrollbar-track {
