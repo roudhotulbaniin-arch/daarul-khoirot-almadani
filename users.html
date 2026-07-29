@@ -7,28 +7,19 @@
 
     <link rel="icon" type="image/png" href="main_logo.png">
 
-    <!-- Fonts -->
+    <!-- ==================== FONTS & ICONS ==================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<link rel="stylesheet" href="swal-premium.css">
+    <!-- ==================== EXTERNAL CSS ==================== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
-    <!-- Di bawah </body> -->
-
-<!-- 1. SweetAlert2 Library (WAJIB PERTAMA) -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<!-- 2. SwalPremium (setelah SweetAlert2) -->
-<script src="swal-premium.js"></script>
-
-<link rel="stylesheet" href="custom-dropdown.css">
-
-    <!-- CSS: Global website + CSS khusus user -->
+    <!-- ==================== LOCAL CSS ==================== -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="swal-premium.css">
+    <link rel="stylesheet" href="custom-dropdown.css">
     <link rel="stylesheet" href="users.css">
 </head>
 
@@ -64,75 +55,70 @@
                 </div>
             </div>
 
-<ul>
+            <ul>
+                <!-- SECTION: MONITORING -->
+                <li class="menu-section-title">
+                    <span>📊 MONITORING</span>
+                </li>
+                
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard Admin</span>
+                    </a>
+                </li>
 
-    <!-- SECTION: MONITORING -->
-    <li class="menu-section-title">
-        <span>📊 MONITORING</span>
-    </li>
-    
-    <li>
-        <a href="dashboard.html">
-            <i class="fas fa-chart-line"></i>
-            <span>Dashboard Admin</span>
-        </a>
-    </li>
+                <!-- SECTION: DATA -->
+                <li class="menu-divider"></li>
+                <li class="menu-section-title">
+                    <span>🗄️ DATA MASTER</span>
+                </li>
+                
+                <li>
+                    <a href="database-pendaftar.html">
+                        <i class="fas fa-database"></i>
+                        <span>Database Pendaftar</span>
+                        <span class="menu-badge" id="badgePendaftar">0</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="data-santri.html">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Data Santri Aktif</span>
+                    </a>
+                </li>
 
+                <!-- SECTION: ADMINISTRASI -->
+                <li class="menu-divider"></li>
+                <li class="menu-section-title">
+                    <span>⚙️ ADMINISTRASI</span>
+                </li>
+                
+                <li>
+                    <a href="users.html" class="active">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Kelola User Admin</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="pengaturan.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Pengaturan Sistem</span>
+                    </a>
+                </li>
 
-    <!-- SECTION: DATA -->
-    <li class="menu-divider"></li>
-    <li class="menu-section-title">
-        <span>🗄️ DATA MASTER</span>
-    </li>
-    
-    <li>
-        <a href="database-pendaftar.html">
-            <i class="fas fa-database"></i>
-            <span>Database Pendaftar</span>
-            <span class="menu-badge" id="badgePendaftar">0</span>
-        </a>
-    </li>
-    
-    <li>
-        <a href="data-santri.html">
-            <i class="fas fa-user-graduate"></i>
-            <span>Data Santri Aktif</span>
-        </a>
-    </li>
-
-
-    <!-- SECTION: ADMINISTRASI -->
-    <li class="menu-divider"></li>
-    <li class="menu-section-title">
-        <span>⚙️ ADMINISTRASI</span>
-    </li>
-    
-    <li>
-        <a href="users.html"class="active">
-            <i class="fas fa-user-cog"></i>
-            <span>Kelola User Admin</span>
-        </a>
-    </li>
-    
-    <li>
-        <a href="pengaturan.html">
-            <i class="fas fa-cog"></i>
-            <span>Pengaturan Sistem</span>
-        </a>
-    </li>
-
-
-    <!-- LOGOUT -->
-    <li class="menu-divider"></li>
-    
-    <li>
-        <a href="#" id="btnLogout" class="logout-link">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout Admin</span>
-        </a>
-    </li>
-    
-</ul>
+                <!-- LOGOUT -->
+                <li class="menu-divider"></li>
+                
+                <li>
+                    <a href="#" id="btnLogout" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout Admin</span>
+                    </a>
+                </li>
+            </ul>
 
             <div class="sidebar-version">v1.0</div>
         </nav>
@@ -212,21 +198,23 @@
                         <input type="text" id="searchInput" placeholder="Cari nama, username, atau email...">
                     </div>
                     <div class="filter-group">
-                       <select id="filterStatus" 
-        data-cd="true" 
-        data-cd-placeholder="Semua Status"
-        data-cd-icons='{"":"fas fa-list", "aktif":"fas fa-check-circle", "nonaktif":"fas fa-times-circle"}'>
+                        <select id="filterStatus" 
+                            data-cd="true" 
+                            data-cd-placeholder="Semua Status"
+                            data-cd-icons='{"":"fas fa-list", "aktif":"fas fa-check-circle", "nonaktif":"fas fa-times-circle"}'>
                             <option value="">Semua Status</option>
                             <option value="aktif">Aktif</option>
                             <option value="nonaktif">Nonaktif</option>
                         </select>
-                       <select id="filterJabatan" 
-        data-cd="true"
-        data-cd-search="true"
-        data-cd-placeholder="Semua Jabatan"
-        data-cd-icons='{"":"fas fa-briefcase"}'>
+                        
+                        <select id="filterJabatan" 
+                            data-cd="true"
+                            data-cd-search="true"
+                            data-cd-placeholder="Semua Jabatan"
+                            data-cd-icons='{"":"fas fa-briefcase"}'>
                             <option value="">Semua Jabatan</option>
                         </select>
+                        
                         <button class="btn-refresh" id="btnRefresh" title="Refresh">
                             <i class="fas fa-arrows-rotate"></i>
                         </button>
@@ -251,6 +239,14 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- ⭐ TOMBOL KEMBALI KE DASHBOARD -->
+            <div class="db-back-wrapper">
+                <a href="dashboard.html" class="btn-back-dashboard">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>Kembali ke Dashboard</span>
+                </a>
             </div>
 
         </div>
@@ -312,10 +308,10 @@
                             <label for="inputJabatan">
                                 <i class="fas fa-briefcase"></i> Jabatan
                             </label>
-                           <select id="inputJabatan" required
-        data-cd="true"
-        data-cd-placeholder="-- Pilih Jabatan --"
-        data-cd-icons='{"Administrator":"fas fa-user-shield", "Kepala Pesantren":"fas fa-crown", "Sekretaris":"fas fa-file-signature", "Bendahara":"fas fa-money-bill", "Pengajar":"fas fa-chalkboard-teacher", "Staff":"fas fa-users"}'>
+                            <select id="inputJabatan" required
+                                data-cd="true"
+                                data-cd-placeholder="-- Pilih Jabatan --"
+                                data-cd-icons='{"Administrator":"fas fa-user-shield", "Kepala Pesantren":"fas fa-crown", "Sekretaris":"fas fa-file-signature", "Bendahara":"fas fa-money-bill", "Pengajar":"fas fa-chalkboard-teacher", "Staff":"fas fa-users"}'>
                                 <option value="">-- Pilih Jabatan --</option>
                                 <option value="Administrator">Administrator</option>
                                 <option value="Kepala Pesantren">Kepala Pesantren</option>
@@ -329,9 +325,9 @@
                             <label for="inputStatus">
                                 <i class="fas fa-toggle-on"></i> Status Akun
                             </label>
-                           <select id="inputStatus" required
-        data-cd="true"
-        data-cd-icons='{"true":"fas fa-check-circle", "false":"fas fa-times-circle"}'>
+                            <select id="inputStatus" required
+                                data-cd="true"
+                                data-cd-icons='{"true":"fas fa-check-circle", "false":"fas fa-times-circle"}'>
                                 <option value="true">Aktif</option>
                                 <option value="false">Nonaktif</option>
                             </select>
@@ -383,16 +379,6 @@
                 </div>
             </div>
         </div>
-
-
-<!-- ⭐ TOMBOL KEMBALI KE DASHBOARD (Full Width, Center) -->
-<div class="db-back-wrapper">
-    <a href="dashboard.html" class="btn-back-dashboard">
-        <i class="fas fa-chevron-left"></i>
-        <span>Kembali ke Dashboard</span>
-    </a>
-</div> 
-    </div>
     </div>
 
 
@@ -405,9 +391,18 @@
     </footer>
 
 
-    <!-- ==================== SCRIPTS ==================== -->
+    <!-- ==================== SCRIPTS (URUTAN PENTING!) ==================== -->
     
-    <!-- Mobile Sidebar Toggle -->
+    <!-- 1. SweetAlert2 Library (WAJIB PERTAMA) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- 2. SwalPremium (setelah SweetAlert2) -->
+    <script src="swal-premium.js"></script>
+    
+    <!-- 3. Custom Dropdown (sebelum users.js) -->
+    <script src="custom-dropdown.js"></script>
+
+    <!-- 4. Mobile Sidebar Toggle -->
     <script>
         document.getElementById('menu-toggle')?.addEventListener('click', () => {
             document.getElementById('main-nav').classList.toggle('show');
@@ -420,10 +415,7 @@
         });
     </script>
 
-<!-- Custom Dropdown (harus sebelum users.js) -->
-<script src="custom-dropdown.js"></script>
-
-    <!-- Main Script -->
+    <!-- 5. Main Script (Users JS) -->
     <script type="module" src="users.js"></script>
 
 </body>
