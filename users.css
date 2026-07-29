@@ -1,6 +1,6 @@
 /* ================================================================
-   USERS.CSS — Final Version (Clean & Optimized)
-   Untuk: Halaman Kelola User Admin
+   USERS.CSS — Final Clean Version (v3.0)
+   Untuk: Halaman Kelola User Admin (Daarul Khoirot Almadani)
    Dependencies: custom-dropdown.js, sweetalert2
 ================================================================ */
 
@@ -48,7 +48,7 @@ html, body {
 
 
 /* ==========================================================
-   3. KARTU MODERN
+   3. KARTU MODERN (Overflow visible biar dropdown keluar)
 ========================================================== */
 
 .kartu-modern-clean {
@@ -63,7 +63,7 @@ html, body {
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     color: #333;
-    overflow: hidden;
+    overflow: visible;
     word-wrap: break-word;
     box-sizing: border-box;
 }
@@ -396,6 +396,7 @@ html, body {
 
 /* ==========================================================
    9. FILTER BAR (Search + Dropdown + Refresh)
+   Mobile-First: Default stacked, Desktop: sejajar
 ========================================================== */
 
 .filter-bar {
@@ -405,10 +406,12 @@ html, body {
     width: 100%;
     max-width: 100%;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
     box-sizing: border-box;
 }
 
-/* --- Search Box (Full Width di Atas) --- */
+/* Search Box */
 .filter-bar .search-box {
     position: relative;
     flex: 1 1 100%;
@@ -444,12 +447,16 @@ html, body {
     transition: all 0.25s ease;
 }
 
+.filter-bar .search-box input:hover {
+    border-color: #1a5d1a;
+}
+
 .filter-bar .search-box input:focus {
     border-color: #1a5d1a;
     box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
 }
 
-/* --- Filter Group (2 Dropdown + Tombol Refresh) --- */
+/* Filter Group */
 .filter-bar .filter-group {
     display: flex;
     flex-direction: row;
@@ -459,18 +466,20 @@ html, body {
     width: 100%;
     max-width: 100%;
     min-width: 0;
+    position: relative;
     box-sizing: border-box;
 }
 
-/* Wrapper Custom Dropdown — Harus shrink biar refresh muat */
+/* Dropdown Wrapper */
 .filter-bar .filter-group .cd-wrapper {
     flex: 1 1 0;
     min-width: 0;
     max-width: 100%;
     width: auto;
+    position: relative;
 }
 
-/* Trigger dropdown di filter bar */
+/* Trigger dalam filter bar */
 .filter-bar .filter-group .cd-trigger {
     width: 100%;
     padding: 11px 32px 11px 12px;
@@ -483,14 +492,14 @@ html, body {
     font-size: 0.7rem;
 }
 
-/* Tombol Refresh — FIXED SIZE */
+/* Tombol Refresh */
 .filter-bar .filter-group .btn-refresh,
 .filter-bar .filter-group .btn-icon {
-    width: 46px !important;
-    height: 46px !important;
-    min-width: 46px !important;
-    max-width: 46px !important;
-    flex: 0 0 46px !important;
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    max-width: 46px;
+    flex: 0 0 46px;
     padding: 0;
     border: none;
     border-radius: 10px;
@@ -540,6 +549,11 @@ select.cd-native {
     width: 100%;
     box-sizing: border-box;
     font-family: 'Quicksand', sans-serif;
+    z-index: 1;
+}
+
+.cd-wrapper.open {
+    z-index: 9999;
 }
 
 /* Trigger (Tombol Dropdown) */
@@ -568,11 +582,12 @@ select.cd-native {
 
 .cd-trigger:hover {
     border-color: #1a5d1a;
+    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.08);
 }
 
 .cd-wrapper.open .cd-trigger {
     border-color: #1a5d1a;
-    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.12);
 }
 
 .cd-trigger.disabled {
@@ -620,9 +635,14 @@ select.cd-native {
     font-weight: 500;
 }
 
+.cd-trigger:not(.placeholder) .cd-selected-label {
+    color: #1a5d1a;
+    font-weight: 600;
+}
+
 /* Arrow */
 .cd-arrow {
-    position: absolute !important;
+    position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
@@ -635,26 +655,37 @@ select.cd-native {
     transform: translateY(-50%) rotate(180deg);
 }
 
-/* Menu Dropdown */
+/* Menu Dropdown — Default HIDDEN, hanya show saat open */
 .cd-menu {
     position: absolute;
     top: calc(100% + 6px);
+    bottom: auto;
     left: 0;
     right: 0;
-    background: white;
+    width: 100%;
+    min-width: 180px;
+    max-width: 100%;
+    background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.1),
+        0 6px 10px rgba(0, 0, 0, 0.05);
     max-height: 300px;
     overflow: hidden;
-    z-index: 1000;
+    z-index: 10000;
     display: none;
-    animation: cdFadeIn 0.15s ease;
+    visibility: hidden;
+    pointer-events: none;
+    box-sizing: border-box;
 }
 
 .cd-wrapper.open .cd-menu {
     display: flex;
     flex-direction: column;
+    visibility: visible;
+    pointer-events: auto;
+    animation: cdSlideDown 0.2s ease;
 }
 
 .cd-wrapper.open-up .cd-menu {
@@ -662,9 +693,15 @@ select.cd-native {
     bottom: calc(100% + 6px);
 }
 
-@keyframes cdFadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to   { opacity: 1; transform: translateY(0); }
+@keyframes cdSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Search bar dalam menu */
@@ -745,6 +782,7 @@ select.cd-native {
 .cd-option.highlighted {
     background: #f0f9f0;
     color: #1a5d1a;
+    transform: translateX(2px);
 }
 
 .cd-option.selected {
@@ -878,7 +916,7 @@ select.cd-native {
 
 
 /* ==========================================================
-   12. USER CELL & AVATAR (di tabel)
+   12. USER CELL & AVATAR
 ========================================================== */
 
 .user-cell {
@@ -941,7 +979,7 @@ select.cd-native {
 
 
 /* ==========================================================
-   14. AKSI BUTTONS (di tabel)
+   14. AKSI BUTTONS
 ========================================================== */
 
 .aksi-buttons {
@@ -1014,7 +1052,7 @@ select.cd-native {
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 10000;
+    z-index: 10001;
     padding: 20px;
     backdrop-filter: blur(5px);
 }
@@ -1324,6 +1362,8 @@ select.cd-native {
 ========================================================== */
 
 @media (min-width: 769px) {
+    
+    /* Page Header — Row layout */
     .page-header-card {
         flex-direction: row;
         align-items: center;
@@ -1340,20 +1380,37 @@ select.cd-native {
         font-size: 1.4rem;
     }
     
-    /* Filter Bar: Search + Dropdowns dalam 1 baris */
+    /* Filter Bar: Semua dalam 1 baris */
+    .filter-bar {
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
     .filter-bar .search-box {
-        flex: 1 1 250px;
+        flex: 1 1 300px;
         min-width: 250px;
+        max-width: none;
+        width: auto;
     }
     
     .filter-bar .filter-group {
+        flex: 0 0 auto;
         width: auto;
-        flex: 0 1 auto;
+        max-width: none;
+        gap: 10px;
     }
     
     .filter-bar .filter-group .cd-wrapper {
+        flex: 0 0 180px;
+        width: 180px;
         min-width: 160px;
         max-width: 200px;
+    }
+    
+    .filter-bar .filter-group .cd-trigger {
+        font-size: 0.86rem;
+        padding: 11px 36px 11px 14px;
     }
     
     /* Modal Actions: Horizontal */
@@ -1369,6 +1426,18 @@ select.cd-native {
     .modal-actions .btn-warning   { order: 1; margin-right: auto; }
     .modal-actions .btn-secondary { order: 2; }
     .modal-actions .btn-primary   { order: 3; }
+    
+    /* Menu dropdown desktop: paksa buka ke bawah */
+    .filter-bar .cd-menu {
+        top: calc(100% + 6px);
+        bottom: auto;
+        min-width: 200px;
+    }
+    
+    .filter-bar .cd-wrapper.open-up .cd-menu {
+        top: calc(100% + 6px) !important;
+        bottom: auto !important;
+    }
 }
 
 
@@ -1417,6 +1486,19 @@ select.cd-native {
         height: 30px;
         font-size: 0.72rem;
     }
+    
+    /* Filter dropdown menu di mobile — full width */
+    .filter-bar .cd-menu {
+        min-width: 100%;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    /* Dropdown kedua (Jabatan) — right align biar tidak overflow */
+    .filter-bar .filter-group .cd-wrapper:nth-child(2) .cd-menu {
+        left: auto;
+        right: 0;
+    }
 }
 
 
@@ -1448,11 +1530,11 @@ select.cd-native {
     
     .filter-bar .filter-group .btn-refresh,
     .filter-bar .filter-group .btn-icon {
-        width: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
-        flex: 0 0 44px !important;
-        height: 44px !important;
+        width: 44px;
+        min-width: 44px;
+        max-width: 44px;
+        flex: 0 0 44px;
+        height: 44px;
     }
     
     .cd-option {
@@ -1462,6 +1544,7 @@ select.cd-native {
     
     .cd-menu {
         max-height: 260px;
+        min-width: 180px;
     }
 }
 
@@ -1687,117 +1770,3 @@ select.cd-native {
 /* ================================================================
    END OF FILE
 ================================================================ */
-
-/* ================================================================
-   🎯 FIX MENU DROPDOWN — Positioning & Z-Index
-================================================================ */
-
-/* WRAPPER — Pastikan menu keluar dengan benar */
-.cd-wrapper {
-    position: relative !important;
-    z-index: 1;  /* Base z-index */
-}
-
-/* Saat menu terbuka, wrapper harus di atas elemen lain */
-.cd-wrapper.open {
-    z-index: 9999 !important;
-}
-
-/* MENU DROPDOWN — Posisi selalu di bawah trigger (default) */
-.cd-menu {
-    position: absolute !important;
-    top: calc(100% + 6px) !important;
-    bottom: auto !important;  /* ⭐ Reset bottom */
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    min-width: 200px !important;  /* Minimum lebar */
-    max-width: 100% !important;
-    
-    background: white !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-    
-    max-height: 300px !important;
-    overflow: hidden !important;
-    
-    z-index: 10000 !important;  /* ⭐ Tinggi banget biar di atas semua */
-    display: none;
-    
-    box-sizing: border-box;
-}
-
-/* Kalau harus open-up (menu ke atas) */
-.cd-wrapper.open-up .cd-menu {
-    top: auto !important;
-    bottom: calc(100% + 6px) !important;
-}
-
-/* Saat menu terbuka */
-.cd-wrapper.open .cd-menu {
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-
-/* ================================================================
-   🎯 FIX FILTER BAR — Overflow untuk Dropdown
-================================================================ */
-
-/* KARTU MODERN — JANGAN overflow: hidden kalau ada dropdown! */
-.kartu-modern-clean {
-    overflow: visible !important;  /* ⭐ WAJIB agar dropdown bisa keluar */
-}
-
-/* Table wrapper masih boleh overflow hidden (untuk scroll horizontal) */
-.table-wrapper {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-}
-
-/* Filter bar container */
-.filter-bar {
-    position: relative !important;
-    z-index: 10 !important;
-    overflow: visible !important;
-}
-
-.filter-bar .filter-group {
-    overflow: visible !important;
-    position: relative !important;
-}
-
-.filter-bar .cd-wrapper {
-    position: relative !important;
-}
-
-
-/* ================================================================
-   📱 MOBILE — Menu Dropdown Full Width & Positioned Right
-================================================================ */
-
-@media (max-width: 768px) {
-    /* Menu dropdown di mobile — full width dalam wrapper */
-    .filter-bar .cd-menu {
-        min-width: 100% !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        left: 0 !important;
-        right: 0 !important;
-    }
-    
-    /* Kalau menu untuk dropdown kedua (Semua Jabatan), 
-       ke arah kiri biar tidak overflow */
-    .filter-bar .filter-group .cd-wrapper:nth-child(2) .cd-menu {
-        left: auto !important;
-        right: 0 !important;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Menu di HP kecil — sesuaikan lebar minimum */
-    .filter-bar .cd-menu {
-        min-width: 160px !important;
-    }
-}
