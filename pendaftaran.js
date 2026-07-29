@@ -434,6 +434,7 @@ function loadDesaDanPosSantri(val) {
 /* =========================================================
    5. LOCK / RESET / COPY / DOMISILI
 ========================================================= */
+
 function lockFields(suffix, isLocked) {
     const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
     dropdowns.forEach(name => {
@@ -451,8 +452,8 @@ function lockFields(suffix, isLocked) {
             if (isLocked) el.setAttribute('readonly', 'true');
             else el.removeAttribute('readonly');
             el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
-            el.style.color = isLocked ? "#6c757d" : "#000000";
-            el.style.cursor = isLocked ? "not-allowed" : "text";
+            el.style.color           = isLocked ? "#6c757d" : "#000000";
+            el.style.cursor          = isLocked ? "not-allowed" : "text";
         }
     });
 }
@@ -483,7 +484,9 @@ function dataAyahLengkap() {
     const rt     = getElByName('rt_ayah')?.value?.trim();
     const rw     = getElByName('rw_ayah')?.value?.trim();
     const pos    = getElByName('pos_ayah')?.value?.trim();
-    return !!(prov && prov !== "provinces_init_val" && kab && kec && desa && alamat && rt && rw && pos);
+    return !!(prov && prov !== "provinces_init_val" 
+              && kab && kec && desa 
+              && alamat && rt && rw && pos);
 }
 
 function copyDataAlamat(from, to) {
@@ -491,36 +494,38 @@ function copyDataAlamat(from, to) {
     fields.forEach(f => {
         const sourceEl = getElByName(`${f}_${from}`);
         const targetEl = getElByName(`${f}_${to}`);
-        if (sourceEl && targetEl) {
-            if (sourceEl.tagName === 'SELECT') {
-                if (sourceEl.selectedIndex >= 0) {
-                    targetEl.innerHTML = `<option value="${sourceEl.value}">${sourceEl.options[sourceEl.selectedIndex].text}</option>`;
-                    targetEl.value = sourceEl.value;
-                    refreshCD(targetEl);
-                }
-            } else {
-                targetEl.value = sourceEl.value || "";
+        if (!sourceEl || !targetEl) return;
+
+        if (sourceEl.tagName === 'SELECT') {
+            if (sourceEl.selectedIndex >= 0) {
+                targetEl.innerHTML = `<option value="${sourceEl.value}">
+                    ${sourceEl.options[sourceEl.selectedIndex].text}
+                </option>`;
+                targetEl.value = sourceEl.value;
+                refreshCD(targetEl);
             }
+        } else {
+            targetEl.value = sourceEl.value || "";
         }
     });
 }
 
 function isiAlamatPesantren() {
     const d = {
-        prov: "32",         prov_text: "JAWA BARAT",
-        kab: "3215",        kab_text: "KABUPATEN KARAWANG",
-        kec: "321516",      kec_text: "JATISARI",
-        desa: "3215162001", desa_text: "JATISARI",
-        al: "Dusun Sukamaju II", rt: "002", rw: "004", pos: "41374"
+        prov : "32",          prov_text : "JAWA BARAT",
+        kab  : "3215",        kab_text  : "KABUPATEN KARAWANG",
+        kec  : "321516",      kec_text  : "JATISARI",
+        desa : "3215162001",  desa_text : "JATISARI",
+        al   : "Dusun Sukamaju II",
+        rt   : "002", rw: "004", pos: "41374"
     };
 
     const setSel = (n, v, t) => {
         const el = getElByName(n);
-        if (el) {
-            el.innerHTML = `<option value="${v}">${t}</option>`;
-            el.value = v;
-            refreshCD(el);
-        }
+        if (!el) return;
+        el.innerHTML = `<option value="${v}">${t}</option>`;
+        el.value = v;
+        refreshCD(el);
     };
 
     setSel('prov_santri', d.prov, d.prov_text);
@@ -528,17 +533,21 @@ function isiAlamatPesantren() {
     setSel('kec_santri',  d.kec,  d.kec_text);
     setSel('desa_santri', d.desa, d.desa_text);
 
-    if (getElByName('al_santri'))  getElByName('al_santri').value  = d.al;
-    if (getElByName('rt_santri'))  getElByName('rt_santri').value  = d.rt;
-    if (getElByName('rw_santri'))  getElByName('rw_santri').value  = d.rw;
-    if (getElByName('pos_santri')) getElByName('pos_santri').value = d.pos;
+    ['al','rt','rw','pos'].forEach(f => {
+        const el = getElByName(`${f}_santri`);
+        if (el) el.value = d[f];
+    });
 }
 
+// ============================================================
+// ✅ FIX — toggleDomisiliIbu (TANPA rename ID)
+// ============================================================
 function toggleDomisiliIbu(val) {
     const box = getElByName('box_ibu');
     if (box) box.style.display = (val === "") ? 'none' : 'grid';
 
     if (val === 'sama') {
+        // Validasi data Ayah dulu
         if (!dataAyahLengkap()) {
             Swal.fire({
                 icon: 'warning',
@@ -553,17 +562,28 @@ function toggleDomisiliIbu(val) {
         }
         copyDataAlamat('ayah', 'ibu');
         lockFields('ibu', true);
+
     } else if (val === 'beda') {
         lockFields('ibu', false);
-        resetFields('ibu');
+        resetFields('ibu');  // reset dulu → innerHTML jadi "Pilih Data"
+
+        // ✅ LANGSUNG load ke ID asli (TANPA rename ke _temp)
         const provIbuEl = getElByName('prov_ibu');
         if (provIbuEl) {
-            provIbuEl.id = "prov_ibu_temp";
-            loadWilayah('provinces', 'prov_ibu_temp', 'Pilih Provinsi');
+            // Pastikan ID element benar (jaga-jaga kalau sebelumnya pernah di-rename)
+            provIbuEl.id = 'prov_ibu';
+
+            console.log('📥 Loading provinsi Ibu...');
+            loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
+        } else {
+            console.warn('⚠️ Element prov_ibu tidak ditemukan!');
         }
     }
 }
 
+// ============================================================
+// ✅ FIX — toggleDomisiliSantri (TANPA rename ID)
+// ============================================================
 function toggleDomisiliSantri(val) {
     const box = getElByName('box_santri');
     if (box) box.style.display = (val === "") ? 'none' : 'grid';
@@ -571,7 +591,9 @@ function toggleDomisiliSantri(val) {
     if (val === 'mukim') {
         isiAlamatPesantren();
         lockFields('santri', true);
+
     } else if (val === 'sama') {
+        // Validasi data Ayah dulu
         if (!dataAyahLengkap()) {
             Swal.fire({
                 icon: 'warning',
@@ -586,17 +608,24 @@ function toggleDomisiliSantri(val) {
         }
         copyDataAlamat('ayah', 'santri');
         lockFields('santri', true);
+
     } else if (val === 'beda') {
-        resetFields('santri');
         lockFields('santri', false);
+        resetFields('santri');
+
+        // ✅ LANGSUNG load ke ID asli (TANPA rename ke _temp)
         const provSantriEl = getElByName('prov_santri');
         if (provSantriEl) {
-            provSantriEl.id = "prov_santri_temp";
-            loadWilayah('provinces', 'prov_santri_temp', 'Pilih Provinsi');
+            // Kembalikan ID asli kalau sebelumnya pernah direname
+            provSantriEl.id = 'prov_santri';
+
+            console.log('📥 Loading provinsi Santri...');
+            loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
+        } else {
+            console.warn('⚠️ Element prov_santri tidak ditemukan!');
         }
     }
 }
-
 
 /* =========================================================
    6. TOGGLE FIELDS (Ayah / NISN / HP / Riwayat Kesehatan)
