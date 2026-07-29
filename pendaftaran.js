@@ -434,26 +434,88 @@ function loadDesaDanPosSantri(val) {
 /* =========================================================
    5. LOCK / RESET / COPY / DOMISILI
 ========================================================= */
+function toggleAyahFields(status) {
+    const fields = ['wn_ayah','nik_ayah','kk_ayah','tmpt_ayah','tgl_ayah','pdk_ayah','pjk_ayah','hasil_ayah','hp_ayah'];
+    const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
 
-function lockFields(suffix, isLocked) {
-    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
-    dropdowns.forEach(name => {
-        const el = getElByName(name, suffix);
-        if (el) {
-            el.disabled = isLocked;
-            el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
-        }
-    });
+    fields.forEach(name => {
+        const el = document.getElementsByName(name)[0];
+        if (!el) return;
 
-    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
-    inputs.forEach(name => {
-        const el = getElByName(name, suffix);
-        if (el) {
-            if (isLocked) el.setAttribute('readonly', 'true');
-            else el.removeAttribute('readonly');
-            el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
-            el.style.color           = isLocked ? "#6c757d" : "#000000";
-            el.style.cursor          = isLocked ? "not-allowed" : "text";
+        const isSelect = el.tagName === 'SELECT';
+        const isFlatpickrDate =
+            name === 'tgl_ayah' ||
+            el.classList.contains('custom-date-input') ||
+            el.classList.contains('flatpickr-input');
+
+        if (isLocked) {
+            // reset value
+            if (isSelect || isFlatpickrDate) el.value = "";
+            else el.value = "-";
+
+            // lock field
+            if (isSelect) {
+                el.disabled = true;
+            } else {
+                el.readOnly = true;
+                el.setAttribute('readonly', 'readonly');
+            }
+
+            // khusus flatpickr / custom date input
+            if (isFlatpickrDate) {
+                const fp = el._flatpickr;
+
+                if (fp) {
+                    fp.clear();
+                    fp.close();
+                    fp.set('clickOpens', false);
+                }
+
+                el.style.pointerEvents = 'none';
+                el.tabIndex = -1;
+
+                const wrapper = el.closest('.input-icon-wrapper');
+                if (wrapper) wrapper.style.pointerEvents = 'none';
+            }
+
+            el.style.backgroundColor = "#e9ecef";
+            el.style.color = "#6c757d";
+            el.style.opacity = "0.7";
+
+        } else {
+            if (!isFlatpickrDate && el.value === "-") el.value = "";
+
+            // unlock field
+            if (isSelect) {
+                el.disabled = false;
+            } else {
+                // khusus flatpickr: tetap readonly supaya tidak bisa diketik manual
+                if (isFlatpickrDate) {
+                    el.readOnly = true;
+                    el.setAttribute('readonly', 'readonly');
+                } else {
+                    el.readOnly = false;
+                    el.removeAttribute('readonly');
+                }
+            }
+
+            // aktifkan kembali flatpickr
+            if (isFlatpickrDate) {
+                const fp = el._flatpickr;
+                if (fp) {
+                    fp.set('clickOpens', true);
+                }
+
+                el.style.pointerEvents = 'auto';
+                el.tabIndex = 0;
+
+                const wrapper = el.closest('.input-icon-wrapper');
+                if (wrapper) wrapper.style.pointerEvents = 'auto';
+            }
+
+            el.style.backgroundColor = "#ffffff";
+            el.style.color = "#000000";
+            el.style.opacity = "1";
         }
     });
 }
