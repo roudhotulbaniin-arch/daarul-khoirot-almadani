@@ -747,12 +747,10 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
         <div class="f-copy">&copy; 2026 DAARUL KHOIROT ALMADANI. All Rights Reserved.</div>
     </footer>
 
-    <audio id="murottal" src="murottal_start.mp3" loop></audio>
-    <audio id="clickSound" src="click_sound.mp3"></audio>
+     <audio id="clickSound" src="click_sound.mp3"></audio>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const murottal = document.getElementById('murottal');
             const clickSound = document.getElementById('clickSound');
             const linkActionItems = document.querySelectorAll('nav ul li a, .logo, .article-item a');
             const menuToggle = document.getElementById('menu-toggle');
@@ -763,19 +761,6 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
             const filterableItems = document.querySelectorAll('.filterable-item');
 
             let hasInteracted = false;
-
-            // Auto-play Murottal saat interaksi pertama layar
-            function playMurottal() {
-                if (!hasInteracted && murottal) {
-                    murottal.volume = 0.3; 
-                    murottal.play().catch(() => {});
-                    hasInteracted = true;
-                    document.removeEventListener('click', playMurottal);
-                    document.removeEventListener('touchstart', playMurottal);
-                }
-            }
-            document.addEventListener('click', playMurottal);
-            document.addEventListener('touchstart', playMurottal); 
 
             // Menu Toggle Layar HP
             if (menuToggle && nav) {
