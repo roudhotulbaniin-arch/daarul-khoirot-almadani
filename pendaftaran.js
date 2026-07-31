@@ -267,10 +267,10 @@ const mappingPosKarawang = {
     "3215161": "41354", "3215051": "41361"
 };
 
-
 /* =========================================================
-   4. LOAD WILAYAH (API Emsifa)
+   4. LOAD WILAYAH (API Emsifa) — FIXED VERSION
 ========================================================= */
+
 async function loadWilayah(endpoint, elementName, placeholder) {
     const el = getEl(elementName);
     if (!el) {
@@ -290,7 +290,7 @@ async function loadWilayah(endpoint, elementName, placeholder) {
         if (!res.ok) throw new Error("Gagal load API");
         const data = await res.json();
 
-        // ⭐ Placeholder pakai value="" (BUKAN provinces_init_val)
+        // ⭐ Placeholder value="" (BUKAN provinces_init_val)
         let opt = `<option value="">${placeholder}</option>`;
         
         data.forEach(d => {
@@ -300,60 +300,71 @@ async function loadWilayah(endpoint, elementName, placeholder) {
         el.innerHTML = opt;
         el.disabled = false;
         
-        // ⭐ Delay refresh biar DOM siap
+        // ⭐ Delay refresh biar DOM & custom dropdown siap
         setTimeout(() => {
             refreshCD(el);
-            console.log(`✅ ${endpoint} loaded: ${data.length} items`);
+            console.log(`✅ ${endpoint} loaded: ${data.length} items → ${elementName}`);
         }, 50);
         
     } catch (err) {
-        console.error("❌ ERROR API:", err);
+        console.error(`❌ ERROR API (${endpoint}):`, err);
         el.innerHTML = `<option value="">Gagal memuat data</option>`;
+        el.disabled = false;
         refreshCD(el);
     }
 }
-/* ---------- WILAYAH AYAH ---------- */
+
+
+/* =========================================================
+   HELPER — Reset dropdown cascading (bawahnya)
+========================================================= */
+function resetDropdownCascade(elementNames) {
+    elementNames.forEach(name => {
+        const el = getEl(name);
+        if (el) {
+            el.innerHTML = `<option value="">Pilih ${name.split('_')[0].charAt(0).toUpperCase() + name.split('_')[0].slice(1)}</option>`;
+            refreshCD(el);
+        }
+    });
+}
+
+
+/* ---------------------------------------------------
+   WILAYAH AYAH
+--------------------------------------------------- */
 function loadKabAyah(val) {
-    const kab  = getEl('kab_ayah');
-    const kec  = getEl('kec_ayah');
-    const desa = getEl('desa_ayah');
-
-    if (kab)  kab.innerHTML  = '<option value="">Pilih Kabupaten</option>';
-    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
-    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
-
-    refreshCD(kab);
-    refreshCD(kec);
-    refreshCD(desa);
-
+    // Reset cascade
+    resetDropdownCascade(['kab_ayah', 'kec_ayah', 'desa_ayah']);
+    
+    // Reset kode pos
     const inputPos = getEl('pos_ayah');
     if (inputPos) inputPos.value = "";
 
-    if (val && val !== "provinces_init_val") {
+    // Load kabupaten kalau val ada
+    if (val) {
         loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
     }
 }
 
 function loadKecAyah(val) {
-    const kec  = getEl('kec_ayah');
-    const desa = getEl('desa_ayah');
-
-    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
-    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
-
-    refreshCD(kec);
-    refreshCD(desa);
-
+    // Reset cascade
+    resetDropdownCascade(['kec_ayah', 'desa_ayah']);
+    
+    // Reset kode pos
     const inputPos = getEl('pos_ayah');
     if (inputPos) inputPos.value = "";
 
-    if (val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
+    if (val) {
+        loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
+    }
 }
 
 function loadDesaDanPosAyah(val) {
     if (!val) return;
+    
     loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
 
+    // Auto-fill kode pos untuk Karawang
     const inputPos = document.getElementsByName('pos_ayah')[0];
     if (inputPos) {
         const kodeAuto = mappingPosKarawang[val];
@@ -373,71 +384,110 @@ function loadDesaDanPosAyah(val) {
 }
 
 
-/* ---------- WILAYAH IBU ---------- */
+/* ---------------------------------------------------
+   WILAYAH IBU
+--------------------------------------------------- */
 function loadKabIbu(val) {
-    const kec  = getEl('kec_ibu');
-    const desa = getEl('desa_ibu');
+    // Reset cascade
+    resetDropdownCascade(['kab_ibu', 'kec_ibu', 'desa_ibu']);
+    
+    // Reset kode pos
+    const inputPos = getEl('pos_ibu');
+    if (inputPos) inputPos.value = "";
 
-    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
-    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
-
-    refreshCD(kec);
-    refreshCD(desa);
-
-    if (val && val !== "provinces_init_val") {
+    if (val) {
         loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten');
     }
 }
 
 function loadKecIbu(val) {
-    const desa = getEl('desa_ibu');
-    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
-    refreshCD(desa);
+    // Reset cascade
+    resetDropdownCascade(['kec_ibu', 'desa_ibu']);
+    
+    // Reset kode pos
+    const inputPos = getEl('pos_ibu');
+    if (inputPos) inputPos.value = "";
 
-    if (val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan');
+    if (val) {
+        loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan');
+    }
 }
 
 function loadDesaDanPosIbu(val) {
-    if (val) {
-        loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa');
-        const inputPos = document.getElementsByName('pos_ibu')[0];
-        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+    if (!val) return;
+    
+    loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa');
+    
+    const inputPos = document.getElementsByName('pos_ibu')[0];
+    if (inputPos) {
+        const kodeAuto = mappingPosKarawang[val];
+        if (kodeAuto) {
+            inputPos.value = kodeAuto;
+            inputPos.readOnly = true;
+            inputPos.style.backgroundColor = "#f0f0f0";
+            inputPos.style.color = "#6c757d";
+        } else {
+            inputPos.value = "";
+            inputPos.readOnly = false;
+            inputPos.style.backgroundColor = "#ffffff";
+            inputPos.style.color = "#000000";
+            inputPos.placeholder = "Isi Kode Pos Manual";
+        }
     }
 }
 
 
-/* ---------- WILAYAH SANTRI ---------- */
+/* ---------------------------------------------------
+   WILAYAH SANTRI
+--------------------------------------------------- */
 function loadKabSantri(val) {
-    const kec  = getEl('kec_santri');
-    const desa = getEl('desa_santri');
+    // Reset cascade
+    resetDropdownCascade(['kab_santri', 'kec_santri', 'desa_santri']);
+    
+    // Reset kode pos
+    const inputPos = getEl('pos_santri');
+    if (inputPos) inputPos.value = "";
 
-    if (kec)  kec.innerHTML  = '<option value="">Pilih Kecamatan</option>';
-    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
-
-    refreshCD(kec);
-    refreshCD(desa);
-
-    if (val && val !== "provinces_init_val") {
+    if (val) {
         loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten');
     }
 }
 
 function loadKecSantri(val) {
-    const desa = getEl('desa_santri');
-    if (desa) desa.innerHTML = '<option value="">Pilih Desa</option>';
-    refreshCD(desa);
+    // Reset cascade
+    resetDropdownCascade(['kec_santri', 'desa_santri']);
+    
+    // Reset kode pos
+    const inputPos = getEl('pos_santri');
+    if (inputPos) inputPos.value = "";
 
-    if (val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan');
-}
-
-function loadDesaDanPosSantri(val) {
     if (val) {
-        loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa');
-        const inputPos = document.getElementsByName('pos_santri')[0];
-        if (inputPos) inputPos.value = mappingPosKarawang[val] || "";
+        loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan');
     }
 }
 
+function loadDesaDanPosSantri(val) {
+    if (!val) return;
+    
+    loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa');
+    
+    const inputPos = document.getElementsByName('pos_santri')[0];
+    if (inputPos) {
+        const kodeAuto = mappingPosKarawang[val];
+        if (kodeAuto) {
+            inputPos.value = kodeAuto;
+            inputPos.readOnly = true;
+            inputPos.style.backgroundColor = "#f0f0f0";
+            inputPos.style.color = "#6c757d";
+        } else {
+            inputPos.value = "";
+            inputPos.readOnly = false;
+            inputPos.style.backgroundColor = "#ffffff";
+            inputPos.style.color = "#000000";
+            inputPos.placeholder = "Isi Kode Pos Manual";
+        }
+    }
+}
 
 /* =========================================================
    5. LOCK / RESET / COPY / DOMISILI
