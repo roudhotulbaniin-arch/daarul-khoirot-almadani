@@ -1314,3 +1314,220 @@ span.flatpickr-weekday {
         border-radius: 10px !important;
     }
 }
+
+/* ================================================================
+   🎯 FIX DROPDOWN MENU — Posisi Selalu Di Bawah Trigger
+================================================================ */
+
+/* WRAPPER — Reference untuk absolute positioning menu */
+.cd-wrapper {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.cd-wrapper.open {
+    z-index: 9999 !important;
+}
+
+
+/* ================================================================
+   MENU DROPDOWN — Force posisi di BAWAH trigger
+================================================================ */
+
+.cd-menu {
+    /* Positioning */
+    position: absolute !important;
+    top: calc(100% + 6px) !important;   /* ⭐ Selalu di bawah trigger */
+    bottom: auto !important;             /* ⭐ Reset bottom (JANGAN buka ke atas) */
+    left: 0 !important;
+    right: 0 !important;
+    
+    /* Ukuran */
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    max-height: 280px !important;
+    
+    /* Style */
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.1),
+        0 6px 10px rgba(0, 0, 0, 0.05) !important;
+    
+    /* Behavior */
+    overflow: hidden !important;
+    z-index: 10000 !important;
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    
+    /* Animation */
+    animation: cdSlideDown 0.2s ease !important;
+    
+    box-sizing: border-box !important;
+}
+
+
+/* Saat dropdown OPEN — tampilkan menu */
+.cd-wrapper.open .cd-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+
+/* ⭐ FORCE — Override "open-up" (Jangan buka ke atas!) */
+.cd-wrapper.open-up .cd-menu,
+.cd-wrapper.open.open-up .cd-menu {
+    top: calc(100% + 6px) !important;   /* ⭐ Tetap di bawah! */
+    bottom: auto !important;
+}
+
+
+/* Animasi masuk */
+@keyframes cdSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================================================================
+   ARROW — Rotate saat menu open
+================================================================ */
+
+.cd-arrow {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: #1a5d1a !important;
+    font-size: 0.85rem !important;
+    transition: transform 0.25s ease !important;
+    pointer-events: none !important;
+}
+
+.cd-wrapper.open .cd-arrow {
+    transform: translateY(-50%) rotate(180deg) !important;
+}
+
+
+/* ================================================================
+   OPTIONS CONTAINER
+================================================================ */
+
+.cd-options {
+    padding: 6px !important;
+    max-height: 260px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+.cd-options::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.cd-options::-webkit-scrollbar-track {
+    background: #f5f5f5 !important;
+}
+
+.cd-options::-webkit-scrollbar-thumb {
+    background: rgba(26, 93, 26, 0.3) !important;
+    border-radius: 3px !important;
+}
+
+
+/* ================================================================
+   OPTION ITEM
+================================================================ */
+
+.cd-option {
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.9rem !important;
+    color: #374151 !important;
+    font-weight: 500 !important;
+    transition: all 0.15s ease !important;
+    margin-bottom: 2px !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+}
+
+.cd-option:hover,
+.cd-option.highlighted {
+    background: #f0f9f0 !important;
+    color: #1a5d1a !important;
+    transform: translateX(3px) !important;
+}
+
+.cd-option.selected {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+.cd-option.selected i {
+    color: #ffd700 !important;
+}
+
+.cd-option i {
+    color: #1a5d1a !important;
+    width: 18px !important;
+    text-align: center !important;
+    font-size: 0.9rem !important;
+    flex-shrink: 0 !important;
+}
+
+
+/* ================================================================
+   FIX PARENT OVERFLOW — Biar menu bisa keluar
+================================================================ */
+
+/* Container form/section — jangan overflow hidden */
+.form-container,
+.form-section,
+.form-group,
+.form-row,
+.form-grid,
+.kartu-modern-clean,
+[class*="alamat-section"],
+[class*="pendaftaran"] {
+    overflow: visible !important;
+}
+
+/* Tapi table wrapper tetap boleh scroll horizontal */
+.table-wrapper {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+
+
+/* ================================================================
+   📱 RESPONSIVE
+================================================================ */
+
+@media (max-width: 768px) {
+    .cd-menu {
+        max-height: 260px !important;
+    }
+    
+    .cd-option {
+        padding: 11px 12px !important;
+        font-size: 0.87rem !important;
+    }
+}
