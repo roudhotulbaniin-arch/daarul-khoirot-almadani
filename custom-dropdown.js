@@ -418,28 +418,35 @@ const CustomDropdown = (function () {
         else openMenu(wrapper);
     }
 
-    function openMenu(wrapper) {
-        if (activeDropdown && activeDropdown !== wrapper) closeMenu(activeDropdown);
+function openMenu(wrapper) {
+    if (activeDropdown && activeDropdown !== wrapper) closeMenu(activeDropdown);
 
-        const rect = wrapper.getBoundingClientRect();
-        const spaceBelow = window.innerHeight - rect.bottom;
-        const spaceAbove = rect.top;
-
-        if (spaceBelow < 300 && spaceAbove > spaceBelow) {
-            wrapper.classList.add('open-up');
-        } else {
-            wrapper.classList.remove('open-up');
-        }
-
-        wrapper.classList.add('open');
-        activeDropdown = wrapper;
-
-        const searchInput = wrapper.querySelector('.cd-search input');
-        if (searchInput) setTimeout(() => searchInput.focus(), 100);
-
-        const selected = wrapper.querySelector('.cd-option.selected');
-        if (selected) setTimeout(() => selected.scrollIntoView({ block: 'nearest' }), 100);
+    // Hitung space dengan benar
+    const rect = wrapper.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const spaceBelow = viewportHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    const menuHeight = 270; // Estimasi tinggi menu (max-height + padding)
+    
+    // ⭐ Kalau space bawah cukup → buka ke bawah
+    // Kalau space bawah kurang DAN space atas lebih besar → buka ke atas
+    if (spaceBelow < menuHeight && spaceAbove > spaceBelow) {
+        wrapper.classList.add('open-up');
+        console.log('📤 Menu buka ke ATAS (space bawah:', spaceBelow, 'px)');
+    } else {
+        wrapper.classList.remove('open-up');
+        console.log('📥 Menu buka ke BAWAH (space bawah:', spaceBelow, 'px)');
     }
+
+    wrapper.classList.add('open');
+    activeDropdown = wrapper;
+
+    const searchInput = wrapper.querySelector('.cd-search input');
+    if (searchInput) setTimeout(() => searchInput.focus(), 100);
+
+    const selected = wrapper.querySelector('.cd-option.selected');
+    if (selected) setTimeout(() => selected.scrollIntoView({ block: 'nearest' }), 100);
+}
 
     function closeMenu(wrapper) {
         wrapper.classList.remove('open');
