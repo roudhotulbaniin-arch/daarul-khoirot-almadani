@@ -1549,3 +1549,18 @@ select[data-cd-init="true"] {
         font-size: 0.87rem !important;
     }
 }
+
+/* ================================================================
+   🎯 FIX WAJIB — Support inline style="display:none" pada .cd-option
+================================================================ */
+
+/* Default: cd-option tampil sebagai flex */
+.cd-option {
+    display: flex !important;
+}
+
+/* ⭐ Kalau punya inline style display:none → SEMBUNYIKAN */
+.cd-option[style*="display: none"],
+.cd-option[style*="display:none"] {
+    display: none !important;
+}
