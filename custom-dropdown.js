@@ -160,6 +160,7 @@ function autoAssignDropdownIcons() {
     console.log('✅ Ikon dropdown otomatis di-assign (name + label)');
 }
 
+
 /* ================================================================
    CUSTOM DROPDOWN — Reusable Component
 ================================================================ */
@@ -197,6 +198,9 @@ const CustomDropdown = (function () {
         wrapper.appendChild(selectEl);
         selectEl.classList.add('cd-native');
 
+        // ⭐ Force hide select native via inline style (backup CSS)
+        selectEl.style.display = 'none';
+
         buildUI(wrapper, selectEl, { searchable, placeholder, emptyText, iconMap, mainIcon });
 
         wrapper.dataset.placeholder = placeholder;
@@ -217,41 +221,29 @@ const CustomDropdown = (function () {
         };
     }
 
-function refresh(wrapper) {
-    const selectEl = wrapper.querySelector('select.cd-native');
-    if (!selectEl) return;
+    function refresh(wrapper) {
+        const selectEl = wrapper.querySelector('select.cd-native');
+        if (!selectEl) return;
 
-    const iconMap = parseIconMap(selectEl.dataset.cdIcons);
-    
-    // Rebuild options
-    renderOptions(wrapper, selectEl, iconMap);
-    
-    // Update trigger label
-    updateTrigger(wrapper, selectEl);
+        const iconMap = parseIconMap(selectEl.dataset.cdIcons);
+        
+        // Rebuild options
+        renderOptions(wrapper, selectEl, iconMap);
+        
+        // Update trigger label
+        updateTrigger(wrapper, selectEl);
 
-    wrapper.dataset.value = selectEl.value || '';
-    
-    // ⭐ RE-ATTACH search input listener (jaga-jaga kalau hilang)
-    const searchInput = wrapper.querySelector('.cd-search input');
-    if (searchInput) {
-        // Hapus listener lama (kalau ada)
-        const newSearchInput = searchInput.cloneNode(true);
-        searchInput.parentNode.replaceChild(newSearchInput, searchInput);
-        
-        // Pasang listener baru
-        newSearchInput.addEventListener('input', (e) => {
-            filterOptions(wrapper, e.target.value);
-        });
-        newSearchInput.addEventListener('click', (e) => e.stopPropagation());
-        
-        console.log('🔄 Search input listener re-attached');
+        wrapper.dataset.value = selectEl.value || '';
     }
-    
-    // Reset filter kalau ada value search sebelumnya
-    if (searchInput && searchInput.value) {
-        filterOptions(wrapper, '');
+
+    function setValue(wrapper, value) {
+        const selectEl = wrapper.querySelector('select.cd-native');
+        if (!selectEl) return;
+
+        selectEl.value = value;
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        updateTrigger(wrapper, selectEl);
     }
-}
 
     function buildUI(wrapper, selectEl, opts) {
         const { searchable, placeholder, emptyText, iconMap, mainIcon } = opts;
@@ -314,34 +306,54 @@ function refresh(wrapper) {
         trigger.setAttribute('tabindex', '0');
     }
 
-function renderOptions(wrapper, selectEl, iconMap = {}) {
-    // ... (kode existing) ...
-    
-    optionsContainer.innerHTML = html;
+    function renderOptions(wrapper, selectEl, iconMap = {}) {
+        const optionsContainer = wrapper.querySelector('.cd-options');
+        if (!optionsContainer) return;
 
-    optionsContainer.querySelectorAll('.cd-option').forEach(optEl => {
-        optEl.addEventListener('click', (e) => {
-            e.stopPropagation();
-            selectValue(wrapper, optEl.dataset.value);
+        const currentValue = selectEl.value;
+        const children = Array.from(selectEl.children);
+
+        if (children.length === 0) {
+            optionsContainer.innerHTML = `
+                <div class="cd-empty">
+                    <i class="fas fa-inbox"></i>
+                    ${wrapper.dataset.emptyText || 'Tidak ada pilihan'}
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+
+        children.forEach(child => {
+            if (child.tagName === 'OPTGROUP') {
+                html += `<div class="cd-group-header">${escapeHTML(child.label || '')}</div>`;
+                Array.from(child.children).forEach(opt => {
+                    if (opt.tagName === 'OPTION') {
+                        html += buildOptionHTML(opt, currentValue, iconMap);
+                    }
+                });
+            } else if (child.tagName === 'OPTION') {
+                html += buildOptionHTML(child, currentValue, iconMap);
+            }
         });
 
-        optEl.addEventListener('mouseenter', () => {
-            optionsContainer.querySelectorAll('.cd-option.highlighted')
-                .forEach(el => el.classList.remove('highlighted'));
-            optEl.classList.add('highlighted');
+        optionsContainer.innerHTML = html;
+
+        optionsContainer.querySelectorAll('.cd-option').forEach(optEl => {
+            optEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectValue(wrapper, optEl.dataset.value);
+            });
+
+            optEl.addEventListener('mouseenter', () => {
+                optionsContainer.querySelectorAll('.cd-option.highlighted')
+                    .forEach(el => el.classList.remove('highlighted'));
+                optEl.classList.add('highlighted');
+            });
         });
-    });
-    
-    // ⭐ TAMBAHAN — Re-attach search input listener
-    const searchInput = wrapper.querySelector('.cd-search input');
-    if (searchInput && !searchInput.dataset.cdListenerAttached) {
-        searchInput.addEventListener('input', (e) => {
-            filterOptions(wrapper, e.target.value);
-        });
-        searchInput.addEventListener('click', (e) => e.stopPropagation());
-        searchInput.dataset.cdListenerAttached = 'true';
     }
-}
+
     function buildOptionHTML(opt, currentValue, iconMap) {
         const val = opt.value;
         const label = opt.textContent.trim();
@@ -439,62 +451,56 @@ function renderOptions(wrapper, selectEl, iconMap = {}) {
         if (activeDropdown === wrapper) activeDropdown = null;
     }
 
-function filterOptions(wrapper, keyword) {
-    const kw = keyword.toLowerCase().trim();
-    const optionsContainer = wrapper.querySelector('.cd-options');
-    if (!optionsContainer) return;
-    
-    const options = optionsContainer.querySelectorAll('.cd-option');
-    let visibleCount = 0;
-
-    options.forEach(opt => {
-        // ⭐ Ambil label dengan MULTIPLE FALLBACK (anti-crash)
-        let label = '';
+    function filterOptions(wrapper, keyword) {
+        const kw = keyword.toLowerCase().trim();
+        const optionsContainer = wrapper.querySelector('.cd-options');
+        if (!optionsContainer) return;
         
-        // Prioritas 1: dari data-label
-        if (opt.dataset && opt.dataset.label) {
-            label = opt.dataset.label.toLowerCase();
-        }
-        // Prioritas 2: dari <span> child
-        else {
-            const spanEl = opt.querySelector('span');
-            if (spanEl) {
-                label = spanEl.textContent.trim().toLowerCase();
+        const options = optionsContainer.querySelectorAll('.cd-option');
+        let visibleCount = 0;
+
+        options.forEach(opt => {
+            // ⭐ Multi-fallback label (anti crash)
+            let label = '';
+            
+            if (opt.dataset && opt.dataset.label) {
+                label = opt.dataset.label.toLowerCase();
+            } else {
+                const spanEl = opt.querySelector('span');
+                if (spanEl) {
+                    label = spanEl.textContent.trim().toLowerCase();
+                }
             }
-        }
-        // Prioritas 3: dari textContent langsung
-        if (!label) {
-            label = (opt.textContent || '').trim().toLowerCase();
-        }
-        
-        // Kalau label masih kosong, skip (jangan crash)
-        if (!label) {
-            opt.style.display = '';
-            return;
-        }
-        
-        // Filter
-        const show = !kw || label.includes(kw);
-        opt.style.display = show ? '' : 'none';
-        
-        if (show) visibleCount++;
-    });
+            if (!label) {
+                label = (opt.textContent || '').trim().toLowerCase();
+            }
+            
+            if (!label) {
+                opt.style.display = '';
+                return;
+            }
+            
+            const show = !kw || label.includes(kw);
+            opt.style.display = show ? '' : 'none';
+            
+            if (show) visibleCount++;
+        });
 
-    // Hapus/tampilkan empty state
-    let emptyEl = optionsContainer.querySelector('.cd-empty-search');
-    if (visibleCount === 0 && kw) {
-        if (!emptyEl) {
-            emptyEl = document.createElement('div');
-            emptyEl.className = 'cd-empty cd-empty-search';
-            emptyEl.innerHTML = `<i class="fas fa-search"></i> Tidak ditemukan`;
-            optionsContainer.appendChild(emptyEl);
+        // Empty state
+        let emptyEl = optionsContainer.querySelector('.cd-empty-search');
+        if (visibleCount === 0 && kw) {
+            if (!emptyEl) {
+                emptyEl = document.createElement('div');
+                emptyEl.className = 'cd-empty cd-empty-search';
+                emptyEl.innerHTML = `<i class="fas fa-search"></i> Tidak ditemukan`;
+                optionsContainer.appendChild(emptyEl);
+            }
+        } else if (emptyEl) {
+            emptyEl.remove();
         }
-    } else if (emptyEl) {
-        emptyEl.remove();
+        
+        console.log(`🔍 Filter "${kw}": ${visibleCount} dari ${options.length}`);
     }
-    
-    console.log(`🔍 Filter "${kw}": ${visibleCount} dari ${options.length}`);
-}
 
     function handleKeyboard(wrapper, e) {
         const isOpen = wrapper.classList.contains('open');
@@ -545,16 +551,14 @@ function filterOptions(wrapper, keyword) {
             .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
-        /* =========================================================
-       CLOSE ON CLICK OUTSIDE (dengan pengecualian menu dropdown)
+    /* =========================================================
+       CLOSE ON CLICK OUTSIDE
     ========================================================= */
     document.addEventListener('click', (e) => {
         if (!activeDropdown) return;
         
-        // ⭐ Skip kalau klik di dalam wrapper atau menu dropdown
         if (activeDropdown.contains(e.target)) return;
         
-        // ⭐ Skip kalau klik di dalam .cd-menu (jaga-jaga menu di-portal ke body)
         if (e.target.closest('.cd-menu, .cd-options, .cd-search')) return;
         
         closeMenu(activeDropdown);
@@ -565,12 +569,10 @@ function filterOptions(wrapper, keyword) {
        CLOSE ON SCROLL — ANTI SCROLL DI DALAM MENU
     ========================================================= */
     let scrollTimeout;
-    let lastScrollTarget = null;
     
     document.addEventListener('scroll', (e) => {
         if (!activeDropdown) return;
         
-        // ⭐ Kalau scroll target ADA di dalam menu dropdown → SKIP close
         const scrollTarget = e.target;
         const isInsideMenu = 
             scrollTarget === activeDropdown ||
@@ -579,12 +581,8 @@ function filterOptions(wrapper, keyword) {
                 scrollTarget.closest?.('.cd-menu, .cd-options')
             ));
         
-        if (isInsideMenu) {
-            // Scroll di DALAM menu → jangan close
-            return;
-        }
+        if (isInsideMenu) return;
         
-        // Scroll di LUAR (misal user scroll halaman) → close
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             if (activeDropdown) closeMenu(activeDropdown);
@@ -600,7 +598,6 @@ function filterOptions(wrapper, keyword) {
         
         const menu = e.target.closest('.cd-menu, .cd-options');
         if (menu) {
-            // ⭐ Tandai bahwa user lagi scroll di menu
             e.stopPropagation();
         }
     }, { passive: true, capture: true });
@@ -615,6 +612,7 @@ function filterOptions(wrapper, keyword) {
     };
 
 })();
+
 
 /* ---------------------------------------------------
    TAMPILKAN TANGGAL DALAM FORMAT INDONESIA
@@ -653,6 +651,7 @@ const inputTgl = document.getElementById('tgl_daftar');
 if (inputTgl) {
     inputTgl.addEventListener('change', updateTglInfo);
 }
+
 
 /* ================================================================
    AUTO INIT — Setelah DOM siap
