@@ -446,30 +446,62 @@ const CustomDropdown = (function () {
         if (activeDropdown === wrapper) activeDropdown = null;
     }
 
-    function filterOptions(wrapper, keyword) {
-        const kw = keyword.toLowerCase().trim();
-        const options = wrapper.querySelectorAll('.cd-option');
-        let visibleCount = 0;
+function filterOptions(wrapper, keyword) {
+    const kw = keyword.toLowerCase().trim();
+    const optionsContainer = wrapper.querySelector('.cd-options');
+    if (!optionsContainer) return;
+    
+    const options = optionsContainer.querySelectorAll('.cd-option');
+    let visibleCount = 0;
 
-        options.forEach(opt => {
-            const label = opt.dataset.label.toLowerCase();
-            const show = !kw || label.includes(kw);
-            opt.style.display = show ? '' : 'none';
-            if (show) visibleCount++;
-        });
-
-        let emptyEl = wrapper.querySelector('.cd-options .cd-empty-search');
-        if (visibleCount === 0) {
-            if (!emptyEl) {
-                emptyEl = document.createElement('div');
-                emptyEl.className = 'cd-empty cd-empty-search';
-                emptyEl.innerHTML = `<i class="fas fa-search"></i> Tidak ditemukan`;
-                wrapper.querySelector('.cd-options').appendChild(emptyEl);
-            }
-        } else if (emptyEl) {
-            emptyEl.remove();
+    options.forEach(opt => {
+        // ⭐ Ambil label dengan MULTIPLE FALLBACK (anti-crash)
+        let label = '';
+        
+        // Prioritas 1: dari data-label
+        if (opt.dataset && opt.dataset.label) {
+            label = opt.dataset.label.toLowerCase();
         }
+        // Prioritas 2: dari <span> child
+        else {
+            const spanEl = opt.querySelector('span');
+            if (spanEl) {
+                label = spanEl.textContent.trim().toLowerCase();
+            }
+        }
+        // Prioritas 3: dari textContent langsung
+        if (!label) {
+            label = (opt.textContent || '').trim().toLowerCase();
+        }
+        
+        // Kalau label masih kosong, skip (jangan crash)
+        if (!label) {
+            opt.style.display = '';
+            return;
+        }
+        
+        // Filter
+        const show = !kw || label.includes(kw);
+        opt.style.display = show ? '' : 'none';
+        
+        if (show) visibleCount++;
+    });
+
+    // Hapus/tampilkan empty state
+    let emptyEl = optionsContainer.querySelector('.cd-empty-search');
+    if (visibleCount === 0 && kw) {
+        if (!emptyEl) {
+            emptyEl = document.createElement('div');
+            emptyEl.className = 'cd-empty cd-empty-search';
+            emptyEl.innerHTML = `<i class="fas fa-search"></i> Tidak ditemukan`;
+            optionsContainer.appendChild(emptyEl);
+        }
+    } else if (emptyEl) {
+        emptyEl.remove();
     }
+    
+    console.log(`🔍 Filter "${kw}": ${visibleCount} dari ${options.length}`);
+}
 
     function handleKeyboard(wrapper, e) {
         const isOpen = wrapper.classList.contains('open');
