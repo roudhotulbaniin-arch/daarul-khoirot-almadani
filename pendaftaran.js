@@ -274,10 +274,11 @@ const mappingPosKarawang = {
 async function loadWilayah(endpoint, elementName, placeholder) {
     const el = getEl(elementName);
     if (!el) {
-        console.error(`Elemen "${elementName}" tidak ditemukan`);
+        console.error(`❌ Elemen "${elementName}" tidak ditemukan`);
         return;
     }
 
+    // Loading state
     el.innerHTML = '<option value="">Loading...</option>';
     el.disabled = true;
     refreshCD(el);
@@ -289,21 +290,28 @@ async function loadWilayah(endpoint, elementName, placeholder) {
         if (!res.ok) throw new Error("Gagal load API");
         const data = await res.json();
 
-        let opt = `<option value="${placeholder === 'Pilih Provinsi' ? 'provinces_init_val' : ''}">${placeholder}</option>`;
+        // ⭐ Placeholder pakai value="" (BUKAN provinces_init_val)
+        let opt = `<option value="">${placeholder}</option>`;
+        
         data.forEach(d => {
             opt += `<option value="${d.id}">${d.name}</option>`;
         });
+        
         el.innerHTML = opt;
         el.disabled = false;
-        refreshCD(el);
+        
+        // ⭐ Delay refresh biar DOM siap
+        setTimeout(() => {
+            refreshCD(el);
+            console.log(`✅ ${endpoint} loaded: ${data.length} items`);
+        }, 50);
+        
     } catch (err) {
-        console.error("ERROR API:", err);
+        console.error("❌ ERROR API:", err);
         el.innerHTML = `<option value="">Gagal memuat data</option>`;
         refreshCD(el);
     }
 }
-
-
 /* ---------- WILAYAH AYAH ---------- */
 function loadKabAyah(val) {
     const kab  = getEl('kab_ayah');
