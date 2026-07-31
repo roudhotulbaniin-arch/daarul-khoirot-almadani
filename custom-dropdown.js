@@ -217,28 +217,41 @@ const CustomDropdown = (function () {
         };
     }
 
-    function refresh(wrapper) {
-        const selectEl = wrapper.querySelector('select.cd-native');
-        if (!selectEl) return;
+function refresh(wrapper) {
+    const selectEl = wrapper.querySelector('select.cd-native');
+    if (!selectEl) return;
 
-        const optionsContainer = wrapper.querySelector('.cd-options');
-        if (!optionsContainer) return;
+    const iconMap = parseIconMap(selectEl.dataset.cdIcons);
+    
+    // Rebuild options
+    renderOptions(wrapper, selectEl, iconMap);
+    
+    // Update trigger label
+    updateTrigger(wrapper, selectEl);
 
-        const iconMap = parseIconMap(selectEl.dataset.cdIcons);
-        renderOptions(wrapper, selectEl, iconMap);
-        updateTrigger(wrapper, selectEl);
-
-        wrapper.dataset.value = selectEl.value || '';
+    wrapper.dataset.value = selectEl.value || '';
+    
+    // ⭐ RE-ATTACH search input listener (jaga-jaga kalau hilang)
+    const searchInput = wrapper.querySelector('.cd-search input');
+    if (searchInput) {
+        // Hapus listener lama (kalau ada)
+        const newSearchInput = searchInput.cloneNode(true);
+        searchInput.parentNode.replaceChild(newSearchInput, searchInput);
+        
+        // Pasang listener baru
+        newSearchInput.addEventListener('input', (e) => {
+            filterOptions(wrapper, e.target.value);
+        });
+        newSearchInput.addEventListener('click', (e) => e.stopPropagation());
+        
+        console.log('🔄 Search input listener re-attached');
     }
-
-    function setValue(wrapper, value) {
-        const selectEl = wrapper.querySelector('select.cd-native');
-        if (!selectEl) return;
-
-        selectEl.value = value;
-        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
-        updateTrigger(wrapper, selectEl);
+    
+    // Reset filter kalau ada value search sebelumnya
+    if (searchInput && searchInput.value) {
+        filterOptions(wrapper, '');
     }
+}
 
     function buildUI(wrapper, selectEl, opts) {
         const { searchable, placeholder, emptyText, iconMap, mainIcon } = opts;
@@ -301,54 +314,34 @@ const CustomDropdown = (function () {
         trigger.setAttribute('tabindex', '0');
     }
 
-    function renderOptions(wrapper, selectEl, iconMap = {}) {
-        const optionsContainer = wrapper.querySelector('.cd-options');
-        if (!optionsContainer) return;
+function renderOptions(wrapper, selectEl, iconMap = {}) {
+    // ... (kode existing) ...
+    
+    optionsContainer.innerHTML = html;
 
-        const currentValue = selectEl.value;
-        const children = Array.from(selectEl.children);
-
-        if (children.length === 0) {
-            optionsContainer.innerHTML = `
-                <div class="cd-empty">
-                    <i class="fas fa-inbox"></i>
-                    ${wrapper.dataset.emptyText || 'Tidak ada pilihan'}
-                </div>
-            `;
-            return;
-        }
-
-        let html = '';
-
-        children.forEach(child => {
-            if (child.tagName === 'OPTGROUP') {
-                html += `<div class="cd-group-header">${escapeHTML(child.label || '')}</div>`;
-                Array.from(child.children).forEach(opt => {
-                    if (opt.tagName === 'OPTION') {
-                        html += buildOptionHTML(opt, currentValue, iconMap);
-                    }
-                });
-            } else if (child.tagName === 'OPTION') {
-                html += buildOptionHTML(child, currentValue, iconMap);
-            }
+    optionsContainer.querySelectorAll('.cd-option').forEach(optEl => {
+        optEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectValue(wrapper, optEl.dataset.value);
         });
 
-        optionsContainer.innerHTML = html;
-
-        optionsContainer.querySelectorAll('.cd-option').forEach(optEl => {
-            optEl.addEventListener('click', (e) => {
-                e.stopPropagation();
-                selectValue(wrapper, optEl.dataset.value);
-            });
-
-            optEl.addEventListener('mouseenter', () => {
-                optionsContainer.querySelectorAll('.cd-option.highlighted')
-                    .forEach(el => el.classList.remove('highlighted'));
-                optEl.classList.add('highlighted');
-            });
+        optEl.addEventListener('mouseenter', () => {
+            optionsContainer.querySelectorAll('.cd-option.highlighted')
+                .forEach(el => el.classList.remove('highlighted'));
+            optEl.classList.add('highlighted');
         });
+    });
+    
+    // ⭐ TAMBAHAN — Re-attach search input listener
+    const searchInput = wrapper.querySelector('.cd-search input');
+    if (searchInput && !searchInput.dataset.cdListenerAttached) {
+        searchInput.addEventListener('input', (e) => {
+            filterOptions(wrapper, e.target.value);
+        });
+        searchInput.addEventListener('click', (e) => e.stopPropagation());
+        searchInput.dataset.cdListenerAttached = 'true';
     }
-
+}
     function buildOptionHTML(opt, currentValue, iconMap) {
         const val = opt.value;
         const label = opt.textContent.trim();
