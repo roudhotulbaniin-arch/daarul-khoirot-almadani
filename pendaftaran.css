@@ -1316,10 +1316,47 @@ span.flatpickr-weekday {
 }
 
 /* ================================================================
-   🎯 FIX DROPDOWN MENU — Posisi Selalu Di Bawah Trigger
+   🎯 FIX FINAL — Custom Dropdown Premium (v3.0)
+   Untuk: Daarul Khoirot Almadani
 ================================================================ */
 
-/* WRAPPER — Reference untuk absolute positioning menu */
+
+/* ================================================================
+   1. HIDE SELECT NATIVE (Multi-Fallback)
+================================================================ */
+
+select.cd-native,
+.cd-wrapper select.cd-native,
+select[data-cd-init="true"] {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+
+/* ================================================================
+   2. OVERRIDE BORDER ANEH OPTION KEHADIRAN
+================================================================ */
+
+.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option {
+    border: none !important;
+    border-left: 4px solid transparent !important;
+}
+
+
+/* ================================================================
+   3. WRAPPER — Reference untuk absolute positioning menu
+================================================================ */
+
 .cd-wrapper {
     position: relative !important;
     display: block !important;
@@ -1332,77 +1369,59 @@ span.flatpickr-weekday {
 
 
 /* ================================================================
-   MENU DROPDOWN — Force posisi di BAWAH trigger
+   4. TRIGGER — Position relative untuk main-icon
 ================================================================ */
 
-.cd-menu {
-    /* Positioning */
-    position: absolute !important;
-    top: calc(100% + 6px) !important;   /* ⭐ Selalu di bawah trigger */
-    bottom: auto !important;             /* ⭐ Reset bottom (JANGAN buka ke atas) */
-    left: 0 !important;
-    right: 0 !important;
-    
-    /* Ukuran */
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    max-height: 280px !important;
-    
-    /* Style */
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: 12px !important;
-    box-shadow: 
-        0 10px 25px rgba(0, 0, 0, 0.1),
-        0 6px 10px rgba(0, 0, 0, 0.05) !important;
-    
-    /* Behavior */
-    overflow: hidden !important;
-    z-index: 10000 !important;
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    
-    /* Animation */
-    animation: cdSlideDown 0.2s ease !important;
-    
-    box-sizing: border-box !important;
-}
-
-
-/* Saat dropdown OPEN — tampilkan menu */
-.cd-wrapper.open .cd-menu {
-    display: flex !important;
-    flex-direction: column !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-}
-
-
-/* ⭐ FORCE — Override "open-up" (Jangan buka ke atas!) */
-.cd-wrapper.open-up .cd-menu,
-.cd-wrapper.open.open-up .cd-menu {
-    top: calc(100% + 6px) !important;   /* ⭐ Tetap di bawah! */
-    bottom: auto !important;
-}
-
-
-/* Animasi masuk */
-@keyframes cdSlideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.cd-trigger {
+    position: relative !important;
 }
 
 
 /* ================================================================
-   ARROW — Rotate saat menu open
+   5. MENU DROPDOWN — Positioning & Show/Hide
+================================================================ */
+
+/* Default state: Menu HIDDEN */
+.cd-menu {
+    position: absolute !important;
+    top: calc(100% + 6px);
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    z-index: 10000 !important;
+    
+    /* Hidden state */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+/* Saat wrapper .open — Menu TAMPIL */
+.cd-wrapper.open .cd-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+}
+
+/* Kalau space bawah kurang → buka ke atas */
+.cd-wrapper.open-up .cd-menu {
+    top: auto !important;
+    bottom: calc(100% + 6px) !important;
+    transform: translateY(10px);
+}
+
+.cd-wrapper.open-up.open .cd-menu {
+    transform: translateY(0) !important;
+}
+
+
+/* ================================================================
+   6. ARROW — Rotate saat menu open
 ================================================================ */
 
 .cd-arrow {
@@ -1422,7 +1441,7 @@ span.flatpickr-weekday {
 
 
 /* ================================================================
-   OPTIONS CONTAINER
+   7. OPTIONS CONTAINER
 ================================================================ */
 
 .cd-options {
@@ -1448,7 +1467,7 @@ span.flatpickr-weekday {
 
 
 /* ================================================================
-   OPTION ITEM
+   8. OPTION ITEM
 ================================================================ */
 
 .cd-option {
@@ -1495,10 +1514,9 @@ span.flatpickr-weekday {
 
 
 /* ================================================================
-   FIX PARENT OVERFLOW — Biar menu bisa keluar
+   9. FIX PARENT OVERFLOW — Biar menu bisa keluar
 ================================================================ */
 
-/* Container form/section — jangan overflow hidden */
 .form-container,
 .form-section,
 .form-group,
