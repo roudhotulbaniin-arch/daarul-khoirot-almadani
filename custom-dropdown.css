@@ -1134,6 +1134,38 @@ select[data-cd-init="true"] {
     }
 }
 
+/* ================================================================
+   🎯 FIX FINAL v8.0 — Menu Anti Kepotong Header
+================================================================ */
+
+/* Menu default max-height */
+.cd-menu {
+    max-height: min(320px, 40vh) !important;
+}
+
+/* ⭐ Kalau buka ke atas, batasi max-height dengan viewport - header */
+.cd-wrapper.open-up .cd-menu {
+    max-height: min(320px, calc(100vh - 200px)) !important;
+    /* 200px = tinggi header + margin buffer */
+}
+
+/* Options container ikut menyesuaikan */
+.cd-wrapper.open-up .cd-options {
+    max-height: min(300px, calc(100vh - 240px)) !important;
+    /* 240px = header + margin + padding menu */
+}
+
+/* Z-index menu lebih tinggi dari header sticky */
+.cd-wrapper.open .cd-menu {
+    z-index: 10001 !important;  /* Header sticky = 9997 */
+}
+
+/* Kalau ada tab menu, jangan block dropdown */
+.tab-menu {
+    z-index: 1 !important;
+    position: relative !important;
+}
+
 
 /* ================================================================
    END OF FILE
