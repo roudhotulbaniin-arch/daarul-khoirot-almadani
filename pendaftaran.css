@@ -1564,3 +1564,92 @@ select[data-cd-init="true"] {
 .cd-option[style*="display:none"] {
     display: none !important;
 }
+
+/* ================================================================
+   🎯 FIX FINAL v4.0 — Menu Dropdown Scrollable & Anti-Cutoff
+   Prioritas TERTINGGI (paling bawah file CSS)
+================================================================ */
+
+/* ⭐ MENU CONTAINER — Force flex layout dengan max-height */
+.cd-menu {
+    max-height: 320px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+/* Kalau open, tampilkan sebagai flex column */
+.cd-wrapper.open .cd-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+}
+
+/* ⭐ SEARCH BAR — Fixed di atas, tidak scroll */
+.cd-search {
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+}
+
+/* ⭐ OPTIONS CONTAINER — WAJIB flex-grow + scrollable */
+.cd-options {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: 300px !important;
+    min-height: 60px !important;
+    padding: 6px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26, 93, 26, 0.5) transparent;
+}
+
+/* Custom scrollbar (Webkit) */
+.cd-options::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+.cd-options::-webkit-scrollbar-track {
+    background: #f5f5f5 !important;
+    border-radius: 4px;
+}
+
+.cd-options::-webkit-scrollbar-thumb {
+    background: rgba(26, 93, 26, 0.5) !important;
+    border-radius: 4px;
+}
+
+.cd-options::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 93, 26, 0.7) !important;
+}
+
+/* ⭐ OPTION ITEM — Jangan pernah mengecil */
+.cd-option {
+    flex-shrink: 0 !important;
+    min-height: 40px !important;
+}
+
+/* ⭐ Support inline hide (dari filter search) */
+.cd-option[style*="display: none"],
+.cd-option[style*="display:none"] {
+    display: none !important;
+}
+
+
+/* ================================================================
+   📱 MOBILE — Sesuaikan max-height
+================================================================ */
+
+@media (max-width: 480px) {
+    .cd-menu {
+        max-height: 280px !important;
+    }
+    
+    .cd-options {
+        max-height: 260px !important;
+    }
+}
