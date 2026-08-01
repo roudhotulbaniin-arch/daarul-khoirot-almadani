@@ -418,24 +418,33 @@ const CustomDropdown = (function () {
         else openMenu(wrapper);
     }
 
+
 function openMenu(wrapper) {
     if (activeDropdown && activeDropdown !== wrapper) closeMenu(activeDropdown);
 
-    // Hitung space dengan benar
     const rect = wrapper.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
-    const spaceBelow = viewportHeight - rect.bottom;
-    const spaceAbove = rect.top;
-    const menuHeight = 270; // Estimasi tinggi menu (max-height + padding)
     
-    // ⭐ Kalau space bawah cukup → buka ke bawah
-    // Kalau space bawah kurang DAN space atas lebih besar → buka ke atas
-    if (spaceBelow < menuHeight && spaceAbove > spaceBelow) {
+    // ⭐ Cek tinggi header sticky (kalau ada)
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 0;
+    
+    // Space bawah & atas (dikurangi header)
+    const spaceBelow = viewportHeight - rect.bottom;
+    const spaceAbove = rect.top - headerHeight - 10; // 10px buffer
+    
+    // Menu height max = 320px atau 40vh
+    const menuHeight = Math.min(320, viewportHeight * 0.4);
+    
+    // ⭐ Buka ke atas HANYA kalau:
+    // 1. Space bawah kurang DARI menu tinggi
+    // 2. Space atas (setelah header) CUKUP untuk menampung menu
+    if (spaceBelow < menuHeight && spaceAbove >= menuHeight) {
         wrapper.classList.add('open-up');
-        console.log('📤 Menu buka ke ATAS (space bawah:', spaceBelow, 'px)');
+        console.log(`🔼 Menu ke ATAS (bawah: ${Math.round(spaceBelow)}px, atas: ${Math.round(spaceAbove)}px, header: ${headerHeight}px)`);
     } else {
         wrapper.classList.remove('open-up');
-        console.log('📥 Menu buka ke BAWAH (space bawah:', spaceBelow, 'px)');
+        console.log(`🔽 Menu ke BAWAH (bawah: ${Math.round(spaceBelow)}px, atas: ${Math.round(spaceAbove)}px)`);
     }
 
     wrapper.classList.add('open');
