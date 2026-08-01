@@ -1528,65 +1528,39 @@
         font-size: 1.1rem !important;
     }
 }
-
 /* ================================================================
-   🎯 FIX FINAL — Menu Dropdown Smart Position (v2.0)
-   Support: Auto open-up + Scroll internal + Anti-cutoff
+   🎯 FIX FINAL v3.0 — Menu Dropdown Scroll Internal
+   Anti-cutoff: Semua options terlihat dengan scroll
 ================================================================ */
 
-/* Menu default — position setting */
+/* Menu container — Force max-height dengan flex layout */
 .cd-menu {
-    position: absolute !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    max-height: 280px !important;
-    z-index: 10000 !important;
+    max-height: 320px !important;   /* Lebih tinggi biar muat lebih banyak */
+    overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
-    overflow: hidden !important;
-    
-    /* Hidden state */
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
 }
 
-/* Default: Menu buka KE BAWAH */
-.cd-wrapper .cd-menu {
-    top: calc(100% + 6px);
-    bottom: auto;
-    transform: translateY(-10px);
-}
-
-/* ⭐ Kalau .open-up: Menu buka KE ATAS */
-.cd-wrapper.open-up .cd-menu {
-    top: auto !important;
-    bottom: calc(100% + 6px) !important;
-    transform: translateY(10px);
-}
-
-/* Saat wrapper .open — Tampilkan menu */
+/* Kalau tidak ada search bar, options langsung fill */
 .cd-wrapper.open .cd-menu {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translateY(0) !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
-/* Options scrollable internal */
+/* ⭐ OPTIONS CONTAINER — WAJIB scrollable */
 .cd-options {
     flex: 1 1 auto !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    max-height: 260px !important;
-    -webkit-overflow-scrolling: touch !important;
+    max-height: 300px !important;    /* Sedikit lebih kecil dari menu */
+    min-height: 100px !important;    /* Minimum height biar tidak collapse */
     padding: 6px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26, 93, 26, 0.4) transparent;
 }
 
-/* Scrollbar hijau */
+/* Scrollbar cakep */
 .cd-options::-webkit-scrollbar {
     width: 8px !important;
 }
@@ -1603,4 +1577,9 @@
 
 .cd-options::-webkit-scrollbar-thumb:hover {
     background: rgba(26, 93, 26, 0.6) !important;
+}
+
+/* Option item — pastikan tidak overflow */
+.cd-option {
+    flex-shrink: 0 !important;  /* Jangan mengecil */
 }
