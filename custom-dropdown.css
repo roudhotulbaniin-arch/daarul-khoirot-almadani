@@ -1530,101 +1530,58 @@
 }
 
 /* ================================================================
-   🎯 FIX FINAL — HIDE SELECT NATIVE (Multi-Fallback)
+   🎯 FIX FINAL — Menu Dropdown Smart Position (v2.0)
+   Support: Auto open-up + Scroll internal + Anti-cutoff
 ================================================================ */
 
-select.cd-native,
-.cd-wrapper select.cd-native,
-select[data-cd-init="true"] {
-    display: none !important;
-    visibility: hidden !important;
-    position: absolute !important;
-    width: 0 !important;
-    height: 0 !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    margin: -1px !important;
-    padding: 0 !important;
-    border: 0 !important;
-}
-
-
-/* ================================================================
-   🎯 FIX — Override Border Aneh di Option Kehadiran
-================================================================ */
-
-.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option {
-    border: none !important;
-    border-left: 4px solid transparent !important;
-}
-
-
-/* ================================================================
-   🎯 FIX — Trigger Position Relative (biar main-icon nempel)
-================================================================ */
-
-.cd-trigger {
-    position: relative !important;
-}
-
-
-/* ================================================================
-   🎯 FIX — Menu Dropdown Selalu Di Bawah (Force)
-================================================================ */
-
+/* Menu default — position setting */
 .cd-menu {
     position: absolute !important;
-    top: calc(100% + 6px) !important;
-    bottom: auto !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    max-height: 280px !important;
     z-index: 10000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    
+    /* Hidden state */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
 }
 
-/* ================================================================
-   🎯 FORCE DROPDOWN SELALU BUKA KE BAWAH
-================================================================ */
-
-/* Override open-up — paksa buka ke bawah */
-.cd-wrapper.open-up .cd-menu,
-.cd-wrapper.open.open-up .cd-menu {
-    top: calc(100% + 6px) !important;
-    bottom: auto !important;
-    transform: translateY(-10px) !important;
+/* Default: Menu buka KE BAWAH */
+.cd-wrapper .cd-menu {
+    top: calc(100% + 6px);
+    bottom: auto;
+    transform: translateY(-10px);
 }
 
-.cd-wrapper.open-up.open .cd-menu {
+/* ⭐ Kalau .open-up: Menu buka KE ATAS */
+.cd-wrapper.open-up .cd-menu {
+    top: auto !important;
+    bottom: calc(100% + 6px) !important;
+    transform: translateY(10px);
+}
+
+/* Saat wrapper .open — Tampilkan menu */
+.cd-wrapper.open .cd-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     transform: translateY(0) !important;
 }
 
-/* ================================================================
-   🎯 FIX MENU DROPDOWN — Scroll Internal & Auto-Position
-================================================================ */
-
-/* Menu punya max-height + scroll internal */
-.cd-menu {
-    max-height: 260px !important;
-    overflow: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-/* Kalau .cd-wrapper.open, tampilkan menu sebagai flex */
-.cd-wrapper.open .cd-menu {
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-/* Options container harus scrollable */
+/* Options scrollable internal */
 .cd-options {
     flex: 1 1 auto !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    max-height: 250px !important;
+    max-height: 260px !important;
     -webkit-overflow-scrolling: touch !important;
     padding: 6px !important;
 }
@@ -1646,22 +1603,4 @@ select[data-cd-init="true"] {
 
 .cd-options::-webkit-scrollbar-thumb:hover {
     background: rgba(26, 93, 26, 0.6) !important;
-}
-
-
-/* ================================================================
-   🎯 FIX AUTO OPEN-UP — Kalau space bawah kurang, buka ke atas
-================================================================ */
-
-/* HAPUS override "selalu ke bawah" yang lama */
-/* Biarkan JavaScript yang deteksi space */
-
-.cd-wrapper.open-up .cd-menu {
-    top: auto !important;
-    bottom: calc(100% + 6px) !important;
-    transform: translateY(10px) !important;
-}
-
-.cd-wrapper.open-up.open .cd-menu {
-    transform: translateY(0) !important;
 }
