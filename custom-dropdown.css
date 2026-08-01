@@ -1,25 +1,59 @@
 /* ================================================================
-   CUSTOM DROPDOWN — Premium Style (Konsisten dengan SweetAlert)
-   ================================================================ */
+   CUSTOM DROPDOWN — Premium Style (Clean & Final v7.0)
+   Untuk: Daarul Khoirot Almadani
+   Konsisten dengan SweetAlert Premium
+================================================================ */
 
-/* ---------- WRAPPER ---------- */
+
+/* ==========================================================
+   1. HIDE SELECT NATIVE (Anti-dropdown ganda)
+========================================================== */
+
+select.cd-native,
+.cd-wrapper select.cd-native,
+select[data-cd-init="true"] {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+
+/* ==========================================================
+   2. WRAPPER — Container Utama
+========================================================== */
+
 .cd-wrapper {
     position: relative;
     width: 100%;
     font-family: 'Quicksand', sans-serif;
     user-select: none;
+    display: block;
 }
 
-/* Hide native select */
-.cd-wrapper select.cd-native {
-    display: none !important;
+.cd-wrapper.open {
+    z-index: 9999;
 }
 
-/* ---------- TRIGGER (Tombol utama dropdown) ---------- */
+
+/* ==========================================================
+   3. TRIGGER — Tombol Dropdown
+========================================================== */
+
 .cd-trigger {
+    position: relative;
     width: 100%;
+    min-height: 46px;
     padding: 12px 44px 12px 16px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #1a5d1a;
     border-radius: 10px;
     background: #ffffff;
     color: #1f2937;
@@ -27,27 +61,24 @@
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
+    outline: none;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
     text-align: left;
-    outline: none;
-    transition: all 0.25s ease;
-    position: relative;
-    min-height: 46px;
     box-sizing: border-box;
+    transition: all 0.25s ease;
 }
 
 .cd-trigger:hover {
-    border-color: #1a5d1a;
+    border-color: #144514;
     background: #f9fdf9;
 }
 
 .cd-trigger:focus,
 .cd-wrapper.open .cd-trigger {
-    border-color: #1a5d1a;
-    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.1);
+    border-color: #144514;
+    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15);
     background: #ffffff;
 }
 
@@ -56,16 +87,46 @@
     color: #9ca3af !important;
     cursor: not-allowed !important;
     border-color: #e5e7eb !important;
+    opacity: 0.7;
 }
 
-/* Placeholder (saat belum pilih) */
 .cd-trigger.placeholder {
     color: #9ca3af;
     font-weight: 500;
 }
 
-/* Selected label */
-.cd-trigger .cd-selected-label {
+
+/* ==========================================================
+   4. MAIN ICON (kiri trigger)
+========================================================== */
+
+.cd-trigger.has-main-icon {
+    padding-left: 44px;
+}
+
+.cd-trigger .cd-main-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1a5d1a;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+/* Sembunyikan icon dobel saat option terpilih */
+.cd-trigger.has-main-icon .cd-selected-label > i:first-child {
+    display: none;
+}
+
+
+/* ==========================================================
+   5. SELECTED LABEL
+========================================================== */
+
+.cd-selected-label {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -73,15 +134,26 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    min-width: 0;
 }
 
-.cd-trigger .cd-selected-label i {
+.cd-selected-label span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cd-selected-label i {
     color: #1a5d1a;
     font-size: 0.9rem;
     flex-shrink: 0;
 }
 
-/* Arrow icon */
+
+/* ==========================================================
+   6. ARROW ICON (chevron)
+========================================================== */
+
 .cd-arrow {
     position: absolute;
     right: 14px;
@@ -98,57 +170,79 @@
     color: #1a5d1a;
 }
 
-/* ---------- DROPDOWN MENU ---------- */
+
+/* ==========================================================
+   7. MENU DROPDOWN — Base Positioning
+========================================================== */
+
 .cd-menu {
     position: absolute;
-    top: calc(100% + 6px);
     left: 0;
     right: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: min(320px, 40vh);
+    z-index: 10000;
+    box-sizing: border-box;
+    
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #1a5d1a;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
-    z-index: 9999;
-    max-height: 280px;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+    
+    /* Flex layout untuk scroll internal */
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    
+    /* Default: HIDDEN */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
 }
 
-.cd-wrapper.open .cd-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* Default position — buka KE BAWAH */
+.cd-wrapper .cd-menu {
+    top: calc(100% + 6px);
+    bottom: auto;
+    transform: translateY(-10px);
 }
 
-/* Open UP (jika dropdown mepet bawah layar) */
+/* Kalau .open-up — buka KE ATAS */
 .cd-wrapper.open-up .cd-menu {
     top: auto;
     bottom: calc(100% + 6px);
     transform: translateY(10px);
 }
 
-.cd-wrapper.open-up.open .cd-menu {
+/* Saat wrapper .open — TAMPILKAN */
+.cd-wrapper.open .cd-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     transform: translateY(0);
 }
 
-/* ---------- SEARCH BAR (Opsional) ---------- */
+
+/* ==========================================================
+   8. SEARCH BAR (opsional, kalau data-cd-search="true")
+========================================================== */
+
 .cd-search {
+    flex: 0 0 auto;
     padding: 10px 12px;
     border-bottom: 1px solid #f0f2f5;
     background: #fafafa;
     position: relative;
-    flex-shrink: 0;
 }
 
 .cd-search input {
     width: 100%;
     padding: 8px 12px 8px 34px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #1a5d1a;
     border-radius: 8px;
     font-family: 'Quicksand', sans-serif;
     font-size: 0.85rem;
@@ -156,12 +250,13 @@
     color: #1f2937;
     background: #ffffff;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
 }
 
 .cd-search input:focus {
-    border-color: #1a5d1a;
-    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.08);
+    border-color: #144514;
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
 }
 
 .cd-search i {
@@ -174,33 +269,46 @@
     pointer-events: none;
 }
 
-/* ---------- OPTIONS LIST ---------- */
+
+/* ==========================================================
+   9. OPTIONS CONTAINER — Scrollable
+========================================================== */
+
 .cd-options {
+    flex: 1 1 auto;
     overflow-y: auto;
+    overflow-x: hidden;
+    max-height: min(300px, 38vh);
+    min-height: 60px;
     padding: 6px;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: rgba(26, 93, 26, 0.3) transparent;
-    flex: 1;
+    scrollbar-color: rgba(26, 93, 26, 0.5) transparent;
 }
 
 .cd-options::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .cd-options::-webkit-scrollbar-track {
-    background: transparent;
+    background: #f5f5f5;
+    border-radius: 4px;
 }
 
 .cd-options::-webkit-scrollbar-thumb {
-    background: rgba(26, 93, 26, 0.3);
-    border-radius: 3px;
+    background: rgba(26, 93, 26, 0.5);
+    border-radius: 4px;
 }
 
 .cd-options::-webkit-scrollbar-thumb:hover {
-    background: rgba(26, 93, 26, 0.5);
+    background: rgba(26, 93, 26, 0.7);
 }
 
-/* ---------- OPTION ITEM ---------- */
+
+/* ==========================================================
+   10. OPTION ITEM
+========================================================== */
+
 .cd-option {
     padding: 10px 12px;
     border-radius: 8px;
@@ -214,6 +322,9 @@
     transition: all 0.15s ease;
     margin-bottom: 2px;
     line-height: 1.3;
+    flex-shrink: 0;
+    min-height: 40px;
+    box-sizing: border-box;
 }
 
 .cd-option:last-child {
@@ -250,6 +361,13 @@
     color: #ffd700;
 }
 
+.cd-option span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* Check mark saat selected */
 .cd-option.selected::after {
     content: '\f00c';
@@ -258,9 +376,20 @@
     margin-left: auto;
     color: #ffd700;
     font-size: 0.8rem;
+    flex-shrink: 0;
 }
 
-/* Empty state */
+/* Support inline style hide (dari filter search) */
+.cd-option[style*="display: none"],
+.cd-option[style*="display:none"] {
+    display: none !important;
+}
+
+
+/* ==========================================================
+   11. EMPTY STATE
+========================================================== */
+
 .cd-empty {
     padding: 30px 20px;
     text-align: center;
@@ -276,7 +405,11 @@
     color: #d1d5db;
 }
 
-/* ---------- SEPARATOR / GROUP HEADER ---------- */
+
+/* ==========================================================
+   12. GROUP HEADER (Optgroup)
+========================================================== */
+
 .cd-group-header {
     padding: 8px 12px 6px;
     font-size: 0.7rem;
@@ -288,24 +421,10 @@
     margin: 4px 0 6px;
 }
 
-/* ---------- MOBILE ADJUSTMENTS ---------- */
-@media (max-width: 480px) {
-    .cd-menu {
-        max-height: 260px;
-    }
-    
-    .cd-option {
-        padding: 12px;
-        font-size: 0.88rem;
-    }
-    
-    .cd-trigger {
-        min-height: 48px;
-        font-size: 0.92rem;
-    }
-}
 
-/* ---------- SIZE VARIANTS ---------- */
+/* ==========================================================
+   13. SIZE VARIANTS
+========================================================== */
 
 /* Small */
 .cd-wrapper.cd-sm .cd-trigger {
@@ -318,6 +437,7 @@
 .cd-wrapper.cd-sm .cd-option {
     padding: 8px 10px;
     font-size: 0.82rem;
+    min-height: 34px;
 }
 
 /* Large */
@@ -331,18 +451,19 @@
 .cd-wrapper.cd-lg .cd-option {
     padding: 12px 14px;
     font-size: 0.92rem;
+    min-height: 44px;
 }
 
-/* ================================================================
-   VARIANT "NILAI" — Untuk Penilaian Ibadah & Akhlaq
-   ================================================================ */
 
-/* Wrapper kecil (dalam penilaian-card) */
+/* ==========================================================
+   14. VARIANT "NILAI" — Sangat Baik / Baik / Cukup / Kurang
+========================================================== */
+
+/* Trigger di penilaian-card */
 .penilaian-card .cd-wrapper {
     margin-top: 8px;
 }
 
-/* Trigger di dalam penilaian-card */
 .penilaian-card .cd-trigger {
     padding: 10px 40px 10px 14px;
     font-size: 0.9rem;
@@ -351,18 +472,14 @@
     font-weight: 700;
     text-align: center;
     justify-content: center;
-    border-width: 2px;
-    transition: all 0.3s ease;
 }
 
-.penilaian-card .cd-trigger .cd-selected-label {
+.penilaian-card .cd-selected-label {
     justify-content: center;
     text-align: center;
 }
 
-/* ==========================================================
-   COLOR STATES BERDASARKAN NILAI (data-cd-variant="nilai")
-   ========================================================== */
+/* --- Color states pada trigger --- */
 
 /* SANGAT BAIK — Hijau */
 .cd-wrapper[data-value="Sangat Baik"] .cd-trigger {
@@ -371,7 +488,7 @@
     color: #065f46;
 }
 
-.cd-wrapper[data-value="Sangat Baik"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Sangat Baik"] .cd-selected-label i,
 .cd-wrapper[data-value="Sangat Baik"] .cd-arrow {
     color: #10b981;
 }
@@ -383,7 +500,7 @@
     color: #1e40af;
 }
 
-.cd-wrapper[data-value="Baik"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Baik"] .cd-selected-label i,
 .cd-wrapper[data-value="Baik"] .cd-arrow {
     color: #3b82f6;
 }
@@ -395,7 +512,7 @@
     color: #92400e;
 }
 
-.cd-wrapper[data-value="Cukup"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Cukup"] .cd-selected-label i,
 .cd-wrapper[data-value="Cukup"] .cd-arrow {
     color: #d97706;
 }
@@ -407,114 +524,94 @@
     color: #991b1b;
 }
 
-.cd-wrapper[data-value="Kurang"] .cd-trigger .cd-selected-label i,
+.cd-wrapper[data-value="Kurang"] .cd-selected-label i,
 .cd-wrapper[data-value="Kurang"] .cd-arrow {
     color: #ef4444;
 }
 
-/* ==========================================================
-   OPTIONS DENGAN WARNA (dalam menu dropdown)
-   ========================================================== */
+/* --- Options nilai (dalam menu) --- */
 
-/* Nilai variant options */
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option {
     border-left: 4px solid transparent;
-    transition: all 0.2s ease;
 }
 
-/* SANGAT BAIK Option */
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"] {
+/* Sangat Baik option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Sangat Baik"] {
     border-left-color: #10b981;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"]:hover,
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"].highlighted {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Sangat Baik"] i {
+    color: #10b981;
+}
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Sangat Baik"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Sangat Baik"].highlighted {
     background: linear-gradient(135deg, #d1fae5, #a7f3d0);
     color: #065f46;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"] i {
-    color: #10b981;
-}
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Sangat Baik"].selected {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Sangat Baik"].selected {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
 }
 
-/* BAIK Option */
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"] {
+/* Baik option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Baik"] {
     border-left-color: #3b82f6;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"]:hover,
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"].highlighted {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Baik"] i {
+    color: #3b82f6;
+}
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Baik"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Baik"].highlighted {
     background: linear-gradient(135deg, #dbeafe, #bfdbfe);
     color: #1e40af;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"] i {
-    color: #3b82f6;
-}
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Baik"].selected {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Baik"].selected {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
 }
 
-/* CUKUP Option */
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"] {
+/* Cukup option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Cukup"] {
     border-left-color: #f59e0b;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"]:hover,
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"].highlighted {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Cukup"] i {
+    color: #d97706;
+}
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Cukup"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Cukup"].highlighted {
     background: linear-gradient(135deg, #fed7aa, #fdba74);
     color: #92400e;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"] i {
-    color: #d97706;
-}
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Cukup"].selected {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Cukup"].selected {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
 }
 
-/* KURANG Option */
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"] {
+/* Kurang option */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Kurang"] {
     border-left-color: #ef4444;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"]:hover,
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"].highlighted {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Kurang"] i {
+    color: #ef4444;
+}
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Kurang"]:hover,
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Kurang"].highlighted {
     background: linear-gradient(135deg, #fee2e2, #fca5a5);
     color: #991b1b;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"] i {
-    color: #ef4444;
-}
-
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option[data-value="Kurang"].selected {
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option[data-value="Kurang"].selected {
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
 }
 
-/* Selected state check mark — pakai warna putih */
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-menu .cd-option.selected::after {
+/* Check mark putih untuk semua selected variant nilai */
+.cd-wrapper[data-cd-variant-active="nilai"] .cd-option.selected::after {
     color: white;
 }
 
-/* Icon di trigger nilai */
-.cd-wrapper[data-cd-variant-active="nilai"] .cd-trigger .cd-selected-label i {
-    font-size: 0.95rem;
-}
 
-/* ================================================================
-   VARIANT "KEHADIRAN" — Hadir / Izin / Sakit / Alpha
-   ================================================================ */
+/* ==========================================================
+   15. VARIANT "KEHADIRAN" — Hadir / Izin / Sakit / Alpha
+========================================================== */
 
 /* HADIR — Hijau */
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Hadir"] .cd-trigger {
@@ -522,7 +619,6 @@
     border-color: #10b981;
     color: #065f46;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Hadir"] .cd-selected-label i,
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Hadir"] .cd-arrow {
     color: #059669;
@@ -534,7 +630,6 @@
     border-color: #f59e0b;
     color: #92400e;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Izin"] .cd-selected-label i,
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Izin"] .cd-arrow {
     color: #d97706;
@@ -546,7 +641,6 @@
     border-color: #ea580c;
     color: #7c2d12;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Sakit"] .cd-selected-label i,
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Sakit"] .cd-arrow {
     color: #c2410c;
@@ -558,132 +652,108 @@
     border-color: #ef4444;
     color: #991b1b;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Alpha"] .cd-selected-label i,
 .cd-wrapper[data-cd-variant-active="kehadiran"][data-value="Alpha"] .cd-arrow {
     color: #dc2626;
 }
 
-/* ---------- OPTIONS KEHADIRAN (menu dropdown) ---------- */
+/* --- Options kehadiran --- */
 
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option {
-    border: 2px solid #1a5d1a !important;
-    transition: all 0.2s ease;
+    border: none;
+    border-left: 4px solid transparent;
 }
 
-/* HADIR Option */
+/* Hadir */
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"] {
     border-left-color: #10b981;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"] i {
     color: #10b981;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"]:hover,
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"].highlighted {
     background: linear-gradient(135deg, #d1fae5, #a7f3d0);
     color: #065f46;
-    transform: translateX(2px);
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"].selected {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Hadir"].selected i {
     color: white;
 }
 
-/* IZIN Option */
+/* Izin */
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"] {
     border-left-color: #f59e0b;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"] i {
     color: #d97706;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"]:hover,
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"].highlighted {
     background: linear-gradient(135deg, #fef3c7, #fde68a);
     color: #92400e;
-    transform: translateX(2px);
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"].selected {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Izin"].selected i {
     color: white;
 }
 
-/* SAKIT Option */
+/* Sakit */
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"] {
     border-left-color: #ea580c;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"] i {
     color: #ea580c;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"]:hover,
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"].highlighted {
     background: linear-gradient(135deg, #fed7aa, #fdba74);
     color: #7c2d12;
-    transform: translateX(2px);
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"].selected {
     background: linear-gradient(135deg, #ea580c, #c2410c);
     color: white;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Sakit"].selected i {
     color: white;
 }
 
-/* ALPHA Option */
+/* Alpha */
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"] {
     border-left-color: #ef4444;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"] i {
     color: #ef4444;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"]:hover,
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"].highlighted {
     background: linear-gradient(135deg, #fee2e2, #fca5a5);
     color: #991b1b;
-    transform: translateX(2px);
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"].selected {
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
 }
-
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option[data-value="Alpha"].selected i {
     color: white;
 }
 
-/* Check mark putih untuk semua selected */
 .cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option.selected::after {
     color: white;
 }
 
 
-/* ================================================================
-   VARIANT "NILAI-HURUF" — A / B / C / D (Hafalan)
-   ================================================================ */
+/* ==========================================================
+   16. VARIANT "NILAI-HURUF" — A / B / C / D (Hafalan)
+========================================================== */
 
-/* Matcher: cek awalan "A ", "B ", "C ", "D " di data-value */
-
-/* NILAI A — Hijau */
+/* Nilai A — Hijau */
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A "] .cd-trigger,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A("] .cd-trigger {
     background: linear-gradient(135deg, #d1fae5, #a7f3d0);
@@ -692,13 +762,13 @@
 }
 
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A "] .cd-selected-label i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="A("] .cd-arrow {
     color: #059669;
 }
 
-/* NILAI B — Biru */
+/* Nilai B — Biru */
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B "] .cd-trigger,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B("] .cd-trigger {
     background: linear-gradient(135deg, #dbeafe, #bfdbfe);
@@ -707,13 +777,13 @@
 }
 
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B "] .cd-selected-label i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="B("] .cd-arrow {
     color: #2563eb;
 }
 
-/* NILAI C — Oranye */
+/* Nilai C — Oranye */
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C "] .cd-trigger,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C("] .cd-trigger {
     background: linear-gradient(135deg, #fed7aa, #fdba74);
@@ -722,13 +792,13 @@
 }
 
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C "] .cd-selected-label i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="C("] .cd-arrow {
     color: #d97706;
 }
 
-/* NILAI D — Merah */
+/* Nilai D — Merah */
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D "] .cd-trigger,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D("] .cd-trigger {
     background: linear-gradient(135deg, #fee2e2, #fca5a5);
@@ -737,17 +807,16 @@
 }
 
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D "] .cd-selected-label i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D("] .cd-selected-label i,
+.cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D "] .cd-arrow,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"][data-value^="D("] .cd-arrow {
     color: #dc2626;
 }
 
-/* ---------- OPTIONS NILAI-HURUF ---------- */
+/* Options nilai-huruf */
 
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option {
     border-left: 4px solid transparent;
-    transition: all 0.2s ease;
 }
 
 /* A options */
@@ -755,29 +824,13 @@
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("] {
     border-left-color: #10b981;
 }
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "] i,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("] i {
     color: #10b981;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "].highlighted,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("].highlighted {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-    color: #065f46;
-    transform: translateX(2px);
-}
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "].selected,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("].selected {
     background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-}
-
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A "].selected i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="A("].selected i {
     color: white;
 }
 
@@ -786,29 +839,13 @@
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("] {
     border-left-color: #3b82f6;
 }
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "] i,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("] i {
     color: #3b82f6;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "].highlighted,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("].highlighted {
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    color: #1e40af;
-    transform: translateX(2px);
-}
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "].selected,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("].selected {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: white;
-}
-
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B "].selected i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="B("].selected i {
     color: white;
 }
 
@@ -817,29 +854,13 @@
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("] {
     border-left-color: #f59e0b;
 }
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "] i,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("] i {
     color: #d97706;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "].highlighted,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("].highlighted {
-    background: linear-gradient(135deg, #fed7aa, #fdba74);
-    color: #92400e;
-    transform: translateX(2px);
-}
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "].selected,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("].selected {
     background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-}
-
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C "].selected i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="C("].selected i {
     color: white;
 }
 
@@ -848,43 +869,29 @@
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("] {
     border-left-color: #ef4444;
 }
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "] i,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("] i {
     color: #ef4444;
 }
-
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "].highlighted,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("]:hover,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("].highlighted {
-    background: linear-gradient(135deg, #fee2e2, #fca5a5);
-    color: #991b1b;
-    transform: translateX(2px);
-}
-
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "].selected,
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("].selected {
     background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
 }
 
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D "].selected i,
-.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option[data-value^="D("].selected i {
+.cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option.selected i {
     color: white;
 }
 
-/* Check mark putih untuk semua selected */
 .cd-wrapper[data-cd-variant-active="nilai-huruf"] .cd-option.selected::after {
     color: white;
 }
 
 
-/* ================================================================
-   ENHANCEMENT — Trigger di dalam .form-group biasa
-   ================================================================ */
+/* ==========================================================
+   17. FORM GROUP DROPDOWN — Style Khusus
+========================================================== */
 
-/* Wrapper dropdown di form-group (Kehadiran & Hafalan) */
 .form-group .cd-wrapper {
     width: 100%;
 }
@@ -897,8 +904,12 @@
     text-align: left;
     justify-content: flex-start;
     border-radius: 10px;
-    border: 2px solid #e0e6ed;
+    border: 2px solid #1a5d1a;
     background: #ffffff;
+}
+
+.form-group .cd-trigger.has-main-icon {
+    padding-left: 44px;
 }
 
 .form-group .cd-selected-label {
@@ -906,23 +917,12 @@
     text-align: left;
 }
 
-.form-group .cd-trigger:hover {
-    border-color: #1a5d1a;
-}
-
-.form-group .cd-wrapper.open .cd-trigger {
-    border-color: #1a5d1a;
-    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08);
-}
-
-/* Icon di selected label (form-group) */
 .form-group .cd-trigger .cd-selected-label i {
     font-size: 0.95rem;
     flex-shrink: 0;
     margin-right: 4px;
 }
 
-/* Options di form-group */
 .form-group .cd-option {
     padding: 11px 12px;
     font-size: 0.88rem;
@@ -939,7 +939,6 @@
     flex-shrink: 0;
 }
 
-/* Check mark saat selected — putih */
 .form-group .cd-option.selected::after {
     content: '\f00c';
     font-family: 'Font Awesome 6 Free';
@@ -949,48 +948,37 @@
     font-size: 0.8rem;
 }
 
-/* ===== CUSTOM DROPDOWN NILAI (Kelancaran, Tahsin, Tajwid) ===== */
-.cd-dropdown {
-    border: 2px solid var(--primary-color) !important;
-    border-radius: 12px !important;
+
+/* ==========================================================
+   18. FIX PARENT OVERFLOW — Biar menu bisa keluar
+========================================================== */
+
+.form-container,
+.form-section,
+.form-group,
+.form-row,
+.form-grid,
+.form-grid-santri,
+.form-grid-upload,
+.kartu-modern-clean,
+.tab-content,
+.tab-container,
+[class*="alamat-section"],
+[class*="pendaftaran"] {
+    overflow: visible !important;
 }
 
-.cd-dropdown .cd-selected {
-    border: 2px solid var(--primary-color) !important;
-    border-radius: 12px !important;
+/* Table wrapper tetap boleh scroll horizontal */
+.table-wrapper {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
 }
 
-.cd-dropdown .cd-selected:hover,
-.cd-dropdown .cd-selected:focus,
-.cd-dropdown.cd-open .cd-selected {
-    border-color: var(--secondary-color) !important;
-    box-shadow: 0 0 0 3px rgba(30, 130, 76, 0.15) !important;
-}
 
-.cd-dropdown .cd-menu {
-    border: 2px solid var(--primary-color) !important;
-    border-top: none !important;
-    border-radius: 0 0 12px 12px !important;
-}
+/* ==========================================================
+   19. TANGGAL REALTIME (Read-Only Info)
+========================================================== */
 
-/* ================================================================
-   MOBILE RESPONSIVE
-   ================================================================ */
-
-@media (max-width: 768px) {
-    .form-group .cd-trigger {
-        padding: 11px 40px 11px 14px;
-        font-size: 0.87rem;
-        min-height: 44px;
-    }
-    
-    .form-group .cd-option {
-        padding: 12px 12px;
-        font-size: 0.86rem;
-    }
-}
-
-/* ===== TANGGAL REALTIME (Read-Only) — Seragam dengan Dropdown ===== */
 .tanggal-realtime {
     border: 2px solid #1a5d1a !important;
     border-radius: 10px !important;
@@ -1027,7 +1015,6 @@
     text-overflow: ellipsis;
 }
 
-/* Badge LIVE — Seragam dengan tema */
 .tanggal-badge {
     display: inline-flex;
     align-items: center;
@@ -1055,531 +1042,99 @@
     50% { opacity: 0.3; transform: scale(0.8); }
 }
 
-/* Responsive HP */
+
+/* ==========================================================
+   20. FIX .input-ikon YANG BERISI CUSTOM DROPDOWN
+========================================================== */
+
+/* Kalau .input-ikon berisi custom dropdown, hilangkan border sendiri */
+.input-ikon:has(.cd-wrapper) {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
+    min-height: 0 !important;
+}
+
+/* Sembunyikan icon <i> asli di .input-ikon */
+.input-ikon:has(.cd-wrapper) > i {
+    display: none !important;
+}
+
+/* Cd-wrapper full width */
+.input-ikon .cd-wrapper {
+    width: 100% !important;
+}
+
+
+/* ==========================================================
+   21. RESPONSIVE — MOBILE (max-width: 768px)
+========================================================== */
+
+@media (max-width: 768px) {
+    .form-group .cd-trigger {
+        padding: 11px 40px 11px 14px;
+        font-size: 0.87rem;
+        min-height: 44px;
+    }
+    
+    .form-group .cd-option {
+        padding: 12px;
+        font-size: 0.86rem;
+    }
+    
+    .cd-menu {
+        max-height: min(280px, 40vh);
+    }
+    
+    .cd-options {
+        max-height: min(260px, 38vh);
+    }
+    
+    .cd-option {
+        padding: 12px;
+        font-size: 0.88rem;
+        min-height: 42px;
+    }
+    
+    .cd-trigger {
+        min-height: 48px;
+        font-size: 0.92rem;
+    }
+}
+
+
+/* ==========================================================
+   22. RESPONSIVE — HP KECIL (max-width: 480px)
+========================================================== */
+
 @media (max-width: 480px) {
     .tanggal-realtime {
         padding: 11px 14px !important;
         min-height: 44px;
     }
+    
     .tanggal-display-text {
         font-size: 0.85rem !important;
     }
+    
     .tanggal-badge {
         font-size: 0.6rem;
         padding: 3px 8px;
     }
-}
-
-/* ================================================================
-   OVERRIDE — Seragamkan Semua Border Dropdown ke Hijau Tua
-   ================================================================ */
-
-/* Trigger utama semua custom dropdown */
-.cd-trigger {
-    border: 2px solid #1a5d1a !important;
-}
-
-/* Form group dropdown (Status Kehadiran, Nilai Hafalan, dll) */
-.form-group .cd-trigger {
-    border: 2px solid #1a5d1a !important;
-}
-
-/* Menu dropdown (yang muncul saat diklik) */
-.cd-menu {
-    border: 2px solid #1a5d1a !important;
-}
-
-/* Hover state */
-.cd-trigger:hover {
-    border-color: #144514 !important;
-    background: #f9fdf9 !important;
-}
-
-/* Focus / Open state */
-.cd-trigger:focus,
-.cd-wrapper.open .cd-trigger {
-    border-color: #144514 !important;
-    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
-}
-
-/* Disabled state tetap abu-abu */
-.cd-trigger.disabled {
-    border-color: #e5e7eb !important;
-    background: #f3f4f6 !important;
-}
-
-/* Search input di dalam dropdown */
-.cd-search input {
-    border: 1px solid #1a5d1a !important;
-}
-
-.cd-search input:focus {
-    border-color: #144514 !important;
-    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1) !important;
-}
-/* ================================================================
-   OVERRIDE — Dropdown Surah, Ayat, Status Kehadiran, Nilai Hafalan
-   Sistem dropdown-wrapper-custom disamakan dengan .cd-*
-   ================================================================ */
-
-/* ---------- WRAPPER ---------- */
-.dropdown-wrapper-custom {
-    position: relative;
-    width: 100%;
-    font-family: 'Quicksand', sans-serif;
-    user-select: none;
-}
-
-/* ---------- TRIGGER (Box utama) ---------- */
-.select-custom-trigger {
-    width: 100% !important;
-    padding: 12px 44px 12px 16px !important;
-    border: 2px solid #1a5d1a !important;
-    border-radius: 10px !important;
-    background: #ffffff !important;
-    color: #144514 !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    min-height: 46px !important;
-    box-sizing: border-box !important;
-    position: relative;
-    transition: all 0.25s ease !important;
-}
-
-.select-custom-trigger:hover {
-    background: #f9fdf9 !important;
-    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08) !important;
-}
-
-.dropdown-wrapper-custom.open .select-custom-trigger {
-    border-color: #144514 !important;
-    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
-    background: #ffffff !important;
-}
-
-/* Icon kiri (kalender/buku/list) */
-.select-custom-trigger > i:first-child {
-    color: #1a5d1a !important;
-    font-size: 1rem !important;
-    flex-shrink: 0;
-}
-
-/* Input di dalam trigger (untuk pencarian Surah / readonly Ayat) */
-.select-custom-trigger input {
-    flex: 1 !important;
-    border: none !important;
-    outline: none !important;
-    background: transparent !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    color: #144514 !important;
-    padding: 0 !important;
-    min-width: 0;
-}
-
-.select-custom-trigger input::placeholder {
-    color: #9ca3af !important;
-    font-weight: 500 !important;
-}
-
-/* Chevron ▼ di kanan (auto rotate saat open) */
-.select-custom-trigger::after {
-    content: '\f078';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #6b7280;
-    font-size: 0.75rem;
-    transition: transform 0.3s ease, color 0.25s;
-    pointer-events: none;
-}
-
-.dropdown-wrapper-custom.open .select-custom-trigger::after {
-    transform: translateY(-50%) rotate(180deg);
-    color: #1a5d1a;
-}
-
-/* ---------- MENU DROPDOWN (List yang muncul) ---------- */
-.dropdown-menu-custom {
-    position: absolute !important;
-    top: calc(100% + 6px) !important;
-    left: 0 !important;
-    right: 0 !important;
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
-    z-index: 9999 !important;
-    max-height: 280px !important;
-    overflow-y: auto !important;
-    padding: 6px !important;
-    display: none !important;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(26, 93, 26, 0.3) transparent;
-}
-
-/* Show saat wrapper .open */
-.dropdown-wrapper-custom.open .dropdown-menu-custom {
-    display: block !important;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Scrollbar cantik */
-.dropdown-menu-custom::-webkit-scrollbar {
-    width: 6px;
-}
-
-.dropdown-menu-custom::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.dropdown-menu-custom::-webkit-scrollbar-thumb {
-    background: rgba(26, 93, 26, 0.3);
-    border-radius: 3px;
-}
-
-.dropdown-menu-custom::-webkit-scrollbar-thumb:hover {
-    background: rgba(26, 93, 26, 0.5);
-}
-
-/* ---------- ITEM DALAM LIST ---------- */
-.dropdown-item-custom {
-    padding: 10px 12px !important;
-    border-radius: 8px !important;
-    cursor: pointer !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.87rem !important;
-    font-weight: 600 !important;
-    color: #374151 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    transition: all 0.15s ease !important;
-    margin-bottom: 2px !important;
-    line-height: 1.3;
-    border-left: 4px solid transparent;
-}
-
-.dropdown-item-custom:last-child {
-    margin-bottom: 0 !important;
-}
-
-.dropdown-item-custom:hover {
-    background: linear-gradient(135deg, #f0f9f0, #e8f5e8) !important;
-    color: #144514 !important;
-    border-left-color: #1a5d1a;
-    transform: translateX(2px);
-}
-
-/* Item aktif/terpilih */
-.dropdown-item-custom.active,
-.dropdown-item-custom.selected {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    border-left-color: #ffd700;
-}
-
-.dropdown-item-custom.active::after,
-.dropdown-item-custom.selected::after {
-    content: '\f00c';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    margin-left: auto;
-    color: #ffd700;
-    font-size: 0.8rem;
-}
-
-/* Empty state ("Pilih surah dahulu...", "Tidak ada data") */
-.dropdown-item-custom[style*="color:#777"],
-.dropdown-item-custom[style*="color: #777"] {
-    color: #9ca3af !important;
-    font-style: italic;
-    font-weight: 500 !important;
-    cursor: default !important;
-    text-align: center;
-    padding: 20px 12px !important;
-    justify-content: center;
-}
-
-.dropdown-item-custom[style*="color:#777"]:hover,
-.dropdown-item-custom[style*="color: #777"]:hover {
-    background: transparent !important;
-    transform: none !important;
-    border-left-color: transparent !important;
-    color: #9ca3af !important;
-}
-
-/* ---------- MOBILE ---------- */
-@media (max-width: 480px) {
-    .select-custom-trigger {
-        padding: 11px 40px 11px 14px !important;
-        min-height: 44px !important;
-        font-size: 0.87rem !important;
-    }
     
-    .select-custom-trigger input {
-        font-size: 0.87rem !important;
-    }
-    
-    .dropdown-item-custom {
-        padding: 12px !important;
-        font-size: 0.86rem !important;
-    }
-    
-    .dropdown-menu-custom {
-        max-height: 260px !important;
-    }
-}
-
-/* Ikon utama di kiri trigger (mirip ikon input teks) */
-.cd-trigger {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.cd-trigger .cd-main-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #1a5319;
-    font-size: 16px;
-    pointer-events: none;
-}
-/* ================================================================
-   IKON UTAMA DROPDOWN (di kiri trigger, seperti ikon input teks)
-================================================================ */
-
-/* Beri ruang di kiri untuk ikon utama */
-.cd-trigger.has-main-icon {
-    padding-left: 44px !important;
-}
-
-/* Ikon utama */
-.cd-trigger .cd-main-icon {
-    position: absolute !important;
-    left: 14px !important;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #1a5d1a !important;
-    font-size: 1rem !important;
-    pointer-events: none;
-    z-index: 2;
-    flex-shrink: 0;
-}
-
-/* Untuk form-group juga */
-.form-group .cd-trigger.has-main-icon {
-    padding-left: 44px !important;
-}
-
-/* Untuk select-custom-trigger (dropdown Surah/Ayat) */
-.select-custom-trigger.has-main-icon {
-    padding-left: 44px !important;
-}
-
-.select-custom-trigger.has-main-icon > i:first-child {
-    position: absolute !important;
-    left: 14px !important;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #1a5d1a !important;
-    font-size: 1rem !important;
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Saat option terpilih, sembunyikan ikon kecil di label (agar tidak dobel) */
-.cd-trigger.has-main-icon .cd-selected-label > i:first-child {
-    display: none !important;
-}
-
-/* Mobile adjustment */
-@media (max-width: 480px) {
     .cd-trigger.has-main-icon {
-        padding-left: 40px !important;
+        padding-left: 40px;
     }
     
     .cd-trigger .cd-main-icon {
-        left: 12px !important;
-        font-size: 0.95rem !important;
+        left: 12px;
+        font-size: 0.95rem;
     }
 }
+
 
 /* ================================================================
-   📱 FORCE TAB MENU 3 KOLOM DI HP (PALING BAWAH — HIGHEST PRIORITY)
+   END OF FILE
 ================================================================ */
-
-@media (max-width: 768px) {
-    
-    /* Selector spesifik dengan container parent */
-    .container .tab-menu,
-    .tab-container .tab-menu,
-    div.tab-menu,
-    .tab-menu.no-print,
-    body .tab-menu {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr 1fr !important;   /* ⭐ 3 KOLOM PAKSA */
-        gap: 8px !important;
-        padding: 10px !important;
-        background: #f5f7fa !important;
-        border-radius: 12px !important;
-        margin-bottom: 15px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Tab link */
-    .container .tab-menu .tab-link,
-    .tab-container .tab-menu .tab-link,
-    div.tab-menu .tab-link,
-    body .tab-menu .tab-link {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 6px !important;
-        padding: 12px 4px !important;
-        min-height: 80px !important;
-        max-height: 80px !important;
-        font-size: 0.68rem !important;
-        font-weight: 700 !important;
-        text-align: center !important;
-        border-radius: 8px !important;
-        border: 2px solid transparent !important;
-        background: #fff !important;
-        color: #1a5d1a !important;
-        cursor: pointer !important;
-        transition: all 0.25s ease !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.04) !important;
-        line-height: 1.2 !important;
-        white-space: normal !important;
-        word-break: break-word !important;
-        overflow: hidden !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        box-sizing: border-box !important;
-        flex: none !important;              /* ⭐ Cegah override flex desktop */
-    }
-    
-    /* Icon di tab */
-    .container .tab-menu .tab-link i,
-    .tab-container .tab-menu .tab-link i,
-    div.tab-menu .tab-link i,
-    body .tab-menu .tab-link i {
-        font-size: 1.2rem !important;
-        color: #1a5d1a !important;
-        margin: 0 !important;
-    }
-    
-    /* Tab aktif */
-    .container .tab-menu .tab-link.active,
-    .tab-container .tab-menu .tab-link.active,
-    div.tab-menu .tab-link.active,
-    body .tab-menu .tab-link.active {
-        background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-        color: white !important;
-        border-color: #144514 !important;
-        box-shadow: 0 4px 12px rgba(26, 93, 26, 0.35) !important;
-    }
-    
-    .container .tab-menu .tab-link.active i,
-    .tab-container .tab-menu .tab-link.active i,
-    div.tab-menu .tab-link.active i,
-    body .tab-menu .tab-link.active i {
-        color: white !important;
-    }
-}
-
-/* ============================================
-   📱 HP SANGAT KECIL (< 400px)
-============================================ */
-@media (max-width: 400px) {
-    body .tab-menu {
-        gap: 6px !important;
-        padding: 8px !important;
-    }
-    
-    body .tab-menu .tab-link {
-        font-size: 0.62rem !important;
-        padding: 10px 3px !important;
-        min-height: 72px !important;
-        max-height: 72px !important;
-    }
-    
-    body .tab-menu .tab-link i {
-        font-size: 1.1rem !important;
-    }
-}
-/* ================================================================
-   🎯 FIX FINAL v3.0 — Menu Dropdown Scroll Internal
-   Anti-cutoff: Semua options terlihat dengan scroll
-================================================================ */
-
-/* Menu container — Force max-height dengan flex layout */
-.cd-menu {
-    max-height: 320px !important;   /* Lebih tinggi biar muat lebih banyak */
-    overflow: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-/* Kalau tidak ada search bar, options langsung fill */
-.cd-wrapper.open .cd-menu {
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-/* ⭐ OPTIONS CONTAINER — WAJIB scrollable */
-.cd-options {
-    flex: 1 1 auto !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    max-height: 300px !important;    /* Sedikit lebih kecil dari menu */
-    min-height: 100px !important;    /* Minimum height biar tidak collapse */
-    padding: 6px !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(26, 93, 26, 0.4) transparent;
-}
-
-/* Scrollbar cakep */
-.cd-options::-webkit-scrollbar {
-    width: 8px !important;
-}
-
-.cd-options::-webkit-scrollbar-track {
-    background: #f5f5f5 !important;
-    border-radius: 4px;
-}
-
-.cd-options::-webkit-scrollbar-thumb {
-    background: rgba(26, 93, 26, 0.4) !important;
-    border-radius: 4px;
-}
-
-.cd-options::-webkit-scrollbar-thumb:hover {
-    background: rgba(26, 93, 26, 0.6) !important;
-}
-
-/* Option item — pastikan tidak overflow */
-.cd-option {
-    flex-shrink: 0 !important;  /* Jangan mengecil */
-}
