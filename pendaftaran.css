@@ -1,482 +1,664 @@
+/* ==========================================================================
+   FORM PENDAFTARAN — Daarul Khoirot Almadani (v8.0 Clean)
+   ========================================================================== */
 
-        /* ==========================================================================
-           1. GLOBAL VARIABLES & RESET STYLE (FONT QUICKSAND UNTUK SEMUA)
-           ========================================================================== */
-        :root {
-            --primary-color: #1a5d1a;
-            --secondary-color: #f4ce14;
-            --dark-green: #144514;
-            --dark-footer: #0d2e0d;
-            --light-bg: #f4f7f6;
-            --text-dark: #333;
-            --whatsapp-green: #25d366;
-            --border-color: #1a5d1a;
-            --btn-secondary-bg: #e2e8f0;
-            --btn-secondary-text: #334155;
-        }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Quicksand', sans-serif; 
-        }
+/* ==========================================================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================================================== */
 
-        html {
-            scroll-behavior: smooth;
-        }
+:root {
+    --primary-color: #1a5d1a;
+    --secondary-color: #f4ce14;
+    --dark-green: #144514;
+    --dark-footer: #0d2e0d;
+    --light-bg: #f4f7f6;
+    --text-dark: #333;
+    --whatsapp-green: #25d366;
+    --border-color: #1a5d1a;
+    --btn-secondary-bg: #e2e8f0;
+    --btn-secondary-text: #334155;
+}
 
-        body { 
-            background-color: var(--light-bg); 
-            color: var(--text-dark); 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-        }
-        
-        h1, h2, h3, h4, h5, h6 { 
-            font-weight: 700; 
-        }
-        
-        .teks-tebal { 
-            font-weight: 600; 
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
 
-        /* Container Tata Letak Form */
-        .container { 
-            padding: 3rem 4%; 
-            flex: 1; 
-            max-width: 100%; 
-            margin: 0 auto; 
-            width: 100%; 
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        /* ==========================================================================
-           2. BLOK STYLE DESKTOP (HEADER, NAVIGASI, FORM 3 KOLOM, & WA TOMBOL)
-           ========================================================================== */
-         /* Header & Nav */
-header { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #0d2e0d; z-index: 9997; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
-.logo { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.logo img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
-.logo h1 { color: #fff; font-size: 1.2rem; margin: 0; line-height: 1.2; }
-#menu-toggle { display: flex !important; align-items: center; justify-content: center; gap: 6px; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; background: linear-gradient(135deg, #ffd700, #f4ce14); color: #0d2e0d; font-weight: 700; }
-#menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: .3s ease; z-index: 9998; }
-#menu-overlay.show { opacity: 1; visibility: visible; }
-nav { position: fixed; top: 0; left: 0; width: 320px; max-width: 85%; height: 100vh; background: #0d2e0d; transform: translateX(-100%); transition: .35s ease; z-index: 9999; overflow-y: auto; box-shadow: 8px 0 30px rgba(0,0,0,.35); }
-nav.show { transform: translateX(0); }
-.mobile-sidebar-header { display: flex; align-items: center; gap: 12px; padding: 10px; }
-.mobile-sidebar-header img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ffd700; animation: logoPulse 3s infinite; }
-.sidebar-brand h3 { color: #ffd700; font-size: 18px; margin: 0; }
-.sidebar-brand span { color: rgba(255,255,255,.7); font-size: 13px; }
-@keyframes logoPulse { 0% { box-shadow: 0 0 0 rgba(255,215,0,0); } 50% { box-shadow: 0 0 12px rgba(255,215,0,.7), 0 0 24px rgba(255,215,0,.4); } 100% { box-shadow: 0 0 0 rgba(255,215,0,0); } }
-nav ul { list-style: none; padding: 15px; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-nav ul li a { position: relative; display: flex; align-items: center; font-weight: 500; gap: 16px; padding: 12px 14px; padding-left: 28px; border-radius: 10px; text-decoration: none; background: rgba(255,255,255,.04); color: #fff !important; transition: .3s; }
-nav ul li a.active::before { content: ""; position: absolute; left: 12px; top: 20%; bottom: 15%; width: 5px; background: #ffd700; border-radius: 4px; box-shadow: 0 0 8px #ffd700, 0 0 16px rgba(255,215,0,.7); }
-nav ul li a:hover { background: rgba(255,215,0,.12); border-left: 4px solid rgba(255,215,0,.7); }
-nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
-.sidebar-version { padding: 20px; text-align: center; color: rgba(255,255,255,.45); font-size: .8rem; }
+body {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-        .tab-container { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        
-        .tab-menu { display: flex; background: #f8f9fa; border-bottom: 3px solid #eee; overflow-x: auto; }
-        .tab-link { 
-            flex: 1; padding: 18px 10px; border: none; cursor: pointer; font-weight: 700; 
-            color: var(--primary-color); background: #f1f1f1; transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 0.9rem;
-            white-space: nowrap;
-        }
-        .tab-link.active { background-color: var(--primary-color) !important; color: white !important; }
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
 
-        .tab-content { display: none; padding: 40px; flex-direction: column; gap: 20px; }
-        .tab-content.active { display: flex; }
+.teks-tebal {
+    font-weight: 600;
+}
 
-        .form-section-title { 
-            width: 100%; margin: 15px 0 5px; padding-bottom: 8px; 
-            border-bottom: 2px solid #eee; color: var(--primary-color); font-weight: 700;
-            text-transform: uppercase; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
-        }
-        
-        .form-group { width: 100%; margin-bottom: 5px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--primary-color); }
+.container {
+    padding: 3rem 4% 4rem;
+    flex: 1;
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+}
 
-        .input-ikon {
-            display: flex; align-items: center; background: white; 
-            border: 1.5px solid var(--border-color); border-radius: 8px; padding: 0 12px; min-height: 48px;
-        }
-        .input-ikon i { color: var(--primary-color); width: 20px; margin-right: 10px; font-size: 1.1rem; }
-        .input-ikon input, .input-ikon select { flex: 1; border: none; outline: none; background: transparent; height: 100%; width: 100%; font-size: 0.95rem; color: #333; }
-      
-        input[readonly], select:disabled { background-color: #f8f9fa !important; cursor: not-allowed; opacity: 0.7; }
 
-        .form-grid, 
-        .form-grid-santri, 
-        .form-grid-upload { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 24px; 
-            width: 100%;
-        }
+/* ==========================================================================
+   2. HEADER & NAVIGATION
+   ========================================================================== */
 
-        /* Style Tambahan untuk Alur Informasi Penerimaan */
-        .info-card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 15px;
-        }
-        .info-card {
-            background: #fafafa;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-        }
-        .info-card h4 {
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .info-card p {
-            font-size: 0.88rem;
-            color: #555;
-            line-height: 1.5;
-        }
-        .alur-pendaftaran {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background: #fdfdfd;
-            border: 1px solid #eef2ee;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .alur-step {
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
-        .step-number {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        .step-desc h5 {
-            color: var(--primary-color);
-            font-size: 0.95rem;
-            margin-bottom: 3px;
-        }
-        .step-desc p {
-            font-size: 0.88rem;
-            color: #666;
-        }
+header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #0d2e0d;
+    z-index: 9990;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
 
-        /* ==========================================================================
-           MODERASI GAYA TOMBOL SISTEM FORM (KODE BARU LENGKAP)
-           ========================================================================== */
-        .btn-prev, 
-        .btn-next, 
-        .btn-simpan-final, 
-        .btn-wa-konfirmasi {
-            border: none;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.2s ease-in-out;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
 
-        /* Padding Khusus Tombol Navigasi */
-        .btn-prev, .btn-next {
-            padding: 15px;
-            flex: 1;
-        }
+.logo img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
-        /* Padding Khusus Tombol Utama (Aksi Dalam Tab) */
-        .btn-simpan-final, .btn-wa-konfirmasi {
-            padding: 15px;
-            font-size: 1rem;
-            width: 100%;
-        }
+.logo h1 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.2;
+}
 
-        /* Status Normal Tombol */
-        .btn-prev {
-            background-color: var(--btn-secondary-bg);
-            color: var(--btn-secondary-text);
-        }
+#menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ffd700, #f4ce14);
+    color: #0d2e0d;
+    font-weight: 700;
+}
 
-        .btn-next {
-            background-color: var(--primary-color);
-            color: white;
-        }
+#menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 9995;
+}
 
-        .btn-simpan-final {
-            background-color: var(--primary-color);
-            color: white;
-        }
+#menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
 
-        .btn-wa-konfirmasi {
-            background-color: var(--whatsapp-green);
-            color: white;
-        }
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 290px;
+    max-width: 85%;
+    height: 100vh;
+    background: #0d2e0d;
+    transform: translateX(-100%);
+    transition: 0.35s ease;
+    z-index: 9996;
+    overflow-y: auto;
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.35);
+}
 
-        /* Status Kursor Hover Tombol */
-        .btn-prev:hover {
-            background-color: #cbd5e1;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
+nav.show {
+    transform: translateX(0);
+}
 
-        .btn-next:hover {
-            filter: brightness(90%);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(26, 93, 26, 0.25);
-        }
+.mobile-sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+}
 
-        .btn-simpan-final:hover {
-            background-color: var(--dark-green);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3);
-        }
+.mobile-sidebar-header img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffd700;
+    animation: logoPulse 3s infinite;
+}
 
-        .btn-wa-konfirmasi:hover {
-            background-color: #1ebd58;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
-        }
+.sidebar-brand h3 {
+    color: #ffd700;
+    font-size: 18px;
+    margin: 0;
+}
 
-        /* Status Aktif Ditekan Tombol */
-        .btn-prev:active, 
-        .btn-next:active, 
-        .btn-simpan-final:active, 
-        .btn-wa-konfirmasi:active {
-            transform: translateY(1px);
-            box-shadow: none;
-        }
+.sidebar-brand span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+}
 
-        .button-group {
+@keyframes logoPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+    50%      { box-shadow: 0 0 12px rgba(255, 215, 0, 0.7), 0 0 24px rgba(255, 215, 0, 0.4); }
+}
+
+nav ul {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+nav ul li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    gap: 16px;
+    padding: 12px 14px 12px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff !important;
+    transition: 0.3s;
+}
+
+nav ul li a.active::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 20%;
+    bottom: 15%;
+    width: 5px;
+    background: #ffd700;
+    border-radius: 4px;
+    box-shadow: 0 0 8px #ffd700, 0 0 16px rgba(255, 215, 0, 0.7);
+}
+
+nav ul li a:hover {
+    background: rgba(255, 215, 0, 0.12);
+    border-left: 4px solid rgba(255, 215, 0, 0.7);
+}
+
+nav ul li a i {
+    width: 22px;
+    text-align: center;
+    color: #ffd700;
+}
+
+.sidebar-version {
+    padding: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.8rem;
+}
+
+
+/* ==========================================================================
+   3. TAB CONTAINER & TAB MENU
+   ========================================================================== */
+
+.tab-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.tab-menu {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 3px solid #eee;
+    overflow-x: auto;
+}
+
+.tab-link {
+    flex: 1;
+    padding: 18px 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--primary-color);
+    background: #f1f1f1;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.tab-link.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.tab-content {
+    display: none;
+    padding: 40px 40px 30px;
+    flex-direction: column;
+    gap: 20px;
+    overflow: visible;
+}
+
+.tab-content.active {
+    display: flex;
+}
+
+
+/* ==========================================================================
+   4. FORM SECTION & FORM GROUP
+   ========================================================================== */
+
+.form-section-title {
+    width: 100%;
+    margin: 15px 0 5px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #eee;
+    color: var(--primary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 5px;
+    overflow: visible;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+
+.input-ikon {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0 12px;
+    min-height: 48px;
+}
+
+.input-ikon i {
+    color: var(--primary-color);
+    width: 20px;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.input-ikon input,
+.input-ikon select {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+input[readonly],
+select:disabled {
+    background-color: #f8f9fa !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.form-grid,
+.form-grid-santri,
+.form-grid-upload {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    overflow: visible;
+}
+
+
+/* ==========================================================================
+   5. INFO CARD & ALUR PENDAFTARAN
+   ========================================================================== */
+
+.info-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.info-card {
+    background: #fafafa;
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.info-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-card p {
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.alur-pendaftaran {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #fdfdfd;
+    border: 1px solid #eef2ee;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.alur-step {
     display: flex;
     gap: 15px;
-    padding-top: 20px;
+    align-items: flex-start;
+}
+
+.step-number {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-desc h5 {
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+}
+
+.step-desc p {
+    font-size: 0.88rem;
+    color: #666;
+}
+
+
+/* ==========================================================================
+   6. TOMBOL NAVIGASI (Kembali / Lanjut / Simpan)
+   ========================================================================== */
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: auto;
+    margin: 30px 15px 40px 15px;
+    padding: 20px 0 0 0;
     border-top: 1px solid #eee;
-    /* ⚠️ TANPA width: 100% dan margin-top */
+    box-sizing: border-box;
 }
-        .btn-full { width: 100%; }
 
-  @media (min-width: 769px) {
-            .social-header-tengah { display: flex !important; gap: 20px; margin: 0 20px; }
-            .social-header-tengah a { color: #ffd700; font-size: 1.2rem; transition: transform 0.3s ease; }
-            .social-header-tengah a:hover { color: #ffffff; transform: scale(1.2); }
-            
-            .hero-content { display: none !important; }
-
-            .header-text-container { display: flex; flex-direction: column; justify-content: center; }
-            .header-text-container h1 { font-size: 1.1rem; margin: 0; color: #fff; }
-            .header-text-container .motto-text { font-size: 0.8rem; margin: 0; color: #ffd700; display: block !important; }
-            
-            .whatsapp-float {
-                position: fixed; bottom: 25px; right: 25px; background-color: var(--whatsapp-green); color: white !important;
-                padding: 12px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; 
-                text-decoration: none; font-weight: bold; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-                transition: transform 0.2s ease;
-            }
-            .whatsapp-float:hover { transform: scale(1.05); }
-        } /* INI PENUTUP @media (min-width: 769px) - HANYA SATU */
-
-
-        footer { 
-    background: var(--dark-footer); 
-    color: white; 
-    padding: 40px 5% 20px; 
-    text-align: center; 
+.button-group .btn-prev,
+.button-group .btn-next,
+.button-group .btn-simpan-final,
+.button-group .btn-wa-konfirmasi {
     width: 100%;
-    margin-top: auto; /* PENTING: Ini mendorong footer ke bawah */
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.3px;
 }
 
-        .f-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--secondary-color); }
-        .f-address, .f-contact { font-size: 0.9rem; margin-bottom: 8px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
-        .f-copy { font-size: 0.8rem; opacity: 0.5; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-
-  /* --- SWEETALERT2 PREMIUM DESIGN --- */
-        .premium-popup {
-            border-radius: 16px !important; 
-            box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15) !important; 
-            padding: 2rem !important;
-            font-family: 'Poppins','Quicksand', sans-serif !important;
-        }
-
-        .premium-title {
-            font-size: 1.5rem !important;
-            font-weight: 700 !important;
-            color: #1a5319 !important; 
-            margin-top: 15px !important;
-        }
-
-        .premium-text {
-            font-size: 1rem !important;
-            color: #555555 !important;
-            line-height: 1.6 !important;
-        }
-
-        .premium-button {
-            border-radius: 8px !important; 
-            padding: 12px 30px !important;
-            font-weight: 600 !important;
-            font-size: 0.95rem !important;
-            letter-spacing: 0.3px !important;
-            box-shadow: 0 4px 10px rgba(26, 83, 25, 0.2) !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .premium-button:hover {
-            transform: translateY(-1px) !important;
-            box-shadow: 0 6px 15px rgba(26, 83, 25, 0.3) !important;
-        }
-
-        .error-message {
-            color: #d33;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: none; 
-        }
-
-        .input-error {
-            border: 2px solid #d33 !important;
-            background-color: #fff5f5 !important;
-        }
-
-        .input-success {
-            border: 2px solid #2a7526 !important;
-            background-color: #f5fff5 !important;
-        }
-        
-        /* ==========================================================================
-           3. BLOK STYLE MOBILE (HEADER, NAVIGASI, FORM 1 KOLOM, & WA FLOAT)
-           ========================================================================== */
-     @media (max-width: 768px) {
- header { padding: 10px 15px; }
-     .header-text-container h1 { display: block; font-size: 0.95rem; }
-    .motto-text { display: none !important; } /* Moto disembunyikan di mobile */    
-    .logo img { width: 42px; height: 42px; }
-    .logo h1 { font-size: .95rem; }
-    nav { width: 80%; }
-    .social-header-tengah {display: none;}
-            .container { padding: 2rem 4%; }
-            .tab-content { padding: 25px 15px; }
-            .tab-link { padding: 12px 5px; font-size: 0.75rem; }
-
-            .form-grid, 
-            .form-grid-santri, 
-            .form-grid-upload { 
-                grid-template-columns: 1fr; 
-                gap: 16px;
-            }
-
-            #pernyataan .form-grid {
-                grid-template-columns: 1fr !important; 
-                gap: 16px; 
-            }
-
-            #pernyataan .form-group {
-                  width: 100%;
-            }
-
-            .whatsapp-float {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: transparent !important; 
-                color: var(--whatsapp-green) !important; 
-                width: auto;
-                height: auto;
-                border-radius: 0;
-                box-shadow: none !important; 
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                animation: wa-pulse-only-icon 2s infinite ease-in-out;
-            }
-
-            .whatsapp-float span { display: none; }
-            .whatsapp-float i { font-size: 55px; margin: 0; filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3)); }
-        }
-
-        @keyframes wa-pulse-only-icon {
-            0% { transform: scale(1); }
-            70% { transform: scale(1.12); }
-            100% { transform: scale(1); }
-           
-        }
-       
-/* ================================================================
-   FIX — Custom Dropdown di dalam .input-ikon
-   Hilangkan border dobel & posisikan icon dengan benar
-   ================================================================ */
-
-/* Kalau .input-ikon berisi custom dropdown, hilangkan border sendiri */
-.input-ikon:has(.cd-wrapper) {
-    border: none !important;
-    padding: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    display: block !important;
+/* Tombol Kembali (outline abu-abu) */
+.button-group .btn-prev {
+    background: #f8f9fa;
+    color: #1a5d1a;
+    border-color: #d1d5db;
 }
 
-/* Sembunyikan icon <i> asli — karena custom dropdown punya icon sendiri di trigger */
-.input-ikon:has(.cd-wrapper) > i {
-    display: none !important;
+.button-group .btn-prev:hover {
+    background: #e8f5e9;
+    border-color: #1a5d1a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2);
 }
 
-/* Pastikan cd-wrapper full width */
-.input-ikon .cd-wrapper {
-    width: 100% !important;
+.button-group .btn-prev i {
+    color: #1a5d1a;
+    font-size: 1.1rem;
 }
 
-/* Kalau butuh icon tetap tampil di dalam trigger, tampilkan di sisi kiri */
-.input-ikon > i + .cd-wrapper .cd-trigger {
-    padding-left: 44px !important;
-    position: relative;
+/* Tombol Lanjut (solid hijau) */
+.button-group .btn-next {
+    background: linear-gradient(135deg, #1a5d1a, #144514);
+    color: #fff;
+    border-color: #144514;
+    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35);
 }
 
-/* Icon di kiri trigger */
-.input-ikon.has-cd {
-    position: relative !important;
+.button-group .btn-next:hover {
+    background: linear-gradient(135deg, #144514, #0d3d0d);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.5);
 }
 
-.input-ikon.has-cd > i {
-    display: block !important;
-    position: absolute !important;
-    left: 15px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    color: #1a5d1a !important;
+.button-group .btn-next i {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+/* Tombol Simpan Final (solid emas) */
+.button-group .btn-simpan-final {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    border-color: #d97706;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+}
+
+.button-group .btn-simpan-final:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+.button-group .btn-simpan-final i {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+/* Tombol WhatsApp Konfirmasi */
+.button-group .btn-wa-konfirmasi {
+    background: linear-gradient(135deg, #25d366, #1ebd58);
+    color: #fff;
+    border-color: #1ebd58;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+}
+
+.button-group .btn-wa-konfirmasi:hover {
+    background: linear-gradient(135deg, #1ebd58, #159f44);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+.button-group .btn-prev:active,
+.button-group .btn-next:active,
+.button-group .btn-simpan-final:active,
+.button-group .btn-wa-konfirmasi:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
+
+footer {
+    background: var(--dark-footer);
+    color: white;
+    padding: 40px 5% 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.f-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.f-address,
+.f-contact {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.f-copy {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* ==========================================================================
+   8. SWEETALERT2 PREMIUM
+   ========================================================================== */
+
+.premium-popup {
+    border-radius: 16px !important;
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15) !important;
+    padding: 2rem !important;
+    font-family: 'Poppins', 'Quicksand', sans-serif !important;
+}
+
+.premium-title {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #1a5319 !important;
+    margin-top: 15px !important;
+}
+
+.premium-text {
     font-size: 1rem !important;
-    z-index: 2 !important;
-    pointer-events: none !important;
+    color: #555555 !important;
+    line-height: 1.6 !important;
 }
 
-.input-ikon.has-cd .cd-trigger {
-    padding-left: 42px !important;
+.premium-button {
+    border-radius: 8px !important;
+    padding: 12px 30px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 4px 10px rgba(26, 83, 25, 0.2) !important;
+    transition: all 0.3s ease !important;
 }
 
-/* ================================================================
-   CUSTOM DATE INPUT — Menyerupai Custom Dropdown
-================================================================ */
+.premium-button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 15px rgba(26, 83, 25, 0.3) !important;
+}
+
+
+/* ==========================================================================
+   9. ERROR & SUCCESS STATE
+   ========================================================================== */
+
+.error-message {
+    color: #d33;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.input-error {
+    border: 2px solid #d33 !important;
+    background-color: #fff5f5 !important;
+}
+
+.input-success {
+    border: 2px solid #2a7526 !important;
+    background-color: #f5fff5 !important;
+}
+
+
+/* ==========================================================================
+   10. CUSTOM DATE INPUT (Flatpickr)
+   ========================================================================== */
+
 .input-icon-wrapper {
     position: relative;
     width: 100%;
@@ -511,10 +693,14 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     color: #1a5d1a;
 }
 
-/* Input tanggal utama */
+.input-icon-wrapper.flatpickr-open .input-arrow {
+    transform: translateY(-50%) rotate(180deg);
+    color: #1a5d1a;
+}
+
 .custom-date-input {
     width: 100%;
-    padding: 12px 44px 12px 44px;
+    padding: 12px 44px;
     border: 2px solid #1a5d1a;
     border-radius: 10px;
     background: #ffffff;
@@ -529,7 +715,6 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     outline: none;
     appearance: none;
     -webkit-appearance: none;
-    -moz-appearance: none;
 }
 
 .custom-date-input:hover {
@@ -537,19 +722,24 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.08);
 }
 
-.custom-date-input:focus {
+.custom-date-input:focus,
+.input-icon-wrapper.flatpickr-open .custom-date-input {
     border-color: #144514;
     box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15);
     background: #ffffff;
 }
 
-/* Placeholder saat kosong */
-.custom-date-input:invalid {
+.custom-date-input:disabled {
+    background: #f3f4f6;
     color: #9ca3af;
-    font-weight: 500;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
 }
 
-/* Sembunyikan ikon calendar bawaan browser (kita pakai FA) */
+.custom-date-input[readonly] {
+    cursor: default;
+}
+
 .custom-date-input::-webkit-calendar-picker-indicator {
     position: absolute;
     right: 0;
@@ -559,7 +749,6 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     padding: 0;
     margin: 0;
     background: transparent;
-    color: transparent;
     cursor: pointer;
     opacity: 0;
 }
@@ -570,46 +759,11 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     -webkit-appearance: none;
 }
 
-/* Firefox */
-.custom-date-input::-moz-focus-inner {
-    border: 0;
-}
 
-/* Disabled state */
-.custom-date-input:disabled {
-    background: #f3f4f6;
-    color: #9ca3af;
-    cursor: not-allowed;
-    border-color: #e5e7eb;
-}
+/* ==========================================================================
+   11. DATE BADGE INFO
+   ========================================================================== */
 
-/* Read-only */
-.custom-date-input[readonly] {
-    background: #f9fafb;
-    cursor: default;
-}
-
-/* Mobile responsive */
-@media (max-width: 480px) {
-    .custom-date-input {
-        padding: 11px 40px 11px 40px;
-        min-height: 44px;
-        font-size: 0.87rem;
-    }
-    
-    .input-icon-wrapper .input-icon {
-        left: 12px;
-        font-size: 0.95rem;
-    }
-    
-    .input-icon-wrapper .input-arrow {
-        right: 12px;
-    }
-}
-
-/* ================================================================
-   Kalau mau tambahan: badge "hari ini" atau info tanggal
-================================================================ */
 .date-info-badge {
     display: inline-block;
     margin-top: 6px;
@@ -628,25 +782,27 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     font-size: 0.65rem;
 }
 
-/* ================================================================
-   FLATPICKR CUSTOM THEME — Daarul Khoirot Almadani
-   Versi Final & Bersih
-================================================================ */
 
-/* ---------------- KALENDER CONTAINER ---------------- */
+/* ==========================================================================
+   12. FLATPICKR CUSTOM THEME
+   ========================================================================== */
+
 .flatpickr-calendar {
     font-family: 'Quicksand', sans-serif !important;
     border-radius: 14px !important;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08) !important;
     border: 2px solid #1a5d1a !important;
     background: #ffffff !important;
-    padding: 8px !important;
+    padding: 6px !important;
     margin-top: 6px !important;
-    width: auto !important;
+    width: 360px !important;
+    max-width: 360px !important;
+    min-width: 360px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     box-sizing: border-box !important;
 }
 
-/* Hapus segitiga bawaan */
 .flatpickr-calendar.arrowTop::before,
 .flatpickr-calendar.arrowTop::after,
 .flatpickr-calendar.arrowBottom::before,
@@ -654,32 +810,31 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     display: none !important;
 }
 
-/* Animasi buka */
-.flatpickr-calendar.open,
-.flatpickr-calendar.inline {
+.flatpickr-calendar.open {
     animation: fpFadeIn 0.2s ease;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
 }
 
 @keyframes fpFadeIn {
-    from { opacity: 0; transform: translateY(-8px) scale(0.95); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+    from { opacity: 0; transform: translate(-50%, -8px) scale(0.95); }
+    to   { opacity: 1; transform: translate(-50%, 0) scale(1); }
 }
 
-/* ---------------- HEADER (Bulan & Tahun + Panah) ---------------- */
+/* Header */
 .flatpickr-months {
     background: linear-gradient(135deg, #1a5d1a, #144514) !important;
     color: white !important;
     border-radius: 10px !important;
-    padding: 6px 8px !important;
+    padding: 4px 6px !important;
     margin-bottom: 6px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    min-height: 48px !important;
+    min-height: 42px !important;
     position: relative !important;
 }
 
-/* Panah Prev & Next */
 .flatpickr-months .flatpickr-prev-month,
 .flatpickr-months .flatpickr-next-month {
     position: static !important;
@@ -687,8 +842,8 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 32px !important;
-    height: 32px !important;
+    width: 28px !important;
+    height: 28px !important;
     padding: 0 !important;
     border-radius: 8px !important;
     flex-shrink: 0 !important;
@@ -704,8 +859,8 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
 
 .flatpickr-months .flatpickr-prev-month svg,
 .flatpickr-months .flatpickr-next-month svg {
-    width: 14px !important;
-    height: 14px !important;
+    width: 12px !important;
+    height: 12px !important;
     fill: #ffffff !important;
 }
 
@@ -714,7 +869,6 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     fill: #ffd700 !important;
 }
 
-/* Container tengah (bulan & tahun) */
 .flatpickr-months .flatpickr-month {
     flex: 1 !important;
     height: auto !important;
@@ -732,13 +886,13 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     padding: 0 !important;
     height: auto !important;
     width: auto !important;
-    font-size: 1rem !important;
+    font-size: 0.92rem !important;
     font-weight: 700 !important;
     color: white !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important;
+    gap: 4px !important;
     left: unset !important;
     transform: none !important;
 }
@@ -749,6 +903,7 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     font-family: 'Quicksand', sans-serif !important;
     margin: 0 !important;
     padding: 0 !important;
+    font-size: 0.92rem !important;
 }
 
 .flatpickr-current-month input.cur-year {
@@ -756,11 +911,11 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     background: rgba(255, 255, 255, 0.15) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-radius: 6px !important;
-    padding: 4px 6px !important;
+    padding: 3px 16px 3px 6px !important;
     font-weight: 700 !important;
     font-family: 'Quicksand', sans-serif !important;
-    font-size: 1rem !important;
-    width: 60px !important;
+    font-size: 0.9rem !important;
+    width: 66px !important;
     text-align: center !important;
     outline: none;
 }
@@ -770,16 +925,16 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     background: rgba(255, 255, 255, 0.25) !important;
 }
 
-/* Dropdown bulan (untuk tanggal lahir) */
+/* Month Dropdown */
 .flatpickr-monthDropdown-months {
     background: rgba(255, 255, 255, 0.15) !important;
     color: white !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-radius: 6px !important;
-    padding: 4px 8px !important;
+    padding: 3px 6px !important;
     font-weight: 700 !important;
     font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.95rem !important;
+    font-size: 0.85rem !important;
     cursor: pointer;
     outline: none;
     appearance: none;
@@ -796,181 +951,17 @@ nav ul li a i { width: 22px; text-align: center; color: #ffd700; }
     font-weight: 600 !important;
 }
 
-/* Sembunyikan spinner tahun */
+/* Year Spinner */
 .flatpickr-current-month .numInputWrapper {
-    width: 60px !important;
-    position: relative;
-}
-
-.flatpickr-current-month .numInputWrapper span {
-    display: none !important;
-}
-
-/* ---------------- WEEKDAYS (Header Sen Sel Rab...) ---------------- */
-.flatpickr-innerContainer,
-.flatpickr-rContainer,
-.flatpickr-days {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.flatpickr-weekdays {
-    background: transparent !important;
-    padding: 0 6px !important;
-    margin: 6px 0 4px !important;
-    height: auto !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.flatpickr-weekdaycontainer {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    gap: 4px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-span.flatpickr-weekday {
-    width: 100% !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    flex: unset !important;
-    background: #e8f5e8 !important;
-    color: #144514 !important;
-    font-weight: 800 !important;
-    font-size: 0.72rem !important;
-    font-family: 'Quicksand', sans-serif !important;
-    text-align: center !important;
-    padding: 8px 0 !important;
-    border-radius: 8px !important;
-    line-height: 1 !important;
-    box-sizing: border-box !important;
-}
-
-/* ---------------- GRID TANGGAL ---------------- */
-.dayContainer {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    gap: 4px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 100% !important;
-    padding: 0 6px 10px !important;
-    justify-content: unset !important;
-    box-sizing: border-box !important;
-}
-
-.flatpickr-day {
-    width: 100% !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    flex: unset !important;
-    height: 40px !important;
-    line-height: 40px !important;
-    margin: 0 !important;
-    border-radius: 10px !important;
-    color: #374151 !important;
-    font-weight: 600 !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.88rem !important;
-    transition: all 0.15s ease !important;
-    box-sizing: border-box !important;
-}
-
-.flatpickr-day:hover {
-    background: linear-gradient(135deg, #f0f9f0, #d1fae5) !important;
-    color: #144514 !important;
-    border-color: transparent !important;
-}
-
-/* Hari ini */
-.flatpickr-day.today {
-    border-color: #1a5d1a !important;
-    color: #1a5d1a !important;
-    background: #f0f9f0 !important;
-    font-weight: 800 !important;
-}
-
-.flatpickr-day.today:hover {
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
-    color: #065f46 !important;
-}
-
-/* Tanggal terpilih */
-.flatpickr-day.selected,
-.flatpickr-day.selected:hover {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: white !important;
-    border-color: #1a5d1a !important;
-    font-weight: 800 !important;
-    box-shadow: 0 4px 10px rgba(26, 93, 26, 0.3);
-}
-
-/* Disabled */
-.flatpickr-day.disabled,
-.flatpickr-day.disabled:hover,
-.flatpickr-day.flatpickr-disabled {
-    color: #d1d5db !important;
-    background: transparent !important;
-    cursor: not-allowed !important;
-}
-
-/* Bulan sebelumnya/berikutnya */
-.flatpickr-day.prevMonthDay,
-.flatpickr-day.nextMonthDay {
-    color: #9ca3af !important;
-    opacity: 0.5;
-}
-
-/* ---------------- INPUT WRAPPER — Chevron ---------------- */
-.input-icon-wrapper.flatpickr-open .input-arrow {
-    transform: translateY(-50%) rotate(180deg) !important;
-    color: #1a5d1a !important;
-}
-
-.input-icon-wrapper.flatpickr-open .custom-date-input {
-    border-color: #144514 !important;
-    box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15) !important;
-}
-
-/* ---------------- MOBILE RESPONSIVE ---------------- */
-@media (max-width: 480px) {
-    .flatpickr-calendar {
-        width: calc(100vw - 24px) !important;
-        max-width: 360px !important;
-        margin-top: 4px !important;
-    }
-
-    .flatpickr-weekdaycontainer,
-    .dayContainer {
-        gap: 3px !important;
-    }
-
-    span.flatpickr-weekday {
-        font-size: 0.68rem !important;
-        padding: 6px 0 !important;
-    }
-
-    .flatpickr-day {
-        height: 38px !important;
-        line-height: 38px !important;
-        font-size: 0.85rem !important;
-    }
-
-    /* Tampilkan spinner tahun (untuk tanggal lahir) */
-.flatpickr-current-month .numInputWrapper {
-    width: 60px !important;
+    width: 66px !important;
     position: relative;
 }
 
 .flatpickr-current-month .numInputWrapper span {
     display: block !important;
     position: absolute !important;
-    right: 2px !important;
-    width: 12px !important;
+    right: 3px !important;
+    width: 14px !important;
     height: 45% !important;
     padding: 0 !important;
     border: none !important;
@@ -1018,722 +1009,433 @@ span.flatpickr-weekday {
     border-top: 5px solid white !important;
 }
 
-/* Beri ruang tahun untuk spinner */
-.flatpickr-current-month input.cur-year {
-    width: 68px !important;
-    padding-right: 16px !important;
-}
-    .flatpickr-current-month input.cur-year {
-        width: 55px !important;
-        font-size: 0.95rem !important;
-    }
-}
-
-/* Bersihkan garis dobel dari input wrapper saat kalender terbuka */
-.input-icon-wrapper.flatpickr-open {
-    position: relative;
-    z-index: 100;
-}
-
-/* Pastikan tidak ada border tambahan dari container */
-.form-group:has(.flatpickr-open) {
-    position: relative;
-}
-
-/* ================================================================
-   FIX FINAL — Kalender Center & Input Tahun Lebih Lebar
-================================================================ */
-
-/* Perlebar input tahun agar 4 digit + spinner tidak terpotong */
-.flatpickr-current-month input.cur-year {
-    width: 78px !important;
-    padding: 4px 18px 4px 8px !important;
-    font-size: 1rem !important;
-}
-
-.flatpickr-current-month .numInputWrapper {
-    width: 78px !important;
-}
-
-/* Spinner tahun (panah atas/bawah) posisi di kanan input */
-.flatpickr-current-month .numInputWrapper span {
-    right: 3px !important;
-    width: 14px !important;
-}
-/* ================================================================
-   FIX FINAL — Kalender Ukuran Ideal & Center
-================================================================ */
-
-/* Batasi lebar kalender agar tidak memenuhi kartu */
-.flatpickr-calendar {
-    width: 360px !important;
-    max-width: 360px !important;
-    min-width: 360px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    padding: 6px !important;
+/* Weekdays */
+.flatpickr-innerContainer,
+.flatpickr-rContainer,
+.flatpickr-days {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     box-sizing: border-box !important;
-}
-
-/* Saat kalender terbuka */
-.flatpickr-calendar.open {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-}
-
-/* Kecilkan tanggal biar proporsional */
-.flatpickr-day {
-    height: 36px !important;
-    line-height: 36px !important;
-    font-size: 0.82rem !important;
-}
-
-/* Kecilkan header hari */
-span.flatpickr-weekday {
-    font-size: 0.68rem !important;
-    padding: 6px 0 !important;
-}
-
-/* Header bulan/tahun lebih kompak */
-.flatpickr-months {
-    padding: 4px 6px !important;
-    min-height: 42px !important;
-}
-
-.flatpickr-current-month {
-    font-size: 0.92rem !important;
-    gap: 4px !important;
-}
-
-.flatpickr-current-month .cur-month {
-    font-size: 0.92rem !important;
-}
-
-.flatpickr-monthDropdown-months {
-    font-size: 0.85rem !important;
-    padding: 3px 6px !important;
-}
-
-.flatpickr-current-month input.cur-year {
-    width: 66px !important;
-    padding: 3px 16px 3px 6px !important;
-    font-size: 0.9rem !important;
-}
-
-.flatpickr-current-month .numInputWrapper {
-    width: 66px !important;
-}
-
-/* Kecilkan panah navigasi */
-.flatpickr-months .flatpickr-prev-month,
-.flatpickr-months .flatpickr-next-month {
-    width: 28px !important;
-    height: 28px !important;
-}
-
-.flatpickr-months .flatpickr-prev-month svg,
-.flatpickr-months .flatpickr-next-month svg {
-    width: 12px !important;
-    height: 12px !important;
-}
-
-/* Gap grid lebih rapat */
-.flatpickr-weekdaycontainer,
-.dayContainer {
-    gap: 2px !important;
 }
 
 .flatpickr-weekdays {
+    background: transparent !important;
     padding: 0 4px !important;
     margin: 4px 0 2px !important;
+    height: auto !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
+.flatpickr-weekdaycontainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 2px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+span.flatpickr-weekday {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: unset !important;
+    background: #e8f5e8 !important;
+    color: #144514 !important;
+    font-weight: 800 !important;
+    font-size: 0.68rem !important;
+    font-family: 'Quicksand', sans-serif !important;
+    text-align: center !important;
+    padding: 6px 0 !important;
+    border-radius: 8px !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+}
+
+/* Days Grid */
 .dayContainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 2px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     padding: 0 4px 6px !important;
+    justify-content: unset !important;
+    box-sizing: border-box !important;
 }
 
-/* Mobile — sedikit lebih kecil */
-@media (max-width: 400px) {
-    .flatpickr-calendar {
-        width: 320px !important;
-        max-width: 320px !important;
-        min-width: 320px !important;
-    }
+.flatpickr-day {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: unset !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    color: #374151 !important;
+    font-weight: 600 !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 0.82rem !important;
+    transition: all 0.15s ease !important;
+    box-sizing: border-box !important;
+}
 
+.flatpickr-day:hover {
+    background: linear-gradient(135deg, #f0f9f0, #d1fae5) !important;
+    color: #144514 !important;
+    border-color: transparent !important;
+}
+
+.flatpickr-day.today {
+    border-color: #1a5d1a !important;
+    color: #1a5d1a !important;
+    background: #f0f9f0 !important;
+    font-weight: 800 !important;
+}
+
+.flatpickr-day.today:hover {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
+    color: #065f46 !important;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: white !important;
+    border-color: #1a5d1a !important;
+    font-weight: 800 !important;
+    box-shadow: 0 4px 10px rgba(26, 93, 26, 0.3);
+}
+
+.flatpickr-day.disabled,
+.flatpickr-day.disabled:hover,
+.flatpickr-day.flatpickr-disabled {
+    color: #d1d5db !important;
+    background: transparent !important;
+    cursor: not-allowed !important;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    color: #9ca3af !important;
+    opacity: 0.5;
+}
+
+
+/* ==========================================================================
+   13. WHATSAPP FLOATING BUTTON
+   ========================================================================== */
+
+@keyframes wa-pulse-only-icon {
+    0%, 100% { transform: scale(1); }
+    70%      { transform: scale(1.12); }
+}
+
+
+/* ==========================================================================
+   14. DESKTOP RESPONSIVE (min-width: 769px)
+   ========================================================================== */
+
+@media (min-width: 769px) {
+    .social-header-tengah {
+        display: flex !important;
+        gap: 20px;
+        margin: 0 20px;
+    }
+    
+    .social-header-tengah a {
+        color: #ffd700;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .social-header-tengah a:hover {
+        color: #ffffff;
+        transform: scale(1.2);
+    }
+    
+    .hero-content {
+        display: none !important;
+    }
+    
+    .header-text-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .header-text-container h1 {
+        font-size: 1.1rem;
+        margin: 0;
+        color: #fff;
+    }
+    
+    .header-text-container .motto-text {
+        font-size: 0.8rem;
+        margin: 0;
+        color: #ffd700;
+        display: block !important;
+    }
+    
+    /* WhatsApp Float — Desktop */
+    .whatsapp-float {
+        position: fixed;
+        bottom: 30px;
+        right: 25px;
+        background-color: var(--whatsapp-green);
+        color: white !important;
+        padding: 12px 20px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        z-index: 999;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease;
+    }
+    
+    .whatsapp-float:hover {
+        transform: scale(1.05);
+    }
+    
+    /* Button Group — Desktop (row) */
+    .button-group {
+        flex-direction: row;
+        gap: 15px;
+        margin: 30px 25px 50px 25px;
+    }
+    
+    .button-group .btn-prev,
+    .button-group .btn-next,
+    .button-group .btn-simpan-final,
+    .button-group .btn-wa-konfirmasi {
+        flex: 1;
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+}
+
+
+/* ==========================================================================
+   15. MOBILE RESPONSIVE (max-width: 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px;
+    }
+    
+    .header-text-container h1 {
+        display: block;
+        font-size: 0.95rem;
+    }
+    
+    .motto-text {
+        display: none !important;
+    }
+    
+    .logo img {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .logo h1 {
+        font-size: 0.95rem;
+    }
+    
+    nav {
+        width: 80%;
+    }
+    
+    .social-header-tengah {
+        display: none;
+    }
+    
+    .container {
+        padding: 2rem 4% 3rem;
+    }
+    
+    .tab-content {
+        padding: 25px 15px 25px;
+    }
+    
+    .tab-link {
+        padding: 12px 5px;
+        font-size: 0.75rem;
+    }
+    
+    .form-grid,
+    .form-grid-santri,
+    .form-grid-upload {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    #pernyataan .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+    
+    #pernyataan .form-group {
+        width: 100%;
+    }
+    
+    /* WhatsApp Float — Mobile (icon only) */
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: transparent !important;
+        color: var(--whatsapp-green) !important;
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        box-shadow: none !important;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        animation: wa-pulse-only-icon 2s infinite ease-in-out;
+    }
+    
+    .whatsapp-float span {
+        display: none;
+    }
+    
+    .whatsapp-float i {
+        font-size: 55px;
+        margin: 0;
+        filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3));
+    }
+    
+    /* Custom Date Input — Mobile */
+    .custom-date-input {
+        padding: 11px 40px;
+        min-height: 44px;
+        font-size: 0.87rem;
+    }
+    
+    .input-icon-wrapper .input-icon {
+        left: 12px;
+        font-size: 0.95rem;
+    }
+    
+    .input-icon-wrapper .input-arrow {
+        right: 12px;
+    }
+    
+    /* Flatpickr — Mobile */
+    .flatpickr-calendar {
+        width: calc(100vw - 24px) !important;
+        max-width: 360px !important;
+        min-width: auto !important;
+    }
+    
     .flatpickr-day {
         height: 34px !important;
         line-height: 34px !important;
-        font-size: 0.78rem !important;
+        font-size: 0.8rem !important;
     }
-
+    
     span.flatpickr-weekday {
-        font-size: 0.64rem !important;
-    }
-}
-
-/* ================================================================
-   🔘 TOMBOL NAVIGASI FINAL (Kembali / Lanjut / Simpan)
-================================================================ */
-
-/* Reset & base */
-.button-group {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    width: auto !important;                    /* ⭐ WAJIB auto biar margin bekerja */
-    margin: 25px 15px 15px 15px !important;    /* ⭐ Margin samping 15px */
-    padding: 20px 0 0 0 !important;
-    border-top: 1px solid #eee !important;
-    box-sizing: border-box !important;
-}
-
-/* ============================================
-   TOMBOL DASAR — Semua button navigasi
-============================================ */
-.button-group .btn-prev,
-.button-group .btn-next,
-.button-group .btn-simpan-final {
-    width: 100% !important;
-    padding: 14px 24px !important;
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
-    border-radius: 12px !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    border: 2px solid transparent !important;
-    transition: all 0.25s ease !important;
-    box-sizing: border-box !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    letter-spacing: 0.3px !important;
-}
-
-/* ============================================
-   TOMBOL KEMBALI (outline abu-abu)
-============================================ */
-.button-group .btn-prev {
-    background: #f8f9fa !important;
-    color: #1a5d1a !important;
-    border: 2px solid #d1d5db !important;
-}
-
-.button-group .btn-prev:hover {
-    background: #e8f5e9 !important;
-    border-color: #1a5d1a !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(26, 93, 26, 0.2) !important;
-}
-
-.button-group .btn-prev i {
-    color: #1a5d1a !important;
-    font-size: 1.1rem !important;
-}
-
-/* ============================================
-   TOMBOL LANJUT (solid hijau)
-============================================ */
-.button-group .btn-next {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: #fff !important;
-    border-color: #144514 !important;
-    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35) !important;
-}
-
-.button-group .btn-next:hover {
-    background: linear-gradient(135deg, #144514, #0d3d0d) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.5) !important;
-}
-
-.button-group .btn-next i {
-    color: #fff !important;
-    font-size: 1.1rem !important;
-}
-
-/* ============================================
-   TOMBOL SIMPAN FINAL (solid emas)
-============================================ */
-.button-group .btn-simpan-final {
-    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-    color: #fff !important;
-    border-color: #d97706 !important;
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35) !important;
-}
-
-.button-group .btn-simpan-final:hover {
-    background: linear-gradient(135deg, #d97706, #b45309) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5) !important;
-}
-
-.button-group .btn-simpan-final i {
-    color: #fff !important;
-    font-size: 1.1rem !important;
-}
-
-
-/* ================================================================
-   💻 DESKTOP (min-width: 768px) — Tombol Sejajar
-================================================================ */
-@media (min-width: 768px) {
-    
-    .button-group {
-        flex-direction: row !important;
-        gap: 15px !important;
-        margin: 30px 25px 20px 25px !important;
-    }
-    
-    .button-group .btn-prev,
-    .button-group .btn-next,
-    .button-group .btn-simpan-final {
-        flex: 1 !important;
-        padding: 15px 30px !important;
-        font-size: 1rem !important;
+        font-size: 0.66rem !important;
+        padding: 5px 0 !important;
     }
 }
 
 
-/* ================================================================
-   📱 HP KECIL (max-width: 400px)
-================================================================ */
+/* ==========================================================================
+   16. HP KECIL (max-width: 400px)
+   ========================================================================== */
+
 @media (max-width: 400px) {
+    .flatpickr-calendar {
+        width: calc(100vw - 20px) !important;
+        max-width: 320px !important;
+    }
     
+    .flatpickr-day {
+        height: 32px !important;
+        line-height: 32px !important;
+        font-size: 0.76rem !important;
+    }
+    
+    span.flatpickr-weekday {
+        font-size: 0.62rem !important;
+    }
+    
+    .flatpickr-current-month input.cur-year {
+        width: 58px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    /* Button Group — HP kecil */
     .button-group {
-        margin: 20px 12px 15px 12px !important;
-        gap: 10px !important;
-        padding-top: 15px !important;
+        margin: 20px 12px 35px 12px;
+        gap: 10px;
+        padding-top: 15px;
     }
     
     .button-group .btn-prev,
     .button-group .btn-next,
-    .button-group .btn-simpan-final {
-        padding: 13px 20px !important;
-        font-size: 0.9rem !important;
-        border-radius: 10px !important;
+    .button-group .btn-simpan-final,
+    .button-group .btn-wa-konfirmasi {
+        padding: 13px 20px;
+        font-size: 0.9rem;
+        border-radius: 10px;
     }
 }
 
-/* ================================================================
-   🎯 FIX FINAL — Custom Dropdown Premium (v3.0)
-   Untuk: Daarul Khoirot Almadani
-================================================================ */
 
+/* ==========================================================================
+   17. FIX — Custom Dropdown di dalam .input-ikon (Anti Double Border)
+   ========================================================================== */
 
-/* ================================================================
-   1. HIDE SELECT NATIVE (Multi-Fallback)
-================================================================ */
-
-select.cd-native,
-.cd-wrapper select.cd-native,
-select[data-cd-init="true"] {
-    display: none !important;
-    visibility: hidden !important;
-    position: absolute !important;
-    width: 0 !important;
-    height: 0 !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    margin: -1px !important;
-    padding: 0 !important;
-    border: 0 !important;
-}
-
-
-/* ================================================================
-   2. OVERRIDE BORDER ANEH OPTION KEHADIRAN
-================================================================ */
-
-.cd-wrapper[data-cd-variant-active="kehadiran"] .cd-option {
+.input-ikon:has(.cd-wrapper) {
     border: none !important;
-    border-left: 4px solid transparent !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
+    min-height: 0 !important;
 }
 
+.input-ikon:has(.cd-wrapper) > i {
+    display: none !important;
+}
 
-/* ================================================================
-   3. WRAPPER — Reference untuk absolute positioning menu
-================================================================ */
-
-.cd-wrapper {
-    position: relative !important;
-    display: block !important;
+.input-ikon .cd-wrapper {
     width: 100% !important;
 }
 
-.cd-wrapper.open {
-    z-index: 9999 !important;
-}
 
+/* ==========================================================================
+   18. OVERFLOW FIX untuk Dropdown Bisa Keluar
+   ========================================================================== */
 
-/* ================================================================
-   4. TRIGGER — Position relative untuk main-icon
-================================================================ */
-
-.cd-trigger {
-    position: relative !important;
-}
-
-
-/* ================================================================
-   5. MENU DROPDOWN — Positioning & Show/Hide
-================================================================ */
-
-/* Default state: Menu HIDDEN */
-.cd-menu {
-    position: absolute !important;
-    top: calc(100% + 6px);
-    bottom: auto;
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 100%;
-    z-index: 10000 !important;
-    
-    /* Hidden state */
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(-10px);
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
-}
-
-/* Saat wrapper .open — Menu TAMPIL */
-.cd-wrapper.open .cd-menu {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translateY(0) !important;
-}
-
-/* Kalau space bawah kurang → buka ke atas */
-.cd-wrapper.open-up .cd-menu {
-    top: auto !important;
-    bottom: calc(100% + 6px) !important;
-    transform: translateY(10px);
-}
-
-.cd-wrapper.open-up.open .cd-menu {
-    transform: translateY(0) !important;
-}
-
-
-/* ================================================================
-   6. ARROW — Rotate saat menu open
-================================================================ */
-
-.cd-arrow {
-    position: absolute !important;
-    right: 12px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    color: #1a5d1a !important;
-    font-size: 0.85rem !important;
-    transition: transform 0.25s ease !important;
-    pointer-events: none !important;
-}
-
-.cd-wrapper.open .cd-arrow {
-    transform: translateY(-50%) rotate(180deg) !important;
-}
-
-
-/* ================================================================
-   7. OPTIONS CONTAINER
-================================================================ */
-
-.cd-options {
-    padding: 6px !important;
-    max-height: 260px !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-}
-
-.cd-options::-webkit-scrollbar {
-    width: 6px !important;
-}
-
-.cd-options::-webkit-scrollbar-track {
-    background: #f5f5f5 !important;
-}
-
-.cd-options::-webkit-scrollbar-thumb {
-    background: rgba(26, 93, 26, 0.3) !important;
-    border-radius: 3px !important;
-}
-
-
-/* ================================================================
-   8. OPTION ITEM
-================================================================ */
-
-.cd-option {
-    padding: 10px 14px !important;
-    border-radius: 8px !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    font-family: 'Quicksand', sans-serif !important;
-    font-size: 0.9rem !important;
-    color: #374151 !important;
-    font-weight: 500 !important;
-    transition: all 0.15s ease !important;
-    margin-bottom: 2px !important;
-    line-height: 1.3 !important;
-    white-space: nowrap !important;
-}
-
-.cd-option:hover,
-.cd-option.highlighted {
-    background: #f0f9f0 !important;
-    color: #1a5d1a !important;
-    transform: translateX(3px) !important;
-}
-
-.cd-option.selected {
-    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
-    color: white !important;
-    font-weight: 600 !important;
-}
-
-.cd-option.selected i {
-    color: #ffd700 !important;
-}
-
-.cd-option i {
-    color: #1a5d1a !important;
-    width: 18px !important;
-    text-align: center !important;
-    font-size: 0.9rem !important;
-    flex-shrink: 0 !important;
-}
-
-
-/* ================================================================
-   9. FIX PARENT OVERFLOW — Biar menu bisa keluar
-================================================================ */
-
-.form-container,
-.form-section,
+.tab-container,
+.tab-content,
 .form-group,
-.form-row,
 .form-grid,
-.kartu-modern-clean,
-[class*="alamat-section"],
-[class*="pendaftaran"] {
+.form-grid-santri,
+.form-grid-upload,
+.form-section,
+.form-container {
     overflow: visible !important;
 }
 
-/* Tapi table wrapper tetap boleh scroll horizontal */
 .table-wrapper {
     overflow-x: auto !important;
     overflow-y: hidden !important;
 }
 
 
-/* ================================================================
-   📱 RESPONSIVE
-================================================================ */
-
-@media (max-width: 768px) {
-    .cd-menu {
-        max-height: 260px !important;
-    }
-    
-    .cd-option {
-        padding: 11px 12px !important;
-        font-size: 0.87rem !important;
-    }
-}
-
-/* ================================================================
-   🎯 FIX WAJIB — Support inline style="display:none" pada .cd-option
-================================================================ */
-
-/* Default: cd-option tampil sebagai flex */
-.cd-option {
-    display: flex !important;
-}
-
-/* ⭐ Kalau punya inline style display:none → SEMBUNYIKAN */
-.cd-option[style*="display: none"],
-.cd-option[style*="display:none"] {
-    display: none !important;
-}
-
-/* ================================================================
-   🎯 FIX FINAL v4.0 — Menu Dropdown Scrollable & Anti-Cutoff
-   Prioritas TERTINGGI (paling bawah file CSS)
-================================================================ */
-
-/* ⭐ MENU CONTAINER — Force flex layout dengan max-height */
-.cd-menu {
-    max-height: 320px !important;
-    overflow: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
-    box-sizing: border-box !important;
-}
-
-/* Kalau open, tampilkan sebagai flex column */
-.cd-wrapper.open .cd-menu {
-    display: flex !important;
-    flex-direction: column !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translateY(0) !important;
-}
-
-/* ⭐ SEARCH BAR — Fixed di atas, tidak scroll */
-.cd-search {
-    flex: 0 0 auto !important;
-    flex-shrink: 0 !important;
-}
-
-/* ⭐ OPTIONS CONTAINER — WAJIB flex-grow + scrollable */
-.cd-options {
-    flex: 1 1 auto !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    max-height: 300px !important;
-    min-height: 60px !important;
-    padding: 6px !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(26, 93, 26, 0.5) transparent;
-}
-
-/* Custom scrollbar (Webkit) */
-.cd-options::-webkit-scrollbar {
-    width: 8px !important;
-}
-
-.cd-options::-webkit-scrollbar-track {
-    background: #f5f5f5 !important;
-    border-radius: 4px;
-}
-
-.cd-options::-webkit-scrollbar-thumb {
-    background: rgba(26, 93, 26, 0.5) !important;
-    border-radius: 4px;
-}
-
-.cd-options::-webkit-scrollbar-thumb:hover {
-    background: rgba(26, 93, 26, 0.7) !important;
-}
-
-/* ⭐ OPTION ITEM — Jangan pernah mengecil */
-.cd-option {
-    flex-shrink: 0 !important;
-    min-height: 40px !important;
-}
-
-/* ⭐ Support inline hide (dari filter search) */
-.cd-option[style*="display: none"],
-.cd-option[style*="display:none"] {
-    display: none !important;
-}
-
-
-/* ================================================================
-   📱 MOBILE — Sesuaikan max-height
-================================================================ */
-
-@media (max-width: 480px) {
-    .cd-menu {
-        max-height: 280px !important;
-    }
-    
-    .cd-options {
-        max-height: 260px !important;
-    }
-}
-
-/* ================================================================
-   🎯 FIX FINAL — Tombol Navigasi (Kembali / Lanjut / Simpan)
-   Beri jarak yang cukup dari footer
-================================================================ */
-
-/* Container tombol */
-.button-group {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    width: auto !important;
-    
-    /* ⭐ Margin yang lebih longgar */
-    margin: 25px 15px 40px 15px !important;   /* Bottom 40px biar tidak mepet */
-    padding: 20px 0 0 0 !important;
-    border-top: 1px solid #eee !important;
-    box-sizing: border-box !important;
-}
-
-/* ============================================
-   DESKTOP (min-width: 768px)
-============================================ */
-@media (min-width: 768px) {
-    .button-group {
-        flex-direction: row !important;
-        gap: 15px !important;
-        
-        /* ⭐ Margin lebih longgar di desktop */
-        margin: 30px 25px 50px 25px !important;
-    }
-    
-    .button-group .btn-prev,
-    .button-group .btn-next,
-    .button-group .btn-simpan-final {
-        flex: 1 !important;
-        padding: 15px 30px !important;
-        font-size: 1rem !important;
-    }
-}
-
-/* ============================================
-   HP KECIL (max-width: 400px)
-============================================ */
-@media (max-width: 400px) {
-    .button-group {
-        margin: 20px 12px 35px 12px !important;
-        gap: 10px !important;
-    }
-}
-
-
-/* ================================================================
-   🎯 BONUS — Kartu Form Padding Bawah Lebih Longgar
-================================================================ */
-
-/* Beri padding-bottom yang cukup di kartu form */
-.tab-content {
-    padding-bottom: 30px !important;
-}
-
-/* Container utama juga */
-.container {
-    padding-bottom: 3rem !important;
-}
-
-
-/* ================================================================
-   🎯 BONUS — Widget Tanya Admin Jangan Nutupi Tombol
-================================================================ */
-
-@media (min-width: 769px) {
-    .whatsapp-float {
-        bottom: 30px !important;   /* Angkat ke atas dikit */
-        right: 25px !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .whatsapp-float {
-        bottom: 20px !important;
-        right: 20px !important;
-    }
-}
+/* ==========================================================================
+   END OF FILE
+   ========================================================================== */
