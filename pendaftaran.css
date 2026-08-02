@@ -1,6 +1,6 @@
 /* ==========================================================================
    PENDAFTARAN.CSS — Daarul Khoirot Almadani
-   Versi 3.1 — Fix Font Awesome + Jarak Tombol
+   Versi 3.2 — Final: Font Awesome Fix + Jarak Tombol Optimal
    ========================================================================== */
 
 
@@ -28,7 +28,7 @@
     --transition       : all 0.25s ease;
 }
 
-/* ⭐ Reset dasar TANPA font-family (biar ikon FA tidak rusak) */
+/* Reset TANPA font-family (biar ikon Font Awesome tidak rusak) */
 *,
 *::before,
 *::after {
@@ -37,7 +37,7 @@
     box-sizing : border-box;
 }
 
-/* ⭐ Font Quicksand hanya untuk elemen teks — BUKAN ikon */
+/* Font Quicksand hanya untuk elemen teks */
 body,
 input,
 select,
@@ -50,7 +50,7 @@ ol, ul, blockquote {
     font-family: 'Quicksand', sans-serif;
 }
 
-/* ⭐ FIX PENTING — Font Awesome pakai font sendiri, jangan di-override */
+/* ⭐ Font Awesome — jangan di-override */
 i.fa,
 i.fas,
 i.far,
@@ -66,7 +66,7 @@ i.fass,
     -webkit-font-smoothing: antialiased;
 }
 
-/* Brand icons (Facebook, WhatsApp, Instagram, dll) pakai Brands */
+/* Brand icons pakai Brands */
 i.fab,
 [class*="fa-facebook"],
 [class*="fa-whatsapp"],
@@ -95,14 +95,12 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.3;
 }
 
-/* Required field asterisk */
 .required {
     color      : #e53e3e;
     margin-left: 2px;
     font-weight: 700;
 }
 
-/* Checkbox label row */
 .checkbox-row {
     display    : flex;
     align-items: center;
@@ -110,7 +108,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-top : 6px;
 }
 
-/* Riwayat sakit grid */
 .riwayat-grid {
     display              : grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -131,7 +128,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size  : 0.9rem;
 }
 
-/* Pernyataan box */
 .pernyataan-box {
     background   : #fff;
     border       : 2px solid #ddd;
@@ -142,7 +138,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size    : 0.95rem;
 }
 
-/* Persetujuan box */
 .persetujuan-box {
     display       : flex;
     align-items   : center;
@@ -170,7 +165,6 @@ h1, h2, h3, h4, h5, h6 {
     margin     : 0;
 }
 
-/* Status wali section */
 .wali-section {
     margin-top   : 30px;
     padding      : 20px;
@@ -451,9 +445,10 @@ nav ul li a.active::before {
     color     : #fff;
 }
 
+/* ⭐ Tab content — padding-bottom lebih besar biar tombol ga mepet */
 .tab-content {
     display       : none;
-    padding       : 35px 35px 25px;
+    padding       : 35px 35px 40px;
     flex-direction: column;
     gap           : 18px;
     overflow      : visible;
@@ -525,14 +520,14 @@ nav ul li a.active::before {
 
 .input-ikon input,
 .input-ikon select {
-    flex      : 1;
-    border    : none;
-    outline   : none;
-    background: transparent;
-    min-height: 46px;
-    width     : 100%;
-    font-size : 0.92rem;
-    color     : var(--text-dark);
+    flex       : 1;
+    border     : none;
+    outline    : none;
+    background : transparent;
+    min-height : 46px;
+    width      : 100%;
+    font-size  : 0.92rem;
+    color      : var(--text-dark);
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -1095,15 +1090,15 @@ span.flatpickr-weekday {
 
 /* ==========================================================================
    10. BUTTON GROUP — TOMBOL NAVIGASI
-   ⭐ Sudah include jarak yang cukup dari form
+   ⭐ Jarak atas & bawah sudah optimal
    ========================================================================== */
 
 .button-group {
     display       : flex;
     flex-direction: column;
     gap           : 12px;
-    padding       : 30px 0 0;      /* Padding-top 30px */
-    margin        : 40px 0 30px;   /* ⭐ Margin-top 40px — jarak dari form */
+    padding       : 30px 0 20px;    /* atas 30, bawah 20 */
+    margin        : 40px 0 40px;    /* atas 40, bawah 40 */
     border-top    : 1px solid #e5e7eb;
     box-sizing    : border-box;
     width         : 100%;
@@ -1370,16 +1365,17 @@ footer {
         display: block !important;
     }
 
+    /* ⭐ Tab content — padding bawah lebih besar */
     .tab-content {
-        padding: 40px 40px 30px;
+        padding: 40px 40px 50px;
     }
 
-    /* ⭐ Button group HORIZONTAL di desktop, dengan jarak dari form */
+    /* ⭐ Button group HORIZONTAL, dengan jarak atas & bawah */
     .button-group {
         flex-direction: row;
         gap           : 20px;
-        padding       : 35px 0 0;       /* Padding-top lebih besar */
-        margin        : 50px 0 30px;    /* ⭐ Margin-top 50px */
+        padding       : 35px 0 30px;    /* atas 35, bawah 30 */
+        margin        : 50px 0 40px;    /* atas 50, bawah 40 */
     }
 
     .button-group .btn-prev,
@@ -1462,8 +1458,9 @@ footer {
         padding: 1.5rem 3% 2.5rem;
     }
 
+    /* ⭐ Tab content mobile — padding bawah cukup */
     .tab-content {
-        padding: 20px 15px 20px;
+        padding: 20px 15px 30px;
         gap    : 14px;
     }
 
@@ -1481,11 +1478,11 @@ footer {
         grid-template-columns: 1fr !important;
     }
 
-    /* Button group mobile — tetap vertikal dengan jarak */
+    /* ⭐ Button group mobile — jarak atas & bawah */
     .button-group {
         flex-direction: column;
-        margin        : 35px 0 30px;    /* ⭐ Jarak 35px dari form */
-        padding       : 25px 0 0;
+        margin        : 35px 0 40px;    /* atas 35, bawah 40 */
+        padding       : 25px 0 20px;    /* atas 25, bawah 20 */
         gap           : 10px;
     }
 
@@ -1564,8 +1561,8 @@ footer {
     }
 
     .button-group {
-        margin : 30px 0 25px;
-        padding: 22px 0 0;
+        margin : 30px 0 35px;
+        padding: 22px 0 18px;
         gap    : 8px;
     }
 
