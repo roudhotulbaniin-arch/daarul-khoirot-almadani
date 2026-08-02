@@ -1092,13 +1092,12 @@ span.flatpickr-weekday {
    10. BUTTON GROUP — TOMBOL NAVIGASI
    ⭐ Jarak atas & bawah sudah optimal
    ========================================================================== */
-
 .button-group {
     display       : flex;
     flex-direction: column;
     gap           : 12px;
-    padding       : 30px 0 20px;    /* atas 30, bawah 20 */
-    margin        : 40px 0 40px;    /* atas 40, bawah 40 */
+    padding       : 30px 20px 20px;    /* ⭐ Padding kanan-kiri 20px */
+    margin        : 40px 0 40px;
     border-top    : 1px solid #e5e7eb;
     box-sizing    : border-box;
     width         : 100%;
@@ -1371,12 +1370,12 @@ footer {
     }
 
     /* ⭐ Button group HORIZONTAL, dengan jarak atas & bawah */
-    .button-group {
-        flex-direction: row;
-        gap           : 20px;
-        padding       : 35px 0 30px;    /* atas 35, bawah 30 */
-        margin        : 50px 0 40px;    /* atas 50, bawah 40 */
-    }
+   .button-group {
+    flex-direction: column;
+    margin        : 35px 0 40px;
+    padding       : 25px 15px 20px;    /* ⭐ Padding kanan-kiri 15px */
+    gap           : 10px;
+}
 
     .button-group .btn-prev,
     .button-group .btn-next,
