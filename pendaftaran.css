@@ -1653,3 +1653,87 @@ select[data-cd-init="true"] {
         max-height: 260px !important;
     }
 }
+
+/* ================================================================
+   🎯 FIX FINAL — Tombol Navigasi (Kembali / Lanjut / Simpan)
+   Beri jarak yang cukup dari footer
+================================================================ */
+
+/* Container tombol */
+.button-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: auto !important;
+    
+    /* ⭐ Margin yang lebih longgar */
+    margin: 25px 15px 40px 15px !important;   /* Bottom 40px biar tidak mepet */
+    padding: 20px 0 0 0 !important;
+    border-top: 1px solid #eee !important;
+    box-sizing: border-box !important;
+}
+
+/* ============================================
+   DESKTOP (min-width: 768px)
+============================================ */
+@media (min-width: 768px) {
+    .button-group {
+        flex-direction: row !important;
+        gap: 15px !important;
+        
+        /* ⭐ Margin lebih longgar di desktop */
+        margin: 30px 25px 50px 25px !important;
+    }
+    
+    .button-group .btn-prev,
+    .button-group .btn-next,
+    .button-group .btn-simpan-final {
+        flex: 1 !important;
+        padding: 15px 30px !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* ============================================
+   HP KECIL (max-width: 400px)
+============================================ */
+@media (max-width: 400px) {
+    .button-group {
+        margin: 20px 12px 35px 12px !important;
+        gap: 10px !important;
+    }
+}
+
+
+/* ================================================================
+   🎯 BONUS — Kartu Form Padding Bawah Lebih Longgar
+================================================================ */
+
+/* Beri padding-bottom yang cukup di kartu form */
+.tab-content {
+    padding-bottom: 30px !important;
+}
+
+/* Container utama juga */
+.container {
+    padding-bottom: 3rem !important;
+}
+
+
+/* ================================================================
+   🎯 BONUS — Widget Tanya Admin Jangan Nutupi Tombol
+================================================================ */
+
+@media (min-width: 769px) {
+    .whatsapp-float {
+        bottom: 30px !important;   /* Angkat ke atas dikit */
+        right: 25px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+}
