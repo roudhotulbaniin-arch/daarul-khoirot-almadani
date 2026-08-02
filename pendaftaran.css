@@ -1,6 +1,6 @@
 /* ==========================================================================
    PENDAFTARAN.CSS — Daarul Khoirot Almadani
-   Versi 3.2 — Final: Font Awesome Fix + Jarak Tombol Optimal
+   Versi 3.3 — Final Bersih, Tombol Rapi di Mobile & Desktop
    ========================================================================== */
 
 
@@ -28,7 +28,6 @@
     --transition       : all 0.25s ease;
 }
 
-/* Reset TANPA font-family (biar ikon Font Awesome tidak rusak) */
 *,
 *::before,
 *::after {
@@ -37,7 +36,6 @@
     box-sizing : border-box;
 }
 
-/* Font Quicksand hanya untuk elemen teks */
 body,
 input,
 select,
@@ -50,7 +48,7 @@ ol, ul, blockquote {
     font-family: 'Quicksand', sans-serif;
 }
 
-/* ⭐ Font Awesome — jangan di-override */
+/* Font Awesome */
 i.fa,
 i.fas,
 i.far,
@@ -66,7 +64,6 @@ i.fass,
     -webkit-font-smoothing: antialiased;
 }
 
-/* Brand icons pakai Brands */
 i.fab,
 [class*="fa-facebook"],
 [class*="fa-whatsapp"],
@@ -445,7 +442,6 @@ nav ul li a.active::before {
     color     : #fff;
 }
 
-/* ⭐ Tab content — padding-bottom lebih besar biar tombol ga mepet */
 .tab-content {
     display       : none;
     padding       : 35px 35px 40px;
@@ -1089,14 +1085,15 @@ span.flatpickr-weekday {
 
 
 /* ==========================================================================
-   10. BUTTON GROUP — TOMBOL NAVIGASI
-   ⭐ Jarak atas & bawah sudah optimal
+   10. BUTTON GROUP — TOMBOL NAVIGASI (BASE / MOBILE)
+   ⭐ Vertikal + padding kanan-kiri
    ========================================================================== */
+
 .button-group {
     display       : flex;
     flex-direction: column;
     gap           : 12px;
-    padding       : 30px 20px 20px;    /* ⭐ Padding kanan-kiri 20px */
+    padding       : 30px 20px 20px;
     margin        : 40px 0 40px;
     border-top    : 1px solid #e5e7eb;
     box-sizing    : border-box;
@@ -1125,7 +1122,6 @@ span.flatpickr-weekday {
     min-height     : 52px;
 }
 
-/* Tombol Kembali */
 .button-group .btn-prev {
     background  : #f8f9fa;
     color       : var(--primary-color);
@@ -1145,7 +1141,6 @@ span.flatpickr-weekday {
     font-size: 1.05rem;
 }
 
-/* Tombol Lanjut */
 .button-group .btn-next {
     background  : linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color       : #fff;
@@ -1164,7 +1159,6 @@ span.flatpickr-weekday {
     font-size: 1.05rem;
 }
 
-/* Tombol Simpan Final */
 .button-group .btn-simpan-final {
     background  : linear-gradient(135deg, #f59e0b, #d97706);
     color       : #fff;
@@ -1183,7 +1177,6 @@ span.flatpickr-weekday {
     font-size: 1.05rem;
 }
 
-/* Tombol WA Konfirmasi */
 .button-group .btn-wa-konfirmasi {
     background  : linear-gradient(135deg, #25d366, #1ebd58);
     color       : #fff;
@@ -1339,6 +1332,7 @@ footer {
 
 /* ==========================================================================
    16. RESPONSIVE — DESKTOP (min-width: 769px)
+   ⭐ Tombol HORIZONTAL
    ========================================================================== */
 
 @media (min-width: 769px) {
@@ -1364,28 +1358,30 @@ footer {
         display: block !important;
     }
 
-    /* ⭐ Tab content — padding bawah lebih besar */
     .tab-content {
         padding: 40px 40px 50px;
     }
 
-    /* ⭐ Button group HORIZONTAL, dengan jarak atas & bawah */
-   .button-group {
-    flex-direction: column;
-    margin        : 35px 0 40px;
-    padding       : 25px 15px 20px;    /* ⭐ Padding kanan-kiri 15px */
-    gap           : 10px;
-}
+    /* ⭐ Tombol HORIZONTAL di desktop */
+    .button-group {
+        flex-direction: row !important;
+        gap           : 20px !important;
+        padding       : 35px 40px 30px !important;
+        margin        : 50px 0 40px !important;
+        align-items   : center !important;
+    }
 
     .button-group .btn-prev,
     .button-group .btn-next,
     .button-group .btn-simpan-final,
     .button-group .btn-wa-konfirmasi {
-        flex      : 1;
-        width     : auto;
-        padding   : 15px 30px;
-        min-height: 54px;
-        font-size : 1rem;
+        flex      : 1 1 0 !important;
+        width     : auto !important;
+        min-width : 0 !important;
+        max-width : none !important;
+        padding   : 15px 30px !important;
+        min-height: 54px !important;
+        font-size : 1rem !important;
     }
 
     /* WhatsApp float desktop */
@@ -1424,6 +1420,7 @@ footer {
 
 /* ==========================================================================
    18. RESPONSIVE — MOBILE (max-width: 768px)
+   ⭐ Tombol VERTIKAL + padding kanan-kiri
    ========================================================================== */
 
 @media (max-width: 768px) {
@@ -1457,7 +1454,6 @@ footer {
         padding: 1.5rem 3% 2.5rem;
     }
 
-    /* ⭐ Tab content mobile — padding bawah cukup */
     .tab-content {
         padding: 20px 15px 30px;
         gap    : 14px;
@@ -1477,14 +1473,26 @@ footer {
         grid-template-columns: 1fr !important;
     }
 
-    /* ⭐ Button group mobile — jarak atas & bawah */
-    /* Button group mobile — jarak atas & bawah + kanan-kiri */
-.button-group {
-    flex-direction: column;
-    margin        : 35px 0 40px;
-    padding       : 25px 20px 25px;    /* ⭐ Padding kanan-kiri 20px */
-    gap           : 12px;
-}
+    /* ⭐ Button group mobile — VERTIKAL dengan padding kanan-kiri */
+    .button-group {
+        flex-direction: column !important;
+        gap           : 12px !important;
+        margin        : 30px 0 35px !important;
+        padding       : 25px 20px 20px !important;
+    }
+
+    .button-group .btn-prev,
+    .button-group .btn-next,
+    .button-group .btn-simpan-final,
+    .button-group .btn-wa-konfirmasi {
+        width     : 100% !important;
+        flex      : none !important;
+        max-width : none !important;
+        padding   : 14px 20px !important;
+        font-size : 0.95rem !important;
+        min-height: 50px !important;
+    }
+
     /* WhatsApp float mobile */
     .whatsapp-float {
         background: transparent !important;
@@ -1560,46 +1568,19 @@ footer {
     }
 
     .button-group {
-        margin : 30px 0 35px;
-        padding: 22px 0 18px;
-        gap    : 8px;
+        margin : 25px 0 30px !important;
+        padding: 20px 16px 18px !important;
+        gap    : 10px !important;
     }
 
     .button-group .btn-prev,
     .button-group .btn-next,
     .button-group .btn-simpan-final,
     .button-group .btn-wa-konfirmasi {
-        padding      : 13px 18px;
-        font-size    : 0.9rem;
-        min-height   : 48px;
-        border-radius: 10px;
-    }
-}
-
-/* ==========================================================================
-   20. FORCE FIX — Button Group Horizontal di Desktop
-   ========================================================================== */
-
-@media only screen and (min-width: 769px) {
-    .button-group,
-    .tab-container .button-group,
-    .tab-content .button-group {
-        flex-direction: row !important;
-        gap           : 20px !important;
-        padding       : 35px 40px 30px !important;
-        margin        : 50px 0 40px !important;
-        align-items   : center !important;
-    }
-    
-    .button-group > button,
-    .button-group .btn-prev,
-    .button-group .btn-next,
-    .button-group .btn-simpan-final,
-    .button-group .btn-wa-konfirmasi {
-        flex      : 1 1 0 !important;
-        width     : auto !important;
-        min-width : 0 !important;
-        max-width : none !important;
+        padding      : 13px 16px !important;
+        font-size    : 0.9rem !important;
+        min-height   : 48px !important;
+        border-radius: 10px !important;
     }
 }
 
