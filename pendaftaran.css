@@ -1478,13 +1478,13 @@ footer {
     }
 
     /* ⭐ Button group mobile — jarak atas & bawah */
-    .button-group {
-        flex-direction: column;
-        margin        : 35px 0 40px;    /* atas 35, bawah 40 */
-        padding       : 25px 0 20px;    /* atas 25, bawah 20 */
-        gap           : 10px;
-    }
-
+    /* Button group mobile — jarak atas & bawah + kanan-kiri */
+.button-group {
+    flex-direction: column;
+    margin        : 35px 0 40px;
+    padding       : 25px 20px 25px;    /* ⭐ Padding kanan-kiri 20px */
+    gap           : 12px;
+}
     /* WhatsApp float mobile */
     .whatsapp-float {
         background: transparent !important;
