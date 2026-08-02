@@ -1435,7 +1435,137 @@ span.flatpickr-weekday {
     overflow-y: hidden !important;
 }
 
+/* ================================================================
+   🎯 EMERGENCY FIX — TOMBOL NAVIGASI (MAX PRIORITY)
+================================================================ */
 
+/* Selector super spesifik untuk override semua */
+html body .container .tab-container .tab-content.active .button-group,
+html body .tab-content .button-group,
+html body .button-group {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    flex-direction: column !important;
+    -webkit-flex-direction: column !important;
+    gap: 12px !important;
+    width: auto !important;
+    margin: 30px 15px 50px 15px !important;
+    padding: 20px 15px 0 15px !important;
+    border-top: 1px solid #eee !important;
+    box-sizing: border-box !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+}
+
+html body .button-group > *,
+html body .tab-content .button-group > * {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    -webkit-flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    padding: 15px 24px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    display: -webkit-inline-box !important;
+    display: -ms-inline-flexbox !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    cursor: pointer !important;
+    border: 2px solid transparent !important;
+    min-height: 52px !important;
+    transition: all 0.25s ease !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+/* ================================================================
+   💻 DESKTOP — MIN WIDTH 769px (HORIZONTAL)
+================================================================ */
+
+@media only screen and (min-width: 769px) {
+    
+    html body .container .tab-container .tab-content.active .button-group,
+    html body .tab-content .button-group,
+    html body .button-group {
+        flex-direction: row !important;
+        -webkit-flex-direction: row !important;
+        gap: 20px !important;
+        margin: 40px 30px 60px 30px !important;
+        padding: 25px 0 0 0 !important;
+        flex-wrap: nowrap !important;
+        -webkit-flex-wrap: nowrap !important;
+    }
+    
+    html body .button-group > *,
+    html body .tab-content .button-group > * {
+        flex: 1 1 0 !important;
+        -webkit-flex: 1 1 0 !important;
+        width: auto !important;
+        padding: 16px 30px !important;
+        min-height: 56px !important;
+    }
+}
+
+
+/* ================================================================
+   🎨 WARNA TOMBOL (Force)
+================================================================ */
+
+html body .button-group .btn-prev {
+    background: #f8f9fa !important;
+    color: #1a5d1a !important;
+    border: 2px solid #d1d5db !important;
+}
+
+html body .button-group .btn-prev:hover {
+    background: #e8f5e9 !important;
+    border-color: #1a5d1a !important;
+    transform: translateY(-2px) !important;
+}
+
+html body .button-group .btn-prev i {
+    color: #1a5d1a !important;
+}
+
+html body .button-group .btn-next {
+    background: linear-gradient(135deg, #1a5d1a, #144514) !important;
+    color: #fff !important;
+    border: 2px solid #144514 !important;
+    box-shadow: 0 4px 15px rgba(26, 93, 26, 0.35) !important;
+}
+
+html body .button-group .btn-next:hover {
+    background: linear-gradient(135deg, #144514, #0d3d0d) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(26, 93, 26, 0.5) !important;
+}
+
+html body .button-group .btn-next i {
+    color: #fff !important;
+}
+
+html body .button-group .btn-simpan-final {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #fff !important;
+    border: 2px solid #d97706 !important;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35) !important;
+}
+
+html body .button-group .btn-simpan-final:hover {
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+    transform: translateY(-2px) !important;
+}
+
+html body .button-group .btn-simpan-final i {
+    color: #fff !important;
+}
 
 
 /* ==========================================================================
