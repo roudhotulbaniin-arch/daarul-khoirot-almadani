@@ -1576,6 +1576,33 @@ footer {
     }
 }
 
+/* ==========================================================================
+   20. FORCE FIX — Button Group Horizontal di Desktop
+   ========================================================================== */
+
+@media only screen and (min-width: 769px) {
+    .button-group,
+    .tab-container .button-group,
+    .tab-content .button-group {
+        flex-direction: row !important;
+        gap           : 20px !important;
+        padding       : 35px 40px 30px !important;
+        margin        : 50px 0 40px !important;
+        align-items   : center !important;
+    }
+    
+    .button-group > button,
+    .button-group .btn-prev,
+    .button-group .btn-next,
+    .button-group .btn-simpan-final,
+    .button-group .btn-wa-konfirmasi {
+        flex      : 1 1 0 !important;
+        width     : auto !important;
+        min-width : 0 !important;
+        max-width : none !important;
+    }
+}
+
 
 /* ==========================================================================
    END OF FILE
