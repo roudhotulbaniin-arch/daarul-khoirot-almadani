@@ -1,42 +1,176 @@
 /* ================================================================
    PENDAFTARAN.JS — Daarul Khoirot Almadani
-   Versi Final — Auto-Increment ID Santri (DKM001, DKM002, ...)
-   ================================================================ */
+   Versi 2.0 — Refactored & Bug Fixed
+   
+   CHANGELOG:
+   - Fix: inline style button-group dihapus otomatis via MutationObserver
+   - Fix: perbaruiTombolNavigasi — logika index-based (bukan hardcode nama tab)
+   - Fix: generateIdSantri — tambah lock flag cegah race condition
+   - Fix: getElByName — hapus parameter suffix yang tidak berfungsi benar
+   - Fix: handleStatusAyah — sekarang memanggil toggleAyahFields juga
+   - Fix: loadWilayah — retry otomatis jika API gagal (max 2x)
+   - Fix: toggleDomisiliIbu & toggleDomisiliSantri — cek elemen sebelum akses
+   - Fix: validateInput tab 'ortu' — tambah validasi NIK Ibu 16 digit
+   - Fix: kirimWA — fallback lebih robust untuk semua field
+   - Improve: semua try-catch lebih informatif
+   - Improve: console.log dikelompokkan dengan group/groupEnd
+================================================================ */
 
 
-/* =========================================================
-   0. HELPER — Refresh Custom Dropdown
-========================================================= */
+/* ================================================================
+   KONSTANTA GLOBAL
+================================================================ */
+const URUTAN_TAB   = ['info', 'santri', 'ortu', 'alamat', 'pernyataan'];
+const ADMIN_WA     = '6281401643188';
+const FIREBASE_CDN = 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+const API_WILAYAH  = 'https://www.emsifa.com/api-wilayah-indonesia/api';
+
+/* Warna tombol SweetAlert */
+const SWAL_BTN_COLOR  = '#1a5319';
+const SWAL_ICON_COLOR = '#bc6c25';
+
+/* Alamat Pesantren (statis) */
+const ALAMAT_PESANTREN = {
+    prov : '32',         prov_text : 'JAWA BARAT',
+    kab  : '3215',       kab_text  : 'KABUPATEN KARAWANG',
+    kec  : '321516',     kec_text  : 'JATISARI',
+    desa : '3215162001', desa_text : 'JATISARI',
+    al   : 'Dusun Sukamaju II',
+    rt   : '002',
+    rw   : '004',
+    pos  : '41374'
+};
+
+
+/* ================================================================
+   BAGIAN 0 — HELPER DASAR
+================================================================ */
+
+/**
+ * Refresh custom dropdown jika library tersedia
+ */
 function refreshCD(el) {
-    if (typeof CustomDropdown !== "undefined" && el) {
-        CustomDropdown.refresh(el);
+    if (typeof CustomDropdown !== 'undefined' && el) {
+        try {
+            CustomDropdown.refresh(el);
+        } catch (err) {
+            console.warn('⚠️ refreshCD error:', err);
+        }
     }
 }
 
+/**
+ * Ambil elemen berdasarkan name attribute
+ * Selalu cari dari seluruh dokumen (tidak pakai suffix box)
+ */
+function getElByName(name) {
+    return document.getElementsByName(name)[0] || null;
+}
 
-/* =========================================================
-   0.5. GENERATE ID SANTRI AUTO-INCREMENT
+/**
+ * Ambil elemen berdasarkan name atau id
+ */
+function getElById(nameOrId) {
+    return document.getElementsByName(nameOrId)[0]
+        || document.getElementById(nameOrId)
+        || null;
+}
+
+/**
+ * Ambil value elemen, trim whitespace
+ */
+function getVal(nameOrId) {
+    const el = getElById(nameOrId);
+    return el?.value?.trim() ?? '';
+}
+
+/**
+ * Set style locked/unlocked pada elemen input
+ */
+function applyInputStyle(el, isLocked) {
+    if (!el) return;
+    el.style.backgroundColor = isLocked ? '#e9ecef' : '#ffffff';
+    el.style.color           = isLocked ? '#6c757d' : '#000000';
+    el.style.cursor          = isLocked ? 'not-allowed' : '';
+    el.style.opacity         = isLocked ? '0.75' : '1';
+}
+
+/**
+ * Tampilkan SweetAlert warning
+ */
+function showWarning(message) {
+    return Swal.fire({
+        title           : 'Data Belum Lengkap',
+        html            : message,
+        icon            : 'warning',
+        iconColor       : SWAL_ICON_COLOR,
+        confirmButtonText: 'Lengkapi Data',
+        confirmButtonColor: SWAL_BTN_COLOR,
+        background      : '#ffffff'
+    });
+}
+
+/**
+ * Tampilkan SweetAlert error
+ */
+function showError(title, text) {
+    return Swal.fire({
+        title,
+        text,
+        icon            : 'error',
+        confirmButtonColor: SWAL_BTN_COLOR
+    });
+}
+
+
+/* ================================================================
+   BAGIAN 0.5 — MAPPING KODE POS KARAWANG
+================================================================ */
+const MAPPING_POS_KARAWANG = {
+    '3215010': '41311', '3215011': '41361', '3215012': '41361', '3215013': '41361',
+    '3215020': '41314', '3215021': '41361', '3215030': '41315', '3215040': '41363',
+    '3215050': '41361', '3215060': '41375', '3215070': '41374', '3215080': '41384',
+    '3215090': '41383', '3215100': '41373', '3215110': '41371', '3215120': '41372',
+    '3215130': '41381', '3215140': '41382', '3215150': '41353', '3215160': '41354',
+    '3215170': '41352', '3215180': '41351', '3215190': '41353', '3215200': '41355',
+    '3215210': '41351', '3215220': '41351', '3215230': '41351', '3215240': '41384',
+    '3215250': '41311', '3215260': '41311', '3215022': '41361', '3215014': '41316',
+    '3215161': '41354', '3215051': '41361'
+};
+
+
+/* ================================================================
+   BAGIAN 1 — GENERATE ID SANTRI AUTO-INCREMENT
    Format: DKM001, DKM002, DKM003, ...
-========================================================= */
-async function generateIdSantri() {
-    try {
-        const { getDocs, collection } = await import(
-            "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
-        );
+================================================================ */
 
-        // ⭐ Fallback: coba window.firebaseDB dulu, kalau tidak ada pakai window.db
+/* Lock flag — cegah 2 panggilan bersamaan (race condition) */
+let _sedangGenerateId = false;
+
+async function generateIdSantri() {
+    /* Tunggu jika sedang berjalan */
+    let tunggu = 0;
+    while (_sedangGenerateId && tunggu < 10) {
+        await new Promise(r => setTimeout(r, 200));
+        tunggu++;
+    }
+
+    _sedangGenerateId = true;
+
+    try {
+        const { getDocs, collection } = await import(FIREBASE_CDN);
         const dbRef = window.firebaseDB || window.db;
-        
+
         if (!dbRef) {
-            throw new Error("Firebase DB tidak tersedia (window.firebaseDB & window.db kosong)");
+            throw new Error('Firebase DB tidak tersedia (window.firebaseDB & window.db kosong)');
         }
 
-        const snap = await getDocs(collection(dbRef, "pendaftaran_santri"));
+        const snap = await getDocs(collection(dbRef, 'pendaftaran_santri'));
 
         let nomorTertinggi = 0;
         snap.docs.forEach(doc => {
-            const id = doc.data().id_santri || "";
-            const match = id.match(/^DKM(\d+)$/);
+            const idSantri = doc.data().id_santri || '';
+            const match    = idSantri.match(/^DKM(\d+)$/);
             if (match) {
                 const nomor = parseInt(match[1], 10);
                 if (nomor > nomorTertinggi) nomorTertinggi = nomor;
@@ -44,548 +178,491 @@ async function generateIdSantri() {
         });
 
         const nomorBaru = nomorTertinggi + 1;
-        const idBaru = `DKM${String(nomorBaru).padStart(3, '0')}`;
+        const idBaru    = `DKM${String(nomorBaru).padStart(3, '0')}`;
 
-        console.log(`🆔 ID Terakhir: DKM${String(nomorTertinggi).padStart(3, '0')}`);
-        console.log(`🆔 ID Baru    : ${idBaru}`);
+        console.log(`🆔 ID Terakhir : DKM${String(nomorTertinggi).padStart(3, '0')}`);
+        console.log(`🆔 ID Baru     : ${idBaru}`);
+        console.log(`📊 Total data  : ${snap.docs.length} dokumen`);
 
         return idBaru;
 
     } catch (err) {
-        console.error("❌ generateIdSantri error:", err);
-        const fallback = `DKM-ERR-${Date.now().toString().slice(-6)}`;
-        console.warn("⚠️ Pakai fallback ID:", fallback);
+        console.error('❌ generateIdSantri error:', err);
+        const fallback = `DKM-TMP-${Date.now().toString().slice(-6)}`;
+        console.warn('⚠️ Pakai fallback ID:', fallback);
         return fallback;
+
+    } finally {
+        /* Selalu lepas lock */
+        _sedangGenerateId = false;
     }
 }
 
 
-/* =========================================================
-   1. HANDLE FORM SUBMIT (Simpan ke Firebase Firestore)
-========================================================= */
+/* ================================================================
+   BAGIAN 2 — HANDLE FORM SUBMIT
+================================================================ */
+
 async function handleFormSubmit(event) {
     if (event) event.preventDefault();
-    const form = document.getElementById('formPendaftaran');
 
+    const form = document.getElementById('formPendaftaran');
+    if (!form) {
+        console.error('❌ Form #formPendaftaran tidak ditemukan!');
+        return;
+    }
+
+    /* Tampilkan loading */
     Swal.fire({
-        title: 'Sedang Menyimpan...',
-        text: 'Memproses data dan mengompres foto...',
+        title          : 'Sedang Menyimpan...',
+        text           : 'Memproses data dan mengompres foto...',
         allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
+        didOpen        : () => Swal.showLoading()
     });
 
     try {
-        const formData = new FormData(form);
-        let dataFinal = {};
+        const formData  = new FormData(form);
+        const dataFinal = {};
 
-        const getTeks = (idOrName) => {
-            const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
-            if (!el) return "-";
+        /* ── 1. Helper ambil teks dari select atau input ── */
+        const getTeksEl = (nameOrId) => {
+            const el = getElById(nameOrId);
+            if (!el) return '-';
             if (el.tagName === 'SELECT') {
-                return el.selectedIndex !== -1 ? el.options[el.selectedIndex].text : "-";
+                return el.selectedIndex !== -1
+                    ? (el.options[el.selectedIndex].text || '-')
+                    : '-';
             }
-            return el.value || "-";
+            return el.value?.trim() || '-';
         };
 
-        // 1. Ambil seluruh data input berbasis atribut 'name'
+        /* ── 2. Kumpulkan semua input (kecuali File & riwayat_sakit) ── */
         formData.forEach((value, key) => {
             if (!(value instanceof File) && !key.startsWith('riwayat_sakit')) {
                 dataFinal[key] = value;
             }
         });
 
-        // 2. Ambil paksa nama_santri manual jika FormData melewatkannya
-        const inputNamaSantri = document.getElementsByName('nama_santri')[0] || document.getElementById('nama_santri');
-        if (inputNamaSantri && inputNamaSantri.value) {
-            dataFinal['nama_santri'] = inputNamaSantri.value;
+        /* ── 3. Paksa nama_santri jika FormData melewatkannya ── */
+        const inputNama = getElById('nama_santri');
+        if (inputNama?.value) {
+            dataFinal['nama_santri'] = inputNama.value.trim();
         }
 
-        // 3. Ambil Checkbox Riwayat Sakit
-        const riwayatList = form.querySelectorAll('input[name="riwayat_sakit[]"]:checked');
-        let arraySakit = Array.from(riwayatList).map(el => el.value);
+        /* ── 4. Checkbox riwayat sakit ── */
+        const checkboxSakit = form.querySelectorAll('input[name="riwayat_sakit[]"]:checked');
+        const arraySakit    = Array.from(checkboxSakit).map(el => el.value);
 
-        if (dataFinal['w_sehat'] === "Sehat" || arraySakit.length === 0) {
-            dataFinal['riwayat_sakit'] = ["Tidak Ada / Sehat"];
-        } else {
-            dataFinal['riwayat_sakit'] = arraySakit;
-        }
+        dataFinal['riwayat_sakit'] = (
+            dataFinal['w_sehat'] === 'Sehat' || arraySakit.length === 0
+        ) ? ['Tidak Ada / Sehat'] : arraySakit;
 
-        // 4. Konversi kode wilayah jadi teks nama
-        const listWilayah = [
+        /* ── 5. Konversi kode wilayah → teks nama ── */
+        const fieldWilayah = [
             'prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
-            'prov_ibu', 'kab_ibu', 'kec_ibu', 'desa_ibu',
-            'prov_santri', 'kab_santri', 'kec_santri', 'desa_santri',
+            'prov_ibu',  'kab_ibu',  'kec_ibu',  'desa_ibu',
+            'prov_santri','kab_santri','kec_santri','desa_santri',
             'pjk_ibu', 'pjk_ayah', 'tingkat_unit'
         ];
-        listWilayah.forEach(field => {
-            const teks = getTeks(field);
-            if (teks && !teks.includes("-- Pilih")) dataFinal[field] = teks;
+        fieldWilayah.forEach(field => {
+            const teks = getTeksEl(field);
+            if (teks && !teks.includes('-- Pilih') && !teks.includes('Pilih ')) {
+                dataFinal[field] = teks;
+            }
         });
 
-        // 5. Kompresi foto KK & Ijazah
-        const options = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
-        const toBase64 = f => new Promise((res, rej) => {
-            const r = new FileReader();
-            r.readAsDataURL(f);
-            r.onload = () => res(r.result);
-            r.onerror = e => rej(e);
+        /* ── 6. Kompresi foto KK & Ijazah ── */
+        const opsiKompresi = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
+
+        const toBase64 = (file) => new Promise((resolve, reject) => {
+            const reader    = new FileReader();
+            reader.onload   = () => resolve(reader.result);
+            reader.onerror  = (e) => reject(e);
+            reader.readAsDataURL(file);
         });
 
-        const fKK = document.getElementsByName('up_kk')[0]?.files[0];
-        if (fKK) {
-            const comp = await imageCompression(fKK, options);
-            dataFinal['file_kk_data'] = await toBase64(comp);
+        const fileKK = getElByName('up_kk')?.files?.[0];
+        if (fileKK) {
+            const compressed          = await imageCompression(fileKK, opsiKompresi);
+            dataFinal['file_kk_data'] = await toBase64(compressed);
         }
 
-        const fIjazah = document.getElementsByName('up_ijazah')[0]?.files[0];
-        if (fIjazah) {
-            const comp = await imageCompression(fIjazah, options);
-            dataFinal['file_ijazah_data'] = await toBase64(comp);
+        const fileIjazah = getElByName('up_ijazah')?.files?.[0];
+        if (fileIjazah) {
+            const compressed              = await imageCompression(fileIjazah, opsiKompresi);
+            dataFinal['file_ijazah_data'] = await toBase64(compressed);
         }
 
-        // 6. Status persetujuan
-        const elPernyataan = document.getElementsByName('cek_pernyataan')[0];
-        if (elPernyataan) {
-            dataFinal['status_setuju'] = elPernyataan.checked ? "SETUJU" : "TIDAK SETUJU";
-        }
+        /* ── 7. Status persetujuan ── */
+        const elPernyataan = getElByName('cek_pernyataan');
+        dataFinal['status_setuju'] = elPernyataan?.checked ? 'SETUJU' : 'TIDAK SETUJU';
 
-        // 7. Bersihkan properti sampah
-        delete dataFinal['up_kk'];
-        delete dataFinal['up_ijazah'];
-        delete dataFinal['cek_pernyataan'];
-        delete dataFinal['riwayat_sakit[]'];
+        /* ── 8. Hapus field yang tidak perlu disimpan ── */
+        ['up_kk', 'up_ijazah', 'cek_pernyataan', 'riwayat_sakit[]'].forEach(k => {
+            delete dataFinal[k];
+        });
 
-        // 8. ⭐ FIELD WAJIB SISTEM
-        dataFinal['id_santri']     = await generateIdSantri();  // Auto DKM001, DKM002, ...
-        dataFinal['status_santri'] = 'Aktif';                    // Default aktif
+        /* ── 9. Field wajib sistem ── */
+        dataFinal['id_santri']     = await generateIdSantri();
+        dataFinal['status_santri'] = 'Aktif';
         dataFinal['waktu_simpan']  = new Date().toISOString();
 
-        // Pastikan tgl_daftar ada
         if (!dataFinal['tgl_daftar']) {
             dataFinal['tgl_daftar'] = new Date().toISOString().split('T')[0];
         }
 
-        // Validasi id_santri wajib ada
+        /* Validasi id_santri wajib berhasil di-generate */
         if (!dataFinal['id_santri']) {
-            throw new Error("Gagal generate id_santri!");
+            throw new Error('Gagal generate id_santri!');
         }
 
-        console.log("📦 Data Final:", dataFinal);
-        console.log("🆔 id_santri :", dataFinal['id_santri']);
-        console.log("✅ status    :", dataFinal['status_santri']);
+        console.group('📦 Data Final Pendaftaran');
+        console.log('id_santri    :', dataFinal['id_santri']);
+        console.log('nama_santri  :', dataFinal['nama_santri']);
+        console.log('status_santri:', dataFinal['status_santri']);
+        console.log('waktu_simpan :', dataFinal['waktu_simpan']);
+        console.groupEnd();
 
-        // 9. Cek Firebase siap
+        /* ── 10. Simpan ke Firestore ── */
         const dbRef = window.firebaseDB || window.db;
-if (!dbRef) {
-    throw new Error("Firebase belum siap.");
-}
-
-const { addDoc, collection: fCollection } = await import(
-    "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
-);
-
-const docRef = await addDoc(
-    fCollection(dbRef, "pendaftaran_santri"),
-    dataFinal
-);
-
-        if (docRef.id) {
-            console.log("✅ Tersimpan! Firebase Doc ID:", docRef.id);
-            console.log("✅ ID Santri Custom     :", dataFinal['id_santri']);
-
-            Swal.fire({
-                title: 'Pendaftaran Berhasil!',
-                html: `
-                    <p style="margin-bottom:12px;">Data santri telah tersimpan dengan aman.</p>
-                    <div style="
-                        background: #f0f9f0;
-                        border: 2px solid #1a5d1a;
-                        border-radius: 10px;
-                        padding: 14px;
-                        margin: 12px 0;
-                    ">
-                        <p style="margin:0; font-size:0.85rem; color:#555; text-transform:uppercase; letter-spacing:1px;">
-                            ID Santri Anda
-                        </p>
-                        <p style="
-                            margin: 6px 0 0;
-                            font-size: 1.8rem;
-                            font-weight: bold;
-                            color: #1a5d1a;
-                            letter-spacing: 2px;
-                        ">${dataFinal['id_santri']}</p>
-                    </div>
-                    <p style="font-size:0.8rem; color:#888; margin-top:12px;">
-                        Simpan ID ini untuk keperluan administrasi.<br>
-                        Data akan dikirim ke admin via WhatsApp.
-                    </p>
-                `,
-                icon: 'success',
-                confirmButtonColor: '#1a5d1a',
-                confirmButtonText: 'Lanjut Kirim WA'
-            }).then(() => {
-                if (typeof window.kirimWA === "function") window.kirimWA(dataFinal);
-                form.reset();
-                location.reload();
-            });
+        if (!dbRef) {
+            throw new Error('Firebase DB belum siap saat menyimpan.');
         }
+
+        const { addDoc, collection: fsCollection } = await import(FIREBASE_CDN);
+        const docRef = await addDoc(fsCollection(dbRef, 'pendaftaran_santri'), dataFinal);
+
+        if (!docRef?.id) {
+            throw new Error('Firestore tidak mengembalikan docRef.id');
+        }
+
+        console.log('✅ Tersimpan! Firebase Doc ID:', docRef.id);
+        console.log('✅ ID Santri Custom          :', dataFinal['id_santri']);
+
+        /* ── 11. Sukses — tampilkan modal ── */
+        await Swal.fire({
+            title           : 'Pendaftaran Berhasil! 🎉',
+            html            : `
+                <p style="margin-bottom:12px;">Data santri telah tersimpan dengan aman.</p>
+                <div style="
+                    background   : #f0f9f0;
+                    border       : 2px solid #1a5d1a;
+                    border-radius: 10px;
+                    padding      : 14px;
+                    margin       : 12px 0;
+                ">
+                    <p style="margin:0; font-size:0.8rem; color:#555;
+                              text-transform:uppercase; letter-spacing:1px;">
+                        ID Santri Anda
+                    </p>
+                    <p style="
+                        margin       : 6px 0 0;
+                        font-size    : 1.8rem;
+                        font-weight  : bold;
+                        color        : #1a5d1a;
+                        letter-spacing: 2px;
+                    ">${dataFinal['id_santri']}</p>
+                </div>
+                <p style="font-size:0.8rem; color:#888; margin-top:12px;">
+                    Simpan ID ini untuk keperluan administrasi.<br>
+                    Data akan dikirim ke admin via WhatsApp.
+                </p>
+            `,
+            icon            : 'success',
+            confirmButtonColor: SWAL_BTN_COLOR,
+            confirmButtonText : 'Lanjut Kirim WA',
+            allowOutsideClick : false
+        });
+
+        /* Kirim WA → reset form → reload */
+        if (typeof window.kirimWA === 'function') {
+            window.kirimWA(dataFinal);
+        }
+        form.reset();
+        location.reload();
+
     } catch (error) {
-        console.error("Firebase Error:", error);
-        Swal.fire('Gagal Simpan ke Firebase!', error.message, 'error');
+        console.error('❌ handleFormSubmit error:', error);
+        Swal.fire({
+            title: 'Gagal Menyimpan Data!',
+            html : `<code style="font-size:0.85rem">${error.message}</code>`,
+            icon : 'error',
+            confirmButtonColor: SWAL_BTN_COLOR
+        });
     }
 }
 
 
-/* =========================================================
-   2. HELPER GLOBAL
-========================================================= */
-function getEl(name) {
-    return document.getElementsByName(name)[0];
-}
+/* ================================================================
+   BAGIAN 3 — LOAD WILAYAH (API Emsifa + retry)
+================================================================ */
 
-function getElByName(name, suffix = '') {
-    if (suffix) {
-        const box = document.querySelector(`[name="box_${suffix}"]`);
-        return box ? box.querySelector(`[name="${name}"]`) : null;
-    }
-    return document.getElementsByName(name)[0];
-}
-
-
-/* =========================================================
-   3. MAPPING KODE POS KARAWANG
-========================================================= */
-const mappingPosKarawang = {
-    "3215010": "41311", "3215011": "41361", "3215012": "41361", "3215013": "41361",
-    "3215020": "41314", "3215021": "41361", "3215030": "41315", "3215040": "41363",
-    "3215050": "41361", "3215060": "41375", "3215070": "41374", "3215080": "41384",
-    "3215090": "41383", "3215100": "41373", "3215110": "41371", "3215120": "41372",
-    "3215130": "41381", "3215140": "41382", "3215150": "41353", "3215160": "41354",
-    "3215170": "41352", "3215180": "41351", "3215190": "41353", "3215200": "41355",
-    "3215210": "41351", "3215220": "41351", "3215230": "41351", "3215240": "41384",
-    "3215250": "41311", "3215260": "41311", "3215022": "41361", "3215014": "41316",
-    "3215161": "41354", "3215051": "41361"
-};
-
-/* =========================================================
-   4. LOAD WILAYAH (API Emsifa) — FIXED VERSION
-========================================================= */
-
-async function loadWilayah(endpoint, elementName, placeholder) {
-    const el = getEl(elementName);
+/**
+ * Load data wilayah dari API, dengan retry otomatis jika gagal
+ * @param {string} endpoint   - misal 'provinces', 'regencies/32'
+ * @param {string} elName     - name attribute elemen select
+ * @param {string} placeholder - teks placeholder option pertama
+ * @param {number} retryCount  - internal, jangan diisi manual
+ */
+async function loadWilayah(endpoint, elName, placeholder, retryCount = 0) {
+    const el = getElByName(elName);
     if (!el) {
-        console.error(`❌ Elemen "${elementName}" tidak ditemukan`);
+        console.error(`❌ Elemen [name="${elName}"] tidak ditemukan`);
         return;
     }
 
-    // Loading state
-    el.innerHTML = '<option value="">Loading...</option>';
-    el.disabled = true;
+    /* Loading state */
+    el.innerHTML = '<option value="">Memuat data...</option>';
+    el.disabled  = true;
     refreshCD(el);
 
-    const url = `https://www.emsifa.com/api-wilayah-indonesia/api/${endpoint}.json`;
+    const url = `${API_WILAYAH}/${endpoint}.json`;
 
     try {
         const res = await fetch(url);
-        if (!res.ok) throw new Error("Gagal load API");
-        const data = await res.json();
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
 
-        // ⭐ Placeholder value="" (BUKAN provinces_init_val)
-        let opt = `<option value="">${placeholder}</option>`;
-        
+        const data = await res.json();
+        if (!Array.isArray(data) || data.length === 0) {
+            throw new Error('Data kosong dari API');
+        }
+
+        let opsi = `<option value="">${placeholder}</option>`;
         data.forEach(d => {
-            opt += `<option value="${d.id}">${d.name}</option>`;
+            opsi += `<option value="${d.id}">${d.name}</option>`;
         });
-        
-        el.innerHTML = opt;
-        el.disabled = false;
-        
-        // ⭐ Delay refresh biar DOM & custom dropdown siap
+
+        el.innerHTML = opsi;
+        el.disabled  = false;
+
         setTimeout(() => {
             refreshCD(el);
-            console.log(`✅ ${endpoint} loaded: ${data.length} items → ${elementName}`);
+            console.log(`✅ [${endpoint}] → ${data.length} item → [${elName}]`);
         }, 50);
-        
+
     } catch (err) {
-        console.error(`❌ ERROR API (${endpoint}):`, err);
-        el.innerHTML = `<option value="">Gagal memuat data</option>`;
-        el.disabled = false;
-        refreshCD(el);
+        console.error(`❌ loadWilayah(${endpoint}) gagal [retry: ${retryCount}]:`, err);
+
+        /* Retry max 2 kali dengan delay 1 detik */
+        if (retryCount < 2) {
+            console.warn(`🔄 Retry ke-${retryCount + 1} untuk ${endpoint}...`);
+            setTimeout(() => loadWilayah(endpoint, elName, placeholder, retryCount + 1), 1000);
+        } else {
+            el.innerHTML = `<option value="">⚠️ Gagal memuat — coba refresh</option>`;
+            el.disabled  = false;
+            refreshCD(el);
+        }
     }
 }
 
+/* ── Helper reset dropdown cascade ── */
+function resetDropdownCascade(namaList) {
+    namaList.forEach(name => {
+        const el = getElByName(name);
+        if (!el) return;
 
-/* =========================================================
-   HELPER — Reset dropdown cascading (bawahnya)
-========================================================= */
-function resetDropdownCascade(elementNames) {
-    elementNames.forEach(name => {
-        const el = getEl(name);
-        if (el) {
-            el.innerHTML = `<option value="">Pilih ${name.split('_')[0].charAt(0).toUpperCase() + name.split('_')[0].slice(1)}</option>`;
-            refreshCD(el);
-        }
+        /* Buat placeholder yang relevan dari nama field */
+        const bagian      = name.split('_')[0]; // 'kab', 'kec', dst
+        const labelMap    = {
+            kab  : 'Kabupaten/Kota',
+            kec  : 'Kecamatan',
+            desa : 'Desa/Kelurahan'
+        };
+        const label = labelMap[bagian] || 'Data';
+
+        el.innerHTML = `<option value="">Pilih ${label}</option>`;
+        refreshCD(el);
     });
 }
 
+/* ── Helper auto-fill kode pos ── */
+function autoFillKodePos(kecamatanId, elPosName) {
+    const inputPos = getElByName(elPosName);
+    if (!inputPos) return;
 
-/* ---------------------------------------------------
-   WILAYAH AYAH
---------------------------------------------------- */
-function loadKabAyah(val) {
-    // Reset cascade
-    resetDropdownCascade(['kab_ayah', 'kec_ayah', 'desa_ayah']);
-    
-    // Reset kode pos
-    const inputPos = getEl('pos_ayah');
-    if (inputPos) inputPos.value = "";
+    const kodeAuto = MAPPING_POS_KARAWANG[kecamatanId];
 
-    // Load kabupaten kalau val ada
-    if (val) {
-        loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten');
+    if (kodeAuto) {
+        inputPos.value    = kodeAuto;
+        inputPos.readOnly = true;
+        applyInputStyle(inputPos, true);
+    } else {
+        inputPos.value       = '';
+        inputPos.readOnly    = false;
+        inputPos.placeholder = 'Isi Kode Pos Manual';
+        applyInputStyle(inputPos, false);
     }
 }
 
-function loadKecAyah(val) {
-    // Reset cascade
-    resetDropdownCascade(['kec_ayah', 'desa_ayah']);
-    
-    // Reset kode pos
-    const inputPos = getEl('pos_ayah');
-    if (inputPos) inputPos.value = "";
 
-    if (val) {
-        loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
-    }
+/* ── WILAYAH AYAH ── */
+function loadKabAyah(val) {
+    resetDropdownCascade(['kab_ayah', 'kec_ayah', 'desa_ayah']);
+    const inputPos = getElByName('pos_ayah');
+    if (inputPos) { inputPos.value = ''; inputPos.readOnly = false; applyInputStyle(inputPos, false); }
+    if (val) loadWilayah(`regencies/${val}`, 'kab_ayah', 'Pilih Kabupaten/Kota');
+}
+
+function loadKecAyah(val) {
+    resetDropdownCascade(['kec_ayah', 'desa_ayah']);
+    const inputPos = getElByName('pos_ayah');
+    if (inputPos) { inputPos.value = ''; inputPos.readOnly = false; applyInputStyle(inputPos, false); }
+    if (val) loadWilayah(`districts/${val}`, 'kec_ayah', 'Pilih Kecamatan');
 }
 
 function loadDesaDanPosAyah(val) {
     if (!val) return;
-    
-    loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa');
-
-    // Auto-fill kode pos untuk Karawang
-    const inputPos = document.getElementsByName('pos_ayah')[0];
-    if (inputPos) {
-        const kodeAuto = mappingPosKarawang[val];
-        if (kodeAuto) {
-            inputPos.value = kodeAuto;
-            inputPos.readOnly = true;
-            inputPos.style.backgroundColor = "#f0f0f0";
-            inputPos.style.color = "#6c757d";
-        } else {
-            inputPos.value = "";
-            inputPos.readOnly = false;
-            inputPos.style.backgroundColor = "#ffffff";
-            inputPos.style.color = "#000000";
-            inputPos.placeholder = "Isi Kode Pos Manual";
-        }
-    }
+    loadWilayah(`villages/${val}`, 'desa_ayah', 'Pilih Desa/Kelurahan');
+    autoFillKodePos(val, 'pos_ayah');
 }
 
-
-/* ---------------------------------------------------
-   WILAYAH IBU
---------------------------------------------------- */
+/* ── WILAYAH IBU ── */
 function loadKabIbu(val) {
-    // Reset cascade
     resetDropdownCascade(['kab_ibu', 'kec_ibu', 'desa_ibu']);
-    
-    // Reset kode pos
-    const inputPos = getEl('pos_ibu');
-    if (inputPos) inputPos.value = "";
-
-    if (val) {
-        loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten');
-    }
+    const inputPos = getElByName('pos_ibu');
+    if (inputPos) { inputPos.value = ''; inputPos.readOnly = false; applyInputStyle(inputPos, false); }
+    if (val) loadWilayah(`regencies/${val}`, 'kab_ibu', 'Pilih Kabupaten/Kota');
 }
 
 function loadKecIbu(val) {
-    // Reset cascade
     resetDropdownCascade(['kec_ibu', 'desa_ibu']);
-    
-    // Reset kode pos
-    const inputPos = getEl('pos_ibu');
-    if (inputPos) inputPos.value = "";
-
-    if (val) {
-        loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan');
-    }
+    const inputPos = getElByName('pos_ibu');
+    if (inputPos) { inputPos.value = ''; inputPos.readOnly = false; applyInputStyle(inputPos, false); }
+    if (val) loadWilayah(`districts/${val}`, 'kec_ibu', 'Pilih Kecamatan');
 }
 
 function loadDesaDanPosIbu(val) {
     if (!val) return;
-    
-    loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa');
-    
-    const inputPos = document.getElementsByName('pos_ibu')[0];
-    if (inputPos) {
-        const kodeAuto = mappingPosKarawang[val];
-        if (kodeAuto) {
-            inputPos.value = kodeAuto;
-            inputPos.readOnly = true;
-            inputPos.style.backgroundColor = "#f0f0f0";
-            inputPos.style.color = "#6c757d";
-        } else {
-            inputPos.value = "";
-            inputPos.readOnly = false;
-            inputPos.style.backgroundColor = "#ffffff";
-            inputPos.style.color = "#000000";
-            inputPos.placeholder = "Isi Kode Pos Manual";
-        }
-    }
+    loadWilayah(`villages/${val}`, 'desa_ibu', 'Pilih Desa/Kelurahan');
+    autoFillKodePos(val, 'pos_ibu');
 }
 
-
-/* ---------------------------------------------------
-   WILAYAH SANTRI
---------------------------------------------------- */
+/* ── WILAYAH SANTRI ── */
 function loadKabSantri(val) {
-    // Reset cascade
     resetDropdownCascade(['kab_santri', 'kec_santri', 'desa_santri']);
-    
-    // Reset kode pos
-    const inputPos = getEl('pos_santri');
-    if (inputPos) inputPos.value = "";
-
-    if (val) {
-        loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten');
-    }
+    const inputPos = getElByName('pos_santri');
+    if (inputPos) { inputPos.value = ''; inputPos.readOnly = false; applyInputStyle(inputPos, false); }
+    if (val) loadWilayah(`regencies/${val}`, 'kab_santri', 'Pilih Kabupaten/Kota');
 }
 
 function loadKecSantri(val) {
-    // Reset cascade
     resetDropdownCascade(['kec_santri', 'desa_santri']);
-    
-    // Reset kode pos
-    const inputPos = getEl('pos_santri');
-    if (inputPos) inputPos.value = "";
-
-    if (val) {
-        loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan');
-    }
+    const inputPos = getElByName('pos_santri');
+    if (inputPos) { inputPos.value = ''; inputPos.readOnly = false; applyInputStyle(inputPos, false); }
+    if (val) loadWilayah(`districts/${val}`, 'kec_santri', 'Pilih Kecamatan');
 }
 
 function loadDesaDanPosSantri(val) {
     if (!val) return;
-    
-    loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa');
-    
-    const inputPos = document.getElementsByName('pos_santri')[0];
-    if (inputPos) {
-        const kodeAuto = mappingPosKarawang[val];
-        if (kodeAuto) {
-            inputPos.value = kodeAuto;
-            inputPos.readOnly = true;
-            inputPos.style.backgroundColor = "#f0f0f0";
-            inputPos.style.color = "#6c757d";
-        } else {
-            inputPos.value = "";
-            inputPos.readOnly = false;
-            inputPos.style.backgroundColor = "#ffffff";
-            inputPos.style.color = "#000000";
-            inputPos.placeholder = "Isi Kode Pos Manual";
-        }
-    }
+    loadWilayah(`villages/${val}`, 'desa_santri', 'Pilih Desa/Kelurahan');
+    autoFillKodePos(val, 'pos_santri');
 }
 
-/* =========================================================
-   5. LOCK / RESET / COPY / DOMISILI
-========================================================= */
 
-// ============================================================
-// ✅ FUNGSI YANG HILANG — lockFields
-// ============================================================
+/* ================================================================
+   BAGIAN 4 — LOCK / RESET / COPY ALAMAT
+================================================================ */
+
+/**
+ * Lock atau unlock semua field alamat berdasarkan suffix
+ * suffix: 'ayah' | 'ibu' | 'santri'
+ */
 function lockFields(suffix, isLocked) {
-    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
-    dropdowns.forEach(name => {
-        const el = getElByName(name);
-        if (el) {
-            el.disabled = isLocked;
-            el.style.backgroundColor = isLocked ? "#f0f0f0" : "#ffffff";
-        }
+    /* Dropdown */
+    ['prov', 'kab', 'kec', 'desa'].forEach(prefix => {
+        const el = getElByName(`${prefix}_${suffix}`);
+        if (!el) return;
+        el.disabled = isLocked;
+        applyInputStyle(el, isLocked);
     });
 
-    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
-    inputs.forEach(name => {
-        const el = getElByName(name);
-        if (el) {
-            if (isLocked) el.setAttribute('readonly', 'true');
-            else el.removeAttribute('readonly');
-            el.style.backgroundColor = isLocked ? "#f8f9fa" : "#ffffff";
-            el.style.color           = isLocked ? "#6c757d" : "#000000";
-            el.style.cursor          = isLocked ? "not-allowed" : "text";
+    /* Input teks */
+    ['al', 'rt', 'rw', 'pos'].forEach(prefix => {
+        const el = getElByName(`${prefix}_${suffix}`);
+        if (!el) return;
+        if (isLocked) {
+            el.setAttribute('readonly', 'readonly');
+        } else {
+            el.removeAttribute('readonly');
         }
+        applyInputStyle(el, isLocked);
     });
 }
 
+/**
+ * Reset semua field alamat ke kosong
+ */
 function resetFields(suffix) {
-    const dropdowns = [`prov_${suffix}`, `kab_${suffix}`, `kec_${suffix}`, `desa_${suffix}`];
-    dropdowns.forEach(name => {
-        const el = getElByName(name);
-        if (el) {
-            el.innerHTML = `<option value="">Pilih Data</option>`;
-            refreshCD(el);
-        }
+    /* Dropdown */
+    ['prov', 'kab', 'kec', 'desa'].forEach(prefix => {
+        const el = getElByName(`${prefix}_${suffix}`);
+        if (!el) return;
+        el.innerHTML = `<option value="">Pilih Data</option>`;
+        el.disabled  = false;
+        applyInputStyle(el, false);
+        refreshCD(el);
     });
 
-    const inputs = [`al_${suffix}`, `rt_${suffix}`, `rw_${suffix}`, `pos_${suffix}`];
-    inputs.forEach(name => {
-        const el = getElByName(name);
-        if (el) el.value = "";
+    /* Input teks */
+    ['al', 'rt', 'rw', 'pos'].forEach(prefix => {
+        const el = getElByName(`${prefix}_${suffix}`);
+        if (!el) return;
+        el.value = '';
+        el.removeAttribute('readonly');
+        applyInputStyle(el, false);
     });
 }
 
+/**
+ * Cek apakah data alamat Ayah sudah terisi lengkap
+ */
 function dataAyahLengkap() {
-    const prov   = getElByName('prov_ayah')?.value;
-    const kab    = getElByName('kab_ayah')?.value;
-    const kec    = getElByName('kec_ayah')?.value;
-    const desa   = getElByName('desa_ayah')?.value;
-    const alamat = getElByName('al_ayah')?.value?.trim();
-    const rt     = getElByName('rt_ayah')?.value?.trim();
-    const rw     = getElByName('rw_ayah')?.value?.trim();
-    const pos    = getElByName('pos_ayah')?.value?.trim();
-    return !!(prov && prov !== "provinces_init_val"
-              && kab && kec && desa
-              && alamat && rt && rw && pos);
+    const fields = ['prov_ayah', 'kab_ayah', 'kec_ayah', 'desa_ayah',
+                    'al_ayah', 'rt_ayah', 'rw_ayah', 'pos_ayah'];
+
+    return fields.every(name => {
+        const val = getVal(name);
+        return val !== '' && val !== 'provinces_init_val'
+            && val !== 'regencies_init_val' && val !== 'districts_init_val'
+            && val !== 'villages_init_val';
+    });
 }
 
+/**
+ * Copy data alamat dari satu suffix ke suffix lain
+ */
 function copyDataAlamat(from, to) {
-    const fields = ['al', 'rt', 'rw', 'pos', 'prov', 'kab', 'kec', 'desa'];
-    fields.forEach(f => {
-        const sourceEl = getElByName(`${f}_${from}`);
-        const targetEl = getElByName(`${f}_${to}`);
-        if (!sourceEl || !targetEl) return;
+    const fieldList = ['al', 'rt', 'rw', 'pos', 'prov', 'kab', 'kec', 'desa'];
 
-        if (sourceEl.tagName === 'SELECT') {
-            if (sourceEl.selectedIndex >= 0) {
-                targetEl.innerHTML = `<option value="${sourceEl.value}">
-                    ${sourceEl.options[sourceEl.selectedIndex].text}
-                </option>`;
-                targetEl.value = sourceEl.value;
-                refreshCD(targetEl);
+    fieldList.forEach(prefix => {
+        const src = getElByName(`${prefix}_${from}`);
+        const dst = getElByName(`${prefix}_${to}`);
+        if (!src || !dst) return;
+
+        if (src.tagName === 'SELECT') {
+            if (src.selectedIndex >= 0) {
+                const opt = src.options[src.selectedIndex];
+                dst.innerHTML = `<option value="${src.value}">${opt.text}</option>`;
+                dst.value     = src.value;
+                refreshCD(dst);
             }
         } else {
-            targetEl.value = sourceEl.value || "";
+            dst.value = src.value || '';
         }
     });
 }
 
+/**
+ * Isi alamat santri dengan alamat pesantren (untuk domisili Mukim)
+ */
 function isiAlamatPesantren() {
-    const d = {
-        prov : "32",          prov_text : "JAWA BARAT",
-        kab  : "3215",        kab_text  : "KABUPATEN KARAWANG",
-        kec  : "321516",      kec_text  : "JATISARI",
-        desa : "3215162001",  desa_text : "JATISARI",
-        al   : "Dusun Sukamaju II",
-        rt   : "002", rw: "004", pos: "41374"
-    };
+    const d = ALAMAT_PESANTREN;
 
-    const setSel = (n, v, t) => {
-        const el = getElByName(n);
+    const setSel = (name, val, teks) => {
+        const el = getElByName(name);
         if (!el) return;
-        el.innerHTML = `<option value="${v}">${t}</option>`;
-        el.value = v;
+        el.innerHTML = `<option value="${val}">${teks}</option>`;
+        el.value     = val;
         refreshCD(el);
     };
 
@@ -594,29 +671,30 @@ function isiAlamatPesantren() {
     setSel('kec_santri',  d.kec,  d.kec_text);
     setSel('desa_santri', d.desa, d.desa_text);
 
-    ['al','rt','rw','pos'].forEach(f => {
-        const el = getElByName(`${f}_santri`);
-        if (el) el.value = d[f];
+    ['al', 'rt', 'rw', 'pos'].forEach(prefix => {
+        const el = getElByName(`${prefix}_santri`);
+        if (el) el.value = d[prefix];
     });
 }
 
-// ============================================================
-// toggleDomisiliIbu
-// ============================================================
+
+/* ================================================================
+   BAGIAN 5 — TOGGLE DOMISILI
+================================================================ */
+
 function toggleDomisiliIbu(val) {
-    const box = getElByName('box_ibu');
-    if (box) box.style.display = (val === "") ? 'none' : 'grid';
+    /* Tampilkan/sembunyikan box alamat ibu */
+    const box = getElByName('box_ibu')
+             || document.getElementById('box_ibu')
+             || document.querySelector('.box-ibu, [data-box="ibu"]');
+
+    if (box) box.style.display = (val === '') ? 'none' : 'grid';
 
     if (val === 'sama') {
         if (!dataAyahLengkap()) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Peringatan',
-                text: 'Lengkapi Alamat Ayah terlebih dahulu',
-                confirmButtonColor: '#2d6a4f'
-            });
-            const elDomIbu = getElByName('pilih_dom_ibu');
-            if (elDomIbu) elDomIbu.value = "";
+            showWarning('Lengkapi <b>Alamat Ayah</b> terlebih dahulu sebelum memilih <b>Sama dengan Ayah</b>.');
+            const elDom = getElByName('pilih_dom_ibu');
+            if (elDom) elDom.value = '';
             if (box) box.style.display = 'none';
             return;
         }
@@ -626,24 +704,22 @@ function toggleDomisiliIbu(val) {
     } else if (val === 'beda') {
         lockFields('ibu', false);
         resetFields('ibu');
+        loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
 
-        const provIbuEl = getElByName('prov_ibu');
-        if (provIbuEl) {
-            provIbuEl.id = 'prov_ibu';
-            console.log('📥 Loading provinsi Ibu...');
-            loadWilayah('provinces', 'prov_ibu', 'Pilih Provinsi');
-        } else {
-            console.warn('⚠️ Element prov_ibu tidak ditemukan!');
-        }
+    } else {
+        /* val === '' — reset saja */
+        lockFields('ibu', false);
+        resetFields('ibu');
     }
 }
 
-// ============================================================
-// toggleDomisiliSantri
-// ============================================================
 function toggleDomisiliSantri(val) {
-    const box = getElByName('box_santri');
-    if (box) box.style.display = (val === "") ? 'none' : 'grid';
+    /* Tampilkan/sembunyikan box alamat santri */
+    const box = getElByName('box_santri')
+             || document.getElementById('box_santri')
+             || document.querySelector('.box-santri, [data-box="santri"]');
+
+    if (box) box.style.display = (val === '') ? 'none' : 'grid';
 
     if (val === 'mukim') {
         isiAlamatPesantren();
@@ -651,14 +727,9 @@ function toggleDomisiliSantri(val) {
 
     } else if (val === 'sama') {
         if (!dataAyahLengkap()) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Peringatan',
-                text: 'Lengkapi Alamat Ayah Terlebih Dahulu (Provinsi s/d Kode Pos)',
-                confirmButtonColor: '#2d6a4f'
-            });
-            const elDomSantri = getElByName('pilih_dom_santri');
-            if (elDomSantri) elDomSantri.value = "";
+            showWarning('Lengkapi <b>Alamat Ayah</b> terlebih dahulu sebelum memilih <b>Sama dengan Ayah</b>.');
+            const elDom = getElByName('pilih_dom_santri');
+            if (elDom) elDom.value = '';
             if (box) box.style.display = 'none';
             return;
         }
@@ -668,45 +739,52 @@ function toggleDomisiliSantri(val) {
     } else if (val === 'beda') {
         lockFields('santri', false);
         resetFields('santri');
+        loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
 
-        const provSantriEl = getElByName('prov_santri');
-        if (provSantriEl) {
-            provSantriEl.id = 'prov_santri';
-            console.log('📥 Loading provinsi Santri...');
-            loadWilayah('provinces', 'prov_santri', 'Pilih Provinsi');
-        } else {
-            console.warn('⚠️ Element prov_santri tidak ditemukan!');
-        }
+    } else {
+        /* val === '' */
+        lockFields('santri', false);
+        resetFields('santri');
     }
 }
 
 
-/* =========================================================
-   6. TOGGLE FIELDS (Ayah / NISN / HP / Riwayat Kesehatan)
-========================================================= */
+/* ================================================================
+   BAGIAN 6 — TOGGLE FIELDS (Ayah / NISN / HP / Kesehatan)
+================================================================ */
 
-// ============================================================
-// ✅ toggleAyahFields — VERSI FINAL (flatpickr aware)
-// HAPUS versi duplikat yang lain!
-// ============================================================
+/**
+ * Lock/unlock semua field ayah saat status = Meninggal / Tidak Diketahui
+ * Flatpickr-aware: gunakan _flatpickr instance
+ */
 function toggleAyahFields(status) {
-    const fields = ['wn_ayah','nik_ayah','kk_ayah','tmpt_ayah','tgl_ayah','pdk_ayah','pjk_ayah','hasil_ayah','hp_ayah'];
+    const fieldList = [
+        'wn_ayah', 'nik_ayah', 'kk_ayah', 'tmpt_ayah',
+        'tgl_ayah', 'pdk_ayah', 'pjk_ayah', 'hasil_ayah', 'hp_ayah'
+    ];
     const isLocked = (status === 'Meninggal' || status === 'Tidak Diketahui');
 
-    fields.forEach(name => {
+    /* Panggil handleStatusAyah untuk reset domisili jika perlu */
+    handleStatusAyah(status);
+
+    fieldList.forEach(name => {
         const el = document.getElementsByName(name)[0];
         if (!el) return;
 
-        const isSelect = el.tagName === 'SELECT';
-        const isFlatpickrDate =
-            name === 'tgl_ayah' ||
-            el.classList.contains('custom-date-input') ||
-            el.classList.contains('flatpickr-input');
+        const isSelect       = el.tagName === 'SELECT';
+        const isFlatpickrEl  = (name === 'tgl_ayah')
+                            || el.classList.contains('flatpickr-input')
+                            || el.classList.contains('custom-date-input');
 
         if (isLocked) {
-            if (isSelect || isFlatpickrDate) el.value = "";
-            else el.value = "-";
+            /* Kosongkan nilai */
+            if (isSelect || isFlatpickrEl) {
+                el.value = '';
+            } else {
+                el.value = '-';
+            }
 
+            /* Disable/readonly */
             if (isSelect) {
                 el.disabled = true;
             } else {
@@ -714,32 +792,27 @@ function toggleAyahFields(status) {
                 el.setAttribute('readonly', 'readonly');
             }
 
-            if (isFlatpickrDate) {
+            /* Matikan flatpickr */
+            if (isFlatpickrEl) {
                 const fp = el._flatpickr;
-                if (fp) {
-                    fp.clear();
-                    fp.close();
-                    fp.set('clickOpens', false);
-                }
-
+                if (fp) { fp.clear(); fp.close(); fp.set('clickOpens', false); }
                 el.style.pointerEvents = 'none';
-                el.tabIndex = -1;
-
+                el.tabIndex            = -1;
                 const wrapper = el.closest('.input-icon-wrapper');
                 if (wrapper) wrapper.style.pointerEvents = 'none';
             }
 
-            el.style.backgroundColor = "#e9ecef";
-            el.style.color = "#6c757d";
-            el.style.opacity = "0.7";
+            applyInputStyle(el, true);
 
         } else {
-            if (!isFlatpickrDate && el.value === "-") el.value = "";
+            /* Kembalikan nilai default */
+            if (!isFlatpickrEl && el.value === '-') el.value = '';
 
             if (isSelect) {
                 el.disabled = false;
             } else {
-                if (isFlatpickrDate) {
+                /* Flatpickr input HARUS tetap readonly — dikontrol flatpickr */
+                if (isFlatpickrEl) {
                     el.readOnly = true;
                     el.setAttribute('readonly', 'readonly');
                 } else {
@@ -748,311 +821,276 @@ function toggleAyahFields(status) {
                 }
             }
 
-            if (isFlatpickrDate) {
+            /* Aktifkan kembali flatpickr */
+            if (isFlatpickrEl) {
                 const fp = el._flatpickr;
-                if (fp) {
-                    fp.set('clickOpens', true);
-                }
-
+                if (fp) fp.set('clickOpens', true);
                 el.style.pointerEvents = 'auto';
-                el.tabIndex = 0;
-
+                el.tabIndex            = 0;
                 const wrapper = el.closest('.input-icon-wrapper');
                 if (wrapper) wrapper.style.pointerEvents = 'auto';
             }
 
-            el.style.backgroundColor = "#ffffff";
-            el.style.color = "#000000";
-            el.style.opacity = "1";
+            applyInputStyle(el, false);
         }
     });
 }
 
-function handleNoNISN(checked) {
-    const el = document.getElementsByName('nisn')[0];
-    if (!el) return;
-    if (checked) {
-        el.value = '0000000000';
-        el.readOnly = true;
-        el.style.backgroundColor = '#e9ecef';
-        el.style.color = '#6c757d';
-        el.style.cursor = 'not-allowed';
-    } else {
-        el.value = '';
-        el.readOnly = false;
-        el.style.backgroundColor = '#ffffff';
-        el.style.color = '#000000';
-        el.style.cursor = 'text';
-    }
-}
-
-function toggleHP(cb, inputName) {
-    const el = document.getElementsByName(inputName)[0];
-    if (!el) return;
-    if (cb.checked) {
-        el.value = 'TIDAK MEMILIKI';
-        el.readOnly = true;
-        el.style.backgroundColor = '#e9ecef';
-        el.style.color = '#6c757d';
-        el.style.cursor = 'not-allowed';
-    } else {
-        el.value = '';
-        el.readOnly = false;
-        el.style.backgroundColor = '#ffffff';
-        el.style.color = '#000000';
-        el.style.cursor = 'text';
-    }
-}
-
-function toggleRiwayat() {
-    const sel = document.getElementById("selectKesehatan");
-    const div = document.getElementById("divRiwayatSakit");
-    if (!sel || !div) return;
-    div.style.display = (sel.value === "Pernah Sakit") ? "block" : "none";
-}
-
+/**
+ * Handle perubahan status ayah:
+ * - Reset domisili ibu/santri jika = 'sama' saat status = Tidak Diketahui
+ */
 function handleStatusAyah(status) {
-    const domIbu = document.getElementsByName('pilih_dom_ibu')[0];
-    const domSantri = document.getElementsByName('pilih_dom_santri')[0];
+    if (status !== 'Tidak Diketahui') return;
 
-    if (status === 'Tidak Diketahui') {
-        if (domIbu?.value === 'sama') {
-            domIbu.value = "";
-            if (typeof toggleDomisiliIbu === 'function') toggleDomisiliIbu("");
-        }
+    const domIbu = getElByName('pilih_dom_ibu');
+    if (domIbu?.value === 'sama') {
+        domIbu.value = '';
+        toggleDomisiliIbu('');
+    }
 
-        if (domSantri?.value === 'sama') {
-            domSantri.value = "";
-            if (typeof toggleDomisiliSantri === 'function') toggleDomisiliSantri("");
-        }
+    const domSantri = getElByName('pilih_dom_santri');
+    if (domSantri?.value === 'sama') {
+        domSantri.value = '';
+        toggleDomisiliSantri('');
     }
 }
 
-/* =========================================================
-   7. VALIDASI INPUT PER TAB
-========================================================= */
+/**
+ * Checkbox "Tidak punya NISN" — isi dengan 0000000000
+ */
+function handleNoNISN(checked) {
+    const el = getElByName('nisn');
+    if (!el) return;
+
+    if (checked) {
+        el.value    = '0000000000';
+        el.readOnly = true;
+        applyInputStyle(el, true);
+    } else {
+        el.value    = '';
+        el.readOnly = false;
+        applyInputStyle(el, false);
+    }
+}
+
+/**
+ * Checkbox "Tidak memiliki HP"
+ * @param {HTMLInputElement} cb        - elemen checkbox
+ * @param {string}           inputName - name dari input HP
+ */
+function toggleHP(cb, inputName) {
+    const el = getElByName(inputName);
+    if (!el) return;
+
+    if (cb.checked) {
+        el.value    = 'TIDAK MEMILIKI';
+        el.readOnly = true;
+        applyInputStyle(el, true);
+    } else {
+        el.value    = '';
+        el.readOnly = false;
+        applyInputStyle(el, false);
+    }
+}
+
+/**
+ * Toggle section riwayat sakit berdasarkan pilihan dropdown kesehatan
+ */
+function toggleRiwayat() {
+    const sel = document.getElementById('selectKesehatan');
+    const div = document.getElementById('divRiwayatSakit');
+    if (!sel || !div) return;
+    div.style.display = (sel.value === 'Pernah Sakit') ? 'block' : 'none';
+}
+
+
+/* ================================================================
+   BAGIAN 7 — VALIDASI INPUT PER TAB
+================================================================ */
+
 function validateInput(tabId) {
-    const isNumeric = /^\d+$/;
+    const REGEX_NUMERIK = /^\d+$/;
 
-    const showWarningAlert = (message) => {
-        Swal.fire({
-            title: 'Data Belum Lengkap',
-            html: message,
-            icon: 'warning',
-            iconColor: '#bc6c25',
-            confirmButtonText: 'Lengkapi Data',
-            confirmButtonColor: '#1a5319',
-            background: '#ffffff'
-        });
-    };
+    /* ── Nilai yang dianggap tidak valid ── */
+    const NILAI_INVALID = new Set([
+        '', '-- Pilih --', 'Pilih Data',
+        'provinces_init_val', 'regencies_init_val',
+        'districts_init_val', 'villages_init_val'
+    ]);
 
-    const showErrorAlert = (title, text) => {
-        Swal.fire({
-            title: title,
-            text: text,
-            icon: 'error',
-            confirmButtonColor: '#1a5319'
-        });
-    };
+    const TEKS_PLACEHOLDER_SELECT = new Set([
+        '-- Pilih --', 'Pilih Data', 'Pilih Provinsi',
+        'Pilih Kabupaten', 'Pilih Kabupaten/Kota',
+        'Pilih Kecamatan', 'Pilih Desa', 'Pilih Desa/Kelurahan',
+        'Pilih Kelurahan', 'Memuat data...'
+    ]);
 
-    const getEl = (name) => {
-        return document.getElementsByName(name)[0] || document.getElementById(name);
-    };
-
-    const getVal = (name) => {
-        const el = getEl(name);
-        return el?.value ? el.value.trim() : "";
-    };
-
-    const isInvalidValue = (el, val) => {
+    /* ── Cek apakah value dianggap tidak valid ── */
+    const nilaiTidakValid = (el, val) => {
         if (!el) return true;
+        if (NILAI_INVALID.has(val)) return true;
 
-        const invalidValues = [
-            "",
-            "-- Pilih --",
-            "Pilih Data",
-            "provinces_init_val",
-            "regencies_init_val",
-            "districts_init_val",
-            "villages_init_val"
-        ];
-
-        if (invalidValues.includes(val)) return true;
-
-        // Cek text option yang sedang dipilih (untuk select)
         if (el.tagName === 'SELECT' && el.selectedIndex >= 0) {
-            const selectedText = el.options[el.selectedIndex]?.text?.trim() || "";
-            if (
-                selectedText === "-- Pilih --" ||
-                selectedText === "Pilih Data" ||
-                selectedText === "Pilih Provinsi" ||
-                selectedText === "Pilih Kabupaten" ||
-                selectedText === "Pilih Kecamatan" ||
-                selectedText === "Pilih Desa" ||
-                selectedText === "Pilih Kelurahan"
-            ) {
-                return true;
-            }
+            const teks = el.options[el.selectedIndex]?.text?.trim() || '';
+            if (TEKS_PLACEHOLDER_SELECT.has(teks)) return true;
         }
 
         return false;
     };
 
+    /* ── Check satu field ── */
     const check = (name, label) => {
-        const el = getEl(name);
+        const el  = getElById(name);
+        const val = el?.value?.trim() ?? '';
+
         if (!el) {
-            console.error(`Elemen '${name}' tidak ditemukan!`);
-            return false;
+            console.warn(`⚠️ Field '${name}' tidak ditemukan di DOM`);
+            return true; // Jangan blokir jika field tidak ada
         }
 
-        const val = getVal(name);
-
-        if (isInvalidValue(el, val)) {
-            showWarningAlert(`Field <b>${label}</b> wajib diisi dengan benar!`);
+        if (nilaiTidakValid(el, val)) {
+            showWarning(`Field <b>${label}</b> wajib diisi dengan benar!`);
+            el.focus?.();
             return false;
         }
 
         return true;
     };
 
+    /* ── Check semua field alamat ── */
     const checkAlamat = (suffix, label) => {
-        if (!check(`prov_${suffix}`, `Provinsi ${label}`)) return false;
-        if (!check(`kab_${suffix}`, `Kabupaten ${label}`)) return false;
-        if (!check(`kec_${suffix}`, `Kecamatan ${label}`)) return false;
-        if (!check(`desa_${suffix}`, `Desa/Kelurahan ${label}`)) return false;
-        if (!check(`al_${suffix}`, `Alamat ${label}`)) return false;
-        if (!check(`rt_${suffix}`, `RT ${label}`)) return false;
-        if (!check(`rw_${suffix}`, `RW ${label}`)) return false;
-        if (!check(`pos_${suffix}`, `Kode Pos ${label}`)) return false;
-        return true;
+        const fields = [
+            [`prov_${suffix}`,  `Provinsi ${label}`],
+            [`kab_${suffix}`,   `Kabupaten/Kota ${label}`],
+            [`kec_${suffix}`,   `Kecamatan ${label}`],
+            [`desa_${suffix}`,  `Desa/Kelurahan ${label}`],
+            [`al_${suffix}`,    `Alamat Lengkap ${label}`],
+            [`rt_${suffix}`,    `RT ${label}`],
+            [`rw_${suffix}`,    `RW ${label}`],
+            [`pos_${suffix}`,   `Kode Pos ${label}`]
+        ];
+        return fields.every(([name, lbl]) => check(name, lbl));
     };
 
+    /* ── TAB INFO ── */
     if (tabId === 'info') return true;
 
-    /* =====================================================
-       TAB SANTRI
-    ===================================================== */
+    /* ── TAB SANTRI ── */
     if (tabId === 'santri') {
-        if (!check('tgl_daftar', 'Tanggal Pendaftaran')) return false;
-        if (!check('nama_santri', 'Nama Lengkap Santri')) return false;
-        if (!check('tingkat_unit', 'Pilihan Unit & Kelas')) return false;
-        if (!check('nik', 'NIK')) return false;
-        if (!check('no_kk', 'Nomor KK')) return false;
-        if (!check('jenis_kelamin', 'Jenis Kelamin')) return false;
+        if (!check('tgl_daftar',    'Tanggal Pendaftaran'))   return false;
+        if (!check('nama_santri',   'Nama Lengkap Santri'))   return false;
+        if (!check('tingkat_unit',  'Pilihan Unit & Kelas'))  return false;
+        if (!check('nik',           'NIK Santri'))            return false;
+        if (!check('no_kk',         'Nomor KK'))              return false;
+        if (!check('jenis_kelamin', 'Jenis Kelamin'))         return false;
 
         const nikVal = getVal('nik');
-        if (nikVal.length !== 16 || !isNumeric.test(nikVal)) {
-            showErrorAlert('Format Salah', 'NIK Santri harus 16 digit angka!');
+        if (nikVal.length !== 16 || !REGEX_NUMERIK.test(nikVal)) {
+            showError('Format Salah', 'NIK Santri harus 16 digit angka!');
             return false;
         }
     }
 
-    /* =====================================================
-       TAB ORTU
-    ===================================================== */
+    /* ── TAB ORTU ── */
     if (tabId === 'ortu') {
         const statusAyah = getVal('st_ayah');
 
         if (!check('nama_ayah', 'Nama Ayah Kandung')) return false;
-        if (!check('st_ayah', 'Status Ayah')) return false;
+        if (!check('st_ayah',   'Status Ayah'))        return false;
 
-        // Data detail ayah hanya wajib jika status = Masih Hidup
+        /* Field detail ayah — wajib hanya jika masih hidup */
         if (statusAyah === 'Masih Hidup') {
-            if (!check('nik_ayah', 'NIK Ayah')) return false;
-            if (!check('kk_ayah', 'Nomor KK Ayah')) return false;
-            if (!check('pjk_ayah', 'Pekerjaan Utama Ayah')) return false;
-            if (!check('hasil_ayah', 'Penghasilan Ayah')) return false;
-            if (!check('hp_ayah', 'No Handphone Ayah')) return false;
+            if (!check('nik_ayah',   'NIK Ayah'))           return false;
+            if (!check('kk_ayah',    'Nomor KK Ayah'))       return false;
+            if (!check('pjk_ayah',   'Pekerjaan Ayah'))      return false;
+            if (!check('hasil_ayah', 'Penghasilan Ayah'))    return false;
+            if (!check('hp_ayah',    'No. HP Ayah'))         return false;
 
-            const nikA = getVal('nik_ayah');
-            if (nikA.length !== 16 || !isNumeric.test(nikA)) {
-                showErrorAlert('Format Salah', 'NIK Ayah harus 16 digit angka!');
+            const nikAyah = getVal('nik_ayah');
+            if (nikAyah.length !== 16 || !REGEX_NUMERIK.test(nikAyah)) {
+                showError('Format Salah', 'NIK Ayah harus 16 digit angka!');
                 return false;
             }
         }
 
-        if (!check('nama_ibu', 'Nama Ibu Kandung')) return false;
-        if (!check('nik_ibu', 'NIK Ibu')) return false;
-        if (!check('tgl_ibu', 'Tanggal Lahir Ibu')) return false;
-        if (!check('hp_ibu', 'No Handphone Ibu')) return false;
-        if (!check('st_wali', 'Status Wali Santri')) return false;
+        if (!check('nama_ibu', 'Nama Ibu Kandung'))     return false;
+        if (!check('nik_ibu',  'NIK Ibu'))               return false;
+        if (!check('tgl_ibu',  'Tanggal Lahir Ibu'))     return false;
+        if (!check('hp_ibu',   'No. HP Ibu'))            return false;
+        if (!check('st_wali',  'Status Wali Santri'))    return false;
+
+        /* ── Validasi NIK Ibu 16 digit (yang sebelumnya tidak ada) ── */
+        const nikIbu = getVal('nik_ibu');
+        if (nikIbu.length !== 16 || !REGEX_NUMERIK.test(nikIbu)) {
+            showError('Format Salah', 'NIK Ibu harus 16 digit angka!');
+            return false;
+        }
     }
 
-    /* =====================================================
-       TAB ALAMAT
-    ===================================================== */
+    /* ── TAB ALAMAT ── */
     if (tabId === 'alamat') {
-        const statusAyah = getVal('st_ayah');
-        const domIbu = getVal('pilih_dom_ibu');
-        const domSantri = getVal('pilih_dom_santri');
+        const statusAyah       = getVal('st_ayah');
+        const domIbu           = getVal('pilih_dom_ibu');
+        const domSantri        = getVal('pilih_dom_santri');
+        const ayahTdkDiketahui = (statusAyah === 'Tidak Diketahui');
 
-        const ayahTidakDiketahui = (statusAyah === 'Tidak Diketahui');
-
-        // 1. Alamat Ayah
-        // Jika status ayah tidak diketahui, alamat ayah tidak diwajibkan
-        if (!ayahTidakDiketahui) {
-            if (!check('milik_ayah', 'Status Kepemilikan Rumah')) return false;
-            if (!checkAlamat('ayah', 'Ayah')) return false;
+        /* Alamat Ayah — skip jika tidak diketahui */
+        if (!ayahTdkDiketahui) {
+            if (!check('milik_ayah', 'Status Kepemilikan Rumah Ayah')) return false;
+            if (!checkAlamat('ayah', 'Ayah'))                          return false;
         }
 
-        // 2. Domisili Ibu
+        /* Domisili Ibu */
         if (!check('pilih_dom_ibu', 'Pilihan Domisili Ibu')) return false;
 
-        if (ayahTidakDiketahui && domIbu === 'sama') {
-            showWarningAlert(
-                'Karena <b>Status Ayah = Tidak Diketahui</b>, maka <b>Domisili Ibu</b> tidak boleh <b>Sama dengan Ayah</b>. Silakan pilih <b>Beda</b>.'
+        if (ayahTdkDiketahui && domIbu === 'sama') {
+            showWarning(
+                'Karena <b>Status Ayah = Tidak Diketahui</b>, ' +
+                '<b>Domisili Ibu</b> tidak bisa <b>Sama dengan Ayah</b>. ' +
+                'Silakan pilih <b>Beda Alamat</b>.'
             );
             return false;
         }
 
-        if (domIbu === 'sama') {
-            if (!dataAyahLengkap()) {
-                showWarningAlert(
-                    'Data alamat <b>Ayah</b> belum lengkap, sehingga <b>Domisili Ibu = Sama dengan Ayah</b> tidak bisa digunakan.'
-                );
-                return false;
-            }
+        if (domIbu === 'sama' && !dataAyahLengkap()) {
+            showWarning('Alamat <b>Ayah</b> belum lengkap. Tidak bisa pakai <b>Sama dengan Ayah</b>.');
+            return false;
         }
 
-        if (domIbu === 'beda') {
-            if (!checkAlamat('ibu', 'Ibu')) return false;
-        }
+        if (domIbu === 'beda' && !checkAlamat('ibu', 'Ibu')) return false;
 
-        // 3. Domisili Santri
+        /* Domisili Santri */
         if (!check('pilih_dom_santri', 'Pilihan Domisili Santri')) return false;
 
-        if (ayahTidakDiketahui && domSantri === 'sama') {
-            showWarningAlert(
-                'Karena <b>Status Ayah = Tidak Diketahui</b>, maka <b>Domisili Santri</b> tidak boleh <b>Sama dengan Ayah</b>. Silakan pilih <b>Mukim</b> atau <b>Beda</b>.'
+        if (ayahTdkDiketahui && domSantri === 'sama') {
+            showWarning(
+                'Karena <b>Status Ayah = Tidak Diketahui</b>, ' +
+                '<b>Domisili Santri</b> tidak bisa <b>Sama dengan Ayah</b>. ' +
+                'Silakan pilih <b>Mukim</b> atau <b>Beda Alamat</b>.'
             );
             return false;
         }
 
-        if (domSantri === 'sama') {
-            if (!dataAyahLengkap()) {
-                showWarningAlert(
-                    'Data alamat <b>Ayah</b> belum lengkap, sehingga <b>Domisili Santri = Sama dengan Ayah</b> tidak bisa digunakan.'
-                );
-                return false;
-            }
+        if (domSantri === 'sama' && !dataAyahLengkap()) {
+            showWarning('Alamat <b>Ayah</b> belum lengkap. Tidak bisa pakai <b>Sama dengan Ayah</b>.');
+            return false;
         }
 
-        if (domSantri === 'beda' || domSantri === 'mukim') {
-            if (!checkAlamat('santri', 'Santri')) return false;
+        if ((domSantri === 'beda' || domSantri === 'mukim') && !checkAlamat('santri', 'Santri')) {
+            return false;
         }
     }
 
-    /* =====================================================
-       TAB PERNYATAAN
-    ===================================================== */
+    /* ── TAB PERNYATAAN ── */
     if (tabId === 'pernyataan') {
-        const elCek = document.getElementsByName('cek_pernyataan')[0];
-        if (!elCek || !elCek.checked) {
+        const elCek = getElByName('cek_pernyataan');
+        if (!elCek?.checked) {
             Swal.fire({
-                title: 'Persetujuan Diperlukan',
-                text: 'Silakan centang kotak persetujuan sebelum mengirimkan data.',
-                icon: 'warning',
-                confirmButtonColor: '#1a5319'
+                title             : 'Persetujuan Diperlukan',
+                text              : 'Silakan centang kotak persetujuan sebelum mengirimkan data.',
+                icon              : 'warning',
+                confirmButtonColor: SWAL_BTN_COLOR
             });
             return false;
         }
@@ -1062,38 +1100,52 @@ function validateInput(tabId) {
 }
 
 
-/* =========================================================
-   8. NAVIGASI TAB
-========================================================= */
-const urutanTab = ['info', 'santri', 'ortu', 'alamat', 'pernyataan'];
+/* ================================================================
+   BAGIAN 8 — NAVIGASI TAB
+================================================================ */
 
 function dapatkanTabAktif() {
-    const currentTab = document.querySelector('.tab-content.active');
-    return currentTab ? currentTab.id : 'info';
+    const aktif = document.querySelector('.tab-content.active');
+    return aktif?.id ?? URUTAN_TAB[0];
 }
 
+/**
+ * Update tampilan tombol Kembali & Lanjut/Simpan
+ * Menggunakan index untuk logika yang benar
+ */
 function perbaruiTombolNavigasi(currentId) {
-    const btnPrev = document.getElementById('btn-global-prev');
-    const btnMain = document.getElementById('btn-global-main');
+    const btnPrev   = document.getElementById('btn-global-prev');
+    const btnMain   = document.getElementById('btn-global-main');
+    const idx       = URUTAN_TAB.indexOf(currentId);
+    const isFirst   = idx <= 0;
+    const isLast    = idx === URUTAN_TAB.length - 1;
 
+    /* Tombol Kembali — sembunyikan di tab pertama saja */
     if (btnPrev) {
-        btnPrev.style.display = (currentId === 'info' || currentId === 'santri') ? 'none' : 'flex';
+        btnPrev.style.display = isFirst ? 'none' : 'inline-flex';
     }
 
+    /* Tombol Lanjut/Simpan */
     if (btnMain) {
-        if (currentId === 'pernyataan') {
-            btnMain.innerHTML = '<i class="fas fa-save fa-lg"></i> Simpan';
+        if (isLast) {
+            btnMain.innerHTML = '<i class="fas fa-save fa-lg"></i>&nbsp;Simpan';
             btnMain.className = 'btn-simpan-final';
         } else {
-            btnMain.innerHTML = 'Lanjut <i class="fas fa-chevron-circle-right fa-lg"></i>';
+            btnMain.innerHTML = 'Lanjut&nbsp;<i class="fas fa-chevron-circle-right fa-lg"></i>';
             btnMain.className = 'btn-next';
         }
     }
+
+    console.log(
+        `📍 Tab aktif: "${currentId}" (idx:${idx})`,
+        `| btnPrev: ${isFirst ? 'hidden' : 'visible'}`,
+        `| btnMain: ${isLast ? 'Simpan' : 'Lanjut'}`
+    );
 }
 
 function handleMainAction() {
     const currentId = dapatkanTabAktif();
-    if (currentId === 'pernyataan') {
+    if (currentId === URUTAN_TAB[URUTAN_TAB.length - 1]) {
         prosesSimpanFinal();
     } else {
         navigasiMaju();
@@ -1101,48 +1153,53 @@ function handleMainAction() {
 }
 
 function navigasiMaju() {
-    const currentId = dapatkanTabAktif();
-    const currentIndex = urutanTab.indexOf(currentId);
-    if (validateInput(currentId)) {
-        if (currentIndex < urutanTab.length - 1) {
-            openTab(null, urutanTab[currentIndex + 1]);
-        }
+    const currentId  = dapatkanTabAktif();
+    const currentIdx = URUTAN_TAB.indexOf(currentId);
+
+    if (!validateInput(currentId)) return;
+
+    if (currentIdx < URUTAN_TAB.length - 1) {
+        openTab(null, URUTAN_TAB[currentIdx + 1]);
     }
 }
 
 function navigasiMundur() {
-    const currentId = dapatkanTabAktif();
-    const currentIndex = urutanTab.indexOf(currentId);
-    if (currentIndex > 0) {
-        openTab(null, urutanTab[currentIndex - 1]);
+    const currentId  = dapatkanTabAktif();
+    const currentIdx = URUTAN_TAB.indexOf(currentId);
+
+    if (currentIdx > 0) {
+        openTab(null, URUTAN_TAB[currentIdx - 1]);
     }
 }
 
 function openTab(evt, targetId) {
-    const tabcontents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabcontents.length; i++) {
-        tabcontents[i].style.display = "none";
-        tabcontents[i].classList.remove("active");
-    }
+    /* Sembunyikan semua tab */
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.style.display = 'none';
+        tab.classList.remove('active');
+    });
 
-    const tablinks = document.getElementsByClassName("tab-link");
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
+    /* Nonaktifkan semua tab-link */
+    document.querySelectorAll('.tab-link').forEach(link => {
+        link.classList.remove('active');
+    });
 
+    /* Tampilkan tab target */
     const targetTab = document.getElementById(targetId);
     if (targetTab) {
-        targetTab.style.display = "block";
-        targetTab.classList.add("active");
+        targetTab.style.display = 'block';
+        targetTab.classList.add('active');
     } else {
-        console.error("Tab dengan ID '" + targetId + "' tidak ditemukan!");
+        console.error(`❌ Tab #${targetId} tidak ditemukan di DOM!`);
+        return;
     }
 
-    if (evt && evt.currentTarget) {
+    /* Aktifkan tab-link yang sesuai */
+    if (evt?.currentTarget) {
         evt.currentTarget.classList.add('active');
     } else {
-        const autoBtn = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
-        if (autoBtn) autoBtn.classList.add('active');
+        const matchLink = document.querySelector(`.tab-link[onclick*="'${targetId}'"]`);
+        if (matchLink) matchLink.classList.add('active');
     }
 
     perbaruiTombolNavigasi(targetId);
@@ -1151,424 +1208,446 @@ function openTab(evt, targetId) {
 
 function prosesSimpanFinal() {
     if (validateInput('pernyataan')) {
-        if (typeof handleFormSubmit === "function") {
-            handleFormSubmit();
-        } else {
-            console.error("Fungsi handleFormSubmit tidak ditemukan!");
-        }
+        handleFormSubmit();
     }
 }
 
 
-/* =========================================================
-   9. KIRIM WHATSAPP (Setelah data tersimpan)
-========================================================= */
+/* ================================================================
+   BAGIAN 9 — KIRIM WHATSAPP
+================================================================ */
+
 function kirimWA(data) {
+    /* Ambil nilai dari data object (Firestore) atau dari DOM sebagai fallback */
     const gV = (name) => {
-        if (data) {
-            if (name === 'nama' || name === 'nama_santri') return (data['nama_santri'] || data['nama'] || "-").trim();
-            if (name === 'no_kk' || name === 'kk_santri') return (data['no_kk'] || data['kk_santri'] || "-").trim();
-            if (name === 'jenis_kelamin' || name === 'jk_santri') return (data['jenis_kelamin'] || data['jk_santri'] || "-").trim();
-            if (name === 'cita' || name === 'cita_cita') return (data['cita'] || data['cita_cita'] || "-").trim();
-            if (name === 'hobi' || name === 'hobi_santri') return (data['hobi'] || data['hobi_santri'] || "-").trim();
-            if (name === 'pjk_ibu' || name === 'pekerjaan_ibu' || name === 'pkerjaan_ibu') {
-                return (data['pjk_ibu'] || data['pekerjaan_ibu'] || data['pkerjaan_ibu'] || "-").trim();
+        if (!data) {
+            const el = getElById(name);
+            return el?.value?.trim() || '-';
+        }
+
+        /* Alias field */
+        const aliases = {
+            nama_santri  : ['nama_santri', 'nama'],
+            no_kk        : ['no_kk', 'kk_santri'],
+            jenis_kelamin: ['jenis_kelamin', 'jk_santri'],
+            cita         : ['cita', 'cita_cita'],
+            hobi         : ['hobi', 'hobi_santri'],
+            pjk_ibu      : ['pjk_ibu', 'pekerjaan_ibu', 'pkerjaan_ibu']
+        };
+
+        const keys = aliases[name] || [name];
+        for (const k of keys) {
+            if (data[k] !== undefined && data[k] !== null && data[k] !== '') {
+                return String(data[k]).trim();
             }
-            return data[name] !== undefined ? String(data[name]).trim() : "-";
         }
-        const el = document.getElementsByName(name)[0] || document.getElementsByName('nama_santri')[0];
-        return el ? (el.value.trim() || "-") : "-";
+        return '-';
     };
 
-    const gT = (idOrName) => {
-        if (data && data[idOrName] !== undefined) {
-            return data[idOrName] ? String(data[idOrName]).trim() : "-";
+    /* Ambil teks (bukan value) dari select, atau dari data */
+    const gT = (nameOrId) => {
+        if (data?.[nameOrId] !== undefined) {
+            return String(data[nameOrId]).trim() || '-';
         }
-        const el = document.getElementById(idOrName) || document.getElementsByName(idOrName)[0];
-        if (el && el.tagName === 'SELECT' && el.selectedIndex !== -1) {
+        const el = getElById(nameOrId);
+        if (el?.tagName === 'SELECT' && el.selectedIndex !== -1) {
             const teks = el.options[el.selectedIndex].text;
-            return teks.includes("Pilih") ? "-" : teks;
+            return teks.includes('Pilih') ? '-' : teks;
         }
-        return el ? (el.value.trim() || "-") : "-";
+        return el?.value?.trim() || '-';
     };
 
-    let status_setuju = "❌ BELUM MENYETUJUI";
-    if (data && data['status_setuju'] === "SETUJU") {
-        status_setuju = "✅ SUDAH MENYETUJUI";
+    /* Status persetujuan */
+    let statusSetuju = '❌ BELUM MENYETUJUI';
+    if (data?.['status_setuju'] === 'SETUJU') {
+        statusSetuju = '✅ SUDAH MENYETUJUI';
     } else {
-        const elCek = document.getElementsByName('cek_pernyataan')[0];
-        if (elCek && elCek.checked) status_setuju = "✅ SUDAH MENYETUJUI";
+        const elCek = getElByName('cek_pernyataan');
+        if (elCek?.checked) statusSetuju = '✅ SUDAH MENYETUJUI';
     }
 
-    const ICON_SANTRI = "🧒", ICON_AYAH = "👲", ICON_IBU = "🧕";
-    const RUMAH_AYAH = "🏡", RUMAH_IBU = "🏠", RUMAH_SANTRI = "🏘️";
-    const CLIP = "📋", ICON_MEMO = "📝", ICON_ID = "🆔";
-
-    let m = "*PENDAFTARAN SANTRI BARU*\n";
-    m += "*DAARUL KHOIROT AL-MADANI*\n";
-    m += "------------------------------------------\n";
-    m += `*${ICON_ID} ID SANTRI: ${gV('id_santri')}*\n`;      // ⭐ ID di header
-    m += "------------------------------------------\n\n";
-
-    m += `*${ICON_SANTRI} DATA SANTRI*\n`;
-    m += "• Nama: " + gV('nama_santri') + "\n";
-    m += "• Unit: " + gT('tingkat_unit') + "\n";
-    m += "• NIK: " + gV('nik') + "\n";
-    m += "• No. KK: " + gV('no_kk') + "\n";
-    m += "• NISN: " + gV('nisn') + "\n";
-    m += "• Gender: " + gV('jenis_kelamin') + "\n";
-    m += "• TTL: " + gV('tmpt_lahir') + ", " + gV('tgl_lahir') + "\n";
-    m += "• Anak Ke: " + gV('anak_ke') + " dari " + gV('jml_saudara') + " bersaudara\n";
-    m += "• Cita-cita: " + gV('cita') + "\n";
-    m += "• Hobi: " + gV('hobi') + "\n";
-    m += "• Keb. Khusus: " + gV('keb_khusus') + "\n";
-    m += "• Disabilitas: " + gV('disabilitas') + "\n";
-    m += "• Biaya Oleh: " + gV('biaya') + "\n\n";
-
-    m += `*${ICON_AYAH} DATA AYAH*\n`;
-    m += "• Status: " + gV('st_ayah') + "\n";
-    m += "• Nama Ayah: " + gV('nama_ayah') + "\n";
-    m += "• WN: " + gV('wn_ayah') + "\n";
-    m += "• NIK Ayah: " + gV('nik_ayah') + "\n";
-    m += "• KK Ayah: " + gV('kk_ayah') + "\n";
-    m += "• TTL: " + gV('tmpt_ayah') + ", " + gV('tgl_ayah') + "\n";
-    m += "• Pendidikan: " + gV('pdk_ayah') + "\n";
-    m += "• Pekerjaan: " + gV('pjk_ayah') + "\n";
-    m += "• Penghasilan: " + gV('hasil_ayah') + "\n";
-    m += "• No. HP: " + gV('hp_ayah') + "\n\n";
-
-    m += `*${ICON_IBU} DATA IBU*\n`;
-    m += "• Status: " + gV('st_ibu') + "\n";
-    m += "• Nama Ibu: " + gV('nama_ibu') + "\n";
-    m += "• WN: " + gV('wn_ibu') + "\n";
-    m += "• NIK Ibu: " + gV('nik_ibu') + "\n";
-    m += "• TTL: " + gV('tmpt_ibu') + ", " + gV('tgl_ibu') + "\n";
-    m += "• Pendidikan: " + gV('pdk_ibu') + "\n";
-    m += "• Pekerjaan: " + gV('pjk_ibu') + "\n";
-    m += "• Penghasilan: " + gV('hasil_ibu') + "\n";
-    m += "• No. HP: " + gV('hp_ibu') + "\n\n";
-
-    m += `*${RUMAH_AYAH} ALAMAT AYAH*\n`;
-    m += "• Status Milik: " + gV('milik_ayah') + "\n";
-    m += "• Alamat: " + gV('al_ayah') + ", RT." + gV('rt_ayah') + "/RW." + gV('rw_ayah') + "\n";
-    m += "  Desa: " + gT('desa_ayah') + ", Kec: " + gT('kec_ayah') + "\n";
-    m += "• Wilayah: " + gT('kab_ayah') + ", " + gT('prov_ayah') + "\n\n";
-
-    m += `*${RUMAH_IBU} ALAMAT IBU*\n`;
-    m += "• Alamat: " + gV('al_ibu') + ", RT." + gV('rt_ibu') + "/RW." + gV('rw_ibu') + "\n";
-    m += "  Desa: " + gT('desa_ibu') + ", Kec: " + gT('kec_ibu') + "\n";
-    m += "• Wilayah: " + gT('kab_ibu') + ", " + gT('prov_ibu') + "\n\n";
-
-    m += `*${RUMAH_SANTRI} ALAMAT SANTRI*\n`;
-    m += "• Alamat: " + gV('al_santri') + ", RT." + gV('rt_santri') + "/RW." + gV('rw_santri') + "\n";
-    m += "  Desa: " + gT('desa_santri') + ", Kec: " + gT('kec_santri') + "\n";
-    m += "• Wilayah: " + gT('kab_santri') + ", " + gT('prov_santri') + "\n\n";
-
-    m += `*${CLIP} INFORMASI TAMBAHAN*\n`;
-    m += "• Visi: " + gV('w_visi') + "\n";
-    m += "• Pola: " + gV('w_pola') + "\n";
-    m += "• Perilaku: " + gV('w_perilaku') + "\n";
-    m += "• Sehat: " + gV('w_sehat') + "\n";
-
-    let riwayatText = "Tidak ada";
-    if (data && data.riwayat_sakit && Array.isArray(data.riwayat_sakit)) {
-        riwayatText = data.riwayat_sakit.length > 0 ? data.riwayat_sakit.join(", ") : "Tidak ada";
+    /* Riwayat sakit */
+    let riwayatText = 'Tidak ada';
+    if (data?.riwayat_sakit && Array.isArray(data.riwayat_sakit) && data.riwayat_sakit.length > 0) {
+        riwayatText = data.riwayat_sakit.join(', ');
     }
-    m += "• Riwayat Penyakit: " + riwayatText + "\n";
 
-    m += "• Tazir: " + gV('w_tazir') + "\n";
-    m += "• Harapan: " + gV('w_harapan') + "\n\n";
+    /* Susun pesan WhatsApp */
+    const baris = (label, val) => `• ${label}: ${val}\n`;
 
-    m += `*${ICON_MEMO} PERNYATAAN ORANG TUA*\n`;
-    m += "• Status: " + status_setuju + "\n\n";
+    let m = '';
+    m += `*PENDAFTARAN SANTRI BARU*\n`;
+    m += `*DAARUL KHOIROT AL-MADANI*\n`;
+    m += `------------------------------------------\n`;
+    m += `*🆔 ID SANTRI: ${gV('id_santri')}*\n`;
+    m += `------------------------------------------\n\n`;
 
-    m += "------------------------------------------\n";
-    m += "_Pendaftaran ini telah disetujui secara digital._\n";
-    m += "_Mohon segera diproses, Terima Kasih._";
+    m += `*🧒 DATA SANTRI*\n`;
+    m += baris('Nama',        gV('nama_santri'));
+    m += baris('Unit',        gT('tingkat_unit'));
+    m += baris('NIK',         gV('nik'));
+    m += baris('No. KK',      gV('no_kk'));
+    m += baris('NISN',        gV('nisn'));
+    m += baris('Gender',      gV('jenis_kelamin'));
+    m += baris('TTL',         `${gV('tmpt_lahir')}, ${gV('tgl_lahir')}`);
+    m += baris('Anak Ke',     `${gV('anak_ke')} dari ${gV('jml_saudara')} bersaudara`);
+    m += baris('Cita-cita',   gV('cita'));
+    m += baris('Hobi',        gV('hobi'));
+    m += baris('Keb. Khusus', gV('keb_khusus'));
+    m += baris('Disabilitas', gV('disabilitas'));
+    m += baris('Biaya Oleh',  gV('biaya'));
+    m += '\n';
 
-    const adminNumber = "6281401643188";
-    const waUrl = "https://wa.me/" + adminNumber + "?text=" + encodeURIComponent(m);
+    m += `*👲 DATA AYAH*\n`;
+    m += baris('Status',      gV('st_ayah'));
+    m += baris('Nama',        gV('nama_ayah'));
+    m += baris('WN',          gV('wn_ayah'));
+    m += baris('NIK',         gV('nik_ayah'));
+    m += baris('No. KK',      gV('kk_ayah'));
+    m += baris('TTL',         `${gV('tmpt_ayah')}, ${gV('tgl_ayah')}`);
+    m += baris('Pendidikan',  gV('pdk_ayah'));
+    m += baris('Pekerjaan',   gT('pjk_ayah'));
+    m += baris('Penghasilan', gV('hasil_ayah'));
+    m += baris('No. HP',      gV('hp_ayah'));
+    m += '\n';
+
+    m += `*🧕 DATA IBU*\n`;
+    m += baris('Status',      gV('st_ibu'));
+    m += baris('Nama',        gV('nama_ibu'));
+    m += baris('WN',          gV('wn_ibu'));
+    m += baris('NIK',         gV('nik_ibu'));
+    m += baris('TTL',         `${gV('tmpt_ibu')}, ${gV('tgl_ibu')}`);
+    m += baris('Pendidikan',  gV('pdk_ibu'));
+    m += baris('Pekerjaan',   gT('pjk_ibu'));
+    m += baris('Penghasilan', gV('hasil_ibu'));
+    m += baris('No. HP',      gV('hp_ibu'));
+    m += '\n';
+
+    m += `*🏡 ALAMAT AYAH*\n`;
+    m += baris('Status Milik', gV('milik_ayah'));
+    m += `• Alamat: ${gV('al_ayah')}, RT.${gV('rt_ayah')}/RW.${gV('rw_ayah')}\n`;
+    m += `  Desa: ${gT('desa_ayah')}, Kec: ${gT('kec_ayah')}\n`;
+    m += `• Wilayah: ${gT('kab_ayah')}, ${gT('prov_ayah')}\n\n`;
+
+    m += `*🏠 ALAMAT IBU*\n`;
+    m += `• Alamat: ${gV('al_ibu')}, RT.${gV('rt_ibu')}/RW.${gV('rw_ibu')}\n`;
+    m += `  Desa: ${gT('desa_ibu')}, Kec: ${gT('kec_ibu')}\n`;
+    m += `• Wilayah: ${gT('kab_ibu')}, ${gT('prov_ibu')}\n\n`;
+
+    m += `*🏘️ ALAMAT SANTRI*\n`;
+    m += `• Alamat: ${gV('al_santri')}, RT.${gV('rt_santri')}/RW.${gV('rw_santri')}\n`;
+    m += `  Desa: ${gT('desa_santri')}, Kec: ${gT('kec_santri')}\n`;
+    m += `• Wilayah: ${gT('kab_santri')}, ${gT('prov_santri')}\n\n`;
+
+    m += `*📋 INFORMASI TAMBAHAN*\n`;
+    m += baris('Visi',             gV('w_visi'));
+    m += baris('Pola',             gV('w_pola'));
+    m += baris('Perilaku',         gV('w_perilaku'));
+    m += baris('Kondisi Kesehatan',gV('w_sehat'));
+    m += baris('Riwayat Penyakit', riwayatText);
+    m += baris('Tazir',            gV('w_tazir'));
+    m += baris('Harapan',          gV('w_harapan'));
+    m += '\n';
+
+    m += `*📝 PERNYATAAN ORANG TUA*\n`;
+    m += baris('Status', statusSetuju);
+    m += '\n';
+
+    m += `------------------------------------------\n`;
+    m += `_Pendaftaran telah disetujui secara digital._\n`;
+    m += `_Mohon segera diproses. Terima kasih._`;
+
+    const waUrl = `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(m)}`;
     window.location.href = waUrl;
 }
 
 
-/* =========================================================
-   10. DOM READY — Event Listeners
-========================================================= */
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ pendaftaran.js loaded");
+/* ================================================================
+   BAGIAN 10 — DOM READY
+================================================================ */
 
-    /* ---------------------------------------------------
-       INIT FLATPICKR — Tanggal Pendaftaran & Tanggal Lahir
-    --------------------------------------------------- */
-    try {
-        if (typeof flatpickr !== "undefined") {
-            // TANGGAL PENDAFTARAN
-            flatpickr("#tgl_daftar", {
-                locale: "id",
-                dateFormat: "Y-m-d",
-                altInput: true,
-                altFormat: "l, d F Y",
-                defaultDate: "today",
-                maxDate: "today",
-                allowInput: false,
-                disableMobile: true,
-                monthSelectorType: "static",
+document.addEventListener('DOMContentLoaded', function () {
+    console.group('🚀 pendaftaran.js — DOMContentLoaded');
 
-                onReady: function(selectedDates, dateStr, instance) {
-                    if (instance.altInput) {
-                        instance.altInput.classList.add('custom-date-input');
-                    }
-                },
-                onOpen: function(selectedDates, dateStr, instance) {
-                    const input = instance.altInput || instance.input;
-                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                    if (wrapper) wrapper.classList.add('flatpickr-open');
-                },
-                onClose: function(selectedDates, dateStr, instance) {
-                    const input = instance.altInput || instance.input;
-                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                    if (wrapper) wrapper.classList.remove('flatpickr-open');
+    /* ── 10.1 Fix inline style button-group ── */
+    (function fixButtonGroup() {
+        const fixAll = () => {
+            document.querySelectorAll('.button-group').forEach((el, i) => {
+                if (el.hasAttribute('style')) {
+                    el.removeAttribute('style');
+                    console.log(`✅ Inline style dihapus dari .button-group[${i}]`);
                 }
             });
+        };
 
-            /* TANGGAL LAHIR (Bisa mundur jauh) */
-            const tanggalLahirConfig = {
-                locale: "id",
-                dateFormat: "Y-m-d",
-                altInput: true,
-                altFormat: "l, d F Y",
-                maxDate: "today",
-                minDate: new Date().getFullYear() - 100 + "-01-01",
-                allowInput: false,
-                disableMobile: true,
-                monthSelectorType: "dropdown",
-                yearSelectorType: "input",
+        fixAll();
+        setTimeout(fixAll, 300);
+        setTimeout(fixAll, 1000);
 
-                onReady: function(selectedDates, dateStr, instance) {
-                    if (instance.altInput) {
-                        instance.altInput.classList.add('custom-date-input');
-                    }
+        /* MutationObserver — cegah style di-inject ulang */
+        const target   = document.querySelector('form') || document.body;
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(m => {
+                if (
+                    m.type === 'attributes' &&
+                    m.attributeName === 'style' &&
+                    m.target.classList?.contains('button-group')
+                ) {
+                    m.target.removeAttribute('style');
+                    console.log('🔄 Inline style button-group dicegah oleh Observer');
+                }
+            });
+        });
+        observer.observe(target, {
+            attributes    : true,
+            attributeFilter: ['style'],
+            subtree       : true
+        });
+
+        console.log('👁️ MutationObserver button-group aktif');
+    })();
+
+    /* ── 10.2 Init Flatpickr ── */
+    try {
+        if (typeof flatpickr !== 'undefined') {
+            const configDaftar = {
+                locale           : 'id',
+                dateFormat       : 'Y-m-d',
+                altInput         : true,
+                altFormat        : 'l, d F Y',
+                defaultDate      : 'today',
+                maxDate          : 'today',
+                allowInput       : false,
+                disableMobile    : true,
+                monthSelectorType: 'static',
+                onReady(_d, _s, inst) {
+                    inst.altInput?.classList.add('custom-date-input');
                 },
-                onOpen: function(selectedDates, dateStr, instance) {
-                    const input = instance.altInput || instance.input;
-                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                    if (wrapper) wrapper.classList.add('flatpickr-open');
+                onOpen(_d, _s, inst) {
+                    inst.altInput?.closest('.input-icon-wrapper')
+                        ?.classList.add('flatpickr-open');
                 },
-                onClose: function(selectedDates, dateStr, instance) {
-                    const input = instance.altInput || instance.input;
-                    const wrapper = input ? input.closest('.input-icon-wrapper') : null;
-                    if (wrapper) wrapper.classList.remove('flatpickr-open');
+                onClose(_d, _s, inst) {
+                    inst.altInput?.closest('.input-icon-wrapper')
+                        ?.classList.remove('flatpickr-open');
                 }
             };
 
-            flatpickr("#tgl_lahir", tanggalLahirConfig);
-            flatpickr("#tgl_ayah",  tanggalLahirConfig);
-            flatpickr("#tgl_ibu",   tanggalLahirConfig);
+            const configLahir = {
+                locale           : 'id',
+                dateFormat       : 'Y-m-d',
+                altInput         : true,
+                altFormat        : 'l, d F Y',
+                maxDate          : 'today',
+                minDate          : `${new Date().getFullYear() - 100}-01-01`,
+                allowInput       : false,
+                disableMobile    : true,
+                monthSelectorType: 'dropdown',
+                onReady(_d, _s, inst) {
+                    inst.altInput?.classList.add('custom-date-input');
+                },
+                onOpen(_d, _s, inst) {
+                    inst.altInput?.closest('.input-icon-wrapper')
+                        ?.classList.add('flatpickr-open');
+                },
+                onClose(_d, _s, inst) {
+                    inst.altInput?.closest('.input-icon-wrapper')
+                        ?.classList.remove('flatpickr-open');
+                }
+            };
 
-            console.log('✅ Flatpickr berhasil di-init');
+            flatpickr('#tgl_daftar', configDaftar);
+            flatpickr('#tgl_lahir',  configLahir);
+            flatpickr('#tgl_ayah',   configLahir);
+            flatpickr('#tgl_ibu',    configLahir);
+
+            console.log('✅ Flatpickr berhasil diinisialisasi');
         } else {
-            console.warn('⚠️ Flatpickr belum ter-load');
+            console.warn('⚠️ Flatpickr tidak tersedia');
         }
     } catch (err) {
         console.error('❌ Error init Flatpickr:', err);
     }
 
-    /* ---------------------------------------------------
-       GLOBAL FIX — Klik di luar Flatpickr = Tutup
-    --------------------------------------------------- */
-    document.addEventListener('click', function(e) {
-        const allCalendars = document.querySelectorAll('.flatpickr-calendar.open');
+    /* ── 10.3 Tutup Flatpickr saat klik di luar ── */
+    document.addEventListener('click', function (e) {
+        const isInsideCalendar = e.target.closest('.flatpickr-calendar');
+        const isInsideInput    = e.target.closest(
+            '.flatpickr-input, .custom-date-input, .input-icon-wrapper'
+        );
 
-        allCalendars.forEach(cal => {
-            const isInsideCal = cal.contains(e.target);
-            const isInsideInput = e.target.closest('.flatpickr-input, .custom-date-input, .input-icon-wrapper');
-
-            if (!isInsideCal && !isInsideInput) {
-                const inputs = document.querySelectorAll('.flatpickr-input');
-                inputs.forEach(inp => {
-                    if (inp._flatpickr && inp._flatpickr.isOpen) {
-                        inp._flatpickr.close();
-                    }
-                });
-            }
-        });
+        if (!isInsideCalendar && !isInsideInput) {
+            document.querySelectorAll('.flatpickr-input').forEach(inp => {
+                if (inp._flatpickr?.isOpen) inp._flatpickr.close();
+            });
+        }
     });
 
-    /* ---------------------------------------------------
-       AUTO-CONVERT SEMUA <select> JADI CUSTOM DROPDOWN
-    --------------------------------------------------- */
+    /* ── 10.4 Init Custom Dropdown ── */
     try {
         const allSelects = document.querySelectorAll('form select');
-        console.log(`📋 Ditemukan ${allSelects.length} select`);
+        console.log(`📋 Ditemukan ${allSelects.length} elemen select`);
 
         allSelects.forEach(sel => {
             if (sel.hasAttribute('data-cd')) return;
-
             sel.setAttribute('data-cd', 'true');
 
-            if (sel.options && sel.options.length > 0) {
-                const firstOpt = sel.options[0];
-                if (firstOpt && (!firstOpt.value || firstOpt.value === "")) {
-                    const placeholder = firstOpt.textContent.trim();
-                    sel.setAttribute('data-cd-placeholder', placeholder);
-                }
+            /* Set placeholder dari option pertama */
+            const firstOpt = sel.options?.[0];
+            if (firstOpt && (!firstOpt.value || firstOpt.value === '')) {
+                sel.setAttribute('data-cd-placeholder', firstOpt.textContent.trim());
             }
 
-            const nameAttr = sel.getAttribute('name') || '';
-
-            if (
-                nameAttr.startsWith('prov_') ||
-                nameAttr.startsWith('kab_') ||
-                nameAttr.startsWith('kec_') ||
-                nameAttr.startsWith('desa_')
-            ) {
+            /* Aktifkan fitur search untuk dropdown wilayah */
+            const name = sel.getAttribute('name') || '';
+            if (/^(prov|kab|kec|desa)_/.test(name)) {
                 sel.setAttribute('data-cd-search', 'true');
             }
         });
 
-        if (typeof CustomDropdown !== "undefined") {
+        if (typeof CustomDropdown !== 'undefined') {
             CustomDropdown.init();
-            console.log("✅ Custom Dropdown ter-inisialisasi");
+            console.log('✅ Custom Dropdown diinisialisasi');
         } else {
-            console.warn("⚠️ CustomDropdown belum ter-load");
+            console.warn('⚠️ CustomDropdown tidak tersedia');
         }
     } catch (err) {
-        console.error("❌ Error auto-convert dropdown:", err);
+        console.error('❌ Error init Custom Dropdown:', err);
     }
 
-    /* ---------------------------------------------------
-       LOAD PROVINSI AYAH OTOMATIS
-    --------------------------------------------------- */
+    /* ── 10.5 Load Provinsi Ayah ── */
     try {
         loadWilayah('provinces', 'prov_ayah', 'Pilih Provinsi');
     } catch (err) {
-        console.error("❌ Error loadWilayah:", err);
+        console.error('❌ Error load provinsi ayah:', err);
     }
 
-    /* ---------------------------------------------------
-       MENU TOGGLE
-    --------------------------------------------------- */
+    /* ── 10.6 Menu Toggle (Mobile Navbar) ── */
     try {
         const menuToggle = document.getElementById('menu-toggle');
-        const nav = document.querySelector('nav');
+        const nav        = document.querySelector('nav');
 
         if (menuToggle && nav) {
-            menuToggle.addEventListener('click', function (e) {
+            menuToggle.addEventListener('click', e => {
                 e.stopPropagation();
                 nav.classList.toggle('show');
             });
 
-            console.log("✅ Menu toggle bound");
-
-            const currentUrl = window.location.pathname.split("/").pop() || "index.html";
-            const menuLinks = nav.querySelectorAll("ul li a");
-
-            menuLinks.forEach(item => {
-                const href = item.getAttribute("href");
-
-                if (href === currentUrl) {
-                    item.classList.add("active");
+            /* Tandai menu item yang aktif */
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            nav.querySelectorAll('ul li a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
                 }
-
-                item.addEventListener('click', () => {
-                    nav.classList.remove('show');
-                });
+                link.addEventListener('click', () => nav.classList.remove('show'));
             });
 
-            document.addEventListener('click', function (e) {
+            /* Tutup menu saat klik di luar */
+            document.addEventListener('click', e => {
                 if (!nav.contains(e.target) && e.target !== menuToggle) {
                     nav.classList.remove('show');
                 }
             });
+
+            console.log('✅ Menu toggle aktif');
         } else {
-            console.warn("⚠️ Menu toggle atau nav tidak ditemukan");
+            console.warn('⚠️ #menu-toggle atau nav tidak ditemukan');
         }
     } catch (err) {
-        console.error("❌ Error menu toggle:", err);
+        console.error('❌ Error menu toggle:', err);
     }
 
-    /* ---------------------------------------------------
-       VALIDASI 16 DIGIT
-    --------------------------------------------------- */
+    /* ── 10.7 Validasi real-time 16 digit (NIK/KK) ── */
     try {
-        const isNumeric = /^\d+$/;
+        const REGEX_NUM = /^\d+$/;
 
-        function pasangValidasi16Digit(inputId, errorId, labelNama) {
+        const pasangValidasi = (inputId, errorId, label) => {
             const inputEl = document.getElementById(inputId);
             const errorEl = document.getElementById(errorId);
-
             if (!inputEl || !errorEl) return;
 
-            inputEl.addEventListener("input", function () {
+            inputEl.addEventListener('input', () => {
                 const val = inputEl.value.trim();
 
-                if (val === "") {
-                    inputEl.classList.remove("input-error", "input-success");
-                    errorEl.style.display = "none";
-                } else if (val.length !== 16 || !isNumeric.test(val)) {
-                    inputEl.classList.add("input-error");
-                    inputEl.classList.remove("input-success");
-                    errorEl.textContent = `${labelNama} harus berupa 16 digit angka!`;
-                    errorEl.style.display = "block";
-                } else {
-                    inputEl.classList.add("input-success");
-                    inputEl.classList.remove("input-error");
-                    errorEl.style.display = "none";
+                if (val === '') {
+                    inputEl.classList.remove('input-error', 'input-success');
+                    errorEl.style.display = 'none';
+                    return;
                 }
+
+                const valid = val.length === 16 && REGEX_NUM.test(val);
+                inputEl.classList.toggle('input-error',   !valid);
+                inputEl.classList.toggle('input-success',  valid);
+                errorEl.textContent  = valid ? '' : `${label} harus berupa 16 digit angka!`;
+                errorEl.style.display = valid ? 'none' : 'block';
             });
-        }
+        };
 
-        pasangValidasi16Digit("nikSantri", "errorNikSantri", "NIK Santri");
-        pasangValidasi16Digit("kkAyah", "errorKkAyah", "Nomor KK");
-        pasangValidasi16Digit("nikAyah", "errorNikAyah", "NIK Ayah");
+        pasangValidasi('nikSantri', 'errorNikSantri', 'NIK Santri');
+        pasangValidasi('kkAyah',    'errorKkAyah',    'Nomor KK');
+        pasangValidasi('nikAyah',   'errorNikAyah',   'NIK Ayah');
 
-        console.log("✅ Validasi 16 digit bound");
+        console.log('✅ Validasi 16 digit terpasang');
     } catch (err) {
-        console.error("❌ Error validasi:", err);
+        console.error('❌ Error validasi 16 digit:', err);
     }
 
-    /* ---------------------------------------------------
-       SET TOMBOL NAVIGASI AWAL
-    --------------------------------------------------- */
+    /* ── 10.8 Set tombol navigasi awal ── */
     try {
         perbaruiTombolNavigasi(dapatkanTabAktif());
     } catch (err) {
-        console.warn("⚠️ Gagal update tombol awal:", err);
+        console.warn('⚠️ Gagal set tombol navigasi awal:', err);
     }
+
+    console.groupEnd();
 });
 
 
-/* =========================================================
-   11. EXPOSE KE WINDOW (agar bisa dipanggil dari onclick HTML)
-========================================================= */
-window.handleFormSubmit     = handleFormSubmit;
-window.generateIdSantri     = generateIdSantri;   // ⭐ Baru
-window.loadWilayah          = loadWilayah;
-window.loadKabAyah          = loadKabAyah;
-window.loadKecAyah          = loadKecAyah;
-window.loadDesaDanPosAyah   = loadDesaDanPosAyah;
-window.loadKabIbu           = loadKabIbu;
-window.loadKecIbu           = loadKecIbu;
-window.loadDesaDanPosIbu    = loadDesaDanPosIbu;
-window.loadKabSantri        = loadKabSantri;
-window.loadKecSantri        = loadKecSantri;
-window.loadDesaDanPosSantri = loadDesaDanPosSantri;
-window.lockFields           = lockFields;
-window.resetFields          = resetFields;
-window.dataAyahLengkap      = dataAyahLengkap;
-window.copyDataAlamat       = copyDataAlamat;
-window.toggleDomisiliIbu    = toggleDomisiliIbu;
-window.toggleDomisiliSantri = toggleDomisiliSantri;
-window.toggleAyahFields     = toggleAyahFields;
-window.handleNoNISN         = handleNoNISN;
-window.toggleHP             = toggleHP;
-window.toggleRiwayat        = toggleRiwayat;
-window.validateInput        = validateInput;
-window.openTab              = openTab;
-window.navigasiMaju         = navigasiMaju;
-window.navigasiMundur       = navigasiMundur;
-window.handleMainAction     = handleMainAction;
-window.prosesSimpanFinal    = prosesSimpanFinal;
-window.kirimWA              = kirimWA;
-window.refreshCD            = refreshCD;
+/* ================================================================
+   BAGIAN 11 — EXPOSE KE WINDOW
+   (Diperlukan untuk onclick="..." di HTML)
+================================================================ */
+Object.assign(window, {
+    /* Firebase & ID */
+    handleFormSubmit,
+    generateIdSantri,
+
+    /* Wilayah */
+    loadWilayah,
+    loadKabAyah,   loadKecAyah,   loadDesaDanPosAyah,
+    loadKabIbu,    loadKecIbu,    loadDesaDanPosIbu,
+    loadKabSantri, loadKecSantri, loadDesaDanPosSantri,
+
+    /* Alamat */
+    lockFields,
+    resetFields,
+    dataAyahLengkap,
+    copyDataAlamat,
+    toggleDomisiliIbu,
+    toggleDomisiliSantri,
+
+    /* Toggle Fields */
+    toggleAyahFields,
+    handleStatusAyah,
+    handleNoNISN,
+    toggleHP,
+    toggleRiwayat,
+
+    /* Navigasi */
+    validateInput,
+    openTab,
+    navigasiMaju,
+    navigasiMundur,
+    handleMainAction,
+    prosesSimpanFinal,
+    dapatkanTabAktif,
+    perbaruiTombolNavigasi,
+
+    /* WhatsApp */
+    kirimWA,
+
+    /* Helper */
+    refreshCD,
+    getElByName,
+    getVal
+});
