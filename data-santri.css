@@ -636,3 +636,155 @@
         padding: 6px 12px;
     }
 } 
+
+/* ==========================================================================
+   EDIT SANTRI POPUP — Styling Modal
+   ========================================================================== */
+
+.edit-santri-popup {
+    max-width: 850px !important;
+    width: 95% !important;
+}
+
+.edit-santri-form {
+    text-align: left;
+    max-height: 65vh;
+    overflow-y: auto;
+    padding: 5px 15px 5px 5px;
+}
+
+.edit-santri-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+.edit-santri-form::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.edit-santri-form::-webkit-scrollbar-thumb {
+    background: #1a5d1a;
+    border-radius: 4px;
+}
+
+.edit-section {
+    background: #f8faf8;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.edit-section h4 {
+    color: #1a5d1a;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #d1fae5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-section h4 i {
+    color: #1a5d1a;
+    font-size: 0.9rem;
+}
+
+.edit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.edit-field.full {
+    grid-column: 1 / -1;
+}
+
+.edit-field label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #1a5d1a;
+    margin-bottom: 2px;
+}
+
+.edit-field .req {
+    color: #dc2626;
+    font-weight: 700;
+}
+
+.edit-field input,
+.edit-field select,
+.edit-field textarea {
+    padding: 9px 12px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 7px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.88rem;
+    color: #333;
+    background: #fff;
+    outline: none;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-field input:focus,
+.edit-field select:focus,
+.edit-field textarea:focus {
+    border-color: #1a5d1a;
+    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.1);
+}
+
+.edit-field textarea {
+    resize: vertical;
+    min-height: 60px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.edit-field input:read-only,
+.edit-field input:disabled {
+    background: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* Responsive Mobile */
+@media (max-width: 640px) {
+    .edit-santri-popup {
+        width: 98% !important;
+        padding: 1rem !important;
+    }
+
+    .edit-santri-form {
+        max-height: 60vh;
+        padding: 5px;
+    }
+
+    .edit-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .edit-section {
+        padding: 12px;
+    }
+
+    .edit-section h4 {
+        font-size: 0.88rem;
+    }
+
+    .edit-field input,
+    .edit-field select,
+    .edit-field textarea {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+}
