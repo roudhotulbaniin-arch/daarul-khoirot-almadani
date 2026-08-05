@@ -157,26 +157,362 @@ function applyFilter() {
     });
 }
 
+/* ==========================================================================
+   EDIT SANTRI — Fungsi Lengkap
+   ========================================================================== */
 
-/* ========== AKSI ========== */
-function editSantri(id) {
+async function editSantri(id) {
     const d = window.dataSantriCache[id];
-    if (!d) return;
+    if (!d) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Data Tidak Ditemukan',
+            text: 'Silakan refresh halaman dan coba lagi.',
+            confirmButtonColor: '#1a5d1a'
+        });
+        return;
+    }
 
-    Swal.fire({
-        title: `<i class="fas fa-edit"></i> Edit Data Santri`,
+    // Helper untuk escape HTML (mencegah XSS)
+    const esc = (v) => {
+        if (v === null || v === undefined) return '';
+        return String(v)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    };
+
+    // Helper untuk generate opsi <option>
+    const opt = (value, label, selected) => `
+        <option value="${esc(value)}" ${selected == value ? 'selected' : ''}>${esc(label)}</option>
+    `;
+
+    const { value: formData } = await Swal.fire({
+        title: `<i class="fas fa-user-edit"></i> Edit Data Santri`,
+        width: 800,
         html: `
-            <div style="text-align:left; padding:10px;">
-                <p style="margin-bottom:10px;"><b>${d.nama_santri}</b></p>
-                <p style="color:#6b7280; font-size:0.85rem;">
-                    Fitur edit lengkap sedang dalam pengembangan. 
-                    Untuk sementara, edit langsung di Firebase Console.
-                </p>
+            <div class="edit-santri-form">
+
+                <!-- ===== DATA PRIBADI ===== -->
+                <div class="edit-section">
+                    <h4><i class="fas fa-id-card"></i> Data Pribadi</h4>
+                    <div class="edit-grid">
+                        <div class="edit-field">
+                            <label>Nama Lengkap <span class="req">*</span></label>
+                            <input type="text" id="edit-nama" value="${esc(d.nama_santri)}" required>
+                        </div>
+                        <div class="edit-field">
+                            <label>NIK (16 digit) <span class="req">*</span></label>
+                            <input type="text" id="edit-nik" value="${esc(d.nik)}" maxlength="16" pattern="[0-9]{16}" required>
+                        </div>
+                        <div class="edit-field">
+                            <label>NISN</label>
+                            <input type="text" id="edit-nisn" value="${esc(d.nisn)}" maxlength="10">
+                        </div>
+                        <div class="edit-field">
+                            <label>Jenis Kelamin <span class="req">*</span></label>
+                            <select id="edit-jk" required>
+                                ${opt('Laki-laki',  'Laki-laki',  d.jenis_kelamin)}
+                                ${opt('Perempuan', 'Perempuan', d.jenis_kelamin)}
+                            </select>
+                        </div>
+                        <div class="edit-field">
+                            <label>Tempat Lahir</label>
+                            <input type="text" id="edit-tempat-lahir" value="${esc(d.tempat_lahir)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Tanggal Lahir</label>
+                            <input type="date" id="edit-tgl-lahir" value="${esc(d.tanggal_lahir)}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== KONTAK & ALAMAT ===== -->
+                <div class="edit-section">
+                    <h4><i class="fas fa-map-marker-alt"></i> Kontak & Alamat</h4>
+                    <div class="edit-grid">
+                        <div class="edit-field">
+                            <label>No. HP</label>
+                            <input type="tel" id="edit-hp" value="${esc(d.no_hp)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Email</label>
+                            <input type="email" id="edit-email" value="${esc(d.email)}">
+                        </div>
+                        <div class="edit-field full">
+                            <label>Alamat Lengkap</label>
+                            <textarea id="edit-alamat" rows="2">${esc(d.alamat)}</textarea>
+                        </div>
+                        <div class="edit-field">
+                            <label>Desa/Kelurahan</label>
+                            <input type="text" id="edit-desa" value="${esc(d.desa)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Kecamatan</label>
+                            <input type="text" id="edit-kecamatan" value="${esc(d.kecamatan)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Kabupaten/Kota</label>
+                            <input type="text" id="edit-kabupaten" value="${esc(d.kabupaten)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Provinsi</label>
+                            <input type="text" id="edit-provinsi" value="${esc(d.provinsi)}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== DATA ORANG TUA / WALI ===== -->
+                <div class="edit-section">
+                    <h4><i class="fas fa-users"></i> Data Orang Tua / Wali</h4>
+                    <div class="edit-grid">
+                        <div class="edit-field">
+                            <label>Nama Ayah</label>
+                            <input type="text" id="edit-nama-ayah" value="${esc(d.nama_ayah)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Pekerjaan Ayah</label>
+                            <input type="text" id="edit-pekerjaan-ayah" value="${esc(d.pekerjaan_ayah)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Nama Ibu</label>
+                            <input type="text" id="edit-nama-ibu" value="${esc(d.nama_ibu)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Pekerjaan Ibu</label>
+                            <input type="text" id="edit-pekerjaan-ibu" value="${esc(d.pekerjaan_ibu)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>No. HP Wali <span class="req">*</span></label>
+                            <input type="tel" id="edit-hp-wali" value="${esc(d.no_hp_wali)}" required>
+                        </div>
+                        <div class="edit-field">
+                            <label>Biaya Sekolah Oleh</label>
+                            <select id="edit-biaya">
+                                ${opt('',            '-- Pilih --',    d.biaya_sekolah)}
+                                ${opt('Ayah',        'Ayah',           d.biaya_sekolah)}
+                                ${opt('Ibu',         'Ibu',            d.biaya_sekolah)}
+                                ${opt('Ayah & Ibu',  'Ayah & Ibu',     d.biaya_sekolah)}
+                                ${opt('Wali',        'Wali',           d.biaya_sekolah)}
+                                ${opt('Beasiswa',    'Beasiswa',       d.biaya_sekolah)}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== DATA PENDIDIKAN ===== -->
+                <div class="edit-section">
+                    <h4><i class="fas fa-graduation-cap"></i> Data Pendidikan</h4>
+                    <div class="edit-grid">
+                        <div class="edit-field">
+                            <label>Jenjang</label>
+                            <select id="edit-jenjang">
+                                ${opt('',      '-- Pilih --', d.jenjang)}
+                                ${opt('MI',    'MI',          d.jenjang)}
+                                ${opt('MTs',   'MTs',         d.jenjang)}
+                                ${opt('MA',    'MA',          d.jenjang)}
+                                ${opt('SMK',   'SMK',         d.jenjang)}
+                            </select>
+                        </div>
+                        <div class="edit-field">
+                            <label>Kelas</label>
+                            <input type="text" id="edit-kelas" value="${esc(d.kelas)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Asal Sekolah</label>
+                            <input type="text" id="edit-asal-sekolah" value="${esc(d.asal_sekolah)}">
+                        </div>
+                        <div class="edit-field">
+                            <label>Status Pendaftaran</label>
+                            <select id="edit-status">
+                                ${opt('Pending',   'Pending',   d.status)}
+                                ${opt('Diterima',  'Diterima',  d.status)}
+                                ${opt('Ditolak',   'Ditolak',   d.status)}
+                                ${opt('Aktif',     'Aktif',     d.status)}
+                                ${opt('Nonaktif',  'Nonaktif',  d.status)}
+                                ${opt('Lulus',     'Lulus',     d.status)}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== CATATAN ADMIN ===== -->
+                <div class="edit-section">
+                    <h4><i class="fas fa-sticky-note"></i> Catatan Admin</h4>
+                    <div class="edit-field full">
+                        <textarea id="edit-catatan" rows="3" placeholder="Catatan khusus untuk santri ini...">${esc(d.catatan_admin)}</textarea>
+                    </div>
+                </div>
+
             </div>
         `,
-        icon: 'info',
-        confirmButtonColor: '#1a5d1a'
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-save"></i> Simpan Perubahan',
+        cancelButtonText:  '<i class="fas fa-times"></i> Batal',
+        confirmButtonColor: '#1a5d1a',
+        cancelButtonColor:  '#6b7280',
+        focusConfirm: false,
+        allowOutsideClick: false,
+        customClass: {
+            popup: 'premium-popup edit-santri-popup',
+            title: 'premium-title',
+            confirmButton: 'premium-button',
+            cancelButton:  'premium-button'
+        },
+        preConfirm: () => {
+            // Ambil semua nilai
+            const data = {
+                nama_santri:      document.getElementById('edit-nama').value.trim(),
+                nik:              document.getElementById('edit-nik').value.trim(),
+                nisn:             document.getElementById('edit-nisn').value.trim(),
+                jenis_kelamin:    document.getElementById('edit-jk').value,
+                tempat_lahir:     document.getElementById('edit-tempat-lahir').value.trim(),
+                tanggal_lahir:    document.getElementById('edit-tgl-lahir').value,
+                no_hp:            document.getElementById('edit-hp').value.trim(),
+                email:            document.getElementById('edit-email').value.trim(),
+                alamat:           document.getElementById('edit-alamat').value.trim(),
+                desa:             document.getElementById('edit-desa').value.trim(),
+                kecamatan:        document.getElementById('edit-kecamatan').value.trim(),
+                kabupaten:        document.getElementById('edit-kabupaten').value.trim(),
+                provinsi:         document.getElementById('edit-provinsi').value.trim(),
+                nama_ayah:        document.getElementById('edit-nama-ayah').value.trim(),
+                pekerjaan_ayah:   document.getElementById('edit-pekerjaan-ayah').value.trim(),
+                nama_ibu:         document.getElementById('edit-nama-ibu').value.trim(),
+                pekerjaan_ibu:    document.getElementById('edit-pekerjaan-ibu').value.trim(),
+                no_hp_wali:       document.getElementById('edit-hp-wali').value.trim(),
+                biaya_sekolah:    document.getElementById('edit-biaya').value,
+                jenjang:          document.getElementById('edit-jenjang').value,
+                kelas:            document.getElementById('edit-kelas').value.trim(),
+                asal_sekolah:     document.getElementById('edit-asal-sekolah').value.trim(),
+                status:           document.getElementById('edit-status').value,
+                catatan_admin:    document.getElementById('edit-catatan').value.trim(),
+                updated_at:       new Date().toISOString(),
+                updated_by:       (window.currentUser && window.currentUser.email) || 'admin'
+            };
+
+            // ===== VALIDASI =====
+            if (!data.nama_santri) {
+                Swal.showValidationMessage('❌ Nama santri wajib diisi');
+                return false;
+            }
+            if (!data.nik || !/^\d{16}$/.test(data.nik)) {
+                Swal.showValidationMessage('❌ NIK harus 16 digit angka');
+                return false;
+            }
+            if (data.nisn && !/^\d{10}$/.test(data.nisn)) {
+                Swal.showValidationMessage('❌ NISN harus 10 digit angka');
+                return false;
+            }
+            if (!data.jenis_kelamin) {
+                Swal.showValidationMessage('❌ Jenis kelamin wajib dipilih');
+                return false;
+            }
+            if (!data.no_hp_wali) {
+                Swal.showValidationMessage('❌ No. HP Wali wajib diisi');
+                return false;
+            }
+            if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+                Swal.showValidationMessage('❌ Format email tidak valid');
+                return false;
+            }
+
+            return data;
+        }
     });
+
+    // Jika user batal
+    if (!formData) return;
+
+    // ===== KONFIRMASI SEBELUM SIMPAN =====
+    const konfirmasi = await Swal.fire({
+        title: 'Simpan Perubahan?',
+        html: `
+            <p>Data santri <b>${esc(formData.nama_santri)}</b> akan diperbarui.</p>
+            <p style="color:#6b7280; font-size:0.85rem; margin-top:10px;">
+                Pastikan data sudah benar sebelum menyimpan.
+            </p>
+        `,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-check"></i> Ya, Simpan',
+        cancelButtonText:  '<i class="fas fa-times"></i> Batal',
+        confirmButtonColor: '#1a5d1a',
+        cancelButtonColor:  '#6b7280',
+        customClass: {
+            popup: 'premium-popup',
+            title: 'premium-title'
+        }
+    });
+
+    if (!konfirmasi.isConfirmed) return;
+
+    // ===== LOADING STATE =====
+    Swal.fire({
+        title: 'Menyimpan...',
+        html: '<i class="fas fa-spinner fa-spin fa-2x" style="color:#1a5d1a;"></i><p style="margin-top:15px;">Mohon tunggu sebentar</p>',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false
+    });
+
+    try {
+        // ===== UPDATE KE FIREBASE =====
+        // Sesuaikan dengan struktur database Anda:
+
+        // ▶️ Jika pakai FIREBASE REALTIME DATABASE:
+        await firebase.database().ref(`santri/${id}`).update(formData);
+
+        // ▶️ Jika pakai FIRESTORE, ganti dengan:
+        // await firebase.firestore().collection('santri').doc(id).update(formData);
+
+        // ▶️ Jika pakai modular SDK v9+:
+        // import { ref, update } from "firebase/database";
+        // await update(ref(db, `santri/${id}`), formData);
+
+        // ===== UPDATE CACHE LOKAL =====
+        window.dataSantriCache[id] = { ...window.dataSantriCache[id], ...formData };
+
+        // ===== REFRESH TAMPILAN =====
+        if (typeof renderTabelSantri === 'function') {
+            renderTabelSantri();
+        } else if (typeof loadDataSantri === 'function') {
+            loadDataSantri();
+        }
+
+        // ===== SUKSES =====
+        await Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            html: `Data <b>${esc(formData.nama_santri)}</b> telah diperbarui.`,
+            confirmButtonColor: '#1a5d1a',
+            timer: 2500,
+            timerProgressBar: true,
+            customClass: {
+                popup: 'premium-popup',
+                title: 'premium-title'
+            }
+        });
+
+    } catch (error) {
+        console.error('❌ Error update santri:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Menyimpan',
+            html: `
+                <p>Terjadi kesalahan saat menyimpan data.</p>
+                <p style="color:#dc2626; font-size:0.85rem; margin-top:10px;">
+                    <b>Detail:</b> ${esc(error.message)}
+                </p>
+            `,
+            confirmButtonColor: '#dc2626',
+            customClass: {
+                popup: 'premium-popup',
+                title: 'premium-title'
+            }
+        });
+    }
 }
 
 async function ubahStatus(id) {
