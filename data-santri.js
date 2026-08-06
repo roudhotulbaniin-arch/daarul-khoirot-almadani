@@ -157,9 +157,9 @@ function applyFilter() {
     });
 }
 
-/* ==========================================================================
-   EDIT SANTRI — Versi Final dengan Optgroup Unit
-   ========================================================================== */
+/* ================================================================
+   EDIT SANTRI — Menggunakan CustomDropdown existing
+================================================================ */
 
 async function editSantri(id) {
     const d = window.dataSantriCache[id];
@@ -168,44 +168,44 @@ async function editSantri(id) {
             icon: 'error',
             title: 'Data Tidak Ditemukan',
             text: 'Silakan refresh halaman dan coba lagi.',
-            confirmButtonColor: '#1a5d1a'
+            confirmButtonColor: '#1a5d1a',
+            customClass: { popup: 'premium-popup', title: 'premium-title' }
         });
         return;
     }
-
-    // Helper escape HTML
-    const esc = (v) => {
-        if (v === null || v === undefined) return '';
-        return String(v)
-            .replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
-    };
-
-    // Helper generate <option> dengan auto-selected
-    const opt = (value, label, selected) => `
-        <option value="${esc(value)}" ${selected == value ? 'selected' : ''}>${esc(label)}</option>
-    `;
-
-    // Ambil nilai unit saat ini (support beberapa nama field)
-    const unitSaatIni = d.tingkat_unit || d.unit_kelas || d.unit || '';
-
+    
+    // Escape helper
+    const esc = (v) => String(v ?? '')
+        .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    
+    // Helper: option selected checker
+    const sel = (val, current) => String(val) === String(current) ? 'selected' : '';
+    
     // Format tanggal daftar
-    const tglDaftar = d.tgl_daftar || d.tanggal_daftar || d.created_at || '-';
-    const tglDaftarFmt = tglDaftar !== '-'
-        ? new Date(tglDaftar).toLocaleDateString('id-ID', {
-            day: '2-digit', month: 'long', year: 'numeric'
-        })
-        : '-';
-
+    const tglDaftar = d.tgl_daftar || d.tanggal_daftar || d.created_at || '';
+    let tglDaftarFmt = '-';
+    if (tglDaftar) {
+        try {
+            const t = tglDaftar.toDate ? tglDaftar.toDate() : new Date(tglDaftar);
+            tglDaftarFmt = t.toLocaleDateString('id-ID', {
+                day: '2-digit', month: 'long', year: 'numeric'
+            });
+        } catch(e) { tglDaftarFmt = String(tglDaftar); }
+    }
+    
+    // Data awal
+    const currentUnit   = d.unit || d.tingkat_unit || '';
+    const currentJK     = d.jenis_kelamin || '';
+    const currentStatus = d.status || 'Aktif';
+    
+    // ===== MODAL =====
     const { value: formData } = await Swal.fire({
         title: `<i class="fas fa-user-edit"></i> Edit Data Santri`,
         width: 600,
         html: `
             <div class="edit-santri-form">
-
+                
                 <!-- Info Read-only -->
                 <div class="edit-info-box">
                     <div class="edit-info-row">
@@ -213,78 +213,103 @@ async function editSantri(id) {
                         <b>${esc(d.id_santri || id)}</b>
                     </div>
                     <div class="edit-info-row">
-                        <span><i class="fas fa-calendar-check"></i> Tanggal Daftar</span>
+                        <span><i class="fas fa-calendar-check"></i> Tgl Daftar</span>
                         <b>${esc(tglDaftarFmt)}</b>
                     </div>
                 </div>
-
+                
                 <!-- Nama Lengkap -->
-                <div class="edit-field">
+                <div class="edit-field form-group">
                     <label><i class="fas fa-user"></i> Nama Lengkap <span class="req">*</span></label>
-                    <input type="text" id="edit-nama" value="${esc(d.nama_santri || d.nama_lengkap)}" required>
+                    <input type="text" id="edit-nama" 
+                           value="${esc(d.nama_santri || d.nama_lengkap || '')}" 
+                           placeholder="Nama sesuai akta" required>
                 </div>
-
-                <!-- Unit / Kelas (dengan optgroup) -->
-                <div class="edit-field">
-                    <label><i class="fas fa-graduation-cap"></i> Pilihan Unit & Kelas <span class="req">*</span></label>
-                    <select id="edit-unit" required>
-                        <option value="">-- Pilih --</option>
-                        <optgroup label="UNIT TPQ">
-                            ${opt('TPQ - Tingkat 1', 'TPQ - Tingkat 1', unitSaatIni)}
-                            ${opt('TPQ - Tingkat 2', 'TPQ - Tingkat 2', unitSaatIni)}
-                        </optgroup>
-                        <optgroup label="UNIT MDT">
-                            ${opt('MDT - Tingkat 1', 'MDT - Tingkat 1', unitSaatIni)}
-                            ${opt('MDT - Tingkat 2', 'MDT - Tingkat 2', unitSaatIni)}
-                            ${opt('MDT - Tingkat 3', 'MDT - Tingkat 3', unitSaatIni)}
-                            ${opt('MDT - Tingkat 4', 'MDT - Tingkat 4', unitSaatIni)}
-                        </optgroup>
-                        <optgroup label="UNIT PESANTREN">
-                            ${opt('Pesantren Tahun 1', 'Pesantren Tahun 1', unitSaatIni)}
-                            ${opt('Pesantren Tahun 2', 'Pesantren Tahun 2', unitSaatIni)}
-                            ${opt('Pesantren Tahun 3', 'Pesantren Tahun 3', unitSaatIni)}
-                        </optgroup>
-                    </select>
+                
+                <!-- Unit & Kelas -->
+                <div class="edit-grid-2">
+                    <div class="edit-field form-group">
+                        <label><i class="fas fa-school"></i> Unit <span class="req">*</span></label>
+                        <select id="edit-unit" 
+                                name="tingkat_unit"
+                                data-cd="true" 
+                                data-cd-placeholder="-- Pilih Unit --"
+                                required>
+                            <option value="">-- Pilih Unit --</option>
+                            <optgroup label="📚 Unit TPQ">
+                                <option value="TPQ - Tingkat 1" ${sel('TPQ - Tingkat 1', currentUnit)}>TPQ - Tingkat 1</option>
+                                <option value="TPQ - Tingkat 2" ${sel('TPQ - Tingkat 2', currentUnit)}>TPQ - Tingkat 2</option>
+                            </optgroup>
+                            <optgroup label="📖 Unit MDT">
+                                <option value="MDT - Tingkat 1" ${sel('MDT - Tingkat 1', currentUnit)}>MDT - Tingkat 1</option>
+                                <option value="MDT - Tingkat 2" ${sel('MDT - Tingkat 2', currentUnit)}>MDT - Tingkat 2</option>
+                                <option value="MDT - Tingkat 3" ${sel('MDT - Tingkat 3', currentUnit)}>MDT - Tingkat 3</option>
+                                <option value="MDT - Tingkat 4" ${sel('MDT - Tingkat 4', currentUnit)}>MDT - Tingkat 4</option>
+                            </optgroup>
+                            <optgroup label="🕌 Unit Pesantren">
+                                <option value="Pesantren Tahun 1" ${sel('Pesantren Tahun 1', currentUnit)}>Pesantren Tahun 1</option>
+                                <option value="Pesantren Tahun 2" ${sel('Pesantren Tahun 2', currentUnit)}>Pesantren Tahun 2</option>
+                                <option value="Pesantren Tahun 3" ${sel('Pesantren Tahun 3', currentUnit)}>Pesantren Tahun 3</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="edit-field form-group">
+                        <label><i class="fas fa-chalkboard"></i> Kelas</label>
+                        <input type="text" id="edit-kelas" 
+                               value="${esc(d.kelas || '')}" 
+                               placeholder="cth: 7A, X-RPL">
+                    </div>
                 </div>
-
+                
                 <!-- Jenis Kelamin -->
-                <div class="edit-field">
+                <div class="edit-field form-group">
                     <label><i class="fas fa-venus-mars"></i> Jenis Kelamin <span class="req">*</span></label>
-                    <select id="edit-jk" required>
+                    <select id="edit-jk" 
+                            name="jenis_kelamin"
+                            data-cd="true"
+                            data-cd-placeholder="-- Pilih Jenis Kelamin --"
+                            required>
                         <option value="">-- Pilih --</option>
-                        ${opt('Laki-laki', 'Laki-laki', d.jenis_kelamin)}
-                        ${opt('Perempuan', 'Perempuan', d.jenis_kelamin)}
+                        <option value="Laki-laki" ${sel('Laki-laki', currentJK)}>Laki-laki</option>
+                        <option value="Perempuan" ${sel('Perempuan', currentJK)}>Perempuan</option>
                     </select>
                 </div>
-
+                
                 <!-- Nama Ayah -->
-                <div class="edit-field">
+                <div class="edit-field form-group">
                     <label><i class="fas fa-male"></i> Nama Ayah</label>
-                    <input type="text" id="edit-nama-ayah" value="${esc(d.nama_ayah)}">
+                    <input type="text" id="edit-nama-ayah" 
+                           value="${esc(d.nama_ayah || '')}" 
+                           placeholder="Nama ayah kandung">
                 </div>
-
+                
                 <!-- HP Ayah/Ibu -->
-                <div class="edit-field">
+                <div class="edit-field form-group">
                     <label><i class="fas fa-phone"></i> HP Ayah / Ibu <span class="req">*</span></label>
-                    <input type="tel" id="edit-hp" value="${esc(d.no_hp_wali || d.hp_ayah || d.no_hp)}" placeholder="cth: 08123456789" required>
-                    <small style="color:#6b7280; font-size:0.75rem; margin-top:3px;">
-                        <i class="fas fa-info-circle"></i> Nomor untuk konfirmasi via WhatsApp
+                    <input type="tel" id="edit-hp" 
+                           value="${esc(d.no_hp_wali || d.hp_ayah || d.no_hp || '')}" 
+                           placeholder="cth: 08123456789" required>
+                    <small style="color:#6b7280; font-size:0.75rem; margin-top:3px; display:block;">
+                        <i class="fas fa-info-circle"></i> Untuk konfirmasi via WhatsApp
                     </small>
                 </div>
-
+                
                 <!-- Status -->
-                <div class="edit-field">
+                <div class="edit-field form-group">
                     <label><i class="fas fa-check-circle"></i> Status <span class="req">*</span></label>
-                    <select id="edit-status" required>
-                        ${opt('Pending',   '🕒 Pending',   d.status)}
-                        ${opt('Diterima',  '✅ Diterima',   d.status)}
-                        ${opt('Ditolak',   '❌ Ditolak',    d.status)}
-                        ${opt('Aktif',     '🟢 Aktif',      d.status)}
-                        ${opt('Nonaktif',  '⚪ Nonaktif',   d.status)}
-                        ${opt('Lulus',     '🎓 Lulus',      d.status)}
+                    <select id="edit-status" 
+                            name="status_santri"
+                            data-cd="true"
+                            data-cd-main-icon="fas fa-check-circle"
+                            data-cd-placeholder="-- Pilih Status --"
+                            required>
+                        <option value="Aktif"    ${sel('Aktif', currentStatus)}>🟢 Aktif</option>
+                        <option value="Nonaktif" ${sel('Nonaktif', currentStatus)}>⚪ Nonaktif</option>
+                        <option value="Alumni"   ${sel('Alumni', currentStatus)}>🎓 Alumni</option>
+                        <option value="Pindah"   ${sel('Pindah', currentStatus)}>↪️ Pindah</option>
                     </select>
                 </div>
-
+                
             </div>
         `,
         showCancelButton: true,
@@ -300,10 +325,23 @@ async function editSantri(id) {
             confirmButton: 'premium-button',
             cancelButton:  'premium-button'
         },
+        
+        // ⭐ AKTIFKAN CustomDropdown setelah modal render
+        didOpen: () => {
+            // Init semua <select data-cd="true"> di dalam modal
+            if (typeof CustomDropdown !== 'undefined' && CustomDropdown.init) {
+                CustomDropdown.init();
+                console.log('✅ CustomDropdown aktif di modal edit santri');
+            } else {
+                console.warn('⚠️ CustomDropdown belum termuat');
+            }
+        },
+        
         preConfirm: () => {
             const data = {
                 nama_santri:   document.getElementById('edit-nama').value.trim(),
-                tingkat_unit:  document.getElementById('edit-unit').value,
+                unit:          document.getElementById('edit-unit').value,
+                kelas:         document.getElementById('edit-kelas').value.trim(),
                 jenis_kelamin: document.getElementById('edit-jk').value,
                 nama_ayah:     document.getElementById('edit-nama-ayah').value.trim(),
                 no_hp_wali:    document.getElementById('edit-hp').value.trim(),
@@ -311,7 +349,7 @@ async function editSantri(id) {
                 updated_at:    new Date().toISOString(),
                 updated_by:    (window.currentUser && window.currentUser.email) || 'admin'
             };
-
+            
             // ===== VALIDASI =====
             if (!data.nama_santri) {
                 Swal.showValidationMessage('❌ Nama lengkap wajib diisi');
@@ -321,8 +359,8 @@ async function editSantri(id) {
                 Swal.showValidationMessage('❌ Nama minimal 3 karakter');
                 return false;
             }
-            if (!data.tingkat_unit) {
-                Swal.showValidationMessage('❌ Unit & Kelas wajib dipilih');
+            if (!data.unit) {
+                Swal.showValidationMessage('❌ Unit wajib dipilih');
                 return false;
             }
             if (!data.jenis_kelamin) {
@@ -333,34 +371,29 @@ async function editSantri(id) {
                 Swal.showValidationMessage('❌ No. HP wajib diisi');
                 return false;
             }
-            if (!/^(08|628|\+628)\d{8,12}$/.test(data.no_hp_wali.replace(/\s|-/g, ''))) {
-                Swal.showValidationMessage('❌ Format HP tidak valid (gunakan 08xx / 628xx)');
+            if (!/^(08|628|\+628)\d{7,12}$/.test(data.no_hp_wali.replace(/\s|-/g, ''))) {
+                Swal.showValidationMessage('❌ Format HP tidak valid (08xx / 628xx)');
                 return false;
             }
             if (!data.status) {
                 Swal.showValidationMessage('❌ Status wajib dipilih');
                 return false;
             }
-
+            
             return data;
         }
     });
-
-    // Jika user batal
+    
     if (!formData) return;
-
+    
     // ===== KONFIRMASI =====
     const konfirmasi = await Swal.fire({
         title: 'Simpan Perubahan?',
         html: `
-            <div style="text-align:left; padding:5px 10px;">
-                <p style="margin-bottom:10px;">Data berikut akan diperbarui:</p>
-                <ul style="list-style:none; padding:0; margin:0; font-size:0.88rem;">
-                    <li style="padding:4px 0;"><b>Nama:</b> ${esc(formData.nama_santri)}</li>
-                    <li style="padding:4px 0;"><b>Unit:</b> ${esc(formData.tingkat_unit)}</li>
-                    <li style="padding:4px 0;"><b>Status:</b> ${esc(formData.status)}</li>
-                </ul>
-            </div>
+            <p>Data <b>${esc(formData.nama_santri)}</b> akan diperbarui.</p>
+            <p style="color:#6b7280; font-size:0.85rem; margin-top:10px;">
+                Pastikan data sudah benar sebelum menyimpan.
+            </p>
         `,
         icon: 'question',
         showCancelButton: true,
@@ -368,49 +401,36 @@ async function editSantri(id) {
         cancelButtonText:  '<i class="fas fa-times"></i> Batal',
         confirmButtonColor: '#1a5d1a',
         cancelButtonColor:  '#6b7280',
-        customClass: {
-            popup: 'premium-popup',
-            title: 'premium-title'
-        }
+        customClass: { popup: 'premium-popup', title: 'premium-title' }
     });
-
+    
     if (!konfirmasi.isConfirmed) return;
-
+    
     // ===== LOADING =====
     Swal.fire({
         title: 'Menyimpan...',
-        html: '<i class="fas fa-spinner fa-spin fa-2x" style="color:#1a5d1a;"></i><p style="margin-top:15px;">Mohon tunggu sebentar</p>',
+        html: '<i class="fas fa-spinner fa-spin fa-2x" style="color:#1a5d1a;"></i><p style="margin-top:15px;">Mohon tunggu</p>',
         allowOutsideClick: false,
         allowEscapeKey: false,
-        showConfirmButton: false
+        showConfirmButton: false,
+        customClass: { popup: 'premium-popup' }
     });
-
+    
     try {
-        // ===== UPDATE FIREBASE =====
-        // ▶️ Sesuaikan path & SDK Anda:
-
-        // Firebase Realtime Database (v8/compat):
-        await firebase.database().ref(`santri/${id}`).update(formData);
-
-        // Firestore (v8/compat):
-        // await firebase.firestore().collection('santri').doc(id).update(formData);
-
-        // Modular SDK v9+:
-        // import { ref, update } from "firebase/database";
-        // await update(ref(db, `santri/${id}`), formData);
-
-        // ===== UPDATE CACHE LOKAL =====
+        // ===== UPDATE FIRESTORE =====
+        const docRef = window.firebaseDoc(window.firebaseDB, 'santri', id);
+        await window.firebaseUpdateDoc(docRef, formData);
+        
+        // Update cache lokal
         window.dataSantriCache[id] = { ...window.dataSantriCache[id], ...formData };
-
-        // ===== REFRESH TABEL =====
-        if (typeof renderTabelSantri === 'function') {
+        
+        // Refresh tabel
+        if (typeof window.muatDataSantri === 'function') {
+            window.muatDataSantri();
+        } else if (typeof renderTabelSantri === 'function') {
             renderTabelSantri();
-        } else if (typeof loadDataSantri === 'function') {
-            loadDataSantri();
-        } else if (typeof renderTable === 'function') {
-            renderTable();
         }
-
+        
         // ===== SUKSES =====
         await Swal.fire({
             icon: 'success',
@@ -419,12 +439,9 @@ async function editSantri(id) {
             confirmButtonColor: '#1a5d1a',
             timer: 2500,
             timerProgressBar: true,
-            customClass: {
-                popup: 'premium-popup',
-                title: 'premium-title'
-            }
+            customClass: { popup: 'premium-popup', title: 'premium-title' }
         });
-
+        
     } catch (error) {
         console.error('❌ Error update santri:', error);
         Swal.fire({
@@ -437,14 +454,13 @@ async function editSantri(id) {
                 </p>
             `,
             confirmButtonColor: '#dc2626',
-            customClass: {
-                popup: 'premium-popup',
-                title: 'premium-title'
-            }
+            customClass: { popup: 'premium-popup', title: 'premium-title' }
         });
     }
 }
 
+// Expose ke global
+window.editSantri = editSantri;
 async function ubahStatus(id) {
     const d = window.dataSantriCache[id];
     if (!d) return;
