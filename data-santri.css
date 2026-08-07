@@ -972,8 +972,47 @@ body.swal2-shown {
     display: none !important;
 }
 
-/* Scroll form ke posisi dropdown saat dibuka */
-.edit-santri-form:has(.cd-wrapper.open) {
-    scroll-behavior: smooth;
+/* ================================================================
+   POLISH FINAL — Ruang & Estetika
+================================================================ */
+
+/* Padding bottom biar ada ruang scroll saat dropdown terbuka */
+.edit-santri-form {
+    padding-bottom: 20px;
 }
 
+/* Kolom Kelas lebih lega di HP */
+@media (max-width: 640px) {
+    .edit-grid-2 {
+        grid-template-columns: 3fr 2fr;
+        gap: 8px;
+    }
+}
+
+/* Placeholder input lebih hemat spasi */
+.edit-field input::placeholder {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Info box lebih glowy sedikit */
+.edit-info-box {
+    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.08);
+}
+
+/* Animasi buka modal lebih smooth */
+.swal2-popup.edit-santri-popup {
+    animation: modalSlideIn 0.35s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
