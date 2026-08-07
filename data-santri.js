@@ -249,13 +249,6 @@ async function editSantri(id) {
                             </optgroup>
                         </select>
                     </div>
-                    <div class="edit-field form-group">
-                        <label><i class="fas fa-chalkboard"></i> Kelas</label>
-                        <input type="text" id="edit-kelas" 
-                               value="${esc(d.kelas || '')}" 
-                               placeholder="cth: 7A, X-RPL">
-                    </div>
-                </div>
                 
                 <div class="edit-field form-group">
                     <label><i class="fas fa-venus-mars"></i> Jenis Kelamin <span class="req">*</span></label>
