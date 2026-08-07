@@ -225,8 +225,7 @@ html: `
                    placeholder="Nama sesuai akta" required>
         </div>
         
-        <!-- Unit + Kelas - 2 KOLOM -->
-        <div class="edit-grid-2">
+       
             <div class="edit-field form-group">
                 <label><i class="fas fa-school"></i> Unit <span class="req">*</span></label>
                 <select id="edit-unit" 
@@ -252,12 +251,6 @@ html: `
                         <option value="Pesantren Tahun 3" ${sel('Pesantren Tahun 3', currentUnit)}>Pesantren Tahun 3</option>
                     </optgroup>
                 </select>
-            </div>
-            <div class="edit-field form-group">
-                <label><i class="fas fa-chalkboard"></i> Kelas</label>
-                <input type="text" id="edit-kelas" 
-                       value="${esc(d.kelas || '')}" 
-                       placeholder="cth: 7A, X-RPL">
             </div>
         </div>
         
