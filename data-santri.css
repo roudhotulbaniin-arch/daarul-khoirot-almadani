@@ -1016,3 +1016,86 @@ body.swal2-shown {
         transform: translateY(0) scale(1);
     }
 }
+
+/* ================================================================
+   ⭐ FIX BUG: JARAK JAUH ANTARA FIELD STATUS & TOMBOL
+   Penyebab: native <select> masih ambil space sebelum CustomDropdown
+             benar-benar meng-hide-nya saat interaksi pertama.
+================================================================ */
+
+/* 1️⃣ HIDE native select yang punya CustomDropdown — SEGERA saat modal buka */
+.edit-santri-form select[data-cd="true"],
+.edit-santri-popup select[data-cd="true"] {
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+}
+
+/* 2️⃣ Pastikan cd-wrapper punya tinggi konsisten & tidak collapse */
+.edit-santri-form .cd-wrapper,
+.edit-santri-popup .cd-wrapper {
+    display: block !important;
+    width: 100% !important;
+    min-height: 46px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* 3️⃣ Field wrapper: pastikan tidak ada ruang kosong extra */
+.edit-santri-form .edit-field,
+.edit-santri-form .form-group {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 4️⃣ FIX MAX-HEIGHT: biar tidak ada scroll internal yang aneh */
+.edit-santri-form {
+    max-height: none !important;      /* Hilangkan scroll internal */
+    overflow: visible !important;      /* Biar tombol Swal yang atur */
+    padding-bottom: 0 !important;
+}
+
+/* 5️⃣ Biarkan Swal yang urus scroll popup (lebih stabil) */
+.edit-santri-popup {
+    max-height: 90vh !important;
+}
+
+.edit-santri-popup .swal2-html-container {
+    max-height: 65vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 8px !important;
+}
+
+/* 6️⃣ Custom scrollbar untuk html-container */
+.edit-santri-popup .swal2-html-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.edit-santri-popup .swal2-html-container::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 4px;
+}
+
+.edit-santri-popup .swal2-html-container::-webkit-scrollbar-thumb {
+    background: #1a5d1a;
+    border-radius: 4px;
+}
+
+/* 7️⃣ Pastikan actions (tombol Simpan/Batal) tetap sticky di bawah */
+.edit-santri-popup .swal2-actions {
+    margin-top: 16px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid #f0f0f0;
+}
