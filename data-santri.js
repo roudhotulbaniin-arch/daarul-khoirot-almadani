@@ -312,87 +312,56 @@ async function editSantri(id) {
         },
         
         // ⭐⭐⭐ AKTIFKAN CUSTOM DROPDOWN (versi robust)
-        didOpen: () => {
-            setTimeout(() => {
-                console.log('════════════════════════════════');
-                console.log('🔍 INIT CUSTOM DROPDOWN');
-                console.log('════════════════════════════════');
-                
-                const popup = Swal.getPopup();
-                if (!popup) {
-                    console.error('❌ Swal popup tidak ditemukan');
-                    return;
+didOpen: () => {
+    setTimeout(() => {
+        const popup = Swal.getPopup();
+        if (!popup) return;
+        
+        const selects = popup.querySelectorAll('select[data-cd="true"]');
+        console.log(`📋 Select ditemukan: ${selects.length}`);
+        
+        if (typeof CustomDropdown === 'undefined') {
+            console.error('❌ CustomDropdown TIDAK ADA!');
+            return;
+        }
+        
+        // ⭐ CLEANUP: Hapus SEMUA wrapper existing dulu di popup ini
+        popup.querySelectorAll('.cd-wrapper').forEach(w => {
+            const innerSelect = w.querySelector('select[data-cd="true"]');
+            if (innerSelect) {
+                // Pindahkan select keluar dari wrapper
+                w.parentNode.insertBefore(innerSelect, w);
+                // Reset flag
+                delete innerSelect.dataset.cdInit;
+                innerSelect.classList.remove('cd-native');
+                innerSelect.removeAttribute('style');
+            }
+            // Hapus wrapper
+            w.remove();
+        });
+        
+        // Assign icon otomatis (kalau ada)
+        if (typeof autoAssignDropdownIcons === 'function') {
+            autoAssignDropdownIcons();
+        }
+        
+        // Create dropdown SATU KALI untuk masing-masing select
+        selects.forEach(s => {
+            try {
+                if (!s.dataset.cdInit) {
+                    CustomDropdown.create(s);
+                    console.log(`✅ Created: ${s.id}`);
                 }
-                
-                const selects = popup.querySelectorAll('select[data-cd="true"]');
-                console.log(`📋 Select ditemukan: ${selects.length}`);
-                
-                // Cek CustomDropdown tersedia
-                if (typeof CustomDropdown === 'undefined') {
-                    console.error('❌❌❌ CustomDropdown TIDAK ADA!');
-                    console.log('⚠️ Cek: <script src="custom-dropdown.js"> di HTML');
-                    
-                    // FALLBACK: tampilkan select native yang di-style
-                    selects.forEach(s => {
-                        s.style.cssText = `
-                            display: block !important;
-                            width: 100% !important;
-                            padding: 12px 16px !important;
-                            border: 2px solid #1a5d1a !important;
-                            border-radius: 10px !important;
-                            font-family: Quicksand, sans-serif !important;
-                            font-size: 0.9rem !important;
-                            font-weight: 600 !important;
-                            background: #fff !important;
-                            color: #1f2937 !important;
-                            min-height: 46px !important;
-                            visibility: visible !important;
-                            opacity: 1 !important;
-                            position: static !important;
-                            pointer-events: auto !important;
-                            z-index: auto !important;
-                            left: auto !important;
-                            top: auto !important;
-                            height: auto !important;
-                        `;
-                    });
-                    return;
-                }
-                
-                // Reset flag & init
-                selects.forEach(s => {
-                    delete s.dataset.cdInit;
-                    
-                    // Hapus wrapper lama kalau ada
-                    const oldWrapper = s.closest('.cd-wrapper');
-                    if (oldWrapper) {
-                        // Pindahkan select ke luar wrapper
-                        oldWrapper.parentNode.insertBefore(s, oldWrapper);
-                        oldWrapper.remove();
-                    }
-                });
-                
-                // Assign icon otomatis
-                if (typeof autoAssignDropdownIcons === 'function') {
-                    autoAssignDropdownIcons();
-                }
-                
-                // Create dropdown satu per satu
-                selects.forEach(s => {
-                    try {
-                        CustomDropdown.create(s);
-                        console.log(`✅ Created: ${s.id}`);
-                    } catch (err) {
-                        console.error(`❌ Error create ${s.id}:`, err);
-                    }
-                });
-                
-                const wrappers = popup.querySelectorAll('.cd-wrapper');
-                console.log(`✨ Wrapper terbentuk: ${wrappers.length}/${selects.length}`);
-                console.log('════════════════════════════════');
-                
-            }, 150);
-        },
+            } catch (err) {
+                console.error(`❌ Error create ${s.id}:`, err);
+            }
+        });
+        
+        const wrappers = popup.querySelectorAll('.cd-wrapper');
+        console.log(`✨ Total wrapper: ${wrappers.length}`);
+        
+    }, 150);
+},
         
         preConfirm: () => {
             // ⭐ AMBIL DATA — Field name MATCH FIRESTORE
