@@ -158,7 +158,7 @@ function applyFilter() {
 }
 
 /* ================================================================
-   EDIT SANTRI — Menggunakan CustomDropdown existing
+   EDIT SANTRI — v2.0 (Match Firestore Field + Debug Dropdown)
 ================================================================ */
 
 async function editSantri(id) {
@@ -174,15 +174,13 @@ async function editSantri(id) {
         return;
     }
     
-    // Escape helper
     const esc = (v) => String(v ?? '')
         .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     
-    // Helper: option selected checker
     const sel = (val, current) => String(val) === String(current) ? 'selected' : '';
     
-    // Format tanggal daftar
+    // Format tanggal
     const tglDaftar = d.tgl_daftar || d.tanggal_daftar || d.created_at || '';
     let tglDaftarFmt = '-';
     if (tglDaftar) {
@@ -194,10 +192,11 @@ async function editSantri(id) {
         } catch(e) { tglDaftarFmt = String(tglDaftar); }
     }
     
-    // Data awal
-    const currentUnit   = d.unit || d.tingkat_unit || '';
+    // ⭐ AMBIL DATA SESUAI FIELD FIRESTORE
+    const currentUnit   = d.tingkat_unit || '';           // ⬅️ tingkat_unit (bukan unit)
     const currentJK     = d.jenis_kelamin || '';
-    const currentStatus = d.status || 'Aktif';
+    const currentStatus = d.status_santri || 'Aktif';     // ⬅️ status_santri (bukan status)
+    const currentHP     = d.hp_ayah || d.hp_ibu || d.no_hp_wali || '';
     
     // ===== MODAL =====
     const { value: formData } = await Swal.fire({
@@ -206,7 +205,6 @@ async function editSantri(id) {
         html: `
             <div class="edit-santri-form">
                 
-                <!-- Info Read-only -->
                 <div class="edit-info-box">
                     <div class="edit-info-row">
                         <span><i class="fas fa-id-badge"></i> ID Santri</span>
@@ -218,15 +216,13 @@ async function editSantri(id) {
                     </div>
                 </div>
                 
-                <!-- Nama Lengkap -->
                 <div class="edit-field form-group">
                     <label><i class="fas fa-user"></i> Nama Lengkap <span class="req">*</span></label>
                     <input type="text" id="edit-nama" 
-                           value="${esc(d.nama_santri || d.nama_lengkap || '')}" 
+                           value="${esc(d.nama_santri || '')}" 
                            placeholder="Nama sesuai akta" required>
                 </div>
                 
-                <!-- Unit & Kelas -->
                 <div class="edit-grid-2">
                     <div class="edit-field form-group">
                         <label><i class="fas fa-school"></i> Unit <span class="req">*</span></label>
@@ -261,7 +257,6 @@ async function editSantri(id) {
                     </div>
                 </div>
                 
-                <!-- Jenis Kelamin -->
                 <div class="edit-field form-group">
                     <label><i class="fas fa-venus-mars"></i> Jenis Kelamin <span class="req">*</span></label>
                     <select id="edit-jk" 
@@ -275,7 +270,6 @@ async function editSantri(id) {
                     </select>
                 </div>
                 
-                <!-- Nama Ayah -->
                 <div class="edit-field form-group">
                     <label><i class="fas fa-male"></i> Nama Ayah</label>
                     <input type="text" id="edit-nama-ayah" 
@@ -283,18 +277,16 @@ async function editSantri(id) {
                            placeholder="Nama ayah kandung">
                 </div>
                 
-                <!-- HP Ayah/Ibu -->
                 <div class="edit-field form-group">
                     <label><i class="fas fa-phone"></i> HP Ayah / Ibu <span class="req">*</span></label>
                     <input type="tel" id="edit-hp" 
-                           value="${esc(d.no_hp_wali || d.hp_ayah || d.no_hp || '')}" 
+                           value="${esc(currentHP)}" 
                            placeholder="cth: 08123456789" required>
                     <small style="color:#6b7280; font-size:0.75rem; margin-top:3px; display:block;">
                         <i class="fas fa-info-circle"></i> Untuk konfirmasi via WhatsApp
                     </small>
                 </div>
                 
-                <!-- Status -->
                 <div class="edit-field form-group">
                     <label><i class="fas fa-check-circle"></i> Status <span class="req">*</span></label>
                     <select id="edit-status" 
@@ -326,31 +318,104 @@ async function editSantri(id) {
             cancelButton:  'premium-button'
         },
         
-        // ⭐ AKTIFKAN CustomDropdown setelah modal render
+        // ⭐⭐⭐ AKTIFKAN CUSTOM DROPDOWN (versi robust)
         didOpen: () => {
-            // Init semua <select data-cd="true"> di dalam modal
-            if (typeof CustomDropdown !== 'undefined' && CustomDropdown.init) {
-                CustomDropdown.init();
-                console.log('✅ CustomDropdown aktif di modal edit santri');
-            } else {
-                console.warn('⚠️ CustomDropdown belum termuat');
-            }
+            setTimeout(() => {
+                console.log('════════════════════════════════');
+                console.log('🔍 INIT CUSTOM DROPDOWN');
+                console.log('════════════════════════════════');
+                
+                const popup = Swal.getPopup();
+                if (!popup) {
+                    console.error('❌ Swal popup tidak ditemukan');
+                    return;
+                }
+                
+                const selects = popup.querySelectorAll('select[data-cd="true"]');
+                console.log(`📋 Select ditemukan: ${selects.length}`);
+                
+                // Cek CustomDropdown tersedia
+                if (typeof CustomDropdown === 'undefined') {
+                    console.error('❌❌❌ CustomDropdown TIDAK ADA!');
+                    console.log('⚠️ Cek: <script src="custom-dropdown.js"> di HTML');
+                    
+                    // FALLBACK: tampilkan select native yang di-style
+                    selects.forEach(s => {
+                        s.style.cssText = `
+                            display: block !important;
+                            width: 100% !important;
+                            padding: 12px 16px !important;
+                            border: 2px solid #1a5d1a !important;
+                            border-radius: 10px !important;
+                            font-family: Quicksand, sans-serif !important;
+                            font-size: 0.9rem !important;
+                            font-weight: 600 !important;
+                            background: #fff !important;
+                            color: #1f2937 !important;
+                            min-height: 46px !important;
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                            position: static !important;
+                            pointer-events: auto !important;
+                            z-index: auto !important;
+                            left: auto !important;
+                            top: auto !important;
+                            height: auto !important;
+                        `;
+                    });
+                    return;
+                }
+                
+                // Reset flag & init
+                selects.forEach(s => {
+                    delete s.dataset.cdInit;
+                    
+                    // Hapus wrapper lama kalau ada
+                    const oldWrapper = s.closest('.cd-wrapper');
+                    if (oldWrapper) {
+                        // Pindahkan select ke luar wrapper
+                        oldWrapper.parentNode.insertBefore(s, oldWrapper);
+                        oldWrapper.remove();
+                    }
+                });
+                
+                // Assign icon otomatis
+                if (typeof autoAssignDropdownIcons === 'function') {
+                    autoAssignDropdownIcons();
+                }
+                
+                // Create dropdown satu per satu
+                selects.forEach(s => {
+                    try {
+                        CustomDropdown.create(s);
+                        console.log(`✅ Created: ${s.id}`);
+                    } catch (err) {
+                        console.error(`❌ Error create ${s.id}:`, err);
+                    }
+                });
+                
+                const wrappers = popup.querySelectorAll('.cd-wrapper');
+                console.log(`✨ Wrapper terbentuk: ${wrappers.length}/${selects.length}`);
+                console.log('════════════════════════════════');
+                
+            }, 150);
         },
         
         preConfirm: () => {
+            // ⭐ AMBIL DATA — Field name MATCH FIRESTORE
             const data = {
                 nama_santri:   document.getElementById('edit-nama').value.trim(),
-                unit:          document.getElementById('edit-unit').value,
+                tingkat_unit:  document.getElementById('edit-unit').value,      // ⬅️ tingkat_unit
                 kelas:         document.getElementById('edit-kelas').value.trim(),
                 jenis_kelamin: document.getElementById('edit-jk').value,
                 nama_ayah:     document.getElementById('edit-nama-ayah').value.trim(),
-                no_hp_wali:    document.getElementById('edit-hp').value.trim(),
-                status:        document.getElementById('edit-status').value,
+                hp_ayah:       document.getElementById('edit-hp').value.trim(),  // ⬅️ hp_ayah
+                status_santri: document.getElementById('edit-status').value,     // ⬅️ status_santri
                 updated_at:    new Date().toISOString(),
                 updated_by:    (window.currentUser && window.currentUser.email) || 'admin'
             };
             
-            // ===== VALIDASI =====
+            // Validasi
             if (!data.nama_santri) {
                 Swal.showValidationMessage('❌ Nama lengkap wajib diisi');
                 return false;
@@ -359,7 +424,7 @@ async function editSantri(id) {
                 Swal.showValidationMessage('❌ Nama minimal 3 karakter');
                 return false;
             }
-            if (!data.unit) {
+            if (!data.tingkat_unit) {
                 Swal.showValidationMessage('❌ Unit wajib dipilih');
                 return false;
             }
@@ -367,15 +432,15 @@ async function editSantri(id) {
                 Swal.showValidationMessage('❌ Jenis kelamin wajib dipilih');
                 return false;
             }
-            if (!data.no_hp_wali) {
+            if (!data.hp_ayah) {
                 Swal.showValidationMessage('❌ No. HP wajib diisi');
                 return false;
             }
-            if (!/^(08|628|\+628)\d{7,12}$/.test(data.no_hp_wali.replace(/\s|-/g, ''))) {
+            if (!/^(08|628|\+628)\d{7,12}$/.test(data.hp_ayah.replace(/\s|-/g, ''))) {
                 Swal.showValidationMessage('❌ Format HP tidak valid (08xx / 628xx)');
                 return false;
             }
-            if (!data.status) {
+            if (!data.status_santri) {
                 Swal.showValidationMessage('❌ Status wajib dipilih');
                 return false;
             }
@@ -386,7 +451,7 @@ async function editSantri(id) {
     
     if (!formData) return;
     
-    // ===== KONFIRMASI =====
+    // Konfirmasi
     const konfirmasi = await Swal.fire({
         title: 'Simpan Perubahan?',
         html: `
@@ -406,7 +471,7 @@ async function editSantri(id) {
     
     if (!konfirmasi.isConfirmed) return;
     
-    // ===== LOADING =====
+    // Loading
     Swal.fire({
         title: 'Menyimpan...',
         html: '<i class="fas fa-spinner fa-spin fa-2x" style="color:#1a5d1a;"></i><p style="margin-top:15px;">Mohon tunggu</p>',
@@ -417,21 +482,18 @@ async function editSantri(id) {
     });
     
     try {
-        // ===== UPDATE FIRESTORE =====
-        const docRef = window.firebaseDoc(window.firebaseDB, 'santri', id);
+        // ⭐ COLLECTION YANG BENAR: 'pendaftaran_santri' (bukan 'santri')
+        const docRef = window.firebaseDoc(window.db, 'pendaftaran_santri', id);
         await window.firebaseUpdateDoc(docRef, formData);
         
-        // Update cache lokal
+        // Update cache
         window.dataSantriCache[id] = { ...window.dataSantriCache[id], ...formData };
         
         // Refresh tabel
         if (typeof window.muatDataSantri === 'function') {
             window.muatDataSantri();
-        } else if (typeof renderTabelSantri === 'function') {
-            renderTabelSantri();
         }
         
-        // ===== SUKSES =====
         await Swal.fire({
             icon: 'success',
             title: 'Berhasil!',
@@ -459,42 +521,7 @@ async function editSantri(id) {
     }
 }
 
-// Expose ke global
 window.editSantri = editSantri;
-async function ubahStatus(id) {
-    const d = window.dataSantriCache[id];
-    if (!d) return;
-
-    const { value: newStatus } = await Swal.fire({
-        title: 'Ubah Status Santri',
-        html: `<p><b>${d.nama_santri}</b></p><p style="color:#6b7280; font-size:0.85rem;">Status saat ini: <b>${d.status_santri || 'Aktif'}</b></p>`,
-        input: 'select',
-        inputOptions: {
-            'Aktif': '✅ Aktif',
-            'Nonaktif': '⏸️ Nonaktif',
-            'Alumni': '🎓 Alumni',
-            'Pindah': '🔄 Pindah'
-        },
-        inputPlaceholder: 'Pilih status baru',
-        showCancelButton: true,
-        confirmButtonText: 'Simpan',
-        cancelButtonText: 'Batal',
-        confirmButtonColor: '#1a5d1a'
-    });
-
-    if (!newStatus) return;
-
-    try {
-        await window.firebaseUpdateDoc(
-            window.firebaseDoc(window.db, "pendaftaran_santri", id),
-            { status_santri: newStatus }
-        );
-        Swal.fire('Berhasil!', `Status diubah menjadi <b>${newStatus}</b>`, 'success');
-        muatDataSantri();
-    } catch (err) {
-        Swal.fire('Gagal', err.message, 'error');
-    }
-}
 
 async function hapusSantri(id) {
     const d = window.dataSantriCache[id];
