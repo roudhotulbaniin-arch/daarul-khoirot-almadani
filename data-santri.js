@@ -253,6 +253,14 @@ html: `
                     </optgroup>
                 </select>
             </div>
+
+            <div class="edit-field form-group">
+                <label><i class="fas fa-chalkboard"></i> Kelas</label>
+               <input type="text" id="edit-kelas" 
+       value="${esc(d.kelas || '')}" 
+       placeholder="7A">
+</div>
+        </div>
         
         <!-- Jenis Kelamin - FULL WIDTH -->
         <div class="edit-field form-group">
