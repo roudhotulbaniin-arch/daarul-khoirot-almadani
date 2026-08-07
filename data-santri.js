@@ -1,5 +1,5 @@
 /* ================================================================
-   DATA SANTRI AKTIF — JS FINAL v3.0
+   DATA SANTRI AKTIF — JS FINAL v3.1 (Anti Stuck Cancel)
    Daarul Khoirot Almadani
 ================================================================ */
 
@@ -44,12 +44,40 @@ function forceCloseSwal() {
     if (container) container.remove();
 }
 
+// ⭐ NEW: Cleanup CustomDropdown yang tersisa
+function cleanupCustomDropdown() {
+    try {
+        // Hapus semua .cd-wrapper yang tersisa
+        document.querySelectorAll('.cd-wrapper').forEach(w => {
+            const innerSelect = w.querySelector('select[data-cd="true"]');
+            if (innerSelect) {
+                delete innerSelect.dataset.cdInit;
+                innerSelect.classList.remove('cd-native');
+            }
+            w.remove();
+        });
+        
+        // Hapus menu dropdown floating
+        document.querySelectorAll('.cd-menu, .cd-menu-portal, .cd-backdrop, .cd-overlay').forEach(el => {
+            el.remove();
+        });
+        
+        // Reset body
+        document.body.classList.remove('cd-menu-open', 'cd-open', 'cd-dropdown-open');
+        
+        console.log('🧹 CustomDropdown cleaned');
+    } catch (err) {
+        console.error('❌ cleanupCustomDropdown error:', err);
+    }
+}
+
 // Emergency: tekan ESC untuk force close kalau stuck
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.querySelector('.swal2-container')) {
         setTimeout(() => {
             if (document.querySelector('.swal2-container')) {
                 console.log('🚨 ESC emergency close');
+                cleanupCustomDropdown();
                 forceCloseSwal();
             }
         }, 300);
@@ -84,7 +112,6 @@ async function muatDataSantri() {
         let totalAktif = 0, totalTPQ = 0, totalMDT = 0, totalPONPES = 0, totalAlumni = 0;
         let no = 1;
 
-        // Sort berdasarkan id_santri
         const dataArray = [];
         snap.forEach(docSnap => {
             dataArray.push({ id: docSnap.id, data: docSnap.data() });
@@ -96,7 +123,6 @@ async function muatDataSantri() {
             return String(idA).localeCompare(String(idB), undefined, { numeric: true });
         });
 
-        // Render
         dataArray.forEach(item => {
             const d = item.data;
             window.dataSantriCache[item.id] = d;
@@ -195,7 +221,7 @@ function applyFilter() {
 
 
 /* ================================================================
-   EDIT SANTRI — v3.0 Ultra-Safe (Anti Stuck)
+   EDIT SANTRI — v3.1 Anti Stuck Cancel
 ================================================================ */
 async function editSantri(id) {
     const d = window.dataSantriCache[id];
@@ -212,7 +238,6 @@ async function editSantri(id) {
     const esc = escapeHTML;
     const sel = (val, current) => String(val) === String(current) ? 'selected' : '';
     
-    // Format tanggal
     const tglDaftar = d.tgl_daftar || d.tanggal_daftar || d.created_at || '';
     let tglDaftarFmt = '-';
     if (tglDaftar) {
@@ -224,22 +249,19 @@ async function editSantri(id) {
         } catch(e) { tglDaftarFmt = String(tglDaftar); }
     }
     
-    // Data awal
     const currentUnit   = d.tingkat_unit || '';
     const currentJK     = d.jenis_kelamin || '';
     const currentStatus = d.status_santri || 'Aktif';
     const currentHP     = d.hp_ayah || d.hp_ibu || d.no_hp_wali || '';
     
     // ===== MODAL EDIT =====
-    let formData;
+    let result;
     try {
-        const result = await Swal.fire({
+        result = await Swal.fire({
             title: `<i class="fas fa-user-edit"></i> Edit Data Santri`,
             width: 600,
             html: `
                 <div class="edit-santri-form">
-                    
-                    <!-- Info Read-only -->
                     <div class="edit-info-box">
                         <div class="edit-info-row">
                             <span><i class="fas fa-id-badge"></i> ID Santri</span>
@@ -251,7 +273,6 @@ async function editSantri(id) {
                         </div>
                     </div>
                     
-                    <!-- Nama Lengkap -->
                     <div class="edit-field form-group">
                         <label><i class="fas fa-user"></i> Nama Lengkap <span class="req">*</span></label>
                         <input type="text" id="edit-nama" 
@@ -259,16 +280,12 @@ async function editSantri(id) {
                                placeholder="Nama sesuai akta" required>
                     </div>
                     
-                    <!-- Unit + Kelas (Grid 2 kolom) -->
                     <div class="edit-grid-2">
                         <div class="edit-field form-group">
                             <label><i class="fas fa-school"></i> Unit <span class="req">*</span></label>
-                            <select id="edit-unit" 
-                                    name="tingkat_unit"
-                                    data-cd="true" 
+                            <select id="edit-unit" name="tingkat_unit" data-cd="true" 
                                     data-cd-main-icon="fas fa-school"
-                                    data-cd-placeholder="-- Pilih Unit --"
-                                    required>
+                                    data-cd-placeholder="-- Pilih Unit --" required>
                                 <option value="">-- Pilih Unit --</option>
                                 <optgroup label="📚 Unit TPQ">
                                     <option value="TPQ - Tingkat 1" ${sel('TPQ - Tingkat 1', currentUnit)}>TPQ - Tingkat 1</option>
@@ -289,62 +306,43 @@ async function editSantri(id) {
                         </div>
                         <div class="edit-field form-group">
                             <label><i class="fas fa-chalkboard"></i> Kelas</label>
-                            <input type="text" id="edit-kelas" 
-                                   value="${esc(d.kelas || '')}" 
-                                   placeholder="7A">
+                            <input type="text" id="edit-kelas" value="${esc(d.kelas || '')}" placeholder="7A">
                         </div>
                     </div>
                     
-                    <!-- Jenis Kelamin -->
                     <div class="edit-field form-group">
                         <label><i class="fas fa-venus-mars"></i> Jenis Kelamin <span class="req">*</span></label>
-                        <select id="edit-jk" 
-                                name="jenis_kelamin"
-                                data-cd="true"
+                        <select id="edit-jk" name="jenis_kelamin" data-cd="true"
                                 data-cd-main-icon="fas fa-venus-mars"
-                                data-cd-placeholder="-- Pilih --"
-                                required>
+                                data-cd-placeholder="-- Pilih --" required>
                             <option value="">-- Pilih --</option>
                             <option value="Laki-laki" ${sel('Laki-laki', currentJK)}>Laki-laki</option>
                             <option value="Perempuan" ${sel('Perempuan', currentJK)}>Perempuan</option>
                         </select>
                     </div>
                     
-                    <!-- Nama Ayah -->
                     <div class="edit-field form-group">
                         <label><i class="fas fa-male"></i> Nama Ayah</label>
-                        <input type="text" id="edit-nama-ayah" 
-                               value="${esc(d.nama_ayah || '')}" 
-                               placeholder="Nama ayah kandung">
+                        <input type="text" id="edit-nama-ayah" value="${esc(d.nama_ayah || '')}" placeholder="Nama ayah kandung">
                     </div>
                     
-                    <!-- HP -->
                     <div class="edit-field form-group">
                         <label><i class="fas fa-phone"></i> HP Ayah / Ibu <span class="req">*</span></label>
-                        <input type="tel" id="edit-hp" 
-                               value="${esc(currentHP)}" 
-                               placeholder="cth: 08123456789" required>
-                        <small>
-                            <i class="fas fa-info-circle"></i> Untuk konfirmasi via WhatsApp
-                        </small>
+                        <input type="tel" id="edit-hp" value="${esc(currentHP)}" placeholder="cth: 08123456789" required>
+                        <small><i class="fas fa-info-circle"></i> Untuk konfirmasi via WhatsApp</small>
                     </div>
                     
-                    <!-- Status -->
                     <div class="edit-field form-group">
                         <label><i class="fas fa-check-circle"></i> Status <span class="req">*</span></label>
-                        <select id="edit-status" 
-                                name="status_santri"
-                                data-cd="true"
+                        <select id="edit-status" name="status_santri" data-cd="true"
                                 data-cd-main-icon="fas fa-check-circle"
-                                data-cd-placeholder="-- Pilih Status --"
-                                required>
+                                data-cd-placeholder="-- Pilih Status --" required>
                             <option value="Aktif"    ${sel('Aktif', currentStatus)}>🟢 Aktif</option>
                             <option value="Nonaktif" ${sel('Nonaktif', currentStatus)}>⚪ Nonaktif</option>
                             <option value="Alumni"   ${sel('Alumni', currentStatus)}>🎓 Alumni</option>
                             <option value="Pindah"   ${sel('Pindah', currentStatus)}>↪️ Pindah</option>
                         </select>
                     </div>
-                    
                 </div>
             `,
             showCancelButton: true,
@@ -353,8 +351,8 @@ async function editSantri(id) {
             confirmButtonColor: '#1a5d1a',
             cancelButtonColor:  '#6b7280',
             focusConfirm: false,
-            allowOutsideClick: true,    // ⭐ Boleh klik luar (anti stuck)
-            allowEscapeKey: true,        // ⭐ Boleh ESC (anti stuck)
+            allowOutsideClick: true,
+            allowEscapeKey: true,
             reverseButtons: false,
             customClass: {
                 popup: 'premium-popup edit-santri-popup',
@@ -363,7 +361,6 @@ async function editSantri(id) {
                 cancelButton:  'premium-button'
             },
             
-            // ⭐ INIT CUSTOM DROPDOWN
             didOpen: () => {
                 setTimeout(() => {
                     try {
@@ -374,7 +371,7 @@ async function editSantri(id) {
                         console.log(`📋 Select ditemukan: ${selects.length}`);
                         
                         if (typeof CustomDropdown === 'undefined') {
-                            console.warn('⚠️ CustomDropdown tidak tersedia, pakai native select');
+                            console.warn('⚠️ CustomDropdown tidak tersedia');
                             selects.forEach(s => {
                                 s.style.cssText = `
                                     display: block !important;
@@ -391,7 +388,6 @@ async function editSantri(id) {
                             return;
                         }
                         
-                        // Cleanup wrapper existing
                         popup.querySelectorAll('.cd-wrapper').forEach(w => {
                             const innerSelect = w.querySelector('select[data-cd="true"]');
                             if (innerSelect) {
@@ -403,12 +399,10 @@ async function editSantri(id) {
                             w.remove();
                         });
                         
-                        // Auto-assign icon
                         if (typeof autoAssignDropdownIcons === 'function') {
                             autoAssignDropdownIcons();
                         }
                         
-                        // Create dropdown
                         selects.forEach(s => {
                             try {
                                 if (!s.dataset.cdInit) {
@@ -426,15 +420,33 @@ async function editSantri(id) {
                 }, 150);
             },
             
-            // ⭐ VALIDASI ULTRA-SAFE (anti crash)
+            // ⭐⭐⭐ CLEANUP: Sebelum modal close, hancurkan CustomDropdown ⭐⭐⭐
+            willClose: () => {
+                try {
+                    const popup = Swal.getPopup();
+                    if (popup) {
+                        popup.querySelectorAll('.cd-wrapper').forEach(w => {
+                            const innerSelect = w.querySelector('select[data-cd="true"]');
+                            if (innerSelect) {
+                                delete innerSelect.dataset.cdInit;
+                                innerSelect.classList.remove('cd-native');
+                            }
+                            w.remove();
+                        });
+                    }
+                    // Cleanup global (menu floating di body)
+                    cleanupCustomDropdown();
+                    console.log('✅ Modal Edit ditutup & di-cleanup');
+                } catch (err) {
+                    console.error('❌ willClose error:', err);
+                }
+            },
+            
             preConfirm: () => {
                 try {
                     const getVal = (id) => {
                         const el = document.getElementById(id);
-                        if (!el) {
-                            console.warn(`⚠️ Element #${id} tidak ditemukan`);
-                            return '';
-                        }
+                        if (!el) return '';
                         return (el.value || '').trim();
                     };
                     
@@ -450,9 +462,6 @@ async function editSantri(id) {
                         updated_by:    (window.currentUser && window.currentUser.email) || 'admin'
                     };
                     
-                    console.log('📤 Data yang akan disimpan:', data);
-                    
-                    // Validasi
                     if (!data.nama_santri) {
                         Swal.showValidationMessage('❌ Nama lengkap wajib diisi');
                         return false;
@@ -495,19 +504,29 @@ async function editSantri(id) {
             }
         });
         
-        formData = result.value;
-        
     } catch (err) {
         console.error('❌ Modal error:', err);
+        cleanupCustomDropdown();
         forceCloseSwal();
         return;
     }
     
-    // Kalau user batal / gagal validasi
-    if (!formData) {
-        console.log('ℹ️ User batal edit atau gagal validasi');
+    // ⭐⭐⭐ EXPLICIT: Kalau user klik cancel/dismiss, force cleanup & exit ⭐⭐⭐
+    if (!result || !result.isConfirmed || !result.value) {
+        console.log('ℹ️ User batal edit');
+        // Force cleanup sebagai jaring pengaman
+        setTimeout(() => {
+            cleanupCustomDropdown();
+            // Kalau container swal masih ada padahal user cancel, force close
+            if (document.querySelector('.swal2-container')) {
+                console.log('⚠️ Container masih ada, force close');
+                forceCloseSwal();
+            }
+        }, 150);
         return;
     }
+    
+    const formData = result.value;
     
     // ===== KONFIRMASI =====
     const konfirmasi = await Swal.fire({
@@ -531,7 +550,6 @@ async function editSantri(id) {
     
     if (!konfirmasi.isConfirmed) return;
     
-    // ===== LOADING =====
     Swal.fire({
         title: 'Menyimpan...',
         html: '<i class="fas fa-spinner fa-spin fa-2x" style="color:#1a5d1a;"></i><p style="margin-top:15px;">Mohon tunggu</p>',
@@ -541,15 +559,12 @@ async function editSantri(id) {
         customClass: { popup: 'premium-popup' }
     });
     
-    // ===== UPDATE FIRESTORE =====
     try {
         const docRef = window.firebaseDoc(window.db, 'pendaftaran_santri', id);
         await window.firebaseUpdateDoc(docRef, formData);
         
-        // Update cache
         window.dataSantriCache[id] = { ...window.dataSantriCache[id], ...formData };
         
-        // Refresh tabel
         if (typeof window.muatDataSantri === 'function') {
             window.muatDataSantri();
         }
@@ -583,7 +598,7 @@ async function editSantri(id) {
 
 
 /* ================================================================
-   UBAH STATUS SANTRI (Quick Change)
+   UBAH STATUS SANTRI — v3.1 Anti Stuck Cancel
 ================================================================ */
 async function ubahStatus(id) {
     const d = window.dataSantriCache[id];
@@ -593,8 +608,9 @@ async function ubahStatus(id) {
     const currentStatus = d.status_santri || 'Aktif';
     const sel = (val) => val === currentStatus ? 'selected' : '';
 
+    let result;
     try {
-        const { value: newStatus } = await Swal.fire({
+        result = await Swal.fire({
             title: '<i class="fas fa-user-cog"></i> Ubah Status Santri',
             html: `
                 <div style="text-align:left; padding:10px 5px;">
@@ -606,11 +622,8 @@ async function ubahStatus(id) {
                         <label style="font-weight:700; color:#1a5d1a; margin-bottom:6px; display:block;">
                             <i class="fas fa-exchange-alt"></i> Status Baru
                         </label>
-                        <select id="status-baru" 
-                                name="status_santri"
-                                data-cd="true"
-                                data-cd-main-icon="fas fa-check-circle"
-                                required>
+                        <select id="status-baru" name="status_santri"
+                                data-cd="true" data-cd-main-icon="fas fa-check-circle" required>
                             <option value="Aktif"    ${sel('Aktif')}>🟢 Aktif</option>
                             <option value="Nonaktif" ${sel('Nonaktif')}>⚪ Nonaktif</option>
                             <option value="Alumni"   ${sel('Alumni')}>🎓 Alumni</option>
@@ -627,6 +640,7 @@ async function ubahStatus(id) {
             allowOutsideClick: true,
             allowEscapeKey: true,
             customClass: { popup: 'premium-popup edit-santri-popup', title: 'premium-title' },
+            
             didOpen: () => {
                 setTimeout(() => {
                     if (typeof CustomDropdown !== 'undefined') {
@@ -635,6 +649,28 @@ async function ubahStatus(id) {
                     }
                 }, 150);
             },
+            
+            // ⭐⭐⭐ CLEANUP: Sebelum modal close ⭐⭐⭐
+            willClose: () => {
+                try {
+                    const popup = Swal.getPopup();
+                    if (popup) {
+                        popup.querySelectorAll('.cd-wrapper').forEach(w => {
+                            const innerSelect = w.querySelector('select[data-cd="true"]');
+                            if (innerSelect) {
+                                delete innerSelect.dataset.cdInit;
+                                innerSelect.classList.remove('cd-native');
+                            }
+                            w.remove();
+                        });
+                    }
+                    cleanupCustomDropdown();
+                    console.log('✅ Modal Status ditutup & di-cleanup');
+                } catch (err) {
+                    console.error('❌ willClose error:', err);
+                }
+            },
+            
             preConfirm: () => {
                 try {
                     const el = document.getElementById('status-baru');
@@ -647,10 +683,29 @@ async function ubahStatus(id) {
                 }
             }
         });
+        
+    } catch (err) {
+        console.error('❌ Modal ubah status error:', err);
+        cleanupCustomDropdown();
+        forceCloseSwal();
+        return;
+    }
 
-        if (!newStatus) return;
+    // ⭐⭐⭐ EXPLICIT: Kalau user cancel, force cleanup & exit ⭐⭐⭐
+    if (!result || !result.isConfirmed || !result.value) {
+        console.log('ℹ️ User batal ubah status');
+        setTimeout(() => {
+            cleanupCustomDropdown();
+            if (document.querySelector('.swal2-container')) {
+                forceCloseSwal();
+            }
+        }, 150);
+        return;
+    }
+    
+    const newStatus = result.value;
 
-        // Update Firestore
+    try {
         await window.firebaseUpdateDoc(
             window.firebaseDoc(window.db, "pendaftaran_santri", id),
             { 
@@ -672,6 +727,7 @@ async function ubahStatus(id) {
         
     } catch (err) {
         console.error('❌ Error ubah status:', err);
+        cleanupCustomDropdown();
         forceCloseSwal();
         Swal.fire('Gagal', err.message, 'error');
     }
@@ -728,7 +784,7 @@ async function hapusSantri(id) {
 
 
 /* ================================================================
-   TAMBAH SANTRI (Redirect ke form pendaftaran)
+   TAMBAH SANTRI
 ================================================================ */
 function tambahSantri() {
     Swal.fire({
@@ -739,12 +795,10 @@ function tambahSantri() {
                     Untuk menambahkan santri baru, silakan gunakan 
                     <b>form pendaftaran resmi</b>.
                 </p>
-                
                 <a href="pendaftaran.html" class="btn-buka-form-swal">
                     <i class="fas fa-external-link-alt"></i>
                     <span>Buka Form Pendaftaran</span>
                 </a>
-                
                 <p class="swal-tambah-note">
                     <i class="fas fa-info-circle"></i>
                     Data akan otomatis masuk ke database
@@ -812,7 +866,6 @@ async function naikKelasMassal() {
         const batch = writeBatch(window.db);
         let counter = 0, skipped = 0;
         
-        // Mapping kenaikan unit
         const naikMap = {
             'TPQ - Tingkat 1':    'TPQ - Tingkat 2',
             'TPQ - Tingkat 2':    'MDT - Tingkat 1',
@@ -822,7 +875,7 @@ async function naikKelasMassal() {
             'MDT - Tingkat 4':    'Pesantren Tahun 1',
             'Pesantren Tahun 1':  'Pesantren Tahun 2',
             'Pesantren Tahun 2':  'Pesantren Tahun 3',
-            'Pesantren Tahun 3':  null  // Lulus
+            'Pesantren Tahun 3':  null
         };
         
         snap.forEach(docSnap => {
@@ -830,13 +883,11 @@ async function naikKelasMassal() {
             const unitSekarang = data.tingkat_unit;
             const status = data.status_santri || 'Aktif';
             
-            // Skip yang bukan aktif
             if (status !== 'Aktif') { skipped++; return; }
             
             const unitBaru = naikMap[unitSekarang];
             
             if (unitBaru === null) {
-                // Lulus jadi Alumni
                 batch.update(doc(window.db, "pendaftaran_santri", docSnap.id), {
                     status_santri: 'Alumni',
                     tahun_lulus: new Date().getFullYear(),
@@ -884,16 +935,17 @@ async function naikKelasMassal() {
 /* ================================================================
    EXPOSE KE GLOBAL
 ================================================================ */
-window.muatDataSantri  = muatDataSantri;
-window.filterSantri    = filterSantri;
-window.filterByStatus  = filterByStatus;
-window.filterByUnit    = filterByUnit;
-window.editSantri      = editSantri;
-window.ubahStatus      = ubahStatus;
-window.hapusSantri     = hapusSantri;
-window.tambahSantri    = tambahSantri;
-window.naikKelasMassal = naikKelasMassal;
-window.forceCloseSwal  = forceCloseSwal;
+window.muatDataSantri       = muatDataSantri;
+window.filterSantri         = filterSantri;
+window.filterByStatus       = filterByStatus;
+window.filterByUnit         = filterByUnit;
+window.editSantri           = editSantri;
+window.ubahStatus           = ubahStatus;
+window.hapusSantri          = hapusSantri;
+window.tambahSantri         = tambahSantri;
+window.naikKelasMassal      = naikKelasMassal;
+window.forceCloseSwal       = forceCloseSwal;
+window.cleanupCustomDropdown = cleanupCustomDropdown;
 
 
 /* ================================================================
@@ -909,7 +961,6 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         e.stopPropagation();
         
-        // Kalau ada SwalPremium, pakai itu
         if (typeof SwalPremium !== "undefined" && SwalPremium.logout) {
             SwalPremium.logout({
                 redirectUrl: "login.html",
@@ -929,7 +980,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         
-        // Fallback: Swal biasa
         Swal.fire({
             title: 'Yakin logout?',
             icon: 'question',
