@@ -637,211 +637,25 @@
     }
 } 
 
-/* ==========================================================================
-   EDIT SANTRI POPUP
-   ========================================================================== */
-
-.edit-santri-popup {
-    max-width: 620px !important;
-    width: 95% !important;
-}
-
-.edit-santri-form {
-    text-align: left;
-    max-height: 65vh;
-    overflow-y: auto;
-    padding: 5px 10px 5px 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.edit-santri-form::-webkit-scrollbar {
-    width: 6px;
-}
-
-.edit-santri-form::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.edit-santri-form::-webkit-scrollbar-thumb {
-    background: #1a5d1a;
-    border-radius: 4px;
-}
-
-/* Info box read-only */
-.edit-info-box {
-    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-    border: 1px solid #86efac;
-    border-radius: 8px;
-    padding: 10px 14px;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.edit-info-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.82rem;
-    color: #166534;
-}
-
-.edit-info-row span {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 600;
-}
-
-.edit-info-row span i {
-    color: #1a5d1a;
-    font-size: 0.85rem;
-}
-
-.edit-info-row b {
-    color: #1a5d1a;
-    font-weight: 700;
-}
-
-/* Grid 2 kolom */
-.edit-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-/* Field */
-.edit-field {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.edit-field label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #1a5d1a;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.edit-field label i {
-    color: #1a5d1a;
-    font-size: 0.85rem;
-    width: 16px;
-    text-align: center;
-}
-
-.edit-field .req {
-    color: #dc2626;
-    font-weight: 700;
-    margin-left: 2px;
-}
-
-.edit-field input,
-.edit-field select {
-    padding: 10px 12px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 8px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 0.9rem;
-    color: #333;
-    background: #fff;
-    outline: none;
-    transition: all 0.2s ease;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.edit-field input:focus,
-.edit-field select:focus {
-    border-color: #1a5d1a;
-    box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.12);
-}
-
-.edit-field input::placeholder {
-    color: #9ca3af;
-    font-size: 0.85rem;
-}
-
-/* Responsive Mobile */
-@media (max-width: 640px) {
-    .edit-santri-popup {
-        width: 98% !important;
-        padding: 1rem !important;
-    }
-
-    .edit-santri-form {
-        max-height: 60vh;
-        gap: 10px;
-    }
-
-    .edit-grid-2 {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .edit-field input,
-    .edit-field select {
-        font-size: 0.88rem;
-        padding: 9px 11px;
-    }
-
-    .edit-field label {
-        font-size: 0.82rem;
-    }
-
-    .edit-info-row {
-        font-size: 0.78rem;
-    }
-}
-
-/* ==========================================================================
-   OPTGROUP STYLING — Untuk dropdown Unit/Kelas
-   ========================================================================== */
-
-.edit-field select optgroup {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 800;
-    font-size: 0.82rem;
-    color: #1a5d1a;
-    background: #f0fdf4;
-    padding: 6px 0;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-.edit-field select optgroup option {
-    font-weight: 500;
-    font-size: 0.88rem;
-    color: #333;
-    background: #fff;
-    padding: 8px 12px;
-    text-transform: none;
-    letter-spacing: normal;
-}
-
-.edit-field select optgroup option:hover,
-.edit-field select optgroup option:checked {
-    background: #dcfce7;
-    color: #1a5d1a;
-}
-
 /* ================================================================
-   MODAL EDIT SANTRI — Final Polish v2
+   MODAL EDIT SANTRI — Final Clean v3
+   (Ganti semua CSS edit-santri-* sebelumnya dengan ini)
 ================================================================ */
 
+/* ================================================================
+   1. POPUP CONTAINER
+================================================================ */
 .edit-santri-popup {
     max-width: 720px !important;
     width: 92% !important;
     padding: 1.5rem !important;
+    border-radius: 16px !important;
 }
 
+
+/* ================================================================
+   2. FORM SCROLLABLE CONTAINER
+================================================================ */
 .edit-santri-form {
     text-align: left;
     max-height: 70vh;
@@ -852,6 +666,7 @@
     flex-direction: column;
     gap: 14px;
     position: relative;
+    scroll-behavior: smooth;
 }
 
 .edit-santri-form::-webkit-scrollbar {
@@ -868,7 +683,14 @@
     border-radius: 4px;
 }
 
-/* Info Box */
+.edit-santri-form::-webkit-scrollbar-thumb:hover {
+    background: #144514;
+}
+
+
+/* ================================================================
+   3. INFO BOX (Read-Only: ID + Tgl Daftar)
+================================================================ */
 .edit-info-box {
     background: linear-gradient(135deg, #f0fdf4, #dcfce7);
     border: 1.5px solid #86efac;
@@ -908,9 +730,13 @@
     color: #14532d;
     font-weight: 700;
     text-align: right;
+    word-break: break-word;
 }
 
-/* Field */
+
+/* ================================================================
+   4. FIELD WRAPPER
+================================================================ */
 .edit-field {
     display: flex;
     flex-direction: column;
@@ -940,9 +766,14 @@
     margin-left: 2px;
 }
 
-/* Input */
+
+/* ================================================================
+   5. INPUT TEXT / TEL — Premium Green
+================================================================ */
 .edit-field input[type="text"],
-.edit-field input[type="tel"] {
+.edit-field input[type="tel"],
+.edit-field input[type="email"],
+.edit-field input[type="number"] {
     width: 100%;
     padding: 12px 16px;
     border: 2px solid #1a5d1a;
@@ -963,19 +794,30 @@
     box-shadow: 0 0 0 4px rgba(26, 93, 26, 0.15);
 }
 
+.edit-field input:hover:not(:focus) {
+    background: #f9fdf9;
+}
+
 .edit-field input::placeholder {
     color: #9ca3af;
     font-weight: 500;
+    font-style: italic;
 }
 
-/* Grid 2 kolom */
+
+/* ================================================================
+   6. GRID 2 KOLOM (Unit + Kelas)
+================================================================ */
 .edit-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
 }
 
-/* Small info text */
+
+/* ================================================================
+   7. SMALL INFO TEXT (Di bawah input)
+================================================================ */
 .edit-field small {
     color: #6b7280;
     font-size: 0.75rem;
@@ -983,13 +825,37 @@
     display: flex;
     align-items: center;
     gap: 4px;
+    line-height: 1.4;
 }
 
 .edit-field small i {
     color: #1a5d1a;
+    font-size: 0.8rem;
 }
 
-/* Mobile */
+
+/* ================================================================
+   8. SEMBUNYIKAN OPTION PLACEHOLDER DI CUSTOM DROPDOWN
+================================================================ */
+.cd-option[data-value=""] {
+    display: none !important;
+}
+
+
+/* ================================================================
+   9. RESPONSIVE — TABLET (max-width: 900px)
+================================================================ */
+@media (max-width: 900px) {
+    .edit-santri-popup {
+        max-width: 96% !important;
+        padding: 1.2rem !important;
+    }
+}
+
+
+/* ================================================================
+   10. RESPONSIVE — MOBILE (max-width: 640px)
+================================================================ */
 @media (max-width: 640px) {
     .edit-santri-popup {
         max-width: 100% !important;
@@ -1000,14 +866,19 @@
     .edit-santri-form {
         max-height: 75vh;
         gap: 12px;
+        padding: 5px 6px;
     }
     
+    /* Unit + Kelas tetap 2 kolom di HP (biar hemat ruang) */
     .edit-grid-2 {
         grid-template-columns: 1fr 1fr;
         gap: 8px;
     }
     
-    .edit-field input {
+    .edit-field input[type="text"],
+    .edit-field input[type="tel"],
+    .edit-field input[type="email"],
+    .edit-field input[type="number"] {
         font-size: 0.87rem;
         padding: 11px 14px;
         min-height: 44px;
@@ -1017,14 +888,79 @@
         font-size: 0.82rem;
     }
     
+    .edit-info-box {
+        padding: 10px 14px;
+    }
+    
     .edit-info-row {
         font-size: 0.8rem;
     }
     
     .edit-info-row b {
-        font-size: 0.85rem;
+        font-size: 0.82rem;
+    }
+    
+    .edit-field small {
+        font-size: 0.72rem;
     }
 }
+
+
+/* ================================================================
+   11. RESPONSIVE — HP KECIL (max-width: 380px)
+================================================================ */
+@media (max-width: 380px) {
+    .edit-grid-2 {
+        grid-template-columns: 1fr;   /* Turun 1 kolom */
+        gap: 10px;
+    }
+    
+    .edit-info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+    
+    .edit-info-row b {
+        text-align: left;
+    }
+}
+
+
+/* ================================================================
+   12. FIX SPECIAL — SweetAlert2 body scroll saat modal terbuka
+================================================================ */
+body.swal2-shown {
+    overflow: hidden !important;
+}
+
+/* Fix untuk custom dropdown di dalam Swal — z-index tinggi */
+.swal2-container .cd-wrapper.open {
+    z-index: 100000 !important;
+}
+
+.swal2-container .cd-menu {
+    z-index: 100001 !important;
+}
+
+/* Info box tidak boleh tertutup menu dropdown */
+.edit-santri-form .edit-info-box {
+    z-index: 1;
+}
+
+/* Cd-wrapper di form ini z-index normal, kecuali saat open */
+.edit-santri-form .cd-wrapper {
+    z-index: 2;
+}
+
+.edit-santri-form .cd-wrapper.open {
+    z-index: 100 !important;
+}
+
+
+/* ================================================================
+   END OF EDIT SANTRI POPUP
+================================================================ */
 
 /* Ekstra: Sembunyikan option kosong placeholder di dropdown menu */
 .cd-option[data-value=""] {
