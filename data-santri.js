@@ -202,101 +202,117 @@ async function editSantri(id) {
     const { value: formData } = await Swal.fire({
         title: `<i class="fas fa-user-edit"></i> Edit Data Santri`,
         width: 600,
-        html: `
-            <div class="edit-santri-form">
-                
-                <div class="edit-info-box">
-                    <div class="edit-info-row">
-                        <span><i class="fas fa-id-badge"></i> ID Santri</span>
-                        <b>${esc(d.id_santri || id)}</b>
-                    </div>
-                    <div class="edit-info-row">
-                        <span><i class="fas fa-calendar-check"></i> Tgl Daftar</span>
-                        <b>${esc(tglDaftarFmt)}</b>
-                    </div>
-                </div>
-                
-                <div class="edit-field form-group">
-                    <label><i class="fas fa-user"></i> Nama Lengkap <span class="req">*</span></label>
-                    <input type="text" id="edit-nama" 
-                           value="${esc(d.nama_santri || '')}" 
-                           placeholder="Nama sesuai akta" required>
-                </div>
-                
-                <div class="edit-grid-2">
-                    <div class="edit-field form-group">
-                        <label><i class="fas fa-school"></i> Unit <span class="req">*</span></label>
-                        <select id="edit-unit" 
-                                name="tingkat_unit"
-                                data-cd="true" 
-                                data-cd-placeholder="-- Pilih Unit --"
-                                required>
-                            <option value="">-- Pilih Unit --</option>
-                            <optgroup label="📚 Unit TPQ">
-                                <option value="TPQ - Tingkat 1" ${sel('TPQ - Tingkat 1', currentUnit)}>TPQ - Tingkat 1</option>
-                                <option value="TPQ - Tingkat 2" ${sel('TPQ - Tingkat 2', currentUnit)}>TPQ - Tingkat 2</option>
-                            </optgroup>
-                            <optgroup label="📖 Unit MDT">
-                                <option value="MDT - Tingkat 1" ${sel('MDT - Tingkat 1', currentUnit)}>MDT - Tingkat 1</option>
-                                <option value="MDT - Tingkat 2" ${sel('MDT - Tingkat 2', currentUnit)}>MDT - Tingkat 2</option>
-                                <option value="MDT - Tingkat 3" ${sel('MDT - Tingkat 3', currentUnit)}>MDT - Tingkat 3</option>
-                                <option value="MDT - Tingkat 4" ${sel('MDT - Tingkat 4', currentUnit)}>MDT - Tingkat 4</option>
-                            </optgroup>
-                            <optgroup label="🕌 Unit Pesantren">
-                                <option value="Pesantren Tahun 1" ${sel('Pesantren Tahun 1', currentUnit)}>Pesantren Tahun 1</option>
-                                <option value="Pesantren Tahun 2" ${sel('Pesantren Tahun 2', currentUnit)}>Pesantren Tahun 2</option>
-                                <option value="Pesantren Tahun 3" ${sel('Pesantren Tahun 3', currentUnit)}>Pesantren Tahun 3</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                
-                <div class="edit-field form-group">
-                    <label><i class="fas fa-venus-mars"></i> Jenis Kelamin <span class="req">*</span></label>
-                    <select id="edit-jk" 
-                            name="jenis_kelamin"
-                            data-cd="true"
-                            data-cd-placeholder="-- Pilih Jenis Kelamin --"
-                            required>
-                        <option value="">-- Pilih --</option>
-                        <option value="Laki-laki" ${sel('Laki-laki', currentJK)}>Laki-laki</option>
-                        <option value="Perempuan" ${sel('Perempuan', currentJK)}>Perempuan</option>
-                    </select>
-                </div>
-                
-                <div class="edit-field form-group">
-                    <label><i class="fas fa-male"></i> Nama Ayah</label>
-                    <input type="text" id="edit-nama-ayah" 
-                           value="${esc(d.nama_ayah || '')}" 
-                           placeholder="Nama ayah kandung">
-                </div>
-                
-                <div class="edit-field form-group">
-                    <label><i class="fas fa-phone"></i> HP Ayah / Ibu <span class="req">*</span></label>
-                    <input type="tel" id="edit-hp" 
-                           value="${esc(currentHP)}" 
-                           placeholder="cth: 08123456789" required>
-                    <small style="color:#6b7280; font-size:0.75rem; margin-top:3px; display:block;">
-                        <i class="fas fa-info-circle"></i> Untuk konfirmasi via WhatsApp
-                    </small>
-                </div>
-                
-                <div class="edit-field form-group">
-                    <label><i class="fas fa-check-circle"></i> Status <span class="req">*</span></label>
-                    <select id="edit-status" 
-                            name="status_santri"
-                            data-cd="true"
-                            data-cd-main-icon="fas fa-check-circle"
-                            data-cd-placeholder="-- Pilih Status --"
-                            required>
-                        <option value="Aktif"    ${sel('Aktif', currentStatus)}>🟢 Aktif</option>
-                        <option value="Nonaktif" ${sel('Nonaktif', currentStatus)}>⚪ Nonaktif</option>
-                        <option value="Alumni"   ${sel('Alumni', currentStatus)}>🎓 Alumni</option>
-                        <option value="Pindah"   ${sel('Pindah', currentStatus)}>↪️ Pindah</option>
-                    </select>
-                </div>
-                
+html: `
+    <div class="edit-santri-form">
+        
+        <!-- Info Read-only -->
+        <div class="edit-info-box">
+            <div class="edit-info-row">
+                <span><i class="fas fa-id-badge"></i> ID Santri</span>
+                <b>${esc(d.id_santri || id)}</b>
             </div>
-        `,
+            <div class="edit-info-row">
+                <span><i class="fas fa-calendar-check"></i> Tgl Daftar</span>
+                <b>${esc(tglDaftarFmt)}</b>
+            </div>
+        </div>
+        
+        <!-- Nama Lengkap - FULL WIDTH -->
+        <div class="edit-field form-group">
+            <label><i class="fas fa-user"></i> Nama Lengkap <span class="req">*</span></label>
+            <input type="text" id="edit-nama" 
+                   value="${esc(d.nama_santri || '')}" 
+                   placeholder="Nama sesuai akta" required>
+        </div>
+        
+        <!-- Unit + Kelas - 2 KOLOM -->
+        <div class="edit-grid-2">
+            <div class="edit-field form-group">
+                <label><i class="fas fa-school"></i> Unit <span class="req">*</span></label>
+                <select id="edit-unit" 
+                        name="tingkat_unit"
+                        data-cd="true" 
+                        data-cd-main-icon="fas fa-school"
+                        data-cd-placeholder="-- Pilih Unit --"
+                        required>
+                    <option value="">-- Pilih Unit --</option>
+                    <optgroup label="📚 Unit TPQ">
+                        <option value="TPQ - Tingkat 1" ${sel('TPQ - Tingkat 1', currentUnit)}>TPQ - Tingkat 1</option>
+                        <option value="TPQ - Tingkat 2" ${sel('TPQ - Tingkat 2', currentUnit)}>TPQ - Tingkat 2</option>
+                    </optgroup>
+                    <optgroup label="📖 Unit MDT">
+                        <option value="MDT - Tingkat 1" ${sel('MDT - Tingkat 1', currentUnit)}>MDT - Tingkat 1</option>
+                        <option value="MDT - Tingkat 2" ${sel('MDT - Tingkat 2', currentUnit)}>MDT - Tingkat 2</option>
+                        <option value="MDT - Tingkat 3" ${sel('MDT - Tingkat 3', currentUnit)}>MDT - Tingkat 3</option>
+                        <option value="MDT - Tingkat 4" ${sel('MDT - Tingkat 4', currentUnit)}>MDT - Tingkat 4</option>
+                    </optgroup>
+                    <optgroup label="🕌 Unit Pesantren">
+                        <option value="Pesantren Tahun 1" ${sel('Pesantren Tahun 1', currentUnit)}>Pesantren Tahun 1</option>
+                        <option value="Pesantren Tahun 2" ${sel('Pesantren Tahun 2', currentUnit)}>Pesantren Tahun 2</option>
+                        <option value="Pesantren Tahun 3" ${sel('Pesantren Tahun 3', currentUnit)}>Pesantren Tahun 3</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="edit-field form-group">
+                <label><i class="fas fa-chalkboard"></i> Kelas</label>
+                <input type="text" id="edit-kelas" 
+                       value="${esc(d.kelas || '')}" 
+                       placeholder="cth: 7A, X-RPL">
+            </div>
+        </div>
+        
+        <!-- Jenis Kelamin - FULL WIDTH -->
+        <div class="edit-field form-group">
+            <label><i class="fas fa-venus-mars"></i> Jenis Kelamin <span class="req">*</span></label>
+            <select id="edit-jk" 
+                    name="jenis_kelamin"
+                    data-cd="true"
+                    data-cd-main-icon="fas fa-venus-mars"
+                    data-cd-placeholder="-- Pilih Jenis Kelamin --"
+                    required>
+                <option value="">-- Pilih --</option>
+                <option value="Laki-laki" ${sel('Laki-laki', currentJK)}>Laki-laki</option>
+                <option value="Perempuan" ${sel('Perempuan', currentJK)}>Perempuan</option>
+            </select>
+        </div>
+        
+        <!-- Nama Ayah - FULL WIDTH -->
+        <div class="edit-field form-group">
+            <label><i class="fas fa-male"></i> Nama Ayah</label>
+            <input type="text" id="edit-nama-ayah" 
+                   value="${esc(d.nama_ayah || '')}" 
+                   placeholder="Nama ayah kandung">
+        </div>
+        
+        <!-- HP - FULL WIDTH -->
+        <div class="edit-field form-group">
+            <label><i class="fas fa-phone"></i> HP Ayah / Ibu <span class="req">*</span></label>
+            <input type="tel" id="edit-hp" 
+                   value="${esc(currentHP)}" 
+                   placeholder="cth: 08123456789" required>
+            <small>
+                <i class="fas fa-info-circle"></i> Untuk konfirmasi via WhatsApp
+            </small>
+        </div>
+        
+        <!-- Status - FULL WIDTH -->
+        <div class="edit-field form-group">
+            <label><i class="fas fa-check-circle"></i> Status <span class="req">*</span></label>
+            <select id="edit-status" 
+                    name="status_santri"
+                    data-cd="true"
+                    data-cd-main-icon="fas fa-check-circle"
+                    data-cd-placeholder="-- Pilih Status --"
+                    required>
+                <option value="Aktif"    ${sel('Aktif', currentStatus)}>🟢 Aktif</option>
+                <option value="Nonaktif" ${sel('Nonaktif', currentStatus)}>⚪ Nonaktif</option>
+                <option value="Alumni"   ${sel('Alumni', currentStatus)}>🎓 Alumni</option>
+                <option value="Pindah"   ${sel('Pindah', currentStatus)}>↪️ Pindah</option>
+            </select>
+        </div>
+        
+    </div>
+`,
         showCancelButton: true,
         confirmButtonText: '<i class="fas fa-save"></i> Simpan',
         cancelButtonText:  '<i class="fas fa-times"></i> Batal',
