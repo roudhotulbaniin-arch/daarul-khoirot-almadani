@@ -8,16 +8,17 @@
     <link rel="icon" type="image/png" href="main_logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- CSS (URUTAN: umum → spesifik) -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="data-santri.css">
-
-<link rel="stylesheet" href="custom-dropdown.css">
-<link rel="stylesheet" href="swal-premium.css">
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="swal-premium.js"></script>
+    <link rel="stylesheet" href="custom-dropdown.css">
+    <link rel="stylesheet" href="swal-premium.css">
     
+    <!-- JavaScript (URUTAN: library → custom → app) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="custom-dropdown.js"></script>
+    <script src="swal-premium.js"></script>
 </head>
 <body>
 
@@ -310,6 +311,5 @@
 </script>
 
 <script src="data-santri.js"></script>
-<script src="custom-dropdown.js"></script>
 </body>
 </html>
