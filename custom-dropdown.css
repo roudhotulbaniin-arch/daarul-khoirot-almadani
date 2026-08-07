@@ -1,8 +1,7 @@
 /* ================================================================
-   🚫 SMART HIDE — Hanya sembunyikan kalau wrapper sudah terbentuk
+   🚫 SMART HIDE — Hanya sembunyikan yang SUDAH ter-wrap
 ================================================================ */
 
-/* Hanya sembunyikan select yang SUDAH ter-wrap oleh .cd-wrapper */
 .cd-wrapper > select[data-cd="true"],
 .cd-wrapper > select.cd-native {
     display: none !important;
@@ -17,7 +16,7 @@
     z-index: -1 !important;
 }
 
-/* Wrapper di dalam SweetAlert harus visible & prioritas z-index */
+/* Wrapper di dalam SweetAlert */
 .swal2-popup .cd-wrapper,
 .swal2-container .cd-wrapper {
     display: block !important;
@@ -32,22 +31,6 @@
 
 .swal2-container .cd-menu {
     z-index: 100001 !important;
-}
-
-/* Kalau select BELUM ter-wrap (CustomDropdown gagal), tampilkan seadanya */
-.swal2-popup select[data-cd="true"]:not(.cd-native) {
-    display: block;
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #1a5d1a;
-    border-radius: 10px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    background: #fff;
-    color: #1f2937;
-    min-height: 46px;
-    outline: none;
 }
 
 /* ================================================================
